@@ -1,0 +1,86 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { tools } from '../../data/tools.js';
+
+const tool = tools.find(t => t.url === '/tools/character-counter');
+const relatedTools = tools.filter(t => t.category === 'Study' && t.url !== tool?.url).slice(0, 3);
+---
+
+<Layout title={tool?.title || 'Character Counter'} description={tool?.description}>
+  <div class="max-w-4xl mx-auto">
+    <div class="mb-6 text-center sm:text-left">
+      <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight mb-2">{tool?.title}</h1>
+      <p class="text-lg text-gray-500">{tool?.description}</p>
+    </div>
+
+    <!-- Stats Bar -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+      <div class="bg-emerald-50 rounded-xl p-4 border border-emerald-100 text-center shadow-sm">
+        <p class="text-xs text-emerald-600 uppercase tracking-wider mb-1 font-medium">Characters</p>
+        <p class="text-3xl font-bold text-emerald-700" id="stat-chars">0</p>
+      </div>
+      <div class="bg-white rounded-xl p-4 border border-gray-200 text-center shadow-sm">
+        <p class="text-xs text-gray-500 uppercase tracking-wider mb-1 font-medium">Without Spaces</p>
+        <p class="text-3xl font-bold text-gray-900" id="stat-chars-ns">0</p>
+      </div>
+      <div class="bg-white rounded-xl p-4 border border-gray-200 text-center shadow-sm">
+        <p class="text-xs text-gray-500 uppercase tracking-wider mb-1 font-medium">Words</p>
+        <p class="text-3xl font-bold text-gray-900" id="stat-words">0</p>
+      </div>
+      <div class="bg-white rounded-xl p-4 border border-gray-200 text-center shadow-sm">
+        <p class="text-xs text-gray-500 uppercase tracking-wider mb-1 font-medium">Whitespace</p>
+        <p class="text-3xl font-bold text-gray-900" id="stat-spaces">0</p>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden mb-12">
+      <textarea id="text-input" rows="12" class="w-full p-6 text-gray-700 bg-transparent border-0 focus:ring-0 resize-y text-lg" placeholder="Type or paste your text here..."></textarea>
+      <div class="bg-gray-50 border-t border-gray-100 px-6 py-3 flex justify-between items-center">
+        <span class="text-sm text-gray-400">Counts instantly</span>
+        <button id="clear-btn" class="text-sm text-gray-500 hover:text-red-500 font-medium transition-colors">Clear text</button>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  const initCounter = () => {
+    const input = document.getElementById('text-input') as HTMLTextAreaElement;
+    if (!input) return;
+
+    const els = {
+      chars: document.getElementById('stat-chars'),
+      charsNs: document.getElementById('stat-chars-ns'),
+      words: document.getElementById('stat-words'),
+      spaces: document.getElementById('stat-spaces'),
+    };
+
+    const updateStats = () => {
+      const text = input.value;
+      
+      const charCount = text.length;
+      const charCountNs = text.replace(/\s/g, '').length;
+      const spaceCount = charCount - charCountNs;
+      
+      const words = text.match(/\b[-?(\w+)?]+\b/gi);
+      const wordCount = words ? words.length : 0;
+      
+      if(els.chars) els.chars.textContent = charCount.toString();
+      if(els.charsNs) els.charsNs.textContent = charCountNs.toString();
+      if(els.words) els.words.textContent = wordCount.toString();
+      if(els.spaces) els.spaces.textContent = spaceCount.toString();
+    };
+
+    input.addEventListener('input', updateStats);
+    
+    document.getElementById('clear-btn')?.addEventListener('click', () => {
+      input.value = '';
+      updateStats();
+    });
+
+    updateStats();
+  };
+
+  initCounter();
+  document.addEventListener('astro:page-load', initCounter);
+</script>

@@ -1,0 +1,179 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { tools } from '../../data/tools.js';
+
+const tool = tools.find(t => t.url === '/tools/unit-converter');
+const relatedTools = tools.filter(t => t.category === 'Everyday' && t.url !== tool?.url).slice(0, 3);
+---
+
+<Layout title={tool?.title || 'Unit Converter'} description={tool?.description}>
+  <div class="max-w-4xl mx-auto">
+    <div class="mb-8 text-center sm:text-left">
+      <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight mb-2">{tool?.title}</h1>
+      <p class="text-lg text-gray-500">{tool?.description}</p>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden mb-12">
+      <div class="p-6 sm:p-8">
+        <div class="mb-6 flex justify-center space-x-2 flex-wrap gap-y-2">
+          <button class="cat-btn active px-4 py-2 rounded-full text-sm font-medium transition-colors bg-emerald-100 text-emerald-800" data-cat="length">Length</button>
+          <button class="cat-btn px-4 py-2 rounded-full text-sm font-medium transition-colors text-gray-500 hover:bg-gray-100" data-cat="weight">Weight</button>
+          <button class="cat-btn px-4 py-2 rounded-full text-sm font-medium transition-colors text-gray-500 hover:bg-gray-100" data-cat="temp">Temperature</button>
+          <button class="cat-btn px-4 py-2 rounded-full text-sm font-medium transition-colors text-gray-500 hover:bg-gray-100" data-cat="data">Data</button>
+        </div>
+
+        <div class="flex flex-col md:flex-row items-center gap-4">
+          <div class="w-full">
+            <input type="number" id="input-val" value="1" class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 text-lg mb-2">
+            <select id="input-unit" class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 bg-white">
+              <!-- populated via js -->
+            </select>
+          </div>
+          
+          <div class="text-gray-400 py-2">
+            <svg class="w-6 h-6 rotate-90 md:rotate-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg>
+          </div>
+
+          <div class="w-full">
+            <input type="number" id="output-val" readonly class="block w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-lg font-bold mb-2">
+            <select id="output-unit" class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 bg-white">
+              <!-- populated via js -->
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  const initConverter = () => {
+    const units = {
+      length: {
+        'm': 1,
+        'km': 1000,
+        'cm': 0.01,
+        'mm': 0.001,
+        'in': 0.0254,
+        'ft': 0.3048,
+        'yd': 0.9144,
+        'mi': 1609.344
+      },
+      weight: {
+        'kg': 1,
+        'g': 0.001,
+        'mg': 0.000001,
+        'lb': 0.453592,
+        'oz': 0.0283495
+      },
+      data: {
+        'B': 1,
+        'KB': 1024,
+        'MB': 1048576,
+        'GB': 1073741824,
+        'TB': 1099511627776
+      }
+      // temp is special
+    };
+
+    const labels = {
+      'm': 'Meters', 'km': 'Kilometers', 'cm': 'Centimeters', 'mm': 'Millimeters', 'in': 'Inches', 'ft': 'Feet', 'yd': 'Yards', 'mi': 'Miles',
+      'kg': 'Kilograms', 'g': 'Grams', 'mg': 'Milligrams', 'lb': 'Pounds', 'oz': 'Ounces',
+      'B': 'Bytes', 'KB': 'Kilobytes', 'MB': 'Megabytes', 'GB': 'Gigabytes', 'TB': 'Terabytes',
+      'c': 'Celsius', 'f': 'Fahrenheit', 'k': 'Kelvin'
+    };
+
+    let currentCategory = 'length';
+    
+    const inputVal = document.getElementById('input-val') as HTMLInputElement;
+    const outputVal = document.getElementById('output-val') as HTMLInputElement;
+    const inputUnit = document.getElementById('input-unit') as HTMLSelectElement;
+    const outputUnit = document.getElementById('output-unit') as HTMLSelectElement;
+    const catBtns = document.querySelectorAll('.cat-btn');
+
+    if (!inputVal) return;
+
+    const populateDropdowns = () => {
+      inputUnit.innerHTML = '';
+      outputUnit.innerHTML = '';
+      
+      let keys = [];
+      if (currentCategory === 'temp') {
+        keys = ['c', 'f', 'k'];
+      } else {
+        keys = Object.keys(units[currentCategory]);
+      }
+
+      keys.forEach((key, i) => {
+        const option1 = document.createElement('option');
+        option1.value = key;
+        option1.textContent = labels[key];
+        inputUnit.appendChild(option1);
+
+        const option2 = document.createElement('option');
+        option2.value = key;
+        option2.textContent = labels[key];
+        outputUnit.appendChild(option2);
+      });
+
+      if (keys.length > 1) {
+        outputUnit.selectedIndex = 1;
+      }
+      convert();
+    };
+
+    const convert = () => {
+      const val = parseFloat(inputVal.value);
+      if (isNaN(val)) {
+        outputVal.value = '';
+        return;
+      }
+
+      const from = inputUnit.value;
+      const to = outputUnit.value;
+
+      if (from === to) {
+        outputVal.value = val.toString();
+        return;
+      }
+
+      if (currentCategory === 'temp') {
+        let celsius = val;
+        // to C
+        if (from === 'f') celsius = (val - 32) * 5/9;
+        else if (from === 'k') celsius = val - 273.15;
+        
+        // from C
+        let out = celsius;
+        if (to === 'f') out = (celsius * 9/5) + 32;
+        else if (to === 'k') out = celsius + 273.15;
+        
+        outputVal.value = out.toFixed(2);
+      } else {
+        const inBase = val * units[currentCategory][from];
+        const out = inBase / units[currentCategory][to];
+        // format nicely to avoid 1.0000000001
+        outputVal.value = parseFloat(out.toPrecision(10)).toString();
+      }
+    };
+
+    catBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        catBtns.forEach(b => b.className = 'cat-btn px-4 py-2 rounded-full text-sm font-medium transition-colors text-gray-500 hover:bg-gray-100');
+        const target = e.target as HTMLElement;
+        target.className = 'cat-btn active px-4 py-2 rounded-full text-sm font-medium transition-colors bg-emerald-100 text-emerald-800';
+        currentCategory = target.getAttribute('data-cat') || 'length';
+        populateDropdowns();
+      });
+    });
+
+    inputVal.addEventListener('input', convert);
+    inputUnit.addEventListener('change', convert);
+    outputUnit.addEventListener('change', convert);
+
+    populateDropdowns();
+  };
+
+  initConverter();
+  document.addEventListener('astro:page-load', initConverter);
+</script>

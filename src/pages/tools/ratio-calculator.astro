@@ -1,0 +1,135 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { tools } from '../../data/tools.js';
+
+const tool = tools.find(t => t.url === '/tools/ratio-calculator');
+const relatedTools = tools.filter(t => t.category === 'Everyday' && t.url !== tool?.url).slice(0, 3);
+---
+
+<Layout title={tool?.title || 'Ratio Calculator'} description={tool?.description}>
+  <div class="max-w-4xl mx-auto">
+    <div class="mb-8 text-center sm:text-left">
+      <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight mb-2">{tool?.title}</h1>
+      <p class="text-lg text-gray-500">{tool?.description}</p>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden mb-12">
+      <div class="p-6 sm:p-8">
+        
+        <h3 class="text-lg font-bold text-gray-900 mb-4 border-b border-gray-100 pb-2">Simplify a Ratio</h3>
+        <form id="simplify-form" class="space-y-6 mb-10">
+          <div class="flex items-center gap-4 max-w-sm">
+            <input type="number" id="simp-a" required step="any" class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 text-center text-lg">
+            <span class="text-2xl font-bold text-gray-400">:</span>
+            <input type="number" id="simp-b" required step="any" class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 text-center text-lg">
+          </div>
+          <button type="submit" class="bg-emerald-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-emerald-700 transition-colors">Simplify</button>
+          
+          <div id="simp-res" class="hidden mt-4 p-4 bg-gray-50 rounded-lg border border-gray-100 text-lg">
+            Simplified: <strong class="text-emerald-700" id="simp-val">-- : --</strong>
+          </div>
+        </form>
+
+        <h3 class="text-lg font-bold text-gray-900 mb-4 border-b border-gray-100 pb-2">Solve for X (Equivalent Ratios)</h3>
+        <form id="solve-form" class="space-y-6">
+          <div class="flex items-center gap-4 flex-wrap sm:flex-nowrap">
+            <div class="flex items-center gap-2">
+              <input type="number" id="solve-a" required step="any" class="block w-20 sm:w-24 px-3 py-2 border border-gray-300 rounded-lg focus:ring-emerald-500 text-center">
+              <span class="text-xl font-bold text-gray-400">:</span>
+              <input type="number" id="solve-b" required step="any" class="block w-20 sm:w-24 px-3 py-2 border border-gray-300 rounded-lg focus:ring-emerald-500 text-center">
+            </div>
+            
+            <span class="text-xl font-bold text-gray-700 w-full sm:w-auto text-center">=</span>
+
+            <div class="flex items-center gap-2">
+              <input type="number" id="solve-c" step="any" placeholder="X" class="block w-20 sm:w-24 px-3 py-2 border border-emerald-300 bg-emerald-50 rounded-lg focus:ring-emerald-500 text-center placeholder-emerald-400">
+              <span class="text-xl font-bold text-gray-400">:</span>
+              <input type="number" id="solve-d" step="any" placeholder="X" class="block w-20 sm:w-24 px-3 py-2 border border-emerald-300 bg-emerald-50 rounded-lg focus:ring-emerald-500 text-center placeholder-emerald-400">
+            </div>
+          </div>
+          <p class="text-sm text-gray-500">Leave exactly one box empty (or typed as 'x') to solve for it.</p>
+          <button type="submit" class="bg-emerald-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-emerald-700 transition-colors">Solve</button>
+          
+          <div id="solve-res" class="hidden mt-4 p-4 bg-gray-50 rounded-lg border border-gray-100 text-lg">
+            Result: <strong class="text-emerald-700" id="solve-val">--</strong>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  const initCalculator = () => {
+    // Math GCD function
+    const gcd = (a: number, b: number): number => {
+      return b === 0 ? Math.abs(a) : gcd(b, a % b);
+    };
+
+    const simpForm = document.getElementById('simplify-form') as HTMLFormElement;
+    if (simpForm) {
+      simpForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const a = parseFloat((document.getElementById('simp-a') as HTMLInputElement).value);
+        const b = parseFloat((document.getElementById('simp-b') as HTMLInputElement).value);
+        
+        if (a === 0 && b === 0) return;
+        
+        // simple fraction check for ints
+        if (Number.isInteger(a) && Number.isInteger(b)) {
+          const div = gcd(a, b);
+          document.getElementById('simp-val')!.textContent = `${a/div} : ${b/div}`;
+        } else {
+          // If decimals, multiply by 10 until ints (basic approach up to 4 decimals)
+          let mulA = a, mulB = b;
+          let iterations = 0;
+          while ((!Number.isInteger(mulA) || !Number.isInteger(mulB)) && iterations < 5) {
+            mulA *= 10;
+            mulB *= 10;
+            iterations++;
+          }
+          mulA = Math.round(mulA);
+          mulB = Math.round(mulB);
+          const div = gcd(mulA, mulB);
+          document.getElementById('simp-val')!.textContent = `${mulA/div} : ${mulB/div}`;
+        }
+        document.getElementById('simp-res')?.classList.remove('hidden');
+      });
+    }
+
+    const solveForm = document.getElementById('solve-form') as HTMLFormElement;
+    if (solveForm) {
+      solveForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const aEl = document.getElementById('solve-a') as HTMLInputElement;
+        const bEl = document.getElementById('solve-b') as HTMLInputElement;
+        const cEl = document.getElementById('solve-c') as HTMLInputElement;
+        const dEl = document.getElementById('solve-d') as HTMLInputElement;
+        
+        const a = aEl.value !== '' ? parseFloat(aEl.value) : null;
+        const b = bEl.value !== '' ? parseFloat(bEl.value) : null;
+        const c = cEl.value !== '' ? parseFloat(cEl.value) : null;
+        const d = dEl.value !== '' ? parseFloat(dEl.value) : null;
+
+        const nulls = [a,b,c,d].filter(x => x === null).length;
+        if (nulls !== 1) {
+          alert("Please leave exactly one field empty.");
+          return;
+        }
+
+        let res = 0;
+        if (a === null) res = (c! * b!) / d!;
+        else if (b === null) res = (a! * d!) / c!;
+        else if (c === null) res = (a! * d!) / b!;
+        else if (d === null) res = (c! * b!) / a!;
+
+        document.getElementById('solve-val')!.textContent = `Missing value = ${Number.isInteger(res) ? res : res.toFixed(4)}`;
+        document.getElementById('solve-res')?.classList.remove('hidden');
+      });
+    }
+  };
+
+  initCalculator();
+  document.addEventListener('astro:page-load', initCalculator);
+</script>

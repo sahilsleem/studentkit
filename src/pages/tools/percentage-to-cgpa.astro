@@ -1,0 +1,158 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { tools } from '../../data/tools.js';
+
+const tool = tools.find(t => t.url === '/tools/percentage-to-cgpa');
+const relatedTools = tools.filter(t => t.category === 'Academic' && t.url !== tool?.url).slice(0, 3);
+---
+
+<Layout title={tool?.title || 'Percentage to CGPA'} description={tool?.description}>
+  <div class="max-w-4xl mx-auto">
+    <!-- Header -->
+    <div class="mb-8 text-center sm:text-left">
+      <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight mb-2">{tool?.title}</h1>
+      <p class="text-lg text-gray-500">{tool?.description}</p>
+    </div>
+
+    <!-- Calculator Interface -->
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden mb-12">
+      <div class="p-6 sm:p-8">
+        <form id="calculator-form" class="space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label for="percentage" class="block text-sm font-medium text-gray-700 mb-1">Your Percentage (%)</label>
+              <input type="number" id="percentage" step="0.01" min="0" max="100" required class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 sm:text-base transition-colors" placeholder="e.g. 85.5">
+            </div>
+            
+            <div>
+              <label for="divider" class="block text-sm font-medium text-gray-700 mb-1">Conversion Method</label>
+              <select id="divider" class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 sm:text-base transition-colors bg-white">
+                <option value="9.5">Divide by 9.5 (Standard)</option>
+                <option value="10">Divide by 10</option>
+                <option value="custom">Custom Divider</option>
+              </select>
+            </div>
+          </div>
+
+          <div id="custom-divider-container" class="hidden">
+            <label for="custom-divider" class="block text-sm font-medium text-gray-700 mb-1">Custom Divider</label>
+            <input type="number" id="custom-divider" step="0.01" min="0.1" class="block w-full md:w-1/2 px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 sm:text-base transition-colors" placeholder="e.g. 9.3">
+          </div>
+
+          <div class="flex gap-4 pt-4">
+            <button type="submit" class="flex-1 bg-emerald-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors">
+              Calculate CGPA
+            </button>
+            <button type="button" id="reset-btn" class="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors">
+              Reset
+            </button>
+          </div>
+        </form>
+
+        <!-- Result Section -->
+        <div id="result-section" class="mt-8 pt-8 border-t border-gray-100 hidden">
+          <div class="text-center">
+            <p class="text-sm text-gray-500 mb-1">Estimated CGPA</p>
+            <div class="text-5xl font-bold text-gray-900 mb-4" id="result-value">--</div>
+            <p class="text-xs text-gray-400 max-w-md mx-auto">
+              Note: Conversion formulas vary by university or institution. Check your university's official formula if applicable.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content Sections -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
+      <div class="prose prose-emerald">
+        <h3>How it works</h3>
+        <p>To convert your percentage back to a CGPA, you divide by the multiplier your institution uses:</p>
+        <ul>
+          <li><strong>Divide by 9.5:</strong> Common in Indian education systems. E.g., 76% ÷ 9.5 = 8.0 CGPA.</li>
+          <li><strong>Divide by 10:</strong> A standard decimal shift. E.g., 80% ÷ 10 = 8.0 CGPA.</li>
+        </ul>
+      </div>
+      
+      <div class="prose prose-emerald">
+        <h3>Frequently Asked Questions</h3>
+        <details class="mb-4">
+          <summary class="font-medium cursor-pointer text-gray-900">Why are there different formulas?</summary>
+          <p class="text-sm mt-2 text-gray-600">Different educational boards and universities establish their own statistical curves for grading. There is no single universal formula.</p>
+        </details>
+      </div>
+    </div>
+
+    <!-- Related Tools -->
+    <div class="pt-8 border-t border-gray-200">
+      <h3 class="text-xl font-bold text-gray-900 mb-6">Related Tools</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        {relatedTools.map(t => (
+          <a href={t.url} class="group block p-4 bg-white rounded-lg border border-gray-200 hover:border-emerald-500 transition-colors">
+            <h4 class="font-semibold text-gray-900 group-hover:text-emerald-600">{t.title}</h4>
+            <p class="text-sm text-gray-500 mt-1 line-clamp-2">{t.description}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  const initCalculator = () => {
+    const form = document.getElementById('calculator-form') as HTMLFormElement;
+    const percentageInput = document.getElementById('percentage') as HTMLInputElement;
+    const dividerSelect = document.getElementById('divider') as HTMLSelectElement;
+    const customDividerContainer = document.getElementById('custom-divider-container');
+    const customDividerInput = document.getElementById('custom-divider') as HTMLInputElement;
+    const resetBtn = document.getElementById('reset-btn');
+    const resultSection = document.getElementById('result-section');
+    const resultValue = document.getElementById('result-value');
+
+    if (!form) return;
+
+    dividerSelect.addEventListener('change', () => {
+      if (dividerSelect.value === 'custom') {
+        customDividerContainer?.classList.remove('hidden');
+        customDividerInput.required = true;
+      } else {
+        customDividerContainer?.classList.add('hidden');
+        customDividerInput.required = false;
+      }
+    });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const percentage = parseFloat(percentageInput.value);
+      let divider = parseFloat(dividerSelect.value);
+
+      if (dividerSelect.value === 'custom') {
+        divider = parseFloat(customDividerInput.value);
+      }
+
+      if (isNaN(percentage) || isNaN(divider) || divider === 0) return;
+
+      let cgpa = percentage / divider;
+      
+      // Cap at 10
+      if (cgpa > 10) cgpa = 10;
+
+      if (resultValue && resultSection) {
+        resultValue.textContent = cgpa.toFixed(2);
+        resultSection.classList.remove('hidden');
+        resultSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    });
+
+    resetBtn?.addEventListener('click', () => {
+      form.reset();
+      customDividerContainer?.classList.add('hidden');
+      customDividerInput.required = false;
+      resultSection?.classList.add('hidden');
+      if (resultValue) resultValue.textContent = '--';
+    });
+  };
+
+  initCalculator();
+  document.addEventListener('astro:page-load', initCalculator);
+</script>

@@ -1,0 +1,147 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { tools } from '../../data/tools.js';
+
+const tool = tools.find(t => t.url === '/tools/marks-calculator');
+const relatedTools = tools.filter(t => t.category === 'Academic' && t.url !== tool?.url).slice(0, 3);
+---
+
+<Layout title={tool?.title || 'Marks Calculator'} description={tool?.description}>
+  <div class="max-w-4xl mx-auto">
+    <div class="mb-8 text-center sm:text-left">
+      <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight mb-2">{tool?.title}</h1>
+      <p class="text-lg text-gray-500">{tool?.description}</p>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden mb-12">
+      <div class="p-6 sm:p-8">
+        <form id="calculator-form" class="space-y-4">
+          <div id="marks-container" class="space-y-3">
+            <div class="flex gap-4">
+              <input type="text" placeholder="Subject Name" class="subject-input flex-1 px-3 py-2 border border-gray-300 rounded-md focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm">
+              <input type="number" min="0" step="0.5" required placeholder="Marks" class="mark-input w-1/3 px-3 py-2 border border-gray-300 rounded-md focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm">
+            </div>
+            <div class="flex gap-4">
+              <input type="text" placeholder="Subject Name" class="subject-input flex-1 px-3 py-2 border border-gray-300 rounded-md focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm">
+              <input type="number" min="0" step="0.5" placeholder="Marks" class="mark-input w-1/3 px-3 py-2 border border-gray-300 rounded-md focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm">
+            </div>
+            <div class="flex gap-4">
+              <input type="text" placeholder="Subject Name" class="subject-input flex-1 px-3 py-2 border border-gray-300 rounded-md focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm">
+              <input type="number" min="0" step="0.5" placeholder="Marks" class="mark-input w-1/3 px-3 py-2 border border-gray-300 rounded-md focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm">
+            </div>
+          </div>
+
+          <div class="flex justify-between items-center border-t border-gray-100 pt-4 mt-4">
+            <button type="button" id="add-row-btn" class="text-emerald-600 hover:text-emerald-700 font-medium text-sm flex items-center gap-1 transition-colors">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+              Add Subject
+            </button>
+          </div>
+
+          <div class="flex gap-4 pt-4">
+            <button type="submit" class="flex-1 bg-emerald-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors">
+              Calculate Stats
+            </button>
+            <button type="button" id="reset-btn" class="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-colors">
+              Clear All
+            </button>
+          </div>
+        </form>
+
+        <div id="result-section" class="mt-8 pt-8 border-t border-gray-100 hidden">
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="bg-gray-50 rounded-lg p-4 border border-gray-100 text-center">
+              <p class="text-xs text-gray-500 uppercase tracking-wide mb-1">Total Marks</p>
+              <div class="text-2xl font-bold text-gray-900" id="total-marks">--</div>
+            </div>
+            <div class="bg-gray-50 rounded-lg p-4 border border-gray-100 text-center">
+              <p class="text-xs text-gray-500 uppercase tracking-wide mb-1">Average</p>
+              <div class="text-2xl font-bold text-gray-900" id="average-marks">--</div>
+            </div>
+            <div class="bg-emerald-50 rounded-lg p-4 border border-emerald-100 text-center">
+              <p class="text-xs text-emerald-600 uppercase tracking-wide mb-1">Highest</p>
+              <div class="text-2xl font-bold text-emerald-700" id="highest-mark">--</div>
+              <p class="text-xs text-emerald-600 truncate mt-1" id="highest-subject"></p>
+            </div>
+            <div class="bg-red-50 rounded-lg p-4 border border-red-100 text-center">
+              <p class="text-xs text-red-600 uppercase tracking-wide mb-1">Lowest</p>
+              <div class="text-2xl font-bold text-red-700" id="lowest-mark">--</div>
+              <p class="text-xs text-red-600 truncate mt-1" id="lowest-subject"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  const initCalculator = () => {
+    const form = document.getElementById('calculator-form') as HTMLFormElement;
+    const container = document.getElementById('marks-container');
+    const addBtn = document.getElementById('add-row-btn');
+    const resetBtn = document.getElementById('reset-btn');
+    const resultSection = document.getElementById('result-section');
+
+    if (!form || !container) return;
+
+    addBtn?.addEventListener('click', () => {
+      const row = document.createElement('div');
+      row.className = 'flex gap-4';
+      row.innerHTML = `
+        <input type="text" placeholder="Subject Name" class="subject-input flex-1 px-3 py-2 border border-gray-300 rounded-md focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm">
+        <input type="number" min="0" step="0.5" placeholder="Marks" class="mark-input w-1/3 px-3 py-2 border border-gray-300 rounded-md focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm">
+      `;
+      container.appendChild(row);
+    });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const markInputs = document.querySelectorAll('.mark-input') as NodeListOf<HTMLInputElement>;
+      const subjectInputs = document.querySelectorAll('.subject-input') as NodeListOf<HTMLInputElement>;
+      
+      let marks: {val: number, sub: string}[] = [];
+
+      markInputs.forEach((input, index) => {
+        const val = parseFloat(input.value);
+        if (!isNaN(val)) {
+          marks.push({
+            val: val,
+            sub: subjectInputs[index].value || `Subject ${index + 1}`
+          });
+        }
+      });
+
+      if (marks.length === 0) return;
+
+      const total = marks.reduce((sum, item) => sum + item.val, 0);
+      const average = total / marks.length;
+      
+      // Sort to find highest and lowest easily
+      marks.sort((a, b) => b.val - a.val);
+      const highest = marks[0];
+      const lowest = marks[marks.length - 1];
+
+      document.getElementById('total-marks')!.textContent = total.toString();
+      document.getElementById('average-marks')!.textContent = average.toFixed(2);
+      
+      document.getElementById('highest-mark')!.textContent = highest.val.toString();
+      document.getElementById('highest-subject')!.textContent = highest.sub;
+      
+      document.getElementById('lowest-mark')!.textContent = lowest.val.toString();
+      document.getElementById('lowest-subject')!.textContent = lowest.sub;
+
+      resultSection?.classList.remove('hidden');
+      resultSection?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+
+    resetBtn?.addEventListener('click', () => {
+      form.reset();
+      resultSection?.classList.add('hidden');
+    });
+  };
+
+  initCalculator();
+  document.addEventListener('astro:page-load', initCalculator);
+</script>

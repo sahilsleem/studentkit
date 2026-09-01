@@ -1,0 +1,113 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { tools } from '../../data/tools.js';
+
+const tool = tools.find(t => t.url === '/tools/percentage-change');
+const relatedTools = tools.filter(t => t.category === 'Everyday' && t.url !== tool?.url).slice(0, 3);
+---
+
+<Layout title={tool?.title || 'Percentage Change Calculator'} description={tool?.description}>
+  <div class="max-w-4xl mx-auto">
+    <div class="mb-8 text-center sm:text-left">
+      <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight mb-2">{tool?.title}</h1>
+      <p class="text-lg text-gray-500">{tool?.description}</p>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden mb-12">
+      <div class="p-6 sm:p-8">
+        <form id="calculator-form" class="space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Original Value</label>
+              <input type="number" id="val-a" step="any" required class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 sm:text-base">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">New Value</label>
+              <input type="number" id="val-b" step="any" required class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 sm:text-base">
+            </div>
+          </div>
+
+          <div class="flex gap-4 pt-4">
+            <button type="submit" class="flex-1 bg-emerald-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-emerald-700 transition-colors">
+              Calculate Change
+            </button>
+            <button type="button" id="reset-btn" class="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-colors">
+              Reset
+            </button>
+          </div>
+        </form>
+
+        <div id="result-section" class="mt-8 pt-8 border-t border-gray-100 hidden">
+          <div class="text-center">
+            <div id="result-icon" class="mx-auto flex items-center justify-center h-16 w-16 rounded-full mb-4">
+              <!-- icon injected here -->
+            </div>
+            <p class="text-sm text-gray-500 mb-1">Percentage Change</p>
+            <div class="text-5xl font-bold mb-2" id="result-value">--</div>
+            <p class="text-sm font-medium" id="status-message"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  const initCalculator = () => {
+    const form = document.getElementById('calculator-form') as HTMLFormElement;
+    if (!form) return;
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const a = parseFloat((document.getElementById('val-a') as HTMLInputElement).value);
+      const b = parseFloat((document.getElementById('val-b') as HTMLInputElement).value);
+      
+      if (a === 0) {
+        alert("Original value cannot be zero.");
+        return;
+      }
+
+      const diff = b - a;
+      const percent = (diff / Math.abs(a)) * 100;
+      
+      const resultValue = document.getElementById('result-value');
+      const statusMessage = document.getElementById('status-message');
+      const iconWrap = document.getElementById('result-icon');
+
+      if (resultValue && statusMessage && iconWrap) {
+        resultValue.textContent = Math.abs(percent).toFixed(2) + '%';
+        
+        if (percent > 0) {
+          resultValue.className = 'text-5xl font-bold mb-2 text-emerald-600';
+          statusMessage.textContent = 'Increase';
+          statusMessage.className = 'text-sm font-medium text-emerald-600';
+          iconWrap.className = 'mx-auto flex items-center justify-center h-16 w-16 rounded-full mb-4 bg-emerald-100 text-emerald-600';
+          iconWrap.innerHTML = `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>`;
+        } else if (percent < 0) {
+          resultValue.className = 'text-5xl font-bold mb-2 text-red-600';
+          statusMessage.textContent = 'Decrease';
+          statusMessage.className = 'text-sm font-medium text-red-600';
+          iconWrap.className = 'mx-auto flex items-center justify-center h-16 w-16 rounded-full mb-4 bg-red-100 text-red-600';
+          iconWrap.innerHTML = `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"></path></svg>`;
+        } else {
+          resultValue.className = 'text-5xl font-bold mb-2 text-gray-900';
+          statusMessage.textContent = 'No Change';
+          statusMessage.className = 'text-sm font-medium text-gray-500';
+          iconWrap.className = 'mx-auto flex items-center justify-center h-16 w-16 rounded-full mb-4 bg-gray-100 text-gray-400';
+          iconWrap.innerHTML = `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14"></path></svg>`;
+        }
+      }
+
+      document.getElementById('result-section')?.classList.remove('hidden');
+    });
+
+    document.getElementById('reset-btn')?.addEventListener('click', () => {
+      form.reset();
+      document.getElementById('result-section')?.classList.add('hidden');
+    });
+  };
+
+  initCalculator();
+  document.addEventListener('astro:page-load', initCalculator);
+</script>

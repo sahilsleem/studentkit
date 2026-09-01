@@ -1,0 +1,221 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { tools } from '../../data/tools.js';
+
+const tool = tools.find(t => t.url === '/tools/gpa-calculator');
+const relatedTools = tools.filter(t => t.category === 'Academic' && t.url !== tool?.url).slice(0, 3);
+---
+
+<Layout title={tool?.title || 'GPA Calculator'} description={tool?.description}>
+  <div class="max-w-4xl mx-auto">
+    <div class="mb-8 text-center sm:text-left">
+      <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight mb-2">{tool?.title}</h1>
+      <p class="text-lg text-gray-500">{tool?.description}</p>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden mb-12">
+      <div class="p-6 sm:p-8">
+        <form id="calculator-form" class="space-y-6">
+          
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="border-b border-gray-200 text-sm font-medium text-gray-500">
+                  <th class="pb-3 pr-4 font-medium">Subject (Optional)</th>
+                  <th class="pb-3 px-4 font-medium w-32">Credits</th>
+                  <th class="pb-3 px-4 font-medium w-32">Grade</th>
+                  <th class="pb-3 pl-4 font-medium w-12"></th>
+                </tr>
+              </thead>
+              <tbody id="subjects-container">
+                <!-- Rows injected by JS -->
+              </tbody>
+            </table>
+          </div>
+
+          <div class="flex justify-between items-center border-t border-gray-100 pt-4">
+            <button type="button" id="add-subject-btn" class="text-emerald-600 hover:text-emerald-700 font-medium text-sm flex items-center gap-1 transition-colors">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+              Add Subject
+            </button>
+          </div>
+
+          <div class="flex gap-4 pt-4">
+            <button type="submit" class="flex-1 bg-emerald-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors">
+              Calculate GPA
+            </button>
+            <button type="button" id="reset-btn" class="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors">
+              Clear All
+            </button>
+          </div>
+        </form>
+
+        <div id="result-section" class="mt-8 pt-8 border-t border-gray-100 hidden">
+          <div class="text-center">
+            <p class="text-sm text-gray-500 mb-1">Your Semester GPA</p>
+            <div class="text-5xl font-bold text-gray-900 mb-4" id="result-value">--</div>
+            <p class="text-sm text-gray-600 mb-2">Total Credits: <span id="total-credits" class="font-semibold text-gray-900">0</span></p>
+            <p class="text-xs text-gray-400 max-w-md mx-auto">
+              Based on standard 4.0 scale. Grading systems vary by institution.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content Sections -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
+      <div class="prose prose-emerald">
+        <h3>How to calculate GPA</h3>
+        <p>GPA is calculated by dividing the total number of grade points earned by the total number of credit hours attempted.</p>
+        <p><strong>Grade Points:</strong> Each letter grade corresponds to a number (e.g., A = 4.0, B = 3.0, etc.).</p>
+        <p>Multiply the credit hours for each course by the grade points earned, then sum these up and divide by total credits.</p>
+      </div>
+      
+      <div class="prose prose-emerald">
+        <h3>Frequently Asked Questions</h3>
+        <details class="mb-4">
+          <summary class="font-medium cursor-pointer text-gray-900">What scale does this use?</summary>
+          <p class="text-sm mt-2 text-gray-600">This uses a standard 4.0 scale (A=4, B=3, C=2, D=1, F=0) with half/plus grades supported in the dropdown.</p>
+        </details>
+      </div>
+    </div>
+
+    <!-- Related Tools -->
+    <div class="pt-8 border-t border-gray-200">
+      <h3 class="text-xl font-bold text-gray-900 mb-6">Related Tools</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        {relatedTools.map(t => (
+          <a href={t.url} class="group block p-4 bg-white rounded-lg border border-gray-200 hover:border-emerald-500 transition-colors">
+            <h4 class="font-semibold text-gray-900 group-hover:text-emerald-600">{t.title}</h4>
+            <p class="text-sm text-gray-500 mt-1 line-clamp-2">{t.description}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  const initCalculator = () => {
+    const form = document.getElementById('calculator-form') as HTMLFormElement;
+    const container = document.getElementById('subjects-container');
+    const addBtn = document.getElementById('add-subject-btn');
+    const resetBtn = document.getElementById('reset-btn');
+    const resultSection = document.getElementById('result-section');
+    const resultValue = document.getElementById('result-value');
+    const totalCreditsEl = document.getElementById('total-credits');
+
+    if (!form || !container) return;
+
+    let rowCount = 0;
+
+    const grades = [
+      { label: 'A+ (4.0)', value: 4.0 },
+      { label: 'A (4.0)', value: 4.0 },
+      { label: 'A- (3.7)', value: 3.7 },
+      { label: 'B+ (3.3)', value: 3.3 },
+      { label: 'B (3.0)', value: 3.0 },
+      { label: 'B- (2.7)', value: 2.7 },
+      { label: 'C+ (2.3)', value: 2.3 },
+      { label: 'C (2.0)', value: 2.0 },
+      { label: 'C- (1.7)', value: 1.7 },
+      { label: 'D+ (1.3)', value: 1.3 },
+      { label: 'D (1.0)', value: 1.0 },
+      { label: 'F (0.0)', value: 0.0 }
+    ];
+
+    const createRow = () => {
+      rowCount++;
+      const tr = document.createElement('tr');
+      tr.className = 'border-b border-gray-100 last:border-0';
+      tr.innerHTML = `
+        <td class="py-3 pr-4">
+          <input type="text" placeholder="Subject ${rowCount}" class="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm">
+        </td>
+        <td class="py-3 px-4">
+          <input type="number" min="0" step="0.5" required placeholder="Credits" class="credit-input block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm">
+        </td>
+        <td class="py-3 px-4">
+          <select required class="grade-input block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm bg-white">
+            <option value="" disabled selected>Grade</option>
+            ${grades.map(g => `<option value="${g.value}">${g.label}</option>`).join('')}
+          </select>
+        </td>
+        <td class="py-3 pl-4 text-right">
+          <button type="button" class="remove-btn text-gray-400 hover:text-red-500 p-1" title="Remove subject">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+          </button>
+        </td>
+      `;
+
+      tr.querySelector('.remove-btn')?.addEventListener('click', () => {
+        if (container.children.length > 1) {
+          tr.remove();
+        } else {
+          // If last row, just clear inputs
+          tr.querySelectorAll('input').forEach(i => i.value = '');
+          tr.querySelectorAll('select').forEach(s => s.value = '');
+        }
+      });
+
+      return tr;
+    };
+
+    // Init with 4 rows
+    for(let i=0; i<4; i++) {
+      container.appendChild(createRow());
+    }
+
+    addBtn?.addEventListener('click', () => {
+      container.appendChild(createRow());
+    });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      let totalCredits = 0;
+      let totalPoints = 0;
+
+      const creditInputs = document.querySelectorAll('.credit-input') as NodeListOf<HTMLInputElement>;
+      const gradeInputs = document.querySelectorAll('.grade-input') as NodeListOf<HTMLSelectElement>;
+
+      let hasValidInput = false;
+
+      creditInputs.forEach((input, index) => {
+        const credits = parseFloat(input.value);
+        const gradeStr = gradeInputs[index].value;
+        
+        if (!isNaN(credits) && credits > 0 && gradeStr !== '') {
+          const grade = parseFloat(gradeStr);
+          totalCredits += credits;
+          totalPoints += (credits * grade);
+          hasValidInput = true;
+        }
+      });
+
+      if (!hasValidInput || totalCredits === 0) return;
+
+      const gpa = totalPoints / totalCredits;
+
+      if (resultValue && resultSection && totalCreditsEl) {
+        resultValue.textContent = gpa.toFixed(2);
+        totalCreditsEl.textContent = totalCredits.toString();
+        resultSection.classList.remove('hidden');
+        resultSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    });
+
+    resetBtn?.addEventListener('click', () => {
+      container.innerHTML = '';
+      rowCount = 0;
+      for(let i=0; i<4; i++) {
+        container.appendChild(createRow());
+      }
+      resultSection?.classList.add('hidden');
+    });
+  };
+
+  initCalculator();
+  document.addEventListener('astro:page-load', initCalculator);
+</script>

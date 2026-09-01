@@ -1,0 +1,202 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { tools } from '../../data/tools.js';
+
+const tool = tools.find(t => t.url === '/tools/attendance-calculator');
+const relatedTools = tools.filter(t => t.category === 'Attendance' && t.url !== tool?.url).slice(0, 3);
+---
+
+<Layout title={tool?.title || 'Attendance Calculator'} description={tool?.description}>
+  <div class="max-w-4xl mx-auto">
+    <div class="mb-8 text-center sm:text-left">
+      <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight mb-2">{tool?.title}</h1>
+      <p class="text-lg text-gray-500">{tool?.description}</p>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden mb-12">
+      <div class="p-6 sm:p-8">
+        <form id="calculator-form" class="space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label for="classes-held" class="block text-sm font-medium text-gray-700 mb-1">Total Classes Held</label>
+              <input type="number" id="classes-held" min="1" required class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 sm:text-base transition-colors" placeholder="e.g. 40">
+            </div>
+            <div>
+              <label for="classes-attended" class="block text-sm font-medium text-gray-700 mb-1">Classes Attended</label>
+              <input type="number" id="classes-attended" min="0" required class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 sm:text-base transition-colors" placeholder="e.g. 32">
+            </div>
+          </div>
+          
+          <div>
+            <label for="target-percentage" class="block text-sm font-medium text-gray-700 mb-1">Target Attendance (%)</label>
+            <select id="target-percentage" class="block w-full md:w-1/2 px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 sm:text-base transition-colors bg-white">
+              <option value="75" selected>75% (Standard)</option>
+              <option value="50">50%</option>
+              <option value="60">60%</option>
+              <option value="65">65%</option>
+              <option value="70">70%</option>
+              <option value="80">80%</option>
+              <option value="85">85%</option>
+              <option value="90">90%</option>
+              <option value="95">95%</option>
+            </select>
+          </div>
+
+          <div class="flex gap-4 pt-4">
+            <button type="submit" class="flex-1 bg-emerald-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors">
+              Calculate
+            </button>
+            <button type="button" id="reset-btn" class="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors">
+              Reset
+            </button>
+          </div>
+        </form>
+
+        <div id="result-section" class="mt-8 pt-8 border-t border-gray-100 hidden">
+          <div class="text-center mb-8">
+            <p class="text-sm text-gray-500 mb-1">Current Attendance</p>
+            <div class="text-5xl font-bold mb-2" id="current-attendance">--%</div>
+            <p id="attendance-status" class="text-sm font-medium"></p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="bg-gray-50 rounded-lg p-5 border border-gray-100 text-center">
+              <p class="text-sm text-gray-600 mb-2">Classes you can miss safely</p>
+              <div class="text-2xl font-bold text-gray-900" id="classes-to-miss">--</div>
+            </div>
+            <div class="bg-gray-50 rounded-lg p-5 border border-gray-100 text-center">
+              <p class="text-sm text-gray-600 mb-2">Classes required to hit target</p>
+              <div class="text-2xl font-bold text-gray-900" id="classes-to-attend">--</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content Sections -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
+      <div class="prose prose-emerald">
+        <h3>How it works</h3>
+        <p>This calculator determines your current attendance percentage and projects your future attendance based on your selected target.</p>
+        <ul>
+          <li><strong>Current Attendance:</strong> (Attended / Held) × 100</li>
+          <li><strong>Classes to miss:</strong> How many future classes you can skip before your percentage falls below the target.</li>
+          <li><strong>Classes to attend:</strong> How many consecutive future classes you must attend to pull your percentage up to the target.</li>
+        </ul>
+      </div>
+      
+      <div class="prose prose-emerald">
+        <h3>Frequently Asked Questions</h3>
+        <details class="mb-4">
+          <summary class="font-medium cursor-pointer text-gray-900">What if I have 0 classes held?</summary>
+          <p class="text-sm mt-2 text-gray-600">You must have at least 1 class held to calculate a percentage. Otherwise, division by zero occurs.</p>
+        </details>
+        <details class="mb-4">
+          <summary class="font-medium cursor-pointer text-gray-900">Why does it say "0" for classes I need to attend?</summary>
+          <p class="text-sm mt-2 text-gray-600">This means your current attendance is already equal to or above your target!</p>
+        </details>
+      </div>
+    </div>
+
+    <!-- Related Tools -->
+    <div class="pt-8 border-t border-gray-200">
+      <h3 class="text-xl font-bold text-gray-900 mb-6">Related Tools</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        {relatedTools.map(t => (
+          <a href={t.url} class="group block p-4 bg-white rounded-lg border border-gray-200 hover:border-emerald-500 transition-colors">
+            <h4 class="font-semibold text-gray-900 group-hover:text-emerald-600">{t.title}</h4>
+            <p class="text-sm text-gray-500 mt-1 line-clamp-2">{t.description}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  const initCalculator = () => {
+    const form = document.getElementById('calculator-form') as HTMLFormElement;
+    const heldInput = document.getElementById('classes-held') as HTMLInputElement;
+    const attendedInput = document.getElementById('classes-attended') as HTMLInputElement;
+    const targetSelect = document.getElementById('target-percentage') as HTMLSelectElement;
+    
+    const resultSection = document.getElementById('result-section');
+    const currentEl = document.getElementById('current-attendance');
+    const statusEl = document.getElementById('attendance-status');
+    const missEl = document.getElementById('classes-to-miss');
+    const attendEl = document.getElementById('classes-to-attend');
+    const resetBtn = document.getElementById('reset-btn');
+
+    if (!form) return;
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const held = parseInt(heldInput.value, 10);
+      const attended = parseInt(attendedInput.value, 10);
+      const target = parseInt(targetSelect.value, 10);
+
+      if (isNaN(held) || isNaN(attended) || held <= 0 || attended < 0) return;
+      
+      if (attended > held) {
+        alert("Classes attended cannot be greater than classes held.");
+        return;
+      }
+
+      const current = (attended / held) * 100;
+      
+      if (currentEl) currentEl.textContent = `${current.toFixed(2)}%`;
+      
+      if (currentEl) {
+        if (current < target) {
+          currentEl.className = 'text-5xl font-bold mb-2 text-red-600';
+          if (statusEl) {
+            statusEl.textContent = 'Short of attendance';
+            statusEl.className = 'text-sm font-medium text-red-600';
+          }
+        } else {
+          currentEl.className = 'text-5xl font-bold mb-2 text-emerald-600';
+          if (statusEl) {
+            statusEl.textContent = 'On track';
+            statusEl.className = 'text-sm font-medium text-emerald-600';
+          }
+        }
+      }
+
+      // Math for classes to miss/attend
+      // Target = (Attended + x) / (Held + x)
+      // For missing: Target = Attended / (Held + x) => x = (Attended / Target) - Held
+      // For attending: Target = (Attended + x) / (Held + x) => x = (Target*Held - Attended) / (1 - Target)
+      
+      let toMiss = 0;
+      let toAttend = 0;
+      const targetDec = target / 100;
+
+      if (current >= target) {
+        // Can miss
+        toMiss = Math.floor((attended / targetDec) - held);
+        toAttend = 0;
+      } else {
+        // Need to attend
+        toMiss = 0;
+        toAttend = Math.ceil((targetDec * held - attended) / (1 - targetDec));
+      }
+
+      if (missEl) missEl.textContent = toMiss.toString();
+      if (attendEl) attendEl.textContent = toAttend.toString();
+
+      if (resultSection) {
+        resultSection.classList.remove('hidden');
+        resultSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    });
+
+    resetBtn?.addEventListener('click', () => {
+      form.reset();
+      resultSection?.classList.add('hidden');
+    });
+  };
+
+  initCalculator();
+  document.addEventListener('astro:page-load', initCalculator);
+</script>
