@@ -5,7 +5,7 @@ import { tools, categories } from '../../data/registry';
 
 export function getStaticPaths() {
   return categories.map((cat) => {
-    const categorySlug = cat.name.toLowerCase().replace(/\\s+/g, '-');
+    const categorySlug = cat.name.toLowerCase().replace(/\s+/g, '-');
     return {
       params: { category: categorySlug },
       props: { categoryData: cat }
@@ -48,13 +48,23 @@ const groupedTools = categoryTools.reduce((acc, tool) => {
     <!-- Header -->
     <div class="mb-12 border-b border-gray-100 pb-8 text-center sm:text-left">
       <h1 class="text-4xl font-extrabold text-gray-900 tracking-tight mb-4">{categoryData.name}</h1>
-      <p class="text-xl text-gray-600 max-w-3xl">{categoryData.description}</p>
+      <p class="text-xl text-gray-600 max-w-3xl mb-6">{categoryData.description}</p>
+      
+      {Object.keys(groupedTools).length > 1 && (
+        <div class="flex flex-wrap justify-center sm:justify-start gap-2">
+          {Object.keys(groupedTools).map(subcat => (
+            <a href={`#${subcat.toLowerCase().replace(/\s+/g, '-')}`} class="px-3 py-1 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 rounded-full text-sm font-medium transition-colors border border-emerald-100">
+              {subcat}
+            </a>
+          ))}
+        </div>
+      )}
     </div>
 
     <!-- Subcategories -->
     <div class="space-y-16">
       {Object.entries(groupedTools).map(([subcat, toolsArr]) => (
-        <section>
+        <section id={subcat.toLowerCase().replace(/\s+/g, '-')}>
           <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
             <span class="w-8 h-1 bg-emerald-500 rounded-full inline-block mr-2"></span>
             {subcat}

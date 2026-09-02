@@ -3,6 +3,7 @@ import Layout from './Layout.astro';
 import { tools } from '../data/registry';
 import type { Tool } from '../data/registry';
 import { getRelatedTools } from '../utils/relatedTools';
+import { toolContent } from '../data/toolContent';
 
 export interface Props {
   tool: Tool;
@@ -101,6 +102,82 @@ const appSchema = {
 
     <!-- The actual tool component goes here -->
     <slot />
+
+    <!-- Educational Content (Phase 9 SEO) -->
+    {toolContent[tool.id] && (
+      <article class="prose max-w-none mt-16 pt-8 border-t border-gray-100">
+        {toolContent[tool.id].whatIsIt && (
+          <section class="mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-3">What is this calculator?</h2>
+            <p class="text-gray-600 leading-relaxed">{toolContent[tool.id].whatIsIt}</p>
+          </section>
+        )}
+
+        {toolContent[tool.id].formula && (
+          <section class="mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-3">Formula</h2>
+            <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 font-mono text-lg text-emerald-800 text-center overflow-x-auto">
+              {toolContent[tool.id].formula.split('\n').map((line: string) => <div>{line}</div>)}
+            </div>
+          </section>
+        )}
+
+        {toolContent[tool.id].variables && (
+          <section class="mb-8">
+            <h2 class="text-xl font-bold text-gray-900 mb-3">Variables Explained</h2>
+            <ul class="list-disc pl-5 space-y-2 text-gray-600">
+              {Object.entries(toolContent[tool.id].variables!).map(([k, v]) => (
+                <li><strong class="font-semibold text-gray-800">{k}:</strong> {v}</li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        {toolContent[tool.id].howToUse && (
+          <section class="mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-3">How to Use</h2>
+            <p class="text-gray-600 leading-relaxed">{toolContent[tool.id].howToUse}</p>
+          </section>
+        )}
+
+        {toolContent[tool.id].example && (
+          <section class="mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-3">Worked Example</h2>
+            <div class="bg-emerald-50 border-l-4 border-emerald-500 p-4 text-emerald-900 rounded-r-lg">
+              <p>{toolContent[tool.id].example}</p>
+            </div>
+          </section>
+        )}
+
+        {toolContent[tool.id].whenToUse && (
+          <section class="mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-3">Practical Applications</h2>
+            <p class="text-gray-600 leading-relaxed">{toolContent[tool.id].whenToUse}</p>
+          </section>
+        )}
+
+        {toolContent[tool.id].commonMistakes && (
+          <section class="mb-8">
+            <h2 class="text-xl font-bold text-gray-900 mb-3 text-red-700">Common Mistakes</h2>
+            <p class="text-gray-600 leading-relaxed">{toolContent[tool.id].commonMistakes}</p>
+          </section>
+        )}
+
+        {toolContent[tool.id].faq && (
+          <section class="mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
+            <div class="space-y-4">
+              {toolContent[tool.id].faq!.map((item: any) => (
+                <div class="border border-gray-200 rounded-lg p-4">
+                  <h3 class="font-bold text-gray-800 mb-2">{item.q}</h3>
+                  <p class="text-gray-600">{item.a}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+      </article>
+    )}
 
     <!-- Related Tools -->
     {relatedTools.length > 0 && (
