@@ -1,7 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import ToolCard from '../../components/ToolCard.astro';
-import { tools } from '../../data/tools.js';
+import { tools } from '../../data/registry';
 
 // Get unique categories
 const categories = [...new Set(tools.map(tool => tool.category))].sort();
@@ -11,6 +11,10 @@ const categories = [...new Set(tools.map(tool => tool.category))].sort();
   <div class="mb-8">
     <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight mb-2">Student Tools</h1>
     <p class="text-lg text-gray-500">Quick, free tools for everyday student life.</p>
+  </div>
+
+  <div id="dynamic-sections" class="mb-12 space-y-8 hidden">
+    <!-- Rendered by client script -->
   </div>
 
   <div class="flex flex-col md:flex-row gap-6 mb-10">
@@ -50,16 +54,85 @@ const categories = [...new Set(tools.map(tool => tool.category))].sort();
       <ToolCard 
         title={tool.title} 
         description={tool.description} 
-        url={tool.url} 
+        url={`/tools/${tool.slug}`} 
         icon={tool.icon} 
         category={tool.category}
+        subcategory={tool.subcategory}
+        keywords={tool.keywords}
       />
     ))}
   </div>
 </Layout>
 
 <script>
+  import { tools } from '../../data/registry';
+
+  const renderToolCard = (tool) => `
+    <a href="/tools/${tool.slug}" class="group block p-6 bg-white rounded-lg border border-gray-200 hover:border-emerald-500 hover:shadow-sm transition-all tool-card">
+      <div class="flex items-center gap-4 mb-3">
+        <div class="flex items-center justify-center w-10 h-10 rounded bg-emerald-50 text-emerald-600 group-hover:bg-emerald-100 transition-colors">
+          ${tool.icon}
+        </div>
+        <h3 class="text-lg font-semibold text-gray-900 group-hover:text-emerald-600 transition-colors">${tool.title}</h3>
+      </div>
+      <p class="text-sm text-gray-500 mb-2">${tool.description}</p>
+      ${tool.category ? `<span class="inline-block px-2 py-1 text-xs font-medium text-gray-600 bg-gray-100 rounded mr-2">${tool.category}</span>` : ''}
+      ${tool.subcategory ? `<span class="inline-block px-2 py-1 text-xs font-medium text-gray-600 bg-gray-100 rounded">${tool.subcategory}</span>` : ''}
+    </a>
+  `;
+
   const initToolsFilter = () => {
+    // 1. Render Dynamic Sections (Favorites & Recents)
+    const dynamicSections = document.getElementById('dynamic-sections');
+    let favs = [];
+    let recent = [];
+    try {
+      favs = JSON.parse(localStorage.getItem('studentkit_favorites') || '[]');
+      recent = JSON.parse(localStorage.getItem('studentkit_recent') || '[]');
+    } catch(e){}
+
+    let dynamicHtml = '';
+    
+    if (favs.length > 0) {
+      const favTools = favs.map(id => tools.find(t => t.id === id)).filter(Boolean);
+      if (favTools.length > 0) {
+        dynamicHtml += `
+          <div>
+            <h2 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+              <svg class="w-5 h-5 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+              Favorites
+            </h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              ${favTools.map(renderToolCard).join('')}
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    if (recent.length > 0) {
+      const recentTools = recent.map(id => tools.find(t => t.id === id)).filter(Boolean);
+      if (recentTools.length > 0) {
+        dynamicHtml += `
+          <div class="pt-2">
+            <h2 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+              <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+              Recently Used
+            </h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              ${recentTools.map(renderToolCard).join('')}
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    if (dynamicHtml && dynamicSections) {
+      dynamicSections.innerHTML = dynamicHtml;
+      dynamicSections.classList.remove('hidden');
+    }
+
+    // 2. Search & Filter Logic
     const searchInput = document.getElementById('tools-search');
     const categoryFilter = document.getElementById('category-filter');
     const toolCards = document.querySelectorAll('.tool-card');
@@ -76,8 +149,10 @@ const categories = [...new Set(tools.map(tool => tool.category))].sort();
         const title = card.getAttribute('data-title') || '';
         const desc = card.getAttribute('data-desc') || '';
         const category = card.getAttribute('data-category') || '';
+        const subcategory = card.getAttribute('data-subcategory') || '';
+        const keywords = card.getAttribute('data-keywords') || '';
         
-        const matchesSearch = title.includes(searchTerm) || desc.includes(searchTerm);
+        const matchesSearch = title.includes(searchTerm) || desc.includes(searchTerm) || category.includes(searchTerm) || subcategory.includes(searchTerm) || keywords.includes(searchTerm);
         const matchesCategory = selectedCategory === 'all' || category === selectedCategory;
 
         if (matchesSearch && matchesCategory) {

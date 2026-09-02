@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import ToolCard from '../components/ToolCard.astro';
-import { tools } from '../data/tools.js';
+import { tools } from '../data/registry';
 
 // Select 6 popular tools
 const popularTools = [
@@ -61,9 +61,11 @@ const featuredTools = tools.filter(tool => popularTools.includes(tool.title));
         <ToolCard 
           title={tool.title} 
           description={tool.description} 
-          url={tool.url} 
+          url={`/tools/${tool.slug}`} 
           icon={tool.icon} 
           category={tool.category}
+          subcategory={tool.subcategory}
+          keywords={tool.keywords}
         />
       ))}
     </div>
@@ -99,7 +101,7 @@ const featuredTools = tools.filter(tool => popularTools.includes(tool.title));
 </Layout>
 
 <script>
-  import { tools } from '../data/tools.js';
+  import { tools } from '../data/registry';
 
   const initSearch = () => {
     const searchInput = document.getElementById('home-search');
@@ -124,7 +126,7 @@ const featuredTools = tools.filter(tool => popularTools.includes(tool.title));
 
       if (results.length > 0) {
         searchResults.innerHTML = results.map(tool => `
-          <a href="${tool.url}" class="block px-4 py-3 hover:bg-gray-50 border-b border-gray-100 last:border-0 transition-colors">
+          <a href="/tools/${tool.slug}" class="block px-4 py-3 hover:bg-gray-50 border-b border-gray-100 last:border-0 transition-colors">
             <div class="flex items-center gap-3">
               <div class="text-emerald-500 w-5 h-5 flex-shrink-0">${tool.icon}</div>
               <div>

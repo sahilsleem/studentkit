@@ -1,0 +1,115 @@
+---
+import Layout from './Layout.astro';
+import { tools } from '../data/registry';
+import type { Tool } from '../data/registry';
+
+export interface Props {
+  tool: Tool;
+}
+
+const { tool } = Astro.props;
+
+// Find related tools (same category/subcategory, excluding current tool)
+const relatedTools = tools
+  .filter((t) => t.category === tool.category && t.id !== tool.id)
+  .sort((a, b) => {
+    if (a.subcategory === tool.subcategory && b.subcategory !== tool.subcategory) return -1;
+    if (a.subcategory !== tool.subcategory && b.subcategory === tool.subcategory) return 1;
+    return 0;
+  })
+  .slice(0, 3);
+---
+
+<Layout 
+  title={tool.seoTitle || tool.title} 
+  description={tool.seoDescription || tool.description}
+>
+  <div class="max-w-4xl mx-auto">
+    <!-- Header -->
+    <div class="mb-8 text-center sm:text-left relative">
+      <div class="flex justify-between items-start">
+        <div>
+          <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight mb-2 pr-12">{tool.title}</h1>
+          <p class="text-lg text-gray-500">{tool.description}</p>
+        </div>
+        <button id="favorite-btn" class="absolute top-0 right-0 sm:relative sm:top-auto sm:right-auto p-2 rounded-full hover:bg-gray-100 text-gray-400 hover:text-red-500 transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500" aria-label="Add to favorites">
+          <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- The actual tool component goes here -->
+    <slot />
+
+    <!-- Related Tools -->
+    {relatedTools.length > 0 && (
+      <div class="pt-8 border-t border-gray-200 mt-12">
+        <h3 class="text-xl font-bold text-gray-900 mb-6">Related Tools</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          {relatedTools.map(t => (
+            <a href={`/tools/${t.slug}`} class="group block p-4 bg-white rounded-lg border border-gray-200 hover:border-emerald-500 transition-colors">
+              <h4 class="font-semibold text-gray-900 group-hover:text-emerald-600 flex items-center gap-2">
+                <span class="w-5 h-5 text-emerald-600" set:html={t.icon} />
+                {t.title}
+              </h4>
+              <p class="text-sm text-gray-500 mt-1 line-clamp-2">{t.description}</p>
+            </a>
+          ))}
+        </div>
+      </div>
+    )}
+  </div>
+</Layout>
+
+<script define:vars={{ toolId: tool.id }}>
+  // This script runs client-side on the tool page
+  const initToolState = () => {
+    // 1. Add to Recently Used
+    let recent = [];
+    try {
+      recent = JSON.parse(localStorage.getItem('studentkit_recent') || '[]');
+    } catch(e){}
+    
+    recent = recent.filter(id => id !== toolId);
+    recent.unshift(toolId);
+    if(recent.length > 8) recent.pop();
+    localStorage.setItem('studentkit_recent', JSON.stringify(recent));
+
+    // 2. Handle Favorites
+    const favBtn = document.getElementById('favorite-btn');
+    if (!favBtn) return;
+    
+    let favs = [];
+    try {
+      favs = JSON.parse(localStorage.getItem('studentkit_favorites') || '[]');
+    } catch(e){}
+
+    const isFav = favs.includes(toolId);
+    const svg = favBtn.querySelector('svg');
+    
+    if (isFav) {
+      svg.setAttribute('fill', 'currentColor');
+      favBtn.classList.add('text-red-500');
+    }
+
+    favBtn.addEventListener('click', () => {
+      let currentFavs = JSON.parse(localStorage.getItem('studentkit_favorites') || '[]');
+      const index = currentFavs.indexOf(toolId);
+      
+      if (index === -1) {
+        currentFavs.push(toolId);
+        svg.setAttribute('fill', 'currentColor');
+        favBtn.classList.add('text-red-500');
+      } else {
+        currentFavs.splice(index, 1);
+        svg.setAttribute('fill', 'none');
+        favBtn.classList.remove('text-red-500');
+      }
+      
+      localStorage.setItem('studentkit_favorites', JSON.stringify(currentFavs));
+    });
+  };
+
+  initToolState();
+  document.addEventListener('astro:page-load', initToolState);
+</script>

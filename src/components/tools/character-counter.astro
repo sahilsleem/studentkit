@@ -1,19 +1,4 @@
----
-import Layout from '../../layouts/Layout.astro';
-import { tools } from '../../data/tools.js';
-
-const tool = tools.find(t => t.url === '/tools/character-counter');
-const relatedTools = tools.filter(t => t.category === 'Study' && t.url !== tool?.url).slice(0, 3);
----
-
-<Layout title={tool?.title || 'Character Counter'} description={tool?.description}>
-  <div class="max-w-4xl mx-auto">
-    <div class="mb-6 text-center sm:text-left">
-      <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight mb-2">{tool?.title}</h1>
-      <p class="text-lg text-gray-500">{tool?.description}</p>
-    </div>
-
-    <!-- Stats Bar -->
+<!-- Stats Bar -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
       <div class="bg-emerald-50 rounded-xl p-4 border border-emerald-100 text-center shadow-sm">
         <p class="text-xs text-emerald-600 uppercase tracking-wider mb-1 font-medium">Characters</p>
@@ -40,10 +25,7 @@ const relatedTools = tools.filter(t => t.category === 'Study' && t.url !== tool?
         <button id="clear-btn" class="text-sm text-gray-500 hover:text-red-500 font-medium transition-colors">Clear text</button>
       </div>
     </div>
-  </div>
-</Layout>
-
-<script>
+  <script>
   const initCounter = () => {
     const input = document.getElementById('text-input') as HTMLTextAreaElement;
     if (!input) return;
@@ -84,3 +66,4 @@ const relatedTools = tools.filter(t => t.category === 'Study' && t.url !== tool?
   initCounter();
   document.addEventListener('astro:page-load', initCounter);
 </script>
+

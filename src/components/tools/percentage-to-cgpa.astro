@@ -1,20 +1,4 @@
----
-import Layout from '../../layouts/Layout.astro';
-import { tools } from '../../data/tools.js';
-
-const tool = tools.find(t => t.url === '/tools/percentage-to-cgpa');
-const relatedTools = tools.filter(t => t.category === 'Academic' && t.url !== tool?.url).slice(0, 3);
----
-
-<Layout title={tool?.title || 'Percentage to CGPA'} description={tool?.description}>
-  <div class="max-w-4xl mx-auto">
-    <!-- Header -->
-    <div class="mb-8 text-center sm:text-left">
-      <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight mb-2">{tool?.title}</h1>
-      <p class="text-lg text-gray-500">{tool?.description}</p>
-    </div>
-
-    <!-- Calculator Interface -->
+<!-- Calculator Interface -->
     <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden mb-12">
       <div class="p-6 sm:p-8">
         <form id="calculator-form" class="space-y-6">
@@ -82,22 +66,7 @@ const relatedTools = tools.filter(t => t.category === 'Academic' && t.url !== to
       </div>
     </div>
 
-    <!-- Related Tools -->
-    <div class="pt-8 border-t border-gray-200">
-      <h3 class="text-xl font-bold text-gray-900 mb-6">Related Tools</h3>
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-        {relatedTools.map(t => (
-          <a href={t.url} class="group block p-4 bg-white rounded-lg border border-gray-200 hover:border-emerald-500 transition-colors">
-            <h4 class="font-semibold text-gray-900 group-hover:text-emerald-600">{t.title}</h4>
-            <p class="text-sm text-gray-500 mt-1 line-clamp-2">{t.description}</p>
-          </a>
-        ))}
-      </div>
-    </div>
-  </div>
-</Layout>
-
-<script>
+    <script>
   const initCalculator = () => {
     const form = document.getElementById('calculator-form') as HTMLFormElement;
     const percentageInput = document.getElementById('percentage') as HTMLInputElement;

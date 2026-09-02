@@ -9,6 +9,7 @@ export interface Props {
 }
 
 const { title, description = "Simple tools for student life. Calculate marks, check attendance, and more." } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://studentkit.in');
 ---
 
 <!doctype html>
@@ -19,10 +20,12 @@ const { title, description = "Simple tools for student life. Calculate marks, ch
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
+		<link rel="canonical" href={canonicalURL} />
 		<title>{title} | StudentKit</title>
 		
 		<!-- Open Graph / Facebook -->
 		<meta property="og:type" content="website" />
+		<meta property="og:url" content={canonicalURL} />
 		<meta property="og:title" content={`${title} | StudentKit`} />
 		<meta property="og:description" content={description} />
 		

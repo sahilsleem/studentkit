@@ -1,0 +1,121 @@
+---
+export interface Props {
+  config: {
+    inputs: { id: string; label: string; placeholder?: string; type?: string }[];
+    expression: string;
+    outputLabel: string;
+    outputUnit?: string;
+  };
+  toolId: string;
+}
+
+const { config, toolId } = Astro.props;
+// To pass the config to the client script, we serialize it.
+const configJson = JSON.stringify(config);
+---
+
+<div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden mb-12 max-w-xl mx-auto formula-calc-container" data-config={configJson} data-toolid={toolId}>
+  <div class="p-6 sm:p-8">
+    <form class="space-y-6 calc-form">
+      {config.inputs.map(input => (
+        <div>
+          <label for={input.id} class="block text-sm font-medium text-gray-700 mb-1">{input.label}</label>
+          <input 
+            type={input.type || "number"} 
+            id={input.id} 
+            step="any" 
+            required 
+            class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 sm:text-base transition-colors calc-input" 
+            placeholder={input.placeholder || ""}
+            data-id={input.id}
+          />
+        </div>
+      ))}
+
+      <div class="flex gap-4 pt-4">
+        <button type="submit" class="flex-1 bg-emerald-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors">
+          Calculate
+        </button>
+        <button type="button" class="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors calc-reset-btn">
+          Reset
+        </button>
+      </div>
+    </form>
+
+    <div class="mt-8 pt-8 border-t border-gray-100 hidden calc-result-section">
+      <div class="text-center">
+        <p class="text-sm text-gray-500 mb-1">{config.outputLabel}</p>
+        <div class="text-4xl font-bold text-gray-900 mb-2 flex items-center justify-center gap-1">
+          <span class="calc-result-value">--</span>
+          {config.outputUnit && <span class="text-2xl text-gray-500">{config.outputUnit}</span>}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const initFormulaCalculators = () => {
+    document.querySelectorAll('.formula-calc-container').forEach((container) => {
+      // Prevent multiple initializations if script runs twice
+      if (container.hasAttribute('data-initialized')) return;
+      container.setAttribute('data-initialized', 'true');
+
+      const configStr = container.getAttribute('data-config');
+      if (!configStr) return;
+      
+      const config = JSON.parse(configStr);
+      const form = container.querySelector('.calc-form') as HTMLFormElement;
+      const inputs = container.querySelectorAll('.calc-input') as NodeListOf<HTMLInputElement>;
+      const resetBtn = container.querySelector('.calc-reset-btn');
+      const resultSection = container.querySelector('.calc-result-section');
+      const resultValue = container.querySelector('.calc-result-value');
+
+      // Create a calculation function dynamically
+      // Warning: This is safe only because `expression` comes directly from our trusted registry.ts
+      const paramNames = config.inputs.map((i: any) => i.id);
+      let calcFn: Function;
+      try {
+        calcFn = new Function(...paramNames, `return ${config.expression};`);
+      } catch (e) {
+        console.error("Invalid formula expression in tool config", e);
+      }
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const args = Array.from(inputs).map(input => parseFloat(input.value));
+        
+        if (args.some(isNaN)) return;
+
+        try {
+          const result = calcFn(...args);
+          
+          if (!isFinite(result)) {
+            if (resultValue) resultValue.textContent = "Error";
+          } else {
+            // Format number to avoid long decimals (e.g., 2.5000000000000004 -> 2.5)
+            const formatted = Number.isInteger(result) ? result : parseFloat(result.toFixed(6));
+            if (resultValue) resultValue.textContent = formatted.toString();
+          }
+          
+          resultSection?.classList.remove('hidden');
+          resultSection?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        } catch (err) {
+          console.error("Calculation error", err);
+          if (resultValue) resultValue.textContent = "Error";
+          resultSection?.classList.remove('hidden');
+        }
+      });
+
+      resetBtn?.addEventListener('click', () => {
+        form.reset();
+        resultSection?.classList.add('hidden');
+        if (resultValue) resultValue.textContent = '--';
+      });
+    });
+  };
+
+  initFormulaCalculators();
+  document.addEventListener('astro:page-load', initFormulaCalculators);
+</script>
