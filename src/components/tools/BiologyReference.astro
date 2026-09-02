@@ -1,0 +1,155 @@
+---
+import { tools } from '../../data/registry';
+import { AMINO_ACIDS } from '../../data/aminoAcids';
+const { tool } = Astro.props;
+
+const getReferenceContent = (slug) => {
+  if (slug === 'amino-acid-reference' || slug === 'amino-acids') {
+    return {
+      title: "Standard Amino Acids",
+      html: `
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse border border-gray-200">
+            <thead class="bg-gray-100">
+              <tr>
+                <th class="p-3 border-b">Name</th>
+                <th class="p-3 border-b">Codes</th>
+                <th class="p-3 border-b">Mass</th>
+                <th class="p-3 border-b">Properties</th>
+                <th class="p-3 border-b">Essential</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+              ${AMINO_ACIDS.map(aa => `
+                <tr class="hover:bg-gray-50">
+                  <td class="p-3 font-bold">${aa.name}</td>
+                  <td class="p-3 font-mono">${aa.threeLetter} / ${aa.oneLetter}</td>
+                  <td class="p-3 text-gray-600">${aa.mass.toFixed(1)}</td>
+                  <td class="p-3"><span class="bg-blue-50 text-blue-800 text-xs px-2 py-1 rounded border border-blue-200">${aa.polarity}</span> <span class="bg-purple-50 text-purple-800 text-xs px-2 py-1 rounded border border-purple-200">${aa.charge}</span></td>
+                  <td class="p-3">${aa.essential ? 'Yes' : 'No'}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      `
+    }
+  }
+  
+  if (slug === 'central-dogma' || slug === 'transcription-reference' || slug === 'translation-reference') {
+     return {
+        title: "Central Dogma of Molecular Biology",
+        html: `
+          <div class="flex flex-col items-center justify-center p-8 bg-blue-50 rounded-xl border border-blue-100 mb-6">
+            <div class="text-xl font-bold bg-white px-6 py-3 rounded-lg shadow-sm border border-gray-200">DNA</div>
+            <div class="my-4 text-blue-500 font-bold flex flex-col items-center">
+              <span>Transcription</span>
+              <span>↓</span>
+            </div>
+            <div class="text-xl font-bold bg-white px-6 py-3 rounded-lg shadow-sm border border-gray-200">RNA</div>
+            <div class="my-4 text-blue-500 font-bold flex flex-col items-center">
+              <span>Translation</span>
+              <span>↓</span>
+            </div>
+            <div class="text-xl font-bold bg-white px-6 py-3 rounded-lg shadow-sm border border-gray-200">Protein</div>
+          </div>
+          <p class="text-gray-700 leading-relaxed mb-4">The central dogma of molecular biology explains the flow of genetic information, from DNA to RNA, to make a functional product, a protein.</p>
+          <ul class="list-disc pl-5 space-y-2 text-gray-700">
+             <li><strong>Replication:</strong> DNA copies itself.</li>
+             <li><strong>Transcription:</strong> DNA is copied into RNA (specifically mRNA).</li>
+             <li><strong>Translation:</strong> mRNA is read by ribosomes to produce proteins.</li>
+          </ul>
+        `
+     };
+  }
+  
+  if (slug === 'mitosis-stages' || slug === 'cell-cycle') {
+     return {
+       title: "Stages of Mitosis",
+       html: `
+         <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+           <div class="p-4 border border-gray-200 rounded-lg bg-white shadow-sm">
+             <h4 class="font-bold text-lg text-blue-700 border-b pb-2 mb-2">1. Prophase</h4>
+             <p class="text-sm text-gray-600">Chromatin condenses into chromosomes. Nucleolus disappears. Centrosomes move to opposite poles and spindle begins to form.</p>
+           </div>
+           <div class="p-4 border border-gray-200 rounded-lg bg-white shadow-sm">
+             <h4 class="font-bold text-lg text-blue-700 border-b pb-2 mb-2">2. Prometaphase</h4>
+             <p class="text-sm text-gray-600">Nuclear envelope breaks down. Kinetochore microtubules attach to the kinetochores of the chromosomes.</p>
+           </div>
+           <div class="p-4 border border-gray-200 rounded-lg bg-white shadow-sm">
+             <h4 class="font-bold text-lg text-blue-700 border-b pb-2 mb-2">3. Metaphase</h4>
+             <p class="text-sm text-gray-600">Chromosomes align at the metaphase plate (cell equator). The spindle fibers hold them in place.</p>
+           </div>
+           <div class="p-4 border border-gray-200 rounded-lg bg-white shadow-sm">
+             <h4 class="font-bold text-lg text-blue-700 border-b pb-2 mb-2">4. Anaphase</h4>
+             <p class="text-sm text-gray-600">Sister chromatids are pulled apart toward opposite poles of the cell by the spindle fibers.</p>
+           </div>
+           <div class="p-4 border border-gray-200 rounded-lg bg-white shadow-sm">
+             <h4 class="font-bold text-lg text-blue-700 border-b pb-2 mb-2">5. Telophase</h4>
+             <p class="text-sm text-gray-600">Chromosomes decondense back into chromatin. Nuclear envelopes re-form around the two sets of DNA.</p>
+           </div>
+           <div class="p-4 border border-gray-200 rounded-lg bg-white shadow-sm">
+             <h4 class="font-bold text-lg text-blue-700 border-b pb-2 mb-2">6. Cytokinesis</h4>
+             <p class="text-sm text-gray-600">The cytoplasm divides, resulting in two genetically identical daughter cells.</p>
+           </div>
+         </div>
+       `
+     };
+  }
+  
+  if (slug === 'cell-organelles' || slug === 'animal-cell' || slug === 'plant-cell') {
+     return {
+       title: "Cell Organelles Reference",
+       html: `
+         <ul class="space-y-4">
+           <li class="bg-gray-50 p-4 border border-gray-200 rounded-lg">
+             <h4 class="font-bold text-lg text-gray-800">Nucleus</h4>
+             <p class="text-gray-600 text-sm mt-1">The control center of the cell, housing the genetic material (DNA).</p>
+           </li>
+           <li class="bg-gray-50 p-4 border border-gray-200 rounded-lg">
+             <h4 class="font-bold text-lg text-gray-800">Mitochondria</h4>
+             <p class="text-gray-600 text-sm mt-1">The powerhouse of the cell, generating ATP through cellular respiration.</p>
+           </li>
+           <li class="bg-gray-50 p-4 border border-gray-200 rounded-lg">
+             <h4 class="font-bold text-lg text-gray-800">Endoplasmic Reticulum (ER)</h4>
+             <p class="text-gray-600 text-sm mt-1">Rough ER synthesizes proteins (studded with ribosomes); Smooth ER synthesizes lipids and detoxifies.</p>
+           </li>
+           <li class="bg-gray-50 p-4 border border-gray-200 rounded-lg">
+             <h4 class="font-bold text-lg text-gray-800">Golgi Apparatus</h4>
+             <p class="text-gray-600 text-sm mt-1">Modifies, sorts, and packages proteins and lipids for transport.</p>
+           </li>
+           <li class="bg-gray-50 p-4 border border-gray-200 rounded-lg">
+             <h4 class="font-bold text-lg text-gray-800">Chloroplast (Plant Cells)</h4>
+             <p class="text-gray-600 text-sm mt-1">Site of photosynthesis, converting light energy into chemical energy (glucose).</p>
+           </li>
+           <li class="bg-gray-50 p-4 border border-gray-200 rounded-lg">
+             <h4 class="font-bold text-lg text-gray-800">Lysosome (Animal Cells)</h4>
+             <p class="text-gray-600 text-sm mt-1">Contains digestive enzymes to break down waste materials and cellular debris.</p>
+           </li>
+         </ul>
+       `
+     }
+  }
+
+  return { title: "Biology Reference", html: "<p>Content currently unavailable.</p>" };
+};
+
+const content = getReferenceContent(tool.slug);
+---
+
+<div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden max-w-4xl mx-auto">
+  <div class="p-6 sm:p-10">
+    <div class="mb-8 border-b border-gray-100 pb-6 text-center">
+      <h3 class="text-3xl font-bold text-gray-900">{tool.title}</h3>
+      <p class="text-gray-500 mt-3 text-lg">{tool.description}</p>
+    </div>
+
+    <div class="bg-white rounded-xl">
+      <h4 class="text-xl font-bold text-gray-800 mb-6">{content.title}</h4>
+      
+      {content.html && (
+        <div class="prose max-w-none" set:html={content.html} />
+      )}
+    </div>
+  </div>
+</div>

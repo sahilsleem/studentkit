@@ -1,0 +1,127 @@
+---
+import { tools } from '../../data/registry';
+const { tool } = Astro.props;
+---
+
+<div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden max-w-4xl mx-auto dna-container" data-tool={tool.slug}>
+  <div class="p-6 sm:p-8">
+    <div class="mb-6 border-b border-gray-100 pb-4 text-center">
+      <h3 class="text-2xl font-bold text-gray-900">{tool.title}</h3>
+      <p class="text-gray-500 mt-2">{tool.description}</p>
+    </div>
+
+    <form class="space-y-6 dna-form">
+      <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-2">Nucleotide Sequence (DNA or RNA)</label>
+        <textarea 
+          class="seq-input w-full p-4 text-sm font-mono border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-gray-50 placeholder-gray-400 h-32 uppercase" 
+          placeholder="e.g. ATGCGTACGTAGC"
+          required 
+        ></textarea>
+        <button type="submit" class="w-full mt-4 bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors shadow-sm">
+          Analyze Sequence
+        </button>
+      </div>
+    </form>
+
+    <div class="err-box hidden mt-6 bg-red-50 text-red-700 p-4 rounded-lg text-sm font-medium border border-red-100 flex items-start gap-3">
+      <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+      <span class="err-msg"></span>
+    </div>
+
+    <div class="result-section hidden mt-8 pt-8 border-t border-gray-100">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <div class="bg-gray-50 p-4 rounded-lg text-center border border-gray-200">
+          <p class="text-xs text-gray-500 font-semibold uppercase">Length</p>
+          <p class="res-len text-2xl font-bold text-gray-900"></p>
+        </div>
+        <div class="bg-gray-50 p-4 rounded-lg text-center border border-gray-200">
+          <p class="text-xs text-gray-500 font-semibold uppercase">GC Content</p>
+          <p class="res-gc text-2xl font-bold text-gray-900"></p>
+        </div>
+        <div class="bg-gray-50 p-4 rounded-lg text-center border border-gray-200">
+          <p class="text-xs text-gray-500 font-semibold uppercase">Est. Tm (°C)</p>
+          <p class="res-tm text-2xl font-bold text-gray-900"></p>
+        </div>
+        <div class="bg-gray-50 p-4 rounded-lg text-center border border-gray-200">
+          <p class="text-xs text-gray-500 font-semibold uppercase">Sequence Type</p>
+          <p class="res-type text-2xl font-bold text-blue-600"></p>
+        </div>
+      </div>
+      
+      <div class="space-y-6">
+        <div>
+           <h4 class="font-bold text-gray-700 mb-2">Complement (DNA)</h4>
+           <div class="res-comp p-3 bg-blue-50 border border-blue-200 rounded text-blue-900 font-mono text-sm break-all"></div>
+        </div>
+        <div>
+           <h4 class="font-bold text-gray-700 mb-2">Reverse Complement</h4>
+           <div class="res-revcomp p-3 bg-purple-50 border border-purple-200 rounded text-purple-900 font-mono text-sm break-all"></div>
+        </div>
+        <div>
+           <h4 class="font-bold text-gray-700 mb-2">Transcribed mRNA</h4>
+           <div class="res-mrna p-3 bg-emerald-50 border border-emerald-200 rounded text-emerald-900 font-mono text-sm break-all"></div>
+        </div>
+        <div>
+           <h4 class="font-bold text-gray-700 mb-2">Translated Protein</h4>
+           <div class="res-prot p-3 bg-amber-50 border border-amber-200 rounded text-amber-900 font-mono text-sm break-all"></div>
+           <p class="text-xs text-gray-400 mt-1">* assuming frame 1</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { cleanSequence, validateDNA, validateRNA, getComplement, reverseComplement, transcribe, getGC, translate, calculateTm } from '../../utils/dna';
+
+  const initDNA = () => {
+    document.querySelectorAll('.dna-container').forEach(container => {
+      if (container.hasAttribute('data-init')) return;
+      container.setAttribute('data-init', 'true');
+
+      const form = container.querySelector('.dna-form');
+      const input = container.querySelector('.seq-input') as HTMLTextAreaElement;
+      const errBox = container.querySelector('.err-box');
+      const errMsg = container.querySelector('.err-msg');
+      const resultSec = container.querySelector('.result-section');
+      
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        errBox.classList.add('hidden');
+        resultSec.classList.add('hidden');
+        
+        try {
+          const seq = cleanSequence(input.value);
+          const isDNA = validateDNA(seq);
+          const isRNA = validateRNA(seq);
+          
+          if (!isDNA && !isRNA) throw new Error("Invalid sequence. Must contain only A, T, C, G (or U).");
+          
+          const type = isDNA ? 'DNA' : 'RNA';
+          const dnaSeq = isDNA ? seq : seq.replace(/U/g, 'T');
+          const rnaSeq = isDNA ? transcribe(seq) : seq;
+          
+          container.querySelector('.res-len').textContent = seq.length.toString();
+          container.querySelector('.res-gc').textContent = getGC(seq).toFixed(1) + '%';
+          container.querySelector('.res-tm').textContent = isDNA ? calculateTm(seq).toFixed(1) : 'N/A';
+          container.querySelector('.res-type').textContent = type;
+          
+          container.querySelector('.res-comp').textContent = getComplement(dnaSeq);
+          container.querySelector('.res-revcomp').textContent = reverseComplement(dnaSeq);
+          container.querySelector('.res-mrna').textContent = rnaSeq;
+          container.querySelector('.res-prot').textContent = translate(rnaSeq);
+          
+          resultSec.classList.remove('hidden');
+          
+        } catch (err) {
+          errMsg.textContent = err.message;
+          errBox.classList.remove('hidden');
+        }
+      });
+    });
+  };
+
+  initDNA();
+  document.addEventListener('astro:page-load', initDNA);
+</script>
