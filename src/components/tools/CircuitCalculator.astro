@@ -1,0 +1,145 @@
+---
+import { tools } from '../../data/registry';
+const { tool } = Astro.props;
+
+const isParallel = tool.slug.includes('parallel');
+const isCapacitance = tool.slug.includes('capacit');
+---
+
+<div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden max-w-2xl mx-auto">
+  <div class="p-6 sm:p-8">
+    <div class="mb-6 border-b border-gray-100 pb-4">
+      <h3 class="text-xl font-bold text-gray-800">{tool.title}</h3>
+      <p class="text-sm text-gray-500 mt-1">{tool.description}</p>
+    </div>
+
+    <form id="circuit-form" class="space-y-4">
+      <div id="components-list" class="space-y-3">
+        <!-- Component inputs will be generated here -->
+      </div>
+      
+      <div class="flex items-center gap-3 pt-2">
+        <button type="button" id="btn-add" class="flex-1 py-2 border-2 border-dashed border-gray-300 rounded-lg text-gray-500 font-medium hover:border-gray-400 hover:text-gray-700 transition-colors">
+          + Add Component
+        </button>
+      </div>
+
+      <div class="pt-4">
+        <button type="submit" class="w-full bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors">
+          Calculate Equivalent {isCapacitance ? 'Capacitance' : 'Resistance'}
+        </button>
+      </div>
+    </form>
+
+    <div id="circuit-result" class="mt-8 pt-6 border-t border-gray-100 hidden">
+      <h3 class="text-lg font-semibold mb-3 text-center">Equivalent {isCapacitance ? 'Capacitance (C_eq)' : 'Resistance (R_eq)'}</h3>
+      <div id="circuit-ans" class="bg-gray-50 p-6 rounded-xl border border-gray-200 text-center">
+         <div class="text-3xl font-bold font-mono text-gray-900" id="ans-val">--</div>
+         <div class="text-gray-500 mt-1 font-mono text-sm">{isCapacitance ? 'Farads (F)' : 'Ohms (Ω)'}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ isParallel, isCapacitance }}>
+  const initCircuit = () => {
+    const form = document.getElementById('circuit-form');
+    const list = document.getElementById('components-list');
+    const btnAdd = document.getElementById('btn-add');
+    const resSec = document.getElementById('circuit-result');
+    const ansVal = document.getElementById('ans-val');
+
+    if (!form || !list) return;
+
+    let count = 0;
+    const prefix = isCapacitance ? 'C' : 'R';
+    const unit = isCapacitance ? 'F' : 'Ω';
+
+    const addComponent = () => {
+      count++;
+      const div = document.createElement('div');
+      div.className = 'flex items-center gap-3';
+      div.innerHTML = `
+        <label class="w-8 font-mono font-bold text-gray-500">${prefix}<sub>${count}</sub></label>
+        <input type="number" step="any" required class="flex-1 p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 font-mono comp-val" placeholder="Value in ${unit}">
+        ${count > 2 ? `<button type="button" class="text-red-500 hover:text-red-700 p-2 btn-remove">✕</button>` : `<div class="w-8"></div>`}
+      `;
+      list.appendChild(div);
+
+      const removeBtn = div.querySelector('.btn-remove');
+      if (removeBtn) {
+        removeBtn.addEventListener('click', () => {
+           div.remove();
+           renumber();
+        });
+      }
+    };
+
+    const renumber = () => {
+      count = 0;
+      list.querySelectorAll('.flex.items-center').forEach((row) => {
+         count++;
+         row.querySelector('label').innerHTML = `${prefix}<sub>${count}</sub>`;
+         const btn = row.querySelector('.btn-remove');
+         if (count <= 2) {
+           if (btn) btn.outerHTML = '<div class="w-8"></div>';
+         } else {
+           if (!btn) {
+              const div = document.createElement('button');
+              div.type = 'button';
+              div.className = 'text-red-500 hover:text-red-700 p-2 btn-remove';
+              div.textContent = '✕';
+              div.addEventListener('click', () => { row.remove(); renumber(); });
+              row.appendChild(div);
+              row.querySelector('.w-8:not(label)')?.remove();
+           }
+         }
+      });
+    };
+
+    // Initialize with 2 components
+    list.innerHTML = '';
+    addComponent();
+    addComponent();
+
+    btnAdd.addEventListener('click', addComponent);
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const inputs = list.querySelectorAll('.comp-val');
+      let vals = Array.from(inputs).map(inp => parseFloat(inp.value));
+
+      let eq = 0;
+
+      // Logic:
+      // Resistors Series: R = R1 + R2
+      // Resistors Parallel: 1/R = 1/R1 + 1/R2
+      // Capacitors Series: 1/C = 1/C1 + 1/C2
+      // Capacitors Parallel: C = C1 + C2
+      
+      const isInverse = (isCapacitance && !isParallel) || (!isCapacitance && isParallel);
+
+      if (isInverse) {
+         let invSum = 0;
+         for (let v of vals) {
+            if (v === 0) {
+               // 0 ohm in parallel = 0
+               invSum = Infinity;
+               break;
+            }
+            invSum += (1 / v);
+         }
+         eq = invSum === 0 ? 0 : (1 / invSum);
+      } else {
+         for (let v of vals) eq += v;
+      }
+
+      ansVal.textContent = Number.isInteger(eq) ? eq : parseFloat(eq.toFixed(6));
+      resSec.classList.remove('hidden');
+    });
+  };
+
+  initCircuit();
+  document.addEventListener('astro:page-load', initCircuit);
+</script>

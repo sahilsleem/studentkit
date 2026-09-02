@@ -1,0 +1,65 @@
+---
+import { tools } from '../../data/registry';
+import { PHYSICS_CONSTANTS } from '../../utils/physicsConstants';
+
+const { tool } = Astro.props;
+
+// Group constants by category
+const constantsByCategory = Object.values(PHYSICS_CONSTANTS).reduce((acc, constant) => {
+  if (!acc[constant.category]) {
+    acc[constant.category] = [];
+  }
+  acc[constant.category].push(constant);
+  return acc;
+}, {} as Record<string, typeof PHYSICS_CONSTANTS[keyof typeof PHYSICS_CONSTANTS][]>);
+---
+
+<div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden max-w-4xl mx-auto">
+  <div class="p-6 sm:p-8">
+    <div class="mb-6">
+      <h3 class="text-xl font-bold text-gray-800">{tool.title}</h3>
+      <p class="text-sm text-gray-500 mt-1">{tool.description}</p>
+    </div>
+
+    <div class="space-y-8">
+      {Object.entries(constantsByCategory).map(([category, constants]) => (
+        <div class="border border-gray-200 rounded-xl overflow-hidden">
+          <div class="bg-gray-50 px-6 py-3 border-b border-gray-200">
+            <h4 class="font-bold text-gray-800">{category}</h4>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-sm whitespace-nowrap">
+              <thead class="bg-white border-b border-gray-100 text-gray-500">
+                <tr>
+                  <th class="px-6 py-3 font-medium">Constant</th>
+                  <th class="px-6 py-3 font-medium text-center">Symbol</th>
+                  <th class="px-6 py-3 font-medium">Value</th>
+                  <th class="px-6 py-3 font-medium">Unit</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-100 bg-white">
+                {constants.map((c) => (
+                  <tr class="hover:bg-gray-50 transition-colors">
+                    <td class="px-6 py-4">
+                      <div class="font-medium text-gray-900">{c.name}</div>
+                      <div class="text-xs text-gray-500 whitespace-normal mt-0.5">{c.description}</div>
+                    </td>
+                    <td class="px-6 py-4 text-center">
+                      <span class="inline-block bg-gray-100 text-gray-700 px-2 py-1 rounded font-mono font-bold">{c.symbol}</span>
+                    </td>
+                    <td class="px-6 py-4 font-mono text-emerald-700">
+                      {c.value.toExponential(4).replace('e+', ' × 10^').replace('e-', ' × 10^-')}
+                    </td>
+                    <td class="px-6 py-4 font-mono text-gray-600">
+                      {c.unit}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>

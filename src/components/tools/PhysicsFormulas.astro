@@ -1,0 +1,181 @@
+---
+import { tools } from '../../data/registry';
+const { tool } = Astro.props;
+---
+
+<div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden max-w-4xl mx-auto">
+  <div class="p-6 sm:p-8 space-y-8">
+    <div class="mb-4">
+      <h3 class="text-xl font-bold text-gray-800">{tool.title}</h3>
+      <p class="text-sm text-gray-500 mt-1">{tool.description}</p>
+    </div>
+
+    <!-- Mechanics -->
+    <section>
+      <div class="bg-blue-50 px-6 py-4 border border-blue-100 rounded-t-xl">
+        <h3 class="text-lg font-bold text-blue-900">Kinematics & Mechanics</h3>
+      </div>
+      <div class="border border-t-0 border-blue-100 rounded-b-xl overflow-hidden text-sm sm:text-base font-mono">
+        <div class="grid grid-cols-1 md:grid-cols-2">
+          <div class="p-4 border-b md:border-r border-blue-50 bg-white">
+            <span class="text-gray-500 block text-xs mb-1 font-sans font-bold">Velocity (Average)</span>
+            v = Δx / Δt
+          </div>
+          <div class="p-4 border-b border-blue-50 bg-white">
+            <span class="text-gray-500 block text-xs mb-1 font-sans font-bold">Acceleration</span>
+            a = Δv / Δt
+          </div>
+          <div class="p-4 border-b md:border-r border-blue-50 bg-gray-50">
+            <span class="text-gray-500 block text-xs mb-1 font-sans font-bold">Newton's 2nd Law</span>
+            F = m·a
+          </div>
+          <div class="p-4 border-b border-blue-50 bg-gray-50">
+            <span class="text-gray-500 block text-xs mb-1 font-sans font-bold">Kinematic Equation (No v)</span>
+            Δx = v₀t + ½at²
+          </div>
+          <div class="p-4 border-b md:border-r border-blue-50 bg-white">
+            <span class="text-gray-500 block text-xs mb-1 font-sans font-bold">Kinematic Equation (No t)</span>
+            v² = v₀² + 2aΔx
+          </div>
+          <div class="p-4 border-b border-blue-50 bg-white">
+            <span class="text-gray-500 block text-xs mb-1 font-sans font-bold">Momentum</span>
+            p = m·v
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Energy -->
+    <section>
+      <div class="bg-emerald-50 px-6 py-4 border border-emerald-100 rounded-t-xl">
+        <h3 class="text-lg font-bold text-emerald-900">Work & Energy</h3>
+      </div>
+      <div class="border border-t-0 border-emerald-100 rounded-b-xl overflow-hidden text-sm sm:text-base font-mono">
+        <div class="grid grid-cols-1 md:grid-cols-2">
+          <div class="p-4 border-b md:border-r border-emerald-50 bg-white">
+            <span class="text-gray-500 block text-xs mb-1 font-sans font-bold">Work</span>
+            W = F·d·cos(θ)
+          </div>
+          <div class="p-4 border-b border-emerald-50 bg-white">
+            <span class="text-gray-500 block text-xs mb-1 font-sans font-bold">Kinetic Energy</span>
+            K = ½mv²
+          </div>
+          <div class="p-4 border-b md:border-r border-emerald-50 bg-gray-50">
+            <span class="text-gray-500 block text-xs mb-1 font-sans font-bold">Gravitational Potential Energy</span>
+            U = m·g·h
+          </div>
+          <div class="p-4 border-b border-emerald-50 bg-gray-50">
+            <span class="text-gray-500 block text-xs mb-1 font-sans font-bold">Power</span>
+            P = W / t = F·v
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gravity & Orbits -->
+    <section>
+      <div class="bg-indigo-50 px-6 py-4 border border-indigo-100 rounded-t-xl">
+        <h3 class="text-lg font-bold text-indigo-900">Gravity & Circular Motion</h3>
+      </div>
+      <div class="border border-t-0 border-indigo-100 rounded-b-xl overflow-hidden text-sm sm:text-base font-mono">
+        <div class="grid grid-cols-1 md:grid-cols-2">
+          <div class="p-4 border-b md:border-r border-indigo-50 bg-white">
+            <span class="text-gray-500 block text-xs mb-1 font-sans font-bold">Newton's Law of Gravity</span>
+            F = G(m₁m₂) / r²
+          </div>
+          <div class="p-4 border-b border-indigo-50 bg-white">
+            <span class="text-gray-500 block text-xs mb-1 font-sans font-bold">Centripetal Acceleration</span>
+            a_c = v² / r
+          </div>
+          <div class="p-4 border-b md:border-r border-indigo-50 bg-gray-50">
+            <span class="text-gray-500 block text-xs mb-1 font-sans font-bold">Orbital Velocity</span>
+            v = √(GM / r)
+          </div>
+          <div class="p-4 border-b border-indigo-50 bg-gray-50">
+            <span class="text-gray-500 block text-xs mb-1 font-sans font-bold">Escape Velocity</span>
+            v_e = √(2GM / R)
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Waves & Thermodynamics -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <section>
+        <div class="bg-amber-50 px-6 py-4 border border-amber-100 rounded-t-xl">
+          <h3 class="text-lg font-bold text-amber-900">Waves & Optics</h3>
+        </div>
+        <div class="border border-t-0 border-amber-100 rounded-b-xl overflow-hidden text-sm font-mono bg-white">
+          <div class="p-4 border-b border-amber-50">
+            <span class="text-gray-500 block text-xs mb-1 font-sans font-bold">Wave Speed</span>
+            v = f·λ
+          </div>
+          <div class="p-4 border-b border-amber-50 bg-gray-50">
+            <span class="text-gray-500 block text-xs mb-1 font-sans font-bold">Snell's Law</span>
+            n₁sin(θ₁) = n₂sin(θ₂)
+          </div>
+          <div class="p-4">
+            <span class="text-gray-500 block text-xs mb-1 font-sans font-bold">Lens Equation</span>
+            1/f = 1/d_o + 1/d_i
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="bg-rose-50 px-6 py-4 border border-rose-100 rounded-t-xl">
+          <h3 class="text-lg font-bold text-rose-900">Thermodynamics</h3>
+        </div>
+        <div class="border border-t-0 border-rose-100 rounded-b-xl overflow-hidden text-sm font-mono bg-white">
+          <div class="p-4 border-b border-rose-50">
+            <span class="text-gray-500 block text-xs mb-1 font-sans font-bold">Specific Heat</span>
+            Q = m·c·ΔT
+          </div>
+          <div class="p-4 border-b border-rose-50 bg-gray-50">
+            <span class="text-gray-500 block text-xs mb-1 font-sans font-bold">Ideal Gas Law</span>
+            PV = nRT
+          </div>
+          <div class="p-4">
+            <span class="text-gray-500 block text-xs mb-1 font-sans font-bold">Carnot Efficiency</span>
+            η = 1 - (T_C / T_H)
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Electromagnetism -->
+    <section>
+      <div class="bg-purple-50 px-6 py-4 border border-purple-100 rounded-t-xl">
+        <h3 class="text-lg font-bold text-purple-900">Electromagnetism & Circuits</h3>
+      </div>
+      <div class="border border-t-0 border-purple-100 rounded-b-xl overflow-hidden text-sm sm:text-base font-mono">
+        <div class="grid grid-cols-1 md:grid-cols-2">
+          <div class="p-4 border-b md:border-r border-purple-50 bg-white">
+            <span class="text-gray-500 block text-xs mb-1 font-sans font-bold">Ohm's Law</span>
+            V = I·R
+          </div>
+          <div class="p-4 border-b border-purple-50 bg-white">
+            <span class="text-gray-500 block text-xs mb-1 font-sans font-bold">Electrical Power</span>
+            P = I·V = I²R
+          </div>
+          <div class="p-4 border-b md:border-r border-purple-50 bg-gray-50">
+            <span class="text-gray-500 block text-xs mb-1 font-sans font-bold">Coulomb's Law</span>
+            F = k|q₁q₂| / r²
+          </div>
+          <div class="p-4 border-b border-purple-50 bg-gray-50">
+            <span class="text-gray-500 block text-xs mb-1 font-sans font-bold">Capacitance</span>
+            C = Q / V
+          </div>
+          <div class="p-4 border-b md:border-r border-purple-50 bg-white">
+            <span class="text-gray-500 block text-xs mb-1 font-sans font-bold">Lorentz Force</span>
+            F = qE + q(v × B)
+          </div>
+          <div class="p-4 border-b border-purple-50 bg-white">
+            <span class="text-gray-500 block text-xs mb-1 font-sans font-bold">Magnetic Force (Wire)</span>
+            F = I·L·B·sin(θ)
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>

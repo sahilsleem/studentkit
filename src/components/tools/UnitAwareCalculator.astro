@@ -1,0 +1,185 @@
+---
+import { tools } from '../../data/registry';
+const { tool } = Astro.props;
+const configJson = JSON.stringify(tool.physicsConfig || {});
+---
+
+<div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden mb-12 max-w-xl mx-auto unit-aware-calc-container" data-config={configJson}>
+  <div class="p-6 sm:p-8">
+    <div class="mb-6 border-b border-gray-100 pb-4">
+      <h3 class="text-xl font-bold text-gray-800">{tool.title}</h3>
+      <p class="text-sm text-gray-500 mt-1">{tool.description}</p>
+    </div>
+
+    <form class="space-y-6 unit-calc-form">
+      {tool.physicsConfig?.inputs.map((input) => (
+        <div>
+          <label for={input.id} class="block text-sm font-medium text-gray-700 mb-1">{input.label}</label>
+          <div class="flex items-center gap-2">
+            <input 
+              type="number" 
+              id={input.id} 
+              step="any" 
+              required 
+              class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition-colors unit-calc-input" 
+              placeholder={input.placeholder || ""}
+              data-id={input.id}
+            />
+            {input.options && input.options.length > 0 && (
+              <select class="w-32 px-2 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-gray-50 unit-calc-select" data-for={input.id}>
+                {input.options.map((opt) => (
+                  <option value={opt.factor} selected={opt.default}>{opt.label}</option>
+                ))}
+              </select>
+            )}
+          </div>
+        </div>
+      ))}
+
+      <div class="pt-4">
+        <button type="submit" class="w-full bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors">
+          Calculate
+        </button>
+      </div>
+    </form>
+
+    <div class="mt-8 pt-6 border-t border-gray-100 hidden unit-calc-result-section">
+      <h3 class="text-lg font-semibold mb-4 text-center">Result</h3>
+      
+      <div class="unit-calc-err hidden bg-red-50 text-red-700 p-4 rounded-lg text-sm font-medium border border-red-100 mb-4"></div>
+      
+      <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-4 unit-calc-ans-box">
+        <div class="text-center sm:text-left">
+          <p class="text-sm text-gray-500 mb-1">{tool.physicsConfig?.outputLabel || 'Result'}</p>
+          <div class="text-3xl font-bold font-mono text-gray-900 unit-calc-result-value">--</div>
+        </div>
+        
+        {tool.physicsConfig?.outputOptions && tool.physicsConfig.outputOptions.length > 0 && (
+          <div class="w-full sm:w-auto">
+             <label class="block text-xs font-medium text-gray-500 mb-1 sm:hidden">Output Unit</label>
+             <select class="w-full sm:w-32 px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-white unit-calc-out-select">
+                {tool.physicsConfig.outputOptions.map((opt) => (
+                  <option value={opt.factor} selected={opt.default}>{opt.label}</option>
+                ))}
+              </select>
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const initUnitAwareCalculators = () => {
+    document.querySelectorAll('.unit-aware-calc-container').forEach((container) => {
+      if (container.hasAttribute('data-initialized')) return;
+      container.setAttribute('data-initialized', 'true');
+
+      const configStr = container.getAttribute('data-config');
+      if (!configStr) return;
+      
+      const config = JSON.parse(configStr);
+      const form = container.querySelector('.unit-calc-form') as HTMLFormElement;
+      const inputs = container.querySelectorAll('.unit-calc-input') as NodeListOf<HTMLInputElement>;
+      const inputSelects = container.querySelectorAll('.unit-calc-select') as NodeListOf<HTMLSelectElement>;
+      const outSelect = container.querySelector('.unit-calc-out-select') as HTMLSelectElement;
+      
+      const resultSection = container.querySelector('.unit-calc-result-section');
+      const resultValue = container.querySelector('.unit-calc-result-value');
+      const errBox = container.querySelector('.unit-calc-err');
+      const ansBox = container.querySelector('.unit-calc-ans-box');
+
+      // Create JS function from expression
+      const paramNames = config.inputs.map((i: any) => i.id);
+      let calcFn: Function;
+      try {
+        calcFn = new Function(...paramNames, `return ${config.expression};`);
+      } catch (e) {
+        console.error("Invalid formula expression", e);
+      }
+
+      let lastRawResultSI = null;
+
+      const formatNum = (num) => {
+         if (!isFinite(num)) return "Undefined";
+         if (Math.abs(num) < 1e-10) return "0";
+         if (Math.abs(num) > 1e10 || Math.abs(num) < 1e-4) return num.toExponential(4);
+         return Number.isInteger(num) ? String(num) : String(parseFloat(num.toFixed(6)));
+      };
+
+      const updateOutput = () => {
+         if (lastRawResultSI === null || !resultValue) return;
+         let finalVal = lastRawResultSI;
+         
+         if (outSelect && config.outputOptions) {
+            const outFactor = parseFloat(outSelect.value);
+            // Conversion to selected unit: SI_val / factor
+            finalVal = lastRawResultSI / outFactor;
+         } else if (config.outputUnit) {
+            // Static unit
+         }
+         
+         let displayStr = formatNum(finalVal);
+         if (!outSelect && config.outputUnit && displayStr !== "Undefined") {
+            displayStr += " " + config.outputUnit;
+         }
+         
+         resultValue.textContent = displayStr;
+      };
+
+      if (outSelect) {
+         outSelect.addEventListener('change', updateOutput);
+      }
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        errBox?.classList.add('hidden');
+        ansBox?.classList.remove('hidden');
+        
+        let args = [];
+        let hasError = false;
+
+        // Collect normalized inputs
+        config.inputs.forEach((inputConfig) => {
+           const inputEl = Array.from(inputs).find(el => el.getAttribute('data-id') === inputConfig.id);
+           if (!inputEl) return;
+           
+           let val = parseFloat(inputEl.value);
+           
+           // Apply unit factor (val * factor = SI_val)
+           const selEl = Array.from(inputSelects).find(el => el.getAttribute('data-for') === inputConfig.id);
+           if (selEl) {
+              val = val * parseFloat(selEl.value);
+           }
+           
+           args.push(val);
+        });
+        
+        if (args.some(isNaN)) return;
+
+        try {
+          const resultSI = calcFn(...args);
+          lastRawResultSI = resultSI;
+          
+          if (isNaN(resultSI) || !isFinite(resultSI)) {
+             throw new Error("Mathematical error (e.g. division by zero or invalid domain).");
+          }
+          
+          updateOutput();
+        } catch (err) {
+          console.error("Calculation error", err);
+          ansBox?.classList.add('hidden');
+          if (errBox) {
+             errBox.textContent = `Error calculating: ${err.message}`;
+             errBox.classList.remove('hidden');
+          }
+        }
+        
+        resultSection?.classList.remove('hidden');
+      });
+    });
+  };
+
+  initUnitAwareCalculators();
+  document.addEventListener('astro:page-load', initUnitAwareCalculators);
+</script>
