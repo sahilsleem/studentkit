@@ -1,0 +1,46 @@
+{
+  "total": 23,
+  "passed": 15,
+  "failed": 8,
+  "failedCases": [
+    {
+      "query": "solve quadratic equation",
+      "expectedSlug": "quadratic-equation",
+      "gotTop": "quadratic-equation-solver"
+    },
+    {
+      "query": "calculate standard deviation",
+      "expectedSlug": "standard-deviation",
+      "gotTop": "standard-deviation-calculator"
+    },
+    {
+      "query": "calculate kinetic energy",
+      "expectedSlug": "kinetic-energy",
+      "gotTop": "kinetic-energy-calculator"
+    },
+    {
+      "query": "ohms law",
+      "expectedSlug": "ohms-law-voltage"
+    },
+    {
+      "query": "ideal gas equation",
+      "expectedSlug": "ideal-gas-law",
+      "gotTop": "ideal-gas-law-calculator"
+    },
+    {
+      "query": "calculate molar mass",
+      "expectedSlug": "molar-mass",
+      "gotTop": "molar-mass-calculator"
+    },
+    {
+      "query": "balance chemical equation",
+      "expectedSlug": "chemical-equation-balancer",
+      "gotTop": "reaction-balancer"
+    },
+    {
+      "query": "mean median mode",
+      "expectedSlug": "mean-median-mode",
+      "gotTop": "mean-calculator"
+    }
+  ]
+}

@@ -1,11 +1,12 @@
 
 export interface ToolContent {
   whatIsIt: string;
-  howToUse: string;
+  howToUse?: string;
   formula?: string;
   variables?: Record<string, string>;
   example?: string;
   whenToUse?: string;
+  commonMistakes?: string;
   faq?: { q: string; a: string }[];
 }
 
@@ -299,7 +300,150 @@ export const toolContent: Record<string, ToolContent> = {
   },
   "mean-median-mode": {
     whatIsIt: "A descriptive statistics dashboard that finds the three primary measures of central tendency for any dataset.",
-    howToUse: "Input a comma-separated list of values. The mean is the mathematical average, the median is the exact middle value, and the mode is the most frequently occurring value."
+    howToUse: "Input a comma-separated list of values. The mean is the mathematical average, the median is the exact middle value, and the mode is the most frequently occurring value.",
+    faq: [
+      { q: "What if there is no mode?", a: "If all values appear exactly once, the dataset has no mode. Some datasets can also have multiple modes." },
+      { q: "When should I use median instead of mean?", a: "Median is more robust when the dataset contains extreme outliers (e.g., income distributions where a few billionaires skew the average)." }
+    ]
+  },
+
+  "marks-calculator": {
+    whatIsIt: "Calculates your overall percentage or total marks from individual subject scores. Useful for seeing your academic performance across all subjects in one place.",
+    howToUse: "Enter each subject name, the maximum marks, and your obtained marks. The tool sums both columns and calculates your overall percentage.",
+    formula: "Overall Percentage = (Total Obtained / Total Maximum) × 100",
+    example: "If you score 80/100 in Math, 75/100 in English, 90/100 in Science: Total = 245/300 = 81.67%.",
+    whenToUse: "After getting your exam results, to quickly see your overall performance at a glance.",
+    faq: [
+      { q: "Is this different from a GPA calculator?", a: "Yes. This gives a raw percentage from marks. GPA calculators convert letter grades to a 4.0 scale using credit-weighted averaging." }
+    ]
+  },
+
+  "required-attendance": {
+    whatIsIt: "Calculates the minimum number of future classes you must attend to reach your target attendance percentage, given your current attendance record.",
+    howToUse: "Enter total classes held, classes attended, and your target attendance percentage (e.g. 75%). It solves for how many of the remaining classes you must attend.",
+    formula: "Classes needed = (Target% × Total – Attended) / (1 – Target%)",
+    whenToUse: "Especially critical near the end of semester when attendance shortfalls can bar you from final exams.",
+    faq: [
+      { q: "My required attendance is higher than the remaining classes — what does that mean?", a: "It means the target is mathematically unachievable. You should speak with your professor or institution about your options." }
+    ]
+  },
+
+  "velocity-calculator": {
+    whatIsIt: "Calculates the velocity of an object — the rate of change of its position with direction. Unlike speed, velocity is a vector quantity.",
+    formula: "v = Δx / Δt",
+    variables: {
+      "v": "Velocity (m/s)",
+      "Δx": "Displacement (meters)",
+      "Δt": "Time interval (seconds)"
+    },
+    example: "If an object moves 50 meters east in 5 seconds, its velocity is 50/5 = 10 m/s east.",
+    whenToUse: "Used in kinematics problems, physics experiments, and engineering motion planning."
+  },
+
+  "acceleration-calculator": {
+    whatIsIt: "Computes acceleration — the rate of change of velocity over time. Acceleration can be positive (speeding up) or negative (decelerating).",
+    formula: "a = (v_f - v_i) / t",
+    variables: {
+      "a": "Acceleration (m/s²)",
+      "v_f": "Final velocity",
+      "v_i": "Initial velocity",
+      "t": "Time elapsed"
+    },
+    example: "A car going from 0 to 60 km/h (16.67 m/s) in 8 seconds: a = 16.67 / 8 ≈ 2.08 m/s²."
+  },
+
+  "pressure-calculator": {
+    whatIsIt: "Determines the force exerted per unit area on a surface.",
+    formula: "P = F / A",
+    variables: {
+      "P": "Pressure (Pascals)",
+      "F": "Force applied (Newtons)",
+      "A": "Surface area (m²)"
+    },
+    example: "A 1000 N force on a 2 m² platform: P = 1000 / 2 = 500 Pa.",
+    whenToUse: "Used in fluid mechanics, hydraulics, atmospheric science, and structural engineering."
+  },
+
+  "molarity-from-grams": {
+    whatIsIt: "Calculates the molarity of a solution when you know the mass (in grams) of the solute rather than moles.",
+    formula: "M = (mass / molar_mass) / volume_in_liters",
+    example: "Dissolving 58.44 g of NaCl (molar mass ≈ 58.44 g/mol) in 1 L of water gives a 1 M NaCl solution.",
+    whenToUse: "Essential in laboratory chemistry when weighing out solids to prepare solutions of specific concentrations."
+  },
+
+  "stoichiometry-calculator": {
+    whatIsIt: "Uses balanced chemical equations to calculate the mass or moles of reactants consumed or products formed in a chemical reaction.",
+    howToUse: "Enter a balanced equation, specify which compound you are starting with (and its amount), then select which product or reactant quantity you want to find.",
+    example: "In 2H₂ + O₂ → 2H₂O: if you start with 4 moles of H₂, you need 2 moles of O₂ and produce 4 moles of H₂O.",
+    whenToUse: "Core skill in every chemistry course for solving 'how much product will I get?' problems."
+  },
+
+  "limiting-reagent": {
+    whatIsIt: "Identifies which reactant in a chemical reaction runs out first, thereby limiting how much product can be formed.",
+    example: "For N₂ + 3H₂ → 2NH₃: if you have 10 mol N₂ and 24 mol H₂, the H₂ is limiting (it runs out after producing 16 mol NH₃ instead of the theoretical 20).",
+    faq: [
+      { q: "What is the excess reactant?", a: "The excess reactant is the one that is not fully consumed. Some of it remains unused after the reaction completes." }
+    ]
+  },
+
+  "percent-yield": {
+    whatIsIt: "Measures the efficiency of a chemical reaction by comparing how much product was actually produced versus the theoretical maximum.",
+    formula: "% Yield = (Actual Yield / Theoretical Yield) × 100",
+    example: "If the theoretical yield is 50 g but you only collect 42 g of product: % Yield = (42/50) × 100 = 84%.",
+    whenToUse: "Used in organic synthesis, industrial chemistry, and any lab experiment to assess experimental efficiency."
+  },
+
+  "linear-regression-calculator": {
+    whatIsIt: "Fits a straight line (y = mx + b) through a set of data points to model the linear relationship between two variables.",
+    formula: "ŷ = b₀ + b₁x",
+    variables: {
+      "b₀": "y-intercept — the predicted value of y when x = 0",
+      "b₁": "Slope — how much y changes for a 1-unit increase in x"
+    },
+    whenToUse: "Used in statistics, economics (predicting sales), biology (growth studies), and machine learning baselines.",
+    faq: [
+      { q: "What does R² mean?", a: "R² (coefficient of determination) measures how well the regression line fits the data. Values closer to 1 indicate a stronger fit." }
+    ]
+  },
+
+  "correlation-coefficient": {
+    whatIsIt: "Calculates Pearson's correlation coefficient (r), which measures the strength and direction of the linear relationship between two variables.",
+    formula: "r = Σ[(xᵢ - x̄)(yᵢ - ȳ)] / √[Σ(xᵢ - x̄)² × Σ(yᵢ - ȳ)²]",
+    whenToUse: "Used in research, data science, and statistics to determine whether two variables tend to move together.",
+    faq: [
+      { q: "What values can r take?", a: "r ranges from -1 (perfect negative correlation) to +1 (perfect positive correlation). r = 0 means no linear relationship." },
+      { q: "Does correlation imply causation?", a: "No. A high r only indicates a statistical association, not a causal link between the variables." }
+    ]
+  },
+
+  "poisson-distribution-calculator": {
+    whatIsIt: "Calculates probabilities for the Poisson distribution, which models the probability of a given number of events occurring in a fixed time interval when events happen independently at a constant average rate.",
+    formula: "P(k) = (λᵏ × e⁻ᵟ) / k!",
+    variables: {
+      "λ": "Average rate of events per interval",
+      "k": "Actual number of events observed",
+      "e": "Euler's number (~2.718)"
+    },
+    example: "If a call center receives 3 calls per minute on average (λ=3), the probability of exactly 5 calls in a minute is P(5) ≈ 10.1%.",
+    whenToUse: "Used for quality control (defects per unit), epidemiology (disease incidence), and network traffic modeling."
+  },
+
+  "binomial-distribution-calculator": {
+    whatIsIt: "Calculates the probability of getting exactly k successes in n independent trials, each with a fixed probability p of success.",
+    formula: "P(k) = C(n,k) × pᵏ × (1-p)^(n-k)",
+    example: "Flipping a fair coin 10 times (n=10, p=0.5), the probability of exactly 7 heads: P(7) ≈ 11.7%.",
+    faq: [
+      { q: "When should I use Binomial vs Poisson distribution?", a: "Use Binomial when you have a fixed number of trials (n) and a known success probability (p). Use Poisson when counting events over a continuous interval with no fixed upper limit." }
+    ]
+  },
+
+  "dna-complement": {
+    whatIsIt: "Generates the complementary strand of a DNA sequence using Watson-Crick base pairing rules: A pairs with T, and G pairs with C.",
+    howToUse: "Enter a DNA sequence using only the letters A, T, G, and C. The tool returns the complementary strand in the 3'→5' direction.",
+    formula: "A ↔ T, G ↔ C",
+    example: "For the sequence 5'-ATGCATGC-3', the complementary strand is 3'-TACGTACG-5'.",
+    whenToUse: "Used in molecular biology for primer design, PCR analysis, and understanding DNA replication and repair."
   }
 
 };
+

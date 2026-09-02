@@ -1,0 +1,27 @@
+{
+  "totalTools": 438,
+  "withContent": 41,
+  "withAliases": 44,
+  "withKeywords": 0,
+  "withFormula": 287,
+  "withFAQ": 13,
+  "withRelated": 0,
+  "byCategory": {
+    "Academic": 9,
+    "Study & Productivity": 5,
+    "Date & Time": 5,
+    "Converters": 1,
+    "Mathematics": 116,
+    "Random & Utilities": 1,
+    "Science": 1,
+    "Physics": 106,
+    "Chemistry": 96,
+    "Biology": 68,
+    "Statistics": 15,
+    "Discrete Mathematics": 5,
+    "Linear Algebra": 4,
+    "Numerical Methods": 1,
+    "Student Utilities": 2,
+    "Computer Science": 3
+  }
+}
