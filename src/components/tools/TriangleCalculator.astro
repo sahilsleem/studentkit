@@ -1,0 +1,237 @@
+---
+import { tools } from '../../data/registry';
+const { tool } = Astro.props;
+const isRight = tool.slug.includes('right-triangle') || tool.slug.includes('hypotenuse') || tool.slug.includes('opposite') || tool.slug.includes('adjacent');
+---
+
+<div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden max-w-4xl mx-auto">
+  <div class="p-6 sm:p-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      
+      <!-- Input Section -->
+      <div>
+        <h3 class="font-bold text-gray-900 mb-4">{isRight ? 'Right Triangle Inputs' : 'Triangle Inputs'}</h3>
+        <p class="text-xs text-gray-500 mb-6">Enter at least {isRight ? '2 values (one must be a side)' : '3 values (at least one must be a side)'} to solve the triangle. Angles are in degrees.</p>
+        
+        <form id="tri-form" class="space-y-4">
+          <div class="space-y-3">
+            <h4 class="text-sm font-semibold text-emerald-700 uppercase tracking-wider">Sides</h4>
+            <div class="flex items-center gap-3">
+              <label class="w-8 text-right font-mono font-bold">a =</label>
+              <input type="number" step="any" min="0" id="side-a" class="flex-1 p-2 border border-gray-300 rounded focus:ring-emerald-500" placeholder="Side a">
+            </div>
+            <div class="flex items-center gap-3">
+              <label class="w-8 text-right font-mono font-bold">b =</label>
+              <input type="number" step="any" min="0" id="side-b" class="flex-1 p-2 border border-gray-300 rounded focus:ring-emerald-500" placeholder="Side b">
+            </div>
+            <div class="flex items-center gap-3">
+              <label class="w-8 text-right font-mono font-bold">c =</label>
+              <input type="number" step="any" min="0" id="side-c" class="flex-1 p-2 border border-gray-300 rounded focus:ring-emerald-500" placeholder={isRight ? "Hypotenuse c" : "Side c"}>
+            </div>
+          </div>
+
+          <div class="space-y-3 pt-2">
+            <h4 class="text-sm font-semibold text-indigo-700 uppercase tracking-wider">Angles (Degrees)</h4>
+            <div class="flex items-center gap-3">
+              <label class="w-8 text-right font-mono font-bold">A =</label>
+              <input type="number" step="any" min="0" max="180" id="angle-a" class="flex-1 p-2 border border-gray-300 rounded focus:ring-emerald-500" placeholder="Angle A">
+            </div>
+            <div class="flex items-center gap-3">
+              <label class="w-8 text-right font-mono font-bold">B =</label>
+              <input type="number" step="any" min="0" max="180" id="angle-b" class="flex-1 p-2 border border-gray-300 rounded focus:ring-emerald-500" placeholder="Angle B">
+            </div>
+            <div class="flex items-center gap-3">
+              <label class="w-8 text-right font-mono font-bold">C =</label>
+              <input type="number" step="any" min="0" max="180" id="angle-c" class="flex-1 p-2 border border-gray-300 rounded focus:ring-emerald-500" placeholder={isRight ? "90°" : "Angle C"} value={isRight ? "90" : ""} disabled={isRight}>
+            </div>
+          </div>
+
+          <div class="flex gap-4 pt-4">
+            <button type="submit" class="flex-1 bg-emerald-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-emerald-700 transition-colors">Solve Triangle</button>
+            <button type="reset" class="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-colors">Clear</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Result Section -->
+      <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 flex flex-col justify-center relative min-h-[300px]">
+        <div id="tri-empty" class="text-center text-gray-400">
+          <svg class="w-16 h-16 mx-auto mb-3 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 2L2 22h20L12 2z"></path>
+          </svg>
+          <p>Results will appear here</p>
+        </div>
+        
+        <div id="tri-error" class="hidden text-center text-red-500">
+          <svg class="w-12 h-12 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          <p id="tri-err-msg" class="font-medium"></p>
+        </div>
+
+        <div id="tri-result" class="hidden w-full h-full">
+          <h3 class="font-bold text-gray-900 mb-4 border-b border-gray-200 pb-2">Calculated Triangle</h3>
+          
+          <div class="grid grid-cols-2 gap-4 mb-6">
+            <div>
+              <p class="text-xs text-emerald-700 uppercase font-bold mb-1">Sides</p>
+              <ul class="font-mono space-y-1 text-sm">
+                <li>a = <span id="res-a" class="font-bold"></span></li>
+                <li>b = <span id="res-b" class="font-bold"></span></li>
+                <li>c = <span id="res-c" class="font-bold"></span></li>
+              </ul>
+            </div>
+            <div>
+              <p class="text-xs text-indigo-700 uppercase font-bold mb-1">Angles</p>
+              <ul class="font-mono space-y-1 text-sm">
+                <li>A = <span id="res-ang-a" class="font-bold"></span>°</li>
+                <li>B = <span id="res-ang-b" class="font-bold"></span>°</li>
+                <li>C = <span id="res-ang-c" class="font-bold"></span>°</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="bg-white p-4 rounded-lg border border-gray-100 grid grid-cols-2 gap-4 text-sm">
+            <div>
+              <p class="text-xs text-gray-500 uppercase">Area</p>
+              <p id="res-area" class="font-mono font-bold text-lg"></p>
+            </div>
+            <div>
+              <p class="text-xs text-gray-500 uppercase">Perimeter</p>
+              <p id="res-perim" class="font-mono font-bold text-lg"></p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ isRight }}>
+  const initTri = () => {
+    const form = document.getElementById('tri-form');
+    const emptySec = document.getElementById('tri-empty');
+    const errSec = document.getElementById('tri-error');
+    const errMsg = document.getElementById('tri-err-msg');
+    const resSec = document.getElementById('tri-result');
+
+    if (!form) return;
+
+    const rad = (deg) => deg * Math.PI / 180;
+    const deg = (rad) => rad * 180 / Math.PI;
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      let a = parseFloat((document.getElementById('side-a') as HTMLInputElement).value) || null;
+      let b = parseFloat((document.getElementById('side-b') as HTMLInputElement).value) || null;
+      let c = parseFloat((document.getElementById('side-c') as HTMLInputElement).value) || null;
+      let A = parseFloat((document.getElementById('angle-a') as HTMLInputElement).value) || null;
+      let B = parseFloat((document.getElementById('angle-b') as HTMLInputElement).value) || null;
+      let C = parseFloat((document.getElementById('angle-c') as HTMLInputElement).value) || null;
+
+      if (isRight) C = 90;
+
+      const showError = (msg) => {
+        emptySec.classList.add('hidden');
+        resSec.classList.add('hidden');
+        errMsg.textContent = msg;
+        errSec.classList.remove('hidden');
+      };
+
+      // Basic validation
+      let sides = [a,b,c].filter(x => x !== null).length;
+      let angles = [A,B,C].filter(x => x !== null).length;
+
+      if (sides + angles < 3) return showError("Please provide at least 3 values.");
+      if (sides === 0) return showError("At least one side must be provided.");
+
+      // Calculate angles if 2 are known
+      if (angles >= 2) {
+        if (A !== null && B !== null && C === null) C = 180 - A - B;
+        if (A !== null && C !== null && B === null) B = 180 - A - C;
+        if (B !== null && C !== null && A === null) A = 180 - B - C;
+      }
+      if (A !== null && B !== null && C !== null && Math.abs(A + B + C - 180) > 0.1) {
+        return showError("Angles must sum up to 180°.");
+      }
+
+      try {
+        // Law of Sines / Cosines solver
+        // We will loop until all 6 are found
+        let prevCount = 0;
+        let iter = 0;
+        while (sides + angles < 6 && iter < 10) {
+          let curCount = sides + angles;
+          
+          // Law of Sines
+          if (A && a && !b && B) { b = a * Math.sin(rad(B)) / Math.sin(rad(A)); sides++; }
+          if (A && a && !c && C) { c = a * Math.sin(rad(C)) / Math.sin(rad(A)); sides++; }
+          if (B && b && !a && A) { a = b * Math.sin(rad(A)) / Math.sin(rad(B)); sides++; }
+          if (B && b && !c && C) { c = b * Math.sin(rad(C)) / Math.sin(rad(B)); sides++; }
+          if (C && c && !a && A) { a = c * Math.sin(rad(A)) / Math.sin(rad(C)); sides++; }
+          if (C && c && !b && B) { b = c * Math.sin(rad(B)) / Math.sin(rad(C)); sides++; }
+
+          if (A && a && b && !B) { B = deg(Math.asin((b * Math.sin(rad(A))) / a)); angles++; }
+          if (A && a && c && !C) { C = deg(Math.asin((c * Math.sin(rad(A))) / a)); angles++; }
+          // ... (Can be ambiguous SSA, picking primary angle for simplicity)
+          if (B && b && a && !A) { A = deg(Math.asin((a * Math.sin(rad(B))) / b)); angles++; }
+          if (C && c && a && !A) { A = deg(Math.asin((a * Math.sin(rad(C))) / c)); angles++; }
+
+          // Law of Cosines
+          if (a && b && C && !c) { c = Math.sqrt(a*a + b*b - 2*a*b*Math.cos(rad(C))); sides++; }
+          if (a && c && B && !b) { b = Math.sqrt(a*a + c*c - 2*a*c*Math.cos(rad(B))); sides++; }
+          if (b && c && A && !a) { a = Math.sqrt(b*b + c*c - 2*b*c*Math.cos(rad(A))); sides++; }
+
+          if (a && b && c) {
+            if (!A) { A = deg(Math.acos((b*b + c*c - a*a) / (2*b*c))); angles++; }
+            if (!B) { B = deg(Math.acos((a*a + c*c - b*b) / (2*a*c))); angles++; }
+            if (!C) { C = deg(Math.acos((a*a + b*b - c*c) / (2*a*b))); angles++; }
+          }
+          
+          if (curCount === sides + angles) break; // no progress
+          iter++;
+        }
+
+        if (sides + angles < 6) return showError("Not enough information or invalid triangle combination (e.g. SSA ambiguity).");
+        
+        // Triangle inequality check
+        if (a + b <= c || a + c <= b || b + c <= a) {
+           return showError("Invalid side lengths. Does not form a triangle.");
+        }
+
+        // Output formatting
+        const fmt = (n) => parseFloat(n.toFixed(4));
+        
+        const area = 0.5 * a * b * Math.sin(rad(C));
+        const perim = a + b + c;
+
+        (document.getElementById('res-a') as HTMLElement).textContent = fmt(a);
+        (document.getElementById('res-b') as HTMLElement).textContent = fmt(b);
+        (document.getElementById('res-c') as HTMLElement).textContent = fmt(c);
+        (document.getElementById('res-ang-a') as HTMLElement).textContent = fmt(A);
+        (document.getElementById('res-ang-b') as HTMLElement).textContent = fmt(B);
+        (document.getElementById('res-ang-c') as HTMLElement).textContent = fmt(C);
+        (document.getElementById('res-area') as HTMLElement).textContent = fmt(area);
+        (document.getElementById('res-perim') as HTMLElement).textContent = fmt(perim);
+
+        emptySec.classList.add('hidden');
+        errSec.classList.add('hidden');
+        resSec.classList.remove('hidden');
+
+      } catch (err) {
+        showError("Mathematical error evaluating triangle.");
+      }
+    });
+    
+    form.addEventListener('reset', () => {
+      emptySec.classList.remove('hidden');
+      errSec.classList.add('hidden');
+      resSec.classList.add('hidden');
+    });
+  };
+
+  initTri();
+  document.addEventListener('astro:page-load', initTri);
+</script>

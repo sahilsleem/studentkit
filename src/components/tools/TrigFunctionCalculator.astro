@@ -1,0 +1,157 @@
+---
+import { tools } from '../../data/registry';
+const { tool } = Astro.props;
+
+// Infer function from slug
+const funcName = tool.slug.replace('-calculator', '');
+const isInverse = funcName.startsWith('arc');
+
+// Map to math.js functions
+const fnMap: Record<string, string> = {
+  'sin': 'sin', 'cos': 'cos', 'tan': 'tan',
+  'cosecant': 'csc', 'secant': 'sec', 'cotangent': 'cot',
+  'arcsin': 'asin', 'arccos': 'acos', 'arctan': 'atan',
+  'arccsc': 'acsc', 'arcsec': 'asec', 'arccot': 'acot'
+};
+const mathFn = fnMap[funcName] || 'sin';
+---
+
+<div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden max-w-lg mx-auto">
+  <div class="p-6 sm:p-8">
+    <form id="trig-form" class="space-y-6">
+      <div class="flex justify-center mb-2">
+        <div class="inline-flex bg-gray-100 p-1 rounded-lg">
+          <label class="cursor-pointer">
+            <input type="radio" name="angleUnit" value="deg" class="peer sr-only" checked>
+            <div class="px-4 py-2 text-sm font-medium rounded-md peer-checked:bg-white peer-checked:shadow-sm peer-checked:text-gray-900 text-gray-500 hover:text-gray-900 transition-colors">Degrees (DEG)</div>
+          </label>
+          <label class="cursor-pointer">
+            <input type="radio" name="angleUnit" value="rad" class="peer sr-only">
+            <div class="px-4 py-2 text-sm font-medium rounded-md peer-checked:bg-white peer-checked:shadow-sm peer-checked:text-gray-900 text-gray-500 hover:text-gray-900 transition-colors">Radians (RAD)</div>
+          </label>
+        </div>
+      </div>
+
+      <div>
+        <label for="trig-input" class="block text-sm font-medium text-gray-700 mb-1">
+          {isInverse ? 'Input Value (Ratio)' : 'Input Angle'}
+        </label>
+        <div class="relative">
+          <input type="number" step="any" id="trig-input" required class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 sm:text-base font-mono transition-colors" placeholder="e.g. 0.5">
+          <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-gray-400 font-mono" id="unit-label">
+            {isInverse ? '' : '°'}
+          </div>
+        </div>
+      </div>
+
+      <div class="flex gap-4 pt-2">
+        <button type="submit" class="flex-1 bg-emerald-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-emerald-700 transition-colors">Calculate</button>
+      </div>
+    </form>
+
+    <div id="trig-result" class="mt-8 pt-6 border-t border-gray-100 hidden">
+      <h3 class="text-lg font-semibold mb-3 text-center">Result</h3>
+      <div class="bg-gray-50 p-6 rounded-xl border border-gray-200 text-center">
+        <p class="text-sm text-gray-500 mb-2 font-mono" id="res-expr"></p>
+        <p class="text-3xl font-bold text-gray-900 font-mono" id="res-val">--</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ isInverse, mathFn, funcName }}>
+  import * as math from 'mathjs';
+
+  const initTrig = () => {
+    const form = document.getElementById('trig-form');
+    const input = document.getElementById('trig-input');
+    const unitLabel = document.getElementById('unit-label');
+    const radios = document.getElementsByName('angleUnit');
+    const resSec = document.getElementById('trig-result');
+    const resExpr = document.getElementById('res-expr');
+    const resVal = document.getElementById('res-val');
+
+    if (!form || !input) return;
+
+    const getUnit = () => Array.from(radios).find(r => (r as HTMLInputElement).checked)?.value || 'deg';
+
+    if (!isInverse) {
+      radios.forEach(r => r.addEventListener('change', () => {
+        unitLabel.textContent = getUnit() === 'deg' ? '°' : 'rad';
+      }));
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const val = parseFloat((input as HTMLInputElement).value);
+      if (isNaN(val)) return;
+
+      const unit = getUnit();
+      let result;
+      let error = null;
+
+      try {
+        if (isInverse) {
+          // Domains:
+          // asin, acos: [-1, 1]
+          if ((mathFn === 'asin' || mathFn === 'acos') && (val < -1 || val > 1)) {
+             error = 'Undefined (out of domain [-1, 1])';
+          }
+          // asec, acsc: x <= -1 or x >= 1
+          else if ((mathFn === 'asec' || mathFn === 'acsc') && (val > -1 && val < 1)) {
+             error = 'Undefined (out of domain |x| >= 1)';
+          }
+          else {
+            result = math.evaluate(`${mathFn}(${val})`);
+            // result is in radians. If unit is deg, convert.
+            if (unit === 'deg') result = result * (180 / Math.PI);
+          }
+        } else {
+          // Undefined handling (tan 90, sec 90, cot 0, csc 0)
+          let evalStr = unit === 'deg' ? `${mathFn}(${val} deg)` : `${mathFn}(${val} rad)`;
+          
+          // Modulo logic for undefined
+          let angDeg = unit === 'deg' ? val : val * (180 / Math.PI);
+          let mod90 = Math.abs(angDeg % 180);
+          let mod180 = Math.abs(angDeg % 180);
+
+          if ((mathFn === 'tan' || mathFn === 'sec') && Math.abs(mod90 - 90) < 1e-10) {
+            error = 'Undefined';
+          } else if ((mathFn === 'cot' || mathFn === 'csc') && Math.abs(mod180) < 1e-10) {
+            error = 'Undefined';
+          } else {
+            result = math.evaluate(evalStr);
+          }
+        }
+
+        if (error) {
+          resExpr.textContent = `${funcName}(${val}${isInverse ? '' : (unit === 'deg' ? '°' : ' rad')})`;
+          resVal.innerHTML = `<span class="text-red-500 text-xl">${error}</span>`;
+        } else {
+          // Format
+          if (Math.abs(result) < 1e-10) result = 0; // Fix floating point issues
+          
+          const formatted = Number.isInteger(result) ? result : parseFloat(result.toFixed(6));
+          
+          let exprStr = '';
+          if (isInverse) {
+            exprStr = `${funcName}(${val}) = ${formatted}${unit === 'deg' ? '°' : ' rad'}`;
+          } else {
+            exprStr = `${funcName}(${val}${unit === 'deg' ? '°' : ' rad'}) =`;
+          }
+
+          resExpr.textContent = exprStr;
+          resVal.textContent = isInverse ? `${formatted}${unit === 'deg' ? '°' : ''}` : String(formatted);
+        }
+        
+        resSec.classList.remove('hidden');
+      } catch (err) {
+        resVal.textContent = 'Error';
+        resSec.classList.remove('hidden');
+      }
+    });
+  };
+
+  initTrig();
+  document.addEventListener('astro:page-load', initTrig);
+</script>

@@ -32,7 +32,7 @@ if (componentPath in componentFiles) {
 
 <ToolLayout tool={tool}>
   {ToolComponent ? (
-    <ToolComponent />
+    <ToolComponent tool={tool} />
   ) : tool.formulaConfig ? (
     <FormulaCalculator config={tool.formulaConfig} toolId={tool.id} />
   ) : (

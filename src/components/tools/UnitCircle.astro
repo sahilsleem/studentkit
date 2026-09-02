@@ -1,0 +1,168 @@
+---
+---
+<div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden max-w-4xl mx-auto">
+  <div class="p-6 sm:p-8">
+    <div class="flex flex-col md:flex-row gap-8 items-center justify-center">
+      
+      <!-- Interactive Circle -->
+      <div class="relative w-72 h-72 sm:w-96 sm:h-96">
+        <svg viewBox="-1.2 -1.2 2.4 2.4" class="w-full h-full transform -scale-y-100">
+          <!-- Axes -->
+          <line x1="-1.2" y1="0" x2="1.2" y2="0" stroke="#CBD5E1" stroke-width="0.01" />
+          <line x1="0" y1="-1.2" x2="0" y2="1.2" stroke="#CBD5E1" stroke-width="0.01" />
+          
+          <!-- Circle -->
+          <circle cx="0" cy="0" r="1" fill="none" stroke="#94A3B8" stroke-width="0.01" />
+
+          <!-- Dynamic Elements -->
+          <line id="uc-line" x1="0" y1="0" x2="1" y2="0" stroke="#10B981" stroke-width="0.02" />
+          <circle id="uc-point" cx="1" cy="0" r="0.04" fill="#059669" class="cursor-pointer transition-all duration-200" />
+          
+          <!-- Common Angles Markers -->
+          <g id="uc-markers"></g>
+        </svg>
+      </div>
+
+      <!-- Info Panel -->
+      <div class="w-full md:w-64 bg-gray-50 p-6 rounded-xl border border-gray-200 flex flex-col justify-center">
+        <h3 class="text-sm font-bold text-gray-500 uppercase tracking-wider mb-4 text-center">Selected Angle</h3>
+        
+        <div class="space-y-4">
+          <div>
+            <label class="block text-xs text-gray-500 mb-1">Degrees</label>
+            <input type="range" id="uc-slider" min="0" max="360" value="0" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-emerald-600">
+            <div class="text-2xl font-bold font-mono text-gray-900 mt-1" id="uc-deg">0°</div>
+          </div>
+          
+          <div>
+            <label class="block text-xs text-gray-500 mb-1">Radians</label>
+            <div class="text-xl font-bold font-mono text-indigo-700" id="uc-rad">0</div>
+          </div>
+
+          <div class="pt-4 border-t border-gray-200 grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs text-gray-500 mb-1">sin(θ)</label>
+              <div class="text-lg font-bold font-mono text-emerald-700" id="uc-sin">0</div>
+            </div>
+            <div>
+              <label class="block text-xs text-gray-500 mb-1">cos(θ)</label>
+              <div class="text-lg font-bold font-mono text-emerald-700" id="uc-cos">1</div>
+            </div>
+            <div class="col-span-2">
+              <label class="block text-xs text-gray-500 mb-1">tan(θ)</label>
+              <div class="text-lg font-bold font-mono text-emerald-700" id="uc-tan">0</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<script>
+  const initUnitCircle = () => {
+    const slider = document.getElementById('uc-slider') as HTMLInputElement;
+    const line = document.getElementById('uc-line');
+    const point = document.getElementById('uc-point');
+    const txtDeg = document.getElementById('uc-deg');
+    const txtRad = document.getElementById('uc-rad');
+    const txtSin = document.getElementById('uc-sin');
+    const txtCos = document.getElementById('uc-cos');
+    const txtTan = document.getElementById('uc-tan');
+    const markers = document.getElementById('uc-markers');
+
+    if (!slider) return;
+
+    // Common angles for markers
+    const angles = [0, 30, 45, 60, 90, 120, 135, 150, 180, 210, 225, 240, 270, 300, 315, 330];
+    
+    // Draw markers
+    if (markers && markers.children.length === 0) {
+      angles.forEach(deg => {
+        const rad = deg * Math.PI / 180;
+        const cx = Math.cos(rad);
+        const cy = Math.sin(rad);
+        
+        const c = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        c.setAttribute("cx", cx.toString());
+        c.setAttribute("cy", cy.toString());
+        c.setAttribute("r", "0.02");
+        c.setAttribute("fill", "#94A3B8");
+        c.style.cursor = "pointer";
+        
+        c.addEventListener('click', () => {
+          slider.value = deg.toString();
+          slider.dispatchEvent(new Event('input'));
+        });
+        
+        markers.appendChild(c);
+      });
+    }
+
+    const fmt = (n) => {
+      if (Math.abs(n) < 1e-10) return '0';
+      return parseFloat(n.toFixed(4)).toString();
+    };
+
+    const getRadFrac = (deg) => {
+      if (deg === 0 || deg === 360) return '0';
+      const gcd = (a, b) => b ? gcd(b, a % b) : a;
+      const num = deg;
+      const den = 180;
+      const divisor = gcd(num, den);
+      const n = num / divisor;
+      const d = den / divisor;
+      
+      let res = '';
+      if (n === 1) res += 'π';
+      else res += `${n}π`;
+      
+      if (d !== 1) res += `/${d}`;
+      return res;
+    };
+
+    slider.addEventListener('input', (e) => {
+      const deg = parseInt((e.target as HTMLInputElement).value);
+      const rad = deg * Math.PI / 180;
+      
+      const cos = Math.cos(rad);
+      const sin = Math.sin(rad);
+      let tan = 'Undefined';
+      
+      if (deg !== 90 && deg !== 270) {
+        tan = fmt(Math.tan(rad));
+      }
+
+      line?.setAttribute('x2', cos.toString());
+      line?.setAttribute('y2', sin.toString());
+      point?.setAttribute('cx', cos.toString());
+      point?.setAttribute('cy', sin.toString());
+
+      txtDeg.textContent = `${deg}°`;
+      txtRad.textContent = getRadFrac(deg);
+      
+      // Known exact values for clean UI
+      const specialCos = {
+        0: '1', 30: '√3/2', 45: '√2/2', 60: '1/2', 90: '0', 
+        120: '-1/2', 135: '-√2/2', 150: '-√3/2', 180: '-1',
+        210: '-√3/2', 225: '-√2/2', 240: '-1/2', 270: '0',
+        300: '1/2', 315: '√2/2', 330: '√3/2', 360: '1'
+      };
+      
+      const specialSin = {
+        0: '0', 30: '1/2', 45: '√2/2', 60: '√3/2', 90: '1', 
+        120: '√3/2', 135: '√2/2', 150: '1/2', 180: '0',
+        210: '-1/2', 225: '-√2/2', 240: '-√3/2', 270: '-1',
+        300: '-√3/2', 315: '-√2/2', 330: '-1/2', 360: '0'
+      };
+
+      txtCos.textContent = specialCos[deg] ? `${specialCos[deg]} (${fmt(cos)})` : fmt(cos);
+      txtSin.textContent = specialSin[deg] ? `${specialSin[deg]} (${fmt(sin)})` : fmt(sin);
+      txtTan.textContent = tan;
+    });
+  };
+
+  initUnitCircle();
+  document.addEventListener('astro:page-load', initUnitCircle);
+</script>
