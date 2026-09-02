@@ -133,7 +133,8 @@
         resSec.classList.remove('hidden');
 
       } catch (err) {
-        resFrac.innerHTML = `<span class="text-red-500 text-lg">${err.message || 'Error'}</span>`;
+        resFrac.innerHTML = `<span class="text-red-500 text-lg"></span>`;
+        (resFrac.querySelector('span') as HTMLElement).textContent = err.message || 'Error';
         resDec.textContent = 'Error';
         resSec.classList.remove('hidden');
       }
