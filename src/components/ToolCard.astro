@@ -7,12 +7,13 @@ export interface Props {
   category?: string;
   subcategory?: string;
   keywords?: string[];
+  aliases?: string[];
 }
 
-const { title, description, url, icon, category, subcategory, keywords } = Astro.props;
+const { title, description, url, icon, category, subcategory, keywords, aliases } = Astro.props;
 ---
 
-<a href={url} class="group block p-6 bg-white rounded-lg border border-gray-200 hover:border-emerald-500 hover:shadow-sm transition-all tool-card" data-title={title.toLowerCase()} data-desc={description.toLowerCase()} data-category={category?.toLowerCase() || ''} data-subcategory={subcategory?.toLowerCase() || ''} data-keywords={keywords ? keywords.join(' ').toLowerCase() : ''}>
+<a href={url} class="group block p-6 bg-white rounded-lg border border-gray-200 hover:border-emerald-500 hover:shadow-sm transition-all tool-card" data-title={title.toLowerCase()} data-desc={description.toLowerCase()} data-category={category?.toLowerCase() || ''} data-subcategory={subcategory?.toLowerCase() || ''} data-keywords={keywords ? keywords.join(' ').toLowerCase() : ''} data-aliases={aliases ? aliases.join(' ').toLowerCase() : ''}>
   <div class="flex items-center gap-4 mb-3">
     <div class="flex items-center justify-center w-10 h-10 rounded bg-emerald-50 text-emerald-600 group-hover:bg-emerald-100 transition-colors" set:html={icon}>
     </div>

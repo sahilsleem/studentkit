@@ -1,0 +1,174 @@
+---
+import { tools } from '../../data/registry';
+const { tool } = Astro.props;
+---
+
+<div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden max-w-4xl mx-auto set-container" data-tool={tool.slug}>
+  <div class="p-6 sm:p-8">
+    <div class="mb-6 border-b border-gray-100 pb-4 text-center">
+      <h3 class="text-2xl font-bold text-gray-900">{tool.title}</h3>
+      <p class="text-gray-500 mt-2">{tool.description}</p>
+    </div>
+
+    <form class="space-y-6 set-form">
+      <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-2">Set A (comma separated values)</label>
+        <input 
+          type="text" 
+          class="in-a w-full p-4 text-sm font-mono border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-gray-50 placeholder-gray-400" 
+          placeholder="e.g. 1, 2, 3, a, b"
+          required 
+        />
+      </div>
+      <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-2">Set B (comma separated values)</label>
+        <input 
+          type="text" 
+          class="in-b w-full p-4 text-sm font-mono border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-gray-50 placeholder-gray-400" 
+          placeholder="e.g. 3, 4, 5, b, c"
+          required 
+        />
+      </div>
+
+      <button type="submit" class="w-full bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors shadow-sm mt-4">
+        Calculate Sets
+      </button>
+    </form>
+
+    <div class="err-box hidden mt-6 bg-red-50 text-red-700 p-4 rounded-lg text-sm font-medium border border-red-100 flex items-start gap-3">
+      <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+      <span class="err-msg"></span>
+    </div>
+
+    <div class="result-section hidden mt-8 pt-8 border-t border-gray-100">
+      
+      <div class="primary-result mb-8 bg-blue-50 p-6 rounded-xl border border-blue-100 text-center">
+        <h4 class="text-blue-800 font-semibold mb-2" id="primary-label">Primary Result</h4>
+        <p class="text-xl font-bold text-blue-900 font-mono break-all" id="primary-value">--</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+           <h4 class="font-bold text-gray-700 border-b pb-2 mb-3">Basic Operations</h4>
+           <ul class="space-y-2 text-sm">
+             <li class="p-3 bg-gray-50 rounded border border-gray-200">
+               <span class="font-bold block mb-1">Union (A ∪ B)</span>
+               <span class="res-union font-mono text-gray-800 break-all"></span>
+             </li>
+             <li class="p-3 bg-gray-50 rounded border border-gray-200">
+               <span class="font-bold block mb-1">Intersection (A ∩ B)</span>
+               <span class="res-inter font-mono text-gray-800 break-all"></span>
+             </li>
+             <li class="p-3 bg-gray-50 rounded border border-gray-200">
+               <span class="font-bold block mb-1">Difference (A - B)</span>
+               <span class="res-diff-ab font-mono text-gray-800 break-all"></span>
+             </li>
+             <li class="p-3 bg-gray-50 rounded border border-gray-200">
+               <span class="font-bold block mb-1">Difference (B - A)</span>
+               <span class="res-diff-ba font-mono text-gray-800 break-all"></span>
+             </li>
+             <li class="p-3 bg-gray-50 rounded border border-gray-200">
+               <span class="font-bold block mb-1">Symmetric Difference (A △ B)</span>
+               <span class="res-sym font-mono text-gray-800 break-all"></span>
+             </li>
+           </ul>
+        </div>
+        <div>
+           <h4 class="font-bold text-gray-700 border-b pb-2 mb-3">Properties</h4>
+           <ul class="space-y-2 text-sm">
+             <li class="flex justify-between p-2 bg-emerald-50 text-emerald-900 rounded"><span>Cardinality |A|:</span> <span class="res-ca font-mono font-bold"></span></li>
+             <li class="flex justify-between p-2 bg-emerald-50 text-emerald-900 rounded"><span>Cardinality |B|:</span> <span class="res-cb font-mono font-bold"></span></li>
+             <li class="flex justify-between p-2 bg-gray-50 rounded mt-4"><span>Is A ⊆ B? (Subset):</span> <span class="res-sub-ab font-mono font-bold"></span></li>
+             <li class="flex justify-between p-2 bg-gray-50 rounded"><span>Is B ⊆ A? (Subset):</span> <span class="res-sub-ba font-mono font-bold"></span></li>
+             <li class="flex justify-between p-2 bg-gray-50 rounded"><span>Are they disjoint?:</span> <span class="res-disj font-mono font-bold"></span></li>
+             <li class="p-3 bg-purple-50 rounded border border-purple-200 mt-4">
+               <span class="font-bold block text-purple-900 mb-1">Cartesian Product (A × B) Size</span>
+               <span class="res-cart-size font-mono text-purple-900 font-bold"></span>
+               <p class="text-xs text-purple-700 mt-1">Calculation capped at 100 pairs for display.</p>
+             </li>
+           </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function parseSet(str) {
+    return [...new Set(str.split(',').map(s => s.trim()).filter(s => s !== ''))];
+  }
+
+  const initSet = () => {
+    document.querySelectorAll('.set-container').forEach(container => {
+      if (container.hasAttribute('data-init')) return;
+      container.setAttribute('data-init', 'true');
+
+      const slug = container.getAttribute('data-tool');
+      
+      const form = container.querySelector('.set-form');
+      const inA = container.querySelector('.in-a') as HTMLInputElement;
+      const inB = container.querySelector('.in-b') as HTMLInputElement;
+      const errBox = container.querySelector('.err-box');
+      const errMsg = container.querySelector('.err-msg');
+      const resultSec = container.querySelector('.result-section');
+      
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        errBox.classList.add('hidden');
+        resultSec.classList.add('hidden');
+        
+        try {
+          const A = parseSet(inA.value);
+          const B = parseSet(inB.value);
+          
+          if (A.length === 0 && B.length === 0) throw new Error("Please enter at least one value in the sets.");
+          
+          const union = [...new Set([...A, ...B])].sort();
+          const inter = A.filter(x => B.includes(x)).sort();
+          const diffAB = A.filter(x => !B.includes(x)).sort();
+          const diffBA = B.filter(x => !A.includes(x)).sort();
+          const symDiff = [...diffAB, ...diffBA].sort();
+          
+          const isSubsetAB = A.every(x => B.includes(x));
+          const isSubsetBA = B.every(x => A.includes(x));
+          const isDisjoint = inter.length === 0;
+          
+          const fmt = (arr) => '{ ' + arr.join(', ') + ' }';
+          
+          container.querySelector('.res-union').textContent = fmt(union);
+          container.querySelector('.res-inter').textContent = fmt(inter);
+          container.querySelector('.res-diff-ab').textContent = fmt(diffAB);
+          container.querySelector('.res-diff-ba').textContent = fmt(diffBA);
+          container.querySelector('.res-sym').textContent = fmt(symDiff);
+          
+          container.querySelector('.res-ca').textContent = A.length.toString();
+          container.querySelector('.res-cb').textContent = B.length.toString();
+          
+          container.querySelector('.res-sub-ab').textContent = isSubsetAB ? 'Yes' : 'No';
+          container.querySelector('.res-sub-ba').textContent = isSubsetBA ? 'Yes' : 'No';
+          container.querySelector('.res-disj').textContent = isDisjoint ? 'Yes' : 'No';
+          
+          container.querySelector('.res-cart-size').textContent = (A.length * B.length).toString();
+          
+          let primaryLabel = "Union (A ∪ B)";
+          let primaryVal = fmt(union);
+          
+          if (slug.includes('intersection')) { primaryLabel = "Intersection (A ∩ B)"; primaryVal = fmt(inter); }
+          if (slug.includes('difference')) { primaryLabel = "Difference (A - B)"; primaryVal = fmt(diffAB); }
+          
+          container.querySelector('#primary-label').textContent = primaryLabel;
+          container.querySelector('#primary-value').textContent = primaryVal;
+          
+          resultSec.classList.remove('hidden');
+          
+        } catch (err) {
+          errMsg.textContent = err.message;
+          errBox.classList.remove('hidden');
+        }
+      });
+    });
+  };
+
+  initSet();
+  document.addEventListener('astro:page-load', initSet);
+</script>

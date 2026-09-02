@@ -118,11 +118,26 @@ const featuredTools = tools.filter(tool => popularTools.includes(tool.title));
         return;
       }
 
-      const results = tools.filter(tool => 
-        tool.title.toLowerCase().includes(query) || 
-        tool.description.toLowerCase().includes(query) ||
-        tool.category.toLowerCase().includes(query)
-      ).slice(0, 5);
+      const results = tools.map(tool => {
+        let score = 0;
+        const searchStr = query.toLowerCase();
+        
+        if (tool.title.toLowerCase() === searchStr) score += 100;
+        else if (tool.title.toLowerCase().includes(searchStr)) score += 50;
+        
+        if (tool.aliases && tool.aliases.some(a => a.toLowerCase().includes(searchStr))) score += 40;
+        
+        if (tool.description.toLowerCase().includes(searchStr)) score += 20;
+        if (tool.keywords && tool.keywords.some(k => k.toLowerCase().includes(searchStr))) score += 15;
+        if (tool.subcategory && tool.subcategory.toLowerCase().includes(searchStr)) score += 10;
+        if (tool.category.toLowerCase().includes(searchStr)) score += 5;
+        
+        return { tool, score };
+      })
+      .filter(t => t.score > 0)
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 7)
+      .map(t => t.tool);
 
       if (results.length > 0) {
         searchResults.innerHTML = results.map(tool => `

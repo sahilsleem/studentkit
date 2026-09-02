@@ -1,0 +1,80 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ToolCard from '../../components/ToolCard.astro';
+import { tools, categories } from '../../data/registry';
+
+export function getStaticPaths() {
+  return categories.map((cat) => {
+    const categorySlug = cat.name.toLowerCase().replace(/\\s+/g, '-');
+    return {
+      params: { category: categorySlug },
+      props: { categoryData: cat }
+    };
+  });
+}
+
+const { categoryData } = Astro.props;
+const categoryTools = tools.filter(t => t.category === categoryData.name);
+
+// Group by subcategory
+const groupedTools = categoryTools.reduce((acc, tool) => {
+  const sub = tool.subcategory || 'General';
+  if (!acc[sub]) acc[sub] = [];
+  acc[sub].push(tool);
+  return acc;
+}, {});
+---
+
+<Layout title={`${categoryData.name} Tools & Calculators`} description={categoryData.description}>
+  <div class="max-w-6xl mx-auto px-4 sm:px-6">
+    <!-- Breadcrumbs -->
+    <nav class="flex text-sm text-gray-500 mb-8" aria-label="Breadcrumb">
+      <ol class="inline-flex items-center space-x-1 md:space-x-3">
+        <li class="inline-flex items-center">
+          <a href="/" class="inline-flex items-center hover:text-emerald-600 transition-colors">
+            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
+            Home
+          </a>
+        </li>
+        <li aria-current="page">
+          <div class="flex items-center">
+            <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+            <span class="ml-1 md:ml-2 text-gray-700 font-medium">{categoryData.name}</span>
+          </div>
+        </li>
+      </ol>
+    </nav>
+
+    <!-- Header -->
+    <div class="mb-12 border-b border-gray-100 pb-8 text-center sm:text-left">
+      <h1 class="text-4xl font-extrabold text-gray-900 tracking-tight mb-4">{categoryData.name}</h1>
+      <p class="text-xl text-gray-600 max-w-3xl">{categoryData.description}</p>
+    </div>
+
+    <!-- Subcategories -->
+    <div class="space-y-16">
+      {Object.entries(groupedTools).map(([subcat, toolsArr]) => (
+        <section>
+          <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
+            <span class="w-8 h-1 bg-emerald-500 rounded-full inline-block mr-2"></span>
+            {subcat}
+          </h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {(toolsArr as any[]).map(tool => (
+              <ToolCard 
+                title={tool.title} 
+                description={tool.description} 
+                url={`/tools/${tool.slug}`} 
+                icon={tool.icon}
+                category={tool.category}
+                subcategory={tool.subcategory}
+                keywords={tool.keywords}
+                aliases={tool.aliases}
+              />
+            ))}
+          </div>
+        </section>
+      ))}
+    </div>
+  </div>
+</Layout>

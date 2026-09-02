@@ -59,6 +59,7 @@ const categories = [...new Set(tools.map(tool => tool.category))].sort();
         category={tool.category}
         subcategory={tool.subcategory}
         keywords={tool.keywords}
+        aliases={tool.aliases}
       />
     ))}
   </div>
@@ -151,8 +152,9 @@ const categories = [...new Set(tools.map(tool => tool.category))].sort();
         const category = card.getAttribute('data-category') || '';
         const subcategory = card.getAttribute('data-subcategory') || '';
         const keywords = card.getAttribute('data-keywords') || '';
+        const aliases = card.getAttribute('data-aliases') || '';
         
-        const matchesSearch = title.includes(searchTerm) || desc.includes(searchTerm) || category.includes(searchTerm) || subcategory.includes(searchTerm) || keywords.includes(searchTerm);
+        const matchesSearch = title.includes(searchTerm) || desc.includes(searchTerm) || category.includes(searchTerm) || subcategory.includes(searchTerm) || keywords.includes(searchTerm) || aliases.includes(searchTerm);
         const matchesCategory = selectedCategory === 'all' || category === selectedCategory;
 
         if (matchesSearch && matchesCategory) {

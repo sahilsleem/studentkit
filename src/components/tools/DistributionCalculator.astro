@@ -1,0 +1,215 @@
+---
+import { tools } from '../../data/registry';
+const { tool } = Astro.props;
+---
+
+<div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden max-w-4xl mx-auto dist-container" data-tool={tool.slug}>
+  <div class="p-6 sm:p-8">
+    <div class="mb-6 border-b border-gray-100 pb-4 text-center">
+      <h3 class="text-2xl font-bold text-gray-900">{tool.title}</h3>
+      <p class="text-gray-500 mt-2">{tool.description}</p>
+    </div>
+
+    <form class="space-y-6 dist-form">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Normal -->
+        <div class="dist-normal hidden space-y-4">
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-2">Mean (μ)</label>
+            <input type="number" step="any" class="in-mean w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-gray-50" />
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-2">Standard Deviation (σ)</label>
+            <input type="number" step="any" min="0.0000001" class="in-sd w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-gray-50" />
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-2">Target value (x)</label>
+            <input type="number" step="any" class="in-x-norm w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-gray-50" />
+          </div>
+        </div>
+
+        <!-- Binomial -->
+        <div class="dist-binom hidden space-y-4">
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-2">Number of Trials (n)</label>
+            <input type="number" min="1" step="1" class="in-n w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-gray-50" />
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-2">Probability of Success (p)</label>
+            <input type="number" step="any" min="0" max="1" class="in-p w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-gray-50" />
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-2">Number of Successes (x)</label>
+            <input type="number" min="0" step="1" class="in-x-bin w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-gray-50" />
+          </div>
+        </div>
+        
+        <!-- Poisson -->
+        <div class="dist-poisson hidden space-y-4">
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-2">Average Rate (λ)</label>
+            <input type="number" step="any" min="0" class="in-lambda w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-gray-50" />
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-2">Number of Events (x)</label>
+            <input type="number" min="0" step="1" class="in-x-pois w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-gray-50" />
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" class="w-full bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors shadow-sm mt-4">
+        Calculate Probability
+      </button>
+    </form>
+
+    <div class="err-box hidden mt-6 bg-red-50 text-red-700 p-4 rounded-lg text-sm font-medium border border-red-100 flex items-start gap-3">
+      <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+      <span class="err-msg"></span>
+    </div>
+
+    <div class="result-section hidden mt-8 pt-8 border-t border-gray-100">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-blue-50 p-6 rounded-xl border border-blue-100 text-center">
+          <h4 class="text-blue-800 font-semibold mb-2 text-sm">P(X = x)</h4>
+          <p class="text-2xl font-bold text-blue-900 font-mono res-eq">--</p>
+          <p class="text-xs text-blue-600 mt-1">Exact Probability</p>
+        </div>
+        <div class="bg-emerald-50 p-6 rounded-xl border border-emerald-100 text-center">
+          <h4 class="text-emerald-800 font-semibold mb-2 text-sm">P(X ≤ x)</h4>
+          <p class="text-2xl font-bold text-emerald-900 font-mono res-lte">--</p>
+          <p class="text-xs text-emerald-600 mt-1">Cumulative Prob.</p>
+        </div>
+        <div class="bg-purple-50 p-6 rounded-xl border border-purple-100 text-center">
+          <h4 class="text-purple-800 font-semibold mb-2 text-sm">P(X &gt; x)</h4>
+          <p class="text-2xl font-bold text-purple-900 font-mono res-gt">--</p>
+          <p class="text-xs text-purple-600 mt-1">1 - P(X ≤ x)</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { normalPdf, normalCdf } from '../../utils/statistics';
+
+  // Helper factorials and combinations
+  function factorial(n) {
+    if (n === 0 || n === 1) return 1;
+    let res = 1;
+    for (let i = 2; i <= n; i++) res *= i;
+    return res;
+  }
+  
+  function combinations(n, k) {
+    if (k < 0 || k > n) return 0;
+    return factorial(n) / (factorial(k) * factorial(n - k));
+  }
+
+  function binomialPdf(n, p, x) {
+    return combinations(n, x) * Math.pow(p, x) * Math.pow(1 - p, n - x);
+  }
+
+  function binomialCdf(n, p, x) {
+    let sum = 0;
+    for (let i = 0; i <= x; i++) {
+      sum += binomialPdf(n, p, i);
+    }
+    return sum;
+  }
+  
+  function poissonPdf(lambda, x) {
+    return (Math.pow(lambda, x) * Math.exp(-lambda)) / factorial(x);
+  }
+  
+  function poissonCdf(lambda, x) {
+    let sum = 0;
+    for (let i = 0; i <= x; i++) {
+      sum += poissonPdf(lambda, i);
+    }
+    return sum;
+  }
+
+  const initDist = () => {
+    document.querySelectorAll('.dist-container').forEach(container => {
+      if (container.hasAttribute('data-init')) return;
+      container.setAttribute('data-init', 'true');
+
+      const slug = container.getAttribute('data-tool');
+      let type = 'normal';
+      if (slug.includes('binomial')) type = 'binomial';
+      if (slug.includes('poisson')) type = 'poisson';
+      
+      const distNormal = container.querySelector('.dist-normal');
+      const distBinom = container.querySelector('.dist-binom');
+      const distPoisson = container.querySelector('.dist-poisson');
+      
+      if (type === 'normal') {
+         distNormal.classList.remove('hidden');
+         distNormal.querySelectorAll('input').forEach(i => i.required = true);
+      } else if (type === 'binomial') {
+         distBinom.classList.remove('hidden');
+         distBinom.querySelectorAll('input').forEach(i => i.required = true);
+      } else if (type === 'poisson') {
+         distPoisson.classList.remove('hidden');
+         distPoisson.querySelectorAll('input').forEach(i => i.required = true);
+      }
+      
+      const form = container.querySelector('.dist-form');
+      const errBox = container.querySelector('.err-box');
+      const errMsg = container.querySelector('.err-msg');
+      const resultSec = container.querySelector('.result-section');
+      
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        errBox.classList.add('hidden');
+        resultSec.classList.add('hidden');
+        
+        try {
+          let eq = 0;
+          let lte = 0;
+          
+          if (type === 'normal') {
+             const m = parseFloat(container.querySelector('.in-mean').value);
+             const sd = parseFloat(container.querySelector('.in-sd').value);
+             const x = parseFloat(container.querySelector('.in-x-norm').value);
+             if (sd <= 0) throw new Error("Standard Deviation must be > 0.");
+             
+             eq = normalPdf(x, m, sd);
+             lte = normalCdf(x, m, sd);
+          } else if (type === 'binomial') {
+             const n = parseInt(container.querySelector('.in-n').value);
+             const p = parseFloat(container.querySelector('.in-p').value);
+             const x = parseInt(container.querySelector('.in-x-bin').value);
+             if (p < 0 || p > 1) throw new Error("Probability p must be between 0 and 1.");
+             if (x < 0 || x > n) throw new Error("Successes x must be between 0 and n.");
+             
+             eq = binomialPdf(n, p, x);
+             lte = binomialCdf(n, p, x);
+          } else if (type === 'poisson') {
+             const lambda = parseFloat(container.querySelector('.in-lambda').value);
+             const x = parseInt(container.querySelector('.in-x-pois').value);
+             if (lambda < 0) throw new Error("Average rate λ must be non-negative.");
+             
+             eq = poissonPdf(lambda, x);
+             lte = poissonCdf(lambda, x);
+          }
+          
+          const gt = 1 - lte;
+          
+          container.querySelector('.res-eq').textContent = eq.toFixed(5);
+          container.querySelector('.res-lte').textContent = lte.toFixed(5);
+          container.querySelector('.res-gt').textContent = Math.max(0, gt).toFixed(5);
+          
+          resultSec.classList.remove('hidden');
+          
+        } catch (err) {
+          errMsg.textContent = err.message;
+          errBox.classList.remove('hidden');
+        }
+      });
+    });
+  };
+
+  initDist();
+  document.addEventListener('astro:page-load', initDist);
+</script>

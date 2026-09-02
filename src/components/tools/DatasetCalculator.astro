@@ -1,0 +1,238 @@
+---
+import { tools } from '../../data/registry';
+const { tool } = Astro.props;
+---
+
+<div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden max-w-4xl mx-auto dataset-container" data-tool={tool.slug}>
+  <div class="p-6 sm:p-8">
+    <div class="mb-6 border-b border-gray-100 pb-4 text-center">
+      <h3 class="text-2xl font-bold text-gray-900">{tool.title}</h3>
+      <p class="text-gray-500 mt-2">{tool.description}</p>
+    </div>
+
+    <form class="space-y-6 ds-form">
+      <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-2">Data Set X (Comma or space separated numbers)</label>
+        <textarea 
+          class="x-input w-full p-4 text-sm font-mono border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-gray-50 placeholder-gray-400 h-24" 
+          placeholder="e.g. 10, 15, 20, 25, 30"
+          required 
+        ></textarea>
+      </div>
+      
+      <div class="y-input-group hidden">
+        <label class="block text-sm font-semibold text-gray-700 mb-2">Data Set Y (For 2-variable stats like Correlation/Regression)</label>
+        <textarea 
+          class="y-input w-full p-4 text-sm font-mono border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-gray-50 placeholder-gray-400 h-24" 
+          placeholder="e.g. 2, 4, 6, 8, 10"
+        ></textarea>
+      </div>
+
+      <div class="text-right">
+        <label class="inline-flex items-center text-sm text-gray-600">
+          <input type="checkbox" class="is-population mr-2 rounded text-blue-600 focus:ring-blue-500">
+          Treat as Population (instead of Sample)
+        </label>
+      </div>
+
+      <button type="submit" class="w-full bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors shadow-sm">
+        Calculate Statistics
+      </button>
+    </form>
+
+    <div class="err-box hidden mt-6 bg-red-50 text-red-700 p-4 rounded-lg text-sm font-medium border border-red-100 flex items-start gap-3">
+      <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+      <span class="err-msg"></span>
+    </div>
+
+    <div class="result-section hidden mt-8 pt-8 border-t border-gray-100">
+      
+      <div class="primary-result mb-8 bg-blue-50 p-6 rounded-xl border border-blue-100 text-center">
+        <h4 class="text-blue-800 font-semibold mb-2" id="primary-label">Primary Result</h4>
+        <p class="text-4xl font-bold text-blue-900 font-mono" id="primary-value">--</p>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 basic-stats">
+        <div class="bg-gray-50 p-4 rounded-lg text-center border border-gray-200">
+          <p class="text-xs text-gray-500 font-semibold uppercase">Count (N)</p>
+          <p class="res-n text-xl font-bold text-gray-900 font-mono"></p>
+        </div>
+        <div class="bg-gray-50 p-4 rounded-lg text-center border border-gray-200">
+          <p class="text-xs text-gray-500 font-semibold uppercase">Mean</p>
+          <p class="res-mean text-xl font-bold text-gray-900 font-mono"></p>
+        </div>
+        <div class="bg-gray-50 p-4 rounded-lg text-center border border-gray-200">
+          <p class="text-xs text-gray-500 font-semibold uppercase">Median</p>
+          <p class="res-median text-xl font-bold text-gray-900 font-mono"></p>
+        </div>
+        <div class="bg-gray-50 p-4 rounded-lg text-center border border-gray-200">
+          <p class="text-xs text-gray-500 font-semibold uppercase">Std Dev</p>
+          <p class="res-sd text-xl font-bold text-gray-900 font-mono"></p>
+        </div>
+      </div>
+
+      <div class="advanced-stats grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div>
+          <h4 class="font-bold text-gray-700 border-b pb-2 mb-3">Five Number Summary</h4>
+          <ul class="space-y-2 text-sm">
+            <li class="flex justify-between p-2 bg-gray-50 rounded"><span>Minimum:</span> <span class="res-min font-mono font-bold"></span></li>
+            <li class="flex justify-between p-2 bg-gray-50 rounded"><span>Q1 (25th):</span> <span class="res-q1 font-mono font-bold"></span></li>
+            <li class="flex justify-between p-2 bg-gray-50 rounded"><span>Median (Q2):</span> <span class="res-q2 font-mono font-bold"></span></li>
+            <li class="flex justify-between p-2 bg-gray-50 rounded"><span>Q3 (75th):</span> <span class="res-q3 font-mono font-bold"></span></li>
+            <li class="flex justify-between p-2 bg-gray-50 rounded"><span>Maximum:</span> <span class="res-max font-mono font-bold"></span></li>
+            <li class="flex justify-between p-2 bg-blue-50 text-blue-900 rounded font-semibold mt-1"><span>IQR:</span> <span class="res-iqr font-mono font-bold"></span></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold text-gray-700 border-b pb-2 mb-3">Additional Metrics</h4>
+          <ul class="space-y-2 text-sm">
+            <li class="flex justify-between p-2 bg-gray-50 rounded"><span>Sum:</span> <span class="res-sum font-mono font-bold"></span></li>
+            <li class="flex justify-between p-2 bg-gray-50 rounded"><span>Variance:</span> <span class="res-var font-mono font-bold"></span></li>
+            <li class="flex justify-between p-2 bg-gray-50 rounded"><span>Std Error (SE):</span> <span class="res-se font-mono font-bold"></span></li>
+            <li class="flex justify-between p-2 bg-gray-50 rounded"><span>Mean Abs Dev (MAD):</span> <span class="res-mad font-mono font-bold"></span></li>
+            <li class="flex justify-between p-2 bg-gray-50 rounded"><span>Geom Mean:</span> <span class="res-geom font-mono font-bold"></span></li>
+            <li class="flex justify-between p-2 bg-gray-50 rounded"><span>Harmonic Mean:</span> <span class="res-harm font-mono font-bold"></span></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="regression-stats hidden mt-6 pt-6 border-t border-gray-100">
+        <h4 class="font-bold text-gray-700 border-b pb-2 mb-3">2-Variable Statistics (X & Y)</h4>
+        <ul class="space-y-2 text-sm grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <li class="flex justify-between p-2 bg-emerald-50 text-emerald-900 rounded"><span>Correlation (r):</span> <span class="res-r font-mono font-bold"></span></li>
+          <li class="flex justify-between p-2 bg-emerald-50 text-emerald-900 rounded"><span>Covariance:</span> <span class="res-cov font-mono font-bold"></span></li>
+          <li class="flex justify-between p-2 bg-purple-50 text-purple-900 rounded"><span>Linear Eq (y = mx + b):</span> <span class="res-eq font-mono font-bold"></span></li>
+          <li class="flex justify-between p-2 bg-purple-50 text-purple-900 rounded"><span>R-Squared (R²):</span> <span class="res-r2 font-mono font-bold"></span></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  import { parseDataset, mean, median, standardDeviation, variance, percentiles, fiveNumberSummary, meanAbsoluteDeviation, geometricMean, harmonicMean, standardError, sum, correlation, covariance, linearRegression } from '../../utils/statistics';
+
+  const initDataset = () => {
+    document.querySelectorAll('.dataset-container').forEach(container => {
+      if (container.hasAttribute('data-init')) return;
+      container.setAttribute('data-init', 'true');
+
+      const slug = container.getAttribute('data-tool');
+      
+      // Determine if we need Y input
+      const needsY = ['covariance-calculator', 'correlation-coefficient', 'linear-regression-calculator', 'regression-equation-calculator', 'r-squared-calculator'].includes(slug);
+      
+      const form = container.querySelector('.ds-form');
+      const xInput = container.querySelector('.x-input') as HTMLTextAreaElement;
+      const yInputGroup = container.querySelector('.y-input-group');
+      const yInput = container.querySelector('.y-input') as HTMLTextAreaElement;
+      const popCheck = container.querySelector('.is-population') as HTMLInputElement;
+      
+      if (needsY) {
+        yInputGroup.classList.remove('hidden');
+        yInput.required = true;
+      }
+
+      const errBox = container.querySelector('.err-box');
+      const errMsg = container.querySelector('.err-msg');
+      const resultSec = container.querySelector('.result-section');
+      const regStats = container.querySelector('.regression-stats');
+      
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        errBox.classList.add('hidden');
+        resultSec.classList.add('hidden');
+        regStats.classList.add('hidden');
+        
+        try {
+          const X = parseDataset(xInput.value);
+          if (X.length === 0) throw new Error("Dataset X must contain at least one valid number.");
+          
+          let Y = [];
+          if (needsY) {
+             Y = parseDataset(yInput.value);
+             if (Y.length === 0) throw new Error("Dataset Y must contain at least one valid number.");
+             if (X.length !== Y.length) throw new Error(`Datasets must be the same length. X has ${X.length}, Y has ${Y.length}.`);
+          }
+
+          const isPop = popCheck.checked;
+          
+          // Compute basics
+          const m = mean(X);
+          const med = median(X);
+          const sd = standardDeviation(X, isPop);
+          const v = variance(X, isPop);
+          const sumX = sum(X);
+          const fn = fiveNumberSummary(X);
+          
+          container.querySelector('.res-n').textContent = X.length.toString();
+          container.querySelector('.res-mean').textContent = m.toFixed(4).replace(/\\.?0+$/, '');
+          container.querySelector('.res-median').textContent = med.toFixed(4).replace(/\\.?0+$/, '');
+          container.querySelector('.res-sd').textContent = sd.toFixed(4).replace(/\\.?0+$/, '');
+          
+          if (fn) {
+            container.querySelector('.res-min').textContent = fn.min.toString();
+            container.querySelector('.res-q1').textContent = fn.q1.toString();
+            container.querySelector('.res-q2').textContent = fn.median.toString();
+            container.querySelector('.res-q3').textContent = fn.q3.toString();
+            container.querySelector('.res-max').textContent = fn.max.toString();
+            container.querySelector('.res-iqr').textContent = (fn.q3 - fn.q1).toFixed(4).replace(/\\.?0+$/, '');
+          }
+          
+          container.querySelector('.res-sum').textContent = sumX.toFixed(4).replace(/\\.?0+$/, '');
+          container.querySelector('.res-var').textContent = v.toFixed(4).replace(/\\.?0+$/, '');
+          container.querySelector('.res-se').textContent = standardError(X).toFixed(4).replace(/\\.?0+$/, '');
+          container.querySelector('.res-mad').textContent = meanAbsoluteDeviation(X).toFixed(4).replace(/\\.?0+$/, '');
+          container.querySelector('.res-geom').textContent = geometricMean(X).toFixed(4).replace(/\\.?0+$/, '');
+          container.querySelector('.res-harm').textContent = harmonicMean(X).toFixed(4).replace(/\\.?0+$/, '');
+
+          let primaryLabel = "Mean";
+          let primaryVal = m.toFixed(4).replace(/\\.?0+$/, '');
+          
+          // Set Primary based on tool slug
+          if (slug.includes('median')) { primaryLabel = "Median"; primaryVal = med.toString(); }
+          if (slug.includes('variance')) { primaryLabel = "Variance"; primaryVal = v.toFixed(4); }
+          if (slug.includes('standard-deviation')) { primaryLabel = "Standard Deviation"; primaryVal = sd.toFixed(4); }
+          if (slug.includes('percentile') || slug.includes('quartile') || slug.includes('iqr')) { primaryLabel = "IQR"; primaryVal = fn ? (fn.q3 - fn.q1).toFixed(4) : '0'; }
+          if (slug.includes('five-number')) { primaryLabel = "Five Number Summary"; primaryVal = `Min:${fn.min} Q1:${fn.q1} Med:${fn.median} Q3:${fn.q3} Max:${fn.max}`; }
+          if (slug.includes('geometric')) { primaryLabel = "Geometric Mean"; primaryVal = geometricMean(X).toFixed(4); }
+          if (slug.includes('harmonic')) { primaryLabel = "Harmonic Mean"; primaryVal = harmonicMean(X).toFixed(4); }
+          if (slug.includes('absolute-deviation')) { primaryLabel = "Mean Absolute Deviation"; primaryVal = meanAbsoluteDeviation(X).toFixed(4); }
+          if (slug.includes('standard-error')) { primaryLabel = "Standard Error (SE)"; primaryVal = standardError(X).toFixed(4); }
+          
+          if (needsY) {
+            regStats.classList.remove('hidden');
+            const corr = correlation(X, Y);
+            const cov = covariance(X, Y, isPop);
+            const reg = linearRegression(X, Y);
+            
+            container.querySelector('.res-r').textContent = corr.toFixed(4);
+            container.querySelector('.res-cov').textContent = cov.toFixed(4);
+            if (reg) {
+               container.querySelector('.res-eq').textContent = `y = ${reg.slope.toFixed(4)}x ${reg.intercept >= 0 ? '+' : ''} ${reg.intercept.toFixed(4)}`;
+               container.querySelector('.res-r2').textContent = reg.rSquared.toFixed(4);
+               
+               if (slug.includes('correlation')) { primaryLabel = "Correlation Coefficient (r)"; primaryVal = corr.toFixed(4); }
+               if (slug.includes('covariance')) { primaryLabel = "Covariance"; primaryVal = cov.toFixed(4); }
+               if (slug.includes('linear-regression') || slug.includes('equation')) { primaryLabel = "Regression Equation"; primaryVal = `y = ${reg.slope.toFixed(4)}x ${reg.intercept >= 0 ? '+' : ''} ${reg.intercept.toFixed(4)}`; }
+               if (slug.includes('r-squared')) { primaryLabel = "R-Squared (R²)"; primaryVal = reg.rSquared.toFixed(4); }
+            }
+          }
+
+          container.querySelector('#primary-label').textContent = primaryLabel;
+          container.querySelector('#primary-value').textContent = primaryVal;
+          
+          resultSec.classList.remove('hidden');
+          
+        } catch (err) {
+          errMsg.textContent = err.message;
+          errBox.classList.remove('hidden');
+        }
+      });
+    });
+  };
+
+  initDataset();
+  document.addEventListener('astro:page-load', initDataset);
+</script>
