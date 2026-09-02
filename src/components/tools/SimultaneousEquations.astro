@@ -1,0 +1,153 @@
+---
+---
+<div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden max-w-2xl mx-auto">
+  <div class="p-6 sm:p-8">
+    <div class="flex justify-center mb-6">
+      <div class="inline-flex bg-gray-100 p-1 rounded-lg">
+        <button id="btn-2v" class="px-4 py-2 text-sm font-medium rounded-md bg-white shadow-sm text-gray-900 transition-colors">2 Variables (x, y)</button>
+        <button id="btn-3v" class="px-4 py-2 text-sm font-medium rounded-md text-gray-500 hover:text-gray-900 transition-colors">3 Variables (x, y, z)</button>
+      </div>
+    </div>
+
+    <form id="sim-form" class="space-y-6">
+      <!-- 2 Variables -->
+      <div id="grid-2v" class="space-y-4">
+        <div class="flex items-center gap-2 flex-wrap justify-center">
+          <input type="number" step="any" id="a1" required class="w-16 p-2 border border-gray-300 rounded focus:ring-emerald-500 text-center" placeholder="a₁"> <span class="font-bold">x</span> <span class="text-gray-400">+</span>
+          <input type="number" step="any" id="b1" required class="w-16 p-2 border border-gray-300 rounded focus:ring-emerald-500 text-center" placeholder="b₁"> <span class="font-bold">y</span> <span class="font-bold text-emerald-600">=</span>
+          <input type="number" step="any" id="d1" required class="w-20 p-2 border border-gray-300 rounded focus:ring-emerald-500 text-center" placeholder="d₁">
+        </div>
+        <div class="flex items-center gap-2 flex-wrap justify-center">
+          <input type="number" step="any" id="a2" required class="w-16 p-2 border border-gray-300 rounded focus:ring-emerald-500 text-center" placeholder="a₂"> <span class="font-bold">x</span> <span class="text-gray-400">+</span>
+          <input type="number" step="any" id="b2" required class="w-16 p-2 border border-gray-300 rounded focus:ring-emerald-500 text-center" placeholder="b₂"> <span class="font-bold">y</span> <span class="font-bold text-emerald-600">=</span>
+          <input type="number" step="any" id="d2" required class="w-20 p-2 border border-gray-300 rounded focus:ring-emerald-500 text-center" placeholder="d₂">
+        </div>
+      </div>
+
+      <!-- 3 Variables -->
+      <div id="grid-3v" class="space-y-4 hidden">
+        <div class="flex items-center gap-2 flex-wrap justify-center">
+          <input type="number" step="any" id="a1_3" class="w-14 p-2 border border-gray-300 rounded text-center" placeholder="a₁"> <span class="font-bold">x</span> <span class="text-gray-400">+</span>
+          <input type="number" step="any" id="b1_3" class="w-14 p-2 border border-gray-300 rounded text-center" placeholder="b₁"> <span class="font-bold">y</span> <span class="text-gray-400">+</span>
+          <input type="number" step="any" id="c1_3" class="w-14 p-2 border border-gray-300 rounded text-center" placeholder="c₁"> <span class="font-bold">z</span> <span class="font-bold text-emerald-600">=</span>
+          <input type="number" step="any" id="d1_3" class="w-16 p-2 border border-gray-300 rounded text-center" placeholder="d₁">
+        </div>
+        <div class="flex items-center gap-2 flex-wrap justify-center">
+          <input type="number" step="any" id="a2_3" class="w-14 p-2 border border-gray-300 rounded text-center" placeholder="a₂"> <span class="font-bold">x</span> <span class="text-gray-400">+</span>
+          <input type="number" step="any" id="b2_3" class="w-14 p-2 border border-gray-300 rounded text-center" placeholder="b₂"> <span class="font-bold">y</span> <span class="text-gray-400">+</span>
+          <input type="number" step="any" id="c2_3" class="w-14 p-2 border border-gray-300 rounded text-center" placeholder="c₂"> <span class="font-bold">z</span> <span class="font-bold text-emerald-600">=</span>
+          <input type="number" step="any" id="d2_3" class="w-16 p-2 border border-gray-300 rounded text-center" placeholder="d₂">
+        </div>
+        <div class="flex items-center gap-2 flex-wrap justify-center">
+          <input type="number" step="any" id="a3_3" class="w-14 p-2 border border-gray-300 rounded text-center" placeholder="a₃"> <span class="font-bold">x</span> <span class="text-gray-400">+</span>
+          <input type="number" step="any" id="b3_3" class="w-14 p-2 border border-gray-300 rounded text-center" placeholder="b₃"> <span class="font-bold">y</span> <span class="text-gray-400">+</span>
+          <input type="number" step="any" id="c3_3" class="w-14 p-2 border border-gray-300 rounded text-center" placeholder="c₃"> <span class="font-bold">z</span> <span class="font-bold text-emerald-600">=</span>
+          <input type="number" step="any" id="d3_3" class="w-16 p-2 border border-gray-300 rounded text-center" placeholder="d₃">
+        </div>
+      </div>
+
+      <div class="flex gap-4 pt-4">
+        <button type="submit" class="flex-1 bg-emerald-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-emerald-700 transition-colors">Solve</button>
+        <button type="reset" class="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-colors">Reset</button>
+      </div>
+    </form>
+
+    <div id="sim-result" class="mt-8 pt-6 border-t border-gray-100 hidden">
+      <h3 class="text-lg font-semibold mb-3">Result</h3>
+      <div id="sim-ans" class="bg-emerald-50 text-emerald-800 p-4 rounded-lg font-mono text-lg whitespace-pre-wrap"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const initSim = () => {
+    let vars = 2;
+    const btn2 = document.getElementById('btn-2v');
+    const btn3 = document.getElementById('btn-3v');
+    const grid2 = document.getElementById('grid-2v');
+    const grid3 = document.getElementById('grid-3v');
+    const form = document.getElementById('sim-form');
+    const resSec = document.getElementById('sim-result');
+    const resAns = document.getElementById('sim-ans');
+
+    if (!btn2) return;
+
+    btn2.addEventListener('click', () => {
+      vars = 2;
+      btn2.classList.replace('text-gray-500', 'text-gray-900');
+      btn2.classList.replace('bg-transparent', 'bg-white');
+      btn2.classList.add('shadow-sm');
+      btn3.classList.replace('text-gray-900', 'text-gray-500');
+      btn3.classList.replace('bg-white', 'bg-transparent');
+      btn3.classList.remove('shadow-sm');
+      grid2.classList.remove('hidden');
+      grid3.classList.add('hidden');
+      
+      grid2.querySelectorAll('input').forEach(i => i.required = true);
+      grid3.querySelectorAll('input').forEach(i => i.required = false);
+      resSec.classList.add('hidden');
+    });
+
+    btn3.addEventListener('click', () => {
+      vars = 3;
+      btn3.classList.replace('text-gray-500', 'text-gray-900');
+      btn3.classList.replace('bg-transparent', 'bg-white');
+      btn3.classList.add('shadow-sm');
+      btn2.classList.replace('text-gray-900', 'text-gray-500');
+      btn2.classList.replace('bg-white', 'bg-transparent');
+      btn2.classList.remove('shadow-sm');
+      grid3.classList.remove('hidden');
+      grid2.classList.add('hidden');
+      
+      grid3.querySelectorAll('input').forEach(i => i.required = true);
+      grid2.querySelectorAll('input').forEach(i => i.required = false);
+      resSec.classList.add('hidden');
+    });
+
+    // Initialize requires
+    grid3.querySelectorAll('input').forEach(i => i.required = false);
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const v = (id) => parseFloat((document.getElementById(id) as HTMLInputElement).value) || 0;
+      const fmt = (n) => Number.isInteger(n) ? n : parseFloat(n.toFixed(4));
+
+      if (vars === 2) {
+        const a1 = v('a1'), b1 = v('b1'), d1 = v('d1');
+        const a2 = v('a2'), b2 = v('b2'), d2 = v('d2');
+        
+        const det = a1*b2 - a2*b1;
+        const detX = d1*b2 - d2*b1;
+        const detY = a1*d2 - a2*d1;
+
+        if (det === 0) {
+          if (detX === 0 && detY === 0) resAns.textContent = "Infinitely many solutions (Lines overlap)";
+          else resAns.textContent = "No solution (Lines are parallel)";
+        } else {
+          resAns.textContent = `x = ${fmt(detX/det)}\ny = ${fmt(detY/det)}`;
+        }
+      } else {
+        const a1 = v('a1_3'), b1 = v('b1_3'), c1 = v('c1_3'), d1 = v('d1_3');
+        const a2 = v('a2_3'), b2 = v('b2_3'), c2 = v('c2_3'), d2 = v('d2_3');
+        const a3 = v('a3_3'), b3 = v('b3_3'), c3 = v('c3_3'), d3 = v('d3_3');
+
+        const det = a1*(b2*c3 - b3*c2) - b1*(a2*c3 - a3*c2) + c1*(a2*b3 - a3*b2);
+        
+        if (det === 0) {
+          resAns.textContent = "Determinant is 0. System has either no solution or infinitely many solutions.";
+        } else {
+          const detX = d1*(b2*c3 - b3*c2) - b1*(d2*c3 - d3*c2) + c1*(d2*b3 - d3*b2);
+          const detY = a1*(d2*c3 - d3*c2) - d1*(a2*c3 - a3*c2) + c1*(a2*d3 - a3*d2);
+          const detZ = a1*(b2*d3 - b3*d2) - b1*(a2*d3 - a3*d2) + d1*(a2*b3 - a3*b2);
+          
+          resAns.textContent = `x = ${fmt(detX/det)}\ny = ${fmt(detY/det)}\nz = ${fmt(detZ/det)}`;
+        }
+      }
+      
+      resSec.classList.remove('hidden');
+    });
+  };
+  initSim();
+  document.addEventListener('astro:page-load', initSim);
+</script>

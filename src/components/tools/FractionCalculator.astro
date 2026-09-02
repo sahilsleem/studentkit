@@ -1,0 +1,150 @@
+---
+---
+<div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden max-w-2xl mx-auto">
+  <div class="p-6 sm:p-8">
+    
+    <div class="flex flex-col md:flex-row items-center justify-center gap-6 mb-8">
+      <!-- Fraction 1 -->
+      <div class="flex items-center gap-3 bg-gray-50 p-4 rounded-xl border border-gray-200">
+        <input type="number" id="w1" placeholder="Whole" class="w-16 h-12 text-center border border-gray-300 rounded focus:ring-emerald-500">
+        <div class="flex flex-col gap-1 items-center">
+          <input type="number" id="n1" placeholder="Num" class="w-16 h-10 text-center border border-gray-300 rounded focus:ring-emerald-500">
+          <div class="h-px w-full bg-gray-400"></div>
+          <input type="number" id="d1" placeholder="Den" class="w-16 h-10 text-center border border-gray-300 rounded focus:ring-emerald-500">
+        </div>
+      </div>
+
+      <!-- Operator -->
+      <select id="op" class="text-2xl font-bold bg-white border border-gray-300 rounded-lg p-2 focus:ring-emerald-500 focus:border-emerald-500">
+        <option value="+">+</option>
+        <option value="-">−</option>
+        <option value="*">×</option>
+        <option value="/">÷</option>
+      </select>
+
+      <!-- Fraction 2 -->
+      <div class="flex items-center gap-3 bg-gray-50 p-4 rounded-xl border border-gray-200">
+        <input type="number" id="w2" placeholder="Whole" class="w-16 h-12 text-center border border-gray-300 rounded focus:ring-emerald-500">
+        <div class="flex flex-col gap-1 items-center">
+          <input type="number" id="n2" placeholder="Num" class="w-16 h-10 text-center border border-gray-300 rounded focus:ring-emerald-500">
+          <div class="h-px w-full bg-gray-400"></div>
+          <input type="number" id="d2" placeholder="Den" class="w-16 h-10 text-center border border-gray-300 rounded focus:ring-emerald-500">
+        </div>
+      </div>
+    </div>
+
+    <div class="flex gap-4">
+      <button id="calc-btn" class="flex-1 bg-emerald-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-emerald-700 transition-colors">Calculate</button>
+      <button id="reset-btn" class="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-colors">Reset</button>
+    </div>
+
+    <div id="frac-result" class="mt-8 pt-6 border-t border-gray-100 hidden">
+      <h3 class="text-lg font-semibold mb-4 text-center">Result</h3>
+      
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-8">
+        <!-- Simplified Result -->
+        <div class="text-center">
+          <p class="text-sm text-gray-500 mb-2">Simplified Fraction</p>
+          <div id="res-frac" class="inline-flex items-center gap-2 text-2xl font-bold">
+             <!-- Inserted via JS -->
+          </div>
+        </div>
+
+        <div class="hidden sm:block w-px h-16 bg-gray-200"></div>
+
+        <!-- Decimal Result -->
+        <div class="text-center">
+          <p class="text-sm text-gray-500 mb-2">Decimal</p>
+          <div id="res-dec" class="text-2xl font-bold text-gray-900">
+             <!-- Inserted via JS -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  import * as math from 'mathjs';
+
+  const initFrac = () => {
+    const calcBtn = document.getElementById('calc-btn');
+    const resetBtn = document.getElementById('reset-btn');
+    const resSec = document.getElementById('frac-result');
+    const resFrac = document.getElementById('res-frac');
+    const resDec = document.getElementById('res-dec');
+
+    if (!calcBtn) return;
+
+    const getFrac = (wId, nId, dId) => {
+      let w = parseFloat((document.getElementById(wId) as HTMLInputElement).value) || 0;
+      let n = parseFloat((document.getElementById(nId) as HTMLInputElement).value) || 0;
+      let d = parseFloat((document.getElementById(dId) as HTMLInputElement).value);
+      
+      if (isNaN(d) || d === 0) d = 1; // Default denominator if empty, unless they try to divide by 0 explicitly
+      if ((document.getElementById(dId) as HTMLInputElement).value === '0') throw new Error("Denominator cannot be 0");
+      
+      // Convert mixed to improper
+      if (w < 0) {
+        n = -(Math.abs(w * d) + n);
+      } else {
+        n = w * d + n;
+      }
+      
+      return math.fraction(n, d);
+    };
+
+    calcBtn.addEventListener('click', () => {
+      try {
+        const f1 = getFrac('w1', 'n1', 'd1');
+        const f2 = getFrac('w2', 'n2', 'd2');
+        const op = (document.getElementById('op') as HTMLSelectElement).value;
+
+        if (op === '/' && f2.n === 0) throw new Error("Cannot divide by zero");
+
+        let result;
+        if (op === '+') result = math.add(f1, f2);
+        else if (op === '-') result = math.subtract(f1, f2);
+        else if (op === '*') result = math.multiply(f1, f2);
+        else if (op === '/') result = math.divide(f1, f2);
+
+        // Render Decimal
+        const decVal = result.n / result.d;
+        resDec.textContent = (result.s < 0 ? '-' : '') + (Number.isInteger(decVal) ? decVal : parseFloat(decVal.toFixed(6)));
+
+        // Render Simplified Fraction
+        const sign = result.s < 0 ? '-' : '';
+        const num = Math.abs(result.n);
+        const den = result.d;
+        
+        let fracHtml = sign;
+        if (den === 1) {
+          fracHtml += num;
+        } else if (num > den) {
+          const whole = Math.floor(num / den);
+          const remainder = num % den;
+          fracHtml += `${whole} <div class="flex flex-col items-center text-lg"><span>${remainder}</span><div class="h-0.5 w-full bg-gray-900 my-0.5"></div><span>${den}</span></div>`;
+        } else {
+          fracHtml += `<div class="flex flex-col items-center text-lg"><span>${num}</span><div class="h-0.5 w-full bg-gray-900 my-0.5"></div><span>${den}</span></div>`;
+        }
+        
+        resFrac.innerHTML = fracHtml;
+        resSec.classList.remove('hidden');
+
+      } catch (err) {
+        resFrac.innerHTML = `<span class="text-red-500 text-lg">${err.message || 'Error'}</span>`;
+        resDec.textContent = 'Error';
+        resSec.classList.remove('hidden');
+      }
+    });
+
+    resetBtn.addEventListener('click', () => {
+      ['w1', 'n1', 'd1', 'w2', 'n2', 'd2'].forEach(id => (document.getElementById(id) as HTMLInputElement).value = '');
+      resSec.classList.add('hidden');
+    });
+  };
+
+  initFrac();
+  document.addEventListener('astro:page-load', initFrac);
+</script>

@@ -1,0 +1,220 @@
+---
+---
+<div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden max-w-sm mx-auto sm:max-w-md">
+  <div class="p-6">
+    <!-- Screen -->
+    <div class="bg-gray-50 p-4 rounded-xl mb-4 border border-gray-200 shadow-inner">
+      <div id="calc-history" class="text-right text-gray-500 text-sm h-6 overflow-hidden"></div>
+      <div id="calc-screen" class="text-right text-3xl font-mono text-gray-900 overflow-x-auto whitespace-nowrap mt-1">0</div>
+    </div>
+    
+    <!-- Controls -->
+    <div class="flex justify-between items-center mb-4 px-1">
+      <div class="flex gap-2 bg-gray-100 p-1 rounded-lg">
+        <button id="deg-btn" class="px-3 py-1 text-xs font-bold rounded-md bg-white shadow-sm text-gray-900 transition-colors">DEG</button>
+        <button id="rad-btn" class="px-3 py-1 text-xs font-bold rounded-md text-gray-500 hover:text-gray-900 transition-colors">RAD</button>
+      </div>
+      <button id="hist-btn" class="text-xs font-medium text-emerald-600 hover:text-emerald-700">View History</button>
+    </div>
+
+    <!-- History Panel (Hidden) -->
+    <div id="history-panel" class="hidden mb-4 bg-gray-50 rounded-lg p-3 border border-gray-200 max-h-40 overflow-y-auto">
+      <h4 class="text-xs font-bold text-gray-500 uppercase mb-2">History</h4>
+      <ul id="history-list" class="space-y-2 text-sm"></ul>
+    </div>
+
+    <!-- Keypad -->
+    <div class="grid grid-cols-5 gap-2 sm:gap-3">
+      <!-- Row 1 -->
+      <button class="calc-btn func text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg p-3 text-sm font-medium">sin</button>
+      <button class="calc-btn func text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg p-3 text-sm font-medium">cos</button>
+      <button class="calc-btn func text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg p-3 text-sm font-medium">tan</button>
+      <button class="calc-btn text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg p-3 text-sm font-medium">(</button>
+      <button class="calc-btn text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg p-3 text-sm font-medium">)</button>
+      
+      <!-- Row 2 -->
+      <button class="calc-btn func text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg p-3 text-sm font-medium">asin</button>
+      <button class="calc-btn func text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg p-3 text-sm font-medium">acos</button>
+      <button class="calc-btn func text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg p-3 text-sm font-medium">atan</button>
+      <button class="calc-btn func text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg p-3 text-sm font-medium">log</button>
+      <button class="calc-btn func text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg p-3 text-sm font-medium">ln</button>
+
+      <!-- Row 3 -->
+      <button class="calc-btn text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg p-3 text-sm font-medium">^</button>
+      <button class="calc-btn text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg p-3 text-sm font-medium">√</button>
+      <button class="calc-btn text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg p-3 text-sm font-medium">!</button>
+      <button class="calc-btn text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg p-3 text-sm font-medium">π</button>
+      <button class="calc-btn text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg p-3 text-sm font-medium">e</button>
+
+      <!-- Row 4 -->
+      <button class="calc-btn num font-bold text-gray-900 bg-white border border-gray-200 hover:bg-gray-50 rounded-lg p-3 text-lg">7</button>
+      <button class="calc-btn num font-bold text-gray-900 bg-white border border-gray-200 hover:bg-gray-50 rounded-lg p-3 text-lg">8</button>
+      <button class="calc-btn num font-bold text-gray-900 bg-white border border-gray-200 hover:bg-gray-50 rounded-lg p-3 text-lg">9</button>
+      <button id="btn-del" class="text-red-500 font-bold bg-red-50 hover:bg-red-100 rounded-lg p-3 text-sm">DEL</button>
+      <button id="btn-ac" class="text-red-500 font-bold bg-red-50 hover:bg-red-100 rounded-lg p-3 text-sm">AC</button>
+
+      <!-- Row 5 -->
+      <button class="calc-btn num font-bold text-gray-900 bg-white border border-gray-200 hover:bg-gray-50 rounded-lg p-3 text-lg">4</button>
+      <button class="calc-btn num font-bold text-gray-900 bg-white border border-gray-200 hover:bg-gray-50 rounded-lg p-3 text-lg">5</button>
+      <button class="calc-btn num font-bold text-gray-900 bg-white border border-gray-200 hover:bg-gray-50 rounded-lg p-3 text-lg">6</button>
+      <button class="calc-btn op text-emerald-600 font-bold bg-emerald-50 hover:bg-emerald-100 rounded-lg p-3 text-lg">×</button>
+      <button class="calc-btn op text-emerald-600 font-bold bg-emerald-50 hover:bg-emerald-100 rounded-lg p-3 text-lg">÷</button>
+
+      <!-- Row 6 -->
+      <button class="calc-btn num font-bold text-gray-900 bg-white border border-gray-200 hover:bg-gray-50 rounded-lg p-3 text-lg">1</button>
+      <button class="calc-btn num font-bold text-gray-900 bg-white border border-gray-200 hover:bg-gray-50 rounded-lg p-3 text-lg">2</button>
+      <button class="calc-btn num font-bold text-gray-900 bg-white border border-gray-200 hover:bg-gray-50 rounded-lg p-3 text-lg">3</button>
+      <button class="calc-btn op text-emerald-600 font-bold bg-emerald-50 hover:bg-emerald-100 rounded-lg p-3 text-lg">+</button>
+      <button class="calc-btn op text-emerald-600 font-bold bg-emerald-50 hover:bg-emerald-100 rounded-lg p-3 text-lg">−</button>
+
+      <!-- Row 7 -->
+      <button class="calc-btn num font-bold text-gray-900 bg-white border border-gray-200 hover:bg-gray-50 rounded-lg p-3 text-lg">0</button>
+      <button class="calc-btn text-gray-900 font-bold bg-white border border-gray-200 hover:bg-gray-50 rounded-lg p-3 text-lg">.</button>
+      <button class="calc-btn text-gray-900 font-bold bg-white border border-gray-200 hover:bg-gray-50 rounded-lg p-3 text-lg">%</button>
+      <button class="calc-btn font-bold text-gray-900 bg-white border border-gray-200 hover:bg-gray-50 rounded-lg p-3 text-sm">ANS</button>
+      <button id="btn-eq" class="bg-emerald-600 text-white font-bold hover:bg-emerald-700 rounded-lg p-3 text-xl shadow-md">=</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { evaluate } from 'mathjs';
+
+  const initCalc = () => {
+    const screen = document.getElementById('calc-screen');
+    const histScreen = document.getElementById('calc-history');
+    const degBtn = document.getElementById('deg-btn');
+    const radBtn = document.getElementById('rad-btn');
+    const histBtn = document.getElementById('hist-btn');
+    const histPanel = document.getElementById('history-panel');
+    const histList = document.getElementById('history-list');
+
+    if (!screen) return;
+
+    let expr = '';
+    let isDeg = true;
+    let ans = '0';
+    let history = [];
+
+    const updateScreen = () => {
+      screen.textContent = expr || '0';
+    };
+
+    const toggleAngle = (deg) => {
+      isDeg = deg;
+      if (deg) {
+        degBtn.classList.replace('text-gray-500', 'text-gray-900');
+        degBtn.classList.replace('bg-transparent', 'bg-white');
+        degBtn.classList.add('shadow-sm');
+        radBtn.classList.replace('text-gray-900', 'text-gray-500');
+        radBtn.classList.replace('bg-white', 'bg-transparent');
+        radBtn.classList.remove('shadow-sm');
+      } else {
+        radBtn.classList.replace('text-gray-500', 'text-gray-900');
+        radBtn.classList.replace('bg-transparent', 'bg-white');
+        radBtn.classList.add('shadow-sm');
+        degBtn.classList.replace('text-gray-900', 'text-gray-500');
+        degBtn.classList.replace('bg-white', 'bg-transparent');
+        degBtn.classList.remove('shadow-sm');
+      }
+    };
+
+    degBtn.addEventListener('click', () => toggleAngle(true));
+    radBtn.addEventListener('click', () => toggleAngle(false));
+
+    histBtn.addEventListener('click', () => {
+      histPanel.classList.toggle('hidden');
+    });
+
+    const calculate = () => {
+      if (!expr) return;
+      try {
+        let evalExpr = expr
+          .replace(/×/g, '*')
+          .replace(/÷/g, '/')
+          .replace(/−/g, '-')
+          .replace(/√/g, 'sqrt')
+          .replace(/π/g, 'pi')
+          .replace(/ANS/g, `(${ans})`)
+          .replace(/ln/g, 'log'); // math.js log is ln, log10 is log10
+
+        // Handle degrees for trig functions
+        if (isDeg) {
+          evalExpr = evalExpr.replace(/(sin|cos|tan)\(([^)]+)\)/g, '$1($2 deg)');
+        }
+
+        let res = evaluate(evalExpr);
+        
+        if (typeof res === 'number') {
+            res = parseFloat(res.toFixed(10)).toString();
+        }
+
+        histScreen.textContent = expr + ' =';
+        ans = res;
+        expr = res;
+        
+        // Add to history
+        history.unshift(`${histScreen.textContent} ${ans}`);
+        if(history.length > 10) history.pop();
+        histList.innerHTML = history.map(h => `<li class="border-b border-gray-100 pb-1">${h}</li>`).join('');
+
+        updateScreen();
+      } catch (e) {
+        screen.textContent = 'Error';
+        setTimeout(updateScreen, 1500);
+      }
+    };
+
+    document.querySelectorAll('.calc-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const val = (e.target as HTMLElement).textContent;
+        if (val === 'sin' || val === 'cos' || val === 'tan' || val === 'asin' || val === 'acos' || val === 'atan' || val === 'log' || val === 'ln' || val === '√') {
+          expr += val + '(';
+        } else {
+          expr += val;
+        }
+        updateScreen();
+      });
+    });
+
+    document.getElementById('btn-ac').addEventListener('click', () => {
+      expr = '';
+      histScreen.textContent = '';
+      updateScreen();
+    });
+
+    document.getElementById('btn-del').addEventListener('click', () => {
+      expr = expr.slice(0, -1);
+      updateScreen();
+    });
+
+    document.getElementById('btn-eq').addEventListener('click', calculate);
+
+    // Keyboard support
+    document.addEventListener('keydown', (e) => {
+      if (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA') return;
+      
+      const key = e.key;
+      if (/[0-9\.\+\-\*\/\(\)\^\%]/.test(key)) {
+        let v = key;
+        if (v === '*') v = '×';
+        if (v === '/') v = '÷';
+        if (v === '-') v = '−';
+        expr += v;
+        updateScreen();
+      } else if (key === 'Enter' || key === '=') {
+        e.preventDefault();
+        calculate();
+      } else if (key === 'Backspace') {
+        expr = expr.slice(0, -1);
+        updateScreen();
+      } else if (key === 'Escape') {
+        expr = '';
+        updateScreen();
+      }
+    });
+  };
+
+  initCalc();
+  document.addEventListener('astro:page-load', initCalc);
+</script>

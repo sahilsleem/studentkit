@@ -1,0 +1,184 @@
+---
+---
+<div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden max-w-4xl mx-auto">
+  <div class="p-6 sm:p-8">
+    <div class="flex justify-center mb-8">
+      <div class="inline-flex bg-gray-100 p-1 rounded-lg">
+        <button id="btn-2x2" class="px-4 py-2 text-sm font-medium rounded-md bg-white shadow-sm text-gray-900 transition-colors">2×2 Matrices</button>
+        <button id="btn-3x3" class="px-4 py-2 text-sm font-medium rounded-md text-gray-500 hover:text-gray-900 transition-colors">3×3 Matrices</button>
+      </div>
+    </div>
+
+    <div class="flex flex-col md:flex-row gap-8 items-center justify-center mb-8">
+      <!-- Matrix A -->
+      <div class="text-center">
+        <h3 class="font-bold text-gray-700 mb-2">Matrix A</h3>
+        <div id="mat-a" class="grid gap-2 bg-gray-50 p-4 rounded-xl border border-gray-200" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
+          <!-- Dynamically filled by JS based on size -->
+        </div>
+      </div>
+
+      <!-- Matrix B -->
+      <div class="text-center">
+        <h3 class="font-bold text-gray-700 mb-2">Matrix B</h3>
+        <div id="mat-b" class="grid gap-2 bg-gray-50 p-4 rounded-xl border border-gray-200" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
+          <!-- Dynamically filled by JS based on size -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Operations -->
+    <div class="flex flex-wrap justify-center gap-3 mb-8">
+      <button class="mat-op px-4 py-2 bg-emerald-600 text-white rounded shadow-sm hover:bg-emerald-700 font-medium" data-op="add">A + B</button>
+      <button class="mat-op px-4 py-2 bg-emerald-600 text-white rounded shadow-sm hover:bg-emerald-700 font-medium" data-op="sub">A − B</button>
+      <button class="mat-op px-4 py-2 bg-emerald-600 text-white rounded shadow-sm hover:bg-emerald-700 font-medium" data-op="mul">A × B</button>
+      <button class="mat-op px-4 py-2 bg-blue-600 text-white rounded shadow-sm hover:bg-blue-700 font-medium" data-op="deta">det(A)</button>
+      <button class="mat-op px-4 py-2 bg-blue-600 text-white rounded shadow-sm hover:bg-blue-700 font-medium" data-op="detb">det(B)</button>
+      <button class="mat-op px-4 py-2 bg-purple-600 text-white rounded shadow-sm hover:bg-purple-700 font-medium" data-op="inva">A⁻¹</button>
+      <button class="mat-op px-4 py-2 bg-purple-600 text-white rounded shadow-sm hover:bg-purple-700 font-medium" data-op="invb">B⁻¹</button>
+      <button class="mat-op px-4 py-2 bg-indigo-600 text-white rounded shadow-sm hover:bg-indigo-700 font-medium" data-op="trana">Aᵀ</button>
+      <button class="mat-op px-4 py-2 bg-indigo-600 text-white rounded shadow-sm hover:bg-indigo-700 font-medium" data-op="tranb">Bᵀ</button>
+    </div>
+
+    <div id="mat-result" class="border-t border-gray-200 pt-6 hidden text-center">
+      <h3 class="text-lg font-bold text-gray-900 mb-4" id="res-title">Result</h3>
+      <div id="res-content" class="inline-block bg-gray-50 p-6 rounded-xl border border-gray-200 shadow-inner min-w-[200px]">
+        <!-- Result matrix or scalar here -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import * as math from 'mathjs';
+
+  const initMatrix = () => {
+    let size = 2;
+    const btn2 = document.getElementById('btn-2x2');
+    const btn3 = document.getElementById('btn-3x3');
+    const matA = document.getElementById('mat-a');
+    const matB = document.getElementById('mat-b');
+    const resSec = document.getElementById('mat-result');
+    const resTitle = document.getElementById('res-title');
+    const resContent = document.getElementById('res-content');
+
+    if (!btn2) return;
+
+    const renderGrid = (container, prefix) => {
+      container.style.gridTemplateColumns = `repeat(${size}, minmax(0, 1fr))`;
+      container.innerHTML = '';
+      for (let i = 0; i < size; i++) {
+        for (let j = 0; j < size; j++) {
+          const input = document.createElement('input');
+          input.type = 'number';
+          input.step = 'any';
+          input.id = `${prefix}-${i}-${j}`;
+          input.className = 'w-16 h-12 text-center border border-gray-300 rounded focus:ring-emerald-500 font-mono text-sm';
+          input.value = (i === j) ? '1' : '0'; // Default to identity matrix
+          container.appendChild(input);
+        }
+      }
+    };
+
+    const getMatrix = (prefix) => {
+      const m = [];
+      for (let i = 0; i < size; i++) {
+        const row = [];
+        for (let j = 0; j < size; j++) {
+          const val = parseFloat((document.getElementById(`${prefix}-${i}-${j}`) as HTMLInputElement).value) || 0;
+          row.push(val);
+        }
+        m.push(row);
+      }
+      return m;
+    };
+
+    const fmt = (n) => {
+      if(typeof n !== 'number') return n;
+      return Number.isInteger(n) ? n : parseFloat(n.toFixed(4));
+    }
+
+    const renderOutput = (data, title) => {
+      resTitle.textContent = title;
+      resSec.classList.remove('hidden');
+      
+      if (typeof data === 'number' || typeof data === 'string') {
+        resContent.innerHTML = `<div class="text-2xl font-bold font-mono">${fmt(data)}</div>`;
+        return;
+      }
+
+      // Matrix result
+      const rows = data.length;
+      const cols = data[0].length;
+      let html = `<div class="grid gap-2" style="grid-template-columns: repeat(${cols}, minmax(0, 1fr));">`;
+      for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < cols; j++) {
+          html += `<div class="w-16 h-12 flex items-center justify-center bg-white border border-gray-300 rounded font-mono text-sm">${fmt(data[i][j])}</div>`;
+        }
+      }
+      html += `</div>`;
+      resContent.innerHTML = html;
+    };
+
+    const updateSize = (newSize) => {
+      size = newSize;
+      renderGrid(matA, 'a');
+      renderGrid(matB, 'b');
+      resSec.classList.add('hidden');
+    };
+
+    btn2.addEventListener('click', () => {
+      btn2.classList.replace('text-gray-500', 'text-gray-900');
+      btn2.classList.replace('bg-transparent', 'bg-white');
+      btn2.classList.add('shadow-sm');
+      btn3.classList.replace('text-gray-900', 'text-gray-500');
+      btn3.classList.replace('bg-white', 'bg-transparent');
+      btn3.classList.remove('shadow-sm');
+      updateSize(2);
+    });
+
+    btn3.addEventListener('click', () => {
+      btn3.classList.replace('text-gray-500', 'text-gray-900');
+      btn3.classList.replace('bg-transparent', 'bg-white');
+      btn3.classList.add('shadow-sm');
+      btn2.classList.replace('text-gray-900', 'text-gray-500');
+      btn2.classList.replace('bg-white', 'bg-transparent');
+      btn2.classList.remove('shadow-sm');
+      updateSize(3);
+    });
+
+    // Initial render
+    updateSize(2);
+
+    document.querySelectorAll('.mat-op').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const op = (e.target as HTMLElement).getAttribute('data-op');
+        const A = getMatrix('a');
+        const B = getMatrix('b');
+        
+        try {
+          if (op === 'add') renderOutput(math.add(A, B), 'A + B');
+          else if (op === 'sub') renderOutput(math.subtract(A, B), 'A − B');
+          else if (op === 'mul') renderOutput(math.multiply(A, B), 'A × B');
+          else if (op === 'deta') renderOutput(math.det(A), 'Determinant of A');
+          else if (op === 'detb') renderOutput(math.det(B), 'Determinant of B');
+          else if (op === 'trana') renderOutput(math.transpose(A), 'Transpose of A');
+          else if (op === 'tranb') renderOutput(math.transpose(B), 'Transpose of B');
+          else if (op === 'inva') {
+            if (math.det(A) === 0) renderOutput('Matrix A is singular (no inverse)', 'Inverse of A');
+            else renderOutput(math.inv(A), 'Inverse of A');
+          }
+          else if (op === 'invb') {
+            if (math.det(B) === 0) renderOutput('Matrix B is singular (no inverse)', 'Inverse of B');
+            else renderOutput(math.inv(B), 'Inverse of B');
+          }
+        } catch (err) {
+          renderOutput('Error calculating', 'Result');
+        }
+      });
+    });
+  };
+
+  initMatrix();
+  document.addEventListener('astro:page-load', initMatrix);
+</script>
