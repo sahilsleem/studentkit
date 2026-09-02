@@ -1,0 +1,119 @@
+---
+import { tools } from '../../data/registry';
+const { tool } = Astro.props;
+---
+
+<div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden max-w-4xl mx-auto chem-form-container" data-tool={tool.slug}>
+  <div class="p-6 sm:p-8">
+    <div class="mb-6 border-b border-gray-100 pb-4 text-center">
+      <h3 class="text-2xl font-bold text-gray-900">{tool.title}</h3>
+      <p class="text-gray-500 mt-2">{tool.description}</p>
+    </div>
+
+    <form class="space-y-6 chem-form">
+      <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-2">Chemical Formula</label>
+        <div class="flex gap-2">
+          <input 
+            type="text" 
+            class="form-input flex-1 p-4 text-lg font-mono border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-gray-50 placeholder-gray-400" 
+            placeholder="e.g. CuSO4 or (NH4)2SO4"
+            required 
+          />
+          <button type="submit" class="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors shadow-sm">
+            Calculate
+          </button>
+        </div>
+        <p class="text-xs text-gray-500 mt-2 text-center">Supports nested parentheses. Remember to capitalize properly (e.g., Co for Cobalt, CO for Carbon Monoxide).</p>
+      </div>
+    </form>
+
+    <div class="err-box hidden mt-6 bg-red-50 text-red-700 p-4 rounded-lg text-sm font-medium border border-red-100 flex items-start gap-3">
+      <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+      <span class="err-msg"></span>
+    </div>
+
+    <div class="result-section hidden mt-8 pt-8 border-t border-gray-100">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div class="bg-blue-50 border border-blue-100 rounded-xl p-6 text-center col-span-1 md:col-span-3">
+          <p class="text-sm font-semibold text-blue-600 uppercase tracking-wider mb-2">Molar Mass</p>
+          <div class="flex items-end justify-center gap-2">
+            <span class="molar-mass-val text-4xl font-black text-blue-900"></span>
+            <span class="text-lg font-medium text-blue-700 mb-1">g/mol</span>
+          </div>
+        </div>
+      </div>
+      
+      <h3 class="text-lg font-semibold mb-3 text-gray-800">Element Composition</h3>
+      <div class="overflow-x-auto rounded-lg border border-gray-200">
+        <table class="w-full text-left border-collapse">
+          <thead class="bg-gray-50 text-gray-700 text-sm uppercase tracking-wider">
+            <tr>
+              <th class="px-6 py-3 border-b font-semibold">Element</th>
+              <th class="px-6 py-3 border-b font-semibold text-center">Count</th>
+              <th class="px-6 py-3 border-b font-semibold text-right">Mass (g/mol)</th>
+              <th class="px-6 py-3 border-b font-semibold text-right">Mass %</th>
+            </tr>
+          </thead>
+          <tbody class="comp-tbody divide-y divide-gray-100 text-gray-800">
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { calculateMolarMass } from '../../utils/chemicalParser';
+
+  const initChemForm = () => {
+    document.querySelectorAll('.chem-form-container').forEach(container => {
+      if (container.hasAttribute('data-init')) return;
+      container.setAttribute('data-init', 'true');
+
+      const form = container.querySelector('.chem-form');
+      const input = container.querySelector('.form-input') as HTMLInputElement;
+      const errBox = container.querySelector('.err-box');
+      const errMsg = container.querySelector('.err-msg');
+      const resultSec = container.querySelector('.result-section');
+      const mmVal = container.querySelector('.molar-mass-val');
+      const compTbody = container.querySelector('.comp-tbody');
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        errBox.classList.add('hidden');
+        resultSec.classList.add('hidden');
+        
+        try {
+          const formula = input.value;
+          const { totalMass, elements } = calculateMolarMass(formula);
+          
+          mmVal.textContent = totalMass.toFixed(4);
+          
+          compTbody.innerHTML = '';
+          Object.entries(elements).forEach(([sym, data]) => {
+             const { count, mass } = data;
+             const percent = (mass / totalMass) * 100;
+             const tr = document.createElement('tr');
+             tr.innerHTML = `
+               <td class="px-6 py-4 font-bold text-gray-900">${sym}</td>
+               <td class="px-6 py-4 text-center text-gray-600">${count}</td>
+               <td class="px-6 py-4 text-right font-mono">${mass.toFixed(4)}</td>
+               <td class="px-6 py-4 text-right font-mono font-semibold text-emerald-600">${percent.toFixed(2)}%</td>
+             `;
+             compTbody.appendChild(tr);
+          });
+          
+          resultSec.classList.remove('hidden');
+          
+        } catch (err) {
+          errMsg.textContent = err.message;
+          errBox.classList.remove('hidden');
+        }
+      });
+    });
+  };
+
+  initChemForm();
+  document.addEventListener('astro:page-load', initChemForm);
+</script>

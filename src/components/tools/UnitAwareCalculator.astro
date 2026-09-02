@@ -106,6 +106,7 @@ const configJson = JSON.stringify(tool.physicsConfig || {});
 <script>
   import * as math from 'mathjs';
   import { PHYSICS_CONSTANTS } from '../../utils/physicsConstants';
+  import { CHEMISTRY_CONSTANTS } from '../../utils/chemistryConstants';
 
   const initUnitAwareCalculators = () => {
     document.querySelectorAll('.unit-aware-calc-container').forEach((container) => {
@@ -170,6 +171,9 @@ const configJson = JSON.stringify(tool.physicsConfig || {});
         
         // Inject physical constants into scope
         for (const [key, constant] of Object.entries(PHYSICS_CONSTANTS)) {
+            scope[key] = constant.value;
+        }
+        for (const [key, constant] of Object.entries(CHEMISTRY_CONSTANTS)) {
             scope[key] = constant.value;
         }
 

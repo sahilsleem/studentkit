@@ -1,0 +1,187 @@
+---
+import { PERIODIC_TABLE } from '../../data/periodicTable';
+---
+
+<div class="periodic-table-container">
+  <div class="grid-container">
+    {PERIODIC_TABLE.map((el) => {
+      // Determine grid position
+      let row = el.period;
+      let col = typeof el.group === 'number' ? el.group : (el.group === 'L' ? 3 : 3);
+      
+      // Lanthanides and Actinides are moved down
+      if (el.atomicNumber >= 57 && el.atomicNumber <= 71) {
+         row = 9;
+         col = el.atomicNumber - 57 + 4;
+      } else if (el.atomicNumber >= 89 && el.atomicNumber <= 103) {
+         row = 10;
+         col = el.atomicNumber - 89 + 4;
+      }
+      
+      return (
+        <button 
+          class={`element-cell block-${el.block} cat-${el.category.replace(/\s+/g, '-')} state-${el.state}`}
+          style={`grid-row: ${row}; grid-column: ${col};`}
+          data-element={JSON.stringify(el)}
+        >
+          <span class="atomic-num">{el.atomicNumber}</span>
+          <span class="symbol">{el.symbol}</span>
+          <span class="name">{el.name}</span>
+          <span class="mass">{el.atomicMass.toFixed(2)}</span>
+        </button>
+      );
+    })}
+  </div>
+
+  <!-- Information Modal -->
+  <div id="pt-modal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-xl max-w-md w-full overflow-hidden transform transition-all scale-95 opacity-0" id="pt-modal-content">
+      <div class="p-6 relative">
+        <button id="pt-modal-close" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+        <div class="flex items-center gap-4 border-b border-gray-100 pb-4 mb-4">
+          <div id="pt-modal-symbol" class="text-4xl font-black rounded-xl w-20 h-20 flex items-center justify-center text-white"></div>
+          <div>
+            <h3 id="pt-modal-name" class="text-2xl font-bold text-gray-900"></h3>
+            <p id="pt-modal-category" class="text-sm font-medium uppercase tracking-wider text-gray-500"></p>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-y-4 gap-x-2 text-sm">
+          <div><p class="text-gray-500">Atomic Number</p><p id="pt-modal-num" class="font-bold text-gray-900"></p></div>
+          <div><p class="text-gray-500">Atomic Mass</p><p id="pt-modal-mass" class="font-bold text-gray-900"></p></div>
+          <div><p class="text-gray-500">Group / Period</p><p id="pt-modal-gp" class="font-bold text-gray-900"></p></div>
+          <div><p class="text-gray-500">Block</p><p id="pt-modal-block" class="font-bold uppercase text-gray-900"></p></div>
+          <div><p class="text-gray-500">State (20°C)</p><p id="pt-modal-state" class="font-bold capitalize text-gray-900"></p></div>
+          <div><p class="text-gray-500">Oxidation States</p><p id="pt-modal-ox" class="font-bold text-gray-900"></p></div>
+          <div class="col-span-2">
+             <p class="text-gray-500">Electron Configuration</p>
+             <p id="pt-modal-ec" class="font-mono bg-gray-50 p-2 mt-1 rounded border border-gray-200 text-gray-800"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .periodic-table-container {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 2rem;
+  }
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(18, minmax(60px, 1fr));
+    grid-template-rows: repeat(10, minmax(64px, 1fr));
+    gap: 4px;
+    min-width: 1080px;
+    margin: 0 auto;
+  }
+  .element-cell {
+    display: flex;
+    flex-direction: column;
+    padding: 4px;
+    border-radius: 4px;
+    border: 1px solid rgba(0,0,0,0.1);
+    background: #fff;
+    cursor: pointer;
+    transition: transform 0.1s, box-shadow 0.1s;
+    text-align: left;
+    position: relative;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  }
+  .element-cell:hover {
+    transform: scale(1.1);
+    z-index: 10;
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+  }
+  .atomic-num { font-size: 0.65rem; color: #666; font-weight: 600; }
+  .symbol { font-size: 1.25rem; font-weight: 800; line-height: 1; margin: 2px 0; color: #111; }
+  .name { font-size: 0.55rem; color: #444; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .mass { font-size: 0.55rem; color: #666; }
+  
+  /* Category Colors */
+  .cat-alkali-metal { background-color: #fca5a5; }
+  .cat-alkaline-earth-metal { background-color: #fdba74; }
+  .cat-transition-metal { background-color: #fde047; }
+  .cat-post-transition-metal { background-color: #a7f3d0; }
+  .cat-metalloid { background-color: #99f6e4; }
+  .cat-nonmetal { background-color: #7dd3fc; }
+  .cat-halogen { background-color: #c4b5fd; }
+  .cat-noble-gas { background-color: #fbcfe8; }
+  .cat-lanthanide { background-color: #d9f99d; }
+  .cat-actinide { background-color: #fef08a; }
+  
+  /* State Colors */
+  .state-gas .symbol { color: #dc2626; }
+  .state-liquid .symbol { color: #2563eb; }
+  .state-solid .symbol { color: #111827; }
+  .state-unknown .symbol { color: #9ca3af; }
+</style>
+
+<script>
+  const initPeriodicTable = () => {
+    const modal = document.getElementById('pt-modal');
+    if (!modal) return;
+    const content = document.getElementById('pt-modal-content');
+    const closeBtn = document.getElementById('pt-modal-close');
+    
+    const catColors = {
+      'alkali metal': '#fca5a5',
+      'alkaline earth metal': '#fdba74',
+      'transition metal': '#fde047',
+      'post-transition metal': '#a7f3d0',
+      'metalloid': '#99f6e4',
+      'nonmetal': '#7dd3fc',
+      'halogen': '#c4b5fd',
+      'noble gas': '#fbcfe8',
+      'lanthanide': '#d9f99d',
+      'actinide': '#fef08a'
+    };
+
+    const openModal = (el) => {
+      document.getElementById('pt-modal-symbol').textContent = el.symbol;
+      document.getElementById('pt-modal-symbol').style.backgroundColor = catColors[el.category] || '#ccc';
+      document.getElementById('pt-modal-name').textContent = el.name;
+      document.getElementById('pt-modal-category').textContent = el.category;
+      document.getElementById('pt-modal-num').textContent = el.atomicNumber;
+      document.getElementById('pt-modal-mass').textContent = el.atomicMass;
+      document.getElementById('pt-modal-gp').textContent = `${el.group} / ${el.period}`;
+      document.getElementById('pt-modal-block').textContent = el.block;
+      document.getElementById('pt-modal-state').textContent = el.state;
+      document.getElementById('pt-modal-ox').textContent = el.oxidationStates || 'Unknown';
+      
+      // format EC (e.g. make superscripts)
+      const ec = el.electronConfiguration.replace(/([spdf])(\d+)/g, '$1<sup>$2</sup>');
+      document.getElementById('pt-modal-ec').innerHTML = ec;
+      
+      modal.classList.remove('hidden');
+      setTimeout(() => {
+        content.classList.remove('scale-95', 'opacity-0');
+      }, 10);
+    };
+
+    const closeModal = () => {
+      content.classList.add('scale-95', 'opacity-0');
+      setTimeout(() => {
+        modal.classList.add('hidden');
+      }, 200);
+    };
+
+    document.querySelectorAll('.element-cell').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const data = JSON.parse(btn.getAttribute('data-element'));
+        openModal(data);
+      });
+    });
+
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+  };
+
+  initPeriodicTable();
+  document.addEventListener('astro:page-load', initPeriodicTable);
+</script>

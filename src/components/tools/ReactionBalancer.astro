@@ -1,0 +1,128 @@
+---
+import { tools } from '../../data/registry';
+const { tool } = Astro.props;
+---
+
+<div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden max-w-4xl mx-auto stoichiometry-container" data-tool={tool.slug}>
+  <div class="p-6 sm:p-8">
+    <div class="mb-6 border-b border-gray-100 pb-4 text-center">
+      <h3 class="text-2xl font-bold text-gray-900">{tool.title}</h3>
+      <p class="text-gray-500 mt-2">{tool.description}</p>
+    </div>
+
+    <form class="space-y-6 stoich-form">
+      <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-2">Chemical Equation</label>
+        <div class="flex gap-2">
+          <input 
+            type="text" 
+            class="eq-input flex-1 p-4 text-lg font-mono border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-gray-50 uppercase placeholder-gray-400" 
+            placeholder="e.g. H2 + O2 -> H2O"
+            required 
+          />
+          <button type="submit" class="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors shadow-sm">
+            Balance
+          </button>
+        </div>
+        <p class="text-xs text-gray-500 mt-2 text-center">Use `->` or `=` to separate reactants and products. Ensure correct capitalization (e.g., NaCl, not Nacl).</p>
+      </div>
+    </form>
+
+    <div class="err-box hidden mt-6 bg-red-50 text-red-700 p-4 rounded-lg text-sm font-medium border border-red-100 flex items-start gap-3">
+      <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+      <span class="err-msg"></span>
+    </div>
+
+    <div class="result-section hidden mt-8 pt-8 border-t border-gray-100">
+      <h3 class="text-lg font-semibold mb-4 text-center text-gray-800">Balanced Equation</h3>
+      
+      <div class="bg-blue-50 border border-blue-200 rounded-xl p-6 text-center shadow-inner mb-6">
+        <p class="balanced-eq text-3xl font-mono font-black text-blue-900 tracking-wide"></p>
+      </div>
+      
+      <h3 class="text-lg font-semibold mb-3 text-gray-800">Coefficients</h3>
+      <div class="overflow-x-auto rounded-lg border border-gray-200">
+        <table class="w-full text-left border-collapse">
+          <thead class="bg-gray-50 text-gray-700 text-sm uppercase tracking-wider">
+            <tr>
+              <th class="px-6 py-3 border-b font-semibold">Compound</th>
+              <th class="px-6 py-3 border-b font-semibold">Role</th>
+              <th class="px-6 py-3 border-b font-semibold text-center">Coefficient</th>
+            </tr>
+          </thead>
+          <tbody class="coeff-tbody divide-y divide-gray-100 text-gray-800 font-medium">
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { balanceEquation } from '../../utils/equationBalancer';
+
+  const initStoich = () => {
+    document.querySelectorAll('.stoichiometry-container').forEach(container => {
+      if (container.hasAttribute('data-init')) return;
+      container.setAttribute('data-init', 'true');
+
+      const form = container.querySelector('.stoich-form');
+      const input = container.querySelector('.eq-input') as HTMLInputElement;
+      const errBox = container.querySelector('.err-box');
+      const errMsg = container.querySelector('.err-msg');
+      const resultSec = container.querySelector('.result-section');
+      const eqDisplay = container.querySelector('.balanced-eq');
+      const coeffTbody = container.querySelector('.coeff-tbody');
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        errBox.classList.add('hidden');
+        resultSec.classList.add('hidden');
+        
+        try {
+          const eq = input.value;
+          const { balanced, coeffs, isBalanced } = balanceEquation(eq);
+          
+          if (!isBalanced) throw new Error("Could not balance equation. Ensure standard stoichiometric form and single free variable.");
+          
+          // Format HTML with subscripts for display
+          const formatEq = (str) => {
+             return str.replace(/([A-Za-z\)])(\d+)/g, '$1<sub>$2</sub>').replace(/->/g, '→');
+          };
+          
+          eqDisplay.innerHTML = formatEq(balanced);
+          
+          // Rebuild table
+          const parts = eq.split(/->|=/).map(s => s.trim());
+          const react = parts[0].split('+').map(s => s.trim()).filter(s=>s);
+          const prod = parts[1].split('+').map(s => s.trim()).filter(s=>s);
+          
+          coeffTbody.innerHTML = '';
+          const appendRows = (comps, role, startIdx) => {
+             comps.forEach((c, i) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                  <td class="px-6 py-4 font-mono text-blue-800">${formatEq(c)}</td>
+                  <td class="px-6 py-4 text-sm text-gray-500">${role}</td>
+                  <td class="px-6 py-4 text-center font-bold text-xl">${coeffs[startIdx + i]}</td>
+                `;
+                coeffTbody.appendChild(tr);
+             });
+          };
+          
+          appendRows(react, 'Reactant', 0);
+          appendRows(prod, 'Product', react.length);
+          
+          resultSec.classList.remove('hidden');
+          
+        } catch (err) {
+          errMsg.textContent = err.message;
+          errBox.classList.remove('hidden');
+        }
+      });
+    });
+  };
+
+  initStoich();
+  document.addEventListener('astro:page-load', initStoich);
+</script>

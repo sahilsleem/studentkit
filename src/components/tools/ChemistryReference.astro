@@ -1,0 +1,145 @@
+---
+import { tools } from '../../data/registry';
+const { tool } = Astro.props;
+
+// We'll define content for different references inside here.
+const getReferenceContent = (slug) => {
+  switch (slug) {
+    case 'chemistry-constants':
+      return {
+         title: "Fundamental Chemistry Constants",
+         items: [
+           { name: "Avogadro Constant (N_A)", val: "6.022 × 10²³ mol⁻¹" },
+           { name: "Ideal Gas Constant (R)", val: "8.314 J/(mol·K)  or  0.08206 L·atm/(mol·K)" },
+           { name: "Faraday Constant (F)", val: "96,485 C/mol" },
+           { name: "Planck Constant (h)", val: "6.626 × 10⁻³⁴ J·s" },
+           { name: "Speed of Light (c)", val: "2.998 × 10⁸ m/s" },
+           { name: "Boltzmann Constant (k_B)", val: "1.38 × 10⁻²³ J/K" },
+           { name: "Elementary Charge (e)", val: "1.602 × 10⁻¹⁹ C" },
+           { name: "Standard Temp & Pressure (STP)", val: "273.15 K (0°C), 1 atm (101.325 kPa)" },
+           { name: "Molar Volume at STP", val: "22.414 L/mol" },
+           { name: "Ion Product of Water (K_w)", val: "1.0 × 10⁻¹⁴ (at 25°C)" }
+         ]
+      };
+    case 'solubility-rules':
+      return {
+         title: "General Solubility Rules in Aqueous Solutions",
+         html: `
+           <ul class="list-disc pl-5 space-y-3 text-gray-700">
+             <li><b>Soluble:</b> Salts of Group 1 elements (Li⁺, Na⁺, K⁺, etc.) and Ammonium (NH₄⁺).</li>
+             <li><b>Soluble:</b> Nitrates (NO₃⁻), Acetates (CH₃COO⁻), and Perchlorates (ClO₄⁻).</li>
+             <li><b>Soluble:</b> Chlorides, Bromides, Iodides (<b>Except:</b> Ag⁺, Pb²⁺, Hg₂²⁺).</li>
+             <li><b>Soluble:</b> Sulfates (SO₄²⁻) (<b>Except:</b> Ba²⁺, Sr²⁺, Pb²⁺, Ca²⁺, Ag⁺).</li>
+             <li><b>Insoluble:</b> Hydroxides (OH⁻) and Sulfides (S²⁻) (<b>Except:</b> Group 1, NH₄⁺, and Ba²⁺).</li>
+             <li><b>Insoluble:</b> Carbonates (CO₃²⁻) and Phosphates (PO₄³⁻) (<b>Except:</b> Group 1 and NH₄⁺).</li>
+           </ul>
+         `
+      };
+    case 'strong-acids-and-bases':
+      return {
+         title: "Strong Acids and Bases",
+         html: `
+           <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+             <div>
+               <h4 class="font-bold text-lg mb-3 text-red-600">Strong Acids (Completely Ionize)</h4>
+               <ul class="list-disc pl-5 space-y-1 text-gray-700 font-mono">
+                 <li>HCl - Hydrochloric Acid</li>
+                 <li>HBr - Hydrobromic Acid</li>
+                 <li>HI - Hydroiodic Acid</li>
+                 <li>HNO₃ - Nitric Acid</li>
+                 <li>H₂SO₄ - Sulfuric Acid (first proton)</li>
+                 <li>HClO₄ - Perchloric Acid</li>
+                 <li>HClO₃ - Chloric Acid</li>
+               </ul>
+             </div>
+             <div>
+               <h4 class="font-bold text-lg mb-3 text-blue-600">Strong Bases (Completely Ionize)</h4>
+               <ul class="list-disc pl-5 space-y-1 text-gray-700 font-mono">
+                 <li>LiOH - Lithium Hydroxide</li>
+                 <li>NaOH - Sodium Hydroxide</li>
+                 <li>KOH - Potassium Hydroxide</li>
+                 <li>RbOH - Rubidium Hydroxide</li>
+                 <li>CsOH - Cesium Hydroxide</li>
+                 <li>Ca(OH)₂ - Calcium Hydroxide</li>
+                 <li>Sr(OH)₂ - Strontium Hydroxide</li>
+                 <li>Ba(OH)₂ - Barium Hydroxide</li>
+               </ul>
+             </div>
+           </div>
+         `
+      };
+    case 'common-polyatomic-ions':
+      return {
+         title: "Common Polyatomic Ions",
+         items: [
+           { name: "Ammonium", val: "NH₄⁺" },
+           { name: "Hydronium", val: "H₃O⁺" },
+           { name: "Acetate", val: "CH₃COO⁻" },
+           { name: "Carbonate", val: "CO₃²⁻" },
+           { name: "Bicarbonate", val: "HCO₃⁻" },
+           { name: "Cyanide", val: "CN⁻" },
+           { name: "Hydroxide", val: "OH⁻" },
+           { name: "Nitrate", val: "NO₃⁻" },
+           { name: "Nitrite", val: "NO₂⁻" },
+           { name: "Phosphate", val: "PO₄³⁻" },
+           { name: "Sulfate", val: "SO₄²⁻" },
+           { name: "Sulfite", val: "SO₃²⁻" },
+           { name: "Permanganate", val: "MnO₄⁻" },
+           { name: "Chlorate", val: "ClO₃⁻" },
+           { name: "Perchlorate", val: "ClO₄⁻" }
+         ]
+      };
+    case 'organic-functional-groups-reference':
+      return {
+         title: "Organic Functional Groups",
+         items: [
+           { name: "Alkane", val: "C-C (Single Bond)" },
+           { name: "Alkene", val: "C=C (Double Bond)" },
+           { name: "Alkyne", val: "C≡C (Triple Bond)" },
+           { name: "Alcohol", val: "R-OH" },
+           { name: "Ether", val: "R-O-R'" },
+           { name: "Aldehyde", val: "R-CHO (C=O at end)" },
+           { name: "Ketone", val: "R-CO-R' (C=O in middle)" },
+           { name: "Carboxylic Acid", val: "R-COOH" },
+           { name: "Ester", val: "R-COO-R'" },
+           { name: "Amine", val: "R-NH₂" },
+           { name: "Amide", val: "R-CONH₂" },
+           { name: "Nitrile", val: "R-C≡N" },
+           { name: "Haloalkane", val: "R-X (X = F, Cl, Br, I)" }
+         ]
+      };
+    default:
+      return { title: "Reference Data", html: "<p>Content currently unavailable.</p>" };
+  }
+};
+
+const content = getReferenceContent(tool.slug);
+---
+
+<div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden max-w-4xl mx-auto">
+  <div class="p-6 sm:p-10">
+    <div class="mb-8 border-b border-gray-100 pb-6 text-center">
+      <h3 class="text-3xl font-bold text-gray-900">{tool.title}</h3>
+      <p class="text-gray-500 mt-3 text-lg">{tool.description}</p>
+    </div>
+
+    <div class="bg-gray-50 p-6 sm:p-8 rounded-xl border border-gray-200">
+      <h4 class="text-xl font-bold text-gray-800 mb-6">{content.title}</h4>
+      
+      {content.html && (
+        <div class="prose max-w-none" set:html={content.html} />
+      )}
+      
+      {content.items && (
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {content.items.map(item => (
+            <div class="bg-white p-4 rounded-lg border border-gray-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-sm">
+              <span class="font-medium text-gray-700">{item.name}</span>
+              <span class="font-mono font-bold text-blue-700 bg-blue-50 px-2 py-1 rounded">{item.val}</span>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  </div>
+</div>
