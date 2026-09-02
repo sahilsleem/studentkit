@@ -28,7 +28,7 @@ const configJson = JSON.stringify(tool.physicsConfig || {});
             {input.options && input.options.length > 0 && (
               <select class="w-32 px-2 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-gray-50 unit-calc-select" data-for={input.id}>
                 {input.options.map((opt) => (
-                  <option value={opt.factor} selected={opt.default}>{opt.label}</option>
+                  <option value={opt.factor} data-offset={opt.offset || '0'} selected={opt.default}>{opt.label}</option>
                 ))}
               </select>
             )}
@@ -59,7 +59,7 @@ const configJson = JSON.stringify(tool.physicsConfig || {});
              <label class="block text-xs font-medium text-gray-500 mb-1 sm:hidden">Output Unit</label>
              <select class="w-full sm:w-32 px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-white unit-calc-out-select">
                 {tool.physicsConfig.outputOptions.map((opt) => (
-                  <option value={opt.factor} selected={opt.default}>{opt.label}</option>
+                  <option value={opt.factor} data-offset={opt.offset || '0'} selected={opt.default}>{opt.label}</option>
                 ))}
               </select>
           </div>
@@ -69,7 +69,44 @@ const configJson = JSON.stringify(tool.physicsConfig || {});
   </div>
 </div>
 
+<div class="max-w-4xl mx-auto prose prose-blue mt-12 px-4 sm:px-0">
+  <h2 class="text-2xl font-bold text-gray-900 mb-4">About the {tool.title}</h2>
+  <p class="text-gray-700 leading-relaxed mb-6">{tool.description} This offline calculator allows you to instantly compute the results with built-in dimensional unit conversions.</p>
+
+  <h3 class="text-xl font-semibold text-gray-800 mb-3">Formula</h3>
+  <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-6 font-mono text-lg text-center overflow-x-auto text-blue-900">
+    {tool.physicsConfig?.outputLabel.split(' ')[0]} = {tool.physicsConfig?.expression.replace(/Math\./g, '').replace(/\*/g, ' × ').replace(/\//g, ' ÷ ')}
+  </div>
+
+  <h3 class="text-xl font-semibold text-gray-800 mb-3">Variable Definitions</h3>
+  <div class="bg-white border border-gray-200 rounded-lg overflow-hidden mb-8">
+    <table class="w-full text-left border-collapse">
+      <thead class="bg-gray-50 text-gray-700">
+        <tr>
+          <th class="px-4 py-3 border-b font-semibold">Variable</th>
+          <th class="px-4 py-3 border-b font-semibold">Symbol</th>
+          <th class="px-4 py-3 border-b font-semibold">Supported Units</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-100 text-gray-600">
+        {tool.physicsConfig?.inputs.map(inp => (
+          <tr>
+            <td class="px-4 py-3">{inp.label.replace(/\(.*\)/, '').trim()}</td>
+            <td class="px-4 py-3 font-mono font-bold text-gray-800">{inp.id}</td>
+            <td class="px-4 py-3 text-sm">
+              {inp.options?.map(o => o.label).join(', ') || 'N/A'}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</div>
+
 <script>
+  import * as math from 'mathjs';
+  import { PHYSICS_CONSTANTS } from '../../utils/physicsConstants';
+
   const initUnitAwareCalculators = () => {
     document.querySelectorAll('.unit-aware-calc-container').forEach((container) => {
       if (container.hasAttribute('data-initialized')) return;
@@ -89,15 +126,6 @@ const configJson = JSON.stringify(tool.physicsConfig || {});
       const errBox = container.querySelector('.unit-calc-err');
       const ansBox = container.querySelector('.unit-calc-ans-box');
 
-      // Create JS function from expression
-      const paramNames = config.inputs.map((i: any) => i.id);
-      let calcFn: Function;
-      try {
-        calcFn = new Function(...paramNames, `return ${config.expression};`);
-      } catch (e) {
-        console.error("Invalid formula expression", e);
-      }
-
       let lastRawResultSI = null;
 
       const formatNum = (num) => {
@@ -112,9 +140,11 @@ const configJson = JSON.stringify(tool.physicsConfig || {});
          let finalVal = lastRawResultSI;
          
          if (outSelect && config.outputOptions) {
-            const outFactor = parseFloat(outSelect.value);
-            // Conversion to selected unit: SI_val / factor
-            finalVal = lastRawResultSI / outFactor;
+            const outOpt = outSelect.options[outSelect.selectedIndex];
+            const outFactor = parseFloat(outOpt.value);
+            const outOffset = parseFloat(outOpt.getAttribute('data-offset') || '0');
+            // Conversion to selected unit: (SI_val / factor) - offset
+            finalVal = (lastRawResultSI / outFactor) - outOffset;
          } else if (config.outputUnit) {
             // Static unit
          }
@@ -136,7 +166,13 @@ const configJson = JSON.stringify(tool.physicsConfig || {});
         errBox?.classList.add('hidden');
         ansBox?.classList.remove('hidden');
         
-        let args = [];
+        let scope: Record<string, number> = {};
+        
+        // Inject physical constants into scope
+        for (const [key, constant] of Object.entries(PHYSICS_CONSTANTS)) {
+            scope[key] = constant.value;
+        }
+
         let hasError = false;
 
         // Collect normalized inputs
@@ -146,23 +182,54 @@ const configJson = JSON.stringify(tool.physicsConfig || {});
            
            let val = parseFloat(inputEl.value);
            
-           // Apply unit factor (val * factor = SI_val)
+           // Apply unit factor and offset (val + offset) * factor = SI_val
            const selEl = Array.from(inputSelects).find(el => el.getAttribute('data-for') === inputConfig.id);
            if (selEl) {
-              val = val * parseFloat(selEl.value);
+              const selOpt = selEl.options[selEl.selectedIndex];
+              const factor = parseFloat(selOpt.value);
+              const offset = parseFloat(selOpt.getAttribute('data-offset') || '0');
+              val = (val + offset) * factor;
            }
            
-           args.push(val);
+           scope[inputConfig.id] = val;
         });
         
-        if (args.some(isNaN)) return;
+        if (Object.values(scope).some(isNaN)) return;
+
+        // Edge case physical validation (prevent mathjs from silently outputting non-real numbers)
+        if (scope.m !== undefined && scope.m < 0) {
+           hasError = "Mass cannot be negative.";
+        } else if (scope.v !== undefined && Math.abs(scope.v) >= PHYSICS_CONSTANTS.c.value && config.expression.includes('sqrt(1 - (v*v)')) {
+           hasError = "Velocity cannot equal or exceed the speed of light.";
+        } else if (scope.t !== undefined && scope.t < 0 && (tool.slug.includes('time') || config.expression.includes(' / t'))) {
+           hasError = "Time cannot be negative in this context.";
+        } else if ((scope.tc !== undefined && scope.tc < 0) || (scope.th !== undefined && scope.th < 0) || (scope.t1 !== undefined && scope.t1 < 0) || (scope.t2 !== undefined && scope.t2 < 0) || (scope.T !== undefined && scope.T < 0)) {
+           hasError = "Absolute temperature (Kelvin) cannot be negative.";
+        }
+
+        if (hasError) {
+           ansBox?.classList.add('hidden');
+           errBox.textContent = hasError;
+           errBox.classList.remove('hidden');
+           resultSection?.classList.remove('hidden');
+           return;
+        }
 
         try {
-          const resultSI = calcFn(...args);
+          // Replace Math.cos with cos in expressions for mathjs, etc.
+          let expr = config.expression.replace(/Math\.sin/g, 'sin');
+          expr = expr.replace(/Math\.cos/g, 'cos');
+          expr = expr.replace(/Math\.tan/g, 'tan');
+          expr = expr.replace(/Math\.sqrt/g, 'sqrt');
+          expr = expr.replace(/Math\.PI/g, 'pi');
+          expr = expr.replace(/Math\.abs/g, 'abs');
+          expr = expr.replace(/Math\.asin/g, 'asin');
+
+          const resultSI = math.evaluate(expr, scope);
           lastRawResultSI = resultSI;
           
-          if (isNaN(resultSI) || !isFinite(resultSI)) {
-             throw new Error("Mathematical error (e.g. division by zero or invalid domain).");
+          if (isNaN(resultSI) || !isFinite(resultSI) || typeof resultSI === 'complex') {
+             throw new Error("Mathematical error (e.g., division by zero or invalid domain).");
           }
           
           updateOutput();

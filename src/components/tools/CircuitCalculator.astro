@@ -130,7 +130,7 @@ const isCapacitance = tool.slug.includes('capacit');
             }
             invSum += (1 / v);
          }
-         eq = invSum === 0 ? 0 : (1 / invSum);
+         eq = invSum === 0 ? Infinity : (1 / invSum);
       } else {
          for (let v of vals) eq += v;
       }
