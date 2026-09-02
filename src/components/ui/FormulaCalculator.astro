@@ -91,12 +91,16 @@ const configJson = JSON.stringify(config);
         try {
           const result = calcFn(...args);
           
-          if (!isFinite(result)) {
+          if (typeof result === 'string') {
+            if (resultValue) resultValue.textContent = result;
+          } else if (typeof result === 'number' && !isFinite(result)) {
             if (resultValue) resultValue.textContent = "Error";
-          } else {
+          } else if (typeof result === 'number') {
             // Format number to avoid long decimals (e.g., 2.5000000000000004 -> 2.5)
             const formatted = Number.isInteger(result) ? result : parseFloat(result.toFixed(6));
             if (resultValue) resultValue.textContent = formatted.toString();
+          } else {
+            if (resultValue) resultValue.textContent = String(result);
           }
           
           resultSection?.classList.remove('hidden');

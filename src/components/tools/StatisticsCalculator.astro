@@ -1,0 +1,145 @@
+---
+// Reusable Statistics Component for Mean, Median, Mode, etc.
+// All calculations are done at once.
+---
+<div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden mb-12 max-w-2xl mx-auto">
+  <div class="p-6 sm:p-8">
+    <form id="stats-form" class="space-y-6">
+      <div>
+        <label for="data-input" class="block text-sm font-medium text-gray-700 mb-1">Enter numbers (comma or space separated)</label>
+        <textarea id="data-input" required rows="3" class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 sm:text-base transition-colors" placeholder="e.g. 10, 25, 30, 45, 50"></textarea>
+      </div>
+      <div class="flex gap-4 pt-4">
+        <button type="submit" class="flex-1 bg-emerald-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors">
+          Calculate Statistics
+        </button>
+        <button type="button" id="stats-reset-btn" class="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors">
+          Reset
+        </button>
+      </div>
+    </form>
+
+    <div id="stats-result" class="mt-8 pt-8 border-t border-gray-100 hidden">
+       <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+         <div class="bg-gray-50 p-4 rounded-lg border border-gray-100 text-center">
+           <p class="text-xs text-gray-500 uppercase tracking-wider mb-1">Mean</p>
+           <p class="text-xl font-bold text-gray-900" id="res-mean">--</p>
+         </div>
+         <div class="bg-gray-50 p-4 rounded-lg border border-gray-100 text-center">
+           <p class="text-xs text-gray-500 uppercase tracking-wider mb-1">Median</p>
+           <p class="text-xl font-bold text-gray-900" id="res-median">--</p>
+         </div>
+         <div class="bg-gray-50 p-4 rounded-lg border border-gray-100 text-center">
+           <p class="text-xs text-gray-500 uppercase tracking-wider mb-1">Mode</p>
+           <p class="text-xl font-bold text-gray-900" id="res-mode">--</p>
+         </div>
+         <div class="bg-gray-50 p-4 rounded-lg border border-gray-100 text-center">
+           <p class="text-xs text-gray-500 uppercase tracking-wider mb-1">Range</p>
+           <p class="text-xl font-bold text-gray-900" id="res-range">--</p>
+         </div>
+         <div class="bg-gray-50 p-4 rounded-lg border border-gray-100 text-center">
+           <p class="text-xs text-gray-500 uppercase tracking-wider mb-1">Variance (Pop)</p>
+           <p class="text-xl font-bold text-gray-900" id="res-variance">--</p>
+         </div>
+         <div class="bg-gray-50 p-4 rounded-lg border border-gray-100 text-center">
+           <p class="text-xs text-gray-500 uppercase tracking-wider mb-1">Std Deviation (Pop)</p>
+           <p class="text-xl font-bold text-gray-900" id="res-stddev">--</p>
+         </div>
+         <div class="bg-gray-50 p-4 rounded-lg border border-gray-100 text-center">
+           <p class="text-xs text-gray-500 uppercase tracking-wider mb-1">Variance (Sample)</p>
+           <p class="text-xl font-bold text-gray-900" id="res-variance-s">--</p>
+         </div>
+         <div class="bg-gray-50 p-4 rounded-lg border border-gray-100 text-center">
+           <p class="text-xs text-gray-500 uppercase tracking-wider mb-1">Std Deviation (Sample)</p>
+           <p class="text-xl font-bold text-gray-900" id="res-stddev-s">--</p>
+         </div>
+         <div class="bg-gray-50 p-4 rounded-lg border border-gray-100 text-center">
+           <p class="text-xs text-gray-500 uppercase tracking-wider mb-1">Sum</p>
+           <p class="text-xl font-bold text-gray-900" id="res-sum">--</p>
+         </div>
+         <div class="bg-gray-50 p-4 rounded-lg border border-gray-100 text-center">
+           <p class="text-xs text-gray-500 uppercase tracking-wider mb-1">Count</p>
+           <p class="text-xl font-bold text-gray-900" id="res-count">--</p>
+         </div>
+       </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const initStatsCalculator = () => {
+    const form = document.getElementById('stats-form') as HTMLFormElement;
+    const dataInput = document.getElementById('data-input') as HTMLTextAreaElement;
+    const resetBtn = document.getElementById('stats-reset-btn');
+    const resultSection = document.getElementById('stats-result');
+    
+    if (!form || !dataInput) return;
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const raw = dataInput.value;
+      const arr = raw.split(/[\s,]+/).map(s => parseFloat(s.trim())).filter(n => !isNaN(n));
+      
+      if (arr.length === 0) return;
+      
+      arr.sort((a, b) => a - b);
+      const n = arr.length;
+      
+      // Sum
+      const sum = arr.reduce((a, b) => a + b, 0);
+      
+      // Mean
+      const mean = sum / n;
+      
+      // Median
+      const mid = Math.floor(n / 2);
+      const median = n % 2 !== 0 ? arr[mid] : (arr[mid - 1] + arr[mid]) / 2;
+      
+      // Mode
+      const counts: Record<number, number> = {};
+      let maxCount = 0;
+      arr.forEach(val => {
+        counts[val] = (counts[val] || 0) + 1;
+        if (counts[val] > maxCount) maxCount = counts[val];
+      });
+      const modes = Object.keys(counts).filter(k => counts[parseFloat(k)] === maxCount).map(k => parseFloat(k));
+      const modeStr = modes.length === n ? 'None' : modes.join(', ');
+      
+      // Range
+      const range = arr[n - 1] - arr[0];
+      
+      // Variance & Std Dev (Population)
+      const popVariance = arr.reduce((a, b) => a + Math.pow(b - mean, 2), 0) / n;
+      const popStdDev = Math.sqrt(popVariance);
+      
+      // Variance & Std Dev (Sample)
+      const sampleVariance = n > 1 ? arr.reduce((a, b) => a + Math.pow(b - mean, 2), 0) / (n - 1) : 0;
+      const sampleStdDev = Math.sqrt(sampleVariance);
+
+      const fmt = (num: number) => Number.isInteger(num) ? num.toString() : parseFloat(num.toFixed(4)).toString();
+
+      (document.getElementById('res-mean') as HTMLElement).textContent = fmt(mean);
+      (document.getElementById('res-median') as HTMLElement).textContent = fmt(median);
+      (document.getElementById('res-mode') as HTMLElement).textContent = modeStr;
+      (document.getElementById('res-range') as HTMLElement).textContent = fmt(range);
+      (document.getElementById('res-variance') as HTMLElement).textContent = fmt(popVariance);
+      (document.getElementById('res-stddev') as HTMLElement).textContent = fmt(popStdDev);
+      (document.getElementById('res-variance-s') as HTMLElement).textContent = fmt(sampleVariance);
+      (document.getElementById('res-stddev-s') as HTMLElement).textContent = fmt(sampleStdDev);
+      (document.getElementById('res-sum') as HTMLElement).textContent = fmt(sum);
+      (document.getElementById('res-count') as HTMLElement).textContent = n.toString();
+      
+      resultSection?.classList.remove('hidden');
+      resultSection?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+
+    resetBtn?.addEventListener('click', () => {
+      form.reset();
+      resultSection?.classList.add('hidden');
+    });
+  };
+
+  initStatsCalculator();
+  document.addEventListener('astro:page-load', initStatsCalculator);
+</script>
