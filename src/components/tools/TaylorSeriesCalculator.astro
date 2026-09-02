@@ -1,0 +1,162 @@
+---
+import { tools } from '../../data/registry';
+const { tool } = Astro.props;
+---
+
+<div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden max-w-3xl mx-auto">
+  <div class="p-6 sm:p-8">
+    <div class="mb-6 border-b border-gray-100 pb-4">
+      <h3 class="text-xl font-bold text-gray-800">{tool.title}</h3>
+      <p class="text-sm text-gray-500 mt-1">{tool.description}</p>
+    </div>
+
+    <form id="taylor-form" class="space-y-6">
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Function f(x)</label>
+        <div class="flex items-center gap-3">
+          <span class="font-mono text-gray-500 font-bold">f(x) =</span>
+          <input type="text" id="fn-expr" required class="flex-1 p-3 border border-gray-300 rounded-lg focus:ring-emerald-500 font-mono text-lg" placeholder="e^x">
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Center (a)</label>
+          <div class="flex items-center gap-3">
+             <span class="font-mono text-gray-500 font-bold">a =</span>
+             <input type="number" step="any" id="fn-a" required class="flex-1 p-3 border border-gray-300 rounded-lg focus:ring-emerald-500 font-mono text-center" value={tool.slug.includes('maclaurin') ? '0' : ''} placeholder="0" {tool.slug.includes('maclaurin') ? 'disabled' : ''}>
+          </div>
+          {tool.slug.includes('maclaurin') && <p class="text-xs text-gray-400 mt-1">Maclaurin series are always centered at a = 0.</p>}
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Number of Terms (n)</label>
+          <div class="flex items-center gap-3">
+             <span class="font-mono text-gray-500 font-bold">n =</span>
+             <input type="number" min="1" max="10" id="fn-n" required class="flex-1 p-3 border border-gray-300 rounded-lg focus:ring-emerald-500 font-mono text-center" value="4">
+          </div>
+          <p class="text-xs text-gray-400 mt-1">Max 10 terms for performance.</p>
+        </div>
+      </div>
+
+      <div class="pt-2">
+        <button type="submit" class="w-full bg-emerald-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-emerald-700 transition-colors">
+          Calculate Series Expansion
+        </button>
+      </div>
+    </form>
+
+    <div id="taylor-result" class="mt-8 pt-6 border-t border-gray-100 hidden">
+      <h3 class="text-lg font-semibold mb-3">Result</h3>
+      
+      <div id="taylor-err" class="hidden bg-red-50 text-red-700 p-4 rounded-lg text-sm font-medium border border-red-100 mb-4"></div>
+      
+      <div id="taylor-ans" class="bg-gray-50 p-6 rounded-xl border border-gray-200 overflow-x-auto">
+        <div class="text-gray-500 font-mono text-sm mb-3">Approximation P(x) ≈</div>
+        <div class="text-xl font-bold font-mono text-gray-900 whitespace-nowrap" id="ans-val"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import * as math from 'mathjs';
+
+  const initTaylor = () => {
+    const form = document.getElementById('taylor-form');
+    const exprIn = document.getElementById('fn-expr');
+    const aIn = document.getElementById('fn-a');
+    const nIn = document.getElementById('fn-n');
+    
+    const resSec = document.getElementById('taylor-result');
+    const errBox = document.getElementById('taylor-err');
+    const ansBox = document.getElementById('taylor-ans');
+    const ansVal = document.getElementById('ans-val');
+
+    if (!form) return;
+
+    const cleanExpr = (str) => str.replace(/(\d)([a-zA-Z])/g, '$1*$2');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      errBox.classList.add('hidden');
+      ansBox.classList.remove('hidden');
+
+      let expr = cleanExpr((exprIn as HTMLInputElement).value);
+      let a = parseFloat((aIn as HTMLInputElement).value);
+      let n = parseInt((nIn as HTMLInputElement).value);
+
+      if (n > 10) n = 10;
+
+      try {
+        let terms = [];
+        let currentDeriv = expr;
+        
+        // n is number of terms, so max degree is n-1
+        for (let i = 0; i < n; i++) {
+           let val;
+           if (i === 0) {
+             val = math.evaluate(expr, { x: a });
+           } else {
+             currentDeriv = math.derivative(currentDeriv, 'x').toString();
+             val = math.evaluate(currentDeriv, { x: a });
+           }
+           
+           if (!isFinite(val) || isNaN(val)) {
+             throw new Error(`Derivative undefined at x = ${a} (Term ${i})`);
+           }
+           
+           if (Math.abs(val) > 1e-10) {
+              const fact = math.factorial(i);
+              const coef = val / fact;
+              
+              if (Math.abs(coef) > 1e-10) {
+                 const fmtCoef = Number.isInteger(coef) ? coef : parseFloat(coef.toFixed(4));
+                 
+                 let termStr = '';
+                 
+                 if (i === 0) {
+                    termStr = String(fmtCoef);
+                 } else {
+                    let cStr = Math.abs(fmtCoef) === 1 ? '' : String(Math.abs(fmtCoef));
+                    
+                    let xStr = '';
+                    if (a === 0) xStr = i === 1 ? 'x' : `x^${i}`;
+                    else xStr = i === 1 ? `(x ${a < 0 ? '+' : '-'} ${Math.abs(a)})` : `(x ${a < 0 ? '+' : '-'} ${Math.abs(a)})^${i}`;
+                    
+                    termStr = cStr + xStr;
+                    
+                    if (fmtCoef < 0) {
+                      termStr = `- ${termStr}`;
+                    } else if (terms.length > 0) {
+                      termStr = `+ ${termStr}`;
+                    }
+                 }
+                 
+                 terms.push(termStr);
+              }
+           }
+        }
+        
+        if (terms.length === 0) {
+          ansVal.textContent = '0';
+        } else {
+          // Fix leading + 
+          let finalStr = terms.join(' ');
+          if (finalStr.startsWith('+ ')) finalStr = finalStr.substring(2);
+          ansVal.textContent = finalStr;
+        }
+
+      } catch (err) {
+        ansBox.classList.add('hidden');
+        errBox.textContent = `Error evaluating Taylor Series: ${err.message}.`;
+        errBox.classList.remove('hidden');
+      }
+
+      resSec.classList.remove('hidden');
+    });
+  };
+
+  initTaylor();
+  document.addEventListener('astro:page-load', initTaylor);
+</script>

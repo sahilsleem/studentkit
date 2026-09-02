@@ -1,0 +1,205 @@
+---
+import { tools } from '../../data/registry';
+const { tool } = Astro.props;
+
+let mode = 'standard';
+if (tool.slug.includes('one-sided')) mode = 'one-sided';
+if (tool.slug.includes('infinity') || tool.slug.includes('infinite')) mode = 'infinity';
+---
+
+<div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden max-w-3xl mx-auto">
+  <div class="p-6 sm:p-8">
+    <div class="mb-6 border-b border-gray-100 pb-4">
+      <h3 class="text-xl font-bold text-gray-800">{tool.title}</h3>
+      <p class="text-sm text-gray-500 mt-1">{tool.description}</p>
+      <div class="mt-3 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-blue-50 text-blue-700 text-xs font-medium border border-blue-100">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        Uses high-precision numerical approximation.
+      </div>
+    </div>
+
+    <form id="limit-form" class="space-y-6">
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Function f(x)</label>
+        <div class="flex items-center gap-3">
+          <span class="font-mono text-gray-500 font-bold">f(x) =</span>
+          <input type="text" id="fn-expr" required class="flex-1 p-3 border border-gray-300 rounded-lg focus:ring-emerald-500 font-mono text-lg" placeholder="sin(x) / x">
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Approaches (a)</label>
+          <div class="flex items-center gap-3">
+            <span class="font-mono text-gray-500 font-bold">x →</span>
+            {mode === 'infinity' ? (
+              <select id="fn-a-inf" class="flex-1 p-3 border border-gray-300 rounded-lg focus:ring-emerald-500 font-mono text-lg text-center">
+                <option value="inf">∞ (Positive Infinity)</option>
+                <option value="-inf">-∞ (Negative Infinity)</option>
+              </select>
+            ) : (
+              <input type="number" step="any" id="fn-a" required class="flex-1 p-3 border border-gray-300 rounded-lg focus:ring-emerald-500 font-mono text-lg text-center" placeholder="0">
+            )}
+          </div>
+        </div>
+
+        {mode === 'one-sided' && (
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Direction</label>
+            <select id="fn-dir" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-emerald-500 font-medium">
+              <option value="left">From Left ( x → a⁻ )</option>
+              <option value="right">From Right ( x → a⁺ )</option>
+            </select>
+          </div>
+        )}
+      </div>
+
+      <div class="pt-2">
+        <button type="submit" class="w-full bg-emerald-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-emerald-700 transition-colors">
+          Evaluate Limit
+        </button>
+      </div>
+    </form>
+
+    <div id="limit-result" class="mt-8 pt-6 border-t border-gray-100 hidden">
+      <h3 class="text-lg font-semibold mb-3">Result</h3>
+      
+      <div id="limit-err" class="hidden bg-red-50 text-red-700 p-4 rounded-lg text-sm font-medium border border-red-100 mb-4"></div>
+      
+      <div id="limit-ans" class="bg-gray-50 p-6 rounded-xl border border-gray-200 overflow-x-auto text-center">
+        <div class="text-gray-500 font-mono text-sm mb-2" id="ans-label"></div>
+        <div class="text-3xl font-bold font-mono text-gray-900" id="ans-val"></div>
+        <div class="mt-4 text-xs text-gray-400" id="ans-detail"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ mode }}>
+  import * as math from 'mathjs';
+
+  const initLimit = () => {
+    const form = document.getElementById('limit-form');
+    const exprIn = document.getElementById('fn-expr');
+    
+    const resSec = document.getElementById('limit-result');
+    const errBox = document.getElementById('limit-err');
+    const ansBox = document.getElementById('limit-ans');
+    const ansLabel = document.getElementById('ans-label');
+    const ansVal = document.getElementById('ans-val');
+    const ansDetail = document.getElementById('ans-detail');
+
+    if (!form) return;
+
+    const cleanExpr = (str) => str.replace(/(\d)([a-zA-Z])/g, '$1*$2');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      errBox.classList.add('hidden');
+      ansBox.classList.remove('hidden');
+
+      let expr = cleanExpr(exprIn.value);
+      
+      let aVal = 0;
+      let isInf = false;
+      let dir = 'both';
+
+      if (mode === 'infinity') {
+        const infSel = document.getElementById('fn-a-inf');
+        isInf = true;
+        dir = infSel.value === 'inf' ? 'pos' : 'neg';
+      } else {
+        const aIn = document.getElementById('fn-a');
+        aVal = parseFloat(aIn.value);
+        if (mode === 'one-sided') {
+          dir = (document.getElementById('fn-dir')).value;
+        }
+      }
+
+      try {
+        const code = math.compile(expr);
+        const evalFn = (x) => code.evaluate({ x });
+        
+        let resultLabel = '';
+        let resultVal = '';
+        let detailStr = '';
+
+        const fmt = (n) => {
+           if (Math.abs(n) > 1e10) return n > 0 ? '∞' : '-∞';
+           if (Math.abs(n) < 1e-10) return '0';
+           return Number.isInteger(n) ? n : parseFloat(n.toFixed(6));
+        };
+
+        if (isInf) {
+           resultLabel = `lim x→${dir === 'pos' ? '∞' : '-∞'} [ ${expr} ] =`;
+           const step1 = dir === 'pos' ? 1e6 : -1e6;
+           const step2 = dir === 'pos' ? 1e7 : -1e7;
+           
+           const v1 = evalFn(step1);
+           const v2 = evalFn(step2);
+           
+           if (Math.abs(v1 - v2) < 1e-4) {
+             resultVal = String(fmt(v2));
+           } else if (Math.abs(v2) > 1e10 || isNaN(v2)) {
+             resultVal = v2 > 0 ? '∞' : (v2 < 0 ? '-∞' : 'Undefined / Oscillates');
+           } else {
+             resultVal = String(fmt(v2));
+           }
+        } 
+        else {
+           resultLabel = `lim x→${aVal}${dir === 'left' ? '⁻' : (dir === 'right' ? '⁺' : '')} [ ${expr} ] =`;
+           
+           const eps = 1e-8;
+           const vLeft = evalFn(aVal - eps);
+           const vRight = evalFn(aVal + eps);
+           
+           const isLInf = Math.abs(vLeft) > 1e6;
+           const isRInf = Math.abs(vRight) > 1e6;
+           
+           if (dir === 'left') {
+              resultVal = isLInf ? (vLeft > 0 ? '∞' : '-∞') : String(fmt(vLeft));
+           } else if (dir === 'right') {
+              resultVal = isRInf ? (vRight > 0 ? '∞' : '-∞') : String(fmt(vRight));
+           } else {
+              // Both sides
+              if (isNaN(vLeft) && isNaN(vRight)) {
+                resultVal = 'Undefined';
+              }
+              else if (isLInf && isRInf) {
+                if ((vLeft > 0 && vRight > 0) || (vLeft < 0 && vRight < 0)) {
+                  resultVal = vLeft > 0 ? '∞' : '-∞';
+                } else {
+                  resultVal = 'Undefined (Left and Right limits diverge differently)';
+                }
+              }
+              else if (isNaN(vLeft) || isNaN(vRight)) {
+                 // Might be domain boundary like sqrt(x) at 0
+                 resultVal = isNaN(vLeft) ? String(fmt(vRight)) : String(fmt(vLeft));
+                 detailStr = "Evaluated as one-sided limit due to domain constraints.";
+              }
+              else if (Math.abs(vLeft - vRight) > 1e-4) {
+                 resultVal = 'Does Not Exist';
+                 detailStr = `Left: ${fmt(vLeft)}, Right: ${fmt(vRight)}`;
+              } else {
+                 resultVal = String(fmt((vLeft + vRight) / 2));
+              }
+           }
+        }
+
+        ansLabel.textContent = resultLabel;
+        ansVal.textContent = resultVal;
+        ansDetail.textContent = detailStr;
+
+      } catch (err) {
+        ansBox.classList.add('hidden');
+        errBox.textContent = `Error calculating limit: ${err.message}.`;
+        errBox.classList.remove('hidden');
+      }
+
+      resSec.classList.remove('hidden');
+    });
+  };
+
+  initLimit();
+  document.addEventListener('astro:page-load', initLimit);
+</script>

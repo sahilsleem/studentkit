@@ -1,0 +1,212 @@
+---
+import { tools } from '../../data/registry';
+const { tool } = Astro.props;
+
+// Determine mode from slug
+let mode = 'first'; // first, second, partial, implicit, marginal
+if (tool.slug.includes('second-derivative') || tool.slug.includes('concavity') || tool.slug.includes('inflection')) mode = 'second';
+if (tool.slug.includes('partial-derivative')) mode = 'partial';
+if (tool.slug.includes('implicit-differentiation')) mode = 'implicit';
+if (tool.slug.includes('marginal')) mode = 'marginal';
+if (tool.slug.includes('tangent') || tool.slug.includes('normal')) mode = 'tangent';
+---
+
+<div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden max-w-3xl mx-auto">
+  <div class="p-6 sm:p-8">
+    <div class="mb-6 border-b border-gray-100 pb-4">
+      <h3 class="text-xl font-bold text-gray-800">{tool.title}</h3>
+      <p class="text-sm text-gray-500 mt-1">{tool.description}</p>
+    </div>
+
+    <form id="deriv-form" class="space-y-5">
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">
+          {mode === 'implicit' ? 'Equation F(x,y) = 0' : (mode === 'marginal' ? 'Cost/Revenue Function C(x)' : 'Function f(x, y, ...)')}
+        </label>
+        <div class="flex items-center gap-3">
+          <span class="font-mono text-gray-500 font-bold">{mode === 'implicit' ? 'F(x,y) =' : (mode === 'marginal' ? 'C(x) =' : 'f(...) =')}</span>
+          <input type="text" id="fn-expr" required class="flex-1 p-3 border border-gray-300 rounded-lg focus:ring-emerald-500 font-mono text-lg" placeholder={mode === 'implicit' ? 'x^2 + y^2 - 25' : 'x^2 * sin(x)'}>
+        </div>
+        <p class="text-xs text-gray-500 mt-2">Example: <code>2x^3 - 4x + 1</code>, <code>sin(x)*e^x</code>, <code>1/x</code></p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {mode !== 'implicit' && mode !== 'marginal' && (
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Respect to Variable</label>
+            <input type="text" id="fn-var" value="x" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-emerald-500 font-mono text-center">
+          </div>
+        )}
+        
+        {(mode === 'first' || mode === 'marginal' || mode === 'tangent') && (
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Evaluate at (Optional)</label>
+            <input type="number" step="any" id="fn-eval" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-emerald-500 font-mono text-center" placeholder="e.g. 2">
+          </div>
+        )}
+      </div>
+
+      <div class="pt-4">
+        <button type="submit" class="w-full bg-emerald-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-emerald-700 transition-colors">
+          Calculate Derivative
+        </button>
+      </div>
+    </form>
+
+    <div id="deriv-result" class="mt-8 pt-6 border-t border-gray-100 hidden">
+      <h3 class="text-lg font-semibold mb-3">Result</h3>
+      
+      <div id="deriv-err" class="hidden bg-red-50 text-red-700 p-4 rounded-lg text-sm font-medium border border-red-100 mb-4"></div>
+      
+      <div id="deriv-ans" class="bg-gray-50 p-6 rounded-xl border border-gray-200 overflow-x-auto">
+        <div class="flex flex-col gap-4">
+          <div class="text-gray-600 font-mono text-sm" id="ans-label"></div>
+          <div class="text-2xl font-bold font-mono text-gray-900 whitespace-nowrap" id="ans-val"></div>
+          <div id="eval-section" class="hidden mt-4 pt-4 border-t border-gray-200">
+            <div class="text-gray-600 font-mono text-sm" id="eval-label"></div>
+            <div class="text-xl font-bold font-mono text-emerald-700" id="eval-val"></div>
+          </div>
+          <div id="tangent-section" class="hidden mt-4 pt-4 border-t border-gray-200 space-y-3">
+             <div class="bg-white p-3 rounded border border-gray-200">
+               <p class="text-xs text-gray-500 uppercase mb-1 font-bold">Tangent Line</p>
+               <p class="font-mono text-lg font-bold text-indigo-700" id="tangent-eq"></p>
+             </div>
+             <div class="bg-white p-3 rounded border border-gray-200">
+               <p class="text-xs text-gray-500 uppercase mb-1 font-bold">Normal Line</p>
+               <p class="font-mono text-lg font-bold text-purple-700" id="normal-eq"></p>
+             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ mode }}>
+  import * as math from 'mathjs';
+
+  const initDeriv = () => {
+    const form = document.getElementById('deriv-form');
+    const exprIn = document.getElementById('fn-expr');
+    const varIn = document.getElementById('fn-var');
+    const evalIn = document.getElementById('fn-eval');
+    
+    const resSec = document.getElementById('deriv-result');
+    const errBox = document.getElementById('deriv-err');
+    const ansBox = document.getElementById('deriv-ans');
+    const ansLabel = document.getElementById('ans-label');
+    const ansVal = document.getElementById('ans-val');
+    const evalSec = document.getElementById('eval-section');
+    const evalLabel = document.getElementById('eval-label');
+    const evalVal = document.getElementById('eval-val');
+    
+    const tangSec = document.getElementById('tangent-section');
+    const tangEq = document.getElementById('tangent-eq');
+    const normEq = document.getElementById('normal-eq');
+
+    if (!form) return;
+
+    const cleanExpr = (str) => {
+      return str.replace(/(\d)([a-zA-Z])/g, '$1*$2'); // Fix implicit mult 2x -> 2*x
+    };
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      errBox.classList.add('hidden');
+      ansBox.classList.remove('hidden');
+      evalSec.classList.add('hidden');
+      if(tangSec) tangSec.classList.add('hidden');
+
+      let expr = cleanExpr(exprIn.value);
+      let v = varIn ? varIn.value || 'x' : 'x';
+      let evalAt = evalIn ? evalIn.value : '';
+
+      try {
+        let resultStr = '';
+        let labelStr = '';
+
+        if (mode === 'implicit') {
+          // dy/dx = - (dF/dx) / (dF/dy)
+          const fx = math.derivative(expr, 'x');
+          const fy = math.derivative(expr, 'y');
+          labelStr = 'dy / dx = - (∂F/∂x) / (∂F/∂y)';
+          
+          let num = math.simplify(fx).toString();
+          let den = math.simplify(fy).toString();
+          
+          if (den === '0') throw new Error('Derivative undefined (∂F/∂y = 0)');
+          resultStr = `-(${num}) / (${den})`;
+        } 
+        else if (mode === 'partial') {
+          const d1 = math.derivative(expr, v);
+          labelStr = `∂f / ∂${v} =`;
+          resultStr = math.simplify(d1).toString();
+        }
+        else if (mode === 'second') {
+          const d1 = math.derivative(expr, v);
+          const d2 = math.derivative(d1, v);
+          labelStr = `f''(${v}) = d²f / d${v}² =`;
+          resultStr = math.simplify(d2).toString();
+        }
+        else {
+          // first, marginal, tangent
+          const d1 = math.derivative(expr, v);
+          labelStr = mode === 'marginal' ? `C'(${v}) = Marginal Function` : `f'(${v}) = df/d${v} =`;
+          resultStr = math.simplify(d1).toString();
+          
+          if (evalAt !== '') {
+             const xVal = parseFloat(evalAt);
+             const evalRes = d1.evaluate({ [v]: xVal });
+             const yVal = math.evaluate(expr, { [v]: xVal });
+             
+             evalLabel.textContent = `Evaluated at ${v} = ${xVal}`;
+             evalVal.textContent = mode === 'marginal' 
+                ? `C'(${xVal}) = ${Number.isInteger(evalRes) ? evalRes : evalRes.toFixed(4)}`
+                : `f'(${xVal}) = ${Number.isInteger(evalRes) ? evalRes : evalRes.toFixed(4)}`;
+             evalSec.classList.remove('hidden');
+
+             if (mode === 'tangent' && tangSec) {
+                const m = evalRes;
+                const fmtM = Number.isInteger(m) ? m : parseFloat(m.toFixed(4));
+                const fmtY = Number.isInteger(yVal) ? yVal : parseFloat(yVal.toFixed(4));
+                
+                // y - y1 = m(x - x1)  => y = mx - mx1 + y1
+                const b = yVal - (m * xVal);
+                const fmtB = Number.isInteger(b) ? b : parseFloat(b.toFixed(4));
+                const signB = fmtB >= 0 ? `+ ${fmtB}` : `- ${Math.abs(fmtB)}`;
+                tangEq.textContent = `y = ${fmtM}x ${signB}`;
+
+                if (m === 0) {
+                   normEq.textContent = `x = ${xVal} (Vertical line)`;
+                } else {
+                   const mN = -1 / m;
+                   const fmtMN = Number.isInteger(mN) ? mN : parseFloat(mN.toFixed(4));
+                   const bN = yVal - (mN * xVal);
+                   const fmtBN = Number.isInteger(bN) ? bN : parseFloat(bN.toFixed(4));
+                   const signBN = fmtBN >= 0 ? `+ ${fmtBN}` : `- ${Math.abs(fmtBN)}`;
+                   normEq.textContent = `y = ${fmtMN}x ${signBN}`;
+                }
+                tangSec.classList.remove('hidden');
+             }
+          }
+        }
+
+        // Clean up output string format from mathjs (e.g. "2 * x" -> "2x")
+        resultStr = resultStr.replace(/\s\*\s/g, '');
+        
+        ansLabel.textContent = labelStr;
+        ansVal.textContent = resultStr;
+
+      } catch (err) {
+        ansBox.classList.add('hidden');
+        errBox.textContent = `Error calculating derivative: ${err.message}. Ensure the expression is valid math syntax.`;
+        errBox.classList.remove('hidden');
+      }
+
+      resSec.classList.remove('hidden');
+    });
+  };
+
+  initDeriv();
+  document.addEventListener('astro:page-load', initDeriv);
+</script>

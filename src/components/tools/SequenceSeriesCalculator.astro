@@ -1,0 +1,179 @@
+---
+import { tools } from '../../data/registry';
+const { tool } = Astro.props;
+
+const isArithmetic = tool.slug.includes('arithmetic');
+const isGeometric = tool.slug.includes('geometric');
+const isInfinite = tool.slug.includes('infinite');
+const isSigma = tool.slug.includes('sigma');
+---
+
+<div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden max-w-3xl mx-auto">
+  <div class="p-6 sm:p-8">
+    <div class="mb-6 border-b border-gray-100 pb-4">
+      <h3 class="text-xl font-bold text-gray-800">{tool.title}</h3>
+      <p class="text-sm text-gray-500 mt-1">{tool.description}</p>
+    </div>
+
+    {isSigma ? (
+      <form id="sigma-form" class="space-y-6">
+        <div class="flex items-center gap-4 justify-center">
+          <div class="text-6xl font-light text-gray-300">∑</div>
+          <div class="flex flex-col gap-2">
+            <div class="flex items-center gap-2">
+              <label class="font-mono text-gray-500 text-sm">n =</label>
+              <input type="number" id="sig-start" required class="w-16 p-2 border border-gray-300 rounded focus:ring-emerald-500 text-center" placeholder="1">
+              <span class="text-gray-400">to</span>
+              <input type="number" id="sig-end" required class="w-16 p-2 border border-gray-300 rounded focus:ring-emerald-500 text-center" placeholder="10">
+            </div>
+            <div class="flex items-center gap-2">
+              <label class="font-mono text-gray-500 text-sm">f(n) =</label>
+              <input type="text" id="sig-expr" required class="w-48 p-2 border border-gray-300 rounded focus:ring-emerald-500 font-mono" placeholder="n^2 + 1">
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="w-full bg-emerald-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-emerald-700 transition-colors">Calculate Sum</button>
+      </form>
+    ) : (
+      <form id="seq-form" class="space-y-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">First Term (a₁)</label>
+            <input type="number" step="any" id="seq-a" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-emerald-500 font-mono">
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">
+              {isGeometric ? 'Common Ratio (r)' : 'Common Difference (d)'}
+            </label>
+            <input type="number" step="any" id="seq-r" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-emerald-500 font-mono">
+          </div>
+          
+          {!isInfinite && (
+            <div class="sm:col-span-2">
+              <label class="block text-sm font-medium text-gray-700 mb-2">Number of Terms (n)</label>
+              <input type="number" min="1" id="seq-n" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-emerald-500 font-mono">
+            </div>
+          )}
+        </div>
+        <button type="submit" class="w-full bg-emerald-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-emerald-700 transition-colors">Calculate</button>
+      </form>
+    )}
+
+    <div id="seq-result" class="mt-8 pt-6 border-t border-gray-100 hidden">
+      <h3 class="text-lg font-semibold mb-3">Result</h3>
+      <div id="seq-err" class="hidden bg-red-50 text-red-700 p-4 rounded-lg text-sm font-medium mb-4"></div>
+      
+      <div id="seq-ans" class="bg-gray-50 p-6 rounded-xl border border-gray-200 text-center">
+         <div class="text-gray-500 font-mono text-sm mb-2" id="ans-label">Sum =</div>
+         <div class="text-3xl font-bold font-mono text-gray-900" id="ans-val"></div>
+         <div id="ans-nth" class="mt-3 text-sm text-gray-600 font-mono"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ isArithmetic, isGeometric, isInfinite, isSigma }}>
+  import * as math from 'mathjs';
+
+  const initSeq = () => {
+    const sigmaForm = document.getElementById('sigma-form');
+    const seqForm = document.getElementById('seq-form');
+    const resSec = document.getElementById('seq-result');
+    const errBox = document.getElementById('seq-err');
+    const ansBox = document.getElementById('seq-ans');
+    const ansLabel = document.getElementById('ans-label');
+    const ansVal = document.getElementById('ans-val');
+    const ansNth = document.getElementById('ans-nth');
+
+    if (sigmaForm) {
+      sigmaForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        errBox.classList.add('hidden');
+        ansBox.classList.remove('hidden');
+        ansNth.textContent = '';
+        
+        try {
+          const start = parseInt((document.getElementById('sig-start') as HTMLInputElement).value);
+          const end = parseInt((document.getElementById('sig-end') as HTMLInputElement).value);
+          let expr = (document.getElementById('sig-expr') as HTMLInputElement).value;
+          expr = expr.replace(/(\d)([a-zA-Z])/g, '$1*$2');
+          
+          if (end < start) throw new Error("End must be >= Start");
+          if (end - start > 100000) throw new Error("Too many terms to compute safely in browser.");
+
+          const code = math.compile(expr);
+          let sum = 0;
+          for (let n = start; n <= end; n++) {
+            sum += code.evaluate({ n });
+          }
+          
+          ansLabel.textContent = `Sum from n=${start} to ${end} =`;
+          ansVal.textContent = Number.isInteger(sum) ? String(sum) : String(parseFloat(sum.toFixed(6)));
+
+        } catch (err) {
+          ansBox.classList.add('hidden');
+          errBox.textContent = err.message;
+          errBox.classList.remove('hidden');
+        }
+        resSec.classList.remove('hidden');
+      });
+    }
+
+    if (seqForm) {
+      seqForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        errBox.classList.add('hidden');
+        ansBox.classList.remove('hidden');
+        ansNth.textContent = '';
+        
+        try {
+          const a = parseFloat((document.getElementById('seq-a') as HTMLInputElement).value);
+          const r = parseFloat((document.getElementById('seq-r') as HTMLInputElement).value);
+          
+          let n = 1;
+          if (!isInfinite) {
+            n = parseInt((document.getElementById('seq-n') as HTMLInputElement).value);
+          }
+
+          const fmt = (num) => Number.isInteger(num) ? String(num) : String(parseFloat(num.toFixed(6)));
+          let sum = 0;
+          let nth = 0;
+
+          if (isGeometric) {
+             if (isInfinite) {
+                if (Math.abs(r) >= 1) {
+                   throw new Error(`Geometric series diverges for |r| >= 1. (r = ${r})`);
+                }
+                sum = a / (1 - r);
+                ansLabel.textContent = `Infinite Sum (S_∞) =`;
+             } else {
+                if (r === 1) sum = a * n;
+                else sum = a * (1 - Math.pow(r, n)) / (1 - r);
+                nth = a * Math.pow(r, n - 1);
+                ansLabel.textContent = `Sum (S_${n}) =`;
+                ansNth.textContent = `n-th term (a_${n}) = ${fmt(nth)}`;
+             }
+          } else {
+             // Arithmetic
+             sum = (n / 2) * (2 * a + (n - 1) * r);
+             nth = a + (n - 1) * r;
+             ansLabel.textContent = `Sum (S_${n}) =`;
+             ansNth.textContent = `n-th term (a_${n}) = ${fmt(nth)}`;
+          }
+
+          ansVal.textContent = fmt(sum);
+
+        } catch (err) {
+          ansBox.classList.add('hidden');
+          errBox.textContent = err.message;
+          errBox.classList.remove('hidden');
+        }
+        resSec.classList.remove('hidden');
+      });
+    }
+  };
+
+  initSeq();
+  document.addEventListener('astro:page-load', initSeq);
+</script>

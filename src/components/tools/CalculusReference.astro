@@ -1,0 +1,124 @@
+---
+import { tools } from '../../data/registry';
+const { tool } = Astro.props;
+
+const isDeriv = tool.slug.includes('derivative');
+const isInt = tool.slug.includes('integration') || tool.slug.includes('integral');
+const isLimits = tool.slug.includes('limit');
+const isAll = tool.slug.includes('formula') || tool.slug.includes('identit');
+---
+
+<div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden max-w-4xl mx-auto">
+  <div class="p-6 sm:p-8 space-y-8">
+
+    {(isDeriv || isAll) && (
+      <section>
+        <div class="bg-blue-50 px-6 py-4 border border-blue-100 rounded-t-xl">
+          <h3 class="text-lg font-bold text-blue-900">Derivative Rules</h3>
+        </div>
+        <div class="border border-t-0 border-blue-100 rounded-b-xl overflow-hidden text-sm sm:text-base font-mono">
+          <div class="grid grid-cols-1 md:grid-cols-2">
+            <div class="p-4 border-b md:border-r border-blue-50 bg-white">
+              <span class="text-gray-500 block text-xs mb-1 font-sans font-bold">Power Rule</span>
+              d/dx [xⁿ] = n·xⁿ⁻¹
+            </div>
+            <div class="p-4 border-b border-blue-50 bg-white">
+              <span class="text-gray-500 block text-xs mb-1 font-sans font-bold">Constant</span>
+              d/dx [c] = 0
+            </div>
+            <div class="p-4 border-b md:border-r border-blue-50 bg-gray-50">
+              <span class="text-gray-500 block text-xs mb-1 font-sans font-bold">Product Rule</span>
+              d/dx [f·g] = f'g + fg'
+            </div>
+            <div class="p-4 border-b border-blue-50 bg-gray-50">
+              <span class="text-gray-500 block text-xs mb-1 font-sans font-bold">Quotient Rule</span>
+              d/dx [f/g] = (f'g - fg') / g²
+            </div>
+            <div class="p-4 border-b md:border-b-0 md:border-r border-blue-50 bg-white">
+              <span class="text-gray-500 block text-xs mb-1 font-sans font-bold">Chain Rule</span>
+              d/dx [f(g(x))] = f'(g(x))·g'(x)
+            </div>
+            <div class="p-4 bg-white">
+              <span class="text-gray-500 block text-xs mb-1 font-sans font-bold">Exponentials</span>
+              d/dx [eˣ] = eˣ  <br>
+              d/dx [aˣ] = aˣ·ln(a)
+            </div>
+            <div class="p-4 border-t md:border-r border-blue-50 bg-gray-50">
+               <span class="text-gray-500 block text-xs mb-1 font-sans font-bold">Logarithms</span>
+               d/dx [ln(x)] = 1/x
+            </div>
+            <div class="p-4 border-t border-blue-50 bg-gray-50">
+               <span class="text-gray-500 block text-xs mb-1 font-sans font-bold">Trigonometry</span>
+               d/dx [sin(x)] = cos(x) <br>
+               d/dx [cos(x)] = -sin(x) <br>
+               d/dx [tan(x)] = sec²(x)
+            </div>
+          </div>
+        </div>
+      </section>
+    )}
+
+    {(isInt || isAll) && (
+      <section>
+        <div class="bg-emerald-50 px-6 py-4 border border-emerald-100 rounded-t-xl">
+          <h3 class="text-lg font-bold text-emerald-900">Integration Rules</h3>
+        </div>
+        <div class="border border-t-0 border-emerald-100 rounded-b-xl overflow-hidden text-sm sm:text-base font-mono">
+          <div class="grid grid-cols-1 md:grid-cols-2">
+            <div class="p-4 border-b md:border-r border-emerald-50 bg-white">
+              <span class="text-gray-500 block text-xs mb-1 font-sans font-bold">Power Rule (n ≠ -1)</span>
+              ∫ xⁿ dx = (xⁿ⁺¹) / (n+1) + C
+            </div>
+            <div class="p-4 border-b border-emerald-50 bg-white">
+              <span class="text-gray-500 block text-xs mb-1 font-sans font-bold">1/x Rule</span>
+              ∫ (1/x) dx = ln|x| + C
+            </div>
+            <div class="p-4 border-b md:border-r border-emerald-50 bg-gray-50">
+              <span class="text-gray-500 block text-xs mb-1 font-sans font-bold">Exponentials</span>
+              ∫ eˣ dx = eˣ + C
+            </div>
+            <div class="p-4 border-b border-emerald-50 bg-gray-50">
+              <span class="text-gray-500 block text-xs mb-1 font-sans font-bold">Constant</span>
+              ∫ a dx = ax + C
+            </div>
+            <div class="p-4 border-b md:border-b-0 md:border-r border-emerald-50 bg-white">
+              <span class="text-gray-500 block text-xs mb-1 font-sans font-bold">Trigonometry</span>
+              ∫ sin(x) dx = -cos(x) + C <br>
+              ∫ cos(x) dx = sin(x) + C <br>
+              ∫ sec²(x) dx = tan(x) + C
+            </div>
+            <div class="p-4 bg-white">
+              <span class="text-gray-500 block text-xs mb-1 font-sans font-bold">Integration by Parts</span>
+              ∫ u dv = uv - ∫ v du
+            </div>
+          </div>
+        </div>
+      </section>
+    )}
+
+    {(isLimits || isAll) && (
+      <section>
+        <div class="bg-purple-50 px-6 py-4 border border-purple-100 rounded-t-xl">
+          <h3 class="text-lg font-bold text-purple-900">Common Limits</h3>
+        </div>
+        <div class="border border-t-0 border-purple-100 rounded-b-xl overflow-hidden text-sm sm:text-base font-mono">
+          <div class="grid grid-cols-1 md:grid-cols-2">
+            <div class="p-4 border-b md:border-r border-purple-50 bg-white">
+              lim (x→0) [sin(x)/x] = 1
+            </div>
+            <div class="p-4 border-b border-purple-50 bg-white">
+              lim (x→0) [(1 - cos(x))/x] = 0
+            </div>
+            <div class="p-4 border-b md:border-b-0 md:border-r border-purple-50 bg-gray-50">
+              lim (x→∞) [(1 + 1/x)ˣ] = e
+            </div>
+            <div class="p-4 bg-gray-50">
+              lim (x→0) [(eˣ - 1)/x] = 1
+            </div>
+          </div>
+        </div>
+      </section>
+    )}
+
+  </div>
+</div>
