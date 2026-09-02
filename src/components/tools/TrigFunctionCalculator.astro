@@ -126,7 +126,8 @@ const mathFn = fnMap[funcName] || 'sin';
 
         if (error) {
           resExpr.textContent = `${funcName}(${val}${isInverse ? '' : (unit === 'deg' ? '°' : ' rad')})`;
-          resVal.innerHTML = `<span class="text-red-500 text-xl">${error}</span>`;
+          resVal.innerHTML = `<span class="text-red-500 text-xl"></span>`;
+          (resVal.querySelector('span') as HTMLElement).textContent = error;
         } else {
           // Format
           if (Math.abs(result) < 1e-10) result = 0; // Fix floating point issues
