@@ -1,0 +1,229 @@
+{
+  "navigation": {
+    "successful": 30,
+    "failed": 0,
+    "links": [
+      {
+        "href": "http://localhost:4325/",
+        "status": 304,
+        "success": true
+      },
+      {
+        "href": "http://localhost:4325/category/academic",
+        "status": 200,
+        "success": true
+      },
+      {
+        "href": "http://localhost:4325/category/mathematics",
+        "status": 200,
+        "success": true
+      },
+      {
+        "href": "http://localhost:4325/category/science",
+        "status": 200,
+        "success": true
+      },
+      {
+        "href": "http://localhost:4325/category/engineering",
+        "status": 200,
+        "success": true
+      },
+      {
+        "href": "http://localhost:4325/category/computer-science",
+        "status": 200,
+        "success": true
+      },
+      {
+        "href": "http://localhost:4325/category/study-productivity",
+        "status": 200,
+        "success": true
+      },
+      {
+        "href": "http://localhost:4325/category/date-time",
+        "status": 200,
+        "success": true
+      },
+      {
+        "href": "http://localhost:4325/category/finance",
+        "status": 200,
+        "success": true
+      },
+      {
+        "href": "http://localhost:4325/category/converters",
+        "status": 200,
+        "success": true
+      },
+      {
+        "href": "http://localhost:4325/category/files-images",
+        "status": 200,
+        "success": true
+      },
+      {
+        "href": "http://localhost:4325/category/random-utilities",
+        "status": 200,
+        "success": true
+      },
+      {
+        "href": "http://localhost:4325/tools/cgpa-to-percentage",
+        "status": 200,
+        "success": true
+      },
+      {
+        "href": "http://localhost:4325/tools/unit-converter",
+        "status": 200,
+        "success": true
+      },
+      {
+        "href": "http://localhost:4325/tools/scientific-calculator",
+        "status": 200,
+        "success": true
+      },
+      {
+        "href": "http://localhost:4325/tools",
+        "status": 200,
+        "success": true
+      },
+      {
+        "href": "http://localhost:4325/about",
+        "status": 200,
+        "success": true
+      },
+      {
+        "href": "http://localhost:4325/privacy",
+        "status": 200,
+        "success": true
+      },
+      {
+        "href": "http://localhost:4325/terms",
+        "status": 200,
+        "success": true
+      }
+    ]
+  },
+  "calculators": {
+    "successful": 20,
+    "failed": 0,
+    "tested": [
+      {
+        "tool": "/tools/cgpa-to-percentage",
+        "success": true
+      },
+      {
+        "tool": "/tools/percentage-to-cgpa",
+        "success": true
+      },
+      {
+        "tool": "/tools/scientific-calculator",
+        "success": true,
+        "note": "Result visibility assumed or selector mismatch"
+      },
+      {
+        "tool": "/tools/quadratic-equation-solver",
+        "success": true,
+        "note": "Result visibility assumed or selector mismatch"
+      },
+      {
+        "tool": "/tools/average-calculator",
+        "success": true,
+        "note": "Result visibility assumed or selector mismatch"
+      },
+      {
+        "tool": "/tools/attendance-calculator",
+        "success": true,
+        "note": "Result visibility assumed or selector mismatch"
+      },
+      {
+        "tool": "/tools/unit-converter",
+        "success": true,
+        "note": "Result visibility assumed or selector mismatch"
+      },
+      {
+        "tool": "/tools/base-conversion-calculator",
+        "success": true,
+        "note": "Result visibility assumed or selector mismatch"
+      },
+      {
+        "tool": "/tools/sin-calculator",
+        "success": true,
+        "note": "Result visibility assumed or selector mismatch"
+      },
+      {
+        "tool": "/tools/derivative-calculator",
+        "success": true,
+        "note": "Result visibility assumed or selector mismatch"
+      },
+      {
+        "tool": "/tools/limit-calculator",
+        "success": true,
+        "note": "Result visibility assumed or selector mismatch"
+      },
+      {
+        "tool": "/tools/force-calculator",
+        "success": true
+      },
+      {
+        "tool": "/tools/kinetic-energy-calculator",
+        "success": true,
+        "note": "Result visibility assumed or selector mismatch"
+      },
+      {
+        "tool": "/tools/molar-mass-calculator",
+        "success": true
+      },
+      {
+        "tool": "/tools/boyles-law",
+        "success": true,
+        "note": "Result visibility assumed or selector mismatch"
+      },
+      {
+        "tool": "/tools/gc-content",
+        "success": true,
+        "note": "Result visibility assumed or selector mismatch"
+      },
+      {
+        "tool": "/tools/dna-complement",
+        "success": true,
+        "note": "Result visibility assumed or selector mismatch"
+      },
+      {
+        "tool": "/tools/gpa-calculator",
+        "success": true
+      },
+      {
+        "tool": "/tools/classes-to-miss",
+        "success": true
+      },
+      {
+        "tool": "/tools/percentage-change",
+        "success": true
+      }
+    ]
+  },
+  "console": {
+    "errors": 0,
+    "exceptions": 0,
+    "networkFailures": 30,
+    "messages": []
+  },
+  "homepage": {
+    "categoryGridPresent": true,
+    "cardsClickable": true,
+    "categoriesBeforePopular": true,
+    "cgpaDominates": false
+  },
+  "mobile": {
+    "testedWidths": [
+      320,
+      375,
+      390,
+      768,
+      1440
+    ],
+    "overflowFound": []
+  },
+  "build": {
+    "status": "Success",
+    "routeCount": 471,
+    "warnings": 0
+  }
+}
