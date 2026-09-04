@@ -20,7 +20,7 @@ const layoutMap = {
 const dimensionClasses = layoutMap[variant];
 ---
 
-<div class={`ad-wrapper flex justify-center items-center mx-auto my-8 ${dimensionClasses} ${className}`}>
+<div class={`ad-wrapper flex justify-center items-center mx-auto ${className || 'my-8'} ${dimensionClasses}`}>
   {isAdSenseActive ? (
     // Future AdSense implementation
     <div class="ad-content w-full h-full"></div>
