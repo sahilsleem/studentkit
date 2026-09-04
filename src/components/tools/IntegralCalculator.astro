@@ -9,8 +9,6 @@ if (tool.slug.includes('indefinite')) mode = 'indefinite';
 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden max-w-3xl mx-auto">
   <div class="p-6 sm:p-8">
     <div class="mb-6 border-b border-gray-100 pb-4">
-      <h3 class="text-xl font-bold text-gray-800">{tool.title}</h3>
-      <p class="text-sm text-gray-500 mt-1">{tool.description}</p>
       {mode !== 'indefinite' && (
         <div class="mt-3 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-50 text-emerald-700 text-xs font-medium border border-emerald-100">
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -50,7 +48,7 @@ if (tool.slug.includes('indefinite')) mode = 'indefinite';
         </div>
 
         <div class="pt-4">
-          <button type="submit" class="w-full bg-emerald-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-emerald-700 transition-colors">
+          <button type="submit" class="w-full bg-emerald-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors">
             Evaluate Integral
           </button>
         </div>
