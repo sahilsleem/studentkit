@@ -6,11 +6,6 @@ const configJson = JSON.stringify(tool.physicsConfig || {});
 
 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden mb-12 max-w-xl mx-auto unit-aware-calc-container" data-config={configJson}>
   <div class="p-6 sm:p-8">
-    <div class="mb-6 border-b border-gray-100 pb-4">
-      <h3 class="text-xl font-bold text-gray-800">{tool.title}</h3>
-      <p class="text-sm text-gray-500 mt-1">{tool.description}</p>
-    </div>
-
     <form class="space-y-6 unit-calc-form">
       {tool.physicsConfig?.inputs.map((input) => (
         <div>
@@ -21,12 +16,12 @@ const configJson = JSON.stringify(tool.physicsConfig || {});
               id={input.id} 
               step="any" 
               required 
-              class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition-colors unit-calc-input" 
+              class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 transition-colors unit-calc-input" 
               placeholder={input.placeholder || ""}
               data-id={input.id}
             />
             {input.options && input.options.length > 0 && (
-              <select class="w-32 px-2 py-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-gray-50 unit-calc-select" data-for={input.id}>
+              <select class="w-32 px-2 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 bg-gray-50 unit-calc-select" data-for={input.id}>
                 {input.options.map((opt) => (
                   <option value={opt.factor} data-offset={opt.offset || '0'} selected={opt.default}>{opt.label}</option>
                 ))}
@@ -37,7 +32,7 @@ const configJson = JSON.stringify(tool.physicsConfig || {});
       ))}
 
       <div class="pt-4">
-        <button type="submit" class="w-full bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors">
+        <button type="submit" class="w-full bg-emerald-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-emerald-700 transition-colors">
           Calculate
         </button>
       </div>
@@ -67,7 +62,7 @@ const configJson = JSON.stringify(tool.physicsConfig || {});
         {tool.physicsConfig?.outputOptions && tool.physicsConfig.outputOptions.length > 0 && (
           <div class="w-full sm:w-auto">
              <label class="block text-xs font-medium text-gray-500 mb-1 sm:hidden">Output Unit</label>
-             <select class="w-full sm:w-32 px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-white unit-calc-out-select">
+             <select class="w-full sm:w-32 px-3 py-2 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 bg-white unit-calc-out-select">
                 {tool.physicsConfig.outputOptions.map((opt) => (
                   <option value={opt.factor} data-offset={opt.offset || '0'} selected={opt.default}>{opt.label}</option>
                 ))}
@@ -79,12 +74,12 @@ const configJson = JSON.stringify(tool.physicsConfig || {});
   </div>
 </div>
 
-<div class="max-w-4xl mx-auto prose prose-blue mt-12 px-4 sm:px-0">
+<div class="max-w-4xl mx-auto prose prose-emerald mt-12 px-4 sm:px-0">
   <h2 class="text-2xl font-bold text-gray-900 mb-4">About the {tool.title}</h2>
   <p class="text-gray-700 leading-relaxed mb-6">{tool.description} This offline calculator allows you to instantly compute the results with built-in dimensional unit conversions.</p>
 
   <h3 class="text-xl font-semibold text-gray-800 mb-3">Formula</h3>
-  <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-6 font-mono text-lg text-center overflow-x-auto text-blue-900">
+  <div class="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-6 font-mono text-lg text-center overflow-x-auto text-emerald-900">
     {tool.physicsConfig?.outputLabel.split(' ')[0]} = {tool.physicsConfig?.expression.replace(/Math\./g, '').replace(/\*/g, ' × ').replace(/\//g, ' ÷ ')}
   </div>
 

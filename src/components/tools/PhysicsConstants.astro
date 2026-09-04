@@ -16,11 +16,6 @@ const constantsByCategory = Object.values(PHYSICS_CONSTANTS).reduce((acc, consta
 
 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden max-w-4xl mx-auto">
   <div class="p-6 sm:p-8">
-    <div class="mb-6">
-      <h3 class="text-xl font-bold text-gray-800">{tool.title}</h3>
-      <p class="text-sm text-gray-500 mt-1">{tool.description}</p>
-    </div>
-
     <div class="space-y-8">
       {Object.entries(constantsByCategory).map(([category, constants]) => (
         <div class="border border-gray-200 rounded-xl overflow-hidden">

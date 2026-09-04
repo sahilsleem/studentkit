@@ -5,17 +5,12 @@ const { tool } = Astro.props;
 
 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden max-w-4xl mx-auto set-container" data-tool={tool.slug}>
   <div class="p-6 sm:p-8">
-    <div class="mb-6 border-b border-gray-100 pb-4 text-center">
-      <h3 class="text-2xl font-bold text-gray-900">{tool.title}</h3>
-      <p class="text-gray-500 mt-2">{tool.description}</p>
-    </div>
-
     <form class="space-y-6 set-form">
       <div>
         <label class="block text-sm font-semibold text-gray-700 mb-2">Set A (comma separated values)</label>
         <input 
           type="text" 
-          class="in-a w-full p-4 text-sm font-mono border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-gray-50 placeholder-gray-400" 
+          class="in-a w-full p-4 text-sm font-mono border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 bg-gray-50 placeholder-gray-400" 
           placeholder="e.g. 1, 2, 3, a, b"
           required 
         />
@@ -24,13 +19,13 @@ const { tool } = Astro.props;
         <label class="block text-sm font-semibold text-gray-700 mb-2">Set B (comma separated values)</label>
         <input 
           type="text" 
-          class="in-b w-full p-4 text-sm font-mono border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 bg-gray-50 placeholder-gray-400" 
+          class="in-b w-full p-4 text-sm font-mono border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 bg-gray-50 placeholder-gray-400" 
           placeholder="e.g. 3, 4, 5, b, c"
           required 
         />
       </div>
 
-      <button type="submit" class="w-full bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors shadow-sm mt-4">
+      <button type="submit" class="w-full bg-emerald-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-emerald-700 transition-colors shadow-sm mt-4">
         Calculate Sets
       </button>
     </form>
@@ -42,9 +37,9 @@ const { tool } = Astro.props;
 
     <div class="result-section hidden mt-8 pt-8 border-t border-gray-100">
       
-      <div class="primary-result mb-8 bg-blue-50 p-6 rounded-xl border border-blue-100 text-center">
-        <h4 class="text-blue-800 font-semibold mb-2" id="primary-label">Primary Result</h4>
-        <p class="text-xl font-bold text-blue-900 font-mono break-all" id="primary-value">--</p>
+      <div class="primary-result mb-8 bg-emerald-50 p-6 rounded-xl border border-emerald-100 text-center">
+        <h4 class="text-emerald-800 font-semibold mb-2" id="primary-label">Primary Result</h4>
+        <p class="text-xl font-bold text-emerald-900 font-mono break-all" id="primary-value">--</p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
