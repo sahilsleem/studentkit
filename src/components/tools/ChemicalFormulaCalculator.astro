@@ -8,15 +8,18 @@ const { tool } = Astro.props;
     <form class="space-y-6 chem-form">
       <div>
         <label class="block text-sm font-semibold text-gray-700 mb-2">Chemical Formula</label>
-        <div class="flex gap-2">
+        <div class="flex flex-col sm:flex-row gap-4">
           <input 
             type="text" 
-            class="form-input flex-1 p-4 text-lg font-mono border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 bg-gray-50 placeholder-gray-400" 
-            placeholder="e.g. CuSO4 or (NH4)2SO4"
+            class="chem-input flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 transition-colors sm:text-lg font-mono placeholder-gray-400" 
+            placeholder="e.g. H2O, C6H12O6, Fe(CN)6" 
             required 
           />
-          <button type="submit" class="bg-emerald-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors shadow-sm">
+          <button type="submit" class="bg-emerald-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors shadow-sm">
             Calculate
+          </button>
+          <button type="button" class="chem-reset-btn px-6 py-3 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors">
+            Reset
           </button>
         </div>
         <p class="text-xs text-gray-500 mt-2 text-center">Supports nested parentheses. Remember to capitalize properly (e.g., Co for Cobalt, CO for Carbon Monoxide).</p>
@@ -67,14 +70,20 @@ const { tool } = Astro.props;
       container.setAttribute('data-init', 'true');
 
       const form = container.querySelector('.chem-form');
-      const input = container.querySelector('.form-input') as HTMLInputElement;
+      const input = container.querySelector('.chem-input') as HTMLInputElement;
       const errBox = container.querySelector('.err-box');
       const errMsg = container.querySelector('.err-msg');
       const resultSec = container.querySelector('.result-section');
       const mmVal = container.querySelector('.molar-mass-val');
       const compTbody = container.querySelector('.comp-tbody');
 
-      form.addEventListener('submit', (e) => {
+      container.querySelector('.chem-reset-btn')?.addEventListener('click', () => { form.reset(); resultSec?.classList.add('hidden'); errBox?.classList.add('hidden'); });
+        form.addEventListener('submit', (e) => {
+      container.querySelector('.chem-reset-btn')?.addEventListener('click', () => {
+        form.reset();
+        resultSec?.classList.add('hidden');
+        errBox?.classList.add('hidden');
+      });
         e.preventDefault();
         errBox.classList.add('hidden');
         resultSec.classList.add('hidden');
