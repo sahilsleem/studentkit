@@ -77,13 +77,12 @@ const { tool } = Astro.props;
       const mmVal = container.querySelector('.molar-mass-val');
       const compTbody = container.querySelector('.comp-tbody');
 
-      container.querySelector('.chem-reset-btn')?.addEventListener('click', () => { form.reset(); resultSec?.classList.add('hidden'); errBox?.classList.add('hidden'); });
-        form.addEventListener('submit', (e) => {
       container.querySelector('.chem-reset-btn')?.addEventListener('click', () => {
         form.reset();
         resultSec?.classList.add('hidden');
         errBox?.classList.add('hidden');
       });
+      form.addEventListener('submit', (e) => {
         e.preventDefault();
         errBox.classList.add('hidden');
         resultSec.classList.add('hidden');
