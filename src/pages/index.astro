@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import ToolCard from '../components/ToolCard.astro';
-import { tools, categories } from '../data/registry';
+import { tools, categories, getCategorySlug } from '../data/registry';
 
 // Select 6 popular tools
 const popularTools = [
@@ -55,7 +55,7 @@ const featuredTools = tools.filter(tool => popularTools.includes(tool.title));
     
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
       {categories.map(cat => (
-        <a href={`/category/${cat.name.toLowerCase().replace(/\\s+/g, '-')}`} class="group block p-6 bg-white rounded-xl border border-gray-200 hover:border-emerald-500 hover:shadow-md transition-all relative overflow-hidden">
+        <a href={`/category/${getCategorySlug(cat.name)}`} class="group block p-6 bg-white rounded-xl border border-gray-200 hover:border-emerald-500 hover:shadow-md transition-all relative overflow-hidden">
           <div class="absolute inset-0 bg-emerald-50 opacity-0 group-hover:opacity-10 transition-opacity"></div>
           <h3 class="text-xl font-bold text-gray-900 group-hover:text-emerald-700 transition-colors mb-2">{cat.name}</h3>
           <p class="text-sm text-gray-600 line-clamp-2">{cat.description}</p>

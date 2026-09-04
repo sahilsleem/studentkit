@@ -108,7 +108,9 @@ const isRight = tool.slug.includes('right-triangle') || tool.slug.includes('hypo
   </div>
 </div>
 
-<script define:vars={{ isRight }}>
+<div id="tri-config" data-is-right={isRight.toString()} class="hidden"></div>
+<script>
+  const isRight = document.getElementById('tri-config').dataset.isRight === 'true';
   const initTri = () => {
     const form = document.getElementById('tri-form');
     const emptySec = document.getElementById('tri-empty');

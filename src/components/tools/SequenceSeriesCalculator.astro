@@ -68,7 +68,13 @@ const isSigma = tool.slug.includes('sigma');
   </div>
 </div>
 
-<script define:vars={{ isArithmetic, isGeometric, isInfinite, isSigma }}>
+<div id="seq-config" data-is-arithmetic={isArithmetic.toString()} data-is-geometric={isGeometric.toString()} data-is-infinite={isInfinite.toString()} data-is-sigma={isSigma.toString()} class="hidden"></div>
+<script>
+  const conf = document.getElementById('seq-config').dataset;
+  const isArithmetic = conf.isArithmetic === 'true';
+  const isGeometric = conf.isGeometric === 'true';
+  const isInfinite = conf.isInfinite === 'true';
+  const isSigma = conf.isSigma === 'true';
   import * as math from 'mathjs';
 
   const initSeq = () => {

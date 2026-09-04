@@ -59,7 +59,12 @@ const mathFn = fnMap[funcName] || 'sin';
   </div>
 </div>
 
-<script define:vars={{ isInverse, mathFn, funcName }}>
+<div id="trig-config" data-is-inverse={isInverse.toString()} data-math-fn={mathFn} data-func-name={funcName} class="hidden"></div>
+<script>
+  const conf = document.getElementById('trig-config').dataset;
+  const isInverse = conf.isInverse === 'true';
+  const mathFn = conf.mathFn;
+  const funcName = conf.funcName;
   import * as math from 'mathjs';
 
   const initTrig = () => {

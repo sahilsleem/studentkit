@@ -36,7 +36,10 @@ const isCapacitance = tool.slug.includes('capacit');
   </div>
 </div>
 
-<script define:vars={{ isParallel, isCapacitance }}>
+<div id="circuit-config" data-is-parallel={isParallel.toString()} data-is-capacitance={isCapacitance.toString()} class="hidden"></div>
+<script>
+  const isParallel = document.getElementById('circuit-config').dataset.isParallel === 'true';
+  const isCapacitance = document.getElementById('circuit-config').dataset.isCapacitance === 'true';
   const initCircuit = () => {
     const form = document.getElementById('circuit-form');
     const list = document.getElementById('components-list');

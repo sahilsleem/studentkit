@@ -73,7 +73,9 @@ if (tool.slug.includes('infinity') || tool.slug.includes('infinite')) mode = 'in
   </div>
 </div>
 
-<script define:vars={{ mode }}>
+<div id="limit-config" data-mode={mode} class="hidden"></div>
+<script>
+  const mode = document.getElementById('limit-config').dataset.mode;
   import * as math from 'mathjs';
 
   const initLimit = () => {

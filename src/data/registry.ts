@@ -30,6 +30,8 @@ export interface Tool {
   related?: string[];
 }
 
+export const getCategorySlug = (name: string) => name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+
 export const categories: Category[] = [
   { id: "academic", name: "Academic", description: "CGPA, GPA, Marks, Grades, and Attendance calculators." },
   { id: "mathematics", name: "Mathematics", description: "Basic Math, Algebra, Geometry, Statistics, and Calculus." },

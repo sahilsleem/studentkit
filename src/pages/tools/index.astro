@@ -1,7 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import ToolCard from '../../components/ToolCard.astro';
-import { tools } from '../../data/registry';
+import { tools, getCategorySlug } from '../../data/registry';
 
 // Get unique categories
 const categories = [...new Set(tools.map(tool => tool.category))].sort().map(name => ({ name }));
@@ -14,7 +14,7 @@ const categories = [...new Set(tools.map(tool => tool.category))].sort().map(nam
     
     <div class="flex flex-wrap gap-2 mb-8">
       {categories.map(cat => (
-        <a href={`/category/${cat.name.toLowerCase().replace(/\s+/g, '-')}`} class="px-3 py-1.5 bg-gray-100 hover:bg-emerald-50 text-gray-700 hover:text-emerald-700 rounded-full text-sm font-medium transition-colors border border-transparent hover:border-emerald-200">
+        <a href={`/category/${getCategorySlug(cat.name)}`} class="px-3 py-1.5 bg-gray-100 hover:bg-emerald-50 text-gray-700 hover:text-emerald-700 rounded-full text-sm font-medium transition-colors border border-transparent hover:border-emerald-200">
           {cat.name}
         </a>
       ))}
