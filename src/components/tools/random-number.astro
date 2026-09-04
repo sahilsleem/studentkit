@@ -31,12 +31,18 @@
 
     form.addEventListener('submit', (e) => {
       e.preventDefault();
+      document.getElementById('error-box')?.classList.add('hidden');
       
       const min = parseInt((document.getElementById('min-val') as HTMLInputElement).value, 10);
       const max = parseInt((document.getElementById('max-val') as HTMLInputElement).value, 10);
       
       if (min > max) {
-        alert("Minimum value cannot be greater than maximum value.");
+        const errBox = document.getElementById('error-box');
+        if (errBox) {
+          errBox.textContent = "Minimum value cannot be greater than maximum value.";
+          errBox.classList.remove('hidden');
+        }
+        return;
         return;
       }
 

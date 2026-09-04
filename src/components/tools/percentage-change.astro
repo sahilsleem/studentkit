@@ -22,6 +22,7 @@
           </div>
         </form>
 
+        <div id="error-box" class="hidden mt-6 bg-red-50 text-red-700 p-4 rounded-lg text-sm font-medium border border-red-100"></div>
         <div id="result-section" class="mt-8 pt-8 border-t border-gray-100 hidden">
           <div class="text-center">
             <div id="result-icon" class="mx-auto flex items-center justify-center h-16 w-16 rounded-full mb-4">
@@ -41,12 +42,18 @@
 
     form.addEventListener('submit', (e) => {
       e.preventDefault();
+      document.getElementById('error-box')?.classList.add('hidden');
       
       const a = parseFloat((document.getElementById('val-a') as HTMLInputElement).value);
       const b = parseFloat((document.getElementById('val-b') as HTMLInputElement).value);
       
       if (a === 0) {
-        alert("Original value cannot be zero.");
+        const errBox = document.getElementById('error-box');
+        if (errBox) {
+          errBox.textContent = "Original value cannot be zero.";
+          errBox.classList.remove('hidden');
+        }
+        return;
         return;
       }
 
@@ -86,6 +93,7 @@
 
     document.getElementById('reset-btn')?.addEventListener('click', () => {
       form.reset();
+      document.getElementById('error-box')?.classList.add('hidden');
       document.getElementById('result-section')?.classList.add('hidden');
     });
   };

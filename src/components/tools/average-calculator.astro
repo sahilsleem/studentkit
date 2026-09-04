@@ -16,6 +16,7 @@
           </div>
         </form>
 
+        <div id="error-box" class="hidden mt-6 bg-red-50 text-red-700 p-4 rounded-lg text-sm font-medium border border-red-100"></div>
         <div id="result-section" class="mt-8 pt-8 border-t border-gray-100 hidden">
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
             <div class="bg-emerald-50 rounded-lg p-4 border border-emerald-100 col-span-2 sm:col-span-4 mb-2">
@@ -50,6 +51,7 @@
 
     form.addEventListener('submit', (e) => {
       e.preventDefault();
+      document.getElementById('error-box')?.classList.add('hidden');
       
       const input = (document.getElementById('number-input') as HTMLTextAreaElement).value;
       
@@ -58,7 +60,12 @@
       const nums = rawNums.map(n => parseFloat(n)).filter(n => !isNaN(n));
       
       if (nums.length === 0) {
-        alert("Please enter at least one valid number.");
+        const errBox = document.getElementById('error-box');
+        if (errBox) {
+          errBox.textContent = "Please enter at least one valid number.";
+          errBox.classList.remove('hidden');
+        }
+        return;
         return;
       }
 
@@ -79,6 +86,7 @@
 
     document.getElementById('reset-btn')?.addEventListener('click', () => {
       form.reset();
+      document.getElementById('error-box')?.classList.add('hidden');
       document.getElementById('result-section')?.classList.add('hidden');
     });
   };

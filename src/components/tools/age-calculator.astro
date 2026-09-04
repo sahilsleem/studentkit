@@ -22,6 +22,7 @@
           </div>
         </form>
 
+        <div id="error-box" class="hidden mt-6 bg-red-50 text-red-700 p-4 rounded-lg text-sm font-medium border border-red-100"></div>
         <div id="result-section" class="mt-8 pt-8 border-t border-gray-100 hidden">
           <div class="text-center mb-8">
             <p class="text-sm text-gray-500 mb-1">Age</p>
@@ -60,12 +61,18 @@
 
     form.addEventListener('submit', (e) => {
       e.preventDefault();
+      document.getElementById('error-box')?.classList.add('hidden');
       
       const dob = new Date(dobInput.value);
       const target = new Date(targetInput.value);
       
       if (dob > target) {
-        alert("Date of birth cannot be after the target date.");
+        const errBox = document.getElementById('error-box');
+        if (errBox) {
+          errBox.textContent = "Date of birth cannot be after the target date.";
+          errBox.classList.remove('hidden');
+        }
+        return;
         return;
       }
 
@@ -129,6 +136,7 @@
 
     document.getElementById('reset-btn')?.addEventListener('click', () => {
       form.reset();
+      document.getElementById('error-box')?.classList.add('hidden');
       targetInput.value = today.toISOString().split('T')[0];
       document.getElementById('result-section')?.classList.add('hidden');
     });

@@ -53,6 +53,7 @@
     if (simpForm) {
       simpForm.addEventListener('submit', (e) => {
         e.preventDefault();
+      document.getElementById('error-box')?.classList.add('hidden');
         const a = parseFloat((document.getElementById('simp-a') as HTMLInputElement).value);
         const b = parseFloat((document.getElementById('simp-b') as HTMLInputElement).value);
         
@@ -84,6 +85,7 @@
     if (solveForm) {
       solveForm.addEventListener('submit', (e) => {
         e.preventDefault();
+      document.getElementById('error-box')?.classList.add('hidden');
         const aEl = document.getElementById('solve-a') as HTMLInputElement;
         const bEl = document.getElementById('solve-b') as HTMLInputElement;
         const cEl = document.getElementById('solve-c') as HTMLInputElement;
@@ -96,7 +98,12 @@
 
         const nulls = [a,b,c,d].filter(x => x === null).length;
         if (nulls !== 1) {
-          alert("Please leave exactly one field empty.");
+          const errBox = document.getElementById('error-box');
+        if (errBox) {
+          errBox.textContent = "Please leave exactly one field empty.";
+          errBox.classList.remove('hidden');
+        }
+        return;
           return;
         }
 

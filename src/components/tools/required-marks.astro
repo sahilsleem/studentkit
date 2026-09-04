@@ -30,6 +30,7 @@
           </div>
         </form>
 
+        <div id="error-box" class="hidden mt-6 bg-red-50 text-red-700 p-4 rounded-lg text-sm font-medium border border-red-100"></div>
         <div id="result-section" class="mt-8 pt-8 border-t border-gray-100 hidden">
           <div class="text-center">
             <p class="text-sm text-gray-500 mb-1">You need to score</p>
@@ -46,6 +47,7 @@
 
     form.addEventListener('submit', (e) => {
       e.preventDefault();
+      document.getElementById('error-box')?.classList.add('hidden');
       
       const currentMarks = parseFloat((document.getElementById('current-marks') as HTMLInputElement).value);
       const currentTotal = parseFloat((document.getElementById('current-total') as HTMLInputElement).value);
@@ -53,7 +55,12 @@
       const targetPercent = parseFloat((document.getElementById('target-percent') as HTMLInputElement).value);
 
       if (currentMarks > currentTotal) {
-        alert("Current marks cannot exceed current total possible marks.");
+        const errBox = document.getElementById('error-box');
+        if (errBox) {
+          errBox.textContent = "Current marks cannot exceed current total possible marks.";
+          errBox.classList.remove('hidden');
+        }
+        return;
         return;
       }
 
@@ -92,6 +99,7 @@
 
     document.getElementById('reset-btn')?.addEventListener('click', () => {
       form.reset();
+      document.getElementById('error-box')?.classList.add('hidden');
       document.getElementById('result-section')?.classList.add('hidden');
     });
   };

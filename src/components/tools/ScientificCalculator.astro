@@ -156,7 +156,13 @@
         // Add to history
         history.unshift(`${histScreen.textContent} ${ans}`);
         if(history.length > 10) history.pop();
-        histList.innerHTML = history.map(h => `<li class="border-b border-gray-100 pb-1">${h}</li>`).join('');
+        histList.innerHTML = '';
+        history.forEach(h => {
+          let li = document.createElement('li');
+          li.className = 'border-b border-gray-100 pb-1';
+          li.textContent = h;
+          histList.appendChild(li);
+        });
 
         updateScreen();
       } catch (e) {
