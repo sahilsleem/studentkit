@@ -2,16 +2,21 @@
 import Layout from '../layouts/Layout.astro';
 import ToolCard from '../components/ToolCard.astro';
 import { tools, getActiveCategories, getCategorySlug } from '../data/registry';
+import AdSlot from '../components/AdSlot.astro';
 const categories = getActiveCategories();
 
 // Select 6 popular tools
 const popularTools = [
-  "CGPA to Percentage",
+  "Quadratic Equation Solver",
+  "Percentile Calculator",
+  "Sine Calculator (sin)",
+  "Derivative Calculator",
+  "Speed Calculator",
+  "Molar Mass Calculator",
+  "Punnett Square Calculator",
+  "Binary Converter",
   "Attendance Calculator",
-  "Percentage Calculator",
-  "GPA Calculator",
-  "Age Calculator",
-  "Exam Countdown"
+  "Age Calculator"
 ];
 
 const featuredTools = tools.filter(tool => popularTools.includes(tool.title));
@@ -38,7 +43,7 @@ const featuredTools = tools.filter(tool => popularTools.includes(tool.title));
           <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
         </svg>
       </div>
-      <input type="text" id="home-search" class="block w-full pl-11 pr-4 py-4 border border-gray-200 rounded-xl leading-5 bg-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 sm:text-lg transition-all shadow-sm" placeholder="Search a tool (e.g. CGPA)..." />
+      <input type="text" id="home-search" class="block w-full pl-11 pr-4 py-4 border border-gray-200 rounded-xl leading-5 bg-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 sm:text-lg transition-all shadow-sm" placeholder="Search for a tool" />
       
       <!-- Search Results Dropdown -->
       <div id="search-results" class="absolute z-10 w-full mt-2 bg-white rounded-lg shadow-lg border border-gray-100 hidden max-h-80 overflow-y-auto text-left">

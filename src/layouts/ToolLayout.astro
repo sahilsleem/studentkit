@@ -5,6 +5,7 @@ import type { Tool } from '../data/registry';
 import { getCategorySlug } from '../data/registry';
 import { getRelatedTools } from '../utils/relatedTools';
 import { toolContent } from '../data/toolContent';
+import AdSlot from '../components/AdSlot.astro';
 
 export interface Props {
   tool: Tool;
@@ -101,8 +102,12 @@ const appSchema = {
       </div>
     </div>
 
+    <AdSlot variant="horizontal" class="mb-8" />
+
     <!-- The actual tool component goes here -->
     <slot />
+
+    <AdSlot variant="rectangle" class="my-12" />
 
     <!-- Educational Content (Phase 9 SEO) -->
     {toolContent[tool.id] && (

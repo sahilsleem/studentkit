@@ -1,0 +1,409 @@
+{
+  "inventory": {
+    "total": 17,
+    "categories": [
+      {
+        "href": "http://localhost:4325/category/academic",
+        "name": "Academic"
+      },
+      {
+        "href": "http://localhost:4325/category/biology",
+        "name": "Biology"
+      },
+      {
+        "href": "http://localhost:4325/category/chemistry",
+        "name": "Chemistry"
+      },
+      {
+        "href": "http://localhost:4325/category/computer-science",
+        "name": "Computer Science"
+      },
+      {
+        "href": "http://localhost:4325/category/converters",
+        "name": "Converters"
+      },
+      {
+        "href": "http://localhost:4325/category/date-time",
+        "name": "Date & Time"
+      },
+      {
+        "href": "http://localhost:4325/category/discrete-mathematics",
+        "name": "Discrete Mathematics"
+      },
+      {
+        "href": "http://localhost:4325/category/engineering",
+        "name": "Engineering"
+      },
+      {
+        "href": "http://localhost:4325/category/linear-algebra",
+        "name": "Linear Algebra"
+      },
+      {
+        "href": "http://localhost:4325/category/mathematics",
+        "name": "Mathematics"
+      },
+      {
+        "href": "http://localhost:4325/category/numerical-methods",
+        "name": "Numerical Methods"
+      },
+      {
+        "href": "http://localhost:4325/category/physics",
+        "name": "Physics"
+      },
+      {
+        "href": "http://localhost:4325/category/random-utilities",
+        "name": "Random & Utilities"
+      },
+      {
+        "href": "http://localhost:4325/category/science",
+        "name": "Science"
+      },
+      {
+        "href": "http://localhost:4325/category/statistics",
+        "name": "Statistics"
+      },
+      {
+        "href": "http://localhost:4325/category/student-utilities",
+        "name": "Student Utilities"
+      },
+      {
+        "href": "http://localhost:4325/category/study-productivity",
+        "name": "Study & Productivity"
+      }
+    ]
+  },
+  "homepageTests": [
+    {
+      "category": "Academic",
+      "href": "http://localhost:4325/category/academic",
+      "destination": "http://localhost:4325/category/academic",
+      "categoryRendered": true,
+      "result": "PASS"
+    },
+    {
+      "category": "Biology",
+      "href": "http://localhost:4325/category/biology",
+      "destination": "http://localhost:4325/category/biology",
+      "categoryRendered": true,
+      "result": "PASS"
+    },
+    {
+      "category": "Chemistry",
+      "href": "http://localhost:4325/category/chemistry",
+      "destination": "http://localhost:4325/category/chemistry",
+      "categoryRendered": true,
+      "result": "PASS"
+    },
+    {
+      "category": "Computer Science",
+      "href": "http://localhost:4325/category/computer-science",
+      "destination": "http://localhost:4325/category/computer-science",
+      "categoryRendered": true,
+      "result": "PASS"
+    },
+    {
+      "category": "Converters",
+      "href": "http://localhost:4325/category/converters",
+      "destination": "http://localhost:4325/category/converters",
+      "categoryRendered": true,
+      "result": "PASS"
+    },
+    {
+      "category": "Date & Time",
+      "href": "http://localhost:4325/category/date-time",
+      "destination": "http://localhost:4325/category/date-time",
+      "categoryRendered": true,
+      "result": "PASS"
+    },
+    {
+      "category": "Discrete Mathematics",
+      "href": "http://localhost:4325/category/discrete-mathematics",
+      "destination": "http://localhost:4325/category/discrete-mathematics",
+      "categoryRendered": true,
+      "result": "PASS"
+    },
+    {
+      "category": "Engineering",
+      "href": "http://localhost:4325/category/engineering",
+      "destination": "http://localhost:4325/category/engineering",
+      "categoryRendered": true,
+      "result": "PASS"
+    },
+    {
+      "category": "Linear Algebra",
+      "href": "http://localhost:4325/category/linear-algebra",
+      "destination": "http://localhost:4325/category/linear-algebra",
+      "categoryRendered": true,
+      "result": "PASS"
+    },
+    {
+      "category": "Mathematics",
+      "href": "http://localhost:4325/category/mathematics",
+      "destination": "http://localhost:4325/category/mathematics",
+      "categoryRendered": true,
+      "result": "PASS"
+    },
+    {
+      "category": "Numerical Methods",
+      "href": "http://localhost:4325/category/numerical-methods",
+      "destination": "http://localhost:4325/category/numerical-methods",
+      "categoryRendered": true,
+      "result": "PASS"
+    },
+    {
+      "category": "Physics",
+      "href": "http://localhost:4325/category/physics",
+      "destination": "http://localhost:4325/category/physics",
+      "categoryRendered": true,
+      "result": "PASS"
+    },
+    {
+      "category": "Random & Utilities",
+      "href": "http://localhost:4325/category/random-utilities",
+      "destination": "http://localhost:4325/category/random-utilities",
+      "categoryRendered": true,
+      "result": "PASS"
+    },
+    {
+      "category": "Science",
+      "href": "http://localhost:4325/category/science",
+      "destination": "http://localhost:4325/category/science",
+      "categoryRendered": true,
+      "result": "PASS"
+    },
+    {
+      "category": "Statistics",
+      "href": "http://localhost:4325/category/statistics",
+      "destination": "http://localhost:4325/category/statistics",
+      "categoryRendered": true,
+      "result": "PASS"
+    },
+    {
+      "category": "Student Utilities",
+      "href": "http://localhost:4325/category/student-utilities",
+      "destination": "http://localhost:4325/category/student-utilities",
+      "categoryRendered": true,
+      "result": "PASS"
+    },
+    {
+      "category": "Study & Productivity",
+      "href": "http://localhost:4325/category/study-productivity",
+      "destination": "http://localhost:4325/category/study-productivity",
+      "categoryRendered": true,
+      "result": "PASS"
+    }
+  ],
+  "directTests": [
+    {
+      "category": "Academic",
+      "canonicalURL": "http://localhost:4325/category/academic",
+      "http": 304,
+      "rendered": true,
+      "result": "FAIL"
+    },
+    {
+      "category": "Biology",
+      "canonicalURL": "http://localhost:4325/category/biology",
+      "http": 304,
+      "rendered": true,
+      "result": "FAIL"
+    },
+    {
+      "category": "Chemistry",
+      "canonicalURL": "http://localhost:4325/category/chemistry",
+      "http": 304,
+      "rendered": true,
+      "result": "FAIL"
+    },
+    {
+      "category": "Computer Science",
+      "canonicalURL": "http://localhost:4325/category/computer-science",
+      "http": 304,
+      "rendered": true,
+      "result": "FAIL"
+    },
+    {
+      "category": "Converters",
+      "canonicalURL": "http://localhost:4325/category/converters",
+      "http": 304,
+      "rendered": true,
+      "result": "FAIL"
+    },
+    {
+      "category": "Date & Time",
+      "canonicalURL": "http://localhost:4325/category/date-time",
+      "http": 304,
+      "rendered": true,
+      "result": "FAIL"
+    },
+    {
+      "category": "Discrete Mathematics",
+      "canonicalURL": "http://localhost:4325/category/discrete-mathematics",
+      "http": 304,
+      "rendered": true,
+      "result": "FAIL"
+    },
+    {
+      "category": "Engineering",
+      "canonicalURL": "http://localhost:4325/category/engineering",
+      "http": 304,
+      "rendered": true,
+      "result": "FAIL"
+    },
+    {
+      "category": "Linear Algebra",
+      "canonicalURL": "http://localhost:4325/category/linear-algebra",
+      "http": 304,
+      "rendered": true,
+      "result": "FAIL"
+    },
+    {
+      "category": "Mathematics",
+      "canonicalURL": "http://localhost:4325/category/mathematics",
+      "http": 304,
+      "rendered": true,
+      "result": "FAIL"
+    },
+    {
+      "category": "Numerical Methods",
+      "canonicalURL": "http://localhost:4325/category/numerical-methods",
+      "http": 304,
+      "rendered": true,
+      "result": "FAIL"
+    },
+    {
+      "category": "Physics",
+      "canonicalURL": "http://localhost:4325/category/physics",
+      "http": 304,
+      "rendered": true,
+      "result": "FAIL"
+    },
+    {
+      "category": "Random & Utilities",
+      "canonicalURL": "http://localhost:4325/category/random-utilities",
+      "http": 304,
+      "rendered": true,
+      "result": "FAIL"
+    },
+    {
+      "category": "Science",
+      "canonicalURL": "http://localhost:4325/category/science",
+      "http": 304,
+      "rendered": true,
+      "result": "FAIL"
+    },
+    {
+      "category": "Statistics",
+      "canonicalURL": "http://localhost:4325/category/statistics",
+      "http": 304,
+      "rendered": true,
+      "result": "FAIL"
+    },
+    {
+      "category": "Student Utilities",
+      "canonicalURL": "http://localhost:4325/category/student-utilities",
+      "http": 304,
+      "rendered": true,
+      "result": "FAIL"
+    },
+    {
+      "category": "Study & Productivity",
+      "canonicalURL": "http://localhost:4325/category/study-productivity",
+      "http": 304,
+      "rendered": true,
+      "result": "FAIL"
+    }
+  ],
+  "toolTests": [
+    {
+      "category": "Academic",
+      "representativeTool": "CGPA to Percentage",
+      "result": "PASS"
+    },
+    {
+      "category": "Biology",
+      "representativeTool": "BMI Calculator",
+      "result": "PASS"
+    },
+    {
+      "category": "Chemistry",
+      "representativeTool": "Molar Mass Calculator",
+      "result": "PASS"
+    },
+    {
+      "category": "Computer Science",
+      "representativeTool": "Binary Converter",
+      "result": "PASS"
+    },
+    {
+      "category": "Converters",
+      "representativeTool": "Unit Converter",
+      "result": "PASS"
+    },
+    {
+      "category": "Date & Time",
+      "representativeTool": "Age Calculator",
+      "result": "PASS"
+    },
+    {
+      "category": "Discrete Mathematics",
+      "representativeTool": "Truth Table Generator",
+      "result": "PASS"
+    },
+    {
+      "category": "Engineering",
+      "representativeTool": "Voltage Calculator (Ohm's Law)",
+      "result": "PASS"
+    },
+    {
+      "category": "Linear Algebra",
+      "representativeTool": "RREF Calculator",
+      "result": "PASS"
+    },
+    {
+      "category": "Mathematics",
+      "representativeTool": "Percentage Change",
+      "result": "PASS"
+    },
+    {
+      "category": "Numerical Methods",
+      "representativeTool": "Relative Error Calculator",
+      "result": "PASS"
+    },
+    {
+      "category": "Physics",
+      "representativeTool": "Speed Calculator",
+      "result": "PASS"
+    },
+    {
+      "category": "Random & Utilities",
+      "representativeTool": "Random Number",
+      "result": "PASS"
+    },
+    {
+      "category": "Science",
+      "representativeTool": "Kinetic Energy Calculator",
+      "result": "PASS"
+    },
+    {
+      "category": "Statistics",
+      "representativeTool": "Percentile Calculator",
+      "result": "PASS"
+    },
+    {
+      "category": "Student Utilities",
+      "representativeTool": "Final Grade Calculator",
+      "result": "PASS"
+    },
+    {
+      "category": "Study & Productivity",
+      "representativeTool": "Study Hours Calculator",
+      "result": "PASS"
+    }
+  ],
+  "console": {
+    "exceptions": 0,
+    "applicationErrors": 0,
+    "failedRequests": 59
+  }
+}
