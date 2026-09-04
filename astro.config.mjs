@@ -7,7 +7,7 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://studentkit.pages.dev',
+  site: 'https://studentkit.in',
   vite: {
     plugins: [tailwindcss()]
   },

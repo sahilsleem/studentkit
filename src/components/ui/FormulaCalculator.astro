@@ -71,8 +71,13 @@ const configJson = JSON.stringify(config);
       const resultSection = container.querySelector('.calc-result-section');
       const resultValue = container.querySelector('.calc-result-value');
 
-      // Create a calculation function dynamically
-      // Warning: This is safe only because `expression` comes directly from our trusted registry.ts
+      // Create a calculation function dynamically.
+      // SECURITY JUSTIFICATION FOR new Function():
+      // 1. Build-time only data: `config.expression` originates purely from `registry.ts` which is statically generated.
+      // 2. No user input: The expression string is passed via the `data-config` HTML attribute at build time.
+      // 3. Separation of logic and input: User input (from the form) is parsed as floats and passed as arguments 
+      //    to the already-compiled function via `calcFn(...args)`, NEVER concatenated into the function string.
+      // 4. Cannot be removed: 15+ calculators rely on complex JS (IIFEs, loops, string manipulation) that mathjs cannot parse.
       const paramNames = config.inputs.map((i: any) => i.id);
       let calcFn: Function;
       try {

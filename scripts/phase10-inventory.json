@@ -20,7 +20,7 @@
     "hasExample": true,
     "hasFAQ": true,
     "component": "Unknown",
-    "canonical": "https://studentkit.pages.dev/tools/cgpa-to-percentage"
+    "canonical": "https://studentkit.in/tools/cgpa-to-percentage"
   },
   {
     "slug": "percentage-to-cgpa",
@@ -42,7 +42,7 @@
     "hasExample": false,
     "hasFAQ": true,
     "component": "Unknown",
-    "canonical": "https://studentkit.pages.dev/tools/percentage-to-cgpa"
+    "canonical": "https://studentkit.in/tools/percentage-to-cgpa"
   },
   {
     "slug": "gpa-calculator",
@@ -66,7 +66,7 @@
     "hasExample": true,
     "hasFAQ": true,
     "component": "Unknown",
-    "canonical": "https://studentkit.pages.dev/tools/gpa-calculator"
+    "canonical": "https://studentkit.in/tools/gpa-calculator"
   },
   {
     "slug": "percentage-calculator",
@@ -84,7 +84,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "Unknown",
-    "canonical": "https://studentkit.pages.dev/tools/percentage-calculator"
+    "canonical": "https://studentkit.in/tools/percentage-calculator"
   },
   {
     "slug": "marks-calculator",
@@ -102,7 +102,7 @@
     "hasExample": true,
     "hasFAQ": true,
     "component": "Unknown",
-    "canonical": "https://studentkit.pages.dev/tools/marks-calculator"
+    "canonical": "https://studentkit.in/tools/marks-calculator"
   },
   {
     "slug": "required-marks",
@@ -112,7 +112,12 @@
     "category": "Academic",
     "subcategory": "",
     "seoTitle": "Required Marks Calculator",
-    "aliases": [],
+    "aliases": [
+      "check my attendance",
+      "attendance percentage calculator",
+      "calculate attendance percentage",
+      "am i short on attendance"
+    ],
     "keywords": [],
     "related": [],
     "hasContent": true,
@@ -120,7 +125,7 @@
     "hasExample": true,
     "hasFAQ": false,
     "component": "Unknown",
-    "canonical": "https://studentkit.pages.dev/tools/required-marks"
+    "canonical": "https://studentkit.in/tools/required-marks"
   },
   {
     "slug": "attendance-calculator",
@@ -143,7 +148,7 @@
     "hasExample": true,
     "hasFAQ": true,
     "component": "Unknown",
-    "canonical": "https://studentkit.pages.dev/tools/attendance-calculator"
+    "canonical": "https://studentkit.in/tools/attendance-calculator"
   },
   {
     "slug": "required-attendance",
@@ -166,7 +171,7 @@
     "hasExample": false,
     "hasFAQ": true,
     "component": "Unknown",
-    "canonical": "https://studentkit.pages.dev/tools/required-attendance"
+    "canonical": "https://studentkit.in/tools/required-attendance"
   },
   {
     "slug": "classes-to-miss",
@@ -184,7 +189,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "Unknown",
-    "canonical": "https://studentkit.pages.dev/tools/classes-to-miss"
+    "canonical": "https://studentkit.in/tools/classes-to-miss"
   },
   {
     "slug": "study-hours",
@@ -202,7 +207,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "Unknown",
-    "canonical": "https://studentkit.pages.dev/tools/study-hours"
+    "canonical": "https://studentkit.in/tools/study-hours"
   },
   {
     "slug": "pomodoro-timer",
@@ -220,7 +225,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "Unknown",
-    "canonical": "https://studentkit.pages.dev/tools/pomodoro-timer"
+    "canonical": "https://studentkit.in/tools/pomodoro-timer"
   },
   {
     "slug": "word-counter",
@@ -238,7 +243,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "Unknown",
-    "canonical": "https://studentkit.pages.dev/tools/word-counter"
+    "canonical": "https://studentkit.in/tools/word-counter"
   },
   {
     "slug": "character-counter",
@@ -256,7 +261,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "Unknown",
-    "canonical": "https://studentkit.pages.dev/tools/character-counter"
+    "canonical": "https://studentkit.in/tools/character-counter"
   },
   {
     "slug": "reading-time",
@@ -274,7 +279,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "Unknown",
-    "canonical": "https://studentkit.pages.dev/tools/reading-time"
+    "canonical": "https://studentkit.in/tools/reading-time"
   },
   {
     "slug": "age-calculator",
@@ -292,7 +297,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "Unknown",
-    "canonical": "https://studentkit.pages.dev/tools/age-calculator"
+    "canonical": "https://studentkit.in/tools/age-calculator"
   },
   {
     "slug": "date-difference",
@@ -310,7 +315,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "Unknown",
-    "canonical": "https://studentkit.pages.dev/tools/date-difference"
+    "canonical": "https://studentkit.in/tools/date-difference"
   },
   {
     "slug": "days-between-dates",
@@ -328,7 +333,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "Unknown",
-    "canonical": "https://studentkit.pages.dev/tools/days-between-dates"
+    "canonical": "https://studentkit.in/tools/days-between-dates"
   },
   {
     "slug": "weeks-between-dates",
@@ -346,7 +351,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "Unknown",
-    "canonical": "https://studentkit.pages.dev/tools/weeks-between-dates"
+    "canonical": "https://studentkit.in/tools/weeks-between-dates"
   },
   {
     "slug": "exam-countdown",
@@ -356,7 +361,12 @@
     "category": "Date & Time",
     "subcategory": "",
     "seoTitle": "Exam Countdown",
-    "aliases": [],
+    "aliases": [
+      "find percentage increase",
+      "percentage increase calculator",
+      "calculate percent change",
+      "percentage decrease"
+    ],
     "keywords": [],
     "related": [],
     "hasContent": false,
@@ -364,7 +374,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "Unknown",
-    "canonical": "https://studentkit.pages.dev/tools/exam-countdown"
+    "canonical": "https://studentkit.in/tools/exam-countdown"
   },
   {
     "slug": "unit-converter",
@@ -387,7 +397,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "Unknown",
-    "canonical": "https://studentkit.pages.dev/tools/unit-converter"
+    "canonical": "https://studentkit.in/tools/unit-converter"
   },
   {
     "slug": "percentage-change",
@@ -410,7 +420,7 @@
     "hasExample": true,
     "hasFAQ": false,
     "component": "Unknown",
-    "canonical": "https://studentkit.pages.dev/tools/percentage-change"
+    "canonical": "https://studentkit.in/tools/percentage-change"
   },
   {
     "slug": "average-calculator",
@@ -428,7 +438,7 @@
     "hasExample": true,
     "hasFAQ": false,
     "component": "Unknown",
-    "canonical": "https://studentkit.pages.dev/tools/average-calculator"
+    "canonical": "https://studentkit.in/tools/average-calculator"
   },
   {
     "slug": "ratio-calculator",
@@ -446,7 +456,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "Unknown",
-    "canonical": "https://studentkit.pages.dev/tools/ratio-calculator"
+    "canonical": "https://studentkit.in/tools/ratio-calculator"
   },
   {
     "slug": "random-number",
@@ -463,8 +473,8 @@
     "hasFormula": false,
     "hasExample": false,
     "hasFAQ": false,
-    "component": "Unknown",
-    "canonical": "https://studentkit.pages.dev/tools/random-number"
+    "component": "FormulaCalculator",
+    "canonical": "https://studentkit.in/tools/random-number"
   },
   {
     "slug": "square-calculator",
@@ -482,7 +492,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "FormulaCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/square-calculator"
+    "canonical": "https://studentkit.in/tools/square-calculator"
   },
   {
     "slug": "rectangle-area-calculator",
@@ -492,7 +502,11 @@
     "category": "Mathematics",
     "subcategory": "Geometry",
     "seoTitle": "Rectangle Area Calculator",
-    "aliases": [],
+    "aliases": [
+      "calculate kinetic energy",
+      "ke calculator",
+      "kinetic energy formula"
+    ],
     "keywords": [],
     "related": [],
     "hasContent": false,
@@ -500,7 +514,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "FormulaCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/rectangle-area-calculator"
+    "canonical": "https://studentkit.in/tools/rectangle-area-calculator"
   },
   {
     "slug": "kinetic-energy-calculator",
@@ -522,7 +536,30 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "FormulaCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/kinetic-energy-calculator"
+    "canonical": "https://studentkit.in/tools/kinetic-energy-calculator"
+  },
+  {
+    "slug": "ohms-law-voltage",
+    "id": "ohms-law-voltage",
+    "title": "Voltage Calculator (Ohm's Law)",
+    "description": "Calculate voltage given current and resistance.",
+    "category": "Engineering",
+    "subcategory": "Electrical Engineering",
+    "seoTitle": "Voltage Calculator (Ohm's Law)",
+    "aliases": [
+      "ohms law",
+      "ohm law calculator",
+      "voltage current resistance",
+      "v equals ir"
+    ],
+    "keywords": [],
+    "related": [],
+    "hasContent": true,
+    "hasFormula": true,
+    "hasExample": true,
+    "hasFAQ": false,
+    "component": "FormulaCalculator",
+    "canonical": "https://studentkit.in/tools/ohms-law-voltage"
   },
   {
     "slug": "square-root-calculator",
@@ -540,7 +577,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "FormulaCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/square-root-calculator"
+    "canonical": "https://studentkit.in/tools/square-root-calculator"
   },
   {
     "slug": "cube-calculator",
@@ -558,7 +595,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "FormulaCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/cube-calculator"
+    "canonical": "https://studentkit.in/tools/cube-calculator"
   },
   {
     "slug": "cube-root-calculator",
@@ -576,7 +613,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "FormulaCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/cube-root-calculator"
+    "canonical": "https://studentkit.in/tools/cube-root-calculator"
   },
   {
     "slug": "exponent-calculator",
@@ -594,7 +631,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "FormulaCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/exponent-calculator"
+    "canonical": "https://studentkit.in/tools/exponent-calculator"
   },
   {
     "slug": "logarithm-calculator",
@@ -612,7 +649,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "FormulaCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/logarithm-calculator"
+    "canonical": "https://studentkit.in/tools/logarithm-calculator"
   },
   {
     "slug": "absolute-value-calculator",
@@ -630,7 +667,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "FormulaCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/absolute-value-calculator"
+    "canonical": "https://studentkit.in/tools/absolute-value-calculator"
   },
   {
     "slug": "percentage-difference-calculator",
@@ -648,7 +685,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "FormulaCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/percentage-difference-calculator"
+    "canonical": "https://studentkit.in/tools/percentage-difference-calculator"
   },
   {
     "slug": "percentage-error-calculator",
@@ -666,7 +703,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "FormulaCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/percentage-error-calculator"
+    "canonical": "https://studentkit.in/tools/percentage-error-calculator"
   },
   {
     "slug": "remainder-calculator",
@@ -684,7 +721,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "FormulaCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/remainder-calculator"
+    "canonical": "https://studentkit.in/tools/remainder-calculator"
   },
   {
     "slug": "factorial-calculator",
@@ -702,7 +739,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "FormulaCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/factorial-calculator"
+    "canonical": "https://studentkit.in/tools/factorial-calculator"
   },
   {
     "slug": "gcd-calculator",
@@ -720,7 +757,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "FormulaCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/gcd-calculator"
+    "canonical": "https://studentkit.in/tools/gcd-calculator"
   },
   {
     "slug": "lcm-calculator",
@@ -738,7 +775,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "FormulaCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/lcm-calculator"
+    "canonical": "https://studentkit.in/tools/lcm-calculator"
   },
   {
     "slug": "prime-checker",
@@ -748,7 +785,12 @@
     "category": "Mathematics",
     "subcategory": "Basic Math",
     "seoTitle": "Prime Number Checker",
-    "aliases": [],
+    "aliases": [
+      "solve quadratic equation",
+      "quadratic formula",
+      "find roots of quadratic",
+      "quadratic calculator"
+    ],
     "keywords": [],
     "related": [],
     "hasContent": false,
@@ -756,7 +798,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "FormulaCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/prime-checker"
+    "canonical": "https://studentkit.in/tools/prime-checker"
   },
   {
     "slug": "quadratic-equation-solver",
@@ -779,7 +821,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "FormulaCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/quadratic-equation-solver"
+    "canonical": "https://studentkit.in/tools/quadratic-equation-solver"
   },
   {
     "slug": "linear-equation-solver",
@@ -797,7 +839,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "FormulaCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/linear-equation-solver"
+    "canonical": "https://studentkit.in/tools/linear-equation-solver"
   },
   {
     "slug": "pythagorean-theorem-calculator",
@@ -815,7 +857,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "FormulaCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/pythagorean-theorem-calculator"
+    "canonical": "https://studentkit.in/tools/pythagorean-theorem-calculator"
   },
   {
     "slug": "circle-area-calculator",
@@ -833,7 +875,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "FormulaCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/circle-area-calculator"
+    "canonical": "https://studentkit.in/tools/circle-area-calculator"
   },
   {
     "slug": "circle-circumference-calculator",
@@ -851,7 +893,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "FormulaCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/circle-circumference-calculator"
+    "canonical": "https://studentkit.in/tools/circle-circumference-calculator"
   },
   {
     "slug": "square-perimeter-calculator",
@@ -869,7 +911,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "FormulaCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/square-perimeter-calculator"
+    "canonical": "https://studentkit.in/tools/square-perimeter-calculator"
   },
   {
     "slug": "rectangle-perimeter-calculator",
@@ -887,7 +929,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "FormulaCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/rectangle-perimeter-calculator"
+    "canonical": "https://studentkit.in/tools/rectangle-perimeter-calculator"
   },
   {
     "slug": "cube-volume-calculator",
@@ -905,7 +947,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "FormulaCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/cube-volume-calculator"
+    "canonical": "https://studentkit.in/tools/cube-volume-calculator"
   },
   {
     "slug": "sphere-volume-calculator",
@@ -923,7 +965,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "FormulaCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/sphere-volume-calculator"
+    "canonical": "https://studentkit.in/tools/sphere-volume-calculator"
   },
   {
     "slug": "cylinder-volume-calculator",
@@ -941,7 +983,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "FormulaCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/cylinder-volume-calculator"
+    "canonical": "https://studentkit.in/tools/cylinder-volume-calculator"
   },
   {
     "slug": "cone-volume-calculator",
@@ -959,7 +1001,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "FormulaCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/cone-volume-calculator"
+    "canonical": "https://studentkit.in/tools/cone-volume-calculator"
   },
   {
     "slug": "arithmetic-sequence-calculator",
@@ -977,7 +1019,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "FormulaCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/arithmetic-sequence-calculator"
+    "canonical": "https://studentkit.in/tools/arithmetic-sequence-calculator"
   },
   {
     "slug": "geometric-sequence-calculator",
@@ -987,15 +1029,18 @@
     "category": "Mathematics",
     "subcategory": "Algebra",
     "seoTitle": "Geometric Sequence Calculator",
-    "aliases": [],
+    "aliases": [
+      "calculate mean average",
+      "arithmetic mean calculator"
+    ],
     "keywords": [],
     "related": [],
     "hasContent": false,
     "hasFormula": true,
     "hasExample": false,
     "hasFAQ": false,
-    "component": "FormulaCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/geometric-sequence-calculator"
+    "component": "StatisticsCalculator",
+    "canonical": "https://studentkit.in/tools/geometric-sequence-calculator"
   },
   {
     "slug": "mean-calculator",
@@ -1016,7 +1061,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "StatisticsCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/mean-calculator"
+    "canonical": "https://studentkit.in/tools/mean-calculator"
   },
   {
     "slug": "median-calculator",
@@ -1034,7 +1079,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "StatisticsCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/median-calculator"
+    "canonical": "https://studentkit.in/tools/median-calculator"
   },
   {
     "slug": "mode-calculator",
@@ -1052,7 +1097,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "StatisticsCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/mode-calculator"
+    "canonical": "https://studentkit.in/tools/mode-calculator"
   },
   {
     "slug": "range-calculator",
@@ -1062,7 +1107,12 @@
     "category": "Mathematics",
     "subcategory": "Statistics",
     "seoTitle": "Range Calculator",
-    "aliases": [],
+    "aliases": [
+      "calculate standard deviation",
+      "sample standard deviation",
+      "population standard deviation",
+      "std deviation calculator"
+    ],
     "keywords": [],
     "related": [],
     "hasContent": false,
@@ -1070,7 +1120,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "StatisticsCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/range-calculator"
+    "canonical": "https://studentkit.in/tools/range-calculator"
   },
   {
     "slug": "variance-calculator",
@@ -1093,7 +1143,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "StatisticsCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/variance-calculator"
+    "canonical": "https://studentkit.in/tools/variance-calculator"
   },
   {
     "slug": "standard-deviation-calculator",
@@ -1116,7 +1166,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "StatisticsCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/standard-deviation-calculator"
+    "canonical": "https://studentkit.in/tools/standard-deviation-calculator"
   },
   {
     "slug": "fraction-to-decimal",
@@ -1134,7 +1184,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "FormulaCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/fraction-to-decimal"
+    "canonical": "https://studentkit.in/tools/fraction-to-decimal"
   },
   {
     "slug": "decimal-to-fraction",
@@ -1152,7 +1202,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "FormulaCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/decimal-to-fraction"
+    "canonical": "https://studentkit.in/tools/decimal-to-fraction"
   },
   {
     "slug": "ratio-simplifier",
@@ -1170,7 +1220,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "FormulaCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/ratio-simplifier"
+    "canonical": "https://studentkit.in/tools/ratio-simplifier"
   },
   {
     "slug": "proportion-calculator",
@@ -1188,7 +1238,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "FormulaCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/proportion-calculator"
+    "canonical": "https://studentkit.in/tools/proportion-calculator"
   },
   {
     "slug": "number-to-words",
@@ -1205,8 +1255,8 @@
     "hasFormula": true,
     "hasExample": false,
     "hasFAQ": false,
-    "component": "FormulaCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/number-to-words"
+    "component": "Unknown",
+    "canonical": "https://studentkit.in/tools/number-to-words"
   },
   {
     "slug": "roman-numeral-converter",
@@ -1224,7 +1274,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "FormulaCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/roman-numeral-converter"
+    "canonical": "https://studentkit.in/tools/roman-numeral-converter"
   },
   {
     "slug": "scientific-calculator",
@@ -1242,7 +1292,7 @@
     "hasExample": true,
     "hasFAQ": true,
     "component": "ScientificCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/scientific-calculator"
+    "canonical": "https://studentkit.in/tools/scientific-calculator"
   },
   {
     "slug": "simultaneous-equations",
@@ -1260,7 +1310,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "SimultaneousEquations",
-    "canonical": "https://studentkit.pages.dev/tools/simultaneous-equations"
+    "canonical": "https://studentkit.in/tools/simultaneous-equations"
   },
   {
     "slug": "matrix-calculator",
@@ -1278,7 +1328,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "MatrixCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/matrix-calculator"
+    "canonical": "https://studentkit.in/tools/matrix-calculator"
   },
   {
     "slug": "fraction-calculator",
@@ -1296,7 +1346,7 @@
     "hasExample": true,
     "hasFAQ": false,
     "component": "FractionCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/fraction-calculator"
+    "canonical": "https://studentkit.in/tools/fraction-calculator"
   },
   {
     "slug": "permutation-calculator",
@@ -1314,7 +1364,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "FormulaCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/permutation-calculator"
+    "canonical": "https://studentkit.in/tools/permutation-calculator"
   },
   {
     "slug": "combination-calculator",
@@ -1331,8 +1381,8 @@
     "hasFormula": true,
     "hasExample": false,
     "hasFAQ": false,
-    "component": "FormulaCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/combination-calculator"
+    "component": "ProbabilityCalculator",
+    "canonical": "https://studentkit.in/tools/combination-calculator"
   },
   {
     "slug": "probability-calculator",
@@ -1350,7 +1400,7 @@
     "hasExample": true,
     "hasFAQ": false,
     "component": "ProbabilityCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/probability-calculator"
+    "canonical": "https://studentkit.in/tools/probability-calculator"
   },
   {
     "slug": "polynomial-calculator",
@@ -1368,7 +1418,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "PolynomialCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/polynomial-calculator"
+    "canonical": "https://studentkit.in/tools/polynomial-calculator"
   },
   {
     "slug": "sin-calculator",
@@ -1386,7 +1436,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "TrigFunctionCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/sin-calculator"
+    "canonical": "https://studentkit.in/tools/sin-calculator"
   },
   {
     "slug": "cos-calculator",
@@ -1404,7 +1454,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "TrigFunctionCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/cos-calculator"
+    "canonical": "https://studentkit.in/tools/cos-calculator"
   },
   {
     "slug": "tan-calculator",
@@ -1422,7 +1472,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "TrigFunctionCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/tan-calculator"
+    "canonical": "https://studentkit.in/tools/tan-calculator"
   },
   {
     "slug": "cosecant-calculator",
@@ -1440,7 +1490,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "TrigFunctionCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/cosecant-calculator"
+    "canonical": "https://studentkit.in/tools/cosecant-calculator"
   },
   {
     "slug": "secant-calculator",
@@ -1458,7 +1508,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "TrigFunctionCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/secant-calculator"
+    "canonical": "https://studentkit.in/tools/secant-calculator"
   },
   {
     "slug": "cotangent-calculator",
@@ -1476,7 +1526,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "TrigFunctionCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/cotangent-calculator"
+    "canonical": "https://studentkit.in/tools/cotangent-calculator"
   },
   {
     "slug": "arcsin-calculator",
@@ -1494,7 +1544,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "TrigFunctionCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/arcsin-calculator"
+    "canonical": "https://studentkit.in/tools/arcsin-calculator"
   },
   {
     "slug": "arccos-calculator",
@@ -1512,7 +1562,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "TrigFunctionCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/arccos-calculator"
+    "canonical": "https://studentkit.in/tools/arccos-calculator"
   },
   {
     "slug": "arctan-calculator",
@@ -1530,7 +1580,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "TrigFunctionCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/arctan-calculator"
+    "canonical": "https://studentkit.in/tools/arctan-calculator"
   },
   {
     "slug": "arccsc-calculator",
@@ -1548,7 +1598,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "TrigFunctionCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/arccsc-calculator"
+    "canonical": "https://studentkit.in/tools/arccsc-calculator"
   },
   {
     "slug": "arcsec-calculator",
@@ -1566,7 +1616,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "TrigFunctionCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/arcsec-calculator"
+    "canonical": "https://studentkit.in/tools/arcsec-calculator"
   },
   {
     "slug": "arccot-calculator",
@@ -1584,7 +1634,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "TrigFunctionCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/arccot-calculator"
+    "canonical": "https://studentkit.in/tools/arccot-calculator"
   },
   {
     "slug": "right-triangle-calculator",
@@ -1602,7 +1652,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "TriangleCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/right-triangle-calculator"
+    "canonical": "https://studentkit.in/tools/right-triangle-calculator"
   },
   {
     "slug": "triangle-calculator",
@@ -1620,7 +1670,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "TriangleCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/triangle-calculator"
+    "canonical": "https://studentkit.in/tools/triangle-calculator"
   },
   {
     "slug": "law-of-sines-calculator",
@@ -1638,7 +1688,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "TriangleCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/law-of-sines-calculator"
+    "canonical": "https://studentkit.in/tools/law-of-sines-calculator"
   },
   {
     "slug": "law-of-cosines-calculator",
@@ -1656,7 +1706,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "TriangleCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/law-of-cosines-calculator"
+    "canonical": "https://studentkit.in/tools/law-of-cosines-calculator"
   },
   {
     "slug": "missing-angle-calculator",
@@ -1674,7 +1724,25 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "TriangleCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/missing-angle-calculator"
+    "canonical": "https://studentkit.in/tools/missing-angle-calculator"
+  },
+  {
+    "slug": "herons-formula-calculator",
+    "id": "herons-formula-calculator",
+    "title": "Heron's Formula Calculator",
+    "description": "Calculate the area of a triangle given three sides.",
+    "category": "Mathematics",
+    "subcategory": "Geometry",
+    "seoTitle": "Heron's Formula Calculator",
+    "aliases": [],
+    "keywords": [],
+    "related": [],
+    "hasContent": false,
+    "hasFormula": true,
+    "hasExample": false,
+    "hasFAQ": false,
+    "component": "FormulaCalculator",
+    "canonical": "https://studentkit.in/tools/herons-formula-calculator"
   },
   {
     "slug": "triangle-area-calculator",
@@ -1692,7 +1760,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "FormulaCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/triangle-area-calculator"
+    "canonical": "https://studentkit.in/tools/triangle-area-calculator"
   },
   {
     "slug": "triangle-perimeter-calculator",
@@ -1710,7 +1778,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "FormulaCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/triangle-perimeter-calculator"
+    "canonical": "https://studentkit.in/tools/triangle-perimeter-calculator"
   },
   {
     "slug": "hypotenuse-calculator",
@@ -1728,7 +1796,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "FormulaCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/hypotenuse-calculator"
+    "canonical": "https://studentkit.in/tools/hypotenuse-calculator"
   },
   {
     "slug": "opposite-side-calculator",
@@ -1746,7 +1814,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "FormulaCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/opposite-side-calculator"
+    "canonical": "https://studentkit.in/tools/opposite-side-calculator"
   },
   {
     "slug": "adjacent-side-calculator",
@@ -1764,7 +1832,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "FormulaCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/adjacent-side-calculator"
+    "canonical": "https://studentkit.in/tools/adjacent-side-calculator"
   },
   {
     "slug": "degrees-to-radians",
@@ -1782,7 +1850,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "FormulaCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/degrees-to-radians"
+    "canonical": "https://studentkit.in/tools/degrees-to-radians"
   },
   {
     "slug": "radians-to-degrees",
@@ -1800,7 +1868,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "FormulaCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/radians-to-degrees"
+    "canonical": "https://studentkit.in/tools/radians-to-degrees"
   },
   {
     "slug": "dms-to-decimal-degrees",
@@ -1818,7 +1886,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "FormulaCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/dms-to-decimal-degrees"
+    "canonical": "https://studentkit.in/tools/dms-to-decimal-degrees"
   },
   {
     "slug": "decimal-degrees-to-dms",
@@ -1835,8 +1903,8 @@
     "hasFormula": true,
     "hasExample": false,
     "hasFAQ": false,
-    "component": "FormulaCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/decimal-degrees-to-dms"
+    "component": "TrigIdentities",
+    "canonical": "https://studentkit.in/tools/decimal-degrees-to-dms"
   },
   {
     "slug": "trig-identities",
@@ -1854,7 +1922,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "TrigIdentities",
-    "canonical": "https://studentkit.pages.dev/tools/trig-identities"
+    "canonical": "https://studentkit.in/tools/trig-identities"
   },
   {
     "slug": "unit-circle",
@@ -1872,7 +1940,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitCircle",
-    "canonical": "https://studentkit.pages.dev/tools/unit-circle"
+    "canonical": "https://studentkit.in/tools/unit-circle"
   },
   {
     "slug": "limit-calculator",
@@ -1890,7 +1958,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "LimitCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/limit-calculator"
+    "canonical": "https://studentkit.in/tools/limit-calculator"
   },
   {
     "slug": "one-sided-limit-calculator",
@@ -1908,7 +1976,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "LimitCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/one-sided-limit-calculator"
+    "canonical": "https://studentkit.in/tools/one-sided-limit-calculator"
   },
   {
     "slug": "infinite-limit-calculator",
@@ -1926,7 +1994,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "LimitCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/infinite-limit-calculator"
+    "canonical": "https://studentkit.in/tools/infinite-limit-calculator"
   },
   {
     "slug": "limit-at-infinity-calculator",
@@ -1944,7 +2012,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "LimitCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/limit-at-infinity-calculator"
+    "canonical": "https://studentkit.in/tools/limit-at-infinity-calculator"
   },
   {
     "slug": "derivative-calculator",
@@ -1962,7 +2030,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "DerivativeCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/derivative-calculator"
+    "canonical": "https://studentkit.in/tools/derivative-calculator"
   },
   {
     "slug": "second-derivative-calculator",
@@ -1980,7 +2048,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "DerivativeCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/second-derivative-calculator"
+    "canonical": "https://studentkit.in/tools/second-derivative-calculator"
   },
   {
     "slug": "partial-derivative-calculator",
@@ -1998,7 +2066,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "DerivativeCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/partial-derivative-calculator"
+    "canonical": "https://studentkit.in/tools/partial-derivative-calculator"
   },
   {
     "slug": "implicit-differentiation-calculator",
@@ -2016,7 +2084,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "DerivativeCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/implicit-differentiation-calculator"
+    "canonical": "https://studentkit.in/tools/implicit-differentiation-calculator"
   },
   {
     "slug": "logarithmic-differentiation-calculator",
@@ -2034,7 +2102,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "DerivativeCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/logarithmic-differentiation-calculator"
+    "canonical": "https://studentkit.in/tools/logarithmic-differentiation-calculator"
   },
   {
     "slug": "integral-calculator",
@@ -2052,7 +2120,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "IntegralCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/integral-calculator"
+    "canonical": "https://studentkit.in/tools/integral-calculator"
   },
   {
     "slug": "definite-integral-calculator",
@@ -2070,7 +2138,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "IntegralCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/definite-integral-calculator"
+    "canonical": "https://studentkit.in/tools/definite-integral-calculator"
   },
   {
     "slug": "indefinite-integral-calculator",
@@ -2088,7 +2156,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "IntegralCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/indefinite-integral-calculator"
+    "canonical": "https://studentkit.in/tools/indefinite-integral-calculator"
   },
   {
     "slug": "numerical-integration-calculator",
@@ -2106,7 +2174,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "IntegralCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/numerical-integration-calculator"
+    "canonical": "https://studentkit.in/tools/numerical-integration-calculator"
   },
   {
     "slug": "tangent-line-calculator",
@@ -2124,7 +2192,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "DerivativeCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/tangent-line-calculator"
+    "canonical": "https://studentkit.in/tools/tangent-line-calculator"
   },
   {
     "slug": "normal-line-calculator",
@@ -2142,7 +2210,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "DerivativeCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/normal-line-calculator"
+    "canonical": "https://studentkit.in/tools/normal-line-calculator"
   },
   {
     "slug": "average-rate-of-change",
@@ -2160,7 +2228,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "FormulaCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/average-rate-of-change"
+    "canonical": "https://studentkit.in/tools/average-rate-of-change"
   },
   {
     "slug": "instantaneous-rate-of-change",
@@ -2178,7 +2246,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "DerivativeCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/instantaneous-rate-of-change"
+    "canonical": "https://studentkit.in/tools/instantaneous-rate-of-change"
   },
   {
     "slug": "critical-point-calculator",
@@ -2196,7 +2264,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "DerivativeCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/critical-point-calculator"
+    "canonical": "https://studentkit.in/tools/critical-point-calculator"
   },
   {
     "slug": "inflection-point-calculator",
@@ -2214,7 +2282,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "DerivativeCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/inflection-point-calculator"
+    "canonical": "https://studentkit.in/tools/inflection-point-calculator"
   },
   {
     "slug": "function-increasing-decreasing",
@@ -2232,7 +2300,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "DerivativeCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/function-increasing-decreasing"
+    "canonical": "https://studentkit.in/tools/function-increasing-decreasing"
   },
   {
     "slug": "concavity-calculator",
@@ -2250,7 +2318,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "DerivativeCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/concavity-calculator"
+    "canonical": "https://studentkit.in/tools/concavity-calculator"
   },
   {
     "slug": "extrema-calculator",
@@ -2268,7 +2336,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "DerivativeCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/extrema-calculator"
+    "canonical": "https://studentkit.in/tools/extrema-calculator"
   },
   {
     "slug": "related-rates-calculator",
@@ -2286,7 +2354,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "DerivativeCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/related-rates-calculator"
+    "canonical": "https://studentkit.in/tools/related-rates-calculator"
   },
   {
     "slug": "optimization-calculator",
@@ -2304,7 +2372,61 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "DerivativeCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/optimization-calculator"
+    "canonical": "https://studentkit.in/tools/optimization-calculator"
+  },
+  {
+    "slug": "marginal-cost-calculator",
+    "id": "marginal-cost-calculator",
+    "title": "Marginal Cost Calculator",
+    "description": "Calculate marginal cost C'(x).",
+    "category": "Mathematics",
+    "subcategory": "Calculus",
+    "seoTitle": "Marginal Cost Calculator",
+    "aliases": [],
+    "keywords": [],
+    "related": [],
+    "hasContent": false,
+    "hasFormula": false,
+    "hasExample": false,
+    "hasFAQ": false,
+    "component": "DerivativeCalculator",
+    "canonical": "https://studentkit.in/tools/marginal-cost-calculator"
+  },
+  {
+    "slug": "marginal-revenue-calculator",
+    "id": "marginal-revenue-calculator",
+    "title": "Marginal Revenue Calculator",
+    "description": "Calculate marginal revenue R'(x).",
+    "category": "Mathematics",
+    "subcategory": "Calculus",
+    "seoTitle": "Marginal Revenue Calculator",
+    "aliases": [],
+    "keywords": [],
+    "related": [],
+    "hasContent": false,
+    "hasFormula": false,
+    "hasExample": false,
+    "hasFAQ": false,
+    "component": "DerivativeCalculator",
+    "canonical": "https://studentkit.in/tools/marginal-revenue-calculator"
+  },
+  {
+    "slug": "marginal-profit-calculator",
+    "id": "marginal-profit-calculator",
+    "title": "Marginal Profit Calculator",
+    "description": "Calculate marginal profit P'(x).",
+    "category": "Mathematics",
+    "subcategory": "Calculus",
+    "seoTitle": "Marginal Profit Calculator",
+    "aliases": [],
+    "keywords": [],
+    "related": [],
+    "hasContent": false,
+    "hasFormula": false,
+    "hasExample": false,
+    "hasFAQ": false,
+    "component": "DerivativeCalculator",
+    "canonical": "https://studentkit.in/tools/marginal-profit-calculator"
   },
   {
     "slug": "arithmetic-series-calculator",
@@ -2322,7 +2444,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "SequenceSeriesCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/arithmetic-series-calculator"
+    "canonical": "https://studentkit.in/tools/arithmetic-series-calculator"
   },
   {
     "slug": "geometric-series-calculator",
@@ -2340,7 +2462,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "SequenceSeriesCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/geometric-series-calculator"
+    "canonical": "https://studentkit.in/tools/geometric-series-calculator"
   },
   {
     "slug": "geometric-series-sum",
@@ -2358,7 +2480,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "SequenceSeriesCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/geometric-series-sum"
+    "canonical": "https://studentkit.in/tools/geometric-series-sum"
   },
   {
     "slug": "infinite-geometric-series",
@@ -2376,7 +2498,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "SequenceSeriesCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/infinite-geometric-series"
+    "canonical": "https://studentkit.in/tools/infinite-geometric-series"
   },
   {
     "slug": "sequence-calculator",
@@ -2394,7 +2516,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "SequenceSeriesCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/sequence-calculator"
+    "canonical": "https://studentkit.in/tools/sequence-calculator"
   },
   {
     "slug": "sigma-summation-calculator",
@@ -2412,7 +2534,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "SequenceSeriesCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/sigma-summation-calculator"
+    "canonical": "https://studentkit.in/tools/sigma-summation-calculator"
   },
   {
     "slug": "calculus-formulas",
@@ -2430,7 +2552,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "CalculusReference",
-    "canonical": "https://studentkit.pages.dev/tools/calculus-formulas"
+    "canonical": "https://studentkit.in/tools/calculus-formulas"
   },
   {
     "slug": "derivative-rules",
@@ -2448,7 +2570,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "CalculusReference",
-    "canonical": "https://studentkit.pages.dev/tools/derivative-rules"
+    "canonical": "https://studentkit.in/tools/derivative-rules"
   },
   {
     "slug": "integration-rules",
@@ -2466,7 +2588,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "CalculusReference",
-    "canonical": "https://studentkit.pages.dev/tools/integration-rules"
+    "canonical": "https://studentkit.in/tools/integration-rules"
   },
   {
     "slug": "common-limits",
@@ -2484,7 +2606,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "CalculusReference",
-    "canonical": "https://studentkit.pages.dev/tools/common-limits"
+    "canonical": "https://studentkit.in/tools/common-limits"
   },
   {
     "slug": "calculus-identities",
@@ -2502,7 +2624,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "CalculusReference",
-    "canonical": "https://studentkit.pages.dev/tools/calculus-identities"
+    "canonical": "https://studentkit.in/tools/calculus-identities"
   },
   {
     "slug": "taylor-series-calculator",
@@ -2520,7 +2642,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "TaylorSeriesCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/taylor-series-calculator"
+    "canonical": "https://studentkit.in/tools/taylor-series-calculator"
   },
   {
     "slug": "maclaurin-series-calculator",
@@ -2538,7 +2660,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "TaylorSeriesCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/maclaurin-series-calculator"
+    "canonical": "https://studentkit.in/tools/maclaurin-series-calculator"
   },
   {
     "slug": "speed-calculator",
@@ -2556,7 +2678,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/speed-calculator"
+    "canonical": "https://studentkit.in/tools/speed-calculator"
   },
   {
     "slug": "velocity-calculator",
@@ -2574,7 +2696,7 @@
     "hasExample": true,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/velocity-calculator"
+    "canonical": "https://studentkit.in/tools/velocity-calculator"
   },
   {
     "slug": "acceleration-calculator",
@@ -2592,7 +2714,25 @@
     "hasExample": true,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/acceleration-calculator"
+    "canonical": "https://studentkit.in/tools/acceleration-calculator"
+  },
+  {
+    "slug": "newtons-second-law-calculator",
+    "id": "newtons-second-law-calculator",
+    "title": "Newton's Second Law",
+    "description": "Calculate Force (F = ma).",
+    "category": "Physics",
+    "subcategory": "Mechanics",
+    "seoTitle": "Newton's Second Law",
+    "aliases": [],
+    "keywords": [],
+    "related": [],
+    "hasContent": false,
+    "hasFormula": true,
+    "hasExample": false,
+    "hasFAQ": false,
+    "component": "UnitAwareCalculator",
+    "canonical": "https://studentkit.in/tools/newtons-second-law-calculator"
   },
   {
     "slug": "force-calculator",
@@ -2610,7 +2750,7 @@
     "hasExample": true,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/force-calculator"
+    "canonical": "https://studentkit.in/tools/force-calculator"
   },
   {
     "slug": "work-calculator",
@@ -2628,7 +2768,7 @@
     "hasExample": true,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/work-calculator"
+    "canonical": "https://studentkit.in/tools/work-calculator"
   },
   {
     "slug": "power-calculator",
@@ -2646,7 +2786,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/power-calculator"
+    "canonical": "https://studentkit.in/tools/power-calculator"
   },
   {
     "slug": "potential-energy-calculator",
@@ -2664,7 +2804,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/potential-energy-calculator"
+    "canonical": "https://studentkit.in/tools/potential-energy-calculator"
   },
   {
     "slug": "momentum-calculator",
@@ -2682,7 +2822,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/momentum-calculator"
+    "canonical": "https://studentkit.in/tools/momentum-calculator"
   },
   {
     "slug": "centripetal-force-calculator",
@@ -2700,7 +2840,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/centripetal-force-calculator"
+    "canonical": "https://studentkit.in/tools/centripetal-force-calculator"
   },
   {
     "slug": "torque-calculator",
@@ -2718,7 +2858,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/torque-calculator"
+    "canonical": "https://studentkit.in/tools/torque-calculator"
   },
   {
     "slug": "distance-calculator",
@@ -2736,7 +2876,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/distance-calculator"
+    "canonical": "https://studentkit.in/tools/distance-calculator"
   },
   {
     "slug": "time-calculator",
@@ -2754,7 +2894,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/time-calculator"
+    "canonical": "https://studentkit.in/tools/time-calculator"
   },
   {
     "slug": "average-velocity-calculator",
@@ -2772,7 +2912,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/average-velocity-calculator"
+    "canonical": "https://studentkit.in/tools/average-velocity-calculator"
   },
   {
     "slug": "average-speed-calculator",
@@ -2790,7 +2930,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/average-speed-calculator"
+    "canonical": "https://studentkit.in/tools/average-speed-calculator"
   },
   {
     "slug": "free-fall-calculator",
@@ -2808,7 +2948,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/free-fall-calculator"
+    "canonical": "https://studentkit.in/tools/free-fall-calculator"
   },
   {
     "slug": "projectile-motion-calculator",
@@ -2826,7 +2966,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/projectile-motion-calculator"
+    "canonical": "https://studentkit.in/tools/projectile-motion-calculator"
   },
   {
     "slug": "impulse-calculator",
@@ -2844,7 +2984,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/impulse-calculator"
+    "canonical": "https://studentkit.in/tools/impulse-calculator"
   },
   {
     "slug": "mechanical-energy-calculator",
@@ -2862,7 +3002,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/mechanical-energy-calculator"
+    "canonical": "https://studentkit.in/tools/mechanical-energy-calculator"
   },
   {
     "slug": "centripetal-acceleration-calculator",
@@ -2880,7 +3020,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/centripetal-acceleration-calculator"
+    "canonical": "https://studentkit.in/tools/centripetal-acceleration-calculator"
   },
   {
     "slug": "friction-calculator",
@@ -2898,7 +3038,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/friction-calculator"
+    "canonical": "https://studentkit.in/tools/friction-calculator"
   },
   {
     "slug": "normal-force-calculator",
@@ -2916,7 +3056,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/normal-force-calculator"
+    "canonical": "https://studentkit.in/tools/normal-force-calculator"
   },
   {
     "slug": "angular-momentum-calculator",
@@ -2934,7 +3074,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/angular-momentum-calculator"
+    "canonical": "https://studentkit.in/tools/angular-momentum-calculator"
   },
   {
     "slug": "moment-of-inertia-calculator",
@@ -2952,7 +3092,25 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/moment-of-inertia-calculator"
+    "canonical": "https://studentkit.in/tools/moment-of-inertia-calculator"
+  },
+  {
+    "slug": "gravitational-force-calculator",
+    "id": "gravitational-force-calculator",
+    "title": "Gravitational Force",
+    "description": "Newton's Law of Universal Gravitation.",
+    "category": "Physics",
+    "subcategory": "Gravity",
+    "seoTitle": "Gravitational Force",
+    "aliases": [],
+    "keywords": [],
+    "related": [],
+    "hasContent": false,
+    "hasFormula": true,
+    "hasExample": false,
+    "hasFAQ": false,
+    "component": "UnitAwareCalculator",
+    "canonical": "https://studentkit.in/tools/gravitational-force-calculator"
   },
   {
     "slug": "escape-velocity-calculator",
@@ -2970,7 +3128,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/escape-velocity-calculator"
+    "canonical": "https://studentkit.in/tools/escape-velocity-calculator"
   },
   {
     "slug": "weight-calculator",
@@ -2988,7 +3146,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/weight-calculator"
+    "canonical": "https://studentkit.in/tools/weight-calculator"
   },
   {
     "slug": "gravity-calculator",
@@ -3006,7 +3164,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/gravity-calculator"
+    "canonical": "https://studentkit.in/tools/gravity-calculator"
   },
   {
     "slug": "orbital-velocity-calculator",
@@ -3024,7 +3182,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/orbital-velocity-calculator"
+    "canonical": "https://studentkit.in/tools/orbital-velocity-calculator"
   },
   {
     "slug": "gravitational-potential-energy-calculator",
@@ -3042,7 +3200,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/gravitational-potential-energy-calculator"
+    "canonical": "https://studentkit.in/tools/gravitational-potential-energy-calculator"
   },
   {
     "slug": "density-calculator",
@@ -3060,7 +3218,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/density-calculator"
+    "canonical": "https://studentkit.in/tools/density-calculator"
   },
   {
     "slug": "pressure-calculator",
@@ -3078,7 +3236,7 @@
     "hasExample": true,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/pressure-calculator"
+    "canonical": "https://studentkit.in/tools/pressure-calculator"
   },
   {
     "slug": "hydrostatic-pressure-calculator",
@@ -3096,7 +3254,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/hydrostatic-pressure-calculator"
+    "canonical": "https://studentkit.in/tools/hydrostatic-pressure-calculator"
   },
   {
     "slug": "buoyant-force-calculator",
@@ -3114,7 +3272,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/buoyant-force-calculator"
+    "canonical": "https://studentkit.in/tools/buoyant-force-calculator"
   },
   {
     "slug": "archimedes-principle-calculator",
@@ -3132,7 +3290,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/archimedes-principle-calculator"
+    "canonical": "https://studentkit.in/tools/archimedes-principle-calculator"
   },
   {
     "slug": "continuity-equation-calculator",
@@ -3150,7 +3308,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/continuity-equation-calculator"
+    "canonical": "https://studentkit.in/tools/continuity-equation-calculator"
   },
   {
     "slug": "bernoulli-equation-calculator",
@@ -3168,7 +3326,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/bernoulli-equation-calculator"
+    "canonical": "https://studentkit.in/tools/bernoulli-equation-calculator"
   },
   {
     "slug": "flow-rate-calculator",
@@ -3186,7 +3344,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/flow-rate-calculator"
+    "canonical": "https://studentkit.in/tools/flow-rate-calculator"
   },
   {
     "slug": "wavelength-calculator",
@@ -3204,7 +3362,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/wavelength-calculator"
+    "canonical": "https://studentkit.in/tools/wavelength-calculator"
   },
   {
     "slug": "frequency-calculator",
@@ -3222,7 +3380,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/frequency-calculator"
+    "canonical": "https://studentkit.in/tools/frequency-calculator"
   },
   {
     "slug": "pendulum-period-calculator",
@@ -3240,7 +3398,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/pendulum-period-calculator"
+    "canonical": "https://studentkit.in/tools/pendulum-period-calculator"
   },
   {
     "slug": "period-calculator",
@@ -3258,7 +3416,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/period-calculator"
+    "canonical": "https://studentkit.in/tools/period-calculator"
   },
   {
     "slug": "wave-speed-calculator",
@@ -3276,7 +3434,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/wave-speed-calculator"
+    "canonical": "https://studentkit.in/tools/wave-speed-calculator"
   },
   {
     "slug": "simple-harmonic-motion-calculator",
@@ -3294,7 +3452,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/simple-harmonic-motion-calculator"
+    "canonical": "https://studentkit.in/tools/simple-harmonic-motion-calculator"
   },
   {
     "slug": "spring-period-calculator",
@@ -3312,7 +3470,25 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/spring-period-calculator"
+    "canonical": "https://studentkit.in/tools/spring-period-calculator"
+  },
+  {
+    "slug": "spring-force-calculator",
+    "id": "spring-force-calculator",
+    "title": "Spring Force (Hooke's Law)",
+    "description": "F = -kx.",
+    "category": "Physics",
+    "subcategory": "Waves",
+    "seoTitle": "Spring Force (Hooke's Law)",
+    "aliases": [],
+    "keywords": [],
+    "related": [],
+    "hasContent": false,
+    "hasFormula": true,
+    "hasExample": false,
+    "hasFAQ": false,
+    "component": "UnitAwareCalculator",
+    "canonical": "https://studentkit.in/tools/spring-force-calculator"
   },
   {
     "slug": "spring-potential-energy-calculator",
@@ -3330,7 +3506,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/spring-potential-energy-calculator"
+    "canonical": "https://studentkit.in/tools/spring-potential-energy-calculator"
   },
   {
     "slug": "amplitude-calculator",
@@ -3348,7 +3524,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/amplitude-calculator"
+    "canonical": "https://studentkit.in/tools/amplitude-calculator"
   },
   {
     "slug": "angular-frequency-calculator",
@@ -3358,7 +3534,12 @@
     "category": "Physics",
     "subcategory": "Waves",
     "seoTitle": "Angular Frequency",
-    "aliases": [],
+    "aliases": [
+      "ideal gas equation",
+      "pv equals nrt",
+      "gas law calculator",
+      "ideal gas law"
+    ],
     "keywords": [],
     "related": [],
     "hasContent": false,
@@ -3366,7 +3547,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/angular-frequency-calculator"
+    "canonical": "https://studentkit.in/tools/angular-frequency-calculator"
   },
   {
     "slug": "ideal-gas-law-calculator",
@@ -3389,7 +3570,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/ideal-gas-law-calculator"
+    "canonical": "https://studentkit.in/tools/ideal-gas-law-calculator"
   },
   {
     "slug": "specific-heat-calculator",
@@ -3407,7 +3588,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/specific-heat-calculator"
+    "canonical": "https://studentkit.in/tools/specific-heat-calculator"
   },
   {
     "slug": "carnot-efficiency-calculator",
@@ -3425,7 +3606,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/carnot-efficiency-calculator"
+    "canonical": "https://studentkit.in/tools/carnot-efficiency-calculator"
   },
   {
     "slug": "heat-calculator",
@@ -3443,7 +3624,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/heat-calculator"
+    "canonical": "https://studentkit.in/tools/heat-calculator"
   },
   {
     "slug": "latent-heat-calculator",
@@ -3461,7 +3642,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/latent-heat-calculator"
+    "canonical": "https://studentkit.in/tools/latent-heat-calculator"
   },
   {
     "slug": "thermal-expansion-calculator",
@@ -3479,7 +3660,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/thermal-expansion-calculator"
+    "canonical": "https://studentkit.in/tools/thermal-expansion-calculator"
   },
   {
     "slug": "gas-law-calculator",
@@ -3497,7 +3678,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/gas-law-calculator"
+    "canonical": "https://studentkit.in/tools/gas-law-calculator"
   },
   {
     "slug": "pressure-volume-temperature-calculator",
@@ -3515,7 +3696,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/pressure-volume-temperature-calculator"
+    "canonical": "https://studentkit.in/tools/pressure-volume-temperature-calculator"
   },
   {
     "slug": "thermal-efficiency-calculator",
@@ -3533,7 +3714,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/thermal-efficiency-calculator"
+    "canonical": "https://studentkit.in/tools/thermal-efficiency-calculator"
   },
   {
     "slug": "heat-engine-efficiency-calculator",
@@ -3551,7 +3732,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/heat-engine-efficiency-calculator"
+    "canonical": "https://studentkit.in/tools/heat-engine-efficiency-calculator"
   },
   {
     "slug": "entropy-change-calculator",
@@ -3569,7 +3750,25 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/entropy-change-calculator"
+    "canonical": "https://studentkit.in/tools/entropy-change-calculator"
+  },
+  {
+    "slug": "ohms-law-calculator",
+    "id": "ohms-law-calculator",
+    "title": "Ohm's Law Calculator",
+    "description": "Calculate Voltage (V = IR).",
+    "category": "Physics",
+    "subcategory": "Electricity",
+    "seoTitle": "Ohm's Law Calculator",
+    "aliases": [],
+    "keywords": [],
+    "related": [],
+    "hasContent": false,
+    "hasFormula": true,
+    "hasExample": false,
+    "hasFAQ": false,
+    "component": "UnitAwareCalculator",
+    "canonical": "https://studentkit.in/tools/ohms-law-calculator"
   },
   {
     "slug": "electrical-power-calculator",
@@ -3587,7 +3786,25 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/electrical-power-calculator"
+    "canonical": "https://studentkit.in/tools/electrical-power-calculator"
+  },
+  {
+    "slug": "coulombs-law-calculator",
+    "id": "coulombs-law-calculator",
+    "title": "Coulomb's Law",
+    "description": "Calculate Electric Force (F = k|q1q2|/r²).",
+    "category": "Physics",
+    "subcategory": "Electricity",
+    "seoTitle": "Coulomb's Law",
+    "aliases": [],
+    "keywords": [],
+    "related": [],
+    "hasContent": false,
+    "hasFormula": true,
+    "hasExample": false,
+    "hasFAQ": false,
+    "component": "UnitAwareCalculator",
+    "canonical": "https://studentkit.in/tools/coulombs-law-calculator"
   },
   {
     "slug": "current-calculator",
@@ -3605,7 +3822,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/current-calculator"
+    "canonical": "https://studentkit.in/tools/current-calculator"
   },
   {
     "slug": "voltage-calculator",
@@ -3623,7 +3840,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/voltage-calculator"
+    "canonical": "https://studentkit.in/tools/voltage-calculator"
   },
   {
     "slug": "resistance-calculator",
@@ -3641,7 +3858,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/resistance-calculator"
+    "canonical": "https://studentkit.in/tools/resistance-calculator"
   },
   {
     "slug": "electrical-energy-calculator",
@@ -3659,7 +3876,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/electrical-energy-calculator"
+    "canonical": "https://studentkit.in/tools/electrical-energy-calculator"
   },
   {
     "slug": "electric-charge-calculator",
@@ -3677,7 +3894,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/electric-charge-calculator"
+    "canonical": "https://studentkit.in/tools/electric-charge-calculator"
   },
   {
     "slug": "electric-field-calculator",
@@ -3695,7 +3912,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/electric-field-calculator"
+    "canonical": "https://studentkit.in/tools/electric-field-calculator"
   },
   {
     "slug": "electric-potential-calculator",
@@ -3713,7 +3930,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/electric-potential-calculator"
+    "canonical": "https://studentkit.in/tools/electric-potential-calculator"
   },
   {
     "slug": "capacitance-calculator",
@@ -3731,7 +3948,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/capacitance-calculator"
+    "canonical": "https://studentkit.in/tools/capacitance-calculator"
   },
   {
     "slug": "capacitor-energy-calculator",
@@ -3749,7 +3966,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/capacitor-energy-calculator"
+    "canonical": "https://studentkit.in/tools/capacitor-energy-calculator"
   },
   {
     "slug": "series-resistance-calculator",
@@ -3767,7 +3984,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "CircuitCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/series-resistance-calculator"
+    "canonical": "https://studentkit.in/tools/series-resistance-calculator"
   },
   {
     "slug": "parallel-resistance-calculator",
@@ -3785,7 +4002,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "CircuitCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/parallel-resistance-calculator"
+    "canonical": "https://studentkit.in/tools/parallel-resistance-calculator"
   },
   {
     "slug": "series-capacitance-calculator",
@@ -3803,7 +4020,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "CircuitCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/series-capacitance-calculator"
+    "canonical": "https://studentkit.in/tools/series-capacitance-calculator"
   },
   {
     "slug": "parallel-capacitance-calculator",
@@ -3821,7 +4038,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "CircuitCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/parallel-capacitance-calculator"
+    "canonical": "https://studentkit.in/tools/parallel-capacitance-calculator"
   },
   {
     "slug": "series-circuit-calculator",
@@ -3839,7 +4056,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/series-circuit-calculator"
+    "canonical": "https://studentkit.in/tools/series-circuit-calculator"
   },
   {
     "slug": "parallel-circuit-calculator",
@@ -3857,7 +4074,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/parallel-circuit-calculator"
+    "canonical": "https://studentkit.in/tools/parallel-circuit-calculator"
   },
   {
     "slug": "voltage-divider-calculator",
@@ -3875,7 +4092,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/voltage-divider-calculator"
+    "canonical": "https://studentkit.in/tools/voltage-divider-calculator"
   },
   {
     "slug": "current-divider-calculator",
@@ -3893,7 +4110,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/current-divider-calculator"
+    "canonical": "https://studentkit.in/tools/current-divider-calculator"
   },
   {
     "slug": "rc-time-constant-calculator",
@@ -3911,7 +4128,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/rc-time-constant-calculator"
+    "canonical": "https://studentkit.in/tools/rc-time-constant-calculator"
   },
   {
     "slug": "magnetic-force-calculator",
@@ -3929,7 +4146,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/magnetic-force-calculator"
+    "canonical": "https://studentkit.in/tools/magnetic-force-calculator"
   },
   {
     "slug": "lorentz-force-calculator",
@@ -3947,7 +4164,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/lorentz-force-calculator"
+    "canonical": "https://studentkit.in/tools/lorentz-force-calculator"
   },
   {
     "slug": "magnetic-field-wire-calculator",
@@ -3965,7 +4182,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/magnetic-field-wire-calculator"
+    "canonical": "https://studentkit.in/tools/magnetic-field-wire-calculator"
   },
   {
     "slug": "solenoid-magnetic-field-calculator",
@@ -3983,7 +4200,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/solenoid-magnetic-field-calculator"
+    "canonical": "https://studentkit.in/tools/solenoid-magnetic-field-calculator"
   },
   {
     "slug": "magnetic-flux-calculator",
@@ -4001,7 +4218,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/magnetic-flux-calculator"
+    "canonical": "https://studentkit.in/tools/magnetic-flux-calculator"
   },
   {
     "slug": "electromagnetic-induction-calculator",
@@ -4019,7 +4236,25 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/electromagnetic-induction-calculator"
+    "canonical": "https://studentkit.in/tools/electromagnetic-induction-calculator"
+  },
+  {
+    "slug": "faradays-law-calculator",
+    "id": "faradays-law-calculator",
+    "title": "Faraday's Law",
+    "description": "ε = -N(ΔΦ/Δt).",
+    "category": "Physics",
+    "subcategory": "Magnetism",
+    "seoTitle": "Faraday's Law",
+    "aliases": [],
+    "keywords": [],
+    "related": [],
+    "hasContent": false,
+    "hasFormula": true,
+    "hasExample": false,
+    "hasFAQ": false,
+    "component": "UnitAwareCalculator",
+    "canonical": "https://studentkit.in/tools/faradays-law-calculator"
   },
   {
     "slug": "inductance-calculator",
@@ -4037,7 +4272,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/inductance-calculator"
+    "canonical": "https://studentkit.in/tools/inductance-calculator"
   },
   {
     "slug": "inductor-energy-calculator",
@@ -4055,7 +4290,25 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/inductor-energy-calculator"
+    "canonical": "https://studentkit.in/tools/inductor-energy-calculator"
+  },
+  {
+    "slug": "snells-law-calculator",
+    "id": "snells-law-calculator",
+    "title": "Snell's Law Calculator",
+    "description": "n₁sin(θ₁) = n₂sin(θ₂).",
+    "category": "Physics",
+    "subcategory": "Optics",
+    "seoTitle": "Snell's Law Calculator",
+    "aliases": [],
+    "keywords": [],
+    "related": [],
+    "hasContent": false,
+    "hasFormula": true,
+    "hasExample": false,
+    "hasFAQ": false,
+    "component": "UnitAwareCalculator",
+    "canonical": "https://studentkit.in/tools/snells-law-calculator"
   },
   {
     "slug": "lens-equation-calculator",
@@ -4073,7 +4326,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/lens-equation-calculator"
+    "canonical": "https://studentkit.in/tools/lens-equation-calculator"
   },
   {
     "slug": "mirror-equation-calculator",
@@ -4091,7 +4344,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/mirror-equation-calculator"
+    "canonical": "https://studentkit.in/tools/mirror-equation-calculator"
   },
   {
     "slug": "magnification-calculator",
@@ -4109,7 +4362,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/magnification-calculator"
+    "canonical": "https://studentkit.in/tools/magnification-calculator"
   },
   {
     "slug": "refractive-index-calculator",
@@ -4127,7 +4380,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/refractive-index-calculator"
+    "canonical": "https://studentkit.in/tools/refractive-index-calculator"
   },
   {
     "slug": "critical-angle-calculator",
@@ -4145,7 +4398,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/critical-angle-calculator"
+    "canonical": "https://studentkit.in/tools/critical-angle-calculator"
   },
   {
     "slug": "focal-length-calculator",
@@ -4163,7 +4416,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/focal-length-calculator"
+    "canonical": "https://studentkit.in/tools/focal-length-calculator"
   },
   {
     "slug": "power-of-lens-calculator",
@@ -4181,7 +4434,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/power-of-lens-calculator"
+    "canonical": "https://studentkit.in/tools/power-of-lens-calculator"
   },
   {
     "slug": "diffraction-calculator",
@@ -4199,7 +4452,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/diffraction-calculator"
+    "canonical": "https://studentkit.in/tools/diffraction-calculator"
   },
   {
     "slug": "double-slit-calculator",
@@ -4217,7 +4470,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/double-slit-calculator"
+    "canonical": "https://studentkit.in/tools/double-slit-calculator"
   },
   {
     "slug": "mass-energy-equivalence-calculator",
@@ -4235,7 +4488,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/mass-energy-equivalence-calculator"
+    "canonical": "https://studentkit.in/tools/mass-energy-equivalence-calculator"
   },
   {
     "slug": "photon-energy-calculator",
@@ -4253,7 +4506,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/photon-energy-calculator"
+    "canonical": "https://studentkit.in/tools/photon-energy-calculator"
   },
   {
     "slug": "einstein-energy-calculator",
@@ -4271,7 +4524,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/einstein-energy-calculator"
+    "canonical": "https://studentkit.in/tools/einstein-energy-calculator"
   },
   {
     "slug": "photon-momentum-calculator",
@@ -4289,7 +4542,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/photon-momentum-calculator"
+    "canonical": "https://studentkit.in/tools/photon-momentum-calculator"
   },
   {
     "slug": "de-broglie-wavelength-calculator",
@@ -4307,7 +4560,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/de-broglie-wavelength-calculator"
+    "canonical": "https://studentkit.in/tools/de-broglie-wavelength-calculator"
   },
   {
     "slug": "photoelectric-effect-calculator",
@@ -4325,7 +4578,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/photoelectric-effect-calculator"
+    "canonical": "https://studentkit.in/tools/photoelectric-effect-calculator"
   },
   {
     "slug": "relativistic-energy-calculator",
@@ -4343,7 +4596,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/relativistic-energy-calculator"
+    "canonical": "https://studentkit.in/tools/relativistic-energy-calculator"
   },
   {
     "slug": "time-dilation-calculator",
@@ -4361,7 +4614,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/time-dilation-calculator"
+    "canonical": "https://studentkit.in/tools/time-dilation-calculator"
   },
   {
     "slug": "length-contraction-calculator",
@@ -4379,7 +4632,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/length-contraction-calculator"
+    "canonical": "https://studentkit.in/tools/length-contraction-calculator"
   },
   {
     "slug": "mass-defect-calculator",
@@ -4397,7 +4650,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/mass-defect-calculator"
+    "canonical": "https://studentkit.in/tools/mass-defect-calculator"
   },
   {
     "slug": "nuclear-binding-energy-calculator",
@@ -4415,7 +4668,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/nuclear-binding-energy-calculator"
+    "canonical": "https://studentkit.in/tools/nuclear-binding-energy-calculator"
   },
   {
     "slug": "physics-constants",
@@ -4425,7 +4678,11 @@
     "category": "Physics",
     "subcategory": "Reference",
     "seoTitle": "Physics Constants",
-    "aliases": [],
+    "aliases": [
+      "calculate molar mass",
+      "molecular weight calculator",
+      "molar mass formula"
+    ],
     "keywords": [],
     "related": [],
     "hasContent": false,
@@ -4433,7 +4690,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "PhysicsConstants",
-    "canonical": "https://studentkit.pages.dev/tools/physics-constants"
+    "canonical": "https://studentkit.in/tools/physics-constants"
   },
   {
     "slug": "physics-formulas",
@@ -4455,7 +4712,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "PhysicsFormulas",
-    "canonical": "https://studentkit.pages.dev/tools/physics-formulas"
+    "canonical": "https://studentkit.in/tools/physics-formulas"
   },
   {
     "slug": "molar-mass-calculator",
@@ -4477,7 +4734,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "ChemicalFormulaCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/molar-mass-calculator"
+    "canonical": "https://studentkit.in/tools/molar-mass-calculator"
   },
   {
     "slug": "percent-composition-calculator",
@@ -4495,7 +4752,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "ChemicalFormulaCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/percent-composition-calculator"
+    "canonical": "https://studentkit.in/tools/percent-composition-calculator"
   },
   {
     "slug": "mass-to-moles",
@@ -4513,7 +4770,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/mass-to-moles"
+    "canonical": "https://studentkit.in/tools/mass-to-moles"
   },
   {
     "slug": "moles-to-mass",
@@ -4531,7 +4788,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/moles-to-mass"
+    "canonical": "https://studentkit.in/tools/moles-to-mass"
   },
   {
     "slug": "particles-to-moles",
@@ -4549,7 +4806,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/particles-to-moles"
+    "canonical": "https://studentkit.in/tools/particles-to-moles"
   },
   {
     "slug": "moles-to-particles",
@@ -4567,7 +4824,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/moles-to-particles"
+    "canonical": "https://studentkit.in/tools/moles-to-particles"
   },
   {
     "slug": "atomic-number-calculator",
@@ -4585,7 +4842,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/atomic-number-calculator"
+    "canonical": "https://studentkit.in/tools/atomic-number-calculator"
   },
   {
     "slug": "mass-number-calculator",
@@ -4603,7 +4860,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/mass-number-calculator"
+    "canonical": "https://studentkit.in/tools/mass-number-calculator"
   },
   {
     "slug": "protons-neutrons-electrons",
@@ -4621,7 +4878,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/protons-neutrons-electrons"
+    "canonical": "https://studentkit.in/tools/protons-neutrons-electrons"
   },
   {
     "slug": "average-atomic-mass",
@@ -4639,7 +4896,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/average-atomic-mass"
+    "canonical": "https://studentkit.in/tools/average-atomic-mass"
   },
   {
     "slug": "photon-energy-chemistry",
@@ -4657,7 +4914,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/photon-energy-chemistry"
+    "canonical": "https://studentkit.in/tools/photon-energy-chemistry"
   },
   {
     "slug": "wavelength-frequency-energy",
@@ -4675,7 +4932,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/wavelength-frequency-energy"
+    "canonical": "https://studentkit.in/tools/wavelength-frequency-energy"
   },
   {
     "slug": "periodic-table",
@@ -4693,7 +4950,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "PeriodicTable",
-    "canonical": "https://studentkit.pages.dev/tools/periodic-table"
+    "canonical": "https://studentkit.in/tools/periodic-table"
   },
   {
     "slug": "ideal-gas-law",
@@ -4711,7 +4968,61 @@
     "hasExample": true,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/ideal-gas-law"
+    "canonical": "https://studentkit.in/tools/ideal-gas-law"
+  },
+  {
+    "slug": "boyles-law",
+    "id": "boyles-law",
+    "title": "Boyle's Law",
+    "description": "Calculate P2 = (P1*V1)/V2.",
+    "category": "Chemistry",
+    "subcategory": "Gas Laws",
+    "seoTitle": "Boyle's Law",
+    "aliases": [],
+    "keywords": [],
+    "related": [],
+    "hasContent": false,
+    "hasFormula": true,
+    "hasExample": false,
+    "hasFAQ": false,
+    "component": "UnitAwareCalculator",
+    "canonical": "https://studentkit.in/tools/boyles-law"
+  },
+  {
+    "slug": "charles-law",
+    "id": "charles-law",
+    "title": "Charles's Law",
+    "description": "Calculate V2 = (V1*T2)/T1.",
+    "category": "Chemistry",
+    "subcategory": "Gas Laws",
+    "seoTitle": "Charles's Law",
+    "aliases": [],
+    "keywords": [],
+    "related": [],
+    "hasContent": false,
+    "hasFormula": true,
+    "hasExample": false,
+    "hasFAQ": false,
+    "component": "UnitAwareCalculator",
+    "canonical": "https://studentkit.in/tools/charles-law"
+  },
+  {
+    "slug": "gay-lussacs-law",
+    "id": "gay-lussacs-law",
+    "title": "Gay-Lussac's Law",
+    "description": "Calculate P2 = (P1*T2)/T1.",
+    "category": "Chemistry",
+    "subcategory": "Gas Laws",
+    "seoTitle": "Gay-Lussac's Law",
+    "aliases": [],
+    "keywords": [],
+    "related": [],
+    "hasContent": false,
+    "hasFormula": true,
+    "hasExample": false,
+    "hasFAQ": false,
+    "component": "UnitAwareCalculator",
+    "canonical": "https://studentkit.in/tools/gay-lussacs-law"
   },
   {
     "slug": "combined-gas-law",
@@ -4729,7 +5040,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/combined-gas-law"
+    "canonical": "https://studentkit.in/tools/combined-gas-law"
   },
   {
     "slug": "gas-density-calculator",
@@ -4747,7 +5058,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/gas-density-calculator"
+    "canonical": "https://studentkit.in/tools/gas-density-calculator"
   },
   {
     "slug": "root-mean-square-speed",
@@ -4765,7 +5076,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/root-mean-square-speed"
+    "canonical": "https://studentkit.in/tools/root-mean-square-speed"
   },
   {
     "slug": "molarity-calculator",
@@ -4783,7 +5094,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/molarity-calculator"
+    "canonical": "https://studentkit.in/tools/molarity-calculator"
   },
   {
     "slug": "molality-calculator",
@@ -4801,7 +5112,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/molality-calculator"
+    "canonical": "https://studentkit.in/tools/molality-calculator"
   },
   {
     "slug": "dilution-calculator",
@@ -4819,7 +5130,7 @@
     "hasExample": true,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/dilution-calculator"
+    "canonical": "https://studentkit.in/tools/dilution-calculator"
   },
   {
     "slug": "mass-percent-calculator",
@@ -4837,7 +5148,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/mass-percent-calculator"
+    "canonical": "https://studentkit.in/tools/mass-percent-calculator"
   },
   {
     "slug": "mole-fraction-calculator",
@@ -4855,7 +5166,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/mole-fraction-calculator"
+    "canonical": "https://studentkit.in/tools/mole-fraction-calculator"
   },
   {
     "slug": "ph-calculator",
@@ -4873,7 +5184,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/ph-calculator"
+    "canonical": "https://studentkit.in/tools/ph-calculator"
   },
   {
     "slug": "poh-calculator",
@@ -4891,7 +5202,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/poh-calculator"
+    "canonical": "https://studentkit.in/tools/poh-calculator"
   },
   {
     "slug": "hydrogen-ion-concentration",
@@ -4909,7 +5220,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/hydrogen-ion-concentration"
+    "canonical": "https://studentkit.in/tools/hydrogen-ion-concentration"
   },
   {
     "slug": "pka-calculator",
@@ -4927,7 +5238,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/pka-calculator"
+    "canonical": "https://studentkit.in/tools/pka-calculator"
   },
   {
     "slug": "henderson-hasselbalch",
@@ -4945,7 +5256,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/henderson-hasselbalch"
+    "canonical": "https://studentkit.in/tools/henderson-hasselbalch"
   },
   {
     "slug": "reaction-balancer",
@@ -4967,7 +5278,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "ReactionBalancer",
-    "canonical": "https://studentkit.pages.dev/tools/reaction-balancer"
+    "canonical": "https://studentkit.in/tools/reaction-balancer"
   },
   {
     "slug": "percent-yield-calculator",
@@ -4985,7 +5296,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/percent-yield-calculator"
+    "canonical": "https://studentkit.in/tools/percent-yield-calculator"
   },
   {
     "slug": "heat-energy-calculator",
@@ -5003,7 +5314,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/heat-energy-calculator"
+    "canonical": "https://studentkit.in/tools/heat-energy-calculator"
   },
   {
     "slug": "enthalpy-calculator",
@@ -5021,7 +5332,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/enthalpy-calculator"
+    "canonical": "https://studentkit.in/tools/enthalpy-calculator"
   },
   {
     "slug": "kc-calculator",
@@ -5039,7 +5350,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/kc-calculator"
+    "canonical": "https://studentkit.in/tools/kc-calculator"
   },
   {
     "slug": "gibbs-free-energy",
@@ -5057,7 +5368,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/gibbs-free-energy"
+    "canonical": "https://studentkit.in/tools/gibbs-free-energy"
   },
   {
     "slug": "standard-cell-potential",
@@ -5075,7 +5386,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/standard-cell-potential"
+    "canonical": "https://studentkit.in/tools/standard-cell-potential"
   },
   {
     "slug": "nernst-equation",
@@ -5093,7 +5404,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/nernst-equation"
+    "canonical": "https://studentkit.in/tools/nernst-equation"
   },
   {
     "slug": "faradays-electrolysis",
@@ -5111,7 +5422,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/faradays-electrolysis"
+    "canonical": "https://studentkit.in/tools/faradays-electrolysis"
   },
   {
     "slug": "half-life-first-order",
@@ -5129,7 +5440,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/half-life-first-order"
+    "canonical": "https://studentkit.in/tools/half-life-first-order"
   },
   {
     "slug": "arrhenius-equation",
@@ -5147,7 +5458,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/arrhenius-equation"
+    "canonical": "https://studentkit.in/tools/arrhenius-equation"
   },
   {
     "slug": "radioactive-decay",
@@ -5165,7 +5476,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/radioactive-decay"
+    "canonical": "https://studentkit.in/tools/radioactive-decay"
   },
   {
     "slug": "chemistry-constants",
@@ -5183,7 +5494,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "ChemistryReference",
-    "canonical": "https://studentkit.pages.dev/tools/chemistry-constants"
+    "canonical": "https://studentkit.in/tools/chemistry-constants"
   },
   {
     "slug": "solubility-rules",
@@ -5201,7 +5512,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "ChemistryReference",
-    "canonical": "https://studentkit.pages.dev/tools/solubility-rules"
+    "canonical": "https://studentkit.in/tools/solubility-rules"
   },
   {
     "slug": "strong-acids-and-bases",
@@ -5219,7 +5530,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "ChemistryReference",
-    "canonical": "https://studentkit.pages.dev/tools/strong-acids-and-bases"
+    "canonical": "https://studentkit.in/tools/strong-acids-and-bases"
   },
   {
     "slug": "common-polyatomic-ions",
@@ -5237,7 +5548,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "ChemistryReference",
-    "canonical": "https://studentkit.pages.dev/tools/common-polyatomic-ions"
+    "canonical": "https://studentkit.in/tools/common-polyatomic-ions"
   },
   {
     "slug": "organic-functional-groups-reference",
@@ -5255,7 +5566,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "ChemistryReference",
-    "canonical": "https://studentkit.pages.dev/tools/organic-functional-groups-reference"
+    "canonical": "https://studentkit.in/tools/organic-functional-groups-reference"
   },
   {
     "slug": "moles-calculator",
@@ -5273,7 +5584,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "ChemicalFormulaCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/moles-calculator"
+    "canonical": "https://studentkit.in/tools/moles-calculator"
   },
   {
     "slug": "atoms-calculator",
@@ -5291,7 +5602,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "ChemicalFormulaCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/atoms-calculator"
+    "canonical": "https://studentkit.in/tools/atoms-calculator"
   },
   {
     "slug": "molecules-calculator",
@@ -5309,7 +5620,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "ChemicalFormulaCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/molecules-calculator"
+    "canonical": "https://studentkit.in/tools/molecules-calculator"
   },
   {
     "slug": "ions-calculator",
@@ -5327,7 +5638,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "ChemicalFormulaCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/ions-calculator"
+    "canonical": "https://studentkit.in/tools/ions-calculator"
   },
   {
     "slug": "chemical-formula-calculator",
@@ -5345,7 +5656,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "ChemicalFormulaCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/chemical-formula-calculator"
+    "canonical": "https://studentkit.in/tools/chemical-formula-calculator"
   },
   {
     "slug": "stoichiometry-calculator",
@@ -5363,7 +5674,7 @@
     "hasExample": true,
     "hasFAQ": false,
     "component": "ReactionBalancer",
-    "canonical": "https://studentkit.pages.dev/tools/stoichiometry-calculator"
+    "canonical": "https://studentkit.in/tools/stoichiometry-calculator"
   },
   {
     "slug": "theoretical-yield-calculator",
@@ -5381,7 +5692,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/theoretical-yield-calculator"
+    "canonical": "https://studentkit.in/tools/theoretical-yield-calculator"
   },
   {
     "slug": "actual-yield-calculator",
@@ -5399,7 +5710,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/actual-yield-calculator"
+    "canonical": "https://studentkit.in/tools/actual-yield-calculator"
   },
   {
     "slug": "isotope-calculator",
@@ -5417,7 +5728,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "PeriodicTable",
-    "canonical": "https://studentkit.pages.dev/tools/isotope-calculator"
+    "canonical": "https://studentkit.in/tools/isotope-calculator"
   },
   {
     "slug": "electron-configuration",
@@ -5435,7 +5746,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "PeriodicTable",
-    "canonical": "https://studentkit.pages.dev/tools/electron-configuration"
+    "canonical": "https://studentkit.in/tools/electron-configuration"
   },
   {
     "slug": "valence-electron-calculator",
@@ -5453,7 +5764,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "PeriodicTable",
-    "canonical": "https://studentkit.pages.dev/tools/valence-electron-calculator"
+    "canonical": "https://studentkit.in/tools/valence-electron-calculator"
   },
   {
     "slug": "oxidation-state-calculator",
@@ -5471,7 +5782,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "PeriodicTable",
-    "canonical": "https://studentkit.pages.dev/tools/oxidation-state-calculator"
+    "canonical": "https://studentkit.in/tools/oxidation-state-calculator"
   },
   {
     "slug": "isotope-abundance-calculator",
@@ -5489,7 +5800,25 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "PeriodicTable",
-    "canonical": "https://studentkit.pages.dev/tools/isotope-abundance-calculator"
+    "canonical": "https://studentkit.in/tools/isotope-abundance-calculator"
+  },
+  {
+    "slug": "daltons-law",
+    "id": "daltons-law",
+    "title": "Dalton's Law of Partial Pressures",
+    "description": "P_total = P1 + P2 + P3.",
+    "category": "Chemistry",
+    "subcategory": "Gas Laws",
+    "seoTitle": "Dalton's Law of Partial Pressures",
+    "aliases": [],
+    "keywords": [],
+    "related": [],
+    "hasContent": false,
+    "hasFormula": true,
+    "hasExample": false,
+    "hasFAQ": false,
+    "component": "UnitAwareCalculator",
+    "canonical": "https://studentkit.in/tools/daltons-law"
   },
   {
     "slug": "molar-volume-calculator",
@@ -5507,7 +5836,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/molar-volume-calculator"
+    "canonical": "https://studentkit.in/tools/molar-volume-calculator"
   },
   {
     "slug": "average-kinetic-energy-gas",
@@ -5525,7 +5854,25 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/average-kinetic-energy-gas"
+    "canonical": "https://studentkit.in/tools/average-kinetic-energy-gas"
+  },
+  {
+    "slug": "graham-law-calculator",
+    "id": "graham-law-calculator",
+    "title": "Graham's Law of Effusion",
+    "description": "Rate1/Rate2 = √(M2/M1).",
+    "category": "Chemistry",
+    "subcategory": "Gas Laws",
+    "seoTitle": "Graham's Law of Effusion",
+    "aliases": [],
+    "keywords": [],
+    "related": [],
+    "hasContent": false,
+    "hasFormula": true,
+    "hasExample": false,
+    "hasFAQ": false,
+    "component": "UnitAwareCalculator",
+    "canonical": "https://studentkit.in/tools/graham-law-calculator"
   },
   {
     "slug": "normality-calculator",
@@ -5543,7 +5890,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/normality-calculator"
+    "canonical": "https://studentkit.in/tools/normality-calculator"
   },
   {
     "slug": "volume-percent-calculator",
@@ -5561,7 +5908,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/volume-percent-calculator"
+    "canonical": "https://studentkit.in/tools/volume-percent-calculator"
   },
   {
     "slug": "ppm-calculator",
@@ -5579,7 +5926,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/ppm-calculator"
+    "canonical": "https://studentkit.in/tools/ppm-calculator"
   },
   {
     "slug": "ppb-calculator",
@@ -5597,7 +5944,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/ppb-calculator"
+    "canonical": "https://studentkit.in/tools/ppb-calculator"
   },
   {
     "slug": "solution-concentration-calculator",
@@ -5615,7 +5962,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/solution-concentration-calculator"
+    "canonical": "https://studentkit.in/tools/solution-concentration-calculator"
   },
   {
     "slug": "moles-from-molarity",
@@ -5633,7 +5980,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/moles-from-molarity"
+    "canonical": "https://studentkit.in/tools/moles-from-molarity"
   },
   {
     "slug": "grams-from-molarity",
@@ -5651,7 +5998,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/grams-from-molarity"
+    "canonical": "https://studentkit.in/tools/grams-from-molarity"
   },
   {
     "slug": "hydroxide-ion-concentration",
@@ -5669,7 +6016,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/hydroxide-ion-concentration"
+    "canonical": "https://studentkit.in/tools/hydroxide-ion-concentration"
   },
   {
     "slug": "pkb-calculator",
@@ -5687,7 +6034,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/pkb-calculator"
+    "canonical": "https://studentkit.in/tools/pkb-calculator"
   },
   {
     "slug": "ka-calculator",
@@ -5705,7 +6052,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/ka-calculator"
+    "canonical": "https://studentkit.in/tools/ka-calculator"
   },
   {
     "slug": "kb-calculator",
@@ -5723,7 +6070,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/kb-calculator"
+    "canonical": "https://studentkit.in/tools/kb-calculator"
   },
   {
     "slug": "acid-base-neutralization",
@@ -5741,7 +6088,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/acid-base-neutralization"
+    "canonical": "https://studentkit.in/tools/acid-base-neutralization"
   },
   {
     "slug": "q-mc-delta-t",
@@ -5759,7 +6106,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/q-mc-delta-t"
+    "canonical": "https://studentkit.in/tools/q-mc-delta-t"
   },
   {
     "slug": "calorimetry-calculator",
@@ -5777,7 +6124,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/calorimetry-calculator"
+    "canonical": "https://studentkit.in/tools/calorimetry-calculator"
   },
   {
     "slug": "heat-of-reaction",
@@ -5795,7 +6142,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/heat-of-reaction"
+    "canonical": "https://studentkit.in/tools/heat-of-reaction"
   },
   {
     "slug": "fusion-energy",
@@ -5813,7 +6160,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/fusion-energy"
+    "canonical": "https://studentkit.in/tools/fusion-energy"
   },
   {
     "slug": "vaporization-energy",
@@ -5831,7 +6178,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/vaporization-energy"
+    "canonical": "https://studentkit.in/tools/vaporization-energy"
   },
   {
     "slug": "equilibrium-constant",
@@ -5849,7 +6196,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/equilibrium-constant"
+    "canonical": "https://studentkit.in/tools/equilibrium-constant"
   },
   {
     "slug": "kp-calculator",
@@ -5867,7 +6214,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/kp-calculator"
+    "canonical": "https://studentkit.in/tools/kp-calculator"
   },
   {
     "slug": "reaction-quotient",
@@ -5885,7 +6232,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/reaction-quotient"
+    "canonical": "https://studentkit.in/tools/reaction-quotient"
   },
   {
     "slug": "cell-potential-calculator",
@@ -5903,7 +6250,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/cell-potential-calculator"
+    "canonical": "https://studentkit.in/tools/cell-potential-calculator"
   },
   {
     "slug": "electrolysis-calculator",
@@ -5921,7 +6268,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/electrolysis-calculator"
+    "canonical": "https://studentkit.in/tools/electrolysis-calculator"
   },
   {
     "slug": "gibbs-free-energy-electrochemistry",
@@ -5939,7 +6286,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/gibbs-free-energy-electrochemistry"
+    "canonical": "https://studentkit.in/tools/gibbs-free-energy-electrochemistry"
   },
   {
     "slug": "charge-from-current-time",
@@ -5957,7 +6304,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/charge-from-current-time"
+    "canonical": "https://studentkit.in/tools/charge-from-current-time"
   },
   {
     "slug": "rate-law-calculator",
@@ -5975,7 +6322,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/rate-law-calculator"
+    "canonical": "https://studentkit.in/tools/rate-law-calculator"
   },
   {
     "slug": "first-order-reaction",
@@ -5993,7 +6340,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/first-order-reaction"
+    "canonical": "https://studentkit.in/tools/first-order-reaction"
   },
   {
     "slug": "half-life-calculator",
@@ -6011,7 +6358,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/half-life-calculator"
+    "canonical": "https://studentkit.in/tools/half-life-calculator"
   },
   {
     "slug": "alkane-formula-calculator",
@@ -6029,7 +6376,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/alkane-formula-calculator"
+    "canonical": "https://studentkit.in/tools/alkane-formula-calculator"
   },
   {
     "slug": "alkene-formula-calculator",
@@ -6047,7 +6394,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/alkene-formula-calculator"
+    "canonical": "https://studentkit.in/tools/alkene-formula-calculator"
   },
   {
     "slug": "alkyne-formula-calculator",
@@ -6065,7 +6412,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/alkyne-formula-calculator"
+    "canonical": "https://studentkit.in/tools/alkyne-formula-calculator"
   },
   {
     "slug": "degree-of-unsaturation",
@@ -6083,7 +6430,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/degree-of-unsaturation"
+    "canonical": "https://studentkit.in/tools/degree-of-unsaturation"
   },
   {
     "slug": "organic-functional-groups",
@@ -6101,7 +6448,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "ChemistryReference",
-    "canonical": "https://studentkit.pages.dev/tools/organic-functional-groups"
+    "canonical": "https://studentkit.in/tools/organic-functional-groups"
   },
   {
     "slug": "half-life-nuclear",
@@ -6119,7 +6466,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/half-life-nuclear"
+    "canonical": "https://studentkit.in/tools/half-life-nuclear"
   },
   {
     "slug": "remaining-radioactive-material",
@@ -6137,7 +6484,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/remaining-radioactive-material"
+    "canonical": "https://studentkit.in/tools/remaining-radioactive-material"
   },
   {
     "slug": "mass-defect",
@@ -6155,7 +6502,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/mass-defect"
+    "canonical": "https://studentkit.in/tools/mass-defect"
   },
   {
     "slug": "nuclear-binding-energy",
@@ -6173,7 +6520,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/nuclear-binding-energy"
+    "canonical": "https://studentkit.in/tools/nuclear-binding-energy"
   },
   {
     "slug": "decay-constant",
@@ -6183,7 +6530,11 @@
     "category": "Chemistry",
     "subcategory": "Nuclear Chemistry",
     "seoTitle": "Decay Constant",
-    "aliases": [],
+    "aliases": [
+      "calculate bmi",
+      "body mass index calculator",
+      "bmi formula"
+    ],
     "keywords": [],
     "related": [],
     "hasContent": false,
@@ -6191,7 +6542,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/decay-constant"
+    "canonical": "https://studentkit.in/tools/decay-constant"
   },
   {
     "slug": "bmi-calculator",
@@ -6213,7 +6564,7 @@
     "hasExample": false,
     "hasFAQ": true,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/bmi-calculator"
+    "canonical": "https://studentkit.in/tools/bmi-calculator"
   },
   {
     "slug": "body-surface-area",
@@ -6231,7 +6582,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/body-surface-area"
+    "canonical": "https://studentkit.in/tools/body-surface-area"
   },
   {
     "slug": "waist-to-height-ratio",
@@ -6249,7 +6600,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/waist-to-height-ratio"
+    "canonical": "https://studentkit.in/tools/waist-to-height-ratio"
   },
   {
     "slug": "heart-rate-zones",
@@ -6267,7 +6618,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/heart-rate-zones"
+    "canonical": "https://studentkit.in/tools/heart-rate-zones"
   },
   {
     "slug": "animal-cell",
@@ -6285,7 +6636,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "BiologyReference",
-    "canonical": "https://studentkit.pages.dev/tools/animal-cell"
+    "canonical": "https://studentkit.in/tools/animal-cell"
   },
   {
     "slug": "plant-cell",
@@ -6303,7 +6654,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "BiologyReference",
-    "canonical": "https://studentkit.pages.dev/tools/plant-cell"
+    "canonical": "https://studentkit.in/tools/plant-cell"
   },
   {
     "slug": "cell-organelles",
@@ -6321,7 +6672,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "BiologyReference",
-    "canonical": "https://studentkit.pages.dev/tools/cell-organelles"
+    "canonical": "https://studentkit.in/tools/cell-organelles"
   },
   {
     "slug": "mitosis-stages",
@@ -6339,7 +6690,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "BiologyReference",
-    "canonical": "https://studentkit.pages.dev/tools/mitosis-stages"
+    "canonical": "https://studentkit.in/tools/mitosis-stages"
   },
   {
     "slug": "cell-cycle",
@@ -6357,7 +6708,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "BiologyReference",
-    "canonical": "https://studentkit.pages.dev/tools/cell-cycle"
+    "canonical": "https://studentkit.in/tools/cell-cycle"
   },
   {
     "slug": "surface-area-to-volume-ratio",
@@ -6375,7 +6726,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/surface-area-to-volume-ratio"
+    "canonical": "https://studentkit.in/tools/surface-area-to-volume-ratio"
   },
   {
     "slug": "punnett-square",
@@ -6393,7 +6744,7 @@
     "hasExample": true,
     "hasFAQ": true,
     "component": "PunnettSquare",
-    "canonical": "https://studentkit.pages.dev/tools/punnett-square"
+    "canonical": "https://studentkit.in/tools/punnett-square"
   },
   {
     "slug": "monohybrid-cross",
@@ -6411,7 +6762,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "PunnettSquare",
-    "canonical": "https://studentkit.pages.dev/tools/monohybrid-cross"
+    "canonical": "https://studentkit.in/tools/monohybrid-cross"
   },
   {
     "slug": "dihybrid-cross",
@@ -6429,7 +6780,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "PunnettSquare",
-    "canonical": "https://studentkit.pages.dev/tools/dihybrid-cross"
+    "canonical": "https://studentkit.in/tools/dihybrid-cross"
   },
   {
     "slug": "hardy-weinberg-calculator",
@@ -6447,7 +6798,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/hardy-weinberg-calculator"
+    "canonical": "https://studentkit.in/tools/hardy-weinberg-calculator"
   },
   {
     "slug": "hardy-weinberg",
@@ -6465,7 +6816,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/hardy-weinberg"
+    "canonical": "https://studentkit.in/tools/hardy-weinberg"
   },
   {
     "slug": "dna-complement",
@@ -6483,7 +6834,7 @@
     "hasExample": true,
     "hasFAQ": false,
     "component": "DNASequenceCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/dna-complement"
+    "canonical": "https://studentkit.in/tools/dna-complement"
   },
   {
     "slug": "reverse-complement",
@@ -6501,7 +6852,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "DNASequenceCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/reverse-complement"
+    "canonical": "https://studentkit.in/tools/reverse-complement"
   },
   {
     "slug": "rna-transcription",
@@ -6519,7 +6870,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "DNASequenceCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/rna-transcription"
+    "canonical": "https://studentkit.in/tools/rna-transcription"
   },
   {
     "slug": "codon-translator",
@@ -6537,7 +6888,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "DNASequenceCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/codon-translator"
+    "canonical": "https://studentkit.in/tools/codon-translator"
   },
   {
     "slug": "dna-melting-temperature",
@@ -6555,7 +6906,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "DNASequenceCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/dna-melting-temperature"
+    "canonical": "https://studentkit.in/tools/dna-melting-temperature"
   },
   {
     "slug": "gc-content",
@@ -6573,7 +6924,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "DNASequenceCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/gc-content"
+    "canonical": "https://studentkit.in/tools/gc-content"
   },
   {
     "slug": "central-dogma",
@@ -6591,7 +6942,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "BiologyReference",
-    "canonical": "https://studentkit.pages.dev/tools/central-dogma"
+    "canonical": "https://studentkit.in/tools/central-dogma"
   },
   {
     "slug": "amino-acid-reference",
@@ -6609,7 +6960,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "BiologyReference",
-    "canonical": "https://studentkit.pages.dev/tools/amino-acid-reference"
+    "canonical": "https://studentkit.in/tools/amino-acid-reference"
   },
   {
     "slug": "amino-acids",
@@ -6627,7 +6978,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "BiologyReference",
-    "canonical": "https://studentkit.pages.dev/tools/amino-acids"
+    "canonical": "https://studentkit.in/tools/amino-acids"
   },
   {
     "slug": "michaelis-menten",
@@ -6645,7 +6996,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/michaelis-menten"
+    "canonical": "https://studentkit.in/tools/michaelis-menten"
   },
   {
     "slug": "catalytic-efficiency",
@@ -6663,7 +7014,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/catalytic-efficiency"
+    "canonical": "https://studentkit.in/tools/catalytic-efficiency"
   },
   {
     "slug": "population-growth",
@@ -6681,7 +7032,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/population-growth"
+    "canonical": "https://studentkit.in/tools/population-growth"
   },
   {
     "slug": "logistic-growth",
@@ -6699,7 +7050,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/logistic-growth"
+    "canonical": "https://studentkit.in/tools/logistic-growth"
   },
   {
     "slug": "doubling-time",
@@ -6717,7 +7068,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/doubling-time"
+    "canonical": "https://studentkit.in/tools/doubling-time"
   },
   {
     "slug": "shannon-diversity",
@@ -6735,7 +7086,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/shannon-diversity"
+    "canonical": "https://studentkit.in/tools/shannon-diversity"
   },
   {
     "slug": "cardiac-output",
@@ -6753,7 +7104,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/cardiac-output"
+    "canonical": "https://studentkit.in/tools/cardiac-output"
   },
   {
     "slug": "mean-arterial-pressure",
@@ -6771,7 +7122,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/mean-arterial-pressure"
+    "canonical": "https://studentkit.in/tools/mean-arterial-pressure"
   },
   {
     "slug": "alveolar-ventilation",
@@ -6789,7 +7140,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/alveolar-ventilation"
+    "canonical": "https://studentkit.in/tools/alveolar-ventilation"
   },
   {
     "slug": "bacterial-generation-time",
@@ -6807,7 +7158,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/bacterial-generation-time"
+    "canonical": "https://studentkit.in/tools/bacterial-generation-time"
   },
   {
     "slug": "cfu-calculator",
@@ -6825,7 +7176,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/cfu-calculator"
+    "canonical": "https://studentkit.in/tools/cfu-calculator"
   },
   {
     "slug": "beer-lambert-law",
@@ -6843,7 +7194,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/beer-lambert-law"
+    "canonical": "https://studentkit.in/tools/beer-lambert-law"
   },
   {
     "slug": "pcr-amplification",
@@ -6861,7 +7212,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/pcr-amplification"
+    "canonical": "https://studentkit.in/tools/pcr-amplification"
   },
   {
     "slug": "bmr-calculator",
@@ -6879,7 +7230,7 @@
     "hasExample": false,
     "hasFAQ": true,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/bmr-calculator"
+    "canonical": "https://studentkit.in/tools/bmr-calculator"
   },
   {
     "slug": "ideal-body-weight",
@@ -6897,7 +7248,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/ideal-body-weight"
+    "canonical": "https://studentkit.in/tools/ideal-body-weight"
   },
   {
     "slug": "stroke-volume",
@@ -6915,7 +7266,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/stroke-volume"
+    "canonical": "https://studentkit.in/tools/stroke-volume"
   },
   {
     "slug": "pulse-pressure",
@@ -6933,7 +7284,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/pulse-pressure"
+    "canonical": "https://studentkit.in/tools/pulse-pressure"
   },
   {
     "slug": "renal-clearance",
@@ -6951,7 +7302,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/renal-clearance"
+    "canonical": "https://studentkit.in/tools/renal-clearance"
   },
   {
     "slug": "sensitivity-specificity",
@@ -6969,7 +7320,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/sensitivity-specificity"
+    "canonical": "https://studentkit.in/tools/sensitivity-specificity"
   },
   {
     "slug": "positive-predictive-value",
@@ -6987,7 +7338,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/positive-predictive-value"
+    "canonical": "https://studentkit.in/tools/positive-predictive-value"
   },
   {
     "slug": "case-fatality-rate",
@@ -7005,7 +7356,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/case-fatality-rate"
+    "canonical": "https://studentkit.in/tools/case-fatality-rate"
   },
   {
     "slug": "relative-risk",
@@ -7023,7 +7374,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/relative-risk"
+    "canonical": "https://studentkit.in/tools/relative-risk"
   },
   {
     "slug": "test-cross",
@@ -7041,7 +7392,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "PunnettSquare",
-    "canonical": "https://studentkit.pages.dev/tools/test-cross"
+    "canonical": "https://studentkit.in/tools/test-cross"
   },
   {
     "slug": "blood-type-inheritance",
@@ -7059,7 +7410,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "PunnettSquare",
-    "canonical": "https://studentkit.pages.dev/tools/blood-type-inheritance"
+    "canonical": "https://studentkit.in/tools/blood-type-inheritance"
   },
   {
     "slug": "sex-linked-inheritance",
@@ -7077,7 +7428,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "PunnettSquare",
-    "canonical": "https://studentkit.pages.dev/tools/sex-linked-inheritance"
+    "canonical": "https://studentkit.in/tools/sex-linked-inheritance"
   },
   {
     "slug": "dna-to-rna",
@@ -7095,7 +7446,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "DNASequenceCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/dna-to-rna"
+    "canonical": "https://studentkit.in/tools/dna-to-rna"
   },
   {
     "slug": "rna-to-protein",
@@ -7113,7 +7464,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "DNASequenceCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/rna-to-protein"
+    "canonical": "https://studentkit.in/tools/rna-to-protein"
   },
   {
     "slug": "peptide-mass-calculator",
@@ -7131,7 +7482,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "DNASequenceCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/peptide-mass-calculator"
+    "canonical": "https://studentkit.in/tools/peptide-mass-calculator"
   },
   {
     "slug": "cell-structure",
@@ -7149,7 +7500,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "BiologyReference",
-    "canonical": "https://studentkit.pages.dev/tools/cell-structure"
+    "canonical": "https://studentkit.in/tools/cell-structure"
   },
   {
     "slug": "eukaryotic-cell",
@@ -7167,7 +7518,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "BiologyReference",
-    "canonical": "https://studentkit.pages.dev/tools/eukaryotic-cell"
+    "canonical": "https://studentkit.in/tools/eukaryotic-cell"
   },
   {
     "slug": "prokaryotic-cell",
@@ -7185,7 +7536,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "BiologyReference",
-    "canonical": "https://studentkit.pages.dev/tools/prokaryotic-cell"
+    "canonical": "https://studentkit.in/tools/prokaryotic-cell"
   },
   {
     "slug": "meiosis-stages",
@@ -7203,7 +7554,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "BiologyReference",
-    "canonical": "https://studentkit.pages.dev/tools/meiosis-stages"
+    "canonical": "https://studentkit.in/tools/meiosis-stages"
   },
   {
     "slug": "transcription-reference",
@@ -7221,7 +7572,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "BiologyReference",
-    "canonical": "https://studentkit.pages.dev/tools/transcription-reference"
+    "canonical": "https://studentkit.in/tools/transcription-reference"
   },
   {
     "slug": "translation-reference",
@@ -7239,7 +7590,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "BiologyReference",
-    "canonical": "https://studentkit.pages.dev/tools/translation-reference"
+    "canonical": "https://studentkit.in/tools/translation-reference"
   },
   {
     "slug": "protein-structure",
@@ -7257,7 +7608,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "BiologyReference",
-    "canonical": "https://studentkit.pages.dev/tools/protein-structure"
+    "canonical": "https://studentkit.in/tools/protein-structure"
   },
   {
     "slug": "photosynthesis-equation",
@@ -7275,7 +7626,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "BiologyReference",
-    "canonical": "https://studentkit.pages.dev/tools/photosynthesis-equation"
+    "canonical": "https://studentkit.in/tools/photosynthesis-equation"
   },
   {
     "slug": "cellular-respiration",
@@ -7293,7 +7644,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "BiologyReference",
-    "canonical": "https://studentkit.pages.dev/tools/cellular-respiration"
+    "canonical": "https://studentkit.in/tools/cellular-respiration"
   },
   {
     "slug": "human-skeleton",
@@ -7311,7 +7662,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "BiologyReference",
-    "canonical": "https://studentkit.pages.dev/tools/human-skeleton"
+    "canonical": "https://studentkit.in/tools/human-skeleton"
   },
   {
     "slug": "circulatory-system",
@@ -7329,7 +7680,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "BiologyReference",
-    "canonical": "https://studentkit.pages.dev/tools/circulatory-system"
+    "canonical": "https://studentkit.in/tools/circulatory-system"
   },
   {
     "slug": "nervous-system",
@@ -7347,7 +7698,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "BiologyReference",
-    "canonical": "https://studentkit.pages.dev/tools/nervous-system"
+    "canonical": "https://studentkit.in/tools/nervous-system"
   },
   {
     "slug": "digestive-system",
@@ -7365,7 +7716,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "BiologyReference",
-    "canonical": "https://studentkit.pages.dev/tools/digestive-system"
+    "canonical": "https://studentkit.in/tools/digestive-system"
   },
   {
     "slug": "endocrine-system",
@@ -7383,7 +7734,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "BiologyReference",
-    "canonical": "https://studentkit.pages.dev/tools/endocrine-system"
+    "canonical": "https://studentkit.in/tools/endocrine-system"
   },
   {
     "slug": "biology-formulas",
@@ -7401,7 +7752,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "BiologyReference",
-    "canonical": "https://studentkit.pages.dev/tools/biology-formulas"
+    "canonical": "https://studentkit.in/tools/biology-formulas"
   },
   {
     "slug": "biology-constants",
@@ -7419,7 +7770,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "BiologyReference",
-    "canonical": "https://studentkit.pages.dev/tools/biology-constants"
+    "canonical": "https://studentkit.in/tools/biology-constants"
   },
   {
     "slug": "percentile-calculator",
@@ -7439,7 +7790,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "DatasetCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/percentile-calculator"
+    "canonical": "https://studentkit.in/tools/percentile-calculator"
   },
   {
     "slug": "quartile-calculator",
@@ -7459,7 +7810,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "DatasetCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/quartile-calculator"
+    "canonical": "https://studentkit.in/tools/quartile-calculator"
   },
   {
     "slug": "iqr-calculator",
@@ -7479,7 +7830,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "DatasetCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/iqr-calculator"
+    "canonical": "https://studentkit.in/tools/iqr-calculator"
   },
   {
     "slug": "five-number-summary",
@@ -7499,7 +7850,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "DatasetCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/five-number-summary"
+    "canonical": "https://studentkit.in/tools/five-number-summary"
   },
   {
     "slug": "mean-absolute-deviation",
@@ -7519,7 +7870,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "DatasetCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/mean-absolute-deviation"
+    "canonical": "https://studentkit.in/tools/mean-absolute-deviation"
   },
   {
     "slug": "standard-error-calculator",
@@ -7539,7 +7890,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "DatasetCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/standard-error-calculator"
+    "canonical": "https://studentkit.in/tools/standard-error-calculator"
   },
   {
     "slug": "covariance-calculator",
@@ -7559,7 +7910,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "DatasetCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/covariance-calculator"
+    "canonical": "https://studentkit.in/tools/covariance-calculator"
   },
   {
     "slug": "correlation-coefficient",
@@ -7580,7 +7931,7 @@
     "hasExample": false,
     "hasFAQ": true,
     "component": "DatasetCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/correlation-coefficient"
+    "canonical": "https://studentkit.in/tools/correlation-coefficient"
   },
   {
     "slug": "linear-regression-calculator",
@@ -7600,7 +7951,7 @@
     "hasExample": false,
     "hasFAQ": true,
     "component": "DatasetCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/linear-regression-calculator"
+    "canonical": "https://studentkit.in/tools/linear-regression-calculator"
   },
   {
     "slug": "regression-equation-calculator",
@@ -7620,7 +7971,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "DatasetCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/regression-equation-calculator"
+    "canonical": "https://studentkit.in/tools/regression-equation-calculator"
   },
   {
     "slug": "r-squared-calculator",
@@ -7641,7 +7992,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "DatasetCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/r-squared-calculator"
+    "canonical": "https://studentkit.in/tools/r-squared-calculator"
   },
   {
     "slug": "normal-distribution-calculator",
@@ -7661,7 +8012,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "DistributionCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/normal-distribution-calculator"
+    "canonical": "https://studentkit.in/tools/normal-distribution-calculator"
   },
   {
     "slug": "standard-normal-distribution",
@@ -7681,7 +8032,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "DistributionCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/standard-normal-distribution"
+    "canonical": "https://studentkit.in/tools/standard-normal-distribution"
   },
   {
     "slug": "binomial-distribution-calculator",
@@ -7701,7 +8052,7 @@
     "hasExample": true,
     "hasFAQ": true,
     "component": "DistributionCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/binomial-distribution-calculator"
+    "canonical": "https://studentkit.in/tools/binomial-distribution-calculator"
   },
   {
     "slug": "poisson-distribution-calculator",
@@ -7721,7 +8072,7 @@
     "hasExample": true,
     "hasFAQ": false,
     "component": "DistributionCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/poisson-distribution-calculator"
+    "canonical": "https://studentkit.in/tools/poisson-distribution-calculator"
   },
   {
     "slug": "truth-table-generator",
@@ -7741,7 +8092,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "TruthTableGenerator",
-    "canonical": "https://studentkit.pages.dev/tools/truth-table-generator"
+    "canonical": "https://studentkit.in/tools/truth-table-generator"
   },
   {
     "slug": "logical-expression-evaluator",
@@ -7761,7 +8112,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "TruthTableGenerator",
-    "canonical": "https://studentkit.pages.dev/tools/logical-expression-evaluator"
+    "canonical": "https://studentkit.in/tools/logical-expression-evaluator"
   },
   {
     "slug": "set-union-calculator",
@@ -7781,7 +8132,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "SetCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/set-union-calculator"
+    "canonical": "https://studentkit.in/tools/set-union-calculator"
   },
   {
     "slug": "set-intersection-calculator",
@@ -7801,7 +8152,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "SetCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/set-intersection-calculator"
+    "canonical": "https://studentkit.in/tools/set-intersection-calculator"
   },
   {
     "slug": "set-difference-calculator",
@@ -7821,7 +8172,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "SetCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/set-difference-calculator"
+    "canonical": "https://studentkit.in/tools/set-difference-calculator"
   },
   {
     "slug": "rref-calculator",
@@ -7842,7 +8193,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "MatrixCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/rref-calculator"
+    "canonical": "https://studentkit.in/tools/rref-calculator"
   },
   {
     "slug": "matrix-rank-calculator",
@@ -7862,7 +8213,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "MatrixCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/matrix-rank-calculator"
+    "canonical": "https://studentkit.in/tools/matrix-rank-calculator"
   },
   {
     "slug": "matrix-trace-calculator",
@@ -7882,7 +8233,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "MatrixCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/matrix-trace-calculator"
+    "canonical": "https://studentkit.in/tools/matrix-trace-calculator"
   },
   {
     "slug": "eigenvalue-calculator",
@@ -7902,7 +8253,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "MatrixCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/eigenvalue-calculator"
+    "canonical": "https://studentkit.in/tools/eigenvalue-calculator"
   },
   {
     "slug": "relative-error-calculator",
@@ -7920,7 +8271,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/relative-error-calculator"
+    "canonical": "https://studentkit.in/tools/relative-error-calculator"
   },
   {
     "slug": "final-grade-calculator",
@@ -7938,7 +8289,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/final-grade-calculator"
+    "canonical": "https://studentkit.in/tools/final-grade-calculator"
   },
   {
     "slug": "binary-calculator",
@@ -7958,7 +8309,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "BaseConverter",
-    "canonical": "https://studentkit.pages.dev/tools/binary-calculator"
+    "canonical": "https://studentkit.in/tools/binary-calculator"
   },
   {
     "slug": "hexadecimal-converter",
@@ -7978,7 +8329,7 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "BaseConverter",
-    "canonical": "https://studentkit.pages.dev/tools/hexadecimal-converter"
+    "canonical": "https://studentkit.in/tools/hexadecimal-converter"
   },
   {
     "slug": "base-conversion-calculator",
@@ -7998,7 +8349,7 @@
     "hasExample": true,
     "hasFAQ": false,
     "component": "BaseConverter",
-    "canonical": "https://studentkit.pages.dev/tools/base-conversion-calculator"
+    "canonical": "https://studentkit.in/tools/base-conversion-calculator"
   },
   {
     "slug": "weighted-grade-calculator",
@@ -8016,6 +8367,6 @@
     "hasExample": false,
     "hasFAQ": false,
     "component": "UnitAwareCalculator",
-    "canonical": "https://studentkit.pages.dev/tools/weighted-grade-calculator"
+    "canonical": "https://studentkit.in/tools/weighted-grade-calculator"
   }
 ]

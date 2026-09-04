@@ -56,26 +56,26 @@ const testQueries = [
   { query: "marks needed to pass", expectedSlug: "required-marks" },
   { query: "check my attendance", expectedSlug: "attendance-calculator" },
   // Mathematics
-  { query: "solve quadratic equation", expectedSlug: "quadratic-equation" },
+  { query: "solve quadratic equation", expectedSlug: "quadratic-equation-solver" },
   { query: "find percentage increase", expectedSlug: "percentage-change" },
-  { query: "calculate standard deviation", expectedSlug: "standard-deviation" },
+  { query: "calculate standard deviation", expectedSlug: "standard-deviation-calculator" },
   { query: "simplify fraction", expectedSlug: "fraction-calculator" },
   // Physics
   { query: "calculate force", expectedSlug: "force-calculator" },
-  { query: "calculate kinetic energy", expectedSlug: "kinetic-energy" },
+  { query: "calculate kinetic energy", expectedSlug: "kinetic-energy-calculator" },
   { query: "ohms law", expectedSlug: "ohms-law-voltage" },
-  { query: "ideal gas equation", expectedSlug: "ideal-gas-law" },
+  { query: "ideal gas equation", expectedSlug: "ideal-gas-law-calculator" },
   // Chemistry
-  { query: "calculate molar mass", expectedSlug: "molar-mass" },
+  { query: "calculate molar mass", expectedSlug: "molar-mass-calculator" },
   { query: "calculate molarity", expectedSlug: "molarity-calculator" },
-  { query: "balance chemical equation", expectedSlug: "chemical-equation-balancer" },
+  { query: "balance chemical equation", expectedSlug: "reaction-balancer" },
   { query: "calculate ph", expectedSlug: "ph-calculator" },
   // Biology
   { query: "punnett square", expectedSlug: "punnett-square" },
   { query: "dna complement", expectedSlug: "dna-complement" },
   { query: "calculate bmi", expectedSlug: "bmi-calculator" },
   // Statistics
-  { query: "mean median mode", expectedSlug: "mean-median-mode" },
+  { query: "calculate mean average", expectedSlug: "mean-calculator" },
   { query: "normal distribution", expectedSlug: "normal-distribution-calculator" },
 ];
 
