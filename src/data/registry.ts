@@ -764,3 +764,17 @@ export const tools: Tool[] = [
   { id: "base-conversion-calculator", title: "Base Conversion Calculator", description: "Convert between bases 2, 8, 10, 16.", slug: "base-conversion-calculator", category: "Computer Science", subcategory: "Number Systems", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "BaseConverter", aliases: ["octal", "binary to decimal", "hex to binary", "decimal to binary", "hexadecimal"], related: [] },
   { id: "weighted-grade-calculator", title: "Weighted Grade Calculator", description: "Score = Sum(Weight * Grade).", slug: "weighted-grade-calculator", category: "Student Utilities", subcategory: "Grades", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"g1","label":"Grade 1","options":[{"label":"%","factor":1}]},{"id":"w1","label":"Weight 1","options":[{"label":"%","factor":1}]},{"id":"g2","label":"Grade 2","options":[{"label":"%","factor":1}]},{"id":"w2","label":"Weight 2","options":[{"label":"%","factor":1}]},{"id":"g3","label":"Grade 3","options":[{"label":"%","factor":1}]},{"id":"w3","label":"Weight 3","options":[{"label":"%","factor":1}]}], expression: "(g1*w1 + g2*w2 + g3*w3)/(w1+w2+w3)", outputLabel: "Weighted Grade" } }
 ];
+
+
+export const getActiveCategories = (): Category[] => {
+  const uniqueNames = [...new Set(tools.map(t => t.category))].sort();
+  return uniqueNames.map(name => {
+    const existing = categories.find(c => c.name === name);
+    if (existing) return existing;
+    return {
+      id: getCategorySlug(name),
+      name: name,
+      description: "Explore " + tools.filter(t => t.category === name).length + " tools and calculators for " + name + "."
+    };
+  });
+};

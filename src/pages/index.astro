@@ -1,7 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import ToolCard from '../components/ToolCard.astro';
-import { tools, categories, getCategorySlug } from '../data/registry';
+import { tools, getActiveCategories, getCategorySlug } from '../data/registry';
+const categories = getActiveCategories();
 
 // Select 6 popular tools
 const popularTools = [

@@ -1,10 +1,11 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import ToolCard from '../../components/ToolCard.astro';
-import { tools, categories, getCategorySlug } from '../../data/registry';
+import { tools, getActiveCategories, getCategorySlug } from '../../data/registry';
+const categories = getActiveCategories();
 
 export function getStaticPaths() {
-  return categories.map((cat) => {
+  return getActiveCategories().map((cat) => {
     const categorySlug = getCategorySlug(cat.name);
     return {
       params: { category: categorySlug },
