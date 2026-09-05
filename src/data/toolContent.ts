@@ -342,14 +342,18 @@ export const toolContent: Record<string, ToolContent> = {
 
   "acceleration-calculator": {
     whatIsIt: "Computes acceleration — the rate of change of velocity over time. Acceleration can be positive (speeding up) or negative (decelerating).",
+    howToUse: "Enter initial velocity (v_i), final velocity (v_f), and time elapsed (t). The calculator will compute a = (v_f - v_i) / t.",
     formula: "a = (v_f - v_i) / t",
     variables: {
       "a": "Acceleration (m/s²)",
-      "v_f": "Final velocity",
-      "v_i": "Initial velocity",
-      "t": "Time elapsed"
+      "v_f": "Final velocity (m/s)",
+      "v_i": "Initial velocity (m/s)",
+      "t": "Time interval (s)"
     },
-    example: "A car going from 0 to 60 km/h (16.67 m/s) in 8 seconds: a = 16.67 / 8 ≈ 2.08 m/s²."
+    example: "A car going from 0 to 60 km/h (16.67 m/s) in 8 seconds: a = 16.67 / 8 ≈ 2.08 m/s².",
+    whenToUse: "Used in kinematics problems, physics experiments, and engineering motion planning.",
+    commonMistakes: "Common mistakes include forgetting to convert speed units to meters per second and mixing up time intervals.",
+    faq: [{ q: "What if the time is zero?", a: "Division by zero is undefined; the calculator will return an error for t = 0." }]
   },
 
   "pressure-calculator": {
