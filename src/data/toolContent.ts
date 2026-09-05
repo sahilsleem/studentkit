@@ -237,7 +237,7 @@ export const toolContent: Record<string, ToolContent> = {
 ,
 
   "percentage-to-cgpa": {
-    whatIsIt: "The inverse of the CGPA-to-Percentage calculator. Converts a standard 100-point percentage scale back into a 10-point scale CGPA.",
+    whatIsIt: "The inverse of the CGP*to-Percentage calculator. Converts a standard 100-point percentage scale back into a 10-point scale CGPA.",
     formula: "CGPA = Percentage / 9.5",
     whenToUse: "Used when standardizing international transcripts or applying to universities that mandate a 10-point metric."
   },
@@ -445,5 +445,371 @@ export const toolContent: Record<string, ToolContent> = {
     whenToUse: "Used in molecular biology for primer design, PCR analysis, and understanding DNA replication and repair."
   }
 
+,
+  "percentage-difference-calculator": {
+    "whatIsIt": "Calculates the absolute difference between two numbers as a percentage of their average. Useful when neither number is clearly the 'original' or 'reference' value.",
+    "formula": "|a - b| / ((a + b) / 2) × 100",
+    "howToUse": "Enter the two values you want to compare. The calculator handles the absolute difference and division automatically.",
+    "example": "Comparing two experimental yields (e.g., 45g and 55g) gives a difference of 10g, and an average of 50g. The percentage difference is 10/50 × 100 = 20%.",
+    "commonMistakes": "Do not confuse percentage difference with percentage change. Use difference when comparing two independent values (like two test scores), and change when comparing an old value to a new value over time."
+},
+  "percentage-error-calculator": {
+    "whatIsIt": "Determines the inaccuracy of an experimental or estimated value compared to the true, theoretical, or accepted value.",
+    "formula": "|(Approximate - Exact) / Exact| × 100",
+    "howToUse": "Enter your measured/experimental value and the true/accepted value.",
+    "example": "If you estimated 80 people would attend, but 100 actually did, the error is |80 - 100| / 100 × 100 = 20% error.",
+    "commonMistakes": "Always divide by the TRUE (exact) value, not the measured one. Dividing by the measured value is the most common student error in lab reports."
+},
+  "matrix-calculator": {
+    "whatIsIt": "A comprehensive tool for adding, subtracting, and multiplying matrices. Fundamental for linear algebra, computer graphics, and physics.",
+    "howToUse": "Define the dimensions of Matrix A and Matrix B, input your coefficients, and select the operation (+, -, ×).",
+    "commonMistakes": "Remember that matrix multiplication is NOT commutative. A × B does not necessarily equal B × A. Also, to multiply A × B, the number of columns in A must match the number of rows in B."
+},
+  "speed-calculator": {
+    "whatIsIt": "Calculates the scalar magnitude of velocity (speed) based on distance traveled over a specific duration of time.",
+    "formula": "s = d / t",
+    "howToUse": "Input the total distance and the time taken. Ensure your units are consistent (e.g., meters and seconds).",
+    "commonMistakes": "Speed is a scalar quantity (no direction), whereas velocity is a vector (requires direction). This calculator provides speed."
+},
+  "voltage-calculator": {
+    "whatIsIt": "Uses Ohm's Law to calculate the electrical potential difference (voltage) across a component when current and resistance are known.",
+    "formula": "V = I × R",
+    "variables": {
+        "V": "Voltage (Volts)",
+        "I": "Current (Amperes)",
+        "R": "Resistance (Ohms)"
+    },
+    "howToUse": "Enter the current flowing through the circuit and the resistance.",
+    "example": "A circuit with 2 Amps of current and 5 Ohms of resistance will have a voltage drop of 10 Volts.",
+    "commonMistakes": "Ensure your units are strictly in Amperes and Ohms. Convert milli-amps (mA) to Amps before calculating."
+},
+  "percentile-calculator": {
+    "whatIsIt": "Finds the value below which a given percentage of observations in a group of observations falls.",
+    "howToUse": "Paste or type your dataset (comma or space separated) and input the desired percentile (0-100).",
+    "commonMistakes": "Do not confuse percentile with percentage score. A score of 80% on a test means you got 80% of the questions right. Being in the 80th percentile means you scored better than 80% of the test-takers."
+},
+  "binary-calculator": {
+    "whatIsIt": "Performs arithmetic operations (addition, subtraction, multiplication, division) directly on binary (base-2) numbers.",
+    "howToUse": "Enter two binary sequences (1s and 0s) and select the arithmetic operation you wish to perform.",
+    "example": "1010 (10 in decimal) + 0101 (5 in decimal) = 1111 (15 in decimal).",
+    "commonMistakes": "Mixing binary with hexadecimal or decimal digits. Only 1s and 0s are valid inputs."
+},
+  "unit-circle": {
+    "whatIsIt": "An interactive reference tool displaying the angles (in degrees and radians) and their corresponding trigonometric coordinates (cosine, sine) on a circle with a radius of 1.",
+    "howToUse": "Use it to quickly look up exact values for sine, cosine, and tangent for common angles like 30°, 45°, 60°, and 90°.",
+    "commonMistakes": "Memorizing the first quadrant is highly recommended. All other quadrants are just sign variations of the first quadrant."
+},
+  "average-rate-of-change": {
+    "whatIsIt": "Measures how much a function changes per unit of change in the input variable over a specific interval. Geometrically, it is the slope of the secant line between two points.",
+    "formula": "( f(b) - f(a) ) / ( b - a )",
+    "howToUse": "Enter the function values at the start and end of your interval, along with the start and end points themselves.",
+    "commonMistakes": "Do not confuse average rate of change over an interval with instantaneous rate of change (which requires a derivative)."
+},
+  "wave-speed-calculator": {
+    "whatIsIt": "Calculates the speed at which a wave propagates through a medium based on its frequency and wavelength.",
+    "formula": "v = f × λ",
+    "variables": {
+        "v": "Wave speed (m/s)",
+        "f": "Frequency (Hz)",
+        "λ": "Wavelength (m)"
+    },
+    "howToUse": "Enter the frequency of the wave and its wavelength.",
+    "example": "A sound wave with a frequency of 440 Hz (A4 note) and a wavelength of ~0.78 meters has a speed of about 343 m/s in air.",
+    "commonMistakes": "Ensure wavelength is in meters. If given in nanometers (like for light), convert to meters first."
+},
+  "voltage-divider-calculator": {
+    "whatIsIt": "Calculates the output voltage of a simple passive linear circuit that turns a large voltage into a smaller one using two resistors in series.",
+    "formula": "V_out = V_in × (R2 / (R1 + R2))",
+    "howToUse": "Input the source voltage and the resistance values of both resistors.",
+    "commonMistakes": "The formula assumes no load is connected to V_out. If you connect a load in parallel with R2, the equivalent resistance drops, changing the output voltage."
+},
+  "average-atomic-mass": {
+    "whatIsIt": "Calculates the weighted average mass of all naturally occurring isotopes of an element.",
+    "formula": "(Mass1 × Abundance1) + (Mass2 × Abundance2) + ...",
+    "howToUse": "Enter the atomic mass and percentage abundance for each isotope. Ensure the abundances add up to exactly 100%.",
+    "commonMistakes": "Forgetting to divide the percentage by 100 before multiplying. (e.g., 75% should be multiplied as 0.75)."
+},
+  "root-mean-square-speed": {
+    "whatIsIt": "Calculates the measure of the speed of particles in a gas, which correlates with the kinetic energy and temperature of the gas.",
+    "formula": "v_rms = √(3RT / M)",
+    "variables": {
+        "R": "Ideal gas constant (8.314 J/(mol·K))",
+        "T": "Temperature (Kelvin)",
+        "M": "Molar mass (kg/mol)"
+    },
+    "howToUse": "Input the temperature of the gas and its molar mass.",
+    "commonMistakes": "The molar mass M MUST be in kilograms per mole (kg/mol), not grams per mole (g/mol). For example, O2 is 0.032 kg/mol, not 32."
+},
+  "age-calculator": {
+    "whatIsIt": "Calculates the exact chronological time elapsed between a birth date and a target date in years, months, and days.",
+    "howToUse": "Enter the date of birth and the current (or future/past) date to compare against.",
+    "commonMistakes": "Leap years are automatically handled by the calculator, meaning calculating day counts manually might differ slightly from this exact output."
+},
+  "matrix-rank-calculator": {
+    "whatIsIt": "Determines the rank of a matrix, which is the maximum number of linearly independent row or column vectors in the matrix.",
+    "howToUse": "Enter the matrix dimensions and elements. The calculator will reduce the matrix to row echelon form to count the non-zero rows.",
+    "commonMistakes": "A matrix is full rank if its rank equals the smallest dimension (rows or columns). If the rank is less, the vectors are linearly dependent."
+},
+  "matrix-trace-calculator": {
+    "whatIsIt": "Computes the trace of a square matrix, which is defined as the sum of elements on the main diagonal (from the upper left to the lower right).",
+    "formula": "Tr(A) = a_11 + a_22 + ... + a_nn",
+    "howToUse": "Enter a square matrix (N × N) and the trace will be calculated instantly.",
+    "commonMistakes": "The trace is only defined for square matrices. You cannot calculate the trace of a non-square matrix."
+},
+  "mitosis-stages": {
+    "whatIsIt": "An educational reference detailing the phases of mitosis, the process of somatic cell division resulting in two identical daughter cells.",
+    "howToUse": "Review the breakdown of Prophase, Metaphase, Anaphase, and Telophase (PMAT) to study for biology exams.",
+    "commonMistakes": "Confusing mitosis with meiosis. Mitosis creates diploid somatic (body) cells, while meiosis creates haploid gametes (sex cells)."
+},
+  "meiosis-stages": {
+    "whatIsIt": "A reference for the stages of meiosis, which involves two rounds of division (Meiosis I and Meiosis II) to produce four genetically diverse haploid gametes.",
+    "howToUse": "Use this to track chromosome counts and understand crossing over (which occurs in Prophase I).",
+    "commonMistakes": "Forgetting that DNA replication only happens ONCE (before Meiosis I), even though there are two division phases."
+},
+  "ratio-calculator": {
+    "whatIsIt": "Simplifies ratios, solves for missing proportions (A:B = C:D), and scales ratios up or down.",
+    "howToUse": "Input the known parts of your ratio to find the missing variable, or input a single ratio to see its simplest form.",
+    "commonMistakes": "Ensure units are the same before creating a ratio. A ratio of 1 inch to 1 foot is 1:12, not 1:1."
+},
+  "square-calculator": {
+    "whatIsIt": "Solves the basic geometric properties of a square (area, perimeter, diagonal) from just one known measurement.",
+    "formula": "Area = s², Perimeter = 4s, Diagonal = s√2",
+    "howToUse": "Enter any single known value (side, area, perimeter, or diagonal).",
+    "commonMistakes": "Don't forget that the diagonal of a square creates two 45-45-90 right triangles, which is where the √2 coefficient comes from."
+},
+  "rectangle-area-calculator": {
+    "whatIsIt": "Computes the 2D space enclosed by a rectangle using its length and width.",
+    "formula": "Area = length × width",
+    "howToUse": "Input the horizontal length and vertical width. Make sure the units match.",
+    "commonMistakes": "If you need to convert units (e.g., feet to inches), do it BEFORE calculating the area, otherwise you must square the conversion factor."
+},
+  "square-root-calculator": {
+    "whatIsIt": "Finds the principal (positive) square root of a number, which is the value that, when multiplied by itself, gives the original number.",
+    "formula": "√x",
+    "howToUse": "Type any positive number to find its square root.",
+    "commonMistakes": "While negative numbers don't have real square roots (resulting in imaginary numbers like 'i'), remember that positive numbers technically have two square roots (e.g., √9 is 3 and -3, though calculators default to the principal positive root)."
+},
+  "cube-calculator": {
+    "whatIsIt": "Solves the geometric properties of a 3D cube (volume, surface area, and space diagonal) based on a single measurement.",
+    "formula": "Volume = s³, Surface Area = 6s²",
+    "howToUse": "Enter the side length (edge) of the cube.",
+    "commonMistakes": "Confusing volume (cubic units, s³) with surface area (square units, 6 × s²). Always double-check your unit types."
+}
+,
+  "scientific-calculator": {
+    "whatIsIt": "A versatile online scientific calculator designed for students and professionals. It performs standard arithmetic alongside advanced mathematical operations like trigonometry, logarithms, and exponentiation.",
+    "howToUse": "Click or tap the buttons to build your expression. The calculator supports degrees (DEG) and radians (RAD) modes for trigonometric functions. Click 'View History' to see your past calculations.",
+    "commonMistakes": "Forgetting to switch between DEG and RAD modes before calculating sine, cosine, or tangent is a very frequent error. Always verify your angle mode matches your assignment."
+},
+  "limit-calculator": {
+    "whatIsIt": "Calculates the mathematical limit of a function as the input variable approaches a specific value. Limits are foundational to calculus, defining continuity, derivatives, and integrals.",
+    "formula": "lim (x → a) f(x) = L",
+    "howToUse": "Enter your function expression (e.g., sin(x)/x). Specify the point the variable is approaching. You can select the direction of the approach (From Left, From Right, or Both Sides).",
+    "variables": {
+        "f(x)": "The mathematical function you are evaluating",
+        "a": "The point the variable is approaching",
+        "L": "The resulting limit"
+    },
+    "commonMistakes": "Directly substituting the value when it results in an indeterminate form (like 0/0). In those cases, algebraic manipulation or L'Hôpital's rule is required mathematically, though this calculator will attempt to resolve it automatically."
+},
+  "derivative-calculator": {
+    "whatIsIt": "Computes the first derivative of a mathematical function, which represents the instantaneous rate of change or the slope of the tangent line at any given point.",
+    "formula": "f'(x) = d/dx [ f(x) ]",
+    "howToUse": "Enter a valid function (e.g., x^2 * sin(x)). If you want to evaluate the slope at a specific point, enter a numerical value in the evaluation box. The calculator handles polynomial, trigonometric, and exponential differentiation.",
+    "commonMistakes": "Forgetting to use parentheses when combining operations, leading to an incorrect order of operations in complex chain-rule scenarios."
+},
+  "base-conversion-calculator": {
+    "whatIsIt": "Translates numbers between different positional numeral systems, specifically decimal (base 10), binary (base 2), octal (base 8), and hexadecimal (base 16).",
+    "howToUse": "Select your starting base and your target base. Enter the number you want to convert. The tool supports standard formats, including letters A-F for hexadecimal values.",
+    "example": "Converting the decimal number 255 to hexadecimal yields FF. Converting 255 to binary yields 11111111.",
+    "commonMistakes": "Entering digits that are invalid for the selected starting base. For instance, you cannot enter a '2' if you have selected Binary as your input base."
+},
+  "normal-distribution-calculator": {
+    "whatIsIt": "Calculates probabilities (p-values) and z-scores for a normally distributed dataset (the bell curve). Essential for statistics and probability theory.",
+    "howToUse": "Input your population mean (μ) and standard deviation (σ). To find a probability, input your boundaries (x). The tool calculates the area under the normal curve for that region.",
+    "variables": {
+        "Mean (μ)": "The center peak of the distribution",
+        "Standard Deviation (σ)": "The measure of spread or width of the bell curve"
+    },
+    "commonMistakes": "Confusing the standard deviation with the variance. If you are given the variance (σ²), you must take the square root to find the standard deviation before using the calculator."
+},
+  "bmi-calculator": {
+    "whatIsIt": "Calculates Body Mass Index (BMI), a rapid screening tool used to estimate whether a person has a healthy body weight proportional to their height.",
+    "howToUse": "Enter your weight and height using either metric or imperial units. The calculator will automatically apply the correct conversion and formula.",
+    "commonMistakes": "BMI is only a general screening measure. It does not directly measure body fat percentage and may misclassify athletes with high muscle mass or elderly individuals who have lost muscle mass."
+},
+  "hexadecimal-converter": {
+    "whatIsIt": "Converts values between hexadecimal (base-16) notation and standard decimal or binary formats. Commonly used in computer science for memory addresses and color codes.",
+    "howToUse": "Choose whether you are converting TO or FROM hexadecimal, enter your value, and the conversion is performed instantly.",
+    "example": "The hex color code #FFFFFF corresponds to the decimal values 255, 255, 255 (Pure White in RGB).",
+    "commonMistakes": "Forgetting that hex letters are case-insensitive but mathematically significant. A=10, B=11, C=12, D=13, E=14, F=15."
+},
+  "unit-converter": {
+    "whatIsIt": "A universal conversion tool for standard physical quantities including Length, Weight (Mass), Temperature, and Digital Data.",
+    "howToUse": "Select a category at the top (e.g., Length). Choose your starting unit and target unit from the dropdowns, then enter the value to convert.",
+    "example": "Converting 100 degrees Celsius to Fahrenheit yields 212°F (the boiling point of water).",
+    "commonMistakes": "When converting temperature, remember that Celsius and Fahrenheit do not scale proportionally from zero like length or weight; they have offset zero points (e.g., 0°C = 32°F)."
+},
+  "taylor-series-calculator": {
+    "whatIsIt": "Computes the Taylor series expansion of a function, which approximates a complex function as a polynomial sum calculated from the function's derivatives at a single point.",
+    "formula": "f(x) ≈ f(a) + f'(a)(x-a) + f''(a)(x-a)²/2! + ...",
+    "howToUse": "Enter the function f(x), the center point 'a' (the point you are approximating around), and the number of terms 'n' to compute.",
+    "commonMistakes": "Choosing an expansion center 'a' where the function or its derivatives are undefined (e.g., expanding ln(x) at a = 0). Choose a center point close to the value you actually want to approximate."
+}
+,
+  "quadratic-equation-solver": {
+    "whatIsIt": "A mathematical tool that solves quadratic equations of the standard form ax² + bx + c = 0. It instantly calculates the roots (x-intercepts) of the corresponding parabola.",
+    "formula": "x = (-b ± √(b² - 4ac)) / 2a",
+    "variables": {
+        "a": "The coefficient of the squared term (x²)",
+        "b": "The coefficient of the linear term (x)",
+        "c": "The constant term"
+    },
+    "howToUse": "Enter the coefficients a, b, and c from your equation. The calculator evaluates the discriminant (b² - 4ac) to determine the nature of the roots. It will output two distinct real roots, one repeated real root, or indicate if the roots are complex (imaginary).",
+    "example": "For the equation x² - 5x + 6 = 0, enter a = 1, b = -5, c = 6. The calculator will return x1 = 3 and x2 = 2.",
+    "commonMistakes": "Forgetting negative signs on the coefficients. If your equation is 2x² - 3x - 4 = 0, you must enter b as -3 and c as -4, not 3 and 4."
+},
+  "logarithm-calculator": {
+    "whatIsIt": "Calculates the logarithm of a number to any specified base. Logarithms answer the question: 'To what power must we raise the base to obtain the number?'",
+    "formula": "log_b(n) = x  (which means b^x = n)",
+    "variables": {
+        "Number (n)": "The value you are taking the logarithm of (must be positive)",
+        "Base (b)": "The base of the logarithm (must be positive and not equal to 1)"
+    },
+    "howToUse": "Enter your target Number and your desired Base. The tool computes the result using the change-of-base formula internally: ln(Number) / ln(Base). To calculate a common log, use base 10. To calculate a natural log (ln), you can approximate by entering 2.718 for the base, though standard base 10 and base 2 are most common here.",
+    "example": "To find log_2(8), enter Number = 8 and Base = 2. The calculator returns 3, because 2³ = 8.",
+    "commonMistakes": "Attempting to calculate the logarithm of a negative number or zero, which is mathematically undefined in real numbers and will return an error or NaN."
+},
+  "standard-normal-distribution": {
+    "whatIsIt": "Calculates probability density and cumulative probabilities for the standard normal distribution (a bell curve with a mean of 0 and standard deviation of 1). It relies on z-scores to determine the area under the curve.",
+    "formula": "z = (x - μ) / σ",
+    "howToUse": "To use this as a true Standard Normal calculator, you must manually set the Mean (μ) to 0 and the Standard Deviation (σ) to 1. Then, enter your z-score as the target value (x). The calculator will output the probability density exactly at that point, as well as the cumulative probabilities (less than or equal to z, and greater than z).",
+    "example": "With Mean = 0 and SD = 1, entering an x (z-score) of 1.96 yields a cumulative probability (≤) of approximately 0.975.",
+    "commonMistakes": "Forgetting to set the mean to 0 and standard deviation to 1. If you leave these values out or enter raw data instead of z-scores, the resulting probabilities will be incorrect for a standard normal curve."
+},
+  "pythagorean-theorem-calculator": {
+    "whatIsIt": "A geometric calculator that computes the length of the hypotenuse of a right-angled triangle when the lengths of the two shorter legs are known.",
+    "formula": "a² + b² = c²  (therefore, c = √(a² + b²))",
+    "variables": {
+        "Leg A": "The length of one of the shorter sides",
+        "Leg B": "The length of the other shorter side",
+        "Hypotenuse (c)": "The longest side, opposite the right angle"
+    },
+    "howToUse": "Enter the lengths of Leg A and Leg B. The calculator squares both values, adds them together, and takes the square root of the sum to find the precise length of the hypotenuse.",
+    "example": "If Leg A is 3 and Leg B is 4, the calculator computes √(3² + 4²) = √(9 + 16) = √25, returning a hypotenuse of 5.",
+    "commonMistakes": "Attempting to use this calculator to find a missing leg (when you already know the hypotenuse). This specific tool is designed only to find the hypotenuse (c) from legs (a) and (b). If you know the hypotenuse, you must manually subtract instead: a = √(c² - b²)."
+},
+  "lcm-calculator": {
+    "whatIsIt": "Calculates the Least Common Multiple (LCM) of two numbers. The LCM is the smallest positive integer that is perfectly divisible by both of the provided numbers.",
+    "formula": "LCM(a,b) = |a × b| / GCD(a,b)",
+    "howToUse": "Enter two integers into the calculator. It evaluates their greatest common divisor (GCD) in the background and uses it to instantly compute the lowest common multiple.",
+    "example": "For the numbers 4 and 6, the multiples of 4 are (4, 8, 12, 16...) and the multiples of 6 are (6, 12, 18...). The calculator will return 12, as it is the smallest multiple they share.",
+    "commonMistakes": "Confusing LCM with GCD. The LCM will always be equal to or larger than the largest of your two inputs, whereas the GCD will always be equal to or smaller than your smallest input."
+},
+  "gcd-calculator": {
+    "whatIsIt": "Calculates the Greatest Common Divisor (GCD), also known as the Greatest Common Factor (GCF). It finds the largest positive integer that perfectly divides both of the provided numbers without leaving a remainder.",
+    "howToUse": "Enter two integers. The calculator uses the Euclidean algorithm—successively dividing the numbers and finding the remainder—until it identifies the largest common factor.",
+    "example": "For the numbers 48 and 18, the calculator determines the GCD is 6, because 6 is the largest number that divides into both 48 (8 times) and 18 (3 times).",
+    "commonMistakes": "Entering decimals or fractions. The concept of a Greatest Common Divisor mathematically applies strictly to integers."
+},
+  "percentage-calculator": {
+    "whatIsIt": "An academic aggregate percentage calculator designed to compute your total overall percentage across multiple subjects, tests, or assignments.",
+    "formula": "Overall Percentage = (Sum of Obtained Marks / Sum of Total Marks) × 100",
+    "howToUse": "Each row represents a single subject or exam. Optionally enter the subject name, then input the marks you obtained alongside the total possible marks for that test. Click 'Add Subject' to include more exams. The calculator aggregates all your entries to find your cumulative percentage.",
+    "example": "If you scored 45/50 in Math and 80/100 in History, the calculator sums your obtained marks (125) and total marks (150). It then calculates (125 / 150) × 100 to yield a final aggregate score of 83.33%.",
+    "commonMistakes": "Averaging the percentages of individual classes rather than aggregating the raw marks. If you score 10/10 (100%) and 50/100 (50%), your overall grade is 60/110 (54.5%), NOT the simple average of 75%. This calculator correctly aggregates the raw marks to prevent this mathematical error."
+},
+  "factorial-calculator": {
+    "whatIsIt": "Computes the factorial of a non-negative integer. Factorials are heavily used in combinatorics, probability, and algebra to calculate permutations and combinations.",
+    "formula": "n! = n × (n - 1) × (n - 2) × ... × 1",
+    "howToUse": "Enter a positive whole number. The calculator will multiply that number by every integer below it down to 1. Note that by mathematical definition, 0! is exactly equal to 1.",
+    "example": "Entering 5 will compute 5! = 5 × 4 × 3 × 2 × 1, returning a result of 120.",
+    "commonMistakes": "Attempting to input negative numbers or decimals. While advanced math uses the Gamma function to extend factorials to fractions, standard factorial calculators strictly require non-negative integers. Entering a negative number will return an 'Invalid' result."
+}
+,
+  "standard-deviation-calculator": {
+    "whatIsIt": "Calculates both the population and sample standard deviation of a dataset. Standard deviation measures how dispersed or spread out your numbers are from the mean (average). A low standard deviation means the data is clustered tightly around the mean, while a high standard deviation indicates the data is spread over a wider range.",
+    "formula": "Population: σ = √[Σ(x - μ)² / N]\nSample: s = √[Σ(x - x̄)² / (n - 1)]",
+    "howToUse": "Enter your dataset as a comma or space-separated list of numbers. The calculator instantly evaluates all descriptive statistics in one pass. Scroll down to see both the Population Standard Deviation (σ) and the Sample Standard Deviation (s).",
+    "example": "For the dataset: 2, 4, 4, 4, 5, 5, 7, 9. The Population Standard Deviation is approximately 2.0. The Sample Standard Deviation is approximately 2.138.",
+    "commonMistakes": "Using the population standard deviation when you only have a sample of data. Unless your data represents every single member of the entire group you are studying (the whole population), you should use the Sample Standard Deviation (s) for statistical accuracy."
+},
+  "fraction-to-decimal": {
+    "whatIsIt": "Converts any mathematical fraction into its equivalent decimal value. It simply divides the numerator by the denominator to express the ratio in base-10 format.",
+    "formula": "Decimal = Numerator ÷ Denominator",
+    "variables": {
+        "Numerator": "The top number of the fraction",
+        "Denominator": "The bottom number of the fraction"
+    },
+    "howToUse": "Enter the top number (Numerator) and the bottom number (Denominator). The tool will divide them and output the corresponding decimal value.",
+    "example": "Entering 3 as the numerator and 4 as the denominator yields the decimal 0.75.",
+    "commonMistakes": "Reversing the inputs. Entering 4 as the numerator and 3 as the denominator will result in 1.3333... instead of the intended 0.75. Also, entering 0 as the denominator is mathematically invalid and will cause an error."
+},
+  "simultaneous-equations": {
+    "whatIsIt": "A tool to solve systems of linear equations. It finds the exact point where multiple lines intersect—the specific values for x, y (and z) that make all the equations in the system true simultaneously.",
+    "howToUse": "First, select whether you are solving a 2-variable system (x, y) or a 3-variable system (x, y, z). Then, input the coefficients for each variable and the constant for each equation row. The calculator uses matrix operations to find the unique solution.",
+    "example": "For the system:\nx + y = 10\nx - y = 2\nEnter the coefficients for row 1 (1, 1, 10) and row 2 (1, -1, 2). The calculator will solve for x = 6, y = 4.",
+    "commonMistakes": "Forgetting to include negative signs when a variable is subtracted. If your equation is 2x - y = 5, you must enter the coefficient for y as -1, not 1."
+},
+  "circle-area-calculator": {
+    "whatIsIt": "Calculates the total space enclosed within a circle's boundary based on its radius.",
+    "formula": "A = πr²",
+    "variables": {
+        "r (Radius)": "The distance from the center of the circle to any point on its edge."
+    },
+    "howToUse": "Enter the radius of the circle. The calculator squares the radius and multiplies it by Pi (π) to determine the exact area.",
+    "example": "If the radius is 5, the area is calculated as π × 5² = π × 25 ≈ 78.5398.",
+    "commonMistakes": "Entering the diameter instead of the radius. If you are given a diameter (the full width across the circle), you must divide it by 2 to find the radius before entering it into this calculator."
+},
+  "cube-volume-calculator": {
+    "whatIsIt": "Computes the volume (total 3D space inside) of a perfect cube. In a cube, all edges have the exact same length.",
+    "formula": "V = s³",
+    "variables": {
+        "s (Side Length)": "The length of any single edge of the cube."
+    },
+    "howToUse": "Enter the length of one side of the cube. The calculator multiplies that length by itself three times (cubes it) to output the volume.",
+    "example": "For a cube with a side length of 3, the volume is 3 × 3 × 3 = 27 cubic units.",
+    "commonMistakes": "Confusing volume with surface area. This calculator gives the 3D space inside (s³). The surface area (outside wrapping) would be 6s²."
+},
+  "permutation-calculator": {
+    "whatIsIt": "Calculates the number of possible arrangements for a set of items where the order of selection strictly matters (e.g., choosing a 1st, 2nd, and 3rd place winner).",
+    "formula": "nPr = n! / (n - r)!",
+    "variables": {
+        "n (Total Objects)": "The total number of items available to choose from",
+        "r (Selected Objects)": "The number of items you are actually choosing"
+    },
+    "howToUse": "Enter your total number of objects (n) and how many you are selecting (r). The calculator evaluates the factorials to find the total number of ordered permutations.",
+    "example": "If you have 5 racers (n=5) and want to know how many ways they can finish 1st and 2nd (r=2), the calculator evaluates 5! / (5-2)! = 120 / 6 = 20 possible arrangements.",
+    "commonMistakes": "Using permutations when the order does not matter (like drawing a hand of cards). If the order doesn't matter, you should use the Combinations calculator instead."
+},
+  "combination-calculator": {
+    "whatIsIt": "Calculates the number of possible selections for a set of items where the order of selection does NOT matter (e.g., choosing 3 teammates from a group of 10).",
+    "formula": "nCr = n! / [r! × (n - r)!]",
+    "variables": {
+        "n (Total Objects)": "The total number of items available to choose from",
+        "r (Selected Objects)": "The number of items you are selecting"
+    },
+    "howToUse": "Enter the total pool of objects (n) and the amount you want to select (r). The calculator removes duplicate orderings to give you the exact number of unique combinations.",
+    "example": "Choosing 2 toppings (r=2) from a menu of 5 available toppings (n=5). The calculator evaluates 5! / [2! × (5-2)!] = 10 possible unique pizza combinations.",
+    "commonMistakes": "Entering a selection value (r) that is larger than your total pool (n). You cannot choose 6 items if you only have 5 available; doing so will yield an 'Invalid' result."
+},
+  "linear-equation-solver": {
+    "whatIsIt": "Solves basic first-degree linear equations in the standard algebraic form of ax + b = 0 to isolate and find the root value of x.",
+    "howToUse": "Enter your 'a' coefficient (the number attached to x) and your 'b' constant. The calculator performs the inverse operations mathematically (-b / a) to instantly solve for x.",
+    "example": "To solve 2x - 8 = 0, enter a = 2 and b = -8. The calculator outputs x = 4.",
+    "commonMistakes": "Forgetting to rearrange your equation to equal zero first. If your homework problem is 3x = 12, you must conceptually rewrite it as 3x - 12 = 0, so you would enter a = 3 and b = -12."
+},
+  "median-calculator": {
+    "whatIsIt": "Finds the median (the exact middle value) of a dataset. The median is a measure of central tendency that is highly resistant to extreme outliers, unlike the mean.",
+    "howToUse": "Enter your numbers separated by commas or spaces. The calculator automatically sorts your data from smallest to largest. If you have an odd number of values, it picks the middle one. If you have an even number of values, it calculates the average of the two middle numbers.",
+    "example": "For the odd dataset: 3, 5, 7, 8, 10, the median is 7. For the even dataset: 3, 5, 7, 9, the median is 6 (the average of 5 and 7).",
+    "commonMistakes": "Trying to find the median of unsorted data manually. This calculator sorts the data for you automatically, so you can paste your raw numbers directly without pre-sorting them."
+},
+  "mode-calculator": {
+    "whatIsIt": "Identifies the mode (the most frequently occurring value or values) in a dataset.",
+    "howToUse": "Enter your dataset separated by commas or spaces. The calculator scans the frequencies of every number. If multiple numbers tie for the highest frequency, it will output all of them (bimodal or multimodal). If every number appears exactly once, it will state 'None'.",
+    "example": "For the dataset: 2, 3, 3, 4, 5, the mode is 3. For the dataset: 2, 2, 4, 4, 5, the modes are 2 and 4.",
+    "commonMistakes": "Assuming the mode must be a single number. A dataset can easily have multiple modes if several values tie for the highest frequency count."
+}
 };
 
