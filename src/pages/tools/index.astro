@@ -38,18 +38,20 @@ const toolsData = tools.map(tool => ({
     <!-- Search -->
     <div class="flex-grow">
       <div class="relative">
+        <label for="tools-search" class="sr-only">Search all tools</label>
         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
           <svg class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
             <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
           </svg>
         </div>
-        <input type="text" id="tools-search" class="block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-lg leading-5 bg-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm transition-all" placeholder="Search all tools..." />
+        <input type="text" id="tools-search" aria-label="Search all tools" class="block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-lg leading-5 bg-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm transition-all" placeholder="Search all tools..." />
       </div>
     </div>
     
     <!-- Category Filter -->
     <div class="md:w-64 flex-shrink-0">
-      <select id="category-filter" class="block w-full pl-3 pr-10 py-2 text-base border border-gray-200 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm rounded-lg bg-white">
+      <label for="category-filter" class="sr-only">Filter tools by category</label>
+      <select id="category-filter" aria-label="Filter tools by category" class="block w-full pl-3 pr-10 py-2 text-base border border-gray-200 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm rounded-lg bg-white">
         <option value="all">All Categories</option>
         {categories.map(category => (
           <option value={category.name.toLowerCase()}>{category.name}</option>

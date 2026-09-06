@@ -101,13 +101,13 @@
       tr.className = 'border-b border-gray-100 last:border-0';
       tr.innerHTML = `
         <td class="py-3 pr-4">
-          <input type="text" placeholder="Subject ${rowCount}" class="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm">
+          <input type="text" placeholder="Subject ${rowCount}" aria-label="Course ${rowCount} name (optional)" class="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm">
         </td>
         <td class="py-3 px-4">
-          <input type="number" min="0" step="0.5" required placeholder="Credits" class="credit-input block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm">
+          <input type="number" min="0" step="0.5" required placeholder="Credits" aria-label="Course ${rowCount} credits" class="credit-input block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm">
         </td>
         <td class="py-3 px-4">
-          <select required class="grade-input block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm bg-white">
+          <select required aria-label="Course ${rowCount} grade" class="grade-input block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm bg-white">
             <option value="" disabled selected>Grade</option>
             ${grades.map(g => `<option value="${g.value}">${g.label}</option>`).join('')}
           </select>

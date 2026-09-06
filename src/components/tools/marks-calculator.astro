@@ -3,16 +3,16 @@
         <form id="calculator-form" class="space-y-4">
           <div id="marks-container" class="space-y-3">
             <div class="flex flex-col sm:flex-row gap-4">
-              <input type="text" placeholder="Subject Name" class="subject-input flex-1 px-3 py-2 border border-gray-300 rounded-md focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm">
-              <input type="number" min="0" step="0.5" required placeholder="Marks" class="mark-input w-1/3 px-3 py-2 border border-gray-300 rounded-md focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm">
+              <input type="text" placeholder="Subject Name" aria-label="Course 1 name" class="subject-input flex-1 px-3 py-2 border border-gray-300 rounded-md focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm">
+              <input type="number" min="0" step="0.5" required placeholder="Marks" aria-label="Course 1 marks" class="mark-input w-1/3 px-3 py-2 border border-gray-300 rounded-md focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm">
             </div>
             <div class="flex flex-col sm:flex-row gap-4">
-              <input type="text" placeholder="Subject Name" class="subject-input flex-1 px-3 py-2 border border-gray-300 rounded-md focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm">
-              <input type="number" min="0" step="0.5" placeholder="Marks" class="mark-input w-1/3 px-3 py-2 border border-gray-300 rounded-md focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm">
+              <input type="text" placeholder="Subject Name" aria-label="Course 2 name" class="subject-input flex-1 px-3 py-2 border border-gray-300 rounded-md focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm">
+              <input type="number" min="0" step="0.5" placeholder="Marks" aria-label="Course 2 marks" class="mark-input w-1/3 px-3 py-2 border border-gray-300 rounded-md focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm">
             </div>
             <div class="flex flex-col sm:flex-row gap-4">
-              <input type="text" placeholder="Subject Name" class="subject-input flex-1 px-3 py-2 border border-gray-300 rounded-md focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm">
-              <input type="number" min="0" step="0.5" placeholder="Marks" class="mark-input w-1/3 px-3 py-2 border border-gray-300 rounded-md focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm">
+              <input type="text" placeholder="Subject Name" aria-label="Course 3 name" class="subject-input flex-1 px-3 py-2 border border-gray-300 rounded-md focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm">
+              <input type="number" min="0" step="0.5" placeholder="Marks" aria-label="Course 3 marks" class="mark-input w-1/3 px-3 py-2 border border-gray-300 rounded-md focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm">
             </div>
           </div>
 
@@ -67,12 +67,15 @@
 
     if (!form || !container) return;
 
+    let rowCount = 3;
+
     addBtn?.addEventListener('click', () => {
+      rowCount++;
       const row = document.createElement('div');
       row.className = 'flex gap-4';
       row.innerHTML = `
-        <input type="text" placeholder="Subject Name" class="subject-input flex-1 px-3 py-2 border border-gray-300 rounded-md focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm">
-        <input type="number" min="0" step="0.5" placeholder="Marks" class="mark-input w-1/3 px-3 py-2 border border-gray-300 rounded-md focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm">
+        <input type="text" placeholder="Subject Name" aria-label="Course ${rowCount} name" class="subject-input flex-1 px-3 py-2 border border-gray-300 rounded-md focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm">
+        <input type="number" min="0" step="0.5" placeholder="Marks" aria-label="Course ${rowCount} marks" class="mark-input w-1/3 px-3 py-2 border border-gray-300 rounded-md focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm">
       `;
       container.appendChild(row);
     });
