@@ -224,10 +224,6 @@ export const toolContent: Record<string, ToolContent> = {
     formula: "BMI = mass(kg) / height(m)²",
     faq: [{ q: "Is BMI perfectly accurate?", a: "No. BMI does not distinguish between muscle and fat, meaning athletes often classify as 'overweight' erroneously." }]
   },
-  "unit-converter": {
-    whatIsIt: "An all-in-one dimensional analysis tool to convert between standard imperial and metric units.",
-    howToUse: "Select the category (Length, Mass, Temp, etc.), input your value, and choose the output unit. It handles the scaling internally."
-  },
   "date-difference": {
     whatIsIt: "Calculates the exact chronological difference between two calendar dates, accounting for leap years and varying month lengths.",
     howToUse: "Pick a start date and an end date.",
@@ -510,16 +506,20 @@ export const toolContent: Record<string, ToolContent> = {
     "commonMistakes": "Do not confuse average rate of change over an interval with instantaneous rate of change (which requires a derivative)."
 },
   "wave-speed-calculator": {
-    "whatIsIt": "Calculates the speed at which a wave propagates through a medium based on its frequency and wavelength.",
+    "whatIsIt": "Calculates the speed at which a periodic wave travels through a given medium using the fundamental wave equation relating wave velocity, oscillation frequency, and wavelength.",
     "formula": "v = f × λ",
     "variables": {
-        "v": "Wave speed (m/s)",
-        "f": "Frequency (Hz)",
-        "λ": "Wavelength (m)"
+        "v": "Wave speed / velocity in meters per second (m/s)",
+        "f": "Frequency in Hertz (Hz or 1/s)",
+        "λ": "Wavelength in meters (m)"
     },
-    "howToUse": "Enter the frequency of the wave and its wavelength.",
-    "example": "A sound wave with a frequency of 440 Hz (A4 note) and a wavelength of ~0.78 meters has a speed of about 343 m/s in air.",
-    "commonMistakes": "Ensure wavelength is in meters. If given in nanometers (like for light), convert to meters first."
+    "howToUse": "Enter the frequency of the wave and its wavelength. The calculator instantly evaluates the wave equation to determine propagation speed.",
+    "example": "A concert pitch sound wave with a frequency of 440 Hz (A4) and a wavelength of 0.78 meters in room-temperature air travels at v = 440 × 0.78 = 343.2 m/s.",
+    "whenToUse": "Essential in acoustics, optics, telecommunications, seismology, and quantum mechanics when analyzing mechanical or electromagnetic wave propagation.",
+    "commonMistakes": "Entering wavelength in nanometers (nm) or centimeters (cm) without converting to meters (m), or confusing wave propagation speed with the transverse particle speed of the medium.",
+    "faq": [
+      { "q": "Does frequency change when a wave enters a different medium?", "a": "No, frequency is determined by the wave source and remains constant across boundaries; wave speed and wavelength change proportionally." }
+    ]
 },
   "voltage-divider-calculator": {
     "whatIsIt": "Calculates the output voltage of a simple passive linear circuit that turns a large voltage into a smaller one using two resistors in series.",
@@ -643,17 +643,36 @@ export const toolContent: Record<string, ToolContent> = {
     "commonMistakes": "BMI is only a general screening measure. It does not directly measure body fat percentage and may misclassify athletes with high muscle mass or elderly individuals who have lost muscle mass."
 },
   "hexadecimal-converter": {
-    "whatIsIt": "Converts values between hexadecimal (base-16) notation and standard decimal or binary formats. Commonly used in computer science for memory addresses and color codes.",
-    "howToUse": "Choose whether you are converting TO or FROM hexadecimal, enter your value, and the conversion is performed instantly.",
-    "example": "The hex color code #FFFFFF corresponds to the decimal values 255, 255, 255 (Pure White in RGB).",
-    "commonMistakes": "Forgetting that hex letters are case-insensitive but mathematically significant. A=10, B=11, C=12, D=13, E=14, F=15."
+    "whatIsIt": "Converts numbers between hexadecimal (base-16) notation and other positional number systems including decimal (base-10), binary (base-2), and octal (base-8). Hexadecimal is widely used in computing because each hex digit maps directly to 4 binary bits (a nibble).",
+    "howToUse": "Enter a number in the input field and select your starting base. The converter immediately calculates equivalent representations across binary, octal, decimal, and hexadecimal.",
+    "formula": "Decimal Value = Σ (digit_i × 16ⁱ)\nHexadecimal = Repeated division by 16 recording remainders (10=A, 11=B, 12=C, 13=D, 14=E, 15=F)",
+    "variables": {
+      "digit_i": "The value of each hexadecimal digit from right to left (0-9, A=10, B=11, C=12, D=13, E=14, F=15)",
+      "16ⁱ": "The positional base weight corresponding to index i (16⁰ = 1, 16¹ = 16, 16² = 256, etc.)"
+    },
+    "example": "To convert hex 2A to decimal: (2 × 16¹) + (10 × 16⁰) = 32 + 10 = 42.",
+    "whenToUse": "Use when working with memory addresses, low-level debugging, subnetting, CSS color codes (#RRGGBB), or microcontroller registers.",
+    "commonMistakes": "Forgetting that hex letters are case-insensitive but represent values 10 through 15 (A=10, B=11, C=12, D=13, E=14, F=15), or entering digits above F.",
+    "faq": [
+      { "q": "Why is hexadecimal preferred over binary in programming?", "a": "Hexadecimal is much more compact and human-readable than binary. A byte (8 bits) is represented by exactly 2 hex digits instead of 8 binary digits." }
+    ]
 },
   "unit-converter": {
-    "whatIsIt": "A universal conversion tool for standard physical quantities including Length, Weight (Mass), Temperature, and Digital Data.",
-    "howToUse": "Select a category at the top (e.g., Length). Choose your starting unit and target unit from the dropdowns, then enter the value to convert.",
-    "example": "Converting 100 degrees Celsius to Fahrenheit yields 212°F (the boiling point of water).",
-    "commonMistakes": "When converting temperature, remember that Celsius and Fahrenheit do not scale proportionally from zero like length or weight; they have offset zero points (e.g., 0°C = 32°F)."
-},
+    "whatIsIt": "A multi-purpose dimensional analysis converter that converts quantities between metric (SI) and imperial systems across length, mass/weight, temperature, and digital data storage.",
+    "howToUse": "Select the measurement category (Length, Weight, Temperature, or Data). Enter the numerical value, choose your source unit from the left dropdown, and choose your target unit from the right dropdown.",
+    "formula": "Value_target = (Value_source × Factor_source) / Factor_target\n(Temperature: °F = (°C × 9/5) + 32, K = °C + 273.15)",
+    "variables": {
+      "Value_source": "The numerical quantity you want to convert",
+      "Factor_source": "The base unit multiplier for the starting unit (relative to SI base)",
+      "Factor_target": "The base unit multiplier for the output unit"
+    },
+    "example": "To convert 5 kilometers to miles: 5 km = 5,000 m; 5,000 / 1609.344 ≈ 3.1069 miles.",
+    "whenToUse": "Use when converting lab measurements, physics problem units, international travel distances, recipes, or digital file storage sizes.",
+    "commonMistakes": "Treating temperature like a direct proportional multiplier. Celsius, Fahrenheit, and Kelvin have different zero points and offset baselines (e.g., 0°C = 32°F, not 0°F).",
+    "faq": [
+      { "q": "Are imperial and US customary units identical?", "a": "For length and weight (pounds, feet, inches), they are effectively identical. For volume (gallons, pints, fluid ounces), British Imperial and US Customary units differ." }
+    ]
+  },
   "taylor-series-calculator": {
     "whatIsIt": "Computes the Taylor series expansion of a function, which approximates a complex function as a polynomial sum calculated from the function's derivatives at a single point.",
     "formula": "f(x) ≈ f(a) + f'(a)(x-a) + f''(a)(x-a)²/2! + ...",
@@ -814,6 +833,71 @@ export const toolContent: Record<string, ToolContent> = {
     "howToUse": "Enter your dataset separated by commas or spaces. The calculator scans the frequencies of every number. If multiple numbers tie for the highest frequency, it will output all of them (bimodal or multimodal). If every number appears exactly once, it will state 'None'.",
     "example": "For the dataset: 2, 3, 3, 4, 5, the mode is 3. For the dataset: 2, 2, 4, 4, 5, the modes are 2 and 4.",
     "commonMistakes": "Assuming the mode must be a single number. A dataset can easily have multiple modes if several values tie for the highest frequency count."
-}
+  },
+  "random-number": {
+    "whatIsIt": "A cryptographic-grade pseudo-random integer generator that produces uniformly distributed numbers within any custom closed interval [min, max].",
+    "howToUse": "Specify your minimum and maximum boundaries in the Min and Max input fields, then click 'Generate' to roll a random integer.",
+    "formula": "Random Integer = floor(random() × (max - min + 1)) + min",
+    "variables": {
+      "min": "The lowest possible integer value that can be produced (inclusive)",
+      "max": "The highest possible integer value that can be produced (inclusive)",
+      "random()": "A uniform pseudo-random decimal in the half-open range [0, 1)"
+    },
+    "example": "To roll a standard 6-sided die: set Min = 1 and Max = 6. Each roll has an exact 1/6 (16.67%) chance of appearing.",
+    "whenToUse": "Useful for statistical sampling, random prize drawings, board games, classroom presentations, probability experiments, and selecting randomized test cases.",
+    "commonMistakes": "Setting the minimum value higher than the maximum value, which produces a range error, or assuming recent outcomes affect future rolls (gambler's fallacy).",
+    "faq": [
+      { "q": "Are the endpoints included?", "a": "Yes, both the minimum and maximum numbers specified in the range are inclusive and have an equal chance of being generated." }
+    ]
+  },
+  "gravity-calculator": {
+    "whatIsIt": "Calculates the local acceleration due to gravity (g) on the surface of any celestial body or at a given radial distance from its center using Newton's Law of Universal Gravitation.",
+    "formula": "g = (G × M) / R²",
+    "variables": {
+      "g": "Gravitational acceleration in meters per second squared (m/s²)",
+      "G": "Universal gravitational constant (6.67430 × 10⁻¹¹ N·m²/kg²)",
+      "M": "Mass of the celestial body in kilograms (kg)",
+      "R": "Radial distance from the center of mass to the point of observation in meters (m)"
+    },
+    "howToUse": "Enter the planet's mass and its radius. The calculator computes the exact surface gravitational acceleration in m/s².",
+    "example": "For Earth (M ≈ 5.972 × 10²⁴ kg, R ≈ 6.371 × 10⁶ m): g = (6.67430e-11 × 5.972e24) / (6.371e6)² ≈ 9.81 m/s².",
+    "whenToUse": "Used in astrophysics, orbital mechanics, planetary science, and physics coursework to determine free-fall acceleration and weight on different planets.",
+    "commonMistakes": "Entering the altitude above the surface instead of the total distance from the planet's center of mass (Radius + Altitude), or forgetting to square the radius in the denominator.",
+    "faq": [
+      { "q": "How does gravity change with altitude?", "a": "Gravitational acceleration follows the inverse-square law; doubling your distance from the center of the planet reduces the gravitational pull to one-fourth (1/4)." }
+    ]
+  },
+  "q-mc-delta-t": {
+    "whatIsIt": "Calculates the sensible thermal energy (heat) absorbed or released by a substance during a temperature change without a change of state.",
+    "formula": "Q = m × c × ΔT\nΔT = T_final - T_initial",
+    "variables": {
+      "Q": "Heat energy transferred in Joules (J) or kiloJoules (kJ)",
+      "m": "Mass of the substance in grams (g) or kilograms (kg)",
+      "c": "Specific heat capacity of the material in J/(g·°C) or J/(g·K) (e.g., water = 4.184 J/g·°C)",
+      "ΔT": "Temperature change in °C or K (T_final - T_initial)"
+    },
+    "howToUse": "Enter the mass of the substance, its specific heat capacity, and the temperature change (ΔT). The calculator returns the total heat transferred in Joules and kJ.",
+    "example": "Heating 250 g of water (c = 4.184 J/g·°C) from 20°C to 80°C (ΔT = 60°C): Q = 250 × 4.184 × 60 = 62,760 J = 62.76 kJ.",
+    "whenToUse": "Crucial in thermochemistry, calorimetry experiments, HVAC design, chemical engineering, and determining heating/cooling requirements.",
+    "commonMistakes": "Applying Q = mcΔT during phase changes (melting/boiling), where temperature remains constant and latent heat formulas (Q = m·ΔH_fus or Q = m·ΔH_vap) must be used instead, or mixing grams and kilograms.",
+    "faq": [
+      { "q": "What does a negative Q value mean?", "a": "A negative Q indicates that the process is exothermic—the substance released heat into its surroundings, causing its temperature to decrease." }
+    ]
+  },
+  "mass-energy-equivalence-calculator": {
+    "whatIsIt": "Calculates the total rest energy intrinsically contained within mass based on Albert Einstein's landmark special relativity equation E = mc².",
+    "formula": "E = m × c²",
+    "variables": {
+      "E": "Rest energy in Joules (J)",
+      "m": "Mass of the object or particle in kilograms (kg)",
+      "c": "Speed of light in vacuum (299,792,458 m/s, c² ≈ 8.98755 × 10¹⁶ m²/s²)"
+    },
+    "howToUse": "Enter the mass in kilograms or grams. The calculator evaluates E = mc² to reveal the equivalent rest energy in Joules and kilojoules.",
+    "example": "Converting 1 gram (0.001 kg) of matter entirely into energy yields: E = 0.001 × (2.99792 × 10⁸)² ≈ 8.988 × 10¹³ Joules (~21.5 kilotons of TNT equivalent).",
+    "whenToUse": "Essential in nuclear physics, particle physics, fusion and fission reaction energy calculations, annihilation events, and cosmology.",
+    "commonMistakes": "Confusing rest energy (E = mc²) with total relativistic energy (E² = (pc)² + (mc²)²), which must account for momentum when a particle moves at relativistic speeds.",
+    "faq": [
+      { "q": "How does E = mc² relate to nuclear binding energy and mass defect?", "a": "When nucleons bind into an atomic nucleus, the missing mass (mass defect Δm) is directly converted into the nuclear binding energy that holds the nucleus together: E_b = Δm·c²." }
+    ]
+  }
 };
-
