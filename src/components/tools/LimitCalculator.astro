@@ -18,7 +18,7 @@ if (tool.slug.includes('infinity') || tool.slug.includes('infinite')) mode = 'in
 
     <form id="limit-form" class="space-y-6">
       <div>
-        <label class="block text-sm font-medium text-gray-700 mb-2">Function f(x)</label>
+        <label for="fn-expr" class="block text-sm font-medium text-gray-700 mb-2">Function f(x)</label>
         <div class="flex items-center gap-3">
           <span class="font-mono text-gray-500 font-bold">f(x) =</span>
           <input type="text" id="fn-expr" required class="flex-1 p-3 border border-gray-300 rounded-lg focus:ring-emerald-500 font-mono text-lg" placeholder="sin(x) / x">
@@ -27,7 +27,7 @@ if (tool.slug.includes('infinity') || tool.slug.includes('infinite')) mode = 'in
 
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2">Approaches (a)</label>
+          <label for={mode === 'infinity' ? 'fn-a-inf' : 'fn-a'} class="block text-sm font-medium text-gray-700 mb-2">Approaches (a)</label>
           <div class="flex items-center gap-3">
             <span class="font-mono text-gray-500 font-bold">x →</span>
             {mode === 'infinity' ? (
@@ -43,7 +43,7 @@ if (tool.slug.includes('infinity') || tool.slug.includes('infinite')) mode = 'in
 
         {mode === 'one-sided' && (
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Direction</label>
+            <label for="fn-dir" class="block text-sm font-medium text-gray-700 mb-2">Direction</label>
             <select id="fn-dir" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-emerald-500 font-medium">
               <option value="left">From Left ( x → a⁻ )</option>
               <option value="right">From Right ( x → a⁺ )</option>

@@ -10,6 +10,7 @@ export interface Props {
 
 const { title, description = "Simple tools for student life. Calculate marks, check attendance, and more." } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://studentkit.in');
+const socialImageURL = new URL('/og-image.png', Astro.site || 'https://studentkit.in');
 ---
 
 <!doctype html>
@@ -29,11 +30,13 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://studentk
 		<meta property="og:url" content={canonicalURL} />
 		<meta property="og:title" content={`${title} | StudentKit`} />
 		<meta property="og:description" content={description} />
+		<meta property="og:image" content={socialImageURL} />
 		
 		<!-- Twitter -->
-		<meta property="twitter:card" content="summary_large_image" />
-		<meta property="twitter:title" content={`${title} | StudentKit`} />
-		<meta property="twitter:description" content={description} />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={`${title} | StudentKit`} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={socialImageURL} />
 		
 		<!-- Google AdSense -->
 		<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1741354477413638" crossorigin="anonymous"></script>

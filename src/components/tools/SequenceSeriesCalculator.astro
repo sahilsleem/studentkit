@@ -16,13 +16,13 @@ const isSigma = tool.slug.includes('sigma');
           <div class="text-6xl font-light text-gray-300">∑</div>
           <div class="flex flex-col gap-2">
             <div class="flex items-center gap-2">
-              <label class="font-mono text-gray-500 text-sm">n =</label>
-              <input type="number" id="sig-start" required class="w-16 p-2 border border-gray-300 rounded focus:ring-emerald-500 text-center" placeholder="1">
+              <span class="text-sm font-medium text-gray-700">Index n =</span>
+              <input type="number" id="sig-start" aria-label="Start index n" required class="w-16 p-2 border border-gray-300 rounded focus:ring-emerald-500 text-center" placeholder="1">
               <span class="text-gray-400">to</span>
-              <input type="number" id="sig-end" required class="w-16 p-2 border border-gray-300 rounded focus:ring-emerald-500 text-center" placeholder="10">
+              <input type="number" id="sig-end" aria-label="End index n" required class="w-16 p-2 border border-gray-300 rounded focus:ring-emerald-500 text-center" placeholder="10">
             </div>
             <div class="flex items-center gap-2">
-              <label class="font-mono text-gray-500 text-sm">f(n) =</label>
+              <label for="sig-expr" class="font-mono text-gray-500 text-sm">f(n) =</label>
               <input type="text" id="sig-expr" required class="w-48 p-2 border border-gray-300 rounded focus:ring-emerald-500 font-mono" placeholder="n^2 + 1">
             </div>
           </div>
@@ -33,12 +33,12 @@ const isSigma = tool.slug.includes('sigma');
       <form id="seq-form" class="space-y-6">
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">First Term (a₁)</label>
+            <label for="seq-a" class="block text-sm font-medium text-gray-700 mb-2">First Term (a₁)</label>
             <input type="number" step="any" id="seq-a" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-emerald-500 font-mono">
           </div>
           
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">
+            <label for="seq-r" class="block text-sm font-medium text-gray-700 mb-2">
               {isGeometric ? 'Common Ratio (r)' : 'Common Difference (d)'}
             </label>
             <input type="number" step="any" id="seq-r" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-emerald-500 font-mono">
@@ -46,7 +46,7 @@ const isSigma = tool.slug.includes('sigma');
           
           {!isInfinite && (
             <div class="sm:col-span-2">
-              <label class="block text-sm font-medium text-gray-700 mb-2">Number of Terms (n)</label>
+              <label for="seq-n" class="block text-sm font-medium text-gray-700 mb-2">Number of Terms (n)</label>
               <input type="number" min="1" id="seq-n" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-emerald-500 font-mono">
             </div>
           )}

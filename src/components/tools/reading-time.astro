@@ -6,7 +6,7 @@
       </div>
       <div class="md:col-span-2 bg-white rounded-xl p-6 border border-gray-200 shadow-sm flex flex-col justify-center">
         <div class="flex items-center justify-between mb-4">
-          <label class="block text-sm font-medium text-gray-700">Reading Speed (words per minute)</label>
+          <label for="speed-slider" class="block text-sm font-medium text-gray-700">Reading Speed (words per minute)</label>
           <span class="text-sm font-bold text-emerald-600" id="speed-display">238 wpm</span>
         </div>
         <input type="range" id="speed-slider" min="100" max="500" value="238" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-emerald-600">
@@ -19,7 +19,7 @@
     </div>
 
     <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden mb-12 max-w-xl mx-auto">
-      <textarea id="text-input" rows="12" class="w-full p-6 text-gray-700 bg-transparent border-0 focus:ring-0 resize-y text-lg" placeholder="Paste your essay, article, or chapter here..."></textarea>
+      <textarea id="text-input" aria-label="Text to analyze" rows="12" class="w-full p-6 text-gray-700 bg-transparent border-0 focus:ring-0 resize-y text-lg" placeholder="Paste your essay, article, or chapter here..."></textarea>
       <div class="bg-gray-50 border-t border-gray-100 px-6 py-3 flex justify-between items-center">
         <span class="text-sm text-gray-500 font-medium"><span id="word-count">0</span> words</span>
         <button id="clear-btn" class="text-sm text-gray-500 hover:text-red-500 font-medium transition-colors">Clear text</button>

@@ -7,10 +7,11 @@ const { tool } = Astro.props;
   <div class="p-6 sm:p-8">
     <form class="space-y-6 stoich-form">
       <div>
-        <label class="block text-sm font-semibold text-gray-700 mb-2">Chemical Equation</label>
+        <label for="chem-eq-input" class="block text-sm font-semibold text-gray-700 mb-2">Chemical Equation</label>
         <div class="flex gap-2">
           <input 
             type="text" 
+            id="chem-eq-input"
             class="eq-input flex-1 p-4 text-lg font-mono border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 bg-gray-50 uppercase placeholder-gray-400" 
             placeholder="e.g. H2 + O2 -> H2O"
             required 
