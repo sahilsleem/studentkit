@@ -8,16 +8,22 @@ const { tool } = Astro.props;
     <form class="space-y-6 base-form">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label class="block text-sm font-semibold text-gray-700 mb-2">Number</label>
+          <label for={`base-input-${tool.slug}`} class="block text-sm font-semibold text-gray-700 mb-2">Number</label>
           <input 
             type="text" 
+            id={`base-input-${tool.slug}`}
+            aria-label="Number to convert"
             class="in-num w-full p-4 text-lg font-mono border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 bg-gray-50" 
             required 
           />
         </div>
         <div>
-          <label class="block text-sm font-semibold text-gray-700 mb-2">From Base</label>
-          <select class="in-base w-full p-4 text-lg border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 bg-gray-50">
+          <label for={`base-select-${tool.slug}`} class="block text-sm font-semibold text-gray-700 mb-2">From Base</label>
+          <select 
+            id={`base-select-${tool.slug}`}
+            aria-label="From base"
+            class="in-base w-full p-4 text-lg border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 bg-gray-50"
+          >
             <option value="10">Decimal (Base 10)</option>
             <option value="2">Binary (Base 2)</option>
             <option value="8">Octal (Base 8)</option>

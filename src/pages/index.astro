@@ -21,17 +21,33 @@ const popularTools = [
 
 const featuredTools = tools.filter(tool => popularTools.includes(tool.title));
 
-const searchData = tools.map(tool => ({
-  id: tool.id,
-  slug: tool.slug,
-  title: tool.title,
-  description: tool.description,
-  category: tool.category,
-  subcategory: tool.subcategory,
-  aliases: tool.aliases,
-  keywords: tool.keywords,
-  icon: tool.icon
-}));
+const uniqueIcons: string[] = [];
+const iconMap = new Map<string, number>();
+
+function getIconIndex(svg: string): number {
+  let idx = iconMap.get(svg);
+  if (idx === undefined) {
+    idx = uniqueIcons.length;
+    uniqueIcons.push(svg);
+    iconMap.set(svg, idx);
+  }
+  return idx;
+}
+
+const searchData = {
+  icons: uniqueIcons,
+  tools: tools.map(tool => ({
+    id: tool.id,
+    slug: tool.slug,
+    title: tool.title,
+    description: tool.description,
+    category: tool.category,
+    subcategory: tool.subcategory,
+    aliases: tool.aliases,
+    keywords: tool.keywords,
+    icon: getIconIndex(tool.icon || '')
+  }))
+};
 ---
 
 <Layout title="Home" description="Everything you need for student life. Calculate marks, check attendance, and use simple study tools — all in one place.">
@@ -166,7 +182,7 @@ const searchData = tools.map(tool => ({
     subcategory?: string;
     aliases?: string[];
     keywords?: string[];
-    icon: string;
+    icon: number | string;
   }
 
   const initSearch = () => {
@@ -177,8 +193,15 @@ const searchData = tools.map(tool => ({
     if (!searchInput || !searchResults || !dataEl) return;
 
     let tools: SearchTool[] = [];
+    let icons: string[] = [];
     try {
-      tools = JSON.parse(dataEl.textContent || '[]');
+      const raw = JSON.parse(dataEl.textContent || '{}');
+      if (Array.isArray(raw)) {
+        tools = raw;
+      } else {
+        tools = raw.tools || [];
+        icons = raw.icons || [];
+      }
     } catch (e) {
       console.error('Failed to parse search data', e);
       return;
@@ -245,10 +268,11 @@ const searchData = tools.map(tool => ({
       if (results.length > 0) {
         searchResults.innerHTML = results.map((tool, idx) => {
           const toolUrl = ['', 'tools', tool.slug].join('/');
+          const iconSvg = typeof tool.icon === 'number' ? (icons[tool.icon] || '') : (tool.icon || '');
           return `
           <a id="search-result-${idx}" href="${toolUrl}" role="option" aria-selected="false" class="search-result-item block px-4 py-3 hover:bg-emerald-50 border-b border-gray-100 last:border-0 transition-colors">
             <div class="flex items-center gap-3">
-              <div class="text-emerald-500 w-5 h-5 flex-shrink-0">${tool.icon}</div>
+              <div class="text-emerald-500 w-5 h-5 flex-shrink-0">${iconSvg}</div>
               <div>
                 <div class="text-sm font-medium text-gray-900">${tool.title}</div>
                 <div class="text-xs text-gray-500 line-clamp-1">${tool.description}</div>

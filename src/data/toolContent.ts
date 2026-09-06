@@ -899,5 +899,76 @@ export const toolContent: Record<string, ToolContent> = {
     "faq": [
       { "q": "How does E = mc² relate to nuclear binding energy and mass defect?", "a": "When nucleons bind into an atomic nucleus, the missing mass (mass defect Δm) is directly converted into the nuclear binding energy that holds the nucleus together: E_b = Δm·c²." }
     ]
+  },
+  "mass-defect": {
+    "whatIsIt": "Calculates the mass defect (Δm) of an atomic nucleus in nuclear chemistry—the difference between the total mass of individual constituent nucleons (free protons and neutrons) and the actual experimental mass of the bonded nucleus. In chemistry and radiochemistry, this mass difference explains isotopic stability and why bonded nuclei weigh less than their isolated constituents.",
+    "formula": "Δm = (Z × m_p) + (N × m_n) - M_nucleus",
+    "variables": {
+      "Z": "Number of protons (atomic number of the isotope)",
+      "N": "Number of neutrons (mass number A - atomic number Z)",
+      "m_p": "Proton mass (1.67262 × 10⁻²⁷ kg)",
+      "m_n": "Neutron mass (1.67493 × 10⁻²⁷ kg)",
+      "M_nucleus": "Measured mass of the target atomic nucleus in kilograms (kg)"
+    },
+    "howToUse": "Input the number of protons (Z), number of neutrons (N), and the actual measured mass of the atomic nucleus in kilograms. The calculator computes the mass defect in kilograms.",
+    "example": "For an alpha particle (Helium-4 nucleus, Z = 2, N = 2) with measured nuclear mass 6.64466 × 10⁻²⁷ kg: Unbound nucleons mass = 2(1.67262 × 10⁻²⁷) + 2(1.67493 × 10⁻²⁷) = 6.69510 × 10⁻²⁷ kg. Δm = 6.69510 × 10⁻²⁷ - 6.64466 × 10⁻²⁷ = 5.044 × 10⁻²⁹ kg.",
+    "whenToUse": "Used in general and nuclear chemistry coursework to evaluate isotope stability, study nuclear transmutation reactions, and calculate isotopic mass discrepancies.",
+    "commonMistakes": "Using atomic mass (which includes orbital electron masses) instead of bare nuclear mass without subtracting electron masses, or forgetting that neutrons are slightly heavier than protons.",
+    "faq": [
+      { "q": "Why is the bonded nucleus lighter than the sum of its protons and neutrons?", "a": "During the formation of a nucleus, strong nuclear forces bind nucleons together, releasing binding energy into the surroundings. By mass-energy equivalence, this lost energy results in a measurable loss of mass (the mass defect)." },
+      { "q": "How does this relate to the physics mass defect calculator?", "a": "Both calculate mass defect using the same underlying principles, but nuclear chemistry focuses on isotopic stability, nuclide formation, and radioactive decay energetics." }
+    ]
+  },
+  "nuclear-binding-energy": {
+    "whatIsIt": "Calculates the total nuclear binding energy released when individual nucleons fuse to form a stable atomic nucleus, or equivalently, the energy required to dissociate an atomic nucleus into individual protons and neutrons during nuclear chemical processes.",
+    "formula": "E = Δm × c²",
+    "variables": {
+      "E": "Nuclear binding energy in Joules (J) or kilojoules (kJ)",
+      "Δm": "Nuclear mass defect in kilograms (kg)",
+      "c": "Speed of light in vacuum (2.99792 × 10⁸ m/s)"
+    },
+    "howToUse": "Enter the mass defect (Δm) in kilograms. The calculator determines the binding energy released during nucleosynthesis in Joules (J) and kilojoules (kJ).",
+    "example": "If a nuclide has a mass defect of Δm = 5.044 × 10⁻²⁹ kg, its total binding energy is: E = (5.044 × 10⁻²⁹ kg) × (2.99792 × 10⁸ m/s)² = 4.533 × 10⁻¹² J.",
+    "whenToUse": "Essential in nuclear chemistry for calculating molar binding energies (kJ/mol), analyzing alpha/beta decay energetics, and understanding nuclear reaction thermochemistry.",
+    "commonMistakes": "Entering the total mass of the nucleus instead of the mass defect (Δm), or confusing nuclear binding energy with chemical bond dissociation energy (which is millions of times smaller).",
+    "faq": [
+      { "q": "How does nuclear binding energy compare to chemical bond energy?", "a": "Chemical bond energies (covalent/ionic) are on the order of a few electron-volts (eV) or hundreds of kJ/mol. Nuclear binding energies are millions of electron-volts (MeV) or billions of kJ/mol, reflecting the immense strength of the strong nuclear force compared to electromagnetic forces." }
+    ]
+  },
+  "mass-defect-calculator": {
+    "whatIsIt": "Evaluates the relativistic mass defect (Δm) in nuclear and particle physics. In modern physics, mass defect represents the missing rest mass converted into nuclear potential well binding energy under Einstein's mass-energy equivalence principle.",
+    "formula": "Δm = (Z × m_p) + (N × m_n) - M_nucleus",
+    "variables": {
+      "Z": "Proton count (Z)",
+      "N": "Neutron count (N)",
+      "m_p": "Proton rest mass (1.67262192 × 10⁻²⁷ kg)",
+      "m_n": "Neutron rest mass (1.67492750 × 10⁻²⁷ kg)",
+      "M_nucleus": "Rest mass of the bound nucleus (kg or g)"
+    },
+    "howToUse": "Input the number of protons (Z), neutrons (N), and the nucleus rest mass. Select whether the nucleus mass is in kilograms or grams. The calculator outputs the mass defect in kg and g.",
+    "example": "For Deuterium (1 proton, 1 neutron) with nucleus mass 3.34358 × 10⁻²⁷ kg: Free nucleons = (1.67262 × 10⁻²⁷) + (1.67493 × 10⁻²⁷) = 3.34755 × 10⁻²⁷ kg. Δm = 3.34755 × 10⁻²⁷ - 3.34358 × 10⁻²⁷ = 3.97 × 10⁻³⁰ kg.",
+    "whenToUse": "Fundamental in modern physics, quantum physics, astrophysics (stellar fusion pathways), and nuclear reactor engineering.",
+    "commonMistakes": "Neglecting SI units when converting between atomic mass units (u) and kilograms (1 u = 1.66054 × 10⁻²⁷ kg), or confusing rest mass with relativistic mass.",
+    "faq": [
+      { "q": "Why is mass defect central to modern physics?", "a": "Mass defect is direct experimental proof of special relativity and mass-energy equivalence: mass and energy are interchangeable manifestations of the same underlying physical entity." },
+      { "q": "How does mass defect relate to binding energy per nucleon?", "a": "Dividing the mass defect's equivalent energy by the total nucleon count (A = Z + N) yields the binding energy per nucleon (BE/A), which peaks near Iron-56 (56Fe) and governs whether fusion or fission is energetically favorable." }
+    ]
+  },
+  "nuclear-binding-energy-calculator": {
+    "whatIsIt": "Computes the nuclear binding energy from mass defect using the relativistic energy relation E = Δm·c². In nuclear physics, binding energy measures the depth of the nuclear potential well holding nucleons together against Coulomb electrostatic repulsion.",
+    "formula": "E = Δm × c²",
+    "variables": {
+      "E": "Total nuclear binding energy in Joules (J) or kilojoules (kJ)",
+      "Δm": "Mass defect in kilograms (kg) or grams (g)",
+      "c": "Speed of light (2.99792458 × 10⁸ m/s)"
+    },
+    "howToUse": "Enter the mass defect in kilograms (kg) or grams (g). The calculator evaluates E = Δm·c² to output the total binding energy in Joules and kilojoules.",
+    "example": "A mass defect of 3.97 × 10⁻³⁰ kg in Deuteron binding produces E = (3.97 × 10⁻³⁰) × (2.99792 × 10⁸)² = 3.568 × 10⁻¹³ J (approx. 2.227 MeV).",
+    "whenToUse": "Required in nuclear physics problem sets, Q-value computations for nuclear decay/reactions, fission/fusion yield analysis, and particle accelerator calculations.",
+    "commonMistakes": "Using the total nuclear mass instead of mass defect (Δm), or mixing non-SI units without proper conversion factors (1 MeV = 1.60218 × 10⁻¹³ J).",
+    "faq": [
+      { "q": "How do you convert binding energy in Joules to Mega-electronvolts (MeV)?", "a": "Divide the energy in Joules by 1.602176634 × 10⁻¹³ J/MeV (1 MeV ≈ 1.602 × 10⁻¹³ J). For example, 3.568 × 10⁻¹³ J / 1.602 × 10⁻¹³ ≈ 2.23 MeV." },
+      { "q": "What is the nuclear binding energy curve?", "a": "It plots binding energy per nucleon against mass number A. Light elements release energy via nuclear fusion as they move toward peak stability at Iron-56, while heavy elements (like Uranium-235) release energy through nuclear fission." }
+    ]
   }
 };

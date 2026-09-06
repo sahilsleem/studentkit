@@ -3,15 +3,15 @@
         <form id="calculator-form" class="space-y-6">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1">Available Hours per Day</label>
+              <label for="available-hours" class="block text-sm font-medium text-gray-700 mb-1">Available Hours per Day</label>
               <input type="number" id="available-hours" min="1" max="24" step="0.5" required class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 sm:text-base">
             </div>
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1">Number of Subjects</label>
+              <label for="num-subjects" class="block text-sm font-medium text-gray-700 mb-1">Number of Subjects</label>
               <input type="number" id="num-subjects" min="1" max="20" required class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 sm:text-base">
             </div>
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1">Desired Hours per Subject</label>
+              <label for="desired-hours" class="block text-sm font-medium text-gray-700 mb-1">Desired Hours per Subject</label>
               <input type="number" id="desired-hours" min="0.5" step="0.5" required class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 sm:text-base">
             </div>
           </div>
