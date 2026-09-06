@@ -7,8 +7,9 @@ const { tool } = Astro.props;
   <div class="p-6 sm:p-8">
     <form class="space-y-6 ds-form">
       <div>
-        <label class="block text-sm font-semibold text-gray-700 mb-2">Data Set X (Comma or space separated numbers)</label>
+        <label for="dataset-x" class="block text-sm font-semibold text-gray-700 mb-2">Data Set X (Comma or space separated numbers)</label>
         <textarea 
+          id="dataset-x"
           class="x-input w-full p-4 text-sm font-mono border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 bg-gray-50 placeholder-gray-400 h-24" 
           placeholder="e.g. 10, 15, 20, 25, 30"
           required 
@@ -16,8 +17,9 @@ const { tool } = Astro.props;
       </div>
       
       <div class="y-input-group hidden">
-        <label class="block text-sm font-semibold text-gray-700 mb-2">Data Set Y (For 2-variable stats like Correlation/Regression)</label>
+        <label for="dataset-y" class="block text-sm font-semibold text-gray-700 mb-2">Data Set Y (For 2-variable stats like Correlation/Regression)</label>
         <textarea 
+          id="dataset-y"
           class="y-input w-full p-4 text-sm font-mono border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 bg-gray-50 placeholder-gray-400 h-24" 
           placeholder="e.g. 2, 4, 6, 8, 10"
         ></textarea>
@@ -30,7 +32,7 @@ const { tool } = Astro.props;
         </label>
       </div>
 
-      <button type="submit" class="w-full bg-emerald-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors shadow-sm">
+      <button type="submit" class="w-full bg-emerald-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors shadow-sm">
         Calculate Statistics
       </button>
     </form>

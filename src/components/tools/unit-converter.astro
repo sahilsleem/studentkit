@@ -9,8 +9,10 @@
 
         <div class="flex flex-col md:flex-row items-center gap-4">
           <div class="w-full">
-            <input type="number" id="input-val" value="1" class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 text-lg mb-2">
-            <select id="input-unit" class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 bg-white">
+            <label for="input-val" class="sr-only">Input value</label>
+            <input type="number" id="input-val" value="1" aria-label="Input value" class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 text-lg mb-2">
+            <label for="input-unit" class="sr-only">From unit</label>
+            <select id="input-unit" aria-label="From unit" class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 bg-white">
               <!-- populated via js -->
             </select>
           </div>
@@ -20,8 +22,10 @@
           </div>
 
           <div class="w-full">
-            <input type="number" id="output-val" readonly class="block w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-lg font-bold mb-2">
-            <select id="output-unit" class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 bg-white">
+            <label for="output-val" class="sr-only">Converted output value</label>
+            <input type="number" id="output-val" readonly aria-label="Converted output value" class="block w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-lg font-bold mb-2">
+            <label for="output-unit" class="sr-only">To unit</label>
+            <select id="output-unit" aria-label="To unit" class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 bg-white">
               <!-- populated via js -->
             </select>
           </div>
