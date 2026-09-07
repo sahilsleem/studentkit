@@ -653,11 +653,34 @@ export const toolContent: Record<string, ToolContent> = {
     "commonMistakes": "Directly substituting the value when it results in an indeterminate form (like 0/0). In those cases, algebraic manipulation or L'Hôpital's rule is required mathematically, though this calculator will attempt to resolve it automatically."
 },
   "derivative-calculator": {
-    "whatIsIt": "Computes the first derivative of a mathematical function, which represents the instantaneous rate of change or the slope of the tangent line at any given point.",
+    "whatIsIt": "Computes the derivative of a mathematical function, representing the instantaneous rate of change or the slope of the tangent line at any given point.",
     "formula": "f'(x) = d/dx [ f(x) ]",
-    "howToUse": "Enter a valid function (e.g., x^2 * sin(x)). If you want to evaluate the slope at a specific point, enter a numerical value in the evaluation box. The calculator handles polynomial, trigonometric, and exponential differentiation.",
-    "commonMistakes": "Forgetting to use parentheses when combining operations, leading to an incorrect order of operations in complex chain-rule scenarios."
-},
+    "howToUse": "Enter a valid function (e.g., x^2 * sin(x)). If you want to evaluate the slope at a specific point, enter a numeric value in the evaluation box. The calculator handles polynomial, trigonometric, and exponential differentiation.",
+    "modeDetails": {
+      "first": "Standard first‑order derivative (default).",
+      "second": "Second derivative – click **Second Derivative** mode to see f''(x).",
+      "partial": "Partial derivative – specify the variable to differentiate with respect to (e.g., x or y).",
+      "implicit": "Implicit differentiation – for equations of the form F(x,y)=0, returns dy/dx = - (∂F/∂x) / (∂F/∂y).",
+      "marginal": "Marginal derivative – used for cost/revenue functions; same computation as first derivative but labelled accordingly.",
+      "tangent": "Tangent line – after evaluating at a point, also provides the tangent line equation y = mx + b."
+    },
+    "example": "Find the first derivative of f(x)=x^2 sin(x). Result: f'(x)=2x sin(x)+x^2 cos(x).",
+    "exampleSecond": "Second derivative of the same function yields f''(x)=2 sin(x)+4x cos(x)-x^2 sin(x).",
+    "commonMistakes": "Forgetting parentheses can change the expression (e.g., writing x^2 sin(x) is parsed as (x^2)*sin(x)). Use explicit * for multiplication when needed.",
+    "faq": [
+      { "q": "Can I compute higher-order derivatives?", "a": "Yes – select the appropriate mode or repeatedly apply the second derivative feature." },
+      { "q": "How do I use implicit differentiation?", "a": "Enter an equation like x^2 + y^2 = 1 and choose the implicit mode to get dy/dx." }
+    ]
+  },
+  "pomodoro-timer": {
+    "whatIsIt": "A Pomodoro timer helps you work in focused 25‑minute intervals followed by short breaks, a proven technique for improving concentration and productivity.",
+    "howToUse": "Choose a work interval (default 25 min) and break lengths (short 5 min, long 15 min). Click **Start** to begin a work session; the timer counts down and automatically switches to break mode. Use **Pause**/**Reset** as needed. After four work sessions the long break is suggested.",
+    "example": "Study for a physics chapter: start a 25‑min work session, focus solely on reading and notes. When the timer signals a break, stand up, stretch, and relax for 5 minutes before resuming.",
+    "faq": [
+      { "q": "Can I change the interval lengths?", "a": "Yes – click **Settings**, edit the minutes for work, short break, or long break, then press **Apply Settings**." },
+      { "q": "Does the timer keep running if I switch tabs?", "a": "The timer runs in the browser regardless of tab focus; it will continue counting down." }
+    ]
+  },
   "base-conversion-calculator": {
     "whatIsIt": "Translates numbers between different positional numeral systems, specifically decimal (base 10), binary (base 2), octal (base 8), and hexadecimal (base 16).",
     "howToUse": "Select your starting base and your target base. Enter the number you want to convert. The tool supports standard formats, including letters A-F for hexadecimal values.",
