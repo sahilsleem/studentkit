@@ -1067,6 +1067,24 @@ export const toolContent: Record<string, ToolContent> = {
       { "q": "Can a definite integral equal zero or a negative value?", "a": "Yes. If the area beneath the x-axis exceeds the area above it on [a, b], the definite integral is negative. If positive and negative areas balance perfectly (e.g. ∫[-π to π] sin(x) dx), the integral equals zero." }
     ]
   },
+  "integral-calculator": {
+    "whatIsIt": "The Integral Calculator evaluates definite integrals numerically in your browser. It uses Simpson's 1/3 rule with 10 000 sub‑intervals to approximate the net signed area under a continuous function.",
+    "howToUse": "Enter a mathematical expression f(x) and the lower (a) and upper (b) limits. The calculator runs the Simpson's rule approximation locally and returns the result. For indefinite integrals, the page displays a notice that symbolic antiderivatives are not supported.",
+    "formula": "Simpson's 1/3 rule (n = 10 000): ∫[a to b] f(x) dx ≈ (h/3)·[f(x₀) + 4∑f(x_{odd}) + 2∑f(x_{even}) + f(x_n)], where h = (b‑a)/n.",
+    "variables": {
+      "f(x) (Integrand)": "The function to be integrated, entered as a JavaScript‑compatible expression.",
+      "a (Lower Limit)": "Start of the integration interval.",
+      "b (Upper Limit)": "End of the integration interval."
+    },
+
+    "example": "Evaluate ∫[0 to 2] (3x^2 - 2x + 1) dx.\nThe calculator returns 6, matching the analytical result.",
+    "whenToUse": "Useful for quick numerical estimates of definite integrals when an antiderivative is hard to obtain, or for physics and engineering problems requiring a numerical answer.",
+    "commonMistakes": "1. Supplying an expression that is undefined or has a singularity inside [a, b] will cause an error because the numerical method requires a continuous integrand.\\n2. Expecting symbolic antiderivatives; the tool only provides numeric approximations.\\n3. Assuming the result is exact; the answer is an approximation whose accuracy depends on the smoothness of f(x) and the interval size.",
+    "faq": [
+      { "q": "Does the calculator work offline?", "a": "All calculations are performed locally in the browser; no data is sent to a server." },
+      { "q": "Can I change the number of intervals?", "a": "The implementation uses a fixed 10 000 intervals for a good balance of speed and accuracy." }
+    ]
+  },
   "hardy-weinberg-calculator": {
     "whatIsIt": "The Hardy-Weinberg Principle is the foundational null hypothesis of population genetics. It establishes that in a sexually reproducing, diploid population, allele and genotype frequencies remain constant across generations in the absence of evolutionary mechanisms (mutation, migration, selection, and genetic drift). Deviations from Hardy-Weinberg proportions provide direct quantitative evidence that evolutionary forces or non-random mating patterns are operating on the gene pool.",
     "howToUse": "Enter the observed frequency of the homozygous recessive genotype (q²) or recessive phenotype in the population. The calculator executes the standard genetic equilibrium equations:\n1. Derives the recessive allele frequency: q = √(q²).\n2. Derives the dominant allele frequency: p = 1 - q.\n3. Calculates homozygous dominant frequency: p².\n4. Evaluates the heterozygous carrier frequency: 2pq.",
