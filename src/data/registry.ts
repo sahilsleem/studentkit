@@ -33,227 +33,174 @@ export interface Tool {
 export const getCategorySlug = (name: string) => name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 
 export const categories: Category[] = [
-  { id: "academic", name: "Academic", description: "CGPA, GPA, Marks, Grades, and Attendance calculators." },
-  { id: "mathematics", name: "Mathematics", description: "Basic Math, Algebra, Geometry, Statistics, and Calculus." },
-  { id: "science", name: "Science", description: "Physics, Chemistry, and Biology calculators." },
-  { id: "engineering", name: "Engineering", description: "Electrical, Mechanical, and Civil Engineering tools." },
-  { id: "computer-science", name: "Computer Science", description: "Number Systems, Programming, and Developer Tools." },
-  { id: "study-productivity", name: "Study & Productivity", description: "Study Planners, Timers, and Writing tools." },
-  { id: "date-time", name: "Date & Time", description: "Calculators for dates, times, and countdowns." },
-  { id: "finance", name: "Finance", description: "Student Finance, Budgets, and Loans." },
-  { id: "converters", name: "Converters", description: "Unit, Data, and Scientific Conversions." },
-  { id: "files-images", name: "Files & Images", description: "Image manipulation, PDF tools, and generators." },
-  { id: "random-utilities", name: "Random & Utilities", description: "Random Generators, Decision Tools, and General Utilities." }
+  {
+    "id": "academic-grades",
+    "name": "Academic & Grades",
+    "description": "GPA, CGPA, grades, attendance, and exam target calculators."
+  },
+  {
+    "id": "study-writing",
+    "name": "Study & Writing",
+    "description": "Pomodoro timers, word counters, reading speed, and writing utilities."
+  },
+  {
+    "id": "mathematics",
+    "name": "Mathematics",
+    "description": "Algebra, calculus, trigonometry, geometry, matrices, and number theory."
+  },
+  {
+    "id": "physics",
+    "name": "Physics",
+    "description": "Kinematics, forces, energy, optics, electromagnetism, and thermodynamics."
+  },
+  {
+    "id": "chemistry",
+    "name": "Chemistry",
+    "description": "Molarity, stoichiometry, gas laws, periodic table, and chemical reactions."
+  },
+  {
+    "id": "biology-health",
+    "name": "Biology & Health",
+    "description": "Genetics, cellular biology, anatomy, BMI, and health metrics."
+  },
+  {
+    "id": "statistics",
+    "name": "Statistics",
+    "description": "Descriptive statistics, probability distributions, regression, and z-scores."
+  },
+  {
+    "id": "computer-science",
+    "name": "Computer Science",
+    "description": "Bitwise operations, binary conversion, subnetting, and logic."
+  },
+  {
+    "id": "converters",
+    "name": "Converters",
+    "description": "Unit, scientific notation, and base conversion tools."
+  },
+  {
+    "id": "everyday-utilities",
+    "name": "Everyday Utilities",
+    "description": "Date differences, age calculations, countdowns, and random number generators."
+  }
 ];
 
 export const tools: Tool[] = [
-  // Academic
   {
     id: "cgpa-to-percentage",
     title: "CGPA to Percentage & Percentage to CGPA Converter",
     description: "Convert between 10-point CGPA and percentage scores using standard or custom university formulas.",
     slug: "cgpa-to-percentage",
-    category: "Academic",
-    aliases: [
-      "convert cgpa to percentage",
-      "cgpa to percentage india",
-      "cgpa to percent",
-      "cgpa percentage formula",
-      "percentage to cgpa",
-      "convert percentage to cgpa",
-      "percentage to cgpa formula",
-      "percent to grade point",
-      "cgpa converter",
-      "grade point to percentage",
-      "percentage to grade point average"
-    ],
-    icon: `<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>`
+    category: "Academic & Grades",
+    aliases: ["convert cgpa to percentage","cgpa to percentage india","cgpa to percent","cgpa percentage formula","percentage to cgpa","convert percentage to cgpa","percentage to cgpa formula","percent to grade point","cgpa converter","grade point to percentage","percentage to grade point average"],
+    icon: "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z\"></path></svg>"
   },
   {
     id: "gpa-calculator",
     title: "GPA Calculator (Grade Point Average)",
     description: "Calculate your semester GPA based on subject credits and grades.",
     slug: "gpa-calculator",
-    category: "Academic",
-    aliases: ["calculate my gpa","semester gpa calculator","gpa from credits and grades","how to calculate gpa","grade point average calculator"], icon: `<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path></svg>`
+    category: "Academic & Grades",
+    aliases: ["calculate my gpa","semester gpa calculator","gpa from credits and grades","how to calculate gpa","grade point average calculator"],
+    icon: "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M12 14l9-5-9-5-9 5 9 5z\"></path><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z\"></path></svg>"
   },
   {
     id: "percentage-calculator",
     title: "Percentage Calculator",
     description: "Find out your total percentage from multiple subjects.",
     slug: "percentage-calculator",
-    category: "Academic",
-    icon: `<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path></svg>`
+    category: "Academic & Grades",
+    icon: "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z\"></path><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z\"></path></svg>"
   },
-  {
-    id: "marks-calculator",
-    title: "Marks Calculator",
-    description: "Calculate total, average, and highest/lowest marks.",
-    slug: "marks-calculator",
-    category: "Academic",
-    icon: `<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>`
-  },
-  {
-    id: "required-marks",
-    title: "Required Marks Calculator",
-    description: "Find out how many marks you need to reach a target percentage.",
-    slug: "required-marks",
-    category: "Academic",
-    icon: `<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>`
-  },
-  
-  // Attendance
   {
     id: "attendance-calculator",
     title: "Attendance Calculator",
     description: "Calculate current attendance percentage, safe classes to skip, and classes needed to reach target goal.",
     slug: "attendance-calculator",
-    category: "Academic",
+    category: "Academic & Grades",
     subcategory: "Attendance",
-    aliases: [
-      "check my attendance",
-      "attendance percentage calculator",
-      "calculate attendance percentage",
-      "am i short on attendance",
-      "classes you can miss",
-      "classes to miss",
-      "how many classes can i miss",
-      "how many classes do i need to attend",
-      "classes needed for 75 attendance",
-      "minimum classes to attend",
-      "required attendance",
-      "attendance required to pass"
-    ],
-    icon: `<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>`
+    aliases: ["check my attendance","attendance percentage calculator","calculate attendance percentage","am i short on attendance","classes you can miss","classes to miss","how many classes can i miss","how many classes do i need to attend","classes needed for 75 attendance","minimum classes to attend","required attendance","attendance required to pass"],
+    icon: "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z\"></path></svg>"
   },
-
-  // Study
   {
     id: "study-hours",
     title: "Study Hours Calculator",
     description: "Distribute your available time across subjects realistically.",
     slug: "study-hours",
-    category: "Study & Productivity",
+    category: "Study & Writing",
     subcategory: "Study Tools",
-    icon: `<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`
+    icon: "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z\"></path></svg>"
   },
   {
     id: "pomodoro-timer",
     title: "Pomodoro Timer",
     description: "Stay focused with a minimal study and break timer.",
     slug: "pomodoro-timer",
-    category: "Study & Productivity",
+    category: "Study & Writing",
     subcategory: "Study Tools",
-    icon: `<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`
+    icon: "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z\"></path></svg>"
   },
   {
     id: "word-counter",
     title: "Word Counter",
     description: "Count words, characters, sentences, paragraphs, and estimated reading time instantly.",
     slug: "word-counter",
-    category: "Study & Productivity",
+    category: "Study & Writing",
     subcategory: "Study Tools",
-    aliases: [
-      "character counter",
-      "character count",
-      "chars counter",
-      "letter counter",
-      "reading time calculator",
-      "reading time",
-      "sentence counter",
-      "paragraph counter",
-      "text counter",
-      "word count calculator",
-      "words count"
-    ],
-    icon: `<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>`
+    aliases: ["character counter","character count","chars counter","letter counter","reading time calculator","reading time","sentence counter","paragraph counter","text counter","word count calculator","words count"],
+    icon: "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z\"></path></svg>"
   },
-
-  // Date & Time
   {
     id: "age-calculator",
     title: "Age Calculator",
     description: "Calculate your exact age in years, months, and days.",
     slug: "age-calculator",
-    category: "Date & Time",
-    icon: `<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18zm-3-9v-2a2 2 0 00-2-2H8a2 2 0 00-2 2v2h12z"></path></svg>`
+    category: "Everyday Utilities",
+    icon: "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18zm-3-9v-2a2 2 0 00-2-2H8a2 2 0 00-2 2v2h12z\"></path></svg>"
   },
   {
     id: "date-difference",
     title: "Date Difference",
     description: "Calculate the exact difference between two dates in days, weeks, months, and years.",
     slug: "date-difference",
-    category: "Date & Time",
-    aliases: ["days between dates", "weeks between dates", "days difference", "duration between dates", "how many days between dates"],
-    icon: `<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>`
+    category: "Everyday Utilities",
+    aliases: ["days between dates","weeks between dates","days difference","duration between dates","how many days between dates"],
+    icon: "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z\"></path></svg>"
   },
   {
     id: "exam-countdown",
     title: "Exam Countdown",
     description: "Track the exact remaining time until your upcoming exams with a live countdown timer.",
     slug: "exam-countdown",
-    category: "Date & Time",
-    icon: `<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`
+    category: "Everyday Utilities",
+    icon: "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z\"></path></svg>"
   },
-
-  // Everyday
   {
     id: "unit-converter",
     title: "Unit Converter",
     description: "Convert between common units of length, mass, temperature, area, volume, speed, time, and more with this unit converter.",
     slug: "unit-converter",
     category: "Converters",
-    aliases: ["convert km to miles", "temperature converter", "length converter", "weight converter", "metric to imperial", "convert kg to lbs"],
-    icon: `<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg>`
+    aliases: ["convert km to miles","temperature converter","length converter","weight converter","metric to imperial","convert kg to lbs"],
+    icon: "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4\"></path></svg>"
   },
   {
     id: "percentage-change",
     title: "Percentage Change",
     description: "Calculate the percentage increase or decrease between numbers.",
     slug: "percentage-change",
-    category: "Mathematics",
+    category: "Academic & Grades",
     subcategory: "Basic Math",
-    aliases: ["find percentage increase","percentage increase calculator","calculate percent change","percentage decrease"], icon: `<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>`
-  },
-  {
-    id: "average-calculator",
-    title: "Average Calculator",
-    description: "Calculate the arithmetic mean, sum, and count for any dataset of numbers.",
-    slug: "average-calculator",
-    category: "Mathematics",
-    subcategory: "Basic Math",
-    icon: `<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path></svg>`
-  },
-  {
-    id: "ratio-calculator",
-    title: "Ratio Calculator",
-    description: "Simplify ratios, find equivalent proportions, and solve for unknown values in ratio equations.",
-    slug: "ratio-calculator",
-    category: "Mathematics",
-    subcategory: "Basic Math",
-    icon: `<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7"></path></svg>`
+    aliases: ["find percentage increase","percentage increase calculator","calculate percent change","percentage decrease"],
+    icon: "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M13 7h8m0 0v8m0-8l-8 8-4-4-6 6\"></path></svg>"
   },
   {
     id: "random-number",
     title: "Random Number Generator",
     description: "Generate random numbers within a chosen range with optional minimum and maximum values.",
     slug: "random-number",
-    category: "Random & Utilities",
-    icon: `<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2-1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"></path></svg>`
-  },
-  {
-    id: "square-calculator",
-    title: "Square Calculator",
-    description: "Calculate the square of any positive or negative number instantly.",
-    slug: "square-calculator",
-    category: "Mathematics",
-    subcategory: "Basic Math",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 4h16v16H4V4z'></path></svg>",
-    formulaConfig: {
-      inputs: [{ id: "n", label: "Number" }],
-      expression: "n * n",
-      outputLabel: "Square"
-    }
+    category: "Everyday Utilities",
+    icon: "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2-1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5\"></path></svg>"
   },
   {
     id: "rectangle-area-calculator",
@@ -262,309 +209,566 @@ export const tools: Tool[] = [
     slug: "rectangle-area-calculator",
     category: "Mathematics",
     subcategory: "Geometry",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 6h16v12H4V6z'></path></svg>",
     formulaConfig: {
-      inputs: [{ id: "l", label: "Length" }, { id: "w", label: "Width" }],
-      expression: "l * w",
-      outputLabel: "Area"
-    }
+          "inputs": [
+                {
+                      "id": "l",
+                      "label": "Length"
+                },
+                {
+                      "id": "w",
+                      "label": "Width"
+                }
+          ],
+          "expression": "l * w",
+          "outputLabel": "Area"
+    },
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 6h16v12H4V6z'></path></svg>"
   },
   {
-    id: "kinetic-energy-calculator",
-    title: "Kinetic Energy Calculator",
-    description: "Calculate kinetic energy of moving objects from mass and linear velocity.",
-    slug: "kinetic-energy-calculator",
-    category: "Science",
-    subcategory: "Physics",
-    aliases: ["calculate kinetic energy","ke calculator","kinetic energy formula"], icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>",
+    id: "exponent-calculator",
+    title: "Exponent Calculator",
+    description: "Calculate powers and exponentiation for any base raised to a power.",
+    slug: "exponent-calculator",
+    category: "Mathematics",
+    subcategory: "Basic Math",
     formulaConfig: {
-      inputs: [{ id: "m", label: "Mass (kg)" }, { id: "v", label: "Velocity (m/s)" }],
-      expression: "0.5 * m * (v * v)",
-      outputLabel: "Kinetic Energy",
-      outputUnit: "Joules"
-    }
+          "inputs": [
+                {
+                      "id": "b",
+                      "label": "Base"
+                },
+                {
+                      "id": "e",
+                      "label": "Exponent"
+                }
+          ],
+          "expression": "Math.pow(b, e)",
+          "outputLabel": "Result"
+    },
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>"
   },
   {
-    id: "ohms-law-voltage",
-    title: "Voltage Calculator (Ohm's Law)",
-    description: "Calculate electric potential difference in volts using current and resistance with Ohm's law.",
-    slug: "ohms-law-voltage",
-    category: "Engineering",
-    subcategory: "Electrical Engineering",
-    aliases: ["ohms law","ohm law calculator","voltage current resistance","v equals ir"], icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>",
+    id: "logarithm-calculator",
+    title: "Logarithm Calculator",
+    description: "Calculate logarithms for any positive number with arbitrary base or natural base.",
+    slug: "logarithm-calculator",
+    category: "Mathematics",
+    subcategory: "Basic Math",
     formulaConfig: {
-      inputs: [{ id: "i", label: "Current (Amps)" }, { id: "r", label: "Resistance (Ohms)" }],
-      expression: "i * r",
-      outputLabel: "Voltage",
-      outputUnit: "Volts"
-    }
+          "inputs": [
+                {
+                      "id": "n",
+                      "label": "Number"
+                },
+                {
+                      "id": "b",
+                      "label": "Base"
+                }
+          ],
+          "expression": "Math.log(n) / Math.log(b)",
+          "outputLabel": "Logarithm"
+    },
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 6h16v12H4V6z'></path></svg>"
   },
-  { id: "square-root-calculator", title: "Square Root Calculator", description: "Find the principal square root and precision value of any positive number.", slug: "square-root-calculator", category: "Mathematics", subcategory: "Basic Math", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M5 13l4 4L19 7'></path></svg>", formulaConfig: { inputs: [{ id: "n", label: "Number" }], expression: "Math.sqrt(n)", outputLabel: "Square Root" } },
-  { id: "cube-calculator", title: "Cube Calculator", description: "Calculate the cube and third-power value for any real number.", slug: "cube-calculator", category: "Mathematics", subcategory: "Basic Math", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 4h16v16H4V4z'></path></svg>", formulaConfig: { inputs: [{ id: "n", label: "Number" }], expression: "n * n * n", outputLabel: "Cube" } },
-  { id: "cube-root-calculator", title: "Cube Root Calculator", description: "Calculate the principal cube root of positive or negative numbers.", slug: "cube-root-calculator", category: "Mathematics", subcategory: "Basic Math", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M5 13l4 4L19 7'></path></svg>", formulaConfig: { inputs: [{ id: "n", label: "Number" }], expression: "Math.cbrt(n)", outputLabel: "Cube Root" } },
-  { id: "exponent-calculator", title: "Exponent Calculator", description: "Calculate powers and exponentiation for any base raised to a power.", slug: "exponent-calculator", category: "Mathematics", subcategory: "Basic Math", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", formulaConfig: { inputs: [{ id: "b", label: "Base" }, { id: "e", label: "Exponent" }], expression: "Math.pow(b, e)", outputLabel: "Result" } },
-  { id: "logarithm-calculator", title: "Logarithm Calculator", description: "Calculate logarithms for any positive number with arbitrary base or natural base.", slug: "logarithm-calculator", category: "Mathematics", subcategory: "Basic Math", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 6h16v12H4V6z'></path></svg>", formulaConfig: { inputs: [{ id: "n", label: "Number" }, { id: "b", label: "Base" }], expression: "Math.log(n) / Math.log(b)", outputLabel: "Logarithm" } },
-  { id: "absolute-value-calculator", title: "Absolute Value Calculator", description: "Find the distance of any real number from zero on the number line.", slug: "absolute-value-calculator", category: "Mathematics", subcategory: "Basic Math", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 6h16v12H4V6z'></path></svg>", formulaConfig: { inputs: [{ id: "n", label: "Number" }], expression: "Math.abs(n)", outputLabel: "Absolute Value" } },
-  { id: "percentage-difference-calculator", title: "Percentage Difference Calculator", description: "Calculate the percentage difference between two numbers.", slug: "percentage-difference-calculator", category: "Mathematics", subcategory: "Basic Math", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 6h16v12H4V6z'></path></svg>", formulaConfig: { inputs: [{ id: "a", label: "First Value" }, { id: "b", label: "Second Value" }], expression: "Math.abs(a - b) / ((a + b) / 2) * 100", outputLabel: "Percentage Difference", outputUnit: "%" } },
-  { id: "percentage-error-calculator", title: "Percentage Error Calculator", description: "Calculate the percentage error between an approximate and exact value.", slug: "percentage-error-calculator", category: "Mathematics", subcategory: "Basic Math", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 6h16v12H4V6z'></path></svg>", formulaConfig: { inputs: [{ id: "approx", label: "Approximate Value" }, { id: "exact", label: "Exact Value" }], expression: "Math.abs((approx - exact) / exact) * 100", outputLabel: "Percentage Error", outputUnit: "%" } },
-  { id: "remainder-calculator", title: "Remainder Calculator", description: "Find the quotient and integer remainder using Euclidean integer division.", slug: "remainder-calculator", category: "Mathematics", subcategory: "Basic Math", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 6h16v12H4V6z'></path></svg>", formulaConfig: { inputs: [{ id: "dividend", label: "Dividend" }, { id: "divisor", label: "Divisor" }], expression: "dividend % divisor", outputLabel: "Remainder" } },
-  { id: "factorial-calculator", title: "Factorial Calculator", description: "Calculate the factorial value (n!) for non-negative integers.", slug: "factorial-calculator", category: "Mathematics", subcategory: "Algebra", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M12 6v6m0 0v6m0-6h6m-6 0H6'></path></svg>", formulaConfig: { inputs: [{ id: "n", label: "Number (Integer)" }], expression: "(function(n){ if(!Number.isInteger(n) || n<0) return 'Invalid'; let f=1; for(let i=2;i<=n;i++) f*=i; return f; })(n)", outputLabel: "Factorial" } },
-  { id: "gcd-calculator", title: "GCD Calculator", description: "Find the greatest common divisor (GCD / HCF) of two or more integers.", slug: "gcd-calculator", category: "Mathematics", subcategory: "Basic Math", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M12 6v6m0 0v6m-6-6h12'></path></svg>", formulaConfig: { inputs: [{ id: "a", label: "First Number" }, { id: "b", label: "Second Number" }], expression: "(function(a,b){ a=Math.abs(a); b=Math.abs(b); while(b){ let t=b; b=a%b; a=t; } return a; })(a,b)", outputLabel: "GCD" } },
-  { id: "lcm-calculator", title: "LCM Calculator", description: "Calculate the least common multiple (LCM) of two or more integer numbers.", slug: "lcm-calculator", category: "Mathematics", subcategory: "Basic Math", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M12 6v6m0 0v6m-6-6h12'></path></svg>", formulaConfig: { inputs: [{ id: "a", label: "First Number" }, { id: "b", label: "Second Number" }], expression: "(function(a,b){ let oA=Math.abs(a), oB=Math.abs(b); while(b){ let t=b; b=a%b; a=t; } return (oA*oB)/a; })(a,b)", outputLabel: "LCM" } },
-  { id: "prime-checker", title: "Prime Number Checker", description: "Determine whether an integer is prime and view its divisibility properties.", slug: "prime-checker", category: "Mathematics", subcategory: "Basic Math", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M5 13l4 4L19 7'></path></svg>", formulaConfig: { inputs: [{ id: "n", label: "Number" }], expression: "(function(n){ if(!Number.isInteger(n)) return 'Invalid'; if(n<=1) return 'No'; if(n===2) return 'Yes'; if(n%2===0) return 'No'; for(let i=3;i<=Math.sqrt(n);i+=2) if(n%i===0) return 'No'; return 'Yes'; })(n)", outputLabel: "Is Prime?" } },
-  { id: "quadratic-equation-solver", title: "Quadratic Equation Solver", description: "Find real and complex roots of quadratic equations (ax² + bx + c = 0) with step-by-step discriminant analysis.", slug: "quadratic-equation-solver", category: "Mathematics", subcategory: "Algebra", aliases: ["solve quadratic equation","quadratic formula","find roots of quadratic","quadratic calculator"], icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M12 6v6m0 0v6m-6-6h12'></path></svg>", formulaConfig: { inputs: [{ id: "a", label: "Coefficient a" }, { id: "b", label: "Coefficient b" }, { id: "c", label: "Constant c" }], expression: "(function(a,b,c){ if(a===0) return 'Not a quadratic'; let d = b*b - 4*a*c; if(d>0) return 'x1 = ' + ((-b+Math.sqrt(d))/(2*a)).toFixed(4) + ', x2 = ' + ((-b-Math.sqrt(d))/(2*a)).toFixed(4); else if (d===0) return 'x = ' + (-b/(2*a)).toFixed(4); else return 'Complex roots'; })(a,b,c)", outputLabel: "Roots" } },
-  { id: "linear-equation-solver", title: "Linear Equation Solver", description: "Solve single-variable linear equations of the form ax + b = 0.", slug: "linear-equation-solver", category: "Mathematics", subcategory: "Algebra", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M12 6v6m0 0v6m-6-6h12'></path></svg>", formulaConfig: { inputs: [{ id: "a", label: "Coefficient a" }, { id: "b", label: "Constant b" }], expression: "(function(a,b){ if(a===0) return 'No solution'; return 'x = ' + (-b/a).toFixed(4); })(a,b)", outputLabel: "Root" } },
-  { id: "pythagorean-theorem-calculator", title: "Pythagorean Theorem Calculator", description: "Calculate the hypotenuse or missing leg of a right-angled triangle using a² + b² = c².", slug: "pythagorean-theorem-calculator", category: "Mathematics", subcategory: "Geometry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M3 21h18L12 3z'></path></svg>", formulaConfig: { inputs: [{ id: "a", label: "Leg A" }, { id: "b", label: "Leg B" }], expression: "Math.sqrt(a*a + b*b)", outputLabel: "Hypotenuse (c)" } },
-  { id: "circle-area-calculator", title: "Circle Area Calculator", description: "Calculate the surface area of a circle from its radius or diameter using πr².", slug: "circle-area-calculator", category: "Mathematics", subcategory: "Geometry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z'></path></svg>", formulaConfig: { inputs: [{ id: "r", label: "Radius" }], expression: "Math.PI * r * r", outputLabel: "Area" } },
-  { id: "circle-circumference-calculator", title: "Circle Circumference Calculator", description: "Calculate the perimeter (circumference) of a circle.", slug: "circle-circumference-calculator", category: "Mathematics", subcategory: "Geometry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z'></path></svg>", formulaConfig: { inputs: [{ id: "r", label: "Radius" }], expression: "2 * Math.PI * r", outputLabel: "Circumference" } },
-  { id: "square-perimeter-calculator", title: "Square Perimeter Calculator", description: "Calculate the perimeter of a square.", slug: "square-perimeter-calculator", category: "Mathematics", subcategory: "Geometry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 4h16v16H4V4z'></path></svg>", formulaConfig: { inputs: [{ id: "s", label: "Side Length" }], expression: "4 * s", outputLabel: "Perimeter" } },
-  { id: "rectangle-perimeter-calculator", title: "Rectangle Perimeter Calculator", description: "Calculate the perimeter of a rectangle.", slug: "rectangle-perimeter-calculator", category: "Mathematics", subcategory: "Geometry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 6h16v12H4V6z'></path></svg>", formulaConfig: { inputs: [{ id: "l", label: "Length" }, { id: "w", label: "Width" }], expression: "2 * (l + w)", outputLabel: "Perimeter" } },
-  { id: "cube-volume-calculator", title: "Cube Volume Calculator", description: "Calculate the volume of a cube from the length of its side edge.", slug: "cube-volume-calculator", category: "Mathematics", subcategory: "Geometry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4'></path></svg>", formulaConfig: { inputs: [{ id: "s", label: "Side Length" }], expression: "s * s * s", outputLabel: "Volume" } },
-  { id: "sphere-volume-calculator", title: "Sphere Volume Calculator", description: "Calculate the volume and capacity of a sphere from its radius using 4/3 πr³.", slug: "sphere-volume-calculator", category: "Mathematics", subcategory: "Geometry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z'></path></svg>", formulaConfig: { inputs: [{ id: "r", label: "Radius" }], expression: "(4/3) * Math.PI * Math.pow(r, 3)", outputLabel: "Volume" } },
-  { id: "cylinder-volume-calculator", title: "Cylinder Volume Calculator", description: "Calculate the volume and capacity of a cylinder from radius and height.", slug: "cylinder-volume-calculator", category: "Mathematics", subcategory: "Geometry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z'></path></svg>", formulaConfig: { inputs: [{ id: "r", label: "Radius" }, { id: "h", label: "Height" }], expression: "Math.PI * r * r * h", outputLabel: "Volume" } },
-  { id: "cone-volume-calculator", title: "Cone Volume Calculator", description: "Calculate the volume of a right circular cone from base radius and height.", slug: "cone-volume-calculator", category: "Mathematics", subcategory: "Geometry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M3 21h18L12 3z'></path></svg>", formulaConfig: { inputs: [{ id: "r", label: "Radius" }, { id: "h", label: "Height" }], expression: "(1/3) * Math.PI * r * r * h", outputLabel: "Volume" } },
-  { id: "arithmetic-sequence-calculator", title: "Arithmetic Sequence Calculator", description: "Find the nth term of an arithmetic sequence.", slug: "arithmetic-sequence-calculator", category: "Mathematics", subcategory: "Algebra", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 6h16v12H4V6z'></path></svg>", formulaConfig: { inputs: [{ id: "a", label: "First Term (a)" }, { id: "d", label: "Common Difference (d)" }, { id: "n", label: "Term Number (n)" }], expression: "a + (n - 1) * d", outputLabel: "Nth Term" } },
-  { id: "geometric-sequence-calculator", title: "Geometric Sequence Calculator", description: "Find the nth term of a geometric sequence.", slug: "geometric-sequence-calculator", category: "Mathematics", subcategory: "Algebra", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 6h16v12H4V6z'></path></svg>", formulaConfig: { inputs: [{ id: "a", label: "First Term (a)" }, { id: "r", label: "Common Ratio (r)" }, { id: "n", label: "Term Number (n)" }], expression: "a * Math.pow(r, n - 1)", outputLabel: "Nth Term" } },
-  { id: "mean-calculator", title: "Mean Calculator", description: "Calculate the average (mean) of a dataset.", slug: "mean-calculator", category: "Mathematics", subcategory: "Statistics", aliases: ["calculate mean average","arithmetic mean calculator"], icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 6h16v12H4V6z'></path></svg>", component: "StatisticsCalculator" },
-  { id: "median-calculator", title: "Median Calculator", description: "Calculate the median of a dataset.", slug: "median-calculator", category: "Mathematics", subcategory: "Statistics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 6h16v12H4V6z'></path></svg>", component: "StatisticsCalculator" },
-  { id: "mode-calculator", title: "Mode Calculator", description: "Find the mode of a dataset.", slug: "mode-calculator", category: "Mathematics", subcategory: "Statistics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 6h16v12H4V6z'></path></svg>", component: "StatisticsCalculator" },
-  { id: "range-calculator", title: "Range Calculator", description: "Calculate the range of a dataset.", slug: "range-calculator", category: "Mathematics", subcategory: "Statistics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 6h16v12H4V6z'></path></svg>", component: "StatisticsCalculator" },
-  { id: "variance-calculator", title: "Variance Calculator", description: "Calculate population and sample variance.", slug: "variance-calculator", category: "Mathematics", subcategory: "Statistics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 6h16v12H4V6z'></path></svg>", component: "StatisticsCalculator" },
-  { id: "standard-deviation-calculator", title: "Standard Deviation Calculator", description: "Calculate population and sample standard deviation.", slug: "standard-deviation-calculator", category: "Mathematics", subcategory: "Statistics", aliases: ["calculate standard deviation","sample standard deviation","population standard deviation","std deviation calculator"], icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 6h16v12H4V6z'></path></svg>", component: "StatisticsCalculator" },
-  { id: "fraction-to-decimal", title: "Fraction to Decimal", description: "Convert a fraction to a decimal.", slug: "fraction-to-decimal", category: "Mathematics", subcategory: "Basic Math", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 6h16v12H4V6z'></path></svg>", formulaConfig: { inputs: [{ id: "n", label: "Numerator" }, { id: "d", label: "Denominator" }], expression: "n / d", outputLabel: "Decimal" } },
-  { id: "decimal-to-fraction", title: "Decimal to Fraction Converter", description: "Convert a decimal to a fraction.", slug: "decimal-to-fraction", category: "Mathematics", subcategory: "Basic Math", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 6h16v12H4V6z'></path></svg>", formulaConfig: { inputs: [{ id: "d", label: "Decimal Number" }], expression: "(function(d){ if(!isFinite(d)) return 'Invalid'; let len = (d.toString().split('.')[1] || '').length; let den = Math.pow(10, len); let num = Math.round(d * den); let gcd = function(a,b){return b?gcd(b,a%b):a;}; let hcf = Math.abs(gcd(num,den)); return (num/hcf) + '/' + (den/hcf); })(d)", outputLabel: "Fraction" } },
-  { id: "ratio-simplifier", title: "Ratio Simplifier", description: "Simplify a ratio.", slug: "ratio-simplifier", category: "Mathematics", subcategory: "Basic Math", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 6h16v12H4V6z'></path></svg>", formulaConfig: { inputs: [{ id: "a", label: "Part A" }, { id: "b", label: "Part B" }], expression: "(function(a,b){ if(!Number.isInteger(a) || !Number.isInteger(b)) return 'Integers only'; let gcd = function(x,y){return y?gcd(y,x%y):x;}; let hcf = Math.abs(gcd(a,b)); return (a/hcf) + ':' + (b/hcf); })(a,b)", outputLabel: "Simplified Ratio" } },
-  { id: "proportion-calculator", title: "Proportion Calculator", description: "Solve for x in a proportion A:B = C:X", slug: "proportion-calculator", category: "Mathematics", subcategory: "Basic Math", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 6h16v12H4V6z'></path></svg>", formulaConfig: { inputs: [{ id: "a", label: "A" }, { id: "b", label: "B" }, { id: "c", label: "C" }], expression: "(b * c) / a", outputLabel: "X" } },
-  { id: "number-to-words", title: "Number to Words Converter", description: "Convert a number to english words.", slug: "number-to-words", category: "Mathematics", subcategory: "Basic Math", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 6h16v12H4V6z'></path></svg>", formulaConfig: { inputs: [{ id: "n", label: "Number" }], expression: "(function(n){ if(!Number.isInteger(n)) return 'Integers only (up to 9999)'; if(n===0) return 'zero'; let ones=['','one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen']; let tens=['','','twenty','thirty','forty','fifty','sixty','seventy','eighty','ninety']; let numString = n.toString(); if (numString.length > 4) return 'Number too large'; let res=''; let len=numString.length; if(len===4){ res+=ones[parseInt(numString[0])]+' thousand '; numString=numString.substring(1); len--; } if(len===3){ if(numString[0]!=='0') res+=ones[parseInt(numString[0])]+' hundred '; numString=numString.substring(1); len--; } let lastTwo=parseInt(numString); if(lastTwo>0){ if(res!=='') res+='and '; if(lastTwo<20) res+=ones[lastTwo]; else { res+=tens[parseInt(numString[0])]; if(numString[1]!=='0') res+='-'+ones[parseInt(numString[1])]; } } return res.trim(); })(n)", outputLabel: "Words" } },
-  { id: "roman-numeral-converter", title: "Roman Numeral Converter", description: "Convert a number to Roman Numerals.", slug: "roman-numeral-converter", category: "Mathematics", subcategory: "Basic Math", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 6h16v12H4V6z'></path></svg>", formulaConfig: { inputs: [{ id: "n", label: "Number (1-3999)" }], expression: "(function(num){ if(!Number.isInteger(num) || num<1 || num>3999) return '1 to 3999 only'; const roman = {M:1000,CM:900,D:500,CD:400,C:100,XC:90,L:50,XL:40,X:10,IX:9,V:5,IV:4,I:1}; let str=''; for (let i of Object.keys(roman)) { let q = Math.floor(num / roman[i]); num -= q * roman[i]; str += i.repeat(q); } return str; })(n)", outputLabel: "Roman Numeral" } },
-  { id: "scientific-calculator", title: "Scientific Calculator", description: "Advanced scientific calculator with history and trigonometric functions.", slug: "scientific-calculator", category: "Mathematics", subcategory: "Basic Math", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z'></path></svg>", component: "ScientificCalculator" },
-  { id: "simultaneous-equations", title: "Simultaneous Equation Solver", description: "Solve systems of linear equations with 2 or 3 variables.", slug: "simultaneous-equations", category: "Mathematics", subcategory: "Algebra", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M12 6v6m0 0v6m-6-6h12'></path></svg>", component: "SimultaneousEquations" },
-  { id: "matrix-calculator", title: "Matrix Calculator", description: "Add, subtract, multiply, transpose, and invert matrices.", slug: "matrix-calculator", category: "Mathematics", subcategory: "Algebra", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 6h16v12H4V6z'></path></svg>", component: "MatrixCalculator" },
-  { id: "fraction-calculator", title: "Fraction Calculator", description: "Add, subtract, multiply, and divide fractions.", slug: "fraction-calculator", category: "Mathematics", subcategory: "Basic Math", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 6h16v12H4V6z'></path></svg>", component: "FractionCalculator" },
-  { id: "permutation-calculator", title: "Permutation Calculator (nPr)", description: "Calculate permutations.", slug: "permutation-calculator", category: "Mathematics", subcategory: "Statistics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 6h16v12H4V6z'></path></svg>", formulaConfig: { inputs: [{ id: "n", label: "Total Objects (n)" }, { id: "r", label: "Selected Objects (r)" }], expression: "(function(n,r){ if(!Number.isInteger(n) || !Number.isInteger(r) || n<0 || r<0 || r>n) return 'Invalid'; let f=function(x){let r=1; for(let i=2;i<=x;i++) r*=i; return r;}; return f(n)/f(n-r); })(n,r)", outputLabel: "Permutations (nPr)" } },
-  { id: "combination-calculator", title: "Combination Calculator (nCr)", description: "Calculate combinations.", slug: "combination-calculator", category: "Mathematics", subcategory: "Statistics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 6h16v12H4V6z'></path></svg>", formulaConfig: { inputs: [{ id: "n", label: "Total Objects (n)" }, { id: "r", label: "Selected Objects (r)" }], expression: "(function(n,r){ if(!Number.isInteger(n) || !Number.isInteger(r) || n<0 || r<0 || r>n) return 'Invalid'; let f=function(x){let r=1; for(let i=2;i<=x;i++) r*=i; return r;}; return f(n)/(f(r)*f(n-r)); })(n,r)", outputLabel: "Combinations (nCr)" } },
-  { id: "probability-calculator", title: "Probability Calculator", description: "Calculate the probability of events.", slug: "probability-calculator", category: "Mathematics", subcategory: "Statistics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 6h16v12H4V6z'></path></svg>", component: "ProbabilityCalculator" },
-  { id: "polynomial-calculator", title: "Polynomial Calculator", description: "Evaluate polynomial expressions.", slug: "polynomial-calculator", category: "Mathematics", subcategory: "Algebra", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M12 6v6m0 0v6m-6-6h12'></path></svg>", component: "PolynomialCalculator" },
   {
-    id: "trigonometric-calculator",
-    title: "Trigonometric Calculator",
-    description: "Calculate standard (sin, cos, tan, csc, sec, cot) and inverse (arcsin, arccos, arctan, arccsc, arcsec, arccot) trigonometric functions in degrees or radians.",
-    slug: "trigonometric-calculator",
+    id: "lcm-calculator",
+    title: "LCM Calculator",
+    description: "Calculate the least common multiple (LCM) of two or more integer numbers.",
+    slug: "lcm-calculator",
+    category: "Mathematics",
+    subcategory: "Basic Math",
+    formulaConfig: {
+          "inputs": [
+                {
+                      "id": "a",
+                      "label": "First Number"
+                },
+                {
+                      "id": "b",
+                      "label": "Second Number"
+                }
+          ],
+          "expression": "(function(a,b){ let oA=Math.abs(a), oB=Math.abs(b); while(b){ let t=b; b=a%b; a=t; } return (oA*oB)/a; })(a,b)",
+          "outputLabel": "LCM"
+    },
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M12 6v6m0 0v6m-6-6h12'></path></svg>"
+  },
+  {
+    id: "pythagorean-theorem-calculator",
+    title: "Pythagorean Theorem Calculator",
+    description: "Calculate the hypotenuse or missing leg of a right-angled triangle using a² + b² = c².",
+    slug: "pythagorean-theorem-calculator",
+    category: "Mathematics",
+    subcategory: "Geometry",
+    formulaConfig: {
+          "inputs": [
+                {
+                      "id": "a",
+                      "label": "Leg A"
+                },
+                {
+                      "id": "b",
+                      "label": "Leg B"
+                }
+          ],
+          "expression": "Math.sqrt(a*a + b*b)",
+          "outputLabel": "Hypotenuse (c)"
+    },
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M3 21h18L12 3z'></path></svg>"
+  },
+  {
+    id: "circle-area-calculator",
+    title: "Circle Area Calculator",
+    description: "Calculate the surface area of a circle from its radius or diameter using πr².",
+    slug: "circle-area-calculator",
+    category: "Mathematics",
+    subcategory: "Geometry",
+    formulaConfig: {
+          "inputs": [
+                {
+                      "id": "r",
+                      "label": "Radius"
+                }
+          ],
+          "expression": "Math.PI * r * r",
+          "outputLabel": "Area"
+    },
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z'></path></svg>"
+  },
+  {
+    id: "cube-volume-calculator",
+    title: "Cube Volume Calculator",
+    description: "Calculate the volume of a cube from the length of its side edge.",
+    slug: "cube-volume-calculator",
+    category: "Mathematics",
+    subcategory: "Geometry",
+    formulaConfig: {
+          "inputs": [
+                {
+                      "id": "s",
+                      "label": "Side Length"
+                }
+          ],
+          "expression": "s * s * s",
+          "outputLabel": "Volume"
+    },
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4'></path></svg>"
+  },
+  {
+    id: "sphere-volume-calculator",
+    title: "Sphere Volume Calculator",
+    description: "Calculate the volume and capacity of a sphere from its radius using 4/3 πr³.",
+    slug: "sphere-volume-calculator",
+    category: "Mathematics",
+    subcategory: "Geometry",
+    formulaConfig: {
+          "inputs": [
+                {
+                      "id": "r",
+                      "label": "Radius"
+                }
+          ],
+          "expression": "(4/3) * Math.PI * Math.pow(r, 3)",
+          "outputLabel": "Volume"
+    },
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z'></path></svg>"
+  },
+  {
+    id: "cylinder-volume-calculator",
+    title: "Cylinder Volume Calculator",
+    description: "Calculate the volume and capacity of a cylinder from radius and height.",
+    slug: "cylinder-volume-calculator",
+    category: "Mathematics",
+    subcategory: "Geometry",
+    formulaConfig: {
+          "inputs": [
+                {
+                      "id": "r",
+                      "label": "Radius"
+                },
+                {
+                      "id": "h",
+                      "label": "Height"
+                }
+          ],
+          "expression": "Math.PI * r * r * h",
+          "outputLabel": "Volume"
+    },
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z'></path></svg>"
+  },
+  {
+    id: "cone-volume-calculator",
+    title: "Cone Volume Calculator",
+    description: "Calculate the volume of a right circular cone from base radius and height.",
+    slug: "cone-volume-calculator",
+    category: "Mathematics",
+    subcategory: "Geometry",
+    formulaConfig: {
+          "inputs": [
+                {
+                      "id": "r",
+                      "label": "Radius"
+                },
+                {
+                      "id": "h",
+                      "label": "Height"
+                }
+          ],
+          "expression": "(1/3) * Math.PI * r * r * h",
+          "outputLabel": "Volume"
+    },
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M3 21h18L12 3z'></path></svg>"
+  },
+  {
+    id: "arithmetic-sequence-calculator",
+    title: "Arithmetic Sequence Calculator",
+    description: "Find the nth term of an arithmetic sequence.",
+    slug: "arithmetic-sequence-calculator",
+    category: "Mathematics",
+    subcategory: "Algebra",
+    formulaConfig: {
+          "inputs": [
+                {
+                      "id": "a",
+                      "label": "First Term (a)"
+                },
+                {
+                      "id": "d",
+                      "label": "Common Difference (d)"
+                },
+                {
+                      "id": "n",
+                      "label": "Term Number (n)"
+                }
+          ],
+          "expression": "a + (n - 1) * d",
+          "outputLabel": "Nth Term"
+    },
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 6h16v12H4V6z'></path></svg>"
+  },
+  {
+    id: "geometric-sequence-calculator",
+    title: "Geometric Sequence Calculator",
+    description: "Find the nth term of a geometric sequence.",
+    slug: "geometric-sequence-calculator",
+    category: "Mathematics",
+    subcategory: "Algebra",
+    formulaConfig: {
+          "inputs": [
+                {
+                      "id": "a",
+                      "label": "First Term (a)"
+                },
+                {
+                      "id": "r",
+                      "label": "Common Ratio (r)"
+                },
+                {
+                      "id": "n",
+                      "label": "Term Number (n)"
+                }
+          ],
+          "expression": "a * Math.pow(r, n - 1)",
+          "outputLabel": "Nth Term"
+    },
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 6h16v12H4V6z'></path></svg>"
+  },
+  {
+    id: "fraction-calculator",
+    title: "Fraction Calculator",
+    description: "Add, subtract, multiply, and divide fractions.",
+    slug: "fraction-calculator",
+    category: "Mathematics",
+    subcategory: "Basic Math",
+    component: "FractionCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 6h16v12H4V6z'></path></svg>"
+  },
+  {
+    id: "right-triangle-calculator",
+    title: "Right Triangle Calculator",
+    description: "Solve unknown angles and sides of right triangles using trigonometric ratios.",
+    slug: "right-triangle-calculator",
     category: "Mathematics",
     subcategory: "Trigonometry",
-    aliases: [
-      "sin calculator",
-      "cos calculator",
-      "tan calculator",
-      "sine calculator",
-      "cosine calculator",
-      "tangent calculator",
-      "cosecant calculator",
-      "secant calculator",
-      "cotangent calculator",
-      "csc calculator",
-      "sec calculator",
-      "cot calculator",
-      "arcsin calculator",
-      "arccos calculator",
-      "arctan calculator",
-      "arccsc calculator",
-      "arcsec calculator",
-      "arccot calculator",
-      "inverse sin calculator",
-      "inverse cos calculator",
-      "inverse tan calculator",
-      "inverse cosecant calculator",
-      "inverse secant calculator",
-      "inverse cotangent calculator",
-      "trig calculator",
-      "trigonometry calculator",
-      "trig functions"
-    ],
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 6h16v12H4V6z'></path></svg>",
-    component: "TrigFunctionCalculator"
+    component: "TriangleCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M3 21h18L12 3z'></path></svg>"
   },
-  { id: "right-triangle-calculator", title: "Right Triangle Calculator", description: "Solve unknown angles and sides of right triangles using trigonometric ratios.", slug: "right-triangle-calculator", category: "Mathematics", subcategory: "Trigonometry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M3 21h18L12 3z'></path></svg>", component: "TriangleCalculator" },
-  { id: "triangle-calculator", title: "Triangle Calculator", description: "Solve oblique and right triangles using the laws of sines and cosines.", slug: "triangle-calculator", category: "Mathematics", subcategory: "Trigonometry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M3 21h18L12 3z'></path></svg>", component: "TriangleCalculator" },
-  { id: "law-of-sines-calculator", title: "Law of Sines Calculator", description: "Solve missing sides and angles of triangles using the Law of Sines ratio.", slug: "law-of-sines-calculator", category: "Mathematics", subcategory: "Trigonometry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M3 21h18L12 3z'></path></svg>", component: "TriangleCalculator" },
-  { id: "law-of-cosines-calculator", title: "Law of Cosines Calculator", description: "Calculate unknown sides or angles of triangles using the Law of Cosines.", slug: "law-of-cosines-calculator", category: "Mathematics", subcategory: "Trigonometry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M3 21h18L12 3z'></path></svg>", component: "TriangleCalculator" },
-  { id: "missing-angle-calculator", title: "Missing Angle Calculator", description: "Find the missing interior angle of a triangle given the other two angles.", slug: "missing-angle-calculator", category: "Mathematics", subcategory: "Geometry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M3 21h18L12 3z'></path></svg>", component: "TriangleCalculator" },
-  { id: "herons-formula-calculator", title: "Heron's Formula Calculator", description: "Calculate triangle area from the lengths of all three sides using Heron's formula.", slug: "herons-formula-calculator", category: "Mathematics", subcategory: "Geometry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M3 21h18L12 3z'></path></svg>", formulaConfig: { inputs: [{ id: "a", label: "Side a" }, { id: "b", label: "Side b" }, { id: "c", label: "Side c" }], expression: "(function(a,b,c){ let s = (a+b+c)/2; let v = s*(s-a)*(s-b)*(s-c); if(v<=0) return 'Invalid Triangle'; return Math.sqrt(v); })(a,b,c)", outputLabel: "Area" } },
-  { id: "triangle-area-calculator", title: "Triangle Area Calculator", description: "Calculate the area of a triangle given its base and perpendicular height.", slug: "triangle-area-calculator", category: "Mathematics", subcategory: "Geometry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M3 21h18L12 3z'></path></svg>", formulaConfig: { inputs: [{ id: "b", label: "Base" }, { id: "h", label: "Height" }], expression: "0.5 * b * h", outputLabel: "Area" } },
-  { id: "triangle-perimeter-calculator", title: "Triangle Perimeter Calculator", description: "Calculate the perimeter of a triangle by summing the lengths of all three sides.", slug: "triangle-perimeter-calculator", category: "Mathematics", subcategory: "Geometry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M3 21h18L12 3z'></path></svg>", formulaConfig: { inputs: [{ id: "a", label: "Side a" }, { id: "b", label: "Side b" }, { id: "c", label: "Side c" }], expression: "a + b + c", outputLabel: "Perimeter" } },
-  { id: "hypotenuse-calculator", title: "Hypotenuse Calculator", description: "Calculate the hypotenuse length of a right triangle from the two perpendicular legs.", slug: "hypotenuse-calculator", category: "Mathematics", subcategory: "Geometry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M3 21h18L12 3z'></path></svg>", formulaConfig: { inputs: [{ id: "a", label: "Leg a" }, { id: "b", label: "Leg b" }], expression: "Math.sqrt(a*a + b*b)", outputLabel: "Hypotenuse" } },
-  { id: "opposite-side-calculator", title: "Opposite Side Calculator", description: "Calculate the opposite side length of a right triangle using the sine ratio and angle.", slug: "opposite-side-calculator", category: "Mathematics", subcategory: "Trigonometry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M3 21h18L12 3z'></path></svg>", formulaConfig: { inputs: [{ id: "hyp", label: "Hypotenuse" }, { id: "ang", label: "Angle (Degrees)" }], expression: "hyp * Math.sin(ang * Math.PI / 180)", outputLabel: "Opposite Side" } },
-  { id: "adjacent-side-calculator", title: "Adjacent Side Calculator", description: "Calculate the adjacent side length of a right triangle using the cosine ratio and angle.", slug: "adjacent-side-calculator", category: "Mathematics", subcategory: "Trigonometry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M3 21h18L12 3z'></path></svg>", formulaConfig: { inputs: [{ id: "hyp", label: "Hypotenuse" }, { id: "ang", label: "Angle (Degrees)" }], expression: "hyp * Math.cos(ang * Math.PI / 180)", outputLabel: "Adjacent Side" } },
-  { id: "degrees-to-radians", title: "Degrees to Radians", description: "Convert angles from degrees to radians for trigonometric and calculus calculations.", slug: "degrees-to-radians", category: "Mathematics", subcategory: "Trigonometry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 4h16v16H4V4z'></path></svg>", formulaConfig: { inputs: [{ id: "d", label: "Degrees" }], expression: "d * Math.PI / 180", outputLabel: "Radians" } },
-  { id: "radians-to-degrees", title: "Radians to Degrees", description: "Convert angles from radians to degrees for geometric and navigational measurements.", slug: "radians-to-degrees", category: "Mathematics", subcategory: "Trigonometry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 4h16v16H4V4z'></path></svg>", formulaConfig: { inputs: [{ id: "r", label: "Radians" }], expression: "r * 180 / Math.PI", outputLabel: "Degrees" } },
-  { id: "dms-to-decimal-degrees", title: "DMS to Decimal Degrees (Degrees, Minutes, Seconds)", description: "Convert degrees, minutes, and seconds (DMS) into decimal degree format.", slug: "dms-to-decimal-degrees", category: "Mathematics", subcategory: "Trigonometry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 4h16v16H4V4z'></path></svg>", formulaConfig: { inputs: [{ id: "d", label: "Degrees" }, { id: "m", label: "Minutes" }, { id: "s", label: "Seconds" }], expression: "d + (m/60) + (s/3600)", outputLabel: "Decimal Degrees", outputUnit: "°" } },
-  { id: "decimal-degrees-to-dms", title: "Decimal Degrees to DMS", description: "Convert decimal degrees into degrees, arcminutes, and arcseconds (DMS) format.", slug: "decimal-degrees-to-dms", category: "Mathematics", subcategory: "Trigonometry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 4h16v16H4V4z'></path></svg>", formulaConfig: { inputs: [{ id: "deg", label: "Decimal Degrees" }], expression: "(function(deg){ let sign = deg < 0 ? '-' : ''; let absDeg = Math.abs(deg); let d = Math.floor(absDeg); let mFloat = (absDeg - d) * 60; let m = Math.floor(mFloat); let s = (mFloat - m) * 60; return sign + d + '° ' + m + \"' \" + s.toFixed(2) + '\"'; })(deg)", outputLabel: "DMS" } },
-  { id: "trig-identities", title: "Trigonometric Identities", description: "Interactive reference guide for Pythagorean, angle-sum, and reciprocal trigonometric identities.", slug: "trig-identities", category: "Mathematics", subcategory: "Trigonometry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 6h16v12H4V6z'></path></svg>", component: "TrigIdentities" },
-  { id: "unit-circle", title: "Unit Circle", description: "Interactive unit circle reference displaying exact angle radians, degrees, and coordinates.", slug: "unit-circle", category: "Mathematics", subcategory: "Trigonometry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z'></path></svg>", component: "UnitCircle" },
-  // ---------------- PHASE 3: CALCULUS ----------------
-  
-  // Limits
-  { id: "limit-calculator", title: "Limit Calculator", description: "Evaluate one-sided, two-sided, and infinite limits of mathematical functions.", slug: "limit-calculator", category: "Mathematics", subcategory: "Calculus", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "LimitCalculator" },
-  { id: "one-sided-limit-calculator", title: "One-Sided Limit Calculator", description: "Compute left-hand (x→a⁻) and right-hand (x→a⁺) limits of piecewise and rational functions.", slug: "one-sided-limit-calculator", category: "Mathematics", subcategory: "Calculus", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "LimitCalculator" },
-  { id: "infinite-limit-calculator", title: "Infinite Limit Calculator", description: "Evaluate function limits where values approach positive or negative infinity.", slug: "infinite-limit-calculator", category: "Mathematics", subcategory: "Calculus", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "LimitCalculator" },
-  { id: "limit-at-infinity-calculator", title: "Limit at Infinity Calculator", description: "Evaluate horizontal asymptotes and asymptotic limits as independent variables approach infinity.", slug: "limit-at-infinity-calculator", category: "Mathematics", subcategory: "Calculus", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "LimitCalculator" },
-
-  // Derivatives
-  { id: "derivative-calculator", title: "Derivative Calculator", description: "Compute symbolic first derivatives of polynomial, trigonometric, and exponential functions.", slug: "derivative-calculator", category: "Mathematics", subcategory: "Calculus", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'></path></svg>", component: "DerivativeCalculator" },
-  { id: "second-derivative-calculator", title: "Second Derivative Calculator", description: "Compute symbolic second derivatives to analyze concavity and inflection points.", slug: "second-derivative-calculator", category: "Mathematics", subcategory: "Calculus", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'></path></svg>", component: "DerivativeCalculator" },
-  { id: "partial-derivative-calculator", title: "Partial Derivative Calculator", description: "Calculate partial derivatives with respect to specified multivariable functions.", slug: "partial-derivative-calculator", category: "Mathematics", subcategory: "Calculus", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'></path></svg>", component: "DerivativeCalculator" },
-  { id: "implicit-differentiation-calculator", title: "Implicit Differentiation", description: "Find dy/dx for implicit relation curves F(x, y) = 0 using differentiation rules.", slug: "implicit-differentiation-calculator", category: "Mathematics", subcategory: "Calculus", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'></path></svg>", component: "DerivativeCalculator" },
-  { id: "logarithmic-differentiation-calculator", title: "Logarithmic Differentiation", description: "Differentiate complex products and exponential powers using logarithmic properties.", slug: "logarithmic-differentiation-calculator", category: "Mathematics", subcategory: "Calculus", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'></path></svg>", component: "DerivativeCalculator" },
-
-  // Integrals
-  { id: "integral-calculator", title: "Integral Calculator", description: "Evaluate definite and indefinite integrals numerically and symbolically.", slug: "integral-calculator", category: "Mathematics", subcategory: "Calculus", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z'></path></svg>", component: "IntegralCalculator" },
-  { id: "definite-integral-calculator", title: "Definite Integral Calculator", description: "Calculate exact and numerical definite integrals across specified lower and upper bounds.", slug: "definite-integral-calculator", category: "Mathematics", subcategory: "Calculus", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z'></path></svg>", component: "IntegralCalculator", related: ["indefinite-integral-calculator", "derivative-calculator", "limit-calculator"] },
-  { id: "indefinite-integral-calculator", title: "Indefinite Integral Calculator", description: "Find antiderivatives and indefinite integrals with arbitrary integration constants.", slug: "indefinite-integral-calculator", category: "Mathematics", subcategory: "Calculus", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z'></path></svg>", component: "IntegralCalculator" },
-  { id: "numerical-integration-calculator", title: "Numerical Integration", description: "Approximate definite integrals using Riemann sums, trapezoidal, and Simpson's rules.", slug: "numerical-integration-calculator", category: "Mathematics", subcategory: "Calculus", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z'></path></svg>", component: "IntegralCalculator" },
-
-  // Basic Calculus / Tangents
-  { id: "tangent-line-calculator", title: "Tangent Line Calculator", description: "Find the slope-intercept equation of a line tangent to a function at a point.", slug: "tangent-line-calculator", category: "Mathematics", subcategory: "Calculus", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 7h8m0 0v8m0-8l-8 8-4-4-6 6'></path></svg>", component: "DerivativeCalculator" },
-  { id: "normal-line-calculator", title: "Normal Line Calculator", description: "Find the equation of a line perpendicular (normal) to a curve at a specified coordinate.", slug: "normal-line-calculator", category: "Mathematics", subcategory: "Calculus", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 7h8m0 0v8m0-8l-8 8-4-4-6 6'></path></svg>", component: "DerivativeCalculator" },
-  { id: "average-rate-of-change", title: "Average Rate of Change Calculator", description: "Calculate the average rate of change [f(b) - f(a)] / (b - a) over an interval.", slug: "average-rate-of-change", category: "Mathematics", subcategory: "Calculus", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 7h8m0 0v8m0-8l-8 8-4-4-6 6'></path></svg>", formulaConfig: { inputs: [{ id: "f", label: "Function f(x) (string)", type: "string" }, { id: "a", label: "Start a" }, { id: "b", label: "End b" }], expression: "(function(f,a,b){ if(a===b) return 'Undefined'; let math = window.math || require('mathjs'); let fn = math.compile(f); let fa = fn.evaluate({x:a}); let fb = fn.evaluate({x:b}); return (fb - fa) / (b - a); })(f,a,b)", outputLabel: "Average Rate of Change" } },
-  { id: "instantaneous-rate-of-change", title: "Instantaneous Rate of Change", description: "Calculate the instantaneous rate of change by evaluating function derivatives at a point.", slug: "instantaneous-rate-of-change", category: "Mathematics", subcategory: "Calculus", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 7h8m0 0v8m0-8l-8 8-4-4-6 6'></path></svg>", component: "DerivativeCalculator" },
-  { id: "critical-point-calculator", title: "Critical Point Calculator", description: "Find critical points where first derivatives equal zero or are undefined.", slug: "critical-point-calculator", category: "Mathematics", subcategory: "Calculus", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 7h8m0 0v8m0-8l-8 8-4-4-6 6'></path></svg>", component: "DerivativeCalculator" },
-  { id: "inflection-point-calculator", title: "Inflection Point Calculator", description: "Find inflection points where curve concavity changes and second derivatives equal zero.", slug: "inflection-point-calculator", category: "Mathematics", subcategory: "Calculus", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 7h8m0 0v8m0-8l-8 8-4-4-6 6'></path></svg>", component: "DerivativeCalculator" },
-  { id: "function-increasing-decreasing", title: "Increasing/Decreasing Calculator", description: "Determine intervals where functions are strictly increasing or decreasing.", slug: "function-increasing-decreasing", category: "Mathematics", subcategory: "Calculus", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 7h8m0 0v8m0-8l-8 8-4-4-6 6'></path></svg>", component: "DerivativeCalculator" },
-  { id: "concavity-calculator", title: "Concavity Calculator", description: "Determine intervals of upward and downward concavity using second derivative tests.", slug: "concavity-calculator", category: "Mathematics", subcategory: "Calculus", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 7h8m0 0v8m0-8l-8 8-4-4-6 6'></path></svg>", component: "DerivativeCalculator" },
-  { id: "extrema-calculator", title: "Extrema Calculator", description: "Find and classify local and global extrema (minima and maxima) on function intervals.", slug: "extrema-calculator", category: "Mathematics", subcategory: "Calculus", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 7h8m0 0v8m0-8l-8 8-4-4-6 6'></path></svg>", component: "DerivativeCalculator" },
-
-  // Applications
-  { id: "related-rates-calculator", title: "Related Rates Calculator", description: "Solve related rates calculus word problems connecting multiple time-dependent variables.", slug: "related-rates-calculator", category: "Mathematics", subcategory: "Calculus", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z'></path></svg>", component: "DerivativeCalculator" },
-  { id: "optimization-calculator", title: "Optimization Calculator", description: "Find optimal values, maximum profit, and minimum cost configurations in calculus models.", slug: "optimization-calculator", category: "Mathematics", subcategory: "Calculus", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z'></path></svg>", component: "DerivativeCalculator" },
-  { id: "marginal-cost-calculator", title: "Marginal Cost Calculator", description: "Calculate marginal cost C'(x) to estimate production cost for incremental units.", slug: "marginal-cost-calculator", category: "Mathematics", subcategory: "Calculus", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z'></path></svg>", component: "DerivativeCalculator" },
-  { id: "marginal-revenue-calculator", title: "Marginal Revenue Calculator", description: "Calculate marginal revenue R'(x) for additional units sold in economic models.", slug: "marginal-revenue-calculator", category: "Mathematics", subcategory: "Calculus", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z'></path></svg>", component: "DerivativeCalculator" },
-  { id: "marginal-profit-calculator", title: "Marginal Profit Calculator", description: "Calculate marginal profit P'(x) = R'(x) - C'(x) for optimization in business calculus.", slug: "marginal-profit-calculator", category: "Mathematics", subcategory: "Calculus", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z'></path></svg>", component: "DerivativeCalculator" },
-
-  // Sequences and Series
-  { id: "arithmetic-series-calculator", title: "Arithmetic Series Calculator", description: "Calculate the nth term, common difference, and sum of arithmetic progressions.", slug: "arithmetic-series-calculator", category: "Mathematics", subcategory: "Sequences", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 6h16v12H4V6z'></path></svg>", component: "SequenceSeriesCalculator" },
-  { id: "geometric-series-calculator", title: "Geometric Series Calculator", description: "Calculate the nth term, common ratio, and partial sum of geometric sequences.", slug: "geometric-series-calculator", category: "Mathematics", subcategory: "Sequences", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 6h16v12H4V6z'></path></svg>", component: "SequenceSeriesCalculator" },
-  { id: "geometric-series-sum", title: "Geometric Series Sum", description: "Calculate finite sums of geometric progressions from initial terms and ratios.", slug: "geometric-series-sum", category: "Mathematics", subcategory: "Sequences", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 6h16v12H4V6z'></path></svg>", component: "SequenceSeriesCalculator" },
-  { id: "infinite-geometric-series", title: "Infinite Geometric Series", description: "Calculate convergent sums of infinite geometric series where |r| < 1.", slug: "infinite-geometric-series", category: "Mathematics", subcategory: "Sequences", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 6h16v12H4V6z'></path></svg>", component: "SequenceSeriesCalculator" },
-  { id: "sequence-calculator", title: "Sequence Calculator", description: "Generate sequence terms and evaluate explicit and recursive formula progressions.", slug: "sequence-calculator", category: "Mathematics", subcategory: "Sequences", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 6h16v12H4V6z'></path></svg>", component: "SequenceSeriesCalculator" },
-  { id: "sigma-summation-calculator", title: "Sigma Summation Calculator", description: "Evaluate sigma notation (∑) series sums across explicit index boundaries.", slug: "sigma-summation-calculator", category: "Mathematics", subcategory: "Sequences", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 6h16v12H4V6z'></path></svg>", component: "SequenceSeriesCalculator" },
-
-  // Calculus Reference Tools
-  { id: "calculus-formulas", title: "Calculus Formulas", description: "Comprehensive reference sheet of derivative and integral formulas and rules.", slug: "calculus-formulas", category: "Mathematics", subcategory: "Calculus", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z'></path></svg>", component: "CalculusReference" },
-  { id: "derivative-rules", title: "Derivative Rules", description: "Reference guide for product, quotient, power, and chain differentiation rules.", slug: "derivative-rules", category: "Mathematics", subcategory: "Calculus", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z'></path></svg>", component: "CalculusReference" },
-  { id: "integration-rules", title: "Integration Rules", description: "Reference sheet for substitution, integration by parts, and trigonometric integrals.", slug: "integration-rules", category: "Mathematics", subcategory: "Calculus", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z'></path></svg>", component: "CalculusReference" },
-  { id: "common-limits", title: "Common Limits", description: "Reference table of standard calculus limits and indeterminate form evaluations.", slug: "common-limits", category: "Mathematics", subcategory: "Calculus", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z'></path></svg>", component: "CalculusReference" },
-  { id: "calculus-identities", title: "Calculus Identities", description: "Reference sheet of key calculus theorems, identities, and series expansions.", slug: "calculus-identities", category: "Mathematics", subcategory: "Calculus", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z'></path></svg>", component: "CalculusReference" },
-
-  // Taylor / Maclaurin
-  { id: "taylor-series-calculator", title: "Taylor Series Expansion Calculator", description: "Compute Taylor series polynomial expansions centered at arbitrary points.", slug: "taylor-series-calculator", category: "Mathematics", subcategory: "Calculus", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z'></path></svg>", component: "TaylorSeriesCalculator" },
-  { id: "maclaurin-series-calculator", title: "Maclaurin Series Calculator", description: "Compute Maclaurin series polynomial expansions centered at x = 0.", slug: "maclaurin-series-calculator", category: "Mathematics", subcategory: "Calculus", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z'></path></svg>", component: "TaylorSeriesCalculator" }
-,
-  { id: "speed-calculator", title: "Speed Calculator", description: "Calculate average speed from total distance traveled and elapsed time.", slug: "speed-calculator", category: "Physics", aliases: ["average speed", "average speed calculator"], subcategory: "Mechanics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"d","label":"Distance","options":[{"label":"m","factor":1},{"label":"km","factor":1000},{"label":"cm","factor":0.01}]},{"id":"t","label":"Time","options":[{"label":"s","factor":1},{"label":"h","factor":3600}]}], expression: "d / t", outputLabel: "Speed (v)", outputOptions: [{"label":"m/s","factor":1},{"label":"km/h","factor":0.277777778},{"label":"mph","factor":0.44704}] } },
-  { id: "velocity-calculator", title: "Velocity Calculator", description: "Calculate velocity, displacement, or travel time from distance and duration.", slug: "velocity-calculator", category: "Physics", aliases: ["average velocity", "average velocity calculator"], subcategory: "Mechanics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"d","label":"Displacement","options":[{"label":"m","factor":1},{"label":"km","factor":1000},{"label":"cm","factor":0.01}]},{"id":"t","label":"Time","options":[{"label":"s","factor":1},{"label":"h","factor":3600}]}], expression: "d / t", outputLabel: "Velocity", outputOptions: [{"label":"m/s","factor":1},{"label":"km/h","factor":0.277777778}] } },
-  { id: "acceleration-calculator", title: "Acceleration Calculator", description: "Calculate linear acceleration from initial velocity, final velocity, and elapsed time.", slug: "acceleration-calculator", category: "Physics", subcategory: "Mechanics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"v1","label":"Initial Velocity","options":[{"label":"m/s","factor":1},{"label":"km/h","factor":0.277777778}]},{"id":"v2","label":"Final Velocity","options":[{"label":"m/s","factor":1},{"label":"km/h","factor":0.277777778}]},{"id":"t","label":"Time","options":[{"label":"s","factor":1},{"label":"h","factor":3600}]}], expression: "(v2 - v1) / t", outputLabel: "Acceleration", outputOptions: [{"label":"m/s²","factor":1}] } },
-  { id: "newtons-second-law-calculator", title: "Newton's Second Law", description: "Solve Newton's second law of motion relating force, mass, and acceleration.", slug: "newtons-second-law-calculator", category: "Physics", subcategory: "Mechanics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"m","label":"Mass","options":[{"label":"kg","factor":1},{"label":"g","factor":0.001}]},{"id":"a","label":"Acceleration","options":[{"label":"m/s²","factor":1}]}], expression: "m * a", outputLabel: "Force", outputOptions: [{"label":"N","factor":1}] } },
-  { id: "force-calculator", title: "Force Calculator", description: "Calculate net force from mass and acceleration using Newton's second law.", slug: "force-calculator", category: "Physics", subcategory: "Mechanics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"m","label":"Mass","options":[{"label":"kg","factor":1},{"label":"g","factor":0.001}]},{"id":"a","label":"Acceleration","options":[{"label":"m/s²","factor":1}]}], expression: "m * a", outputLabel: "Force", outputOptions: [{"label":"N","factor":1}] } },
-  { id: "work-calculator", title: "Work Calculator", description: "Calculate mechanical work done by force applied across displacement distances.", slug: "work-calculator", category: "Physics", subcategory: "Mechanics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"f","label":"Force (N)","options":[{"label":"N","factor":1}]},{"id":"d","label":"Distance (m)","options":[{"label":"m","factor":1},{"label":"km","factor":1000},{"label":"cm","factor":0.01}]},{"id":"theta","label":"Angle (°)","options":[{"label":"deg","factor":1}]}], expression: "f * d * Math.cos(theta * Math.PI / 180)", outputLabel: "Work", outputOptions: [{"label":"J","factor":1},{"label":"kJ","factor":1000}] } },
-  { id: "power-calculator", title: "Power Calculator", description: "Calculate mechanical power and rate of energy transfer over elapsed time.", slug: "power-calculator", category: "Physics", subcategory: "Mechanics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"w","label":"Work (J)","options":[{"label":"J","factor":1},{"label":"kJ","factor":1000}]},{"id":"t","label":"Time (s)","options":[{"label":"s","factor":1},{"label":"h","factor":3600}]}], expression: "w / t", outputLabel: "Power", outputOptions: [{"label":"Watts (W)","factor":1},{"label":"hp","factor":745.7}] } },
-  { id: "potential-energy-calculator", title: "Potential Energy", description: "Calculate gravitational potential energy of objects from mass, height, and gravity.", slug: "potential-energy-calculator", category: "Physics", subcategory: "Mechanics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"m","label":"Mass (kg)","options":[{"label":"kg","factor":1},{"label":"g","factor":0.001}]},{"id":"h","label":"Height (m)","options":[{"label":"m","factor":1},{"label":"km","factor":1000},{"label":"cm","factor":0.01}]},{"id":"g","label":"Gravity (m/s²)","options":[{"label":"m/s²","factor":1}]}], expression: "m * g * h", outputLabel: "Potential Energy", outputOptions: [{"label":"J","factor":1},{"label":"kJ","factor":1000}] } },
-  { id: "momentum-calculator", title: "Momentum Calculator", description: "Calculate linear momentum from object mass and velocity vector magnitude.", slug: "momentum-calculator", category: "Physics", subcategory: "Mechanics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"m","label":"Mass","options":[{"label":"kg","factor":1},{"label":"g","factor":0.001}]},{"id":"v","label":"Velocity","options":[{"label":"m/s","factor":1},{"label":"km/h","factor":0.277777778}]}], expression: "m * v", outputLabel: "Momentum", outputOptions: [{"label":"kg·m/s","factor":1}] } },
-  { id: "centripetal-force-calculator", title: "Centripetal Force", description: "Calculate inward centripetal force required for uniform circular motion.", slug: "centripetal-force-calculator", category: "Physics", subcategory: "Mechanics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"m","label":"Mass (kg)","options":[{"label":"kg","factor":1},{"label":"g","factor":0.001}]},{"id":"v","label":"Velocity (m/s)","options":[{"label":"m/s","factor":1},{"label":"km/h","factor":0.277777778}]},{"id":"r","label":"Radius (m)","options":[{"label":"m","factor":1},{"label":"km","factor":1000},{"label":"cm","factor":0.01}]}], expression: "m * v * v / r", outputLabel: "Centripetal Force", outputOptions: [{"label":"N","factor":1}] } },
-  { id: "torque-calculator", title: "Torque Calculator", description: "Calculate rotational torque from applied force, lever arm radius, and angle.", slug: "torque-calculator", category: "Physics", subcategory: "Mechanics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"r","label":"Radius/Lever Arm (m)","options":[{"label":"m","factor":1},{"label":"km","factor":1000},{"label":"cm","factor":0.01}]},{"id":"f","label":"Force (N)","options":[{"label":"N","factor":1}]},{"id":"theta","label":"Angle (°)","options":[{"label":"deg","factor":1}]}], expression: "r * f * Math.sin(theta * Math.PI / 180)", outputLabel: "Torque", outputOptions: [{"label":"N·m","factor":1}] } },
-  { id: "distance-calculator", title: "Distance Calculator", description: "Calculate linear distance traveled from constant velocity and elapsed duration.", slug: "distance-calculator", category: "Physics", subcategory: "Mechanics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"v","label":"Velocity","options":[{"label":"m/s","factor":1},{"label":"km/h","factor":0.277777778}]},{"id":"t","label":"Time","options":[{"label":"s","factor":1},{"label":"h","factor":3600}]}], expression: "v * t", outputLabel: "Distance", outputOptions: [{"label":"m","factor":1},{"label":"km","factor":1000},{"label":"cm","factor":0.01}] } },
-  { id: "time-calculator", title: "Time Calculator", description: "Calculate duration required to travel a distance at specified average speed.", slug: "time-calculator", category: "Physics", subcategory: "Mechanics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"d","label":"Distance","options":[{"label":"m","factor":1},{"label":"km","factor":1000},{"label":"cm","factor":0.01}]},{"id":"v","label":"Velocity","options":[{"label":"m/s","factor":1},{"label":"km/h","factor":0.277777778}]}], expression: "d / v", outputLabel: "Time", outputOptions: [{"label":"s","factor":1},{"label":"h","factor":3600}] } },
-  { id: "free-fall-calculator", title: "Free Fall Calculator", description: "Calculate velocity and drop distance for free-falling objects under gravitational acceleration.", slug: "free-fall-calculator", category: "Physics", subcategory: "Mechanics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"t","label":"Time","options":[{"label":"s","factor":1},{"label":"h","factor":3600}]}], expression: "g * t", outputLabel: "Velocity", outputOptions: [{"label":"m/s","factor":1},{"label":"km/h","factor":0.277777778}] } },
-  { id: "projectile-motion-calculator", title: "Projectile Range", description: "Calculate projectile range, maximum height, and flight time from launch velocity and angle.", slug: "projectile-motion-calculator", category: "Physics", subcategory: "Mechanics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"v","label":"Initial Velocity","options":[{"label":"m/s","factor":1},{"label":"km/h","factor":0.277777778}]},{"id":"theta","label":"Launch Angle (°)","options":[{"label":"deg","factor":1}]}], expression: "(v * v * Math.sin(2 * theta * Math.PI / 180)) / g", outputLabel: "Range", outputOptions: [{"label":"m","factor":1},{"label":"km","factor":1000},{"label":"cm","factor":0.01}] }, related: ["velocity-calculator", "free-fall-calculator", "acceleration-calculator"] },
-  { id: "impulse-calculator", title: "Impulse Calculator", description: "Calculate linear impulse from applied force magnitude and contact duration.", slug: "impulse-calculator", category: "Physics", subcategory: "Mechanics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"f","label":"Force","options":[{"label":"N","factor":1}]},{"id":"t","label":"Time","options":[{"label":"s","factor":1},{"label":"h","factor":3600}]}], expression: "f * t", outputLabel: "Impulse", outputOptions: [{"label":"N·s","factor":1}] } },
-  { id: "mechanical-energy-calculator", title: "Mechanical Energy", description: "Calculate total mechanical energy by summing kinetic and potential energy components.", slug: "mechanical-energy-calculator", category: "Physics", subcategory: "Mechanics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"m","label":"Mass","options":[{"label":"kg","factor":1},{"label":"g","factor":0.001}]},{"id":"v","label":"Velocity","options":[{"label":"m/s","factor":1},{"label":"km/h","factor":0.277777778}]},{"id":"h","label":"Height","options":[{"label":"m","factor":1},{"label":"km","factor":1000},{"label":"cm","factor":0.01}]}], expression: "(0.5 * m * v * v) + (m * g * h)", outputLabel: "Mechanical Energy", outputOptions: [{"label":"J","factor":1},{"label":"kJ","factor":1000}] } },
-  { id: "centripetal-acceleration-calculator", title: "Centripetal Acceleration", description: "Calculate inward radial acceleration for circular paths from speed and radius.", slug: "centripetal-acceleration-calculator", category: "Physics", subcategory: "Mechanics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"v","label":"Velocity","options":[{"label":"m/s","factor":1},{"label":"km/h","factor":0.277777778}]},{"id":"r","label":"Radius","options":[{"label":"m","factor":1},{"label":"km","factor":1000},{"label":"cm","factor":0.01}]}], expression: "v * v / r", outputLabel: "Acceleration", outputOptions: [{"label":"m/s²","factor":1}] } },
-  { id: "friction-calculator", title: "Friction Calculator", description: "Calculate static and kinetic frictional resistance forces from normal force and friction coefficients.", slug: "friction-calculator", category: "Physics", subcategory: "Mechanics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"mu","label":"Coefficient of Friction","options":[{"label":"μ","factor":1}]},{"id":"n","label":"Normal Force","options":[{"label":"N","factor":1}]}], expression: "mu * n", outputLabel: "Friction Force", outputOptions: [{"label":"N","factor":1}] } },
-  { id: "normal-force-calculator", title: "Normal Force Calculator", description: "Calculate perpendicular normal contact force on flat surfaces and inclined planes.", slug: "normal-force-calculator", category: "Physics", subcategory: "Mechanics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"m","label":"Mass","options":[{"label":"kg","factor":1},{"label":"g","factor":0.001}]},{"id":"theta","label":"Incline Angle (°)","options":[{"label":"deg","factor":1}]}], expression: "m * g * Math.cos(theta * Math.PI / 180)", outputLabel: "Normal Force", outputOptions: [{"label":"N","factor":1}] } },
-  { id: "angular-momentum-calculator", title: "Angular Momentum", description: "Calculate rotational angular momentum from moment of inertia and angular velocity.", slug: "angular-momentum-calculator", category: "Physics", subcategory: "Mechanics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"i","label":"Moment of Inertia","options":[{"label":"kg·m²","factor":1}]},{"id":"w","label":"Angular Velocity","options":[{"label":"rad/s","factor":1}]}], expression: "i * w", outputLabel: "Angular Momentum", outputOptions: [{"label":"kg·m²/s","factor":1}] } },
-  { id: "moment-of-inertia-calculator", title: "Moment of Inertia (Point Mass)", description: "Calculate rotational inertia for point masses and standard geometric bodies.", slug: "moment-of-inertia-calculator", category: "Physics", subcategory: "Mechanics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"m","label":"Mass","options":[{"label":"kg","factor":1},{"label":"g","factor":0.001}]},{"id":"r","label":"Radius","options":[{"label":"m","factor":1},{"label":"km","factor":1000},{"label":"cm","factor":0.01}]}], expression: "m * r * r", outputLabel: "Moment of Inertia", outputOptions: [{"label":"kg·m²","factor":1}] } },
-  { id: "gravitational-force-calculator", title: "Gravitational Force", description: "Calculate gravitational attraction between two masses using Newton's universal gravity law.", slug: "gravitational-force-calculator", category: "Physics", subcategory: "Gravity", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"m1","label":"Mass 1 (kg)","options":[{"label":"kg","factor":1},{"label":"g","factor":0.001}]},{"id":"m2","label":"Mass 2 (kg)","options":[{"label":"kg","factor":1},{"label":"g","factor":0.001}]},{"id":"r","label":"Distance (m)","options":[{"label":"m","factor":1},{"label":"km","factor":1000},{"label":"cm","factor":0.01}]}], expression: "G * m1 * m2 / (r * r)", outputLabel: "Gravitational Force", outputOptions: [{"label":"N","factor":1}] } },
-  { id: "escape-velocity-calculator", title: "Escape Velocity", description: "Calculate minimum velocity required to break free from celestial gravitational fields.", slug: "escape-velocity-calculator", category: "Physics", subcategory: "Gravity", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"m","label":"Planet Mass (kg)","options":[{"label":"kg","factor":1},{"label":"g","factor":0.001}]},{"id":"r","label":"Planet Radius (m)","options":[{"label":"m","factor":1},{"label":"km","factor":1000},{"label":"cm","factor":0.01}]}], expression: "Math.sqrt(2 * G * m / r)", outputLabel: "Escape Velocity", outputOptions: [{"label":"m/s","factor":1},{"label":"km/s","factor":1000}] } },
-  { id: "weight-calculator", title: "Weight Calculator", description: "Calculate gravitational weight force from object mass and local gravitational acceleration.", slug: "weight-calculator", category: "Physics", subcategory: "Gravity", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"m","label":"Mass (kg)","options":[{"label":"kg","factor":1},{"label":"g","factor":0.001}]},{"id":"g","label":"Gravity (m/s²)","options":[{"label":"Earth (9.81)","factor":1},{"label":"Moon (1.62)","factor":0.1651},{"label":"Custom","factor":1}]}], expression: "m * g", outputLabel: "Weight", outputOptions: [{"label":"N","factor":1}] } },
-  { id: "gravity-calculator", title: "Gravity Calculator", description: "Calculate surface gravitational acceleration of planetary bodies from mass and radius.", slug: "gravity-calculator", category: "Physics", subcategory: "Gravity", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"m","label":"Planet Mass","options":[{"label":"kg","factor":1},{"label":"g","factor":0.001}]},{"id":"r","label":"Radius","options":[{"label":"m","factor":1},{"label":"km","factor":1000},{"label":"cm","factor":0.01}]}], expression: "G * m / (r * r)", outputLabel: "Gravity", outputOptions: [{"label":"m/s²","factor":1}] } },
-  { id: "orbital-velocity-calculator", title: "Orbital Velocity", description: "Calculate circular orbital velocity for satellites at specified orbital altitudes.", slug: "orbital-velocity-calculator", category: "Physics", subcategory: "Gravity", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"m","label":"Central Mass","options":[{"label":"kg","factor":1},{"label":"g","factor":0.001}]},{"id":"r","label":"Orbital Radius","options":[{"label":"m","factor":1},{"label":"km","factor":1000},{"label":"cm","factor":0.01}]}], expression: "Math.sqrt(G * m / r)", outputLabel: "Velocity", outputOptions: [{"label":"m/s","factor":1},{"label":"km/h","factor":0.277777778}] } },
-  { id: "gravitational-potential-energy-calculator", title: "Gravitational PE", description: "Calculate gravitational potential energy between two astronomical masses.", slug: "gravitational-potential-energy-calculator", category: "Physics", subcategory: "Gravity", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"m1","label":"Mass 1","options":[{"label":"kg","factor":1},{"label":"g","factor":0.001}]},{"id":"m2","label":"Mass 2","options":[{"label":"kg","factor":1},{"label":"g","factor":0.001}]},{"id":"r","label":"Distance","options":[{"label":"m","factor":1},{"label":"km","factor":1000},{"label":"cm","factor":0.01}]}], expression: "- (G * m1 * m2) / r", outputLabel: "Energy", outputOptions: [{"label":"J","factor":1},{"label":"kJ","factor":1000}] } },
-  { id: "density-calculator", title: "Density Calculator", description: "Calculate volumetric density, mass, or volume for solid, liquid, and gas samples.", slug: "density-calculator", category: "Physics", subcategory: "Fluids", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"m","label":"Mass","options":[{"label":"kg","factor":1},{"label":"g","factor":0.001}]},{"id":"v","label":"Volume","options":[{"label":"m³","factor":1},{"label":"L","factor":0.001}]}], expression: "m / v", outputLabel: "Density", outputOptions: [{"label":"kg/m³","factor":1},{"label":"g/cm³","factor":1000}] } },
-  { id: "pressure-calculator", title: "Pressure Calculator", description: "Calculate mechanical pressure from applied normal force distributed over contact area.", slug: "pressure-calculator", category: "Physics", subcategory: "Fluids", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"f","label":"Force (N)","options":[{"label":"N","factor":1}]},{"id":"a","label":"Area","options":[{"label":"m²","factor":1},{"label":"cm²","factor":0.0001}]}], expression: "f / a", outputLabel: "Pressure", outputOptions: [{"label":"Pa","factor":1},{"label":"atm","factor":101325}] } },
-  { id: "hydrostatic-pressure-calculator", title: "Hydrostatic Pressure", description: "Calculate fluid pressure at depth from fluid density, gravity, and column height.", slug: "hydrostatic-pressure-calculator", category: "Physics", subcategory: "Fluids", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"rho","label":"Density (kg/m³)","options":[{"label":"kg/m³","factor":1},{"label":"g/cm³","factor":1000}]},{"id":"h","label":"Depth/Height (m)","options":[{"label":"m","factor":1},{"label":"km","factor":1000},{"label":"cm","factor":0.01}]}], expression: "rho * g * h", outputLabel: "Hydrostatic Pressure", outputOptions: [{"label":"Pa","factor":1},{"label":"atm","factor":101325}] } },
-  { id: "buoyant-force-calculator", title: "Buoyant Force", description: "Calculate upward buoyant force exerted on submerged objects using fluid displacement.", slug: "buoyant-force-calculator", category: "Physics", subcategory: "Fluids", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"rho","label":"Fluid Density","options":[{"label":"kg/m³","factor":1},{"label":"g/cm³","factor":1000}]},{"id":"v","label":"Displaced Volume","options":[{"label":"m³","factor":1},{"label":"L","factor":0.001}]}], expression: "rho * v * g", outputLabel: "Buoyant Force", outputOptions: [{"label":"N","factor":1}] } },
-  { id: "archimedes-principle-calculator", title: "Archimedes Principle", description: "Calculate buoyant forces and displaced fluid volume using Archimedes' principle.", slug: "archimedes-principle-calculator", category: "Physics", subcategory: "Fluids", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"rho","label":"Fluid Density","options":[{"label":"kg/m³","factor":1},{"label":"g/cm³","factor":1000}]},{"id":"v","label":"Displaced Volume","options":[{"label":"m³","factor":1},{"label":"L","factor":0.001}]}], expression: "rho * v * g", outputLabel: "Buoyant Force", outputOptions: [{"label":"N","factor":1}] } },
-  { id: "continuity-equation-calculator", title: "Continuity Equation", description: "Calculate fluid velocity changes through varying cross-sectional pipe areas.", slug: "continuity-equation-calculator", category: "Physics", subcategory: "Fluids", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"a1","label":"Area 1 (m²)","options":[{"label":"m²","factor":1}]},{"id":"v1","label":"Velocity 1","options":[{"label":"m/s","factor":1},{"label":"km/h","factor":0.277777778}]},{"id":"a2","label":"Area 2 (m²)","options":[{"label":"m²","factor":1}]}], expression: "(a1 * v1) / a2", outputLabel: "Velocity 2", outputOptions: [{"label":"m/s","factor":1},{"label":"km/h","factor":0.277777778}] } },
-  { id: "bernoulli-equation-calculator", title: "Bernoulli (Pressure)", description: "Solve fluid pressure, speed, and elevation relationships using Bernoulli's equation.", slug: "bernoulli-equation-calculator", category: "Physics", subcategory: "Fluids", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"p1","label":"P1","options":[{"label":"Pa","factor":1},{"label":"atm","factor":101325}]},{"id":"rho","label":"Density","options":[{"label":"kg/m³","factor":1},{"label":"g/cm³","factor":1000}]},{"id":"v1","label":"v1","options":[{"label":"m/s","factor":1},{"label":"km/h","factor":0.277777778}]},{"id":"v2","label":"v2","options":[{"label":"m/s","factor":1},{"label":"km/h","factor":0.277777778}]},{"id":"h1","label":"h1","options":[{"label":"m","factor":1},{"label":"km","factor":1000},{"label":"cm","factor":0.01}]},{"id":"h2","label":"h2","options":[{"label":"m","factor":1},{"label":"km","factor":1000},{"label":"cm","factor":0.01}]}], expression: "p1 + 0.5*rho*(v1*v1 - v2*v2) + rho*g*(h1 - h2)", outputLabel: "Pressure 2", outputOptions: [{"label":"Pa","factor":1},{"label":"atm","factor":101325}] } },
-  { id: "flow-rate-calculator", title: "Flow Rate Calculator", description: "Calculate volumetric fluid flow rate through channels and circular pipes.", slug: "flow-rate-calculator", category: "Physics", subcategory: "Fluids", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"a","label":"Area (m²)","options":[{"label":"m²","factor":1}]},{"id":"v","label":"Velocity","options":[{"label":"m/s","factor":1},{"label":"km/h","factor":0.277777778}]}], expression: "a * v", outputLabel: "Flow Rate", outputOptions: [{"label":"m³/s","factor":1}] } },
-  { id: "wavelength-calculator", title: "Wavelength Calculator", description: "Calculate wavelength from wave propagation velocity and oscillation frequency.", slug: "wavelength-calculator", category: "Physics", subcategory: "Waves", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"v","label":"Wave Velocity","options":[{"label":"m/s","factor":1},{"label":"km/h","factor":0.277777778}]},{"id":"f","label":"Frequency","options":[{"label":"Hz","factor":1},{"label":"kHz","factor":1000}]}], expression: "v / f", outputLabel: "Wavelength", outputOptions: [{"label":"m","factor":1},{"label":"nm","factor":1e-9}] } },
-  { id: "frequency-calculator", title: "Frequency Calculator", description: "Calculate wave frequency from cycle period or wave velocity and wavelength.", slug: "frequency-calculator", category: "Physics", subcategory: "Waves", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"v","label":"Wave Velocity","options":[{"label":"m/s","factor":1},{"label":"km/h","factor":0.277777778}]},{"id":"l","label":"Wavelength","options":[{"label":"m","factor":1},{"label":"nm","factor":1e-9}]}], expression: "v / l", outputLabel: "Frequency", outputOptions: [{"label":"Hz","factor":1},{"label":"kHz","factor":1000}] } },
-  { id: "pendulum-period-calculator", title: "Pendulum Period", description: "Calculate the oscillation period of a simple pendulum from string length and gravity.", slug: "pendulum-period-calculator", category: "Physics", subcategory: "Waves", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"l","label":"Length (m)","options":[{"label":"m","factor":1},{"label":"km","factor":1000},{"label":"cm","factor":0.01}]}], expression: "2 * Math.PI * Math.sqrt(l / g)", outputLabel: "Period (T)", outputOptions: [{"label":"s","factor":1},{"label":"h","factor":3600}] } },
-  { id: "period-calculator", title: "Period Calculator", description: "Calculate the wave or oscillation cycle period from frequency in Hertz.", slug: "period-calculator", category: "Physics", subcategory: "Waves", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"f","label":"Frequency","options":[{"label":"Hz","factor":1},{"label":"kHz","factor":1000}]}], expression: "1 / f", outputLabel: "Period", outputOptions: [{"label":"s","factor":1},{"label":"h","factor":3600}] } },
-  { id: "wave-speed-calculator", title: "Wave Speed Calculator", description: "Calculate wave propagation velocity from frequency and wavelength.", slug: "wave-speed-calculator", category: "Physics", subcategory: "Waves", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"f","label":"Frequency","options":[{"label":"Hz","factor":1},{"label":"kHz","factor":1000}]},{"id":"l","label":"Wavelength","options":[{"label":"m","factor":1},{"label":"nm","factor":1e-9}]}], expression: "f * l", outputLabel: "Velocity", outputOptions: [{"label":"m/s","factor":1},{"label":"km/h","factor":0.277777778}] } },
-  { id: "simple-harmonic-motion-calculator", title: "SHM Position", description: "Calculate displacement, velocity, and phase in simple harmonic oscillator systems.", slug: "simple-harmonic-motion-calculator", category: "Physics", subcategory: "Waves", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"a","label":"Amplitude","options":[{"label":"m","factor":1},{"label":"km","factor":1000},{"label":"cm","factor":0.01}]},{"id":"w","label":"Angular Freq","options":[{"label":"rad/s","factor":1}]},{"id":"t","label":"Time","options":[{"label":"s","factor":1},{"label":"h","factor":3600}]}], expression: "a * Math.cos(w * t)", outputLabel: "Position", outputOptions: [{"label":"m","factor":1},{"label":"km","factor":1000},{"label":"cm","factor":0.01}] } },
-  { id: "spring-period-calculator", title: "Spring Period", description: "Calculate the oscillation period of a spring-mass harmonic oscillator.", slug: "spring-period-calculator", category: "Physics", subcategory: "Waves", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"m","label":"Mass","options":[{"label":"kg","factor":1},{"label":"g","factor":0.001}]},{"id":"k","label":"Spring Constant","options":[{"label":"N/m","factor":1}]}], expression: "2 * Math.PI * Math.sqrt(m / k)", outputLabel: "Period", outputOptions: [{"label":"s","factor":1},{"label":"h","factor":3600}] } },
-  { id: "spring-force-calculator", title: "Spring Force (Hooke's Law)", description: "Calculate restoring force exerted by compressed or stretched springs using Hooke's law.", slug: "spring-force-calculator", category: "Physics", subcategory: "Waves", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"k","label":"Spring Constant (N/m)","options":[{"label":"N/m","factor":1}]},{"id":"x","label":"Displacement","options":[{"label":"m","factor":1},{"label":"km","factor":1000},{"label":"cm","factor":0.01}]}], expression: "-k * x", outputLabel: "Force", outputOptions: [{"label":"N","factor":1}] } },
-  { id: "spring-potential-energy-calculator", title: "Spring Potential Energy", description: "Calculate elastic potential energy stored in deformed springs using 0.5kx².", slug: "spring-potential-energy-calculator", category: "Physics", subcategory: "Waves", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"k","label":"Spring Constant (N/m)","options":[{"label":"N/m","factor":1}]},{"id":"x","label":"Displacement","options":[{"label":"m","factor":1},{"label":"km","factor":1000},{"label":"cm","factor":0.01}]}], expression: "0.5 * k * x * x", outputLabel: "Energy", outputOptions: [{"label":"J","factor":1},{"label":"kJ","factor":1000}] } },
-  { id: "amplitude-calculator", title: "Amplitude Calculator", description: "Determine wave amplitude and peak displacement from harmonic equilibrium values.", slug: "amplitude-calculator", category: "Physics", subcategory: "Waves", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"x","label":"Max Displacement","options":[{"label":"m","factor":1},{"label":"km","factor":1000},{"label":"cm","factor":0.01}]}], expression: "x", outputLabel: "Amplitude", outputOptions: [{"label":"m","factor":1},{"label":"km","factor":1000},{"label":"cm","factor":0.01}] } },
-  { id: "angular-frequency-calculator", title: "Angular Frequency", description: "Calculate rotational angular frequency (ω = 2πf) in radians per second.", slug: "angular-frequency-calculator", category: "Physics", subcategory: "Waves", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"f","label":"Frequency","options":[{"label":"Hz","factor":1},{"label":"kHz","factor":1000}]}], expression: "2 * Math.PI * f", outputLabel: "Angular Freq", outputOptions: [{"label":"rad/s","factor":1}] } },
-  { id: "ideal-gas-law-calculator",         title: "Ideal Gas Law Calculator (PV = nRT)", description: "Solve pressure, volume, temperature, or moles using the ideal gas equation (PV = nRT).", slug: "ideal-gas-law-calculator", category: "Physics", subcategory: "Thermodynamics", aliases: ["ideal gas equation","pv equals nrt","gas law calculator","ideal gas law"], icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"n","label":"Moles (n)","options":[{"label":"mol","factor":1}]},{"id":"t","label":"Temperature (K)","options":[{"label":"K","factor":1},{"label":"°C","factor":1,"offset":273.15}]},{"id":"v","label":"Volume (m³)","options":[{"label":"m³","factor":1},{"label":"L","factor":0.001}]}], expression: "(n * R * t) / v", outputLabel: "Pressure", outputOptions: [{"label":"Pa","factor":1},{"label":"atm","factor":101325}] } },
-  { id: "specific-heat-calculator", title: "Specific Heat Calculator", description: "Calculate thermal heat energy transfer from mass, specific heat, and temperature change.", slug: "specific-heat-calculator", category: "Physics", subcategory: "Thermodynamics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"m","label":"Mass (kg)","options":[{"label":"kg","factor":1},{"label":"g","factor":0.001}]},{"id":"c","label":"Specific Heat","options":[{"label":"J/(kg·K)","factor":1}]},{"id":"dt","label":"ΔT (K)","options":[{"label":"K","factor":1},{"label":"°C","factor":1,"offset":273.15}]}], expression: "m * c * dt", outputLabel: "Heat Energy (Q)", outputOptions: [{"label":"J","factor":1},{"label":"kJ","factor":1000}] } },
-  { id: "carnot-efficiency-calculator", title: "Carnot Efficiency", description: "Calculate maximum theoretical thermal efficiency for ideal Carnot heat engines.", slug: "carnot-efficiency-calculator", category: "Physics", subcategory: "Thermodynamics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"tc","label":"Cold Temp (Tc) in Kelvin","options":[{"label":"K","factor":1},{"label":"°C","factor":1,"offset":273.15}]},{"id":"th","label":"Hot Temp (Th) in Kelvin","options":[{"label":"K","factor":1},{"label":"°C","factor":1,"offset":273.15}]}], expression: "(1 - (tc / th)) * 100", outputLabel: "Efficiency", outputOptions: [{"label":"%","factor":1}] } },
-  { id: "heat-calculator", title: "Heat Calculator", description: "Calculate heat energy required for temperature changes using specific heat capacity.", slug: "heat-calculator", category: "Physics", subcategory: "Thermodynamics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"m","label":"Mass","options":[{"label":"kg","factor":1},{"label":"g","factor":0.001}]},{"id":"c","label":"Specific Heat (J/kgK)","options":[{"label":"J/kgK","factor":1}]},{"id":"dt","label":"ΔT (K)","options":[{"label":"K","factor":1},{"label":"°C","factor":1,"offset":273.15}]}], expression: "m * c * dt", outputLabel: "Heat", outputOptions: [{"label":"J","factor":1},{"label":"kJ","factor":1000}] } },
-  { id: "latent-heat-calculator", title: "Latent Heat", description: "Calculate thermal energy required for phase changes without temperature variation.", slug: "latent-heat-calculator", category: "Physics", subcategory: "Thermodynamics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"m","label":"Mass","options":[{"label":"kg","factor":1},{"label":"g","factor":0.001}]},{"id":"L","label":"Latent Heat (J/kg)","options":[{"label":"J/kg","factor":1}]}], expression: "m * L", outputLabel: "Heat", outputOptions: [{"label":"J","factor":1},{"label":"kJ","factor":1000}] } },
-  { id: "thermal-expansion-calculator", title: "Thermal Expansion", description: "Calculate linear thermal expansion and length changes resulting from temperature shifts.", slug: "thermal-expansion-calculator", category: "Physics", subcategory: "Thermodynamics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"alpha","label":"Coefficient","options":[{"label":"/K","factor":1}]},{"id":"L","label":"Initial Length","options":[{"label":"m","factor":1},{"label":"km","factor":1000},{"label":"cm","factor":0.01}]},{"id":"dt","label":"ΔT","options":[{"label":"K","factor":1},{"label":"°C","factor":1,"offset":273.15}]}], expression: "alpha * L * dt", outputLabel: "Change in Length", outputOptions: [{"label":"m","factor":1},{"label":"km","factor":1000},{"label":"cm","factor":0.01}] } },
-  { id: "gas-law-calculator", title: "Combined Gas Law Calculator (Physics)", description: "Calculate gas state changes using the combined gas law relation P₁V₁/T₁ = P₂V₂/T₂.", slug: "gas-law-calculator", category: "Physics", subcategory: "Thermodynamics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"p1","label":"P1","options":[{"label":"Pa","factor":1},{"label":"atm","factor":101325}]},{"id":"v1","label":"V1","options":[{"label":"m³","factor":1},{"label":"L","factor":0.001}]},{"id":"t1","label":"T1 (K)","options":[{"label":"K","factor":1},{"label":"°C","factor":1,"offset":273.15}]},{"id":"v2","label":"V2","options":[{"label":"m³","factor":1},{"label":"L","factor":0.001}]},{"id":"t2","label":"T2 (K)","options":[{"label":"K","factor":1},{"label":"°C","factor":1,"offset":273.15}]}], expression: "(p1 * v1 * t2) / (t1 * v2)", outputLabel: "Pressure 2", outputOptions: [{"label":"Pa","factor":1},{"label":"atm","factor":101325}] } },
-  { id: "pressure-volume-temperature-calculator", title: "PVT Calculator", description: "Calculate thermodynamic state changes across pressure, volume, and temperature transitions.", slug: "pressure-volume-temperature-calculator", category: "Physics", subcategory: "Thermodynamics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"p1","label":"P1","options":[{"label":"Pa","factor":1},{"label":"atm","factor":101325}]},{"id":"v1","label":"V1","options":[{"label":"m³","factor":1},{"label":"L","factor":0.001}]},{"id":"t1","label":"T1 (K)","options":[{"label":"K","factor":1},{"label":"°C","factor":1,"offset":273.15}]},{"id":"v2","label":"V2","options":[{"label":"m³","factor":1},{"label":"L","factor":0.001}]},{"id":"t2","label":"T2 (K)","options":[{"label":"K","factor":1},{"label":"°C","factor":1,"offset":273.15}]}], expression: "(p1 * v1 * t2) / (t1 * v2)", outputLabel: "Pressure 2", outputOptions: [{"label":"Pa","factor":1},{"label":"atm","factor":101325}] } },
-  { id: "thermal-efficiency-calculator", title: "Thermal Efficiency", description: "Calculate thermodynamic efficiency percentage from mechanical work output and heat input.", slug: "thermal-efficiency-calculator", category: "Physics", subcategory: "Thermodynamics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"w","label":"Work Done","options":[{"label":"J","factor":1},{"label":"kJ","factor":1000}]},{"id":"qh","label":"Heat Input","options":[{"label":"J","factor":1},{"label":"kJ","factor":1000}]}], expression: "(w / qh) * 100", outputLabel: "Efficiency", outputOptions: [{"label":"%","factor":1}] } },
-  { id: "heat-engine-efficiency-calculator", title: "Heat Engine Efficiency", description: "Calculate heat engine efficiency from heat absorbed and heat rejected to reservoirs.", slug: "heat-engine-efficiency-calculator", category: "Physics", subcategory: "Thermodynamics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"qc","label":"Heat Rejected","options":[{"label":"J","factor":1},{"label":"kJ","factor":1000}]},{"id":"qh","label":"Heat Added","options":[{"label":"J","factor":1},{"label":"kJ","factor":1000}]}], expression: "(1 - (qc / qh)) * 100", outputLabel: "Efficiency", outputOptions: [{"label":"%","factor":1}] } },
-  { id: "entropy-change-calculator", title: "Entropy Change", description: "Calculate thermodynamic entropy change (ΔS = Q/T) during reversible heat transfers.", slug: "entropy-change-calculator", category: "Physics", subcategory: "Thermodynamics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"q","label":"Heat Transfer","options":[{"label":"J","factor":1},{"label":"kJ","factor":1000}]},{"id":"t","label":"Temperature (K)","options":[{"label":"K","factor":1},{"label":"°C","factor":1,"offset":273.15}]}], expression: "q / t", outputLabel: "Entropy", outputOptions: [{"label":"J/K","factor":1}] } },
-  { id: "ohms-law-calculator", title: "Ohm's Law Calculator", description: "Calculate voltage, electric current, or resistance using Ohm's law (V = IR).", slug: "ohms-law-calculator", category: "Physics", subcategory: "Electricity", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"i","label":"Current (I)","options":[{"label":"A","factor":1},{"label":"mA","factor":0.001}]},{"id":"r","label":"Resistance (R)","options":[{"label":"Ω","factor":1},{"label":"kΩ","factor":1000}]}], expression: "i * r", outputLabel: "Voltage", outputOptions: [{"label":"V","factor":1},{"label":"kV","factor":1000}] } },
-  { id: "electrical-power-calculator", title: "Electrical Power Calculator", description: "Calculate electric power in watts from voltage, current, and circuit resistance.", slug: "electrical-power-calculator", category: "Physics", subcategory: "Electricity", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"i","label":"Current (I)","options":[{"label":"A","factor":1},{"label":"mA","factor":0.001}]},{"id":"v","label":"Voltage (V)","options":[{"label":"V","factor":1},{"label":"kV","factor":1000}]}], expression: "i * v", outputLabel: "Power", outputOptions: [{"label":"W","factor":1},{"label":"kW","factor":1000}] } },
-  { id: "coulombs-law-calculator", title: "Coulomb's Law", description: "Calculate Electric Force (F = k|q1q2|/r²).", slug: "coulombs-law-calculator", category: "Physics", subcategory: "Electricity", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"q1","label":"Charge 1 (C)","options":[{"label":"C","factor":1},{"label":"µC","factor":0.000001}]},{"id":"q2","label":"Charge 2 (C)","options":[{"label":"C","factor":1},{"label":"µC","factor":0.000001}]},{"id":"r","label":"Distance (m)","options":[{"label":"m","factor":1},{"label":"km","factor":1000},{"label":"cm","factor":0.01}]}], expression: "k * Math.abs(q1 * q2) / (r * r)", outputLabel: "Electric Force", outputOptions: [{"label":"N","factor":1}] } },
-  { id: "current-calculator", title: "Current Calculator", description: "I = V/R or I = Q/t.", slug: "current-calculator", category: "Physics", subcategory: "Electricity", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"v","label":"Voltage","options":[{"label":"V","factor":1},{"label":"kV","factor":1000}]},{"id":"r","label":"Resistance","options":[{"label":"Ω","factor":1},{"label":"kΩ","factor":1000}]}], expression: "v / r", outputLabel: "Current", outputOptions: [{"label":"A","factor":1},{"label":"mA","factor":0.001}] } },
-  { id: "voltage-calculator", title: "Voltage Calculator", description: "V = IR.", slug: "voltage-calculator", category: "Physics", subcategory: "Electricity", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"i","label":"Current","options":[{"label":"A","factor":1},{"label":"mA","factor":0.001}]},{"id":"r","label":"Resistance","options":[{"label":"Ω","factor":1},{"label":"kΩ","factor":1000}]}], expression: "i * r", outputLabel: "Voltage", outputOptions: [{"label":"V","factor":1},{"label":"kV","factor":1000}] } },
-  { id: "resistance-calculator", title: "Resistance Calculator", description: "Calculate electrical resistance in ohms from potential difference and electric current.", slug: "resistance-calculator", category: "Physics", subcategory: "Electricity", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"v","label":"Voltage","options":[{"label":"V","factor":1},{"label":"kV","factor":1000}]},{"id":"i","label":"Current","options":[{"label":"A","factor":1},{"label":"mA","factor":0.001}]}], expression: "v / i", outputLabel: "Resistance", outputOptions: [{"label":"Ω","factor":1},{"label":"kΩ","factor":1000}] } },
-  { id: "electrical-energy-calculator", title: "Electrical Energy", description: "Calculate electrical energy consumed over time from power and operating duration.", slug: "electrical-energy-calculator", category: "Physics", subcategory: "Electricity", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"v","label":"Voltage","options":[{"label":"V","factor":1},{"label":"kV","factor":1000}]},{"id":"i","label":"Current","options":[{"label":"A","factor":1},{"label":"mA","factor":0.001}]},{"id":"t","label":"Time","options":[{"label":"s","factor":1},{"label":"h","factor":3600}]}], expression: "v * i * t", outputLabel: "Energy", outputOptions: [{"label":"J","factor":1},{"label":"kJ","factor":1000}] } },
-  { id: "electric-charge-calculator", title: "Electric Charge", description: "Calculate quantity of electric charge in coulombs from current and elapsed time.", slug: "electric-charge-calculator", category: "Physics", subcategory: "Electricity", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"i","label":"Current","options":[{"label":"A","factor":1},{"label":"mA","factor":0.001}]},{"id":"t","label":"Time","options":[{"label":"s","factor":1},{"label":"h","factor":3600}]}], expression: "i * t", outputLabel: "Charge", outputOptions: [{"label":"C","factor":1},{"label":"µC","factor":0.000001}] } },
-  { id: "electric-field-calculator", title: "Electric Field", description: "Calculate electric field intensity created by electrostatic point charges.", slug: "electric-field-calculator", category: "Physics", subcategory: "Electricity", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"q","label":"Charge","options":[{"label":"C","factor":1},{"label":"µC","factor":0.000001}]},{"id":"r","label":"Distance","options":[{"label":"m","factor":1},{"label":"km","factor":1000},{"label":"cm","factor":0.01}]}], expression: "k * q / (r * r)", outputLabel: "Electric Field", outputOptions: [{"label":"N/C","factor":1}] } },
-  { id: "electric-potential-calculator", title: "Electric Potential", description: "Calculate electrostatic potential voltage at distance from point charges.", slug: "electric-potential-calculator", category: "Physics", subcategory: "Electricity", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"q","label":"Charge","options":[{"label":"C","factor":1},{"label":"µC","factor":0.000001}]},{"id":"r","label":"Distance","options":[{"label":"m","factor":1},{"label":"km","factor":1000},{"label":"cm","factor":0.01}]}], expression: "k * q / r", outputLabel: "Electric Potential", outputOptions: [{"label":"V","factor":1},{"label":"kV","factor":1000}] } },
-  { id: "capacitance-calculator", title: "Capacitance Calculator", description: "Calculate capacitance in farads from stored electric charge and applied voltage.", slug: "capacitance-calculator", category: "Physics", subcategory: "Electricity", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"q","label":"Charge","options":[{"label":"C","factor":1},{"label":"µC","factor":0.000001}]},{"id":"v","label":"Voltage","options":[{"label":"V","factor":1},{"label":"kV","factor":1000}]}], expression: "q / v", outputLabel: "Capacitance", outputOptions: [{"label":"F","factor":1},{"label":"µF","factor":0.000001}] } },
-  { id: "capacitor-energy-calculator", title: "Capacitor Energy", description: "Calculate potential electrostatic energy stored inside charged capacitors.", slug: "capacitor-energy-calculator", category: "Physics", subcategory: "Electricity", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"c","label":"Capacitance","options":[{"label":"F","factor":1},{"label":"µF","factor":0.000001}]},{"id":"v","label":"Voltage","options":[{"label":"V","factor":1},{"label":"kV","factor":1000}]}], expression: "0.5 * c * v * v", outputLabel: "Energy", outputOptions: [{"label":"J","factor":1},{"label":"kJ","factor":1000}] } },
-  { id: "circuit-calculator", title: "Series & Parallel Circuit Calculator (Resistors & Capacitors)", description: "Calculate equivalent resistance and capacitance for components connected in series or parallel.", slug: "circuit-calculator", category: "Physics", subcategory: "Circuits", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "CircuitCalculator", aliases: ["series resistance calculator", "parallel resistance calculator", "series capacitance calculator", "parallel capacitance calculator", "series circuit calculator", "parallel circuit calculator", "equivalent resistance calculator", "equivalent capacitance calculator", "resistors in series", "resistors in parallel", "capacitors in series", "capacitors in parallel", "total resistance", "total capacitance"], related: [] },
-  { id: "voltage-divider-calculator", title: "Voltage Divider", description: "Calculate output voltage across resistor divider networks in DC circuits.", slug: "voltage-divider-calculator", category: "Physics", subcategory: "Circuits", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"v","label":"V_in","options":[{"label":"V","factor":1},{"label":"kV","factor":1000}]},{"id":"r1","label":"R1","options":[{"label":"Ω","factor":1},{"label":"kΩ","factor":1000}]},{"id":"r2","label":"R2","options":[{"label":"Ω","factor":1},{"label":"kΩ","factor":1000}]}], expression: "v * r2 / (r1 + r2)", outputLabel: "V_out", outputOptions: [{"label":"V","factor":1},{"label":"kV","factor":1000}] } },
-  { id: "current-divider-calculator", title: "Current Divider", description: "Calculate branch currents through parallel resistor divider networks.", slug: "current-divider-calculator", category: "Physics", subcategory: "Circuits", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"i","label":"I_total","options":[{"label":"A","factor":1},{"label":"mA","factor":0.001}]},{"id":"r1","label":"R1 (This Branch)","options":[{"label":"Ω","factor":1},{"label":"kΩ","factor":1000}]},{"id":"r2","label":"R2 (Other Branch)","options":[{"label":"Ω","factor":1},{"label":"kΩ","factor":1000}]}], expression: "i * r2 / (r1 + r2)", outputLabel: "I_branch", outputOptions: [{"label":"A","factor":1},{"label":"mA","factor":0.001}] } },
-  { id: "rc-time-constant-calculator", title: "RC Time Constant", description: "Calculate the characteristic charging time constant (τ = RC) of resistor-capacitor circuits.", slug: "rc-time-constant-calculator", category: "Physics", subcategory: "Circuits", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"r","label":"Resistance","options":[{"label":"Ω","factor":1},{"label":"kΩ","factor":1000}]},{"id":"c","label":"Capacitance","options":[{"label":"F","factor":1},{"label":"µF","factor":0.000001}]}], expression: "r * c", outputLabel: "Time Constant", outputOptions: [{"label":"s","factor":1},{"label":"h","factor":3600}] } },
-  { id: "magnetic-force-calculator", title: "Magnetic Force", description: "Calculate magnetic Lorentz force acting on moving charges inside magnetic fields.", slug: "magnetic-force-calculator", category: "Physics", subcategory: "Magnetism", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"q","label":"Charge","options":[{"label":"C","factor":1},{"label":"µC","factor":0.000001}]},{"id":"v","label":"Velocity","options":[{"label":"m/s","factor":1},{"label":"km/h","factor":0.277777778}]},{"id":"B","label":"Magnetic Field","options":[{"label":"T","factor":1}]},{"id":"t","label":"Angle (°)","options":[{"label":"deg","factor":1}]}], expression: "q * v * B * Math.sin(t * Math.PI / 180)", outputLabel: "Force", outputOptions: [{"label":"N","factor":1}] } },
-  { id: "lorentz-force-calculator", title: "Lorentz Force", description: "Calculate total electromagnetic Lorentz force from electric and magnetic field components.", slug: "lorentz-force-calculator", category: "Physics", subcategory: "Magnetism", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"q","label":"Charge","options":[{"label":"C","factor":1},{"label":"µC","factor":0.000001}]},{"id":"E","label":"Electric Field","options":[{"label":"V/m","factor":1}]},{"id":"v","label":"Velocity","options":[{"label":"m/s","factor":1},{"label":"km/h","factor":0.277777778}]},{"id":"B","label":"Magnetic Field","options":[{"label":"T","factor":1}]}], expression: "q * E + q * v * B", outputLabel: "Force", outputOptions: [{"label":"N","factor":1}] } },
-  { id: "magnetic-field-wire-calculator", title: "Magnetic Field (Wire)", description: "Calculate magnetic field strength surrounding straight current-carrying electrical conductors.", slug: "magnetic-field-wire-calculator", category: "Physics", subcategory: "Magnetism", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"i","label":"Current","options":[{"label":"A","factor":1},{"label":"mA","factor":0.001}]},{"id":"r","label":"Distance","options":[{"label":"m","factor":1},{"label":"km","factor":1000},{"label":"cm","factor":0.01}]}], expression: "(mu0 * i) / (2 * Math.PI * r)", outputLabel: "Magnetic Field", outputOptions: [{"label":"Tesla (T)","factor":1}] } },
-  { id: "solenoid-magnetic-field-calculator", title: "Solenoid Field", description: "Calculate uniform interior magnetic field strength inside current-carrying solenoids.", slug: "solenoid-magnetic-field-calculator", category: "Physics", subcategory: "Magnetism", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"n","label":"Turns per meter","options":[{"label":"m⁻¹","factor":1}]},{"id":"i","label":"Current","options":[{"label":"A","factor":1},{"label":"mA","factor":0.001}]}], expression: "mu0 * n * i", outputLabel: "Magnetic Field", outputOptions: [{"label":"Tesla (T)","factor":1}] } },
-  { id: "magnetic-flux-calculator", title: "Magnetic Flux", description: "Calculate magnetic flux passing through surface areas oriented within magnetic fields.", slug: "magnetic-flux-calculator", category: "Physics", subcategory: "Magnetism", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"b","label":"Magnetic Field","options":[{"label":"T","factor":1}]},{"id":"a","label":"Area","options":[{"label":"m²","factor":1}]},{"id":"t","label":"Angle (°)","options":[{"label":"deg","factor":1}]}], expression: "b * a * Math.cos(t * Math.PI / 180)", outputLabel: "Flux", outputOptions: [{"label":"Weber (Wb)","factor":1}] } },
-  { id: "electromagnetic-induction-calculator", title: "EM Induction", description: "Calculate induced electromotive force (EMF) generated by changing magnetic flux.", slug: "electromagnetic-induction-calculator", category: "Physics", subcategory: "Magnetism", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"n","label":"Turns","options":[{"label":"turns","factor":1}]},{"id":"dphi","label":"ΔΦ (Flux)","options":[{"label":"Wb","factor":1}]},{"id":"dt","label":"Δt (Time)","options":[{"label":"s","factor":1},{"label":"h","factor":3600}]}], expression: "-n * dphi / dt", outputLabel: "EMF", outputOptions: [{"label":"V","factor":1},{"label":"kV","factor":1000}] } },
-  { id: "faradays-law-calculator", title: "Faraday's Law", description: "Calculate induced voltage in coils from rate of magnetic flux change using Faraday's law.", slug: "faradays-law-calculator", category: "Physics", subcategory: "Magnetism", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"n","label":"Turns","options":[{"label":"turns","factor":1}]},{"id":"dphi","label":"ΔΦ (Flux)","options":[{"label":"Wb","factor":1}]},{"id":"dt","label":"Δt (Time)","options":[{"label":"s","factor":1},{"label":"h","factor":3600}]}], expression: "-n * dphi / dt", outputLabel: "EMF", outputOptions: [{"label":"V","factor":1},{"label":"kV","factor":1000}] } },
-  { id: "inductance-calculator", title: "Inductance Calculator", description: "L = (NΦ)/I.", slug: "inductance-calculator", category: "Physics", subcategory: "Magnetism", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"n","label":"Turns","options":[{"label":"turns","factor":1}]},{"id":"phi","label":"Flux","options":[{"label":"Wb","factor":1}]},{"id":"i","label":"Current","options":[{"label":"A","factor":1},{"label":"mA","factor":0.001}]}], expression: "n * phi / i", outputLabel: "Inductance", outputOptions: [{"label":"Henry (H)","factor":1}] } },
-  { id: "inductor-energy-calculator", title: "Inductor Energy", description: "U = 0.5LI².", slug: "inductor-energy-calculator", category: "Physics", subcategory: "Magnetism", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"l","label":"Inductance (H)","options":[{"label":"H","factor":1}]},{"id":"i","label":"Current","options":[{"label":"A","factor":1},{"label":"mA","factor":0.001}]}], expression: "0.5 * l * i * i", outputLabel: "Energy", outputOptions: [{"label":"J","factor":1},{"label":"kJ","factor":1000}] } },
-  { id: "snells-law-calculator", title: "Snell's Law Calculator", description: "Calculate refraction angles and light bending across optical boundaries using Snell's law.", slug: "snells-law-calculator", category: "Physics", subcategory: "Optics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"n1","label":"Index of Refraction 1","options":[{"label":"n","factor":1}]},{"id":"t1","label":"Angle of Incidence (°)","options":[{"label":"deg","factor":1}]},{"id":"n2","label":"Index of Refraction 2","options":[{"label":"n","factor":1}]}], expression: "Math.asin((n1 * Math.sin(t1 * Math.PI / 180)) / n2) * 180 / Math.PI", outputLabel: "Angle of Refraction", outputOptions: [{"label":"Degrees (°)","factor":1}] } },
-  { id: "lens-equation-calculator", title: "Lens Equation", description: "Calculate image position, object distance, or focal length using the thin lens equation.", slug: "lens-equation-calculator", category: "Physics", subcategory: "Optics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"do","label":"Object Distance","options":[{"label":"m","factor":1},{"label":"km","factor":1000},{"label":"cm","factor":0.01}]},{"id":"di","label":"Image Distance","options":[{"label":"m","factor":1},{"label":"km","factor":1000},{"label":"cm","factor":0.01}]}], expression: "1 / ((1 / do) + (1 / di))", outputLabel: "Focal Length (f)", outputOptions: [{"label":"m","factor":1},{"label":"km","factor":1000},{"label":"cm","factor":0.01}] } },
-  { id: "mirror-equation-calculator", title: "Mirror Equation", description: "Calculate image distances and focal lengths for concave and convex spherical mirrors.", slug: "mirror-equation-calculator", category: "Physics", subcategory: "Optics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"do","label":"Object Dist","options":[{"label":"m","factor":1},{"label":"km","factor":1000},{"label":"cm","factor":0.01}]},{"id":"di","label":"Image Dist","options":[{"label":"m","factor":1},{"label":"km","factor":1000},{"label":"cm","factor":0.01}]}], expression: "1 / ((1 / do) + (1 / di))", outputLabel: "Focal Length", outputOptions: [{"label":"m","factor":1},{"label":"km","factor":1000},{"label":"cm","factor":0.01}] } },
-  { id: "magnification-calculator", title: "Magnification", description: "Calculate optical image magnification ratios from object and image distances or heights.", slug: "magnification-calculator", category: "Physics", subcategory: "Optics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"di","label":"Image Dist","options":[{"label":"m","factor":1},{"label":"km","factor":1000},{"label":"cm","factor":0.01}]},{"id":"do","label":"Object Dist","options":[{"label":"m","factor":1},{"label":"km","factor":1000},{"label":"cm","factor":0.01}]}], expression: "-di / do", outputLabel: "Magnification", outputOptions: [{"label":"x","factor":1}] } },
-  { id: "refractive-index-calculator", title: "Refractive Index", description: "n = c/v.", slug: "refractive-index-calculator", category: "Physics", subcategory: "Optics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"v","label":"Velocity in Medium","options":[{"label":"m/s","factor":1},{"label":"km/h","factor":0.277777778}]}], expression: "c / v", outputLabel: "Index", outputOptions: [{"label":"n","factor":1}] } },
-  { id: "critical-angle-calculator", title: "Critical Angle", description: "Calculate critical angle for total internal reflection between optical media boundaries.", slug: "critical-angle-calculator", category: "Physics", subcategory: "Optics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"n2","label":"n2 (Less Dense)","options":[{"label":"n","factor":1}]},{"id":"n1","label":"n1 (More Dense)","options":[{"label":"n","factor":1}]}], expression: "Math.asin(n2 / n1) * 180 / Math.PI", outputLabel: "Critical Angle", outputOptions: [{"label":"Degrees (°)","factor":1}] } },
-  { id: "focal-length-calculator", title: "Focal Length", description: "Calculate optical focal lengths and focal powers for spherical mirrors and lenses.", slug: "focal-length-calculator", category: "Physics", subcategory: "Optics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"r","label":"Radius of Curvature","options":[{"label":"m","factor":1},{"label":"km","factor":1000},{"label":"cm","factor":0.01}]}], expression: "r / 2", outputLabel: "Focal Length", outputOptions: [{"label":"m","factor":1},{"label":"km","factor":1000},{"label":"cm","factor":0.01}] } },
-  { id: "power-of-lens-calculator", title: "Power of Lens", description: "Calculate optical lens power in diopters from focal length measurements.", slug: "power-of-lens-calculator", category: "Physics", subcategory: "Optics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"f","label":"Focal Length (m)","options":[{"label":"m","factor":1}]}], expression: "1 / f", outputLabel: "Power", outputOptions: [{"label":"Diopters (D)","factor":1}] } },
-  { id: "diffraction-calculator", title: "Diffraction Calculator", description: "d sin(θ) = mλ.", slug: "diffraction-calculator", category: "Physics", subcategory: "Optics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"m","label":"Order (m)","options":[{"label":"m","factor":1}]},{"id":"l","label":"Wavelength","options":[{"label":"m","factor":1},{"label":"nm","factor":1e-9}]},{"id":"d","label":"Slit Separation","options":[{"label":"m","factor":1},{"label":"km","factor":1000},{"label":"cm","factor":0.01}]}], expression: "Math.asin(m * l / d) * 180 / Math.PI", outputLabel: "Angle", outputOptions: [{"label":"Degrees (°)","factor":1}] } },
-  { id: "double-slit-calculator", title: "Double Slit Calculator", description: "y = (λL)/d.", slug: "double-slit-calculator", category: "Physics", subcategory: "Optics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"l","label":"Wavelength","options":[{"label":"m","factor":1},{"label":"nm","factor":1e-9}]},{"id":"L","label":"Distance to Screen","options":[{"label":"m","factor":1},{"label":"km","factor":1000},{"label":"cm","factor":0.01}]},{"id":"d","label":"Slit Separation","options":[{"label":"m","factor":1},{"label":"km","factor":1000},{"label":"cm","factor":0.01}]}], expression: "(l * L) / d", outputLabel: "Fringe Pos (y)", outputOptions: [{"label":"m","factor":1},{"label":"km","factor":1000},{"label":"cm","factor":0.01}] } },
-  { id: "mass-energy-equivalence-calculator", title: "Mass-Energy Equivalence Calculator", description: "Calculate energy equivalents of rest mass using Einstein's equation E = mc².", slug: "mass-energy-equivalence-calculator", category: "Physics", subcategory: "Modern Physics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"m","label":"Mass (kg)","options":[{"label":"kg","factor":1},{"label":"g","factor":0.001}]}], expression: "m * c * c", outputLabel: "Rest Energy", outputOptions: [{"label":"J","factor":1},{"label":"kJ","factor":1000}] } },
-  { id: "photon-energy-calculator", title: "Photon Energy Calculator", description: "Calculate quantum photon energy from wavelength or frequency using Planck's constant.", slug: "photon-energy-calculator", category: "Physics", subcategory: "Modern Physics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"l","label":"Wavelength","options":[{"label":"m","factor":1},{"label":"nm","factor":1e-9}]}], expression: "(h * c) / l", outputLabel: "Photon Energy", outputOptions: [{"label":"J","factor":1},{"label":"kJ","factor":1000}] } },
-  { id: "einstein-energy-calculator", title: "Einstein Energy", description: "Calculate relativistic mass-energy equivalence and energy release in nuclear reactions.", slug: "einstein-energy-calculator", category: "Physics", subcategory: "Modern Physics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"m","label":"Mass","options":[{"label":"kg","factor":1},{"label":"g","factor":0.001}]}], expression: "m * c * c", outputLabel: "Energy", outputOptions: [{"label":"J","factor":1},{"label":"kJ","factor":1000}] } },
-  { id: "photon-momentum-calculator", title: "Photon Momentum", description: "p = h/λ.", slug: "photon-momentum-calculator", category: "Physics", subcategory: "Modern Physics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"l","label":"Wavelength","options":[{"label":"m","factor":1},{"label":"nm","factor":1e-9}]}], expression: "h / l", outputLabel: "Momentum", outputOptions: [{"label":"kg·m/s","factor":1}] } },
-  { id: "de-broglie-wavelength-calculator", title: "De Broglie Wavelength", description: "Calculate quantum de Broglie matter wavelength for moving particles and electrons.", slug: "de-broglie-wavelength-calculator", category: "Physics", subcategory: "Modern Physics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"m","label":"Mass","options":[{"label":"kg","factor":1},{"label":"g","factor":0.001}]},{"id":"v","label":"Velocity","options":[{"label":"m/s","factor":1},{"label":"km/h","factor":0.277777778}]}], expression: "h / (m * v)", outputLabel: "Wavelength", outputOptions: [{"label":"m","factor":1},{"label":"nm","factor":1e-9}] } },
-  { id: "photoelectric-effect-calculator", title: "Photoelectric Effect", description: "Calculate maximum kinetic energy of emitted photoelectrons using Planck-Einstein relations.", slug: "photoelectric-effect-calculator", category: "Physics", subcategory: "Modern Physics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"f","label":"Frequency","options":[{"label":"Hz","factor":1},{"label":"kHz","factor":1000}]},{"id":"phi","label":"Work Function (J)","options":[{"label":"J","factor":1},{"label":"kJ","factor":1000}]}], expression: "(h * f) - phi", outputLabel: "Max Kinetic Energy", outputOptions: [{"label":"J","factor":1},{"label":"kJ","factor":1000}] } },
-  { id: "relativistic-energy-calculator", title: "Relativistic Energy", description: "E = γmc².", slug: "relativistic-energy-calculator", category: "Physics", subcategory: "Modern Physics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"m","label":"Mass","options":[{"label":"kg","factor":1},{"label":"g","factor":0.001}]},{"id":"v","label":"Velocity","options":[{"label":"m/s","factor":1},{"label":"km/h","factor":0.277777778}]}], expression: "(m * c * c) / Math.sqrt(1 - (v*v)/(c*c))", outputLabel: "Energy", outputOptions: [{"label":"J","factor":1},{"label":"kJ","factor":1000}] } },
-  { id: "time-dilation-calculator", title: "Time Dilation", description: "t = t0 / √(1 - v²/c²).", slug: "time-dilation-calculator", category: "Physics", subcategory: "Modern Physics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"t0","label":"Proper Time","options":[{"label":"s","factor":1},{"label":"h","factor":3600}]},{"id":"v","label":"Velocity","options":[{"label":"m/s","factor":1},{"label":"km/h","factor":0.277777778}]}], expression: "t0 / Math.sqrt(1 - (v*v)/(c*c))", outputLabel: "Dilated Time", outputOptions: [{"label":"s","factor":1},{"label":"h","factor":3600}] } },
-  { id: "length-contraction-calculator", title: "Length Contraction", description: "L = L0 * √(1 - v²/c²).", slug: "length-contraction-calculator", category: "Physics", subcategory: "Modern Physics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"l0","label":"Proper Length","options":[{"label":"m","factor":1},{"label":"km","factor":1000},{"label":"cm","factor":0.01}]},{"id":"v","label":"Velocity","options":[{"label":"m/s","factor":1},{"label":"km/h","factor":0.277777778}]}], expression: "l0 * Math.sqrt(1 - (v*v)/(c*c))", outputLabel: "Contracted Length", outputOptions: [{"label":"m","factor":1},{"label":"km","factor":1000},{"label":"cm","factor":0.01}] } },
-  { id: "mass-defect-calculator", title: "Mass Defect Calculator (Nuclear Physics)", description: "Calculate nuclear mass defect (Δm) from constituent proton and neutron masses.", slug: "mass-defect-calculator", category: "Physics", subcategory: "Modern Physics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"z","label":"Protons","options":[{"label":"count","factor":1}]},{"id":"n","label":"Neutrons","options":[{"label":"count","factor":1}]},{"id":"m","label":"Nucleus Mass (kg)","options":[{"label":"kg","factor":1},{"label":"g","factor":0.001}]}], expression: "(z * mp) + (n * mn) - m", outputLabel: "Mass Defect", outputOptions: [{"label":"kg","factor":1},{"label":"g","factor":0.001}] } },
-  { id: "nuclear-binding-energy-calculator", title: "Nuclear Binding Energy Calculator (Nuclear Physics)", description: "Calculate total nuclear binding energy and binding energy per nucleon.", slug: "nuclear-binding-energy-calculator", category: "Physics", subcategory: "Modern Physics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"dm","label":"Mass Defect (kg)","options":[{"label":"kg","factor":1},{"label":"g","factor":0.001}]}], expression: "dm * c * c", outputLabel: "Binding Energy", outputOptions: [{"label":"J","factor":1},{"label":"kJ","factor":1000}] } },
-  { id: "physics-constants", title: "Physics Constants", description: "Comprehensive reference guide for universal fundamental physical constants and values.", slug: "physics-constants", category: "Physics", subcategory: "Reference", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "PhysicsConstants" },
-  { id: "physics-formulas", title: "Physics Formulas", description: "Reference sheet of core physics formulas across mechanics, electricity, and thermodynamics.", slug: "physics-formulas", category: "Physics", subcategory: "Reference", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>", component: "PhysicsFormulas" },
+  {
+    id: "triangle-calculator",
+    title: "Triangle Calculator",
+    description: "Solve oblique and right triangles using the laws of sines and cosines.",
+    slug: "triangle-calculator",
+    category: "Mathematics",
+    subcategory: "Trigonometry",
+    component: "TriangleCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M3 21h18L12 3z'></path></svg>"
+  },
+  {
+    id: "law-of-sines-calculator",
+    title: "Law of Sines Calculator",
+    description: "Solve missing sides and angles of triangles using the Law of Sines ratio.",
+    slug: "law-of-sines-calculator",
+    category: "Mathematics",
+    subcategory: "Trigonometry",
+    component: "TriangleCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M3 21h18L12 3z'></path></svg>"
+  },
+  {
+    id: "law-of-cosines-calculator",
+    title: "Law of Cosines Calculator",
+    description: "Calculate unknown sides or angles of triangles using the Law of Cosines.",
+    slug: "law-of-cosines-calculator",
+    category: "Mathematics",
+    subcategory: "Trigonometry",
+    component: "TriangleCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M3 21h18L12 3z'></path></svg>"
+  },
+  {
+    id: "triangle-area-calculator",
+    title: "Triangle Area Calculator",
+    description: "Calculate the area of a triangle given its base and perpendicular height.",
+    slug: "triangle-area-calculator",
+    category: "Mathematics",
+    subcategory: "Geometry",
+    formulaConfig: {
+          "inputs": [
+                {
+                      "id": "b",
+                      "label": "Base"
+                },
+                {
+                      "id": "h",
+                      "label": "Height"
+                }
+          ],
+          "expression": "0.5 * b * h",
+          "outputLabel": "Area"
+    },
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M3 21h18L12 3z'></path></svg>"
+  },
+  {
+    id: "unit-circle",
+    title: "Unit Circle",
+    description: "Interactive unit circle reference displaying exact angle radians, degrees, and coordinates.",
+    slug: "unit-circle",
+    category: "Mathematics",
+    subcategory: "Trigonometry",
+    component: "UnitCircle",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z'></path></svg>"
+  },
+  {
+    id: "limit-calculator",
+    title: "Limit Calculator",
+    description: "Evaluate one-sided, two-sided, and infinite limits of mathematical functions.",
+    slug: "limit-calculator",
+    category: "Mathematics",
+    subcategory: "Calculus",
+    component: "LimitCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>"
+  },
+  {
+    id: "one-sided-limit-calculator",
+    title: "One-Sided Limit Calculator",
+    description: "Compute left-hand (x→a⁻) and right-hand (x→a⁺) limits of piecewise and rational functions.",
+    slug: "one-sided-limit-calculator",
+    category: "Mathematics",
+    subcategory: "Calculus",
+    component: "LimitCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>"
+  },
+  {
+    id: "infinite-limit-calculator",
+    title: "Infinite Limit Calculator",
+    description: "Evaluate function limits where values approach positive or negative infinity.",
+    slug: "infinite-limit-calculator",
+    category: "Mathematics",
+    subcategory: "Calculus",
+    component: "LimitCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>"
+  },
+  {
+    id: "derivative-calculator",
+    title: "Derivative Calculator",
+    description: "Compute symbolic first derivatives of polynomial, trigonometric, and exponential functions.",
+    slug: "derivative-calculator",
+    category: "Mathematics",
+    subcategory: "Calculus",
+    component: "DerivativeCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'></path></svg>"
+  },
+  {
+    id: "second-derivative-calculator",
+    title: "Second Derivative Calculator",
+    description: "Compute symbolic second derivatives to analyze concavity and inflection points.",
+    slug: "second-derivative-calculator",
+    category: "Mathematics",
+    subcategory: "Calculus",
+    component: "DerivativeCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'></path></svg>"
+  },
+  {
+    id: "partial-derivative-calculator",
+    title: "Partial Derivative Calculator",
+    description: "Calculate partial derivatives with respect to specified multivariable functions.",
+    slug: "partial-derivative-calculator",
+    category: "Mathematics",
+    subcategory: "Calculus",
+    component: "DerivativeCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'></path></svg>"
+  },
+  {
+    id: "integral-calculator",
+    title: "Integral Calculator",
+    description: "Evaluate definite and indefinite integrals numerically and symbolically.",
+    slug: "integral-calculator",
+    category: "Mathematics",
+    subcategory: "Calculus",
+    component: "IntegralCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z'></path></svg>"
+  },
+  {
+    id: "definite-integral-calculator",
+    title: "Definite Integral Calculator",
+    description: "Calculate exact and numerical definite integrals across specified lower and upper bounds.",
+    slug: "definite-integral-calculator",
+    category: "Mathematics",
+    subcategory: "Calculus",
+    component: "IntegralCalculator",
+    related: ["indefinite-integral-calculator","derivative-calculator","limit-calculator"],
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z'></path></svg>"
+  },
+  {
+    id: "indefinite-integral-calculator",
+    title: "Indefinite Integral Calculator",
+    description: "Find antiderivatives and indefinite integrals with arbitrary integration constants.",
+    slug: "indefinite-integral-calculator",
+    category: "Mathematics",
+    subcategory: "Calculus",
+    component: "IntegralCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z'></path></svg>"
+  },
+  {
+    id: "free-fall-calculator",
+    title: "Free Fall Calculator",
+    description: "Calculate velocity and drop distance for free-falling objects under gravitational acceleration.",
+    slug: "free-fall-calculator",
+    category: "Physics",
+    subcategory: "Mechanics",
+    component: "UnitAwareCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>"
+  },
+  {
+    id: "projectile-motion-calculator",
+    title: "Projectile Range",
+    description: "Calculate projectile range, maximum height, and flight time from launch velocity and angle.",
+    slug: "projectile-motion-calculator",
+    category: "Physics",
+    subcategory: "Mechanics",
+    component: "UnitAwareCalculator",
+    related: ["free-fall-calculator"],
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>"
+  },
+  {
+    id: "centripetal-acceleration-calculator",
+    title: "Centripetal Acceleration",
+    description: "Calculate inward radial acceleration for circular paths from speed and radius.",
+    slug: "centripetal-acceleration-calculator",
+    category: "Physics",
+    subcategory: "Mechanics",
+    component: "UnitAwareCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>"
+  },
+  {
+    id: "friction-calculator",
+    title: "Friction Calculator",
+    description: "Calculate static and kinetic frictional resistance forces from normal force and friction coefficients.",
+    slug: "friction-calculator",
+    category: "Physics",
+    subcategory: "Mechanics",
+    component: "UnitAwareCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>"
+  },
+  {
+    id: "gravitational-force-calculator",
+    title: "Gravitational Force",
+    description: "Calculate gravitational attraction between two masses using Newton's universal gravity law.",
+    slug: "gravitational-force-calculator",
+    category: "Physics",
+    subcategory: "Gravity",
+    component: "UnitAwareCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>"
+  },
+  {
+    id: "thermal-expansion-calculator",
+    title: "Thermal Expansion",
+    description: "Calculate linear thermal expansion and length changes resulting from temperature shifts.",
+    slug: "thermal-expansion-calculator",
+    category: "Physics",
+    subcategory: "Thermodynamics",
+    component: "UnitAwareCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>"
+  },
+  {
+    id: "ohms-law-calculator",
+    title: "Ohm's Law Calculator",
+    description: "Calculate voltage, electric current, or resistance using Ohm's law (V = IR).",
+    slug: "ohms-law-calculator",
+    category: "Physics",
+    subcategory: "Electricity",
+    component: "UnitAwareCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>"
+  },
+  {
+    id: "coulombs-law-calculator",
+    title: "Coulomb's Law",
+    description: "Calculate Electric Force (F = k|q1q2|/r²).",
+    slug: "coulombs-law-calculator",
+    category: "Physics",
+    subcategory: "Electricity",
+    component: "UnitAwareCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>"
+  },
+  {
+    id: "capacitance-calculator",
+    title: "Capacitance Calculator",
+    description: "Calculate capacitance in farads from stored electric charge and applied voltage.",
+    slug: "capacitance-calculator",
+    category: "Physics",
+    subcategory: "Electricity",
+    component: "UnitAwareCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>"
+  },
+  {
+    id: "magnetic-force-calculator",
+    title: "Magnetic Force",
+    description: "Calculate magnetic Lorentz force acting on moving charges inside magnetic fields.",
+    slug: "magnetic-force-calculator",
+    category: "Physics",
+    subcategory: "Magnetism",
+    component: "UnitAwareCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>"
+  },
+  {
+    id: "snells-law-calculator",
+    title: "Snell's Law Calculator",
+    description: "Calculate refraction angles and light bending across optical boundaries using Snell's law.",
+    slug: "snells-law-calculator",
+    category: "Physics",
+    subcategory: "Optics",
+    component: "UnitAwareCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>"
+  },
+  {
+    id: "lens-equation-calculator",
+    title: "Lens Equation",
+    description: "Calculate image position, object distance, or focal length using the thin lens equation.",
+    slug: "lens-equation-calculator",
+    category: "Physics",
+    subcategory: "Optics",
+    component: "UnitAwareCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>"
+  },
   {
     id: "molar-mass-calculator",
     title: "Molar Mass Calculator",
@@ -572,36 +776,10 @@ export const tools: Tool[] = [
     slug: "molar-mass-calculator",
     category: "Chemistry",
     subcategory: "General Chemistry",
-    aliases: [
-      "calculate molar mass",
-      "molecular weight calculator",
-      "molar mass formula",
-      "percent composition calculator",
-      "percent composition",
-      "mass percent calculator",
-      "chemical formula calculator",
-      "chemical formula mass",
-      "formula mass calculator",
-      "empirical formula calculator",
-      "molecular formula calculator",
-      "moles calculator",
-      "atoms calculator",
-      "molecules calculator",
-      "ions calculator"
-    ],
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>",
-    component: "ChemicalFormulaCalculator"
+    aliases: ["calculate molar mass","molecular weight calculator","molar mass formula","percent composition calculator","percent composition","mass percent calculator","chemical formula calculator","chemical formula mass","formula mass calculator","empirical formula calculator","molecular formula calculator","moles calculator","atoms calculator","molecules calculator","ions calculator"],
+    component: "ChemicalFormulaCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
   },
-  { id: "mass-to-moles", title: "Mass to Moles", description: "Convert sample mass in grams into moles of substance using formula molecular weight.", slug: "mass-to-moles", category: "Chemistry", subcategory: "General Chemistry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"m","label":"Mass","options":[{"label":"g","factor":1},{"label":"kg","factor":1000},{"label":"mg","factor":0.001}]},{"id":"mm","label":"Molar Mass","options":[{"label":"g/mol","factor":1}]}], expression: "m / mm", outputLabel: "Moles", outputOptions: [{"label":"mol","factor":1},{"label":"mmol","factor":0.001}] } },
-  { id: "moles-to-mass", title: "Moles to Mass", description: "Convert amount of substance in moles into mass in grams using molar mass.", slug: "moles-to-mass", category: "Chemistry", subcategory: "General Chemistry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"n","label":"Moles","options":[{"label":"mol","factor":1},{"label":"mmol","factor":0.001}]},{"id":"mm","label":"Molar Mass","options":[{"label":"g/mol","factor":1}]}], expression: "n * mm", outputLabel: "Mass", outputOptions: [{"label":"g","factor":1},{"label":"kg","factor":1000},{"label":"mg","factor":0.001}] } },
-  { id: "particles-to-moles", title: "Particles to Moles", description: "Convert atoms/molecules to moles.", slug: "particles-to-moles", category: "Chemistry", subcategory: "General Chemistry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"p","label":"Particles","options":[{"label":"count","factor":1}]}], expression: "p / NA", outputLabel: "Moles", outputOptions: [{"label":"mol","factor":1},{"label":"mmol","factor":0.001}] } },
-  { id: "moles-to-particles", title: "Moles to Particles", description: "Convert moles to atoms/molecules.", slug: "moles-to-particles", category: "Chemistry", subcategory: "General Chemistry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"n","label":"Moles","options":[{"label":"mol","factor":1},{"label":"mmol","factor":0.001}]}], expression: "n * NA", outputLabel: "Particles", outputOptions: [{"label":"count","factor":1}] } },
-  { id: "atomic-number-calculator", title: "Atomic Number Calculator", description: "Calculate Z = Protons.", slug: "atomic-number-calculator", category: "Chemistry", subcategory: "Atomic Structure", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"p","label":"Protons","options":[{"label":"count","factor":1}]}], expression: "p", outputLabel: "Atomic Number (Z)", outputOptions: [{"label":"Z","factor":1}] } },
-  { id: "mass-number-calculator", title: "Mass Number Calculator", description: "Calculate A = Protons + Neutrons.", slug: "mass-number-calculator", category: "Chemistry", subcategory: "Atomic Structure", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"p","label":"Protons","options":[{"label":"count","factor":1}]},{"id":"n","label":"Neutrons","options":[{"label":"count","factor":1}]}], expression: "p + n", outputLabel: "Mass Number (A)", outputOptions: [{"label":"A","factor":1}] } },
-  { id: "protons-neutrons-electrons", title: "Protons, Neutrons, Electrons", description: "Find Electrons = Protons - Charge.", slug: "protons-neutrons-electrons", category: "Chemistry", subcategory: "Atomic Structure", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"p","label":"Protons","options":[{"label":"count","factor":1}]},{"id":"c","label":"Charge","options":[{"label":"e","factor":1}]}], expression: "p - c", outputLabel: "Electrons", outputOptions: [{"label":"count","factor":1}] } },
-  { id: "average-atomic-mass", title: "Average Atomic Mass", description: "Mass = (m1*a1 + m2*a2)/100.", slug: "average-atomic-mass", category: "Chemistry", subcategory: "Atomic Structure", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"m1","label":"Mass 1","options":[{"label":"amu","factor":1}]},{"id":"a1","label":"Abundance 1 (%)","options":[{"label":"%","factor":1}]},{"id":"m2","label":"Mass 2","options":[{"label":"amu","factor":1}]},{"id":"a2","label":"Abundance 2 (%)","options":[{"label":"%","factor":1}]}], expression: "(m1*a1 + m2*a2)/100", outputLabel: "Average Mass", outputOptions: [{"label":"amu","factor":1}] } },
-  { id: "photon-energy-chemistry", title: "Photon Energy", description: "Determine the quantum energy of photons per wavelength in photochemical processes.", slug: "photon-energy-chemistry", category: "Chemistry", subcategory: "Atomic Structure", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"l","label":"Wavelength (m)","options":[{"label":"m","factor":1},{"label":"nm","factor":1e-9}]}], expression: "(h * c) / l", outputLabel: "Photon Energy", outputOptions: [{"label":"J","factor":1},{"label":"kJ","factor":1000}] } },
-  { id: "wavelength-frequency-energy", title: "Wavelength to Frequency", description: "f = c/λ.", slug: "wavelength-frequency-energy", category: "Chemistry", subcategory: "Atomic Structure", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"l","label":"Wavelength","options":[{"label":"m","factor":1},{"label":"nm","factor":1e-9}]}], expression: "c / l", outputLabel: "Frequency", outputOptions: [{"label":"Hz","factor":1}] } },
   {
     id: "periodic-table",
     title: "Interactive Periodic Table",
@@ -609,213 +787,564 @@ export const tools: Tool[] = [
     slug: "periodic-table",
     category: "Chemistry",
     subcategory: "Periodic Table",
-    aliases: [
-      "electron configuration",
-      "electron configuration calculator",
-      "valence electrons",
-      "valence electron calculator",
-      "oxidation states",
-      "oxidation state calculator",
-      "isotope calculator",
-      "isotope abundance",
-      "element lookup",
-      "chemistry periodic table"
-    ],
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>",
-    component: "PeriodicTable"
+    aliases: ["electron configuration","electron configuration calculator","valence electrons","valence electron calculator","oxidation states","oxidation state calculator","isotope calculator","isotope abundance","element lookup","chemistry periodic table"],
+    component: "PeriodicTable",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
   },
-  { id: "ideal-gas-law", title: "Ideal Gas Law", description: "Calculate Pressure (P = nRT/V).", slug: "ideal-gas-law", category: "Chemistry", subcategory: "Gas Laws", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"n","label":"Moles","options":[{"label":"mol","factor":1},{"label":"mmol","factor":0.001}]},{"id":"T","label":"Temperature","options":[{"label":"K","factor":1},{"label":"°C","factor":1,"offset":273.15}]},{"id":"V","label":"Volume","options":[{"label":"L","factor":1},{"label":"mL","factor":0.001},{"label":"m³","factor":1000}]}], expression: "(n * R * T) / V", outputLabel: "Pressure", outputOptions: [{"label":"atm","factor":101325},{"label":"Pa","factor":1},{"label":"kPa","factor":1000},{"label":"mmHg (Torr)","factor":133.322},{"label":"bar","factor":100000}] } },
-  { id: "boyles-law", title: "Boyle's Law", description: "Calculate P2 = (P1*V1)/V2.", slug: "boyles-law", category: "Chemistry", subcategory: "Gas Laws", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"p1","label":"P1","options":[{"label":"atm","factor":101325},{"label":"Pa","factor":1},{"label":"kPa","factor":1000},{"label":"mmHg (Torr)","factor":133.322},{"label":"bar","factor":100000}]},{"id":"v1","label":"V1","options":[{"label":"L","factor":1},{"label":"mL","factor":0.001},{"label":"m³","factor":1000}]},{"id":"v2","label":"V2","options":[{"label":"L","factor":1},{"label":"mL","factor":0.001},{"label":"m³","factor":1000}]}], expression: "(p1 * v1) / v2", outputLabel: "Pressure 2", outputOptions: [{"label":"atm","factor":101325},{"label":"Pa","factor":1},{"label":"kPa","factor":1000},{"label":"mmHg (Torr)","factor":133.322},{"label":"bar","factor":100000}] } },
-  { id: "charles-law", title: "Charles's Law", description: "Calculate V2 = (V1*T2)/T1.", slug: "charles-law", category: "Chemistry", subcategory: "Gas Laws", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"v1","label":"V1","options":[{"label":"L","factor":1},{"label":"mL","factor":0.001},{"label":"m³","factor":1000}]},{"id":"t1","label":"T1","options":[{"label":"K","factor":1},{"label":"°C","factor":1,"offset":273.15}]},{"id":"t2","label":"T2","options":[{"label":"K","factor":1},{"label":"°C","factor":1,"offset":273.15}]}], expression: "(v1 * t2) / t1", outputLabel: "Volume 2", outputOptions: [{"label":"L","factor":1},{"label":"mL","factor":0.001},{"label":"m³","factor":1000}] } },
-  { id: "gay-lussacs-law", title: "Gay-Lussac's Law", description: "Calculate P2 = (P1*T2)/T1.", slug: "gay-lussacs-law", category: "Chemistry", subcategory: "Gas Laws", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"p1","label":"P1","options":[{"label":"atm","factor":101325},{"label":"Pa","factor":1},{"label":"kPa","factor":1000},{"label":"mmHg (Torr)","factor":133.322},{"label":"bar","factor":100000}]},{"id":"t1","label":"T1","options":[{"label":"K","factor":1},{"label":"°C","factor":1,"offset":273.15}]},{"id":"t2","label":"T2","options":[{"label":"K","factor":1},{"label":"°C","factor":1,"offset":273.15}]}], expression: "(p1 * t2) / t1", outputLabel: "Pressure 2", outputOptions: [{"label":"atm","factor":101325},{"label":"Pa","factor":1},{"label":"kPa","factor":1000},{"label":"mmHg (Torr)","factor":133.322},{"label":"bar","factor":100000}] } },
-  { id: "combined-gas-law", title: "Combined Gas Law Calculator (Chemistry)", description: "Calculate combined gas law relationships between initial and final pressure, volume, and temperature.", slug: "combined-gas-law", category: "Chemistry", subcategory: "Gas Laws", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"p1","label":"P1","options":[{"label":"atm","factor":101325},{"label":"Pa","factor":1},{"label":"kPa","factor":1000},{"label":"mmHg (Torr)","factor":133.322},{"label":"bar","factor":100000}]},{"id":"v1","label":"V1","options":[{"label":"L","factor":1},{"label":"mL","factor":0.001},{"label":"m³","factor":1000}]},{"id":"t1","label":"T1","options":[{"label":"K","factor":1},{"label":"°C","factor":1,"offset":273.15}]},{"id":"v2","label":"V2","options":[{"label":"L","factor":1},{"label":"mL","factor":0.001},{"label":"m³","factor":1000}]},{"id":"t2","label":"T2","options":[{"label":"K","factor":1},{"label":"°C","factor":1,"offset":273.15}]}], expression: "(p1 * v1 * t2) / (t1 * v2)", outputLabel: "Pressure 2", outputOptions: [{"label":"atm","factor":101325},{"label":"Pa","factor":1},{"label":"kPa","factor":1000},{"label":"mmHg (Torr)","factor":133.322},{"label":"bar","factor":100000}] } },
-  { id: "gas-density-calculator", title: "Gas Density", description: "Density = PM/(RT).", slug: "gas-density-calculator", category: "Chemistry", subcategory: "Gas Laws", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"p","label":"Pressure","options":[{"label":"atm","factor":101325},{"label":"Pa","factor":1},{"label":"kPa","factor":1000},{"label":"mmHg (Torr)","factor":133.322},{"label":"bar","factor":100000}]},{"id":"m","label":"Molar Mass (kg/mol)","options":[{"label":"kg/mol","factor":1},{"label":"g/mol","factor":0.001}]},{"id":"t","label":"Temperature","options":[{"label":"K","factor":1},{"label":"°C","factor":1,"offset":273.15}]}], expression: "(p * m) / (R * t)", outputLabel: "Density", outputOptions: [{"label":"kg/m³","factor":1},{"label":"g/L","factor":1}] } },
-  { id: "root-mean-square-speed", title: "RMS Speed of Gas", description: "v_rms = √(3RT/M).", slug: "root-mean-square-speed", category: "Chemistry", subcategory: "Gas Laws", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"t","label":"Temperature","options":[{"label":"K","factor":1},{"label":"°C","factor":1,"offset":273.15}]},{"id":"m","label":"Molar Mass (kg/mol)","options":[{"label":"kg/mol","factor":1},{"label":"g/mol","factor":0.001}]}], expression: "sqrt(3 * R * t / m)", outputLabel: "RMS Speed", outputOptions: [{"label":"m/s","factor":1}] } },
-  { id: "molarity-calculator", title: "Molarity Calculator", description: "Calculate molar concentration (M = mol/L) from solute moles and solution volume.", slug: "molarity-calculator", category: "Chemistry", subcategory: "Solutions", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"n","label":"Moles of Solute","options":[{"label":"mol","factor":1},{"label":"mmol","factor":0.001}]},{"id":"v","label":"Volume of Solution","options":[{"label":"L","factor":1},{"label":"mL","factor":0.001},{"label":"m³","factor":1000}]}], expression: "n / v", outputLabel: "Molarity", outputOptions: [{"label":"M (mol/L)","factor":1},{"label":"mM","factor":0.001}] } },
-  { id: "molality-calculator", title: "Molality Calculator", description: "Calculate molal concentration (m = mol/kg) from solute moles and solvent mass.", slug: "molality-calculator", category: "Chemistry", subcategory: "Solutions", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"n","label":"Moles of Solute","options":[{"label":"mol","factor":1},{"label":"mmol","factor":0.001}]},{"id":"m","label":"Mass of Solvent","options":[{"label":"kg","factor":1},{"label":"g","factor":0.001}]}], expression: "n / m", outputLabel: "Molality", outputOptions: [{"label":"m (mol/kg)","factor":1}] } },
-  { id: "dilution-calculator", title: "Dilution Calculator", description: "Calculate final volume or concentration for solution dilutions using M₁V₁ = M₂V₂.", slug: "dilution-calculator", category: "Chemistry", subcategory: "Solutions", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"c1","label":"Initial Concentration","options":[{"label":"M (mol/L)","factor":1},{"label":"mM","factor":0.001}]},{"id":"v1","label":"Initial Volume","options":[{"label":"L","factor":1},{"label":"mL","factor":0.001},{"label":"m³","factor":1000}]},{"id":"c2","label":"Final Concentration","options":[{"label":"M (mol/L)","factor":1},{"label":"mM","factor":0.001}]}], expression: "(c1 * v1) / c2", outputLabel: "Volume 2", outputOptions: [{"label":"L","factor":1},{"label":"mL","factor":0.001},{"label":"m³","factor":1000}] }, related: ["molarity-calculator", "molar-mass-calculator", "ph-calculator"] },
-  { id: "mass-percent-calculator", title: "Mass Percent", description: "Calculate mass percentage concentration of solute components in chemical mixtures.", slug: "mass-percent-calculator", category: "Chemistry", subcategory: "Solutions", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"ms","label":"Mass of Solute","options":[{"label":"g","factor":1},{"label":"kg","factor":1000},{"label":"mg","factor":0.001}]},{"id":"mt","label":"Total Solution Mass","options":[{"label":"g","factor":1},{"label":"kg","factor":1000},{"label":"mg","factor":0.001}]}], expression: "(ms / mt) * 100", outputLabel: "Mass Percent", outputOptions: [{"label":"%","factor":1}] } },
-  { id: "mole-fraction-calculator", title: "Mole Fraction", description: "X = nA / (nA + nB).", slug: "mole-fraction-calculator", category: "Chemistry", subcategory: "Solutions", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"na","label":"Moles of A","options":[{"label":"mol","factor":1},{"label":"mmol","factor":0.001}]},{"id":"nb","label":"Moles of B","options":[{"label":"mol","factor":1},{"label":"mmol","factor":0.001}]}], expression: "na / (na + nb)", outputLabel: "Mole Fraction", outputOptions: [{"label":"fraction","factor":1}] } },
-  { id: "ph-calculator", title: "pH Calculator", description: "Calculate solution pH and hydronium ion concentration [H⁺] for acid solutions.", slug: "ph-calculator", category: "Chemistry", subcategory: "Acids & Bases", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"h","label":"[H+] Concentration (M)","options":[{"label":"M (mol/L)","factor":1},{"label":"mM","factor":0.001}]}], expression: "-log10(h)", outputLabel: "pH", outputOptions: [{"label":"pH","factor":1}] } },
-  { id: "poh-calculator", title: "pOH Calculator", description: "Calculate solution pOH and hydroxide ion concentration [OH⁻] for basic solutions.", slug: "poh-calculator", category: "Chemistry", subcategory: "Acids & Bases", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"oh","label":"[OH-] Concentration (M)","options":[{"label":"M (mol/L)","factor":1},{"label":"mM","factor":0.001}]}], expression: "-log10(oh)", outputLabel: "pOH", outputOptions: [{"label":"pOH","factor":1}] } },
-  { id: "hydrogen-ion-concentration", title: "[H+] from pH", description: "Calculate [H+] = 10^(-pH).", slug: "hydrogen-ion-concentration", category: "Chemistry", subcategory: "Acids & Bases", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"ph","label":"pH","options":[{"label":"pH","factor":1}]}], expression: "pow(10, -ph)", outputLabel: "[H+]", outputOptions: [{"label":"M (mol/L)","factor":1},{"label":"mM","factor":0.001}] } },
-  { id: "pka-calculator", title: "pKa Calculator", description: "Calculate acid dissociation constant pKa from Ka values to evaluate acid strength.", slug: "pka-calculator", category: "Chemistry", subcategory: "Acids & Bases", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"ka","label":"Ka Value","options":[{"label":"Ka","factor":1}]}], expression: "-log10(ka)", outputLabel: "pKa", outputOptions: [{"label":"pKa","factor":1}] } },
-  { id: "henderson-hasselbalch", title: "Henderson-Hasselbalch", description: "pH = pKa + log([A-]/[HA]).", slug: "henderson-hasselbalch", category: "Chemistry", subcategory: "Acids & Bases", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"pka","label":"pKa","options":[{"label":"pKa","factor":1}]},{"id":"a","label":"[A-] (Base)","options":[{"label":"M (mol/L)","factor":1},{"label":"mM","factor":0.001}]},{"id":"ha","label":"[HA] (Acid)","options":[{"label":"M (mol/L)","factor":1},{"label":"mM","factor":0.001}]}], expression: "pka + log10(a / ha)", outputLabel: "pH", outputOptions: [{"label":"pH","factor":1}] } },
-  { id: "reaction-balancer", title: "Reaction Balancer", description: "Balance chemical reaction equations and verify stoichiometry conservation of mass.", slug: "reaction-balancer", category: "Chemistry", subcategory: "Stoichiometry", aliases: ["balance chemical equation","equation balancer","balance reactions chemistry"], icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "ReactionBalancer" },
-  { id: "percent-yield-calculator", title: "Percent Yield Calculator", description: "Calculate percentage reaction yield from actual laboratory and theoretical yields.", slug: "percent-yield-calculator", category: "Chemistry", subcategory: "Stoichiometry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"a","label":"Actual Yield (g)","options":[{"label":"g","factor":1},{"label":"kg","factor":1000},{"label":"mg","factor":0.001}]},{"id":"t","label":"Theoretical Yield (g)","options":[{"label":"g","factor":1},{"label":"kg","factor":1000},{"label":"mg","factor":0.001}]}], expression: "(a / t) * 100", outputLabel: "Percent Yield", outputOptions: [{"label":"%","factor":1}] } },
-  { id: "heat-energy-calculator", title: "Heat Energy (Q = mcΔT)", description: "Calculate thermal heat transfer in thermochemical reactions using Q = mcΔT.", slug: "heat-energy-calculator", category: "Chemistry", subcategory: "Thermochemistry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"m","label":"Mass (g)","options":[{"label":"g","factor":1},{"label":"kg","factor":1000},{"label":"mg","factor":0.001}]},{"id":"c","label":"Specific Heat J/(g°C)","options":[{"label":"J/(g°C)","factor":1}]},{"id":"dt","label":"ΔT","options":[{"label":"K or °C","factor":1}]}], expression: "m * c * dt", outputLabel: "Heat Energy (Q)", outputOptions: [{"label":"J","factor":1},{"label":"kJ","factor":1000}] } },
-  { id: "enthalpy-calculator", title: "Enthalpy Change (ΔH)", description: "Calculate ΔH = Q / n.", slug: "enthalpy-calculator", category: "Chemistry", subcategory: "Thermochemistry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"q","label":"Heat (Q)","options":[{"label":"J","factor":1},{"label":"kJ","factor":1000}]},{"id":"n","label":"Moles","options":[{"label":"mol","factor":1},{"label":"mmol","factor":0.001}]}], expression: "q / n", outputLabel: "ΔH", outputOptions: [{"label":"J/mol","factor":1},{"label":"kJ/mol","factor":1000}] } },
-  { id: "kc-calculator", title: "Kc Calculator", description: "Calculate Equilibrium Constant (Products / Reactants).", slug: "kc-calculator", category: "Chemistry", subcategory: "Equilibrium", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"p1","label":"Product 1 [C]^c","options":[{"label":"value","factor":1}]},{"id":"p2","label":"Product 2 [D]^d (1 if none)","options":[{"label":"value","factor":1}]},{"id":"r1","label":"Reactant 1 [A]^a","options":[{"label":"value","factor":1}]},{"id":"r2","label":"Reactant 2 [B]^b (1 if none)","options":[{"label":"value","factor":1}]}], expression: "(p1 * p2) / (r1 * r2)", outputLabel: "Kc", outputOptions: [{"label":"Kc","factor":1}] } },
-  { id: "gibbs-free-energy", title: "Gibbs Free Energy", description: "ΔG = ΔH - TΔS.", slug: "gibbs-free-energy", category: "Chemistry", subcategory: "Equilibrium", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"dh","label":"ΔH (J)","options":[{"label":"J","factor":1},{"label":"kJ","factor":1000}]},{"id":"t","label":"Temperature (K)","options":[{"label":"K","factor":1},{"label":"°C","factor":1,"offset":273.15}]},{"id":"ds","label":"ΔS (J/K)","options":[{"label":"J/K","factor":1}]}], expression: "dh - (t * ds)", outputLabel: "ΔG", outputOptions: [{"label":"J","factor":1},{"label":"kJ","factor":1000}] } },
-  { id: "standard-cell-potential", title: "Standard Cell Potential", description: "Calculate standard electrochemical cell potential from cathode and anode reduction potentials.", slug: "standard-cell-potential", category: "Chemistry", subcategory: "Electrochemistry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"ec","label":"E° Cathode (V)","options":[{"label":"V","factor":1}]},{"id":"ea","label":"E° Anode (V)","options":[{"label":"V","factor":1}]}], expression: "ec - ea", outputLabel: "E°cell", outputOptions: [{"label":"V","factor":1}] } },
-  { id: "nernst-equation", title: "Nernst Equation", description: "E = E° - (RT/nF)ln(Q).", slug: "nernst-equation", category: "Chemistry", subcategory: "Electrochemistry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"e0","label":"E°cell (V)","options":[{"label":"V","factor":1}]},{"id":"t","label":"Temperature","options":[{"label":"K","factor":1},{"label":"°C","factor":1,"offset":273.15}]},{"id":"n","label":"Moles of Electrons","options":[{"label":"mol","factor":1}]},{"id":"q","label":"Reaction Quotient (Q)","options":[{"label":"Q","factor":1}]}], expression: "e0 - ((R * t) / (n * F)) * log(q)", outputLabel: "Cell Potential (E)", outputOptions: [{"label":"V","factor":1}] } },
-  { id: "faradays-electrolysis", title: "Faraday Electrolysis Mass", description: "m = (Q * M) / (n * F).", slug: "faradays-electrolysis", category: "Chemistry", subcategory: "Electrochemistry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"i","label":"Current (A)","options":[{"label":"A","factor":1}]},{"id":"t","label":"Time (s)","options":[{"label":"s","factor":1}]},{"id":"m","label":"Molar Mass (g/mol)","options":[{"label":"g/mol","factor":1}]},{"id":"n","label":"Electrons (n)","options":[{"label":"mol","factor":1}]}], expression: "(i * t * m) / (n * F)", outputLabel: "Mass Deposited", outputOptions: [{"label":"g","factor":1},{"label":"kg","factor":1000},{"label":"mg","factor":0.001}] } },
-  { id: "half-life-first-order", title: "First-Order Half-Life", description: "Calculate decomposition half-life for first-order radioactive and chemical kinetics.", slug: "half-life-first-order", category: "Chemistry", subcategory: "Kinetics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"k","label":"Rate Constant (k)","options":[{"label":"s⁻¹","factor":1}]}], expression: "log(2) / k", outputLabel: "Half-Life", outputOptions: [{"label":"s","factor":1}] } },
-  { id: "arrhenius-equation", title: "Arrhenius Equation", description: "k = A * e^(-Ea/RT).", slug: "arrhenius-equation", category: "Chemistry", subcategory: "Kinetics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"a","label":"Pre-exponential Factor (A)","options":[{"label":"A","factor":1}]},{"id":"ea","label":"Activation Energy (J/mol)","options":[{"label":"J/mol","factor":1}]},{"id":"t","label":"Temperature","options":[{"label":"K","factor":1},{"label":"°C","factor":1,"offset":273.15}]}], expression: "a * exp(-ea / (R * t))", outputLabel: "Rate Constant (k)", outputOptions: [{"label":"k","factor":1}] } },
-  { id: "radioactive-decay", title: "Radioactive Decay", description: "N = N0 * e^(-λt).", slug: "radioactive-decay", category: "Chemistry", subcategory: "Nuclear Chemistry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"n0","label":"Initial Amount (N0)","options":[{"label":"value","factor":1}]},{"id":"l","label":"Decay Constant (λ)","options":[{"label":"s⁻¹","factor":1}]},{"id":"t","label":"Time","options":[{"label":"s","factor":1}]}], expression: "n0 * exp(-l * t)", outputLabel: "Remaining Amount", outputOptions: [{"label":"value","factor":1}] } },
-  { id: "chemistry-constants", title: "Chemistry Constants", description: "Reference table of fundamental chemical constants, gas constants, and conversion factors.", slug: "chemistry-constants", category: "Chemistry", subcategory: "Reference", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "ChemistryReference" },
-  { id: "solubility-rules", title: "Solubility Rules", description: "Reference guide of general aqueous solubility rules for ionic salts and precipitates.", slug: "solubility-rules", category: "Chemistry", subcategory: "Reference", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "ChemistryReference" },
-  { id: "strong-acids-and-bases", title: "Strong Acids & Bases", description: "Reference list of common strong acids, strong bases, and ionization properties.", slug: "strong-acids-and-bases", category: "Chemistry", subcategory: "Reference", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "ChemistryReference" },
-  { id: "common-polyatomic-ions", title: "Polyatomic Ions", description: "Reference guide of common polyatomic cation and anion names, formulas, and charges.", slug: "common-polyatomic-ions", category: "Chemistry", subcategory: "Reference", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "ChemistryReference" },
-  { id: "stoichiometry-calculator", title: "Stoichiometry Calculator", description: "Calculate stoichiometric reactant proportions and theoretical product yields.", slug: "stoichiometry-calculator", category: "Chemistry", subcategory: "Stoichiometry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "ReactionBalancer" },
-  { id: "theoretical-yield-calculator", title: "Theoretical Yield", description: "Calculate theoretical maximum product mass based on limiting reagent quantities.", slug: "theoretical-yield-calculator", category: "Chemistry", subcategory: "Stoichiometry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"n","label":"Moles of Product","options":[{"label":"mol","factor":1},{"label":"mmol","factor":0.001}]},{"id":"mm","label":"Molar Mass","options":[{"label":"g/mol","factor":1}]}], expression: "n * mm", outputLabel: "Theoretical Yield", outputOptions: [{"label":"g","factor":1},{"label":"kg","factor":1000},{"label":"mg","factor":0.001}] } },
-  { id: "actual-yield-calculator", title: "Actual Yield Calculator", description: "Find Actual Yield from % yield.", slug: "actual-yield-calculator", category: "Chemistry", subcategory: "Stoichiometry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"p","label":"Percent Yield","options":[{"label":"%","factor":1}]},{"id":"t","label":"Theoretical Yield","options":[{"label":"g","factor":1},{"label":"kg","factor":1000},{"label":"mg","factor":0.001}]}], expression: "(p / 100) * t", outputLabel: "Actual Yield", outputOptions: [{"label":"g","factor":1},{"label":"kg","factor":1000},{"label":"mg","factor":0.001}] } },
-  { id: "daltons-law", title: "Dalton's Law of Partial Pressures", description: "Calculate total mixture pressure and partial pressures using Dalton's law of partial pressures.", slug: "daltons-law", category: "Chemistry", subcategory: "Gas Laws", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"p1","label":"P1","options":[{"label":"atm","factor":101325},{"label":"Pa","factor":1},{"label":"kPa","factor":1000},{"label":"mmHg (Torr)","factor":133.322},{"label":"bar","factor":100000}]},{"id":"p2","label":"P2","options":[{"label":"atm","factor":101325},{"label":"Pa","factor":1},{"label":"kPa","factor":1000},{"label":"mmHg (Torr)","factor":133.322},{"label":"bar","factor":100000}]},{"id":"p3","label":"P3 (0 if none)","options":[{"label":"atm","factor":101325},{"label":"Pa","factor":1},{"label":"kPa","factor":1000},{"label":"mmHg (Torr)","factor":133.322},{"label":"bar","factor":100000}]}], expression: "p1 + p2 + p3", outputLabel: "Total Pressure", outputOptions: [{"label":"atm","factor":101325},{"label":"Pa","factor":1},{"label":"kPa","factor":1000},{"label":"mmHg (Torr)","factor":133.322},{"label":"bar","factor":100000}] } },
-  { id: "molar-volume-calculator", title: "Molar Volume", description: "Calculate molar gas volume under standard temperature and pressure conditions.", slug: "molar-volume-calculator", category: "Chemistry", subcategory: "Gas Laws", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"t","label":"Temperature","options":[{"label":"K","factor":1},{"label":"°C","factor":1,"offset":273.15}]},{"id":"p","label":"Pressure","options":[{"label":"atm","factor":101325},{"label":"Pa","factor":1},{"label":"kPa","factor":1000},{"label":"mmHg (Torr)","factor":133.322},{"label":"bar","factor":100000}]}], expression: "(R * t) / p", outputLabel: "Molar Volume", outputOptions: [{"label":"L/mol","factor":0.001},{"label":"m³/mol","factor":1}] } },
-  { id: "average-kinetic-energy-gas", title: "Avg Kinetic Energy (Gas)", description: "Calculate mean translational kinetic energy of ideal gas molecules per temperature.", slug: "average-kinetic-energy-gas", category: "Chemistry", subcategory: "Gas Laws", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"t","label":"Temperature","options":[{"label":"K","factor":1},{"label":"°C","factor":1,"offset":273.15}]}], expression: "1.5 * kB * t", outputLabel: "Kinetic Energy", outputOptions: [{"label":"J","factor":1},{"label":"kJ","factor":1000}] } },
-  { id: "graham-law-calculator", title: "Graham's Law of Effusion", description: "Calculate relative effusion and diffusion rates for gases based on molar masses.", slug: "graham-law-calculator", category: "Chemistry", subcategory: "Gas Laws", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"m1","label":"Molar Mass 1","options":[{"label":"g/mol","factor":1}]},{"id":"m2","label":"Molar Mass 2","options":[{"label":"g/mol","factor":1}]}], expression: "sqrt(m2 / m1)", outputLabel: "Rate Ratio (R1/R2)", outputOptions: [{"label":"count","factor":1}] } },
-  { id: "normality-calculator", title: "Normality Calculator", description: "Calculate solution normality (N) and chemical equivalents for acid-base titrations.", slug: "normality-calculator", category: "Chemistry", subcategory: "Solutions", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"m","label":"Molarity","options":[{"label":"M (mol/L)","factor":1},{"label":"mM","factor":0.001}]},{"id":"eq","label":"Equivalents","options":[{"label":"count","factor":1}]}], expression: "m * eq", outputLabel: "Normality (N)", outputOptions: [{"label":"N (eq/L)","factor":1}] } },
-  { id: "volume-percent-calculator", title: "Volume Percent (v/v)", description: "Calculate volume percentage concentration (v/v %) for liquid chemical solutions.", slug: "volume-percent-calculator", category: "Chemistry", subcategory: "Solutions", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"vs","label":"Volume Solute","options":[{"label":"L","factor":1},{"label":"mL","factor":0.001},{"label":"m³","factor":1000}]},{"id":"vt","label":"Total Volume","options":[{"label":"L","factor":1},{"label":"mL","factor":0.001},{"label":"m³","factor":1000}]}], expression: "(vs / vt) * 100", outputLabel: "Volume %", outputOptions: [{"label":"%","factor":1}] } },
-  { id: "ppm-calculator", title: "PPM Calculator (Parts Per Million)", description: "Calculate solute concentration in parts per million (ppm) for trace chemical analysis.", slug: "ppm-calculator", category: "Chemistry", subcategory: "Solutions", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"ms","label":"Mass of Solute","options":[{"label":"g","factor":1},{"label":"kg","factor":1000},{"label":"mg","factor":0.001}]},{"id":"mt","label":"Total Mass","options":[{"label":"g","factor":1},{"label":"kg","factor":1000},{"label":"mg","factor":0.001}]}], expression: "(ms / mt) * 1e6", outputLabel: "PPM", outputOptions: [{"label":"ppm","factor":1}] } },
-  { id: "ppb-calculator", title: "PPB Calculator", description: "Calculate solute concentration in parts per billion (ppb) for ultra-trace water analysis.", slug: "ppb-calculator", category: "Chemistry", subcategory: "Solutions", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"ms","label":"Mass of Solute","options":[{"label":"g","factor":1},{"label":"kg","factor":1000},{"label":"mg","factor":0.001}]},{"id":"mt","label":"Total Mass","options":[{"label":"g","factor":1},{"label":"kg","factor":1000},{"label":"mg","factor":0.001}]}], expression: "(ms / mt) * 1e9", outputLabel: "PPB", outputOptions: [{"label":"ppb","factor":1}] } },
-  { id: "solution-concentration-calculator", title: "Solution Concentration", description: "Calculate molar concentration and solution density from solute quantities.", slug: "solution-concentration-calculator", category: "Chemistry", subcategory: "Solutions", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"n","label":"Moles","options":[{"label":"mol","factor":1},{"label":"mmol","factor":0.001}]},{"id":"v","label":"Volume","options":[{"label":"L","factor":1},{"label":"mL","factor":0.001},{"label":"m³","factor":1000}]}], expression: "n / v", outputLabel: "Concentration", outputOptions: [{"label":"M (mol/L)","factor":1},{"label":"mM","factor":0.001}] } },
-  { id: "moles-from-molarity", title: "Moles from Molarity", description: "Calculate moles of dissolved solute from solution molarity and liquid volume.", slug: "moles-from-molarity", category: "Chemistry", subcategory: "Solutions", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"c","label":"Molarity","options":[{"label":"M (mol/L)","factor":1},{"label":"mM","factor":0.001}]},{"id":"v","label":"Volume","options":[{"label":"L","factor":1},{"label":"mL","factor":0.001},{"label":"m³","factor":1000}]}], expression: "c * v", outputLabel: "Moles", outputOptions: [{"label":"mol","factor":1},{"label":"mmol","factor":0.001}] } },
-  { id: "grams-from-molarity", title: "Grams from Molarity", description: "Calculate required mass in grams to prepare specific molar solution concentrations.", slug: "grams-from-molarity", category: "Chemistry", subcategory: "Solutions", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"c","label":"Molarity","options":[{"label":"M (mol/L)","factor":1},{"label":"mM","factor":0.001}]},{"id":"v","label":"Volume","options":[{"label":"L","factor":1},{"label":"mL","factor":0.001},{"label":"m³","factor":1000}]},{"id":"mm","label":"Molar Mass","options":[{"label":"g/mol","factor":1}]}], expression: "c * v * mm", outputLabel: "Mass", outputOptions: [{"label":"g","factor":1},{"label":"kg","factor":1000},{"label":"mg","factor":0.001}] } },
-  { id: "hydroxide-ion-concentration", title: "[OH-] from pOH", description: "Calculate hydroxide ion molarity [OH⁻] directly from solution pOH values.", slug: "hydroxide-ion-concentration", category: "Chemistry", subcategory: "Acids & Bases", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"poh","label":"pOH","options":[{"label":"count","factor":1}]}], expression: "pow(10, -poh)", outputLabel: "[OH-]", outputOptions: [{"label":"M (mol/L)","factor":1},{"label":"mM","factor":0.001}] } },
-  { id: "pkb-calculator", title: "pKb Calculator", description: "Calculate base dissociation constant pKb from Kb values to evaluate base strength.", slug: "pkb-calculator", category: "Chemistry", subcategory: "Acids & Bases", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"kb","label":"Kb","options":[{"label":"count","factor":1}]}], expression: "-log10(kb)", outputLabel: "pKb", outputOptions: [{"label":"count","factor":1}] } },
-  { id: "ka-calculator", title: "Ka from pKa", description: "Calculate acid dissociation constant Ka from equilibrium concentrations.", slug: "ka-calculator", category: "Chemistry", subcategory: "Acids & Bases", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"pka","label":"pKa","options":[{"label":"count","factor":1}]}], expression: "pow(10, -pka)", outputLabel: "Ka", outputOptions: [{"label":"count","factor":1}] } },
-  { id: "kb-calculator", title: "Kb from pKb", description: "Calculate base dissociation constant Kb from equilibrium concentrations.", slug: "kb-calculator", category: "Chemistry", subcategory: "Acids & Bases", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"pkb","label":"pKb","options":[{"label":"count","factor":1}]}], expression: "pow(10, -pkb)", outputLabel: "Kb", outputOptions: [{"label":"count","factor":1}] } },
-  { id: "acid-base-neutralization", title: "Neutralization (MaVa = MbVb)", description: "Calculate titration equivalence points and neutralization reaction volumes.", slug: "acid-base-neutralization", category: "Chemistry", subcategory: "Acids & Bases", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"ma","label":"Molarity Acid","options":[{"label":"M (mol/L)","factor":1},{"label":"mM","factor":0.001}]},{"id":"va","label":"Volume Acid","options":[{"label":"L","factor":1},{"label":"mL","factor":0.001},{"label":"m³","factor":1000}]},{"id":"vb","label":"Volume Base","options":[{"label":"L","factor":1},{"label":"mL","factor":0.001},{"label":"m³","factor":1000}]}], expression: "(ma * va) / vb", outputLabel: "Molarity Base", outputOptions: [{"label":"M (mol/L)","factor":1},{"label":"mM","factor":0.001}] } },
-  { id: "q-mc-delta-t", title: "Q = mcΔT Calculator", description: "Calculate thermochemical heat transfer from mass, specific heat, and temperature change.", slug: "q-mc-delta-t", category: "Chemistry", subcategory: "Thermochemistry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"m","label":"Mass (g)","options":[{"label":"g","factor":1},{"label":"kg","factor":1000},{"label":"mg","factor":0.001}]},{"id":"c","label":"Specific Heat","options":[{"label":"J/(g°C)","factor":1}]},{"id":"dt","label":"ΔT","options":[{"label":"K","factor":1}]}], expression: "m * c * dt", outputLabel: "Heat (q)", outputOptions: [{"label":"J","factor":1},{"label":"kJ","factor":1000}] } },
-  { id: "calorimetry-calculator", title: "Calorimetry Calculator", description: "Calculate enthalpy and heat exchange in constant-pressure calorimeter experiments.", slug: "calorimetry-calculator", category: "Chemistry", subcategory: "Thermochemistry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"m","label":"Water Mass","options":[{"label":"g","factor":1},{"label":"kg","factor":1000},{"label":"mg","factor":0.001}]},{"id":"c","label":"Water Specific Heat","options":[{"label":"J/(g°C)","factor":1}]},{"id":"dt","label":"ΔT","options":[{"label":"K","factor":1}]}], expression: "-(m * c * dt)", outputLabel: "Heat of Reaction", outputOptions: [{"label":"J","factor":1},{"label":"kJ","factor":1000}] } },
-  { id: "heat-of-reaction", title: "Heat of Reaction (ΔH)", description: "Calculate standard reaction enthalpy (ΔH°rxn) from component heats of formation.", slug: "heat-of-reaction", category: "Chemistry", subcategory: "Thermochemistry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"hp","label":"Sum of Prod ΔHf","options":[{"label":"J","factor":1},{"label":"kJ","factor":1000}]},{"id":"hr","label":"Sum of React ΔHf","options":[{"label":"J","factor":1},{"label":"kJ","factor":1000}]}], expression: "hp - hr", outputLabel: "ΔH", outputOptions: [{"label":"J","factor":1},{"label":"kJ","factor":1000}] } },
-  { id: "fusion-energy", title: "Energy of Fusion", description: "Calculate thermal energy required for substance melting phase transitions using enthalpy of fusion.", slug: "fusion-energy", category: "Chemistry", subcategory: "Thermochemistry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"m","label":"Mass","options":[{"label":"g","factor":1},{"label":"kg","factor":1000},{"label":"mg","factor":0.001}]},{"id":"hf","label":"Heat of Fusion (J/g)","options":[{"label":"J/g","factor":1}]}], expression: "m * hf", outputLabel: "Energy", outputOptions: [{"label":"J","factor":1},{"label":"kJ","factor":1000}] } },
-  { id: "vaporization-energy", title: "Energy of Vaporization", description: "Calculate thermal energy required for boiling phase transitions using enthalpy of vaporization.", slug: "vaporization-energy", category: "Chemistry", subcategory: "Thermochemistry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"m","label":"Mass","options":[{"label":"g","factor":1},{"label":"kg","factor":1000},{"label":"mg","factor":0.001}]},{"id":"hv","label":"Heat of Vap (J/g)","options":[{"label":"J/g","factor":1}]}], expression: "m * hv", outputLabel: "Energy", outputOptions: [{"label":"J","factor":1},{"label":"kJ","factor":1000}] } },
-  { id: "equilibrium-constant", title: "Equilibrium Constant (K)", description: "Calculate equilibrium constants (K) from equilibrium product and reactant concentrations.", slug: "equilibrium-constant", category: "Chemistry", subcategory: "Equilibrium", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"p","label":"Product Concentration Term","options":[{"label":"count","factor":1}]},{"id":"r","label":"Reactant Concentration Term","options":[{"label":"count","factor":1}]}], expression: "p / r", outputLabel: "K", outputOptions: [{"label":"count","factor":1}] } },
-  { id: "kp-calculator", title: "Kp Calculator", description: "Calculate gas-phase equilibrium constants (Kp) from equilibrium partial pressures.", slug: "kp-calculator", category: "Chemistry", subcategory: "Equilibrium", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"kc","label":"Kc","options":[{"label":"count","factor":1}]},{"id":"t","label":"Temperature (K)","options":[{"label":"K","factor":1},{"label":"°C","factor":1,"offset":273.15}]},{"id":"dn","label":"Δn (gas moles)","options":[{"label":"count","factor":1}]}], expression: "kc * pow(R_atm * t, dn)", outputLabel: "Kp", outputOptions: [{"label":"count","factor":1}] } },
-  { id: "reaction-quotient", title: "Reaction Quotient (Q)", description: "Calculate reaction quotient (Q) to predict direction of shift toward equilibrium.", slug: "reaction-quotient", category: "Chemistry", subcategory: "Equilibrium", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"p","label":"Initial Product Term","options":[{"label":"count","factor":1}]},{"id":"r","label":"Initial Reactant Term","options":[{"label":"count","factor":1}]}], expression: "p / r", outputLabel: "Q", outputOptions: [{"label":"count","factor":1}] } },
-  { id: "cell-potential-calculator", title: "Cell Potential Calculator", description: "Calculate electrochemical galvanic cell potential voltage from half-cell potentials.", slug: "cell-potential-calculator", category: "Chemistry", subcategory: "Electrochemistry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"ec","label":"Cathode V","options":[{"label":"V","factor":1}]},{"id":"ea","label":"Anode V","options":[{"label":"V","factor":1}]}], expression: "ec - ea", outputLabel: "E°cell", outputOptions: [{"label":"V","factor":1}] } },
-  { id: "electrolysis-calculator", title: "Electrolysis Time", description: "Calculate electroplated mass deposited during electrolysis from current and duration.", slug: "electrolysis-calculator", category: "Chemistry", subcategory: "Electrochemistry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"m","label":"Mass (g)","options":[{"label":"g","factor":1}]},{"id":"n","label":"Electrons","options":[{"label":"count","factor":1}]},{"id":"i","label":"Current (A)","options":[{"label":"A","factor":1}]},{"id":"mm","label":"Molar Mass (g/mol)","options":[{"label":"g/mol","factor":1}]}], expression: "(m * n * F) / (i * mm)", outputLabel: "Time", outputOptions: [{"label":"s","factor":1}] } },
-  { id: "gibbs-free-energy-electrochemistry", title: "ΔG from E°cell", description: "Calculate free energy change (ΔG° = -nFE°) from electrochemical cell potential.", slug: "gibbs-free-energy-electrochemistry", category: "Chemistry", subcategory: "Electrochemistry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"n","label":"Moles of e-","options":[{"label":"mol","factor":1},{"label":"mmol","factor":0.001}]},{"id":"e","label":"E°cell (V)","options":[{"label":"V","factor":1}]}], expression: "-n * F * e", outputLabel: "ΔG", outputOptions: [{"label":"J","factor":1},{"label":"kJ","factor":1000}] } },
-  { id: "charge-from-current-time", title: "Charge (Q = It)", description: "Calculate total electric charge in coulombs passed through electrochemical cells.", slug: "charge-from-current-time", category: "Chemistry", subcategory: "Electrochemistry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"i","label":"Current (A)","options":[{"label":"A","factor":1}]},{"id":"t","label":"Time (s)","options":[{"label":"s","factor":1}]}], expression: "i * t", outputLabel: "Charge", outputOptions: [{"label":"C","factor":1}] } },
-  { id: "rate-law-calculator", title: "Rate Law Calculator", description: "Determine reaction order and calculate instantaneous reaction rates from rate laws.", slug: "rate-law-calculator", category: "Chemistry", subcategory: "Kinetics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"k","label":"Rate Constant","options":[{"label":"count","factor":1}]},{"id":"a","label":"[A]","options":[{"label":"M (mol/L)","factor":1},{"label":"mM","factor":0.001}]},{"id":"m","label":"Order of A","options":[{"label":"count","factor":1}]},{"id":"b","label":"[B]","options":[{"label":"M (mol/L)","factor":1},{"label":"mM","factor":0.001}]},{"id":"n","label":"Order of B","options":[{"label":"count","factor":1}]}], expression: "k * pow(a, m) * pow(b, n)", outputLabel: "Rate", outputOptions: [{"label":"M/s","factor":1}] } },
-  { id: "first-order-reaction", title: "First Order Reaction", description: "Calculate concentration decay and elapsed time for first-order kinetic reactions.", slug: "first-order-reaction", category: "Chemistry", subcategory: "Kinetics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"a0","label":"Initial [A]0","options":[{"label":"M (mol/L)","factor":1},{"label":"mM","factor":0.001}]},{"id":"k","label":"Rate Constant (k)","options":[{"label":"s⁻¹","factor":1}]},{"id":"t","label":"Time","options":[{"label":"s","factor":1}]}], expression: "a0 * exp(-k * t)", outputLabel: "[A]_t", outputOptions: [{"label":"M (mol/L)","factor":1},{"label":"mM","factor":0.001}] } },
-  { id: "half-life-calculator", title: "Half-Life (1st Order)", description: "Calculate first-order kinetic reaction half-life from rate constants.", slug: "half-life-calculator", category: "Chemistry", subcategory: "Kinetics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"k","label":"Rate Constant (k)","options":[{"label":"s⁻¹","factor":1}]}], expression: "log(2) / k", outputLabel: "Half-Life", outputOptions: [{"label":"s","factor":1}] } },
-  { id: "alkane-formula-calculator", title: "Alkane Formula", description: "Calculate molecular formulas and hydrogen atom counts for straight-chain alkanes.", slug: "alkane-formula-calculator", category: "Chemistry", subcategory: "Organic Chemistry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"n","label":"Carbon Atoms (n)","options":[{"label":"count","factor":1}]}], expression: "(2 * n) + 2", outputLabel: "Hydrogen Atoms", outputOptions: [{"label":"count","factor":1}] } },
-  { id: "alkene-formula-calculator", title: "Alkene Formula", description: "Calculate molecular formulas and unsaturation points for straight-chain alkenes.", slug: "alkene-formula-calculator", category: "Chemistry", subcategory: "Organic Chemistry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"n","label":"Carbon Atoms (n)","options":[{"label":"count","factor":1}]}], expression: "2 * n", outputLabel: "Hydrogen Atoms", outputOptions: [{"label":"count","factor":1}] } },
-  { id: "alkyne-formula-calculator", title: "Alkyne Formula", description: "Calculate molecular formulas and triple-bond stoichiometry for alkynes.", slug: "alkyne-formula-calculator", category: "Chemistry", subcategory: "Organic Chemistry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"n","label":"Carbon Atoms (n)","options":[{"label":"count","factor":1}]}], expression: "(2 * n) - 2", outputLabel: "Hydrogen Atoms", outputOptions: [{"label":"count","factor":1}] } },
-  { id: "degree-of-unsaturation", title: "Degree of Unsaturation", description: "Calculate degree of unsaturation (Index of Hydrogen Deficiency) for organic formulas.", slug: "degree-of-unsaturation", category: "Chemistry", subcategory: "Organic Chemistry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"c","label":"Carbons","options":[{"label":"count","factor":1}]},{"id":"h","label":"Hydrogens","options":[{"label":"count","factor":1}]},{"id":"n","label":"Nitrogens","options":[{"label":"count","factor":1}]},{"id":"x","label":"Halogens","options":[{"label":"count","factor":1}]}], expression: "c + 1 - (h / 2) + (n / 2) - (x / 2)", outputLabel: "DoU", outputOptions: [{"label":"count","factor":1}] } },
-  { id: "organic-functional-groups", title: "Organic Functional Groups", description: "Interactive reference guide for identifying common organic chemical functional groups.", slug: "organic-functional-groups", category: "Chemistry", subcategory: "Organic Chemistry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "ChemistryReference" },
-  { id: "half-life-nuclear", title: "Nuclear Half-Life", description: "Calculate radioisotope decay half-life and remaining activity over elapsed duration.", slug: "half-life-nuclear", category: "Chemistry", subcategory: "Nuclear Chemistry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"l","label":"Decay Constant (λ)","options":[{"label":"s⁻¹","factor":1}]}], expression: "log(2) / l", outputLabel: "Half-Life", outputOptions: [{"label":"s","factor":1}] } },
-  { id: "remaining-radioactive-material", title: "Remaining Material", description: "Calculate remaining mass of radioactive isotopes after exponential decay periods.", slug: "remaining-radioactive-material", category: "Chemistry", subcategory: "Nuclear Chemistry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"n0","label":"Initial Amount (N0)","options":[{"label":"g","factor":1},{"label":"kg","factor":1000},{"label":"mg","factor":0.001}]},{"id":"t","label":"Elapsed Time","options":[{"label":"s","factor":1}]},{"id":"th","label":"Half-Life","options":[{"label":"s","factor":1}]}], expression: "n0 * pow(0.5, t / th)", outputLabel: "Remaining (N)", outputOptions: [{"label":"g","factor":1},{"label":"kg","factor":1000},{"label":"mg","factor":0.001}] } },
-  { id: "mass-defect", title: "Mass Defect Calculator (Nuclear Chemistry)", description: "Calculate nuclear mass defect (Δm) and binding energy in nuclear chemistry reactions.", slug: "mass-defect", category: "Chemistry", subcategory: "Nuclear Chemistry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"z","label":"Protons","options":[{"label":"count","factor":1}]},{"id":"n","label":"Neutrons","options":[{"label":"count","factor":1}]},{"id":"m","label":"Nucleus Mass (kg)","options":[{"label":"kg","factor":1}]}], expression: "(z * mp) + (n * mn) - m", outputLabel: "Mass Defect (kg)", outputOptions: [{"label":"kg","factor":1}] } },
-  { id: "nuclear-binding-energy", title: "Nuclear Binding Energy Calculator (Nuclear Chemistry)", description: "Calculate total nuclear binding energy released during nuclide synthesis.", slug: "nuclear-binding-energy", category: "Chemistry", subcategory: "Nuclear Chemistry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"dm","label":"Mass Defect (kg)","options":[{"label":"kg","factor":1}]}], expression: "dm * c * c", outputLabel: "Binding Energy (J)", outputOptions: [{"label":"J","factor":1},{"label":"kJ","factor":1000}] } },
-  { id: "decay-constant", title: "Decay Constant", description: "Calculate nuclear radioactive decay constant (λ) from isotope half-life.", slug: "decay-constant", category: "Chemistry", subcategory: "Nuclear Chemistry", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"th","label":"Half-Life (s)","options":[{"label":"s","factor":1}]}], expression: "log(2) / th", outputLabel: "Decay Constant (λ)", outputOptions: [{"label":"s⁻¹","factor":1}] } },
-  { id: "bmi-calculator", title: "BMI Calculator (Body Mass Index)", description: "Calculate Body Mass Index (BMI) and health category classification from height and weight.", slug: "bmi-calculator", category: "Biology", subcategory: "Calculators", aliases: ["calculate bmi","body mass index calculator","bmi formula"], icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"w","label":"Weight","options":[{"label":"kg","factor":1},{"label":"g","factor":0.001},{"label":"lbs","factor":0.453592}]},{"id":"h","label":"Height","options":[{"label":"m","factor":1},{"label":"cm","factor":0.01},{"label":"in","factor":0.0254}]}], expression: "w / (h * h)", outputLabel: "BMI", outputOptions: [{"label":"kg/m²","factor":1}] }, medicalDisclaimer: true },
-  { id: "body-surface-area", title: "Body Surface Area (Mosteller)", description: "Calculate total body surface area (BSA) in square meters using Mosteller formulas.", slug: "body-surface-area", category: "Biology", subcategory: "Calculators", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"w","label":"Weight","options":[{"label":"kg","factor":1},{"label":"g","factor":0.001},{"label":"lbs","factor":0.453592}]},{"id":"h","label":"Height","options":[{"label":"m","factor":1},{"label":"cm","factor":0.01},{"label":"in","factor":0.0254}]}], expression: "sqrt((w * (h * 100)) / 3600)", outputLabel: "BSA", outputOptions: [{"label":"m²","factor":1}] }, medicalDisclaimer: true },
-  { id: "waist-to-height-ratio", title: "Waist-to-Height Ratio", description: "Calculate waist-to-height ratio to assess body composition and metabolic health markers.", slug: "waist-to-height-ratio", category: "Biology", subcategory: "Calculators", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"waist","label":"Waist Circumference","options":[{"label":"m","factor":1},{"label":"cm","factor":0.01},{"label":"in","factor":0.0254}]},{"id":"h","label":"Height","options":[{"label":"m","factor":1},{"label":"cm","factor":0.01},{"label":"in","factor":0.0254}]}], expression: "waist / h", outputLabel: "Ratio", outputOptions: [{"label":"ratio","factor":1}] }, medicalDisclaimer: true },
-  { id: "heart-rate-zones", title: "Max Heart Rate", description: "Calculate cardiovascular training heart rate zones based on age and resting heart rate.", slug: "heart-rate-zones", category: "Biology", subcategory: "Calculators", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"a","label":"Age (years)","options":[{"label":"value","factor":1}]}], expression: "220 - a", outputLabel: "Max Heart Rate (bpm)", outputOptions: [{"label":"bpm","factor":1}] }, medicalDisclaimer: true },
-  { id: "animal-cell", title: "Animal Cell Organelles", description: "Interactive anatomical reference diagram of animal cell organelles and internal structures.", slug: "animal-cell", category: "Biology", subcategory: "Cell Biology", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "BiologyReference" },
-  { id: "plant-cell", title: "Plant Cell Organelles", description: "Interactive diagram of plant cell organelles including chloroplasts, vacuoles, and cell walls.", slug: "plant-cell", category: "Biology", subcategory: "Cell Biology", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "BiologyReference" },
-  { id: "cell-organelles", title: "Organelle Reference", description: "Reference guide detailing organelle functions across eukaryotic and prokaryotic cells.", slug: "cell-organelles", category: "Biology", subcategory: "Cell Biology", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "BiologyReference" },
-  { id: "mitosis-stages", title: "Mitosis Stages", description: "Step-by-step visual reference of mitotic cell division phases from prophase to telophase.", slug: "mitosis-stages", category: "Biology", subcategory: "Cell Biology", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "BiologyReference" },
-  { id: "cell-cycle", title: "Cell Cycle Reference", description: "Reference guide of eukaryotic cell cycle phases covering interphase, checkpoints, and cytokinesis.", slug: "cell-cycle", category: "Biology", subcategory: "Cell Biology", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "BiologyReference" },
-  { id: "surface-area-to-volume-ratio", title: "SA:V Ratio (Sphere)", description: "Calculate cellular surface area to volume ratios across cell radius variations.", slug: "surface-area-to-volume-ratio", category: "Biology", subcategory: "Cell Biology", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"r","label":"Radius","options":[{"label":"m","factor":1},{"label":"cm","factor":0.01},{"label":"in","factor":0.0254}]}], expression: "3 / r", outputLabel: "SA:V Ratio", outputOptions: [{"label":"ratio","factor":1}] } },
-  { id: "punnett-square", title: "Punnett Square Calculator", description: "Generate Monohybrid and Dihybrid crosses.", slug: "punnett-square", category: "Biology", subcategory: "Genetics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "PunnettSquare", aliases: ["monohybrid cross", "dihybrid cross", "test cross", "genetics calculator", "blood type inheritance", "sex linked inheritance", "allele cross calculator", "phenotype ratio calculator", "genotype ratio calculator"] },
-  { id: "hardy-weinberg-calculator", title: "Hardy-Weinberg (q² to p)", description: "Calculate allele and genotype frequencies in populations assuming Hardy-Weinberg equilibrium.", slug: "hardy-weinberg-calculator", category: "Biology", subcategory: "Genetics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"q2","label":"Freq of Recessive Genotype (q²)","options":[{"label":"value","factor":1}]}], expression: "1 - sqrt(q2)", outputLabel: "Dominant Allele (p)", outputOptions: [{"label":"value","factor":1}] }, related: ["punnett-square", "population-growth"] },
-  { id: "hardy-weinberg", title: "Hardy-Weinberg Heterozygotes", description: "Calculate population genetics genotype frequencies from observed recessive allele distributions.", slug: "hardy-weinberg", category: "Biology", subcategory: "Genetics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"p","label":"Freq of Dominant Allele (p)","options":[{"label":"value","factor":1}]}], expression: "2 * p * (1 - p)", outputLabel: "Heterozygous Freq (2pq)", outputOptions: [{"label":"value","factor":1}] } },
-  { id: "dna-sequence-analyzer", title: "DNA & RNA Sequence Analyzer", description: "Analyze nucleotide sequences: complement, reverse complement, transcription, translation, GC content, and Tm.", slug: "dna-sequence-analyzer", category: "Biology", subcategory: "DNA & RNA", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "DNASequenceCalculator", aliases: ["dna complement", "reverse complement", "reverse complement calculator", "dna to rna", "rna transcription", "codon translator", "dna translation", "rna to protein", "gc content calculator", "dna melting temperature", "oligonucleotide tm calculator", "peptide mass calculator", "molecular biology calculator", "bioinformatics sequence analyzer"] },
-  { id: "central-dogma", title: "Central Dogma", description: "Visual overview of molecular biology central dogma from DNA transcription to translation.", slug: "central-dogma", category: "Biology", subcategory: "Molecular Biology", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "BiologyReference" },
-  { id: "amino-acid-reference", title: "Amino Acid Reference", description: "Reference table of standard amino acid structures, polarities, and molecular weights.", slug: "amino-acid-reference", category: "Biology", subcategory: "Molecular Biology", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "BiologyReference" },
-  { id: "amino-acids", title: "Amino Acid Codes", description: "Lookup guide for single-letter and three-letter amino acid genetic codes and properties.", slug: "amino-acids", category: "Biology", subcategory: "Molecular Biology", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "BiologyReference" },
-  { id: "michaelis-menten", title: "Michaelis-Menten Equation", description: "Calculate enzymatic reaction velocity using Michaelis-Menten kinetics and substrate concentration.", slug: "michaelis-menten", category: "Biology", subcategory: "Enzymes", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"vmax","label":"Vmax","options":[{"label":"value","factor":1}]},{"id":"s","label":"Substrate [S]","options":[{"label":"value","factor":1}]},{"id":"km","label":"Km","options":[{"label":"value","factor":1}]}], expression: "(vmax * s) / (km + s)", outputLabel: "Reaction Velocity (v)", outputOptions: [{"label":"value","factor":1}] } },
-  { id: "catalytic-efficiency", title: "Catalytic Efficiency", description: "Calculate enzyme catalytic efficiency (kcat/Km) to evaluate enzymatic turnover.", slug: "catalytic-efficiency", category: "Biology", subcategory: "Enzymes", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"kcat","label":"Turnover Number (kcat)","options":[{"label":"value","factor":1}]},{"id":"km","label":"Km","options":[{"label":"value","factor":1}]}], expression: "kcat / km", outputLabel: "Efficiency", outputOptions: [{"label":"value","factor":1}] } },
-  { id: "population-growth", title: "Exponential Growth", description: "Calculate exponential population growth trajectories from intrinsic growth rates.", slug: "population-growth", category: "Biology", subcategory: "Ecology", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"n0","label":"Initial Population","options":[{"label":"value","factor":1}]},{"id":"r","label":"Growth Rate (r)","options":[{"label":"value","factor":1}]},{"id":"t","label":"Time (t)","options":[{"label":"value","factor":1}]}], expression: "n0 * exp(r * t)", outputLabel: "Population (N)", outputOptions: [{"label":"value","factor":1}] } },
-  { id: "logistic-growth", title: "Logistic Growth Rate", description: "Calculate density-dependent population growth considering environmental carrying capacity.", slug: "logistic-growth", category: "Biology", subcategory: "Ecology", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"r","label":"Max Growth Rate (r)","options":[{"label":"value","factor":1}]},{"id":"n","label":"Current Population (N)","options":[{"label":"value","factor":1}]},{"id":"k","label":"Carrying Capacity (K)","options":[{"label":"value","factor":1}]}], expression: "r * n * (1 - (n / k))", outputLabel: "Growth Rate (dN/dt)", outputOptions: [{"label":"value","factor":1}] } },
-  { id: "doubling-time", title: "Population Doubling Time", description: "Calculate population or cell culture doubling time from constant growth rates.", slug: "doubling-time", category: "Biology", subcategory: "Ecology", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"r","label":"Growth Rate (r)","options":[{"label":"value","factor":1}]}], expression: "log(2) / r", outputLabel: "Doubling Time", outputOptions: [{"label":"value","factor":1}] } },
-  { id: "shannon-diversity", title: "Shannon Diversity (H)", description: "Calculate the Shannon-Wiener diversity index and species evenness in ecological communities.", slug: "shannon-diversity", category: "Biology", subcategory: "Ecology", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"p1","label":"Proportion Species 1 (p1)","options":[{"label":"value","factor":1}]},{"id":"p2","label":"Proportion Species 2 (p2)","options":[{"label":"value","factor":1}]}], expression: "-(p1 * log(p1) + p2 * log(p2))", outputLabel: "Index (H)", outputOptions: [{"label":"value","factor":1}] } },
-  { id: "cardiac-output", title: "Cardiac Output", description: "Calculate total cardiac output volume from stroke volume and heart rate.", slug: "cardiac-output", category: "Biology", subcategory: "Physiology", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"hr","label":"Heart Rate (bpm)","options":[{"label":"value","factor":1}]},{"id":"sv","label":"Stroke Volume (mL)","options":[{"label":"L","factor":1},{"label":"mL","factor":0.001}]}], expression: "hr * sv", outputLabel: "Cardiac Output", outputOptions: [{"label":"L/min","factor":1000},{"label":"mL/min","factor":1}] }, medicalDisclaimer: true },
-  { id: "mean-arterial-pressure", title: "Mean Arterial Pressure (MAP)", description: "Calculate mean arterial pressure (MAP) to assess tissue organ perfusion pressure.", slug: "mean-arterial-pressure", category: "Biology", subcategory: "Physiology", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"sp","label":"Systolic Pressure (mmHg)","options":[{"label":"value","factor":1}]},{"id":"dp","label":"Diastolic Pressure (mmHg)","options":[{"label":"value","factor":1}]}], expression: "dp + (sp - dp) / 3", outputLabel: "MAP (mmHg)", outputOptions: [{"label":"value","factor":1}] }, medicalDisclaimer: true },
-  { id: "alveolar-ventilation", title: "Alveolar Ventilation", description: "Calculate effective alveolar ventilation volume from tidal volume and respiration rate.", slug: "alveolar-ventilation", category: "Biology", subcategory: "Physiology", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"rr","label":"Resp Rate (breaths/min)","options":[{"label":"value","factor":1}]},{"id":"tv","label":"Tidal Volume (mL)","options":[{"label":"L","factor":1},{"label":"mL","factor":0.001}]},{"id":"ds","label":"Dead Space (mL)","options":[{"label":"L","factor":1},{"label":"mL","factor":0.001}]}], expression: "rr * (tv - ds)", outputLabel: "Ventilation", outputOptions: [{"label":"mL/min","factor":1}] }, medicalDisclaimer: true },
-  { id: "bacterial-generation-time", title: "Generation Time (G)", description: "Calculate microbial doubling time and bacterial growth rates in culture media.", slug: "bacterial-generation-time", category: "Biology", subcategory: "Microbiology", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"t","label":"Time elapsed","options":[{"label":"min","factor":1},{"label":"s","factor":0.016667}]},{"id":"n","label":"Number of generations","options":[{"label":"value","factor":1}]}], expression: "t / n", outputLabel: "Generation Time", outputOptions: [{"label":"min","factor":1},{"label":"s","factor":0.016667}] } },
-  { id: "cfu-calculator", title: "CFU/mL Calculator", description: "Calculate colony-forming units (CFU/mL) from culture plate colony counts and dilution factors.", slug: "cfu-calculator", category: "Biology", subcategory: "Microbiology", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"c","label":"Colonies","options":[{"label":"value","factor":1}]},{"id":"d","label":"Dilution Factor (e.g. 10000)","options":[{"label":"value","factor":1}]},{"id":"v","label":"Volume Plated","options":[{"label":"L","factor":1},{"label":"mL","factor":0.001}]}], expression: "(c * d) / v", outputLabel: "CFU/mL", outputOptions: [{"label":"CFU/mL","factor":0.001}] } },
-  { id: "beer-lambert-law", title: "Beer-Lambert Law (Absorbance)", description: "Calculate solution absorbance and solute concentration using the Beer-Lambert spectrophotometry law.", slug: "beer-lambert-law", category: "Biology", subcategory: "Biotechnology", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"e","label":"Molar Absorptivity (ε)","options":[{"label":"value","factor":1}]},{"id":"l","label":"Path Length (cm)","options":[{"label":"cm","factor":1}]},{"id":"c","label":"Concentration (M)","options":[{"label":"value","factor":1}]}], expression: "e * l * c", outputLabel: "Absorbance (A)", outputOptions: [{"label":"value","factor":1}] } },
-  { id: "pcr-amplification", title: "PCR Amplification", description: "Calculate DNA copy yield and amplification factors after thermal polymerase chain reaction cycles.", slug: "pcr-amplification", category: "Biology", subcategory: "Biotechnology", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"n0","label":"Initial Copies","options":[{"label":"value","factor":1}]},{"id":"n","label":"Cycles","options":[{"label":"value","factor":1}]}], expression: "n0 * pow(2, n)", outputLabel: "DNA Copies", outputOptions: [{"label":"value","factor":1}] } },
-  { id: "bmr-calculator", title: "BMR Calculator (Mifflin-St Jeor)", description: "Calculate Basal Metabolic Rate (BMR) and daily caloric expenditure using Mifflin-St Jeor formulas.", slug: "bmr-calculator", category: "Biology", subcategory: "Calculators", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"w","label":"Weight","options":[{"label":"kg","factor":1}]},{"id":"h","label":"Height","options":[{"label":"cm","factor":1},{"label":"m","factor":100}]},{"id":"a","label":"Age","options":[{"label":"value","factor":1}]}], expression: "(10 * w) + (6.25 * h) - (5 * a) + 5", outputLabel: "BMR (kcal/day)", outputOptions: [{"label":"value","factor":1}] }, medicalDisclaimer: true },
-  { id: "ideal-body-weight", title: "Ideal Body Weight (Devine, Male)", description: "Calculate ideal body weight (IBW) ranges based on gender and height formulas.", slug: "ideal-body-weight", category: "Biology", subcategory: "Calculators", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"h","label":"Height","options":[{"label":"cm","factor":1},{"label":"m","factor":100}]}], expression: "50 + 2.3 * ((h / 2.54) - 60)", outputLabel: "IBW (kg)", outputOptions: [{"label":"kg","factor":1}] }, medicalDisclaimer: true },
-  { id: "stroke-volume", title: "Stroke Volume", description: "Calculate cardiac stroke volume from end-diastolic and end-systolic ventricular volumes.", slug: "stroke-volume", category: "Biology", subcategory: "Physiology", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"edv","label":"End-Diastolic Vol (mL)","options":[{"label":"mL","factor":1},{"label":"L","factor":1000}]},{"id":"esv","label":"End-Systolic Vol (mL)","options":[{"label":"mL","factor":1},{"label":"L","factor":1000}]}], expression: "edv - esv", outputLabel: "SV (mL)", outputOptions: [{"label":"mL","factor":1},{"label":"L","factor":1000}] }, medicalDisclaimer: true },
-  { id: "pulse-pressure", title: "Pulse Pressure", description: "Calculate arterial pulse pressure from systolic and diastolic blood pressure readings.", slug: "pulse-pressure", category: "Biology", subcategory: "Physiology", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"sp","label":"Systolic","options":[{"label":"value","factor":1}]},{"id":"dp","label":"Diastolic","options":[{"label":"value","factor":1}]}], expression: "sp - dp", outputLabel: "Pulse Pressure (mmHg)", outputOptions: [{"label":"value","factor":1}] }, medicalDisclaimer: true },
-  { id: "renal-clearance", title: "Renal Clearance", description: "Calculate kidney renal clearance rate and glomerular filtration from urine parameters.", slug: "renal-clearance", category: "Biology", subcategory: "Physiology", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"u","label":"Urine Conc","options":[{"label":"value","factor":1}]},{"id":"v","label":"Urine Flow Rate","options":[{"label":"value","factor":1}]},{"id":"p","label":"Plasma Conc","options":[{"label":"value","factor":1}]}], expression: "(u * v) / p", outputLabel: "Clearance", outputOptions: [{"label":"value","factor":1}] }, medicalDisclaimer: true },
-  { id: "sensitivity-specificity", title: "Sensitivity", description: "Calculate diagnostic test sensitivity and specificity from true and false clinical results.", slug: "sensitivity-specificity", category: "Biology", subcategory: "Biostatistics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"tp","label":"True Positives","options":[{"label":"value","factor":1}]},{"id":"fn","label":"False Negatives","options":[{"label":"value","factor":1}]}], expression: "tp / (tp + fn)", outputLabel: "Sensitivity", outputOptions: [{"label":"value","factor":1}] }, medicalDisclaimer: true },
-  { id: "positive-predictive-value", title: "Positive Predictive Value", description: "Calculate positive predictive value (PPV) and negative predictive value (NPV) for medical tests.", slug: "positive-predictive-value", category: "Biology", subcategory: "Biostatistics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"tp","label":"True Positives","options":[{"label":"value","factor":1}]},{"id":"fp","label":"False Positives","options":[{"label":"value","factor":1}]}], expression: "tp / (tp + fp)", outputLabel: "PPV", outputOptions: [{"label":"value","factor":1}] }, medicalDisclaimer: true },
-  { id: "case-fatality-rate", title: "Case Fatality Rate", description: "Calculate epidemiological case fatality rate percentages from confirmed cases and deaths.", slug: "case-fatality-rate", category: "Biology", subcategory: "Biostatistics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"d","label":"Deaths","options":[{"label":"value","factor":1}]},{"id":"c","label":"Cases","options":[{"label":"value","factor":1}]}], expression: "(d / c) * 100", outputLabel: "CFR (%)", outputOptions: [{"label":"value","factor":1}] }, medicalDisclaimer: true },
-  { id: "relative-risk", title: "Relative Risk (RR)", description: "Calculate relative risk ratios and cohort risk probabilities in epidemiological studies.", slug: "relative-risk", category: "Biology", subcategory: "Biostatistics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"a","label":"Exposed w/ Disease","options":[{"label":"value","factor":1}]},{"id":"b","label":"Exposed w/o Disease","options":[{"label":"value","factor":1}]},{"id":"c","label":"Unexposed w/ Disease","options":[{"label":"value","factor":1}]},{"id":"d","label":"Unexposed w/o Disease","options":[{"label":"value","factor":1}]}], expression: "(a / (a + b)) / (c / (c + d))", outputLabel: "Relative Risk", outputOptions: [{"label":"value","factor":1}] }, medicalDisclaimer: true },
-
-
-  { id: "cell-structure", title: "Cell Structure", description: "Reference overview comparing cellular architecture between plant, animal, and bacterial cells.", slug: "cell-structure", category: "Biology", subcategory: "Cell Biology", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "BiologyReference" },
-  { id: "eukaryotic-cell", title: "Eukaryotic Cell", description: "Reference guide of membrane-bound organelles and cellular machinery in eukaryotic organisms.", slug: "eukaryotic-cell", category: "Biology", subcategory: "Cell Biology", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "BiologyReference" },
-  { id: "prokaryotic-cell", title: "Prokaryotic Cell", description: "Reference overview of bacterial prokaryotic cell structures, nucleoids, and flagella.", slug: "prokaryotic-cell", category: "Biology", subcategory: "Cell Biology", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "BiologyReference" },
-  { id: "meiosis-stages", title: "Meiosis Stages", description: "Comparative guide detailing meiosis I and meiosis II reductional division phases.", slug: "meiosis-stages", category: "Biology", subcategory: "Cell Biology", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "BiologyReference" },
-  { id: "transcription-reference", title: "Transcription", description: "Reference guide of RNA polymerase transcription mechanisms and mRNA synthesis.", slug: "transcription-reference", category: "Biology", subcategory: "Molecular Biology", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "BiologyReference" },
-  { id: "translation-reference", title: "Translation", description: "Reference guide of ribosome translation mechanisms and polypeptide synthesis.", slug: "translation-reference", category: "Biology", subcategory: "Molecular Biology", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "BiologyReference" },
-  { id: "protein-structure", title: "Protein Structure", description: "Reference guide explaining primary, secondary, tertiary, and quaternary protein structures.", slug: "protein-structure", category: "Biology", subcategory: "Molecular Biology", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "BiologyReference" },
-  { id: "photosynthesis-equation", title: "Photosynthesis Equation", description: "Reference guide detailing light-dependent and Calvin cycle photosynthetic reactions.", slug: "photosynthesis-equation", category: "Biology", subcategory: "Photosynthesis", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "BiologyReference" },
-  { id: "cellular-respiration", title: "Cellular Respiration", description: "Reference guide detailing glycolysis, Krebs cycle, and oxidative phosphorylation pathways.", slug: "cellular-respiration", category: "Biology", subcategory: "Cellular Respiration", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "BiologyReference" },
-  { id: "human-skeleton", title: "Human Skeleton", description: "Anatomical reference diagram of the human skeletal system and major bone structures.", slug: "human-skeleton", category: "Biology", subcategory: "Human Anatomy", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "BiologyReference" },
-  { id: "circulatory-system", title: "Circulatory System", description: "Anatomical reference of systemic circulation, heart chambers, and blood flow pathways.", slug: "circulatory-system", category: "Biology", subcategory: "Human Anatomy", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "BiologyReference" },
-  { id: "nervous-system", title: "Nervous System", description: "Overview of the human nervous system covering central and peripheral neural pathways.", slug: "nervous-system", category: "Biology", subcategory: "Human Anatomy", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "BiologyReference" },
-  { id: "digestive-system", title: "Digestive System", description: "Diagram of the human gastrointestinal tract and digestive organ functions.", slug: "digestive-system", category: "Biology", subcategory: "Human Anatomy", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "BiologyReference" },
-  { id: "endocrine-system", title: "Endocrine System", description: "Reference map of hormone-producing endocrine glands and metabolic signaling pathways.", slug: "endocrine-system", category: "Biology", subcategory: "Human Anatomy", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "BiologyReference" },
-  { id: "biology-formulas", title: "Biology Formulas", description: "Reference guide of core biological formulas across genetics, ecology, and biochemistry.", slug: "biology-formulas", category: "Biology", subcategory: "Biology Reference", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "BiologyReference" },
-  { id: "biology-constants", title: "Biology Constants", description: "Reference table of standard biological constants, cellular parameters, and physiological metrics.", slug: "biology-constants", category: "Biology", subcategory: "Biology Reference", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "BiologyReference" },
-  { id: "percentile-calculator", title: "Percentile Calculator", description: "Calculate specific percentile values and rank rankings for numeric data distributions.", slug: "percentile-calculator", category: "Statistics", subcategory: "Descriptive Statistics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "DatasetCalculator", aliases: ["percentiles"], related: [] },
-  { id: "quartile-calculator", title: "Quartile Calculator", description: "Find first quartile (Q1), median (Q2), and third quartile (Q3) for datasets.", slug: "quartile-calculator", category: "Statistics", subcategory: "Descriptive Statistics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "DatasetCalculator", aliases: ["quartiles"], related: [] },
-  { id: "iqr-calculator", title: "IQR Calculator (Interquartile Range)", description: "Calculate interquartile range (IQR) to assess statistical dispersion and detect outliers.", slug: "iqr-calculator", category: "Statistics", subcategory: "Descriptive Statistics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "DatasetCalculator", aliases: ["interquartile range"], related: [] },
-  { id: "five-number-summary", title: "Five Number Summary", description: "Calculate minimum, Q1, median, Q3, and maximum five-number summary statistics.", slug: "five-number-summary", category: "Statistics", subcategory: "Descriptive Statistics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "DatasetCalculator", aliases: ["boxplot data"], related: [] },
-  { id: "mean-absolute-deviation", title: "Mean Absolute Deviation", description: "Calculate mean absolute deviation (MAD) to evaluate variability around sample means.", slug: "mean-absolute-deviation", category: "Statistics", subcategory: "Descriptive Statistics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "DatasetCalculator", aliases: ["mad"], related: [] },
-  { id: "standard-error-calculator", title: "Standard Error Calculator", description: "Calculate standard error of the mean (SEM) from sample standard deviation and sample size.", slug: "standard-error-calculator", category: "Statistics", subcategory: "Descriptive Statistics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "DatasetCalculator", aliases: ["se"], related: [] },
-  { id: "covariance-calculator", title: "Covariance Calculator", description: "Calculate sample and population covariance between two continuous paired variables.", slug: "covariance-calculator", category: "Statistics", subcategory: "Descriptive Statistics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "DatasetCalculator", aliases: ["covar"], related: [] },
-  { id: "correlation-coefficient", title: "Correlation Coefficient", description: "Calculate Pearson correlation coefficient (r) to evaluate linear bivariate relationships.", slug: "correlation-coefficient", category: "Statistics", subcategory: "Descriptive Statistics", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "DatasetCalculator", aliases: ["pearson","r"], related: [] },
-  { id: "linear-regression-calculator", title: "Linear Regression Calculator", description: "Fit linear regression trendline models to paired datasets and evaluate fit.", slug: "linear-regression-calculator", category: "Statistics", subcategory: "Regression", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "DatasetCalculator", aliases: ["line of best fit"], related: [] },
-  { id: "regression-equation-calculator", title: "Regression Equation", description: "Calculate the slope and intercept for least-squares regression lines (y = mx + b).", slug: "regression-equation-calculator", category: "Statistics", subcategory: "Regression", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "DatasetCalculator", aliases: ["trendline"], related: [] },
-  { id: "r-squared-calculator", title: "R-Squared Calculator", description: "Calculate the coefficient of determination (R²) to evaluate regression model goodness of fit.", slug: "r-squared-calculator", category: "Statistics", subcategory: "Regression", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "DatasetCalculator", aliases: ["r2","r^2"], related: [] },
-  { id: "normal-distribution-calculator", title: "Normal Distribution (Z-Score) Calculator", description: "Calculate cumulative normal distribution probabilities and z-score areas.", slug: "normal-distribution-calculator", category: "Statistics", subcategory: "Distributions", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "DistributionCalculator", aliases: ["z distribution"], related: [] },
-  { id: "standard-normal-distribution", title: "Standard Normal Distribution", description: "Calculate standard normal distribution probabilities (μ = 0, σ = 1) from z-scores.", slug: "standard-normal-distribution", category: "Statistics", subcategory: "Distributions", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "DistributionCalculator", aliases: ["z score probability"], related: [] },
-  { id: "binomial-distribution-calculator", title: "Binomial Distribution", description: "Calculate discrete binomial probabilities for independent Bernoulli trial experiments.", slug: "binomial-distribution-calculator", category: "Statistics", subcategory: "Distributions", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "DistributionCalculator", aliases: ["bernoulli"], related: [] },
-  { id: "poisson-distribution-calculator", title: "Poisson Distribution", description: "Calculate discrete Poisson probabilities for event counts occurring in fixed intervals.", slug: "poisson-distribution-calculator", category: "Statistics", subcategory: "Distributions", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "DistributionCalculator", aliases: ["poisson"], related: [] },
-  { id: "truth-table-generator", title: "Truth Table Generator", description: "Generate complete truth tables for complex compound propositional logic expressions.", slug: "truth-table-generator", category: "Discrete Mathematics", subcategory: "Logic", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "TruthTableGenerator", aliases: ["boolean logic table"], related: [] },
-  { id: "logical-expression-evaluator", title: "Logical Expression Evaluator", description: "Evaluate boolean logic expressions with step-by-step truth value truth tables.", slug: "logical-expression-evaluator", category: "Discrete Mathematics", subcategory: "Logic", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "TruthTableGenerator", aliases: ["boolean evaluator"], related: [] },
-  { id: "set-calculator", title: "Set Operations Calculator", description: "Calculate set union, intersection, difference, symmetric difference, and Cartesian product.", slug: "set-calculator", category: "Discrete Mathematics", subcategory: "Sets", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "SetCalculator", aliases: ["set union calculator", "set intersection calculator", "set difference calculator", "union of sets", "intersection of sets", "symmetric difference", "relative complement", "venn diagram sets", "set theory calculator", "disjoint sets calculator"] },
-  { id: "rref-calculator", title: "RREF Calculator (Reduced Row Echelon Form)", description: "Compute Reduced Row Echelon Form (RREF) for matrices using Gauss-Jordan elimination.", slug: "rref-calculator", category: "Linear Algebra", subcategory: "Matrices", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "MatrixCalculator", aliases: ["row reduce","gauss jordan"], related: ["matrix-rank-calculator", "simultaneous-equations", "eigenvalue-calculator"] },
-  { id: "matrix-rank-calculator", title: "Matrix Rank Calculator", description: "Calculate matrix rank by finding the number of linearly independent row vectors.", slug: "matrix-rank-calculator", category: "Linear Algebra", subcategory: "Matrices", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "MatrixCalculator", aliases: ["rank"], related: [] },
-  { id: "matrix-trace-calculator", title: "Matrix Trace Calculator", description: "Calculate the trace of square matrices by summing main diagonal elements.", slug: "matrix-trace-calculator", category: "Linear Algebra", subcategory: "Matrices", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "MatrixCalculator", aliases: ["trace"], related: [] },
-  { id: "eigenvalue-calculator", title: "Eigenvalue Calculator", description: "Calculate eigenvalues and characteristic polynomial roots for square matrices.", slug: "eigenvalue-calculator", category: "Linear Algebra", subcategory: "Matrices", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "MatrixCalculator", aliases: ["eigenvalues"], related: [] },
-  { id: "relative-error-calculator", title: "Relative Error Calculator", description: "Calculate absolute and relative percentage error between experimental and true values.", slug: "relative-error-calculator", category: "Numerical Methods", subcategory: "Error Analysis", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"t","label":"True Value","options":[{"label":"val","factor":1}]},{"id":"a","label":"Approximate Value","options":[{"label":"val","factor":1}]}], expression: "abs(t - a) / t", outputLabel: "Relative Error" } },
-  { id: "final-grade-calculator", title: "Final Grade Calculator", description: "Calculate required final exam scores needed to achieve target course grades.", slug: "final-grade-calculator", category: "Student Utilities", subcategory: "Grades", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"t","label":"Target Class Grade (%)","options":[{"label":"%","factor":1}]},{"id":"c","label":"Current Class Grade (%)","options":[{"label":"%","factor":1}]},{"id":"w","label":"Weight of Final Exam (%)","options":[{"label":"%","factor":1}]}], expression: "(t - c * (1 - (w/100))) / (w/100)", outputLabel: "Required Exam Score (%)" } },
-  { id: "base-conversion-calculator", title: "Base Conversion Calculator", description: "Convert numbers between binary, octal, decimal, and hexadecimal numeral systems with steps.", slug: "base-conversion-calculator", category: "Computer Science", subcategory: "Number Systems", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "BaseConverter", aliases: ["binary converter", "hexadecimal converter", "hex converter", "octal converter", "decimal converter", "binary to decimal", "decimal to binary", "hex to binary", "binary to hex", "decimal to hex", "hex to decimal", "base 2", "base 8", "base 10", "base 16", "radix converter", "number systems calculator"], related: [] },
-  { id: "weighted-grade-calculator", title: "Weighted Grade Calculator", description: "Calculate weighted grade averages from assignment scores and category weight percentages.", slug: "weighted-grade-calculator", category: "Student Utilities", subcategory: "Grades", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"g1","label":"Grade 1","options":[{"label":"%","factor":1}]},{"id":"w1","label":"Weight 1","options":[{"label":"%","factor":1}]},{"id":"g2","label":"Grade 2","options":[{"label":"%","factor":1}]},{"id":"w2","label":"Weight 2","options":[{"label":"%","factor":1}]},{"id":"g3","label":"Grade 3","options":[{"label":"%","factor":1}]},{"id":"w3","label":"Weight 3","options":[{"label":"%","factor":1}]}], expression: "(g1*w1 + g2*w2 + g3*w3)/(w1+w2+w3)", outputLabel: "Weighted Grade" } },
+  {
+    id: "ideal-gas-law",
+    title: "Ideal Gas Law",
+    description: "Calculate Pressure (P = nRT/V).",
+    slug: "ideal-gas-law",
+    category: "Chemistry",
+    subcategory: "Gas Laws",
+    component: "UnitAwareCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
+  },
+  {
+    id: "molarity-calculator",
+    title: "Molarity Calculator",
+    description: "Calculate molar concentration (M = mol/L) from solute moles and solution volume.",
+    slug: "molarity-calculator",
+    category: "Chemistry",
+    subcategory: "Solutions",
+    component: "UnitAwareCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
+  },
+  {
+    id: "dilution-calculator",
+    title: "Dilution Calculator",
+    description: "Calculate final volume or concentration for solution dilutions using M₁V₁ = M₂V₂.",
+    slug: "dilution-calculator",
+    category: "Chemistry",
+    subcategory: "Solutions",
+    component: "UnitAwareCalculator",
+    related: ["molarity-calculator","molar-mass-calculator","ph-calculator"],
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
+  },
+  {
+    id: "ph-calculator",
+    title: "pH Calculator",
+    description: "Calculate solution pH and hydronium ion concentration [H⁺] for acid solutions.",
+    slug: "ph-calculator",
+    category: "Chemistry",
+    subcategory: "Acids & Bases",
+    component: "UnitAwareCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
+  },
+  {
+    id: "henderson-hasselbalch",
+    title: "Henderson-Hasselbalch",
+    description: "pH = pKa + log([A-]/[HA]).",
+    slug: "henderson-hasselbalch",
+    category: "Chemistry",
+    subcategory: "Acids & Bases",
+    component: "UnitAwareCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
+  },
+  {
+    id: "percent-yield-calculator",
+    title: "Percent Yield Calculator",
+    description: "Calculate percentage reaction yield from actual laboratory and theoretical yields.",
+    slug: "percent-yield-calculator",
+    category: "Chemistry",
+    subcategory: "Stoichiometry",
+    component: "UnitAwareCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
+  },
+  {
+    id: "standard-cell-potential",
+    title: "Standard Cell Potential",
+    description: "Calculate standard electrochemical cell potential from cathode and anode reduction potentials.",
+    slug: "standard-cell-potential",
+    category: "Chemistry",
+    subcategory: "Electrochemistry",
+    component: "UnitAwareCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
+  },
+  {
+    id: "nernst-equation",
+    title: "Nernst Equation",
+    description: "E = E° - (RT/nF)ln(Q).",
+    slug: "nernst-equation",
+    category: "Chemistry",
+    subcategory: "Electrochemistry",
+    component: "UnitAwareCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
+  },
+  {
+    id: "half-life-first-order",
+    title: "First-Order Half-Life",
+    description: "Calculate decomposition half-life for first-order radioactive and chemical kinetics.",
+    slug: "half-life-first-order",
+    category: "Chemistry",
+    subcategory: "Kinetics",
+    component: "UnitAwareCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
+  },
+  {
+    id: "solubility-rules",
+    title: "Solubility Rules",
+    description: "Reference guide of general aqueous solubility rules for ionic salts and precipitates.",
+    slug: "solubility-rules",
+    category: "Chemistry",
+    subcategory: "Reference",
+    component: "ChemistryReference",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
+  },
+  {
+    id: "q-mc-delta-t",
+    title: "Q = mcΔT Calculator",
+    description: "Calculate thermochemical heat transfer from mass, specific heat, and temperature change.",
+    slug: "q-mc-delta-t",
+    category: "Chemistry",
+    subcategory: "Thermochemistry",
+    component: "UnitAwareCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
+  },
+  {
+    id: "calorimetry-calculator",
+    title: "Calorimetry Calculator",
+    description: "Calculate enthalpy and heat exchange in constant-pressure calorimeter experiments.",
+    slug: "calorimetry-calculator",
+    category: "Chemistry",
+    subcategory: "Thermochemistry",
+    component: "UnitAwareCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
+  },
+  {
+    id: "cell-potential-calculator",
+    title: "Cell Potential Calculator",
+    description: "Calculate electrochemical galvanic cell potential voltage from half-cell potentials.",
+    slug: "cell-potential-calculator",
+    category: "Chemistry",
+    subcategory: "Electrochemistry",
+    component: "UnitAwareCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
+  },
+  {
+    id: "half-life-calculator",
+    title: "Half-Life (1st Order)",
+    description: "Calculate first-order kinetic reaction half-life from rate constants.",
+    slug: "half-life-calculator",
+    category: "Chemistry",
+    subcategory: "Kinetics",
+    component: "UnitAwareCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
+  },
+  {
+    id: "organic-functional-groups",
+    title: "Organic Functional Groups",
+    description: "Interactive reference guide for identifying common organic chemical functional groups.",
+    slug: "organic-functional-groups",
+    category: "Chemistry",
+    subcategory: "Organic Chemistry",
+    component: "ChemistryReference",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
+  },
+  {
+    id: "half-life-nuclear",
+    title: "Nuclear Half-Life",
+    description: "Calculate radioisotope decay half-life and remaining activity over elapsed duration.",
+    slug: "half-life-nuclear",
+    category: "Chemistry",
+    subcategory: "Nuclear Chemistry",
+    component: "UnitAwareCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
+  },
+  {
+    id: "bmi-calculator",
+    title: "BMI Calculator (Body Mass Index)",
+    description: "Calculate Body Mass Index (BMI) and health category classification from height and weight.",
+    slug: "bmi-calculator",
+    category: "Biology & Health",
+    subcategory: "Calculators",
+    aliases: ["calculate bmi","body mass index calculator","bmi formula"],
+    component: "UnitAwareCalculator",
+    medicalDisclaimer: true,
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
+  },
+  {
+    id: "heart-rate-zones",
+    title: "Max Heart Rate",
+    description: "Calculate cardiovascular training heart rate zones based on age and resting heart rate.",
+    slug: "heart-rate-zones",
+    category: "Biology & Health",
+    subcategory: "Calculators",
+    component: "UnitAwareCalculator",
+    medicalDisclaimer: true,
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
+  },
+  {
+    id: "animal-cell",
+    title: "Animal Cell Organelles",
+    description: "Interactive anatomical reference diagram of animal cell organelles and internal structures.",
+    slug: "animal-cell",
+    category: "Biology & Health",
+    subcategory: "Cell Biology",
+    component: "BiologyReference",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
+  },
+  {
+    id: "plant-cell",
+    title: "Plant Cell Organelles",
+    description: "Interactive diagram of plant cell organelles including chloroplasts, vacuoles, and cell walls.",
+    slug: "plant-cell",
+    category: "Biology & Health",
+    subcategory: "Cell Biology",
+    component: "BiologyReference",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
+  },
+  {
+    id: "mitosis-stages",
+    title: "Mitosis Stages",
+    description: "Step-by-step visual reference of mitotic cell division phases from prophase to telophase.",
+    slug: "mitosis-stages",
+    category: "Biology & Health",
+    subcategory: "Cell Biology",
+    component: "BiologyReference",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
+  },
+  {
+    id: "punnett-square",
+    title: "Punnett Square Calculator",
+    description: "Generate Monohybrid and Dihybrid crosses.",
+    slug: "punnett-square",
+    category: "Biology & Health",
+    subcategory: "Genetics",
+    aliases: ["monohybrid cross","dihybrid cross","test cross","genetics calculator","blood type inheritance","sex linked inheritance","allele cross calculator","phenotype ratio calculator","genotype ratio calculator"],
+    component: "PunnettSquare",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
+  },
+  {
+    id: "hardy-weinberg-calculator",
+    title: "Hardy-Weinberg (q² to p)",
+    description: "Calculate allele and genotype frequencies in populations assuming Hardy-Weinberg equilibrium.",
+    slug: "hardy-weinberg-calculator",
+    category: "Biology & Health",
+    subcategory: "Genetics",
+    component: "UnitAwareCalculator",
+    related: ["punnett-square"],
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
+  },
+  {
+    id: "dna-sequence-analyzer",
+    title: "DNA & RNA Sequence Analyzer",
+    description: "Analyze nucleotide sequences: complement, reverse complement, transcription, translation, GC content, and Tm.",
+    slug: "dna-sequence-analyzer",
+    category: "Biology & Health",
+    subcategory: "DNA & RNA",
+    aliases: ["dna complement","reverse complement","reverse complement calculator","dna to rna","rna transcription","codon translator","dna translation","rna to protein","gc content calculator","dna melting temperature","oligonucleotide tm calculator","peptide mass calculator","molecular biology calculator","bioinformatics sequence analyzer"],
+    component: "DNASequenceCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
+  },
+  {
+    id: "central-dogma",
+    title: "Central Dogma",
+    description: "Visual overview of molecular biology central dogma from DNA transcription to translation.",
+    slug: "central-dogma",
+    category: "Biology & Health",
+    subcategory: "Molecular Biology",
+    component: "BiologyReference",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
+  },
+  {
+    id: "amino-acid-reference",
+    title: "Amino Acid Reference",
+    description: "Reference table of standard amino acid structures, polarities, and molecular weights.",
+    slug: "amino-acid-reference",
+    category: "Biology & Health",
+    subcategory: "Molecular Biology",
+    component: "BiologyReference",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
+  },
+  {
+    id: "bmr-calculator",
+    title: "BMR Calculator (Mifflin-St Jeor)",
+    description: "Calculate Basal Metabolic Rate (BMR) and daily caloric expenditure using Mifflin-St Jeor formulas.",
+    slug: "bmr-calculator",
+    category: "Biology & Health",
+    subcategory: "Calculators",
+    component: "UnitAwareCalculator",
+    medicalDisclaimer: true,
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
+  },
+  {
+    id: "ideal-body-weight",
+    title: "Ideal Body Weight (Devine, Male)",
+    description: "Calculate ideal body weight (IBW) ranges based on gender and height formulas.",
+    slug: "ideal-body-weight",
+    category: "Biology & Health",
+    subcategory: "Calculators",
+    component: "UnitAwareCalculator",
+    medicalDisclaimer: true,
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
+  },
+  {
+    id: "protein-structure",
+    title: "Protein Structure",
+    description: "Reference guide explaining primary, secondary, tertiary, and quaternary protein structures.",
+    slug: "protein-structure",
+    category: "Biology & Health",
+    subcategory: "Molecular Biology",
+    component: "BiologyReference",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
+  },
+  {
+    id: "photosynthesis-equation",
+    title: "Photosynthesis Equation",
+    description: "Reference guide detailing light-dependent and Calvin cycle photosynthetic reactions.",
+    slug: "photosynthesis-equation",
+    category: "Biology & Health",
+    subcategory: "Photosynthesis",
+    component: "BiologyReference",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
+  },
+  {
+    id: "cellular-respiration",
+    title: "Cellular Respiration",
+    description: "Reference guide detailing glycolysis, Krebs cycle, and oxidative phosphorylation pathways.",
+    slug: "cellular-respiration",
+    category: "Biology & Health",
+    subcategory: "Cellular Respiration",
+    component: "BiologyReference",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
+  },
+  {
+    id: "human-skeleton",
+    title: "Human Skeleton",
+    description: "Anatomical reference diagram of the human skeletal system and major bone structures.",
+    slug: "human-skeleton",
+    category: "Biology & Health",
+    subcategory: "Human Anatomy",
+    component: "BiologyReference",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
+  },
+  {
+    id: "circulatory-system",
+    title: "Circulatory System",
+    description: "Anatomical reference of systemic circulation, heart chambers, and blood flow pathways.",
+    slug: "circulatory-system",
+    category: "Biology & Health",
+    subcategory: "Human Anatomy",
+    component: "BiologyReference",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
+  },
+  {
+    id: "nervous-system",
+    title: "Nervous System",
+    description: "Overview of the human nervous system covering central and peripheral neural pathways.",
+    slug: "nervous-system",
+    category: "Biology & Health",
+    subcategory: "Human Anatomy",
+    component: "BiologyReference",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
+  },
+  {
+    id: "digestive-system",
+    title: "Digestive System",
+    description: "Diagram of the human gastrointestinal tract and digestive organ functions.",
+    slug: "digestive-system",
+    category: "Biology & Health",
+    subcategory: "Human Anatomy",
+    component: "BiologyReference",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
+  },
+  {
+    id: "endocrine-system",
+    title: "Endocrine System",
+    description: "Reference map of hormone-producing endocrine glands and metabolic signaling pathways.",
+    slug: "endocrine-system",
+    category: "Biology & Health",
+    subcategory: "Human Anatomy",
+    component: "BiologyReference",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
+  },
+  {
+    id: "percentile-calculator",
+    title: "Percentile Calculator",
+    description: "Calculate specific percentile values and rank rankings for numeric data distributions.",
+    slug: "percentile-calculator",
+    category: "Statistics",
+    subcategory: "Descriptive Statistics",
+    aliases: ["percentiles"],
+    component: "DatasetCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
+  },
+  {
+    id: "five-number-summary",
+    title: "Five Number Summary",
+    description: "Calculate minimum, Q1, median, Q3, and maximum five-number summary statistics.",
+    slug: "five-number-summary",
+    category: "Statistics",
+    subcategory: "Descriptive Statistics",
+    aliases: ["boxplot data"],
+    component: "DatasetCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
+  },
+  {
+    id: "mean-absolute-deviation",
+    title: "Mean Absolute Deviation",
+    description: "Calculate mean absolute deviation (MAD) to evaluate variability around sample means.",
+    slug: "mean-absolute-deviation",
+    category: "Statistics",
+    subcategory: "Descriptive Statistics",
+    aliases: ["mad"],
+    component: "DatasetCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
+  },
+  {
+    id: "linear-regression-calculator",
+    title: "Linear Regression Calculator",
+    description: "Fit linear regression trendline models to paired datasets and evaluate fit.",
+    slug: "linear-regression-calculator",
+    category: "Statistics",
+    subcategory: "Regression",
+    aliases: ["line of best fit"],
+    component: "DatasetCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
+  },
+  {
+    id: "normal-distribution-calculator",
+    title: "Normal Distribution (Z-Score) Calculator",
+    description: "Calculate cumulative normal distribution probabilities and z-score areas.",
+    slug: "normal-distribution-calculator",
+    category: "Statistics",
+    subcategory: "Distributions",
+    aliases: ["z distribution"],
+    component: "DistributionCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
+  },
+  {
+    id: "binomial-distribution-calculator",
+    title: "Binomial Distribution",
+    description: "Calculate discrete binomial probabilities for independent Bernoulli trial experiments.",
+    slug: "binomial-distribution-calculator",
+    category: "Statistics",
+    subcategory: "Distributions",
+    aliases: ["bernoulli"],
+    component: "DistributionCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
+  },
+  {
+    id: "poisson-distribution-calculator",
+    title: "Poisson Distribution",
+    description: "Calculate discrete Poisson probabilities for event counts occurring in fixed intervals.",
+    slug: "poisson-distribution-calculator",
+    category: "Statistics",
+    subcategory: "Distributions",
+    aliases: ["poisson"],
+    component: "DistributionCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
+  },
+  {
+    id: "truth-table-generator",
+    title: "Truth Table Generator",
+    description: "Generate complete truth tables for complex compound propositional logic expressions.",
+    slug: "truth-table-generator",
+    category: "Computer Science",
+    subcategory: "Logic",
+    aliases: ["boolean logic table"],
+    component: "TruthTableGenerator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
+  },
+  {
+    id: "set-calculator",
+    title: "Set Operations Calculator",
+    description: "Calculate set union, intersection, difference, symmetric difference, and Cartesian product.",
+    slug: "set-calculator",
+    category: "Computer Science",
+    subcategory: "Sets",
+    aliases: ["set union calculator","set intersection calculator","set difference calculator","union of sets","intersection of sets","symmetric difference","relative complement","venn diagram sets","set theory calculator","disjoint sets calculator"],
+    component: "SetCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
+  },
+  {
+    id: "rref-calculator",
+    title: "RREF Calculator (Reduced Row Echelon Form)",
+    description: "Compute Reduced Row Echelon Form (RREF) for matrices using Gauss-Jordan elimination.",
+    slug: "rref-calculator",
+    category: "Mathematics",
+    subcategory: "Matrices",
+    aliases: ["row reduce","gauss jordan"],
+    component: "MatrixCalculator",
+    related: ["eigenvalue-calculator"],
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
+  },
+  {
+    id: "eigenvalue-calculator",
+    title: "Eigenvalue Calculator",
+    description: "Calculate eigenvalues and characteristic polynomial roots for square matrices.",
+    slug: "eigenvalue-calculator",
+    category: "Mathematics",
+    subcategory: "Matrices",
+    aliases: ["eigenvalues"],
+    component: "MatrixCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
+  },
+  {
+    id: "final-grade-calculator",
+    title: "Final Grade Calculator",
+    description: "Calculate required final exam scores needed to achieve target course grades.",
+    slug: "final-grade-calculator",
+    category: "Academic & Grades",
+    subcategory: "Grades",
+    component: "UnitAwareCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z'></path></svg>"
+  },
+  {
+    id: "base-conversion-calculator",
+    title: "Base Conversion Calculator",
+    description: "Convert numbers between binary, octal, decimal, and hexadecimal numeral systems with steps.",
+    slug: "base-conversion-calculator",
+    category: "Converters",
+    subcategory: "Number Systems",
+    aliases: ["binary converter","hexadecimal converter","hex converter","octal converter","decimal converter","binary to decimal","decimal to binary","hex to binary","binary to hex","decimal to hex","hex to decimal","base 2","base 8","base 10","base 16","radix converter","number systems calculator"],
+    component: "BaseConverter",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
+  },
+  {
+    id: "weighted-grade-calculator",
+    title: "Weighted Grade Calculator",
+    description: "Calculate weighted grade averages from assignment scores and category weight percentages.",
+    slug: "weighted-grade-calculator",
+    category: "Academic & Grades",
+    subcategory: "Grades",
+    component: "UnitAwareCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z'></path></svg>"
+  },
   {
     id: "words-to-pages",
     title: "Words to Pages Converter",
     description: "Convert word count to pages based on font family, font size, margins, and line spacing.",
     slug: "words-to-pages",
-    category: "Study & Productivity",
+    category: "Study & Writing",
     subcategory: "Writing & Reading",
-    aliases: ["words to pages", "word to page converter", "how many pages is 1000 words", "words to pages calculator", "page count calculator", "convert words to pages", "single spaced words to pages", "double spaced words to pages", "essay page calculator", "words to pages times new roman"],
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z'></path></svg>",
-    component: "WordsToPages"
+    aliases: ["words to pages","word to page converter","how many pages is 1000 words","words to pages calculator","page count calculator","convert words to pages","single spaced words to pages","double spaced words to pages","essay page calculator","words to pages times new roman"],
+    component: "WordsToPages",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z'></path></svg>"
   },
   {
     id: "compound-interest-calculator",
     title: "Compound Interest Calculator",
     description: "Calculate compound interest with regular monthly deposits, annual growth breakdowns, and customizable compounding frequencies.",
     slug: "compound-interest-calculator",
-    category: "Finance",
+    category: "Everyday Utilities",
     subcategory: "Interest & Investments",
-    aliases: ["compound interest calculator", "calculate compound interest", "compound interest with contributions", "investment compound interest", "monthly compound interest", "annual compound interest", "compound interest formula", "savings compound interest", "compound interest formula calculator"],
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z'></path></svg>",
-    component: "CompoundInterestCalculator"
+    aliases: ["compound interest calculator","calculate compound interest","compound interest with contributions","investment compound interest","monthly compound interest","annual compound interest","compound interest formula","savings compound interest","compound interest formula calculator"],
+    component: "CompoundInterestCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z'></path></svg>"
   },
   {
     id: "simple-interest-calculator",
     title: "Simple Interest Calculator",
     description: "Calculate simple interest (P × R × T / 100), total amount, or solve for principal, rate, and time.",
     slug: "simple-interest-calculator",
-    category: "Finance",
+    category: "Everyday Utilities",
     subcategory: "Interest & Loans",
-    aliases: ["simple interest calculator", "calculate simple interest", "simple interest formula", "SI calculator", "simple interest loan calculator", "principal rate time calculator", "simple interest solver", "simple interest step by step"],
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z'></path></svg>",
-    component: "SimpleInterestCalculator"
+    aliases: ["simple interest calculator","calculate simple interest","simple interest formula","SI calculator","simple interest loan calculator","principal rate time calculator","simple interest solver","simple interest step by step"],
+    component: "SimpleInterestCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z'></path></svg>"
   },
   {
     id: "z-score-calculator",
@@ -824,20 +1353,20 @@ export const tools: Tool[] = [
     slug: "z-score-calculator",
     category: "Statistics",
     subcategory: "Distributions",
-    aliases: ["z score calculator", "calculate z score", "z score to p value", "z score percentile", "standard normal z score", "p value from z score", "z value calculator", "z score probability calculator"],
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z'></path></svg>",
-    component: "ZScoreCalculator"
+    aliases: ["z score calculator","calculate z score","z score to p value","z score percentile","standard normal z score","p value from z score","z value calculator","z score probability calculator"],
+    component: "ZScoreCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z'></path></svg>"
   },
   {
     id: "permutations-and-combinations",
     title: "Permutations & Combinations Calculator (nPr & nCr)",
     description: "Calculate permutations (nPr) and combinations (nCr) with or without repetition, including step-by-step factorial expansions.",
     slug: "permutations-and-combinations",
-    category: "Mathematics",
+    category: "Computer Science",
     subcategory: "Discrete Mathematics",
-    aliases: ["permutations and combinations calculator", "npr calculator", "ncr calculator", "permutation calculator", "combination calculator", "n choose r calculator", "npr and ncr", "permutations with repetition"],
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 6h16M4 12h16M4 18h7'></path></svg>",
-    component: "PermutationsAndCombinations"
+    aliases: ["permutations and combinations calculator","npr calculator","ncr calculator","permutation calculator","combination calculator","n choose r calculator","npr and ncr","permutations with repetition"],
+    component: "PermutationsAndCombinations",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 6h16M4 12h16M4 18h7'></path></svg>"
   },
   {
     id: "prime-factorization-calculator",
@@ -846,11 +1375,10 @@ export const tools: Tool[] = [
     slug: "prime-factorization-calculator",
     category: "Mathematics",
     subcategory: "Number Theory",
-    aliases: ["prime factorization calculator", "prime factors calculator", "factor tree calculator", "prime decomposition", "find prime factors", "prime factor finder", "canonical prime factorization"],
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M7 20l4-16m2 16l4-16M6 9h14M4 15h14'></path></svg>",
-    component: "PrimeFactorization"
+    aliases: ["prime factorization calculator","prime factors calculator","factor tree calculator","prime decomposition","find prime factors","prime factor finder","canonical prime factorization"],
+    component: "PrimeFactorization",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M7 20l4-16m2 16l4-16M6 9h14M4 15h14'></path></svg>"
   },
-
   {
     id: "bitwise-calculator",
     title: "Bitwise Calculator (AND, OR, XOR, NOT, Shifts)",
@@ -858,9 +1386,9 @@ export const tools: Tool[] = [
     slug: "bitwise-calculator",
     category: "Computer Science",
     subcategory: "Binary & Logic",
-    aliases: ["bitwise calculator", "bitwise operations calculator", "and or xor not calculator", "bit shift calculator", "binary bitwise calculator", "bit mask calculator"],
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z'></path></svg>",
-    component: "BitwiseCalculator"
+    aliases: ["bitwise calculator","bitwise operations calculator","and or xor not calculator","bit shift calculator","binary bitwise calculator","bit mask calculator"],
+    component: "BitwiseCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z'></path></svg>"
   },
   {
     id: "scientific-notation-calculator",
@@ -869,9 +1397,9 @@ export const tools: Tool[] = [
     slug: "scientific-notation-calculator",
     category: "Converters",
     subcategory: "Scientific Notation",
-    aliases: ["scientific notation calculator", "standard form calculator", "engineering notation calculator", "exponential notation calculator", "scientific notation converter"],
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z'></path></svg>",
-    component: "ScientificNotationCalculator"
+    aliases: ["scientific notation calculator","standard form calculator","engineering notation calculator","exponential notation calculator","scientific notation converter"],
+    component: "ScientificNotationCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z'></path></svg>"
   },
   {
     id: "confidence-interval-calculator",
@@ -880,20 +1408,20 @@ export const tools: Tool[] = [
     slug: "confidence-interval-calculator",
     category: "Statistics",
     subcategory: "Inferential Statistics",
-    aliases: ["confidence interval calculator", "margin of error calculator", "confidence interval for mean", "proportion confidence interval", "z interval calculator", "t interval calculator"],
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z'></path></svg>",
-    component: "ConfidenceIntervalCalculator"
+    aliases: ["confidence interval calculator","margin of error calculator","confidence interval for mean","proportion confidence interval","z interval calculator","t interval calculator"],
+    component: "ConfidenceIntervalCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z'></path></svg>"
   },
   {
     id: "case-converter",
     title: "Case Converter (UPPERCASE, lowercase, Title, camelCase, snake_case)",
     description: "Transform text between 10 different casing styles including Sentence case, Title Case, camelCase, snake_case, kebab-case, and alternating case.",
     slug: "case-converter",
-    category: "Study & Productivity",
+    category: "Study & Writing",
     subcategory: "Writing & Reading",
-    aliases: ["case converter", "text case converter", "uppercase lowercase converter", "camelcase converter", "title case converter", "snake case converter", "kebab case converter"],
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M3 5h12M9 5v14m6-8h6m-3 0v8'></path></svg>",
-    component: "CaseConverter"
+    aliases: ["case converter","text case converter","uppercase lowercase converter","camelcase converter","title case converter","snake case converter","kebab case converter"],
+    component: "CaseConverter",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M3 5h12M9 5v14m6-8h6m-3 0v8'></path></svg>"
   },
   {
     id: "subnet-calculator",
@@ -902,9 +1430,9 @@ export const tools: Tool[] = [
     slug: "subnet-calculator",
     category: "Computer Science",
     subcategory: "Networking",
-    aliases: ["subnet calculator", "ipv4 subnet calculator", "cidr calculator", "ip range calculator", "network mask calculator", "subnet mask calculator", "usable ip calculator"],
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9'></path></svg>",
-    component: "SubnetCalculator"
+    aliases: ["subnet calculator","ipv4 subnet calculator","cidr calculator","ip range calculator","network mask calculator","subnet mask calculator","usable ip calculator"],
+    component: "SubnetCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9'></path></svg>"
   }
 ];
 
