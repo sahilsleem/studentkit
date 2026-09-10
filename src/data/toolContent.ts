@@ -1106,5 +1106,19 @@ export const toolContent: Record<string, ToolContent> = {
     "formula": "• Union (A ∪ B) = { x | x ∈ A or x ∈ B }\n• Intersection (A ∩ B) = { x | x ∈ A and x ∈ B }\n• Difference (A - B) = { x | x ∈ A and x ∉ B }\n• Symmetric Difference (A △ B) = (A - B) ∪ (B - A)\n• Cartesian Product Size |A × B| = |A| × |B|",
     "example": "For Set A = {1, 2, 3} and Set B = {3, 4, 5}:\n• A ∪ B = {1, 2, 3, 4, 5}\n• A ∩ B = {3}\n• A - B = {1, 2}\n• B - A = {4, 5}\n• A △ B = {1, 2, 4, 5}\n• |A| = 3, |B| = 3, |A × B| = 9",
     "whenToUse": "Essential for discrete mathematics, probability theory, computer science data structures, database relational algebra, and Venn diagram analysis."
+  },
+  "circuit-calculator": {
+    "whatIsIt": "A circuit analysis calculator for computing total equivalent resistance and equivalent capacitance for networks of components connected in series or parallel configurations.",
+    "howToUse": "1. Select the component type: Resistors (Ohms, Ω) or Capacitors (Farads, F).\n2. Select the connection configuration: Series or Parallel.\n3. Enter values for each component. Use '+ Add Component' to calculate 3 or more components.\n4. Click 'Calculate Equivalent' to view the total equivalent circuit value.",
+    "formula": "• Resistors in Series: Req = R1 + R2 + ... + Rn\n• Resistors in Parallel: 1/Req = 1/R1 + 1/R2 + ... + 1/Rn (Req = 1 / Σ(1/Ri))\n• Capacitors in Series: 1/Ceq = 1/C1 + 1/C2 + ... + 1/Cn (Ceq = 1 / Σ(1/Ci))\n• Capacitors in Parallel: Ceq = C1 + C2 + ... + Cn",
+    "variables": {
+      "Req": "Equivalent total resistance in Ohms (Ω).",
+      "Ceq": "Equivalent total capacitance in Farads (F).",
+      "R1, R2...": "Individual resistor values in Ohms (Ω).",
+      "C1, C2...": "Individual capacitor values in Farads (F)."
+    },
+    "example": "• Resistors in Series: 100 Ω + 200 Ω = 300 Ω.\n• Resistors in Parallel: 100 Ω || 100 Ω = 50 Ω; 100 Ω || 200 Ω = 66.67 Ω.\n• Capacitors in Parallel: 10 F + 20 F = 30 F.\n• Capacitors in Series: 10 F and 20 F in series = 6.67 F.",
+    "whenToUse": "Use for introductory and advanced physics circuit problems, electrical engineering circuit design, breadboard prototyping, and impedance matching.",
+    "commonMistakes": "1. Confusing resistor and capacitor rules: Resistors add directly in series, whereas capacitors add directly in parallel.\n2. Forgetting to invert the sum of reciprocals when calculating parallel resistors or series capacitors.\n3. Entering negative component values."
   }
 };

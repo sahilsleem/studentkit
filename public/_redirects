@@ -50,3 +50,9 @@
 /tools/binary-calculator /tools/base-conversion-calculator 301
 /tools/hexadecimal-converter /tools/base-conversion-calculator 301
 /tools/percentage-to-cgpa /tools/cgpa-to-percentage 301
+/tools/series-resistance-calculator /tools/circuit-calculator 301
+/tools/parallel-resistance-calculator /tools/circuit-calculator 301
+/tools/series-capacitance-calculator /tools/circuit-calculator 301
+/tools/parallel-capacitance-calculator /tools/circuit-calculator 301
+/tools/series-circuit-calculator /tools/circuit-calculator 301
+/tools/parallel-circuit-calculator /tools/circuit-calculator 301
