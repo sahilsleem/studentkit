@@ -3,7 +3,7 @@ import { tools } from '../../data/registry';
 const { tool } = Astro.props;
 
 // Determine mode from slug
-let mode = 'first'; // first, second, partial, implicit, marginal, critical, inflection, concavity, increasing-decreasing
+let mode = 'first'; // first, second, partial, implicit, marginal, critical, inflection, concavity, increasing-decreasing, extrema
 if (tool.slug.includes('second-derivative')) mode = 'second';
 if (tool.slug.includes('partial-derivative')) mode = 'partial';
 if (tool.slug.includes('implicit-differentiation')) mode = 'implicit';
@@ -13,6 +13,7 @@ if (tool.slug.includes('critical-point')) mode = 'critical';
 if (tool.slug.includes('inflection')) mode = 'inflection';
 if (tool.slug.includes('concavity')) mode = 'concavity';
 if (tool.slug.includes('increasing-decreasing')) mode = 'increasing-decreasing';
+if (tool.slug.includes('extrema')) mode = 'extrema';
 ---
 
 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden max-w-3xl mx-auto">
@@ -24,7 +25,7 @@ if (tool.slug.includes('increasing-decreasing')) mode = 'increasing-decreasing';
         </label>
         <div class="flex items-center gap-3">
           <span class="font-mono text-gray-500 font-bold">{mode === 'implicit' ? 'F(x,y) =' : (mode === 'marginal' ? 'C(x) =' : 'f(...) =')}</span>
-          <input type="text" id="fn-expr" required class="flex-1 p-3 border border-gray-300 rounded-lg focus:ring-emerald-500 font-mono text-lg" placeholder={mode === 'implicit' ? 'x^2 + y^2 - 25' : (mode === 'critical' || mode === 'inflection' || mode === 'concavity' || mode === 'increasing-decreasing' ? 'x^3 - 3x' : 'x^2 * sin(x)')}>
+          <input type="text" id="fn-expr" required class="flex-1 p-3 border border-gray-300 rounded-lg focus:ring-emerald-500 font-mono text-lg" placeholder={mode === 'implicit' ? 'x^2 + y^2 - 25' : (mode === 'critical' || mode === 'inflection' || mode === 'concavity' || mode === 'increasing-decreasing' || mode === 'extrema' ? 'x^3 - 3x' : 'x^2 * sin(x)')}>
         </div>
         <p class="text-xs text-gray-500 mt-2">Example: <code>2x^3 - 4x + 1</code>, <code>sin(x)*e^x</code>, <code>1/x</code></p>
       </div>
@@ -47,7 +48,7 @@ if (tool.slug.includes('increasing-decreasing')) mode = 'increasing-decreasing';
 
       <div class="pt-4">
         <button type="submit" class="w-full bg-emerald-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors shadow-sm">
-          {mode === 'critical' ? 'Find Critical Points' : (mode === 'inflection' ? 'Find Inflection Points' : (mode === 'concavity' ? 'Analyze Concavity' : (mode === 'increasing-decreasing' ? 'Find Increasing/Decreasing Intervals' : 'Calculate Derivative')))}
+          {mode === 'critical' ? 'Find Critical Points' : (mode === 'inflection' ? 'Find Inflection Points' : (mode === 'concavity' ? 'Analyze Concavity' : (mode === 'increasing-decreasing' ? 'Find Increasing/Decreasing Intervals' : (mode === 'extrema' ? 'Find Local Extrema' : 'Calculate Derivative'))))}
         </button>
       </div>
     </form>
@@ -107,6 +108,14 @@ if (tool.slug.includes('increasing-decreasing')) mode = 'increasing-decreasing';
              <div id="inc-dec-intervals-list" class="space-y-2"></div>
              <p id="inc-dec-note" class="text-xs text-gray-500 italic mt-2"></p>
           </div>
+          <div id="extrema-section" class="hidden mt-4 pt-4 border-t border-gray-200 space-y-3">
+             <div class="flex items-center justify-between">
+               <p class="text-xs text-gray-500 uppercase font-bold tracking-wide">Local Extrema</p>
+               <span class="text-xs text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 font-medium">Numerical search [-100, 100]</span>
+             </div>
+             <div id="extrema-points-list" class="space-y-2"></div>
+             <p id="extrema-note" class="text-xs text-gray-500 italic mt-2"></p>
+          </div>
         </div>
       </div>
     </div>
@@ -152,6 +161,10 @@ if (tool.slug.includes('increasing-decreasing')) mode = 'increasing-decreasing';
     const incDecSec = document.getElementById('inc-dec-section');
     const incDecList = document.getElementById('inc-dec-intervals-list');
     const incDecNote = document.getElementById('inc-dec-note');
+
+    const extremaSec = document.getElementById('extrema-section');
+    const extremaList = document.getElementById('extrema-points-list');
+    const extremaNote = document.getElementById('extrema-note');
 
     if (!form) return;
 
@@ -263,6 +276,7 @@ if (tool.slug.includes('increasing-decreasing')) mode = 'increasing-decreasing';
       if (inflSec) inflSec.classList.add('hidden');
       if (concSec) concSec.classList.add('hidden');
       if (incDecSec) incDecSec.classList.add('hidden');
+      if (extremaSec) extremaSec.classList.add('hidden');
 
       let expr = cleanExpr(exprIn.value);
       let v = varIn ? varIn.value || 'x' : 'x';
@@ -669,6 +683,116 @@ if (tool.slug.includes('increasing-decreasing')) mode = 'increasing-decreasing';
 
             incDecNote.textContent = `Note: Intervals represent numerical regions within [-100, 100] where f'(${v}) is positive (increasing) or negative (decreasing). Critical points and domain boundaries are excluded.`;
             incDecSec.classList.remove('hidden');
+          }
+        }
+        else if (mode === 'extrema') {
+          const d1 = math.derivative(expr, v);
+          let d2 = null;
+          try {
+            d2 = math.derivative(d1, v);
+          } catch {
+            d2 = null;
+          }
+          labelStr = `f'(${v}) = df/d${v} =`;
+          resultStr = math.simplify(d1).toString();
+
+          const evalF = (val) => {
+            try {
+              const res = math.evaluate(expr, { [v]: val });
+              return (typeof res === 'number' && isFinite(res)) ? res : null;
+            } catch {
+              return null;
+            }
+          };
+
+          const evalD1 = (val) => {
+            try {
+              const res = d1.evaluate({ [v]: val });
+              return (typeof res === 'number' && isFinite(res)) ? res : null;
+            } catch {
+              return null;
+            }
+          };
+
+          const evalD2 = (val) => {
+            try {
+              if (d2) {
+                const res = d2.evaluate({ [v]: val });
+                if (typeof res === 'number' && isFinite(res)) return res;
+              }
+              const h = 1e-5;
+              const dPlus = evalD1(val + h);
+              const dMinus = evalD1(val - h);
+              if (dPlus !== null && dMinus !== null) return (dPlus - dMinus) / (2 * h);
+              return null;
+            } catch {
+              return null;
+            }
+          };
+
+          const candidateRoots = findRoots(evalD1, -100, 100);
+          const classifiedPoints = [];
+
+          for (let i = 0; i < candidateRoots.length; i++) {
+            const c = candidateRoots[i];
+            const fc = evalF(c);
+            if (fc === null) continue; // Skip non-finite / outside domain
+
+            let delta = 0.01;
+            if (i > 0) delta = Math.min(delta, Math.abs(c - candidateRoots[i - 1]) / 4);
+            if (i < candidateRoots.length - 1) delta = Math.min(delta, Math.abs(candidateRoots[i + 1] - c) / 4);
+
+            const dL = evalD1(c - delta);
+            const dR = evalD1(c + delta);
+            const d2Val = evalD2(c);
+
+            let type = 'neither';
+            if (dL !== null && dR !== null) {
+              if (dL > 1e-6 && dR < -1e-6) {
+                type = 'max';
+              } else if (dL < -1e-6 && dR > 1e-6) {
+                type = 'min';
+              } else if (dL * dR > 0) {
+                type = 'neither';
+              } else if (d2Val !== null && Math.abs(d2Val) > 1e-5) {
+                type = d2Val > 0 ? 'min' : 'max';
+              } else {
+                type = 'neither';
+              }
+            } else if (d2Val !== null && Math.abs(d2Val) > 1e-5) {
+              type = d2Val > 0 ? 'min' : 'max';
+            } else {
+              type = 'neither';
+            }
+
+            classifiedPoints.push({ x: c, y: fc, type });
+          }
+
+          if (extremaSec && extremaList && extremaNote) {
+            extremaList.innerHTML = '';
+            if (classifiedPoints.length === 0) {
+              extremaList.innerHTML = '<div class="p-3 bg-amber-50 rounded border border-amber-200 text-amber-800 text-sm">No local extrema found in the numerical search range [-100, 100].</div>';
+              extremaNote.textContent = `Note: Local extrema occur at stationary points where f'(${v}) = 0 and f' changes sign. Function endpoints, vertical asymptotes, and non-differentiable cusps are excluded.`;
+            } else {
+              classifiedPoints.forEach((pt) => {
+                const item = document.createElement('div');
+                item.className = 'bg-white p-3 rounded-lg border border-gray-200 flex items-center justify-between text-sm shadow-sm';
+
+                let badgeHtml = '';
+                if (pt.type === 'max') {
+                  badgeHtml = '<span class="ml-2 text-xs px-2 py-0.5 rounded font-semibold bg-emerald-100 text-emerald-800 border border-emerald-200">Local Maximum</span>';
+                } else if (pt.type === 'min') {
+                  badgeHtml = '<span class="ml-2 text-xs px-2 py-0.5 rounded font-semibold bg-indigo-100 text-indigo-800 border border-indigo-200">Local Minimum</span>';
+                } else {
+                  badgeHtml = '<span class="ml-2 text-xs px-2 py-0.5 rounded font-semibold bg-gray-100 text-gray-700 border border-gray-200">Stationary Point (Neither)</span>';
+                }
+
+                item.innerHTML = `<div><span class="text-gray-500 font-mono text-xs">${v} =</span> <strong class="font-mono text-gray-900 text-base">${fmt(pt.x)}</strong>${badgeHtml}</div><div class="font-mono font-bold text-gray-800 bg-gray-50 px-3 py-1 rounded border border-gray-200">Point: (${fmt(pt.x)}, ${fmt(pt.y)})</div>`;
+                extremaList.appendChild(item);
+              });
+              extremaNote.textContent = `Found ${classifiedPoints.length} stationary point(s) classified using the First and Second Derivative Tests within [-100, 100].`;
+            }
+            extremaSec.classList.remove('hidden');
           }
         }
         else {
