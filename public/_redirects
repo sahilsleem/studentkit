@@ -7,3 +7,8 @@
 /tools/required-attendance /tools/attendance-calculator 301
 /tools/character-counter /tools/word-counter 301
 /tools/reading-time /tools/word-counter 301
+/tools/isotope-calculator /tools/periodic-table 301
+/tools/electron-configuration /tools/periodic-table 301
+/tools/valence-electron-calculator /tools/periodic-table 301
+/tools/oxidation-state-calculator /tools/periodic-table 301
+/tools/isotope-abundance-calculator /tools/periodic-table 301
