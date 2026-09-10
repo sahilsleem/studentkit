@@ -50,19 +50,24 @@ export const tools: Tool[] = [
   // Academic
   {
     id: "cgpa-to-percentage",
-    title: "CGPA to Percentage (Cumulative Grade Point Average)",
-    description: "Convert your CGPA to a percentage using standard or custom formulas.",
+    title: "CGPA to Percentage & Percentage to CGPA Converter",
+    description: "Convert between 10-point CGPA and percentage scores using standard or custom university formulas.",
     slug: "cgpa-to-percentage",
     category: "Academic",
-    aliases: ["convert cgpa to percentage","cgpa to percentage india","cgpa to percent","cgpa percentage formula"], icon: `<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>`
-  },
-  {
-    id: "percentage-to-cgpa",
-    title: "Percentage to CGPA",
-    description: "Estimate your CGPA from your total percentage.",
-    slug: "percentage-to-cgpa",
-    category: "Academic",
-    aliases: ["convert percentage to cgpa","percentage to cgpa formula","percent to grade point"], icon: `<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"></path></svg>`
+    aliases: [
+      "convert cgpa to percentage",
+      "cgpa to percentage india",
+      "cgpa to percent",
+      "cgpa percentage formula",
+      "percentage to cgpa",
+      "convert percentage to cgpa",
+      "percentage to cgpa formula",
+      "percent to grade point",
+      "cgpa converter",
+      "grade point to percentage",
+      "percentage to grade point average"
+    ],
+    icon: `<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>`
   },
   {
     id: "gpa-calculator",

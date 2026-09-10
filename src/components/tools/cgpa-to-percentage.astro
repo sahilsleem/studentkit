@@ -1,143 +1,301 @@
 <!-- Calculator Interface -->
-    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden mb-12 max-w-xl mx-auto">
-      <div class="p-6 sm:p-8">
-        <form id="calculator-form" class="space-y-6">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <label for="cgpa" class="block text-sm font-medium text-gray-700 mb-1">Your CGPA</label>
-              <input type="number" id="cgpa" step="0.01" min="0" max="10" required class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 sm:text-base transition-colors" placeholder="e.g. 8.5">
-            </div>
-            
-            <div>
-              <label for="multiplier" class="block text-sm font-medium text-gray-700 mb-1">Conversion Method</label>
-              <select id="multiplier" class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 sm:text-base transition-colors bg-white">
-                <option value="9.5">CGPA × 9.5 (Standard)</option>
-                <option value="10">CGPA × 10</option>
-                <option value="custom">Custom Multiplier</option>
-              </select>
-            </div>
-          </div>
+<div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden mb-12 max-w-xl mx-auto">
+  <!-- Mode Selector Tabs -->
+  <div class="grid grid-cols-2 border-b border-gray-200 bg-gray-50/75">
+    <button
+      type="button"
+      id="tab-cgpa-to-percent"
+      class="mode-tab py-3.5 px-4 text-center text-sm font-semibold border-b-2 border-emerald-600 text-emerald-700 bg-white transition-all focus:outline-none"
+      data-mode="cgpa-to-percent"
+    >
+      CGPA → Percentage
+    </button>
+    <button
+      type="button"
+      id="tab-percent-to-cgpa"
+      class="mode-tab py-3.5 px-4 text-center text-sm font-semibold border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:bg-gray-100/50 transition-all focus:outline-none"
+      data-mode="percent-to-cgpa"
+    >
+      Percentage → CGPA
+    </button>
+  </div>
 
-          <div id="custom-multiplier-container" class="hidden">
-            <label for="custom-multiplier" class="block text-sm font-medium text-gray-700 mb-1">Custom Multiplier</label>
-            <input type="number" id="custom-multiplier" step="0.01" min="0" class="block w-full md:w-1/2 px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 sm:text-base transition-colors" placeholder="e.g. 9.3">
-          </div>
+  <div class="p-6 sm:p-8">
+    <form id="calculator-form" class="space-y-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label for="main-input" id="input-label" class="block text-sm font-medium text-gray-700 mb-1">Your CGPA (0 - 10)</label>
+          <input
+            type="number"
+            id="main-input"
+            step="0.01"
+            min="0"
+            max="10"
+            required
+            class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 sm:text-base transition-colors"
+            placeholder="e.g. 8.5"
+          >
+        </div>
 
-          <div class="flex flex-col sm:flex-row gap-4 pt-4">
-            <button type="submit" class="flex-1 bg-emerald-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors">
-              Calculate Percentage
-            </button>
-            <button type="button" id="reset-btn" class="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors">
-              Reset
-            </button>
-          </div>
-        </form>
-
-        <!-- Result Section -->
-        <div id="result-section" class="mt-8 pt-8 border-t border-gray-100 hidden">
-          <div class="text-center">
-            <p class="text-sm text-gray-500 mb-1">Estimated Percentage</p>
-            <div class="flex items-center justify-center gap-3 mb-4">
-              <div class="text-5xl font-bold text-gray-900" id="result-value">--%</div>
-              <button type="button" class="copy-btn p-2 text-gray-400 hover:text-emerald-600 transition-colors" title="Copy result" data-target="result-value">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-              </button>
-            </div>
-            <p class="text-xs text-gray-400 max-w-md mx-auto">
-              Note: Conversion formulas vary by university or institution. Check your university's official formula if applicable.
-            </p>
-          </div>
+        <div>
+          <label for="method-select" id="method-label" class="block text-sm font-medium text-gray-700 mb-1">Conversion Method</label>
+          <select
+            id="method-select"
+            class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 sm:text-base transition-colors bg-white"
+          >
+            <option value="9.5">CGPA × 9.5 (CBSE / Standard)</option>
+            <option value="10">CGPA × 10 (Direct Scale)</option>
+            <option value="custom">Custom Multiplier</option>
+          </select>
         </div>
       </div>
-    </div>
 
-    <!-- Content Sections -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
-      <div class="prose prose-emerald">
-        <h3>How it works</h3>
-        <p>The CGPA to percentage conversion depends entirely on your university's grading scale. The two most common methods are:</p>
+      <div id="custom-container" class="hidden">
+        <label for="custom-input" id="custom-label" class="block text-sm font-medium text-gray-700 mb-1">Custom Multiplier</label>
+        <input
+          type="number"
+          id="custom-input"
+          step="0.01"
+          min="0.01"
+          class="block w-full md:w-1/2 px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 sm:text-base transition-colors"
+          placeholder="e.g. 9.3"
+        >
+      </div>
+
+      <div id="err-box" class="hidden bg-red-50 text-red-700 p-4 rounded-lg text-sm font-medium border border-red-100 flex items-start gap-3">
+        <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+        <span id="err-msg"></span>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-4 pt-2">
+        <button
+          type="submit"
+          id="submit-btn"
+          class="flex-1 bg-emerald-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors shadow-sm"
+        >
+          Calculate Percentage
+        </button>
+        <button
+          type="button"
+          id="reset-btn"
+          class="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors"
+        >
+          Reset
+        </button>
+      </div>
+    </form>
+
+    <!-- Result Section -->
+    <div id="result-section" class="mt-8 pt-8 border-t border-gray-100 hidden">
+      <div class="text-center">
+        <p class="text-sm text-gray-500 mb-1" id="result-label">Estimated Percentage</p>
+        <div class="flex items-center justify-center gap-3 mb-4">
+          <div class="text-5xl font-bold text-gray-900" id="result-value">--</div>
+          <button type="button" class="copy-btn p-2 text-gray-400 hover:text-emerald-600 transition-colors" title="Copy result" data-target="result-value">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+          </button>
+        </div>
+        <p class="text-xs text-gray-400 max-w-md mx-auto">
+          Note: Conversion formulas vary by university or educational board. Always verify with your institution's official guidelines.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Content Sections -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
+  <div class="prose prose-emerald">
+    <h3>How it works</h3>
+    <p>Grading scales vary across universities and examination boards. This calculator supports bidirectional conversion between a 10-point CGPA and percentage scores:</p>
+    <ul>
+      <li><strong>CGPA to Percentage:</strong> Multiplies your CGPA by the institutional factor.
         <ul>
-          <li><strong>Multiplier of 9.5:</strong> Used by many Indian universities (like CBSE grading systems). E.g., 8.0 CGPA × 9.5 = 76%.</li>
-          <li><strong>Multiplier of 10:</strong> A straightforward decimal shift. E.g., 8.0 CGPA × 10 = 80%.</li>
+          <li><em>CBSE / AICTE standard (9.5):</em> E.g., 8.2 CGPA × 9.5 = 77.90%.</li>
+          <li><em>Direct scale (10.0):</em> E.g., 8.2 CGPA × 10 = 82.00%.</li>
         </ul>
-        <p>If your university uses a different formula, select "Custom Multiplier" and enter it.</p>
-      </div>
-      
-      <div class="prose prose-emerald">
-        <h3>Frequently Asked Questions</h3>
-        <details class="mb-4">
-          <summary class="font-medium cursor-pointer text-gray-900">Is this formula 100% accurate?</summary>
-          <p class="text-sm mt-2 text-gray-600">It is mathematically accurate based on the multiplier you choose. However, some universities have non-linear conversion formulas. Always check your official student handbook.</p>
-        </details>
-        <details>
-          <summary class="font-medium cursor-pointer text-gray-900">What is a good CGPA?</summary>
-          <p class="text-sm mt-2 text-gray-600">Generally, a CGPA above 8.0 (on a 10-point scale) is considered very good, and above 9.0 is excellent. However, this varies by country and institution.</p>
-        </details>
-      </div>
-    </div>
+      </li>
+      <li><strong>Percentage to CGPA:</strong> Divides your percentage by the conversion factor.
+        <ul>
+          <li><em>Standard (9.5):</em> E.g., 77.90% ÷ 9.5 = 8.20 CGPA.</li>
+          <li><em>Direct scale (10.0):</em> E.g., 82.00% ÷ 10 = 8.20 CGPA.</li>
+        </ul>
+      </li>
+      <li><strong>Custom Multiplier/Divider:</strong> For universities using specific multipliers (such as 8.9, 9.0, or 9.3).</li>
+    </ul>
+  </div>
 
-    <script>
-  const initCalculator = () => {
+  <div class="prose prose-emerald">
+    <h3>Frequently Asked Questions</h3>
+    <details class="mb-4">
+      <summary class="font-medium cursor-pointer text-gray-900">Why does CBSE use a 9.5 multiplier?</summary>
+      <p class="text-sm mt-2 text-gray-600">The 9.5 factor was derived by CBSE after analyzing the historical marks distribution of the top 5% of candidate scores relative to 10-point grade thresholds.</p>
+    </details>
+    <details class="mb-4">
+      <summary class="font-medium cursor-pointer text-gray-900">Is this formula universally applicable?</summary>
+      <p class="text-sm mt-2 text-gray-600">No. Different universities (e.g., Mumbai University, VTU, Anna University, or international colleges) use specific conversion tables or formulas. Use the Custom Multiplier option if your university uses a different scale.</p>
+    </details>
+    <details class="mb-4">
+      <summary class="font-medium cursor-pointer text-gray-900">What is a good CGPA on a 10-point scale?</summary>
+      <p class="text-sm mt-2 text-gray-600">Generally, a CGPA of 8.0 or above is considered very good (First Class with Distinction), while 9.0+ is outstanding.</p>
+    </details>
+  </div>
+</div>
+
+<script>
+  const initCgpaCalculator = () => {
     const form = document.getElementById('calculator-form') as HTMLFormElement;
-    const cgpaInput = document.getElementById('cgpa') as HTMLInputElement;
-    const multiplierSelect = document.getElementById('multiplier') as HTMLSelectElement;
-    const customMultiplierContainer = document.getElementById('custom-multiplier-container');
-    const customMultiplierInput = document.getElementById('custom-multiplier') as HTMLInputElement;
+    const tabCgpaToPercent = document.getElementById('tab-cgpa-to-percent');
+    const tabPercentToCgpa = document.getElementById('tab-percent-to-cgpa');
+    const mainInput = document.getElementById('main-input') as HTMLInputElement;
+    const inputLabel = document.getElementById('input-label');
+    const methodSelect = document.getElementById('method-select') as HTMLSelectElement;
+    const customContainer = document.getElementById('custom-container');
+    const customInput = document.getElementById('custom-input') as HTMLInputElement;
+    const customLabel = document.getElementById('custom-label');
+    const submitBtn = document.getElementById('submit-btn');
     const resetBtn = document.getElementById('reset-btn');
     const resultSection = document.getElementById('result-section');
+    const resultLabel = document.getElementById('result-label');
     const resultValue = document.getElementById('result-value');
+    const errBox = document.getElementById('err-box');
+    const errMsg = document.getElementById('err-msg');
 
-    if (!form) return;
+    if (!form || !tabCgpaToPercent || !tabPercentToCgpa) return;
 
-    multiplierSelect.addEventListener('change', () => {
-      if (multiplierSelect.value === 'custom') {
-        customMultiplierContainer?.classList.remove('hidden');
-        customMultiplierInput.required = true;
+    let currentMode = 'cgpa-to-percent'; // 'cgpa-to-percent' | 'percent-to-cgpa'
+
+    const setMode = (mode: string) => {
+      currentMode = mode;
+      errBox?.classList.add('hidden');
+      resultSection?.classList.add('hidden');
+      if (resultValue) resultValue.textContent = '--';
+      mainInput.value = '';
+      customInput.value = '';
+
+      if (mode === 'cgpa-to-percent') {
+        tabCgpaToPercent.className = 'mode-tab py-3.5 px-4 text-center text-sm font-semibold border-b-2 border-emerald-600 text-emerald-700 bg-white transition-all focus:outline-none';
+        tabPercentToCgpa.className = 'mode-tab py-3.5 px-4 text-center text-sm font-semibold border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:bg-gray-100/50 transition-all focus:outline-none';
+
+        if (inputLabel) inputLabel.textContent = 'Your CGPA (0 - 10)';
+        mainInput.min = '0';
+        mainInput.max = '10';
+        mainInput.placeholder = 'e.g. 8.5';
+
+        methodSelect.innerHTML = `
+          <option value="9.5">CGPA × 9.5 (CBSE / Standard)</option>
+          <option value="10">CGPA × 10 (Direct Scale)</option>
+          <option value="custom">Custom Multiplier</option>
+        `;
+        if (customLabel) customLabel.textContent = 'Custom Multiplier';
+        customInput.placeholder = 'e.g. 9.3';
+        if (submitBtn) submitBtn.textContent = 'Calculate Percentage';
+        if (resultLabel) resultLabel.textContent = 'Estimated Percentage';
       } else {
-        customMultiplierContainer?.classList.add('hidden');
-        customMultiplierInput.required = false;
+        tabPercentToCgpa.className = 'mode-tab py-3.5 px-4 text-center text-sm font-semibold border-b-2 border-emerald-600 text-emerald-700 bg-white transition-all focus:outline-none';
+        tabCgpaToPercent.className = 'mode-tab py-3.5 px-4 text-center text-sm font-semibold border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:bg-gray-100/50 transition-all focus:outline-none';
+
+        if (inputLabel) inputLabel.textContent = 'Your Percentage (0 - 100%)';
+        mainInput.min = '0';
+        mainInput.max = '100';
+        mainInput.placeholder = 'e.g. 80.5';
+
+        methodSelect.innerHTML = `
+          <option value="9.5">Divide by 9.5 (Standard)</option>
+          <option value="10">Divide by 10 (Direct Scale)</option>
+          <option value="custom">Custom Divider</option>
+        `;
+        if (customLabel) customLabel.textContent = 'Custom Divider';
+        customInput.placeholder = 'e.g. 9.3';
+        if (submitBtn) submitBtn.textContent = 'Calculate CGPA';
+        if (resultLabel) resultLabel.textContent = 'Estimated CGPA';
+      }
+
+      customContainer?.classList.add('hidden');
+      customInput.required = false;
+    };
+
+    tabCgpaToPercent.addEventListener('click', () => setMode('cgpa-to-percent'));
+    tabPercentToCgpa.addEventListener('click', () => setMode('percent-to-cgpa'));
+
+    methodSelect.addEventListener('change', () => {
+      if (methodSelect.value === 'custom') {
+        customContainer?.classList.remove('hidden');
+        customInput.required = true;
+      } else {
+        customContainer?.classList.add('hidden');
+        customInput.required = false;
       }
     });
 
     form.addEventListener('submit', (e) => {
       e.preventDefault();
-      
-      const cgpa = parseFloat(cgpaInput.value);
-      let multiplier = parseFloat(multiplierSelect.value);
+      errBox?.classList.add('hidden');
 
-      if (multiplierSelect.value === 'custom') {
-        multiplier = parseFloat(customMultiplierInput.value);
-      }
+      try {
+        const val = parseFloat(mainInput.value);
+        if (isNaN(val)) throw new Error('Please enter a valid number.');
 
-      if (isNaN(cgpa) || isNaN(multiplier)) return;
+        let factor = parseFloat(methodSelect.value);
+        if (methodSelect.value === 'custom') {
+          factor = parseFloat(customInput.value);
+          if (isNaN(factor) || factor <= 0) {
+            throw new Error('Please enter a valid positive custom conversion factor.');
+          }
+        }
 
-      let percentage = cgpa * multiplier;
-      
-      // Cap at 100%
-      if (percentage > 100) percentage = 100;
+        if (currentMode === 'cgpa-to-percent') {
+          if (val < 0 || val > 10) {
+            throw new Error('CGPA must be between 0 and 10.');
+          }
+          let percentage = val * factor;
+          if (percentage > 100) percentage = 100;
+          if (percentage < 0) percentage = 0;
 
-      if (resultValue && resultSection) {
-        resultValue.textContent = `${percentage.toFixed(2)}%`;
-        resultSection.classList.remove('hidden');
-        resultSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          if (resultValue && resultSection) {
+            resultValue.textContent = `${percentage.toFixed(2)}%`;
+            resultSection.classList.remove('hidden');
+            resultSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+        } else {
+          if (val < 0 || val > 100) {
+            throw new Error('Percentage must be between 0 and 100.');
+          }
+          let cgpa = val / factor;
+          if (cgpa > 10) cgpa = 10;
+          if (cgpa < 0) cgpa = 0;
+
+          if (resultValue && resultSection) {
+            resultValue.textContent = cgpa.toFixed(2);
+            resultSection.classList.remove('hidden');
+            resultSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+        }
+      } catch (err: any) {
+        if (errMsg && errBox) {
+          errMsg.textContent = err.message || 'An error occurred.';
+          errBox.classList.remove('hidden');
+        }
       }
     });
 
     resetBtn?.addEventListener('click', () => {
       form.reset();
-      customMultiplierContainer?.classList.add('hidden');
-      customMultiplierInput.required = false;
+      customContainer?.classList.add('hidden');
+      customInput.required = false;
+      errBox?.classList.add('hidden');
       resultSection?.classList.add('hidden');
-      if (resultValue) resultValue.textContent = '--%';
+      if (resultValue) resultValue.textContent = '--';
     });
   };
 
-  initCalculator();
-  
+  initCgpaCalculator();
+
   document.addEventListener('click', (e) => {
-    const btn = e.target.closest('.copy-btn');
+    const btn = (e.target as HTMLElement)?.closest('.copy-btn');
     if (!btn) return;
     const targetId = btn.getAttribute('data-target');
+    if (!targetId) return;
     const text = document.getElementById(targetId)?.textContent;
     if (text && text !== '--%' && text !== '--') {
       navigator.clipboard.writeText(text).then(() => {
@@ -147,6 +305,6 @@
       });
     }
   });
-  
-  document.addEventListener('astro:page-load', initCalculator);
+
+  document.addEventListener('astro:page-load', initCgpaCalculator);
 </script>

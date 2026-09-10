@@ -27,11 +27,21 @@ export const toolContent: Record<string, ToolContent> = {
     ]
   },
   "cgpa-to-percentage": {
-    whatIsIt: "A utility to convert Cumulative Grade Point Average (CGPA) on a 10-point scale into a standard percentage, widely used by Indian universities (like CBSE, AICTE, and VTU).",
-    howToUse: "Simply enter your 10-point scale CGPA. The calculator will apply the standard 9.5 multiplier rule.",
-    formula: "Percentage = CGPA × 9.5",
-    example: "If your CGPA is 8.2: Percentage = 8.2 × 9.5 = 77.9%.",
-    whenToUse: "When filling out job applications or university forms that strictly require your academic performance in percentage format rather than CGPA."
+    "whatIsIt": "A bidirectional academic utility for converting between Cumulative Grade Point Average (CGPA) on a 10-point scale and equivalent percentage scores. It supports standard conversion factors (such as the CBSE / AICTE 9.5 multiplier), direct 10.0 scaling, and custom university-specific multipliers or dividers.",
+    "howToUse": "1. Select your conversion mode: 'CGPA → Percentage' or 'Percentage → CGPA'.\n2. Enter your score (0–10 for CGPA or 0–100 for Percentage).\n3. Choose your conversion scale (9.5 for CBSE/Standard, 10.0 for direct decimal shift, or Custom to input your university's official multiplier/divider).\n4. Click Calculate to view your score and easily copy the result.",
+    "formula": "• CGPA to Percentage: Percentage = CGPA × Multiplier (e.g., CGPA × 9.5)\n• Percentage to CGPA: CGPA = Percentage ÷ Divider (e.g., Percentage ÷ 9.5)",
+    "variables": {
+      "Multiplier (9.5)": "Standard factor established by CBSE/AICTE for Indian boards and universities.",
+      "Multiplier (10.0)": "Direct linear conversion scale where 10 CGPA = 100%.",
+      "Custom Factor": "University-specific conversion coefficient (e.g., Mumbai University, VTU, Anna University)."
+    },
+    "example": "• Converting 8.20 CGPA to Percentage (9.5 factor): 8.20 × 9.5 = 77.90%.\n• Converting 8.20 CGPA to Percentage (10.0 factor): 8.20 × 10 = 82.00%.\n• Converting 77.90% to CGPA (9.5 factor): 77.90 ÷ 9.5 = 8.20 CGPA.",
+    "whenToUse": "Essential when filling out higher education admissions, scholarship applications, government competitive exams, or employment forms requiring a specific scoring metric (percentage vs. 10-point CGPA).",
+    "commonMistakes": "1. Assuming the 9.5 multiplier applies to every institution universally; always verify if your university uses a specific formula.\n2. Confusing semester GPA (SGPA) with cumulative grade point average (CGPA).\n3. Entering values outside the valid range (CGPA > 10 or Percentage > 100).",
+    "faq": [
+      { "q": "Why is 9.5 used by CBSE?", "a": "CBSE determined 9.5 by calculating the average marks of candidate score distributions in the top 5 percentile compared against grade point bands." },
+      { "q": "Can I use this for non-10-point scales (like 4.0 US GPA)?", "a": "For a US 4.0 scale, use our dedicated GPA Calculator which computes credit-weighted course grade averages." }
+    ]
   },
   "attendance-calculator": {
     whatIsIt: "The Attendance Calculator determines your current attendance percentage and tells you exactly how many more classes you need to attend (or can afford to miss) to maintain your college's minimum threshold.",
@@ -257,14 +267,6 @@ export const toolContent: Record<string, ToolContent> = {
     whatIsIt: "Calculates the exact chronological difference between two calendar dates, accounting for leap years and varying month lengths.",
     howToUse: "Pick a start date and an end date.",
     whenToUse: "Used to determine exact age, contract lengths, or days until a major event."
-  }
-
-,
-
-  "percentage-to-cgpa": {
-    whatIsIt: "The inverse of the CGP*to-Percentage calculator. Converts a standard 100-point percentage scale back into a 10-point scale CGPA.",
-    formula: "CGPA = Percentage / 9.5",
-    whenToUse: "Used when standardizing international transcripts or applying to universities that mandate a 10-point metric."
   },
   "required-marks": {
     whatIsIt: "A target planner that calculates exactly what score you need on your final exam to achieve a specific overall class grade.",
