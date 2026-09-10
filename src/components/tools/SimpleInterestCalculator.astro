@@ -1,0 +1,429 @@
+<div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden mb-12 max-w-4xl mx-auto">
+  <div class="p-6 sm:p-8">
+    <div class="mb-6">
+      <h2 class="text-xl font-bold text-gray-900 mb-2">Simple Interest Calculator</h2>
+      <p class="text-sm text-gray-600">Calculate simple interest, maturity amount, or solve for principal, annual rate, or loan duration.</p>
+    </div>
+
+    <!-- Mode Selector Tabs -->
+    <div class="flex flex-wrap gap-2 mb-6 border-b border-gray-100 pb-4">
+      <button type="button" id="tab-solve-interest" class="si-tab-btn px-4 py-2 text-sm font-medium rounded-lg bg-emerald-600 text-white transition-colors" data-mode="interest">
+        Find Interest & Total
+      </button>
+      <button type="button" id="tab-solve-principal" class="si-tab-btn px-4 py-2 text-sm font-medium rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors" data-mode="principal">
+        Find Principal (P)
+      </button>
+      <button type="button" id="tab-solve-rate" class="si-tab-btn px-4 py-2 text-sm font-medium rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors" data-mode="rate">
+        Find Rate (R)
+      </button>
+      <button type="button" id="tab-solve-time" class="si-tab-btn px-4 py-2 text-sm font-medium rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors" data-mode="time">
+        Find Time (T)
+      </button>
+    </div>
+
+    <form id="si-form" class="space-y-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+        <!-- Field 1: Principal -->
+        <div id="field-group-principal">
+          <label for="si-principal" class="block text-sm font-semibold text-gray-800 mb-1">
+            Principal Amount ($ / ₹ / €)
+          </label>
+          <input
+            type="number"
+            id="si-principal"
+            min="0"
+            step="any"
+            value="5000"
+            required
+            inputmode="decimal"
+            class="block w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-base font-medium text-gray-900"
+            placeholder="5000"
+          />
+        </div>
+
+        <!-- Field 2: Rate -->
+        <div id="field-group-rate">
+          <label for="si-rate" class="block text-sm font-semibold text-gray-800 mb-1">
+            Annual Interest Rate (%)
+          </label>
+          <input
+            type="number"
+            id="si-rate"
+            min="0"
+            step="any"
+            value="6"
+            required
+            inputmode="decimal"
+            class="block w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-base font-medium text-gray-900"
+            placeholder="6.0"
+          />
+        </div>
+
+        <!-- Field 3: Time & Unit -->
+        <div id="field-group-time" class="sm:col-span-2 grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div class="sm:col-span-2">
+            <label for="si-time" class="block text-sm font-semibold text-gray-800 mb-1">
+              Time Duration
+            </label>
+            <input
+              type="number"
+              id="si-time"
+              min="0.01"
+              step="any"
+              value="3"
+              required
+              inputmode="decimal"
+              class="block w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-base font-medium text-gray-900"
+              placeholder="3"
+            />
+          </div>
+          <div>
+            <label for="si-time-unit" class="block text-sm font-semibold text-gray-800 mb-1">
+              Time Unit
+            </label>
+            <select id="si-time-unit" class="block w-full px-3 py-2.5 bg-white border border-gray-300 rounded-xl text-base text-gray-800 focus:ring-emerald-500 focus:border-emerald-500">
+              <option value="years" selected>Years</option>
+              <option value="months">Months</option>
+              <option value="days">Days (365/yr)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Field 4: Interest Target (Hidden in interest mode) -->
+        <div id="field-group-interest" class="hidden">
+          <label for="si-interest-input" class="block text-sm font-semibold text-gray-800 mb-1">
+            Total Interest Earned ($ / ₹ / €)
+          </label>
+          <input
+            type="number"
+            id="si-interest-input"
+            min="0"
+            step="any"
+            value="900"
+            inputmode="decimal"
+            class="block w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-base font-medium text-gray-900"
+            placeholder="900"
+          />
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-col sm:flex-row gap-3 pt-2">
+        <button type="submit" class="flex-1 bg-emerald-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors shadow-sm min-h-[44px]">
+          Calculate
+        </button>
+        <button type="button" id="reset-btn" class="px-6 py-3 border border-gray-300 rounded-xl text-gray-700 font-semibold hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors min-h-[44px]">
+          Reset
+        </button>
+      </div>
+    </form>
+
+    <div id="error-box" class="hidden mt-6 bg-red-50 text-red-700 p-4 rounded-xl text-sm font-medium border border-red-200"></div>
+
+    <!-- Results Section -->
+    <div id="result-section" class="mt-8 pt-8 border-t border-gray-100" aria-live="polite">
+      <!-- Main Result Card -->
+      <div class="bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-200/80 rounded-2xl p-6 sm:p-8 text-center relative mb-6">
+        <div class="flex justify-end absolute top-4 right-4">
+          <button
+            type="button"
+            id="copy-result-btn"
+            class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-white/90 hover:bg-white text-emerald-800 border border-emerald-200 shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-emerald-500 min-h-[36px]"
+            title="Copy calculated result"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+            <span>Copy Result</span>
+          </button>
+        </div>
+        <p id="si-main-label" class="text-sm font-semibold uppercase tracking-wider text-emerald-800 mb-1">Simple Interest Earned</p>
+        <div id="si-main-value" class="text-4xl sm:text-5xl font-extrabold text-emerald-950 my-2">$900.00</div>
+        <p id="si-main-sub" class="text-sm text-emerald-700 font-medium">Total Maturity Amount: $5,900.00</p>
+      </div>
+
+      <!-- Secondary Metrics -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+        <div class="bg-gray-50 rounded-xl p-4 border border-gray-200/70 text-center">
+          <p class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-1">Principal (P)</p>
+          <div id="stat-p" class="text-lg font-bold text-gray-900">$5,000.00</div>
+        </div>
+        <div class="bg-gray-50 rounded-xl p-4 border border-gray-200/70 text-center">
+          <p class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-1">Annual Rate (R)</p>
+          <div id="stat-r" class="text-lg font-bold text-gray-900">6.00%</div>
+        </div>
+        <div class="bg-gray-50 rounded-xl p-4 border border-gray-200/70 text-center">
+          <p class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-1">Monthly Interest</p>
+          <div id="stat-monthly-i" class="text-lg font-bold text-gray-900">$25.00</div>
+        </div>
+        <div class="bg-gray-50 rounded-xl p-4 border border-gray-200/70 text-center">
+          <p class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-1">Daily Interest</p>
+          <div id="stat-daily-i" class="text-lg font-bold text-gray-900">$0.82</div>
+        </div>
+      </div>
+
+      <!-- Step-by-Step Calculation Box -->
+      <div class="bg-gray-50 rounded-xl p-5 border border-gray-200">
+        <h3 class="text-sm font-bold text-gray-900 uppercase tracking-wider mb-2">Step-by-Step Formula Derivation</h3>
+        <div id="si-steps-content" class="text-sm text-gray-700 font-mono space-y-1 bg-white p-4 rounded-lg border border-gray-200/80">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { copyToClipboard, formatResultNumber } from '../../utils/formatters';
+
+  const initSimpleInterest = () => {
+    let mode = 'interest'; // 'interest', 'principal', 'rate', 'time'
+
+    const form = document.getElementById('si-form') as HTMLFormElement;
+    const tabBtns = document.querySelectorAll('.si-tab-btn');
+
+    const fieldGroupP = document.getElementById('field-group-principal');
+    const fieldGroupR = document.getElementById('field-group-rate');
+    const fieldGroupT = document.getElementById('field-group-time');
+    const fieldGroupI = document.getElementById('field-group-interest');
+
+    const inputP = document.getElementById('si-principal') as HTMLInputElement;
+    const inputR = document.getElementById('si-rate') as HTMLInputElement;
+    const inputT = document.getElementById('si-time') as HTMLInputElement;
+    const selectTUnit = document.getElementById('si-time-unit') as HTMLSelectElement;
+    const inputI = document.getElementById('si-interest-input') as HTMLInputElement;
+
+    const resetBtn = document.getElementById('reset-btn');
+    const copyBtn = document.getElementById('copy-result-btn');
+    const errorBox = document.getElementById('error-box');
+
+    const mainLabelEl = document.getElementById('si-main-label');
+    const mainValueEl = document.getElementById('si-main-value');
+    const mainSubEl = document.getElementById('si-main-sub');
+
+    const statPEl = document.getElementById('stat-p');
+    const statREl = document.getElementById('stat-r');
+    const statMonthlyEl = document.getElementById('stat-monthly-i');
+    const statDailyEl = document.getElementById('stat-daily-i');
+    const stepsContentEl = document.getElementById('si-steps-content');
+
+    if (!form || !inputP) return;
+
+    const formatCur = (v: number): string => {
+      if (isNaN(v) || !isFinite(v)) return '0.00';
+      return v.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    };
+
+    const getTimeInYears = (val: number, unit: string): number => {
+      if (unit === 'months') return val / 12;
+      if (unit === 'days') return val / 365;
+      return val;
+    };
+
+    const updateVisibility = () => {
+      tabBtns.forEach(btn => {
+        const m = btn.getAttribute('data-mode');
+        if (m === mode) {
+          btn.classList.remove('bg-gray-100', 'text-gray-700', 'hover:bg-gray-200');
+          btn.classList.add('bg-emerald-600', 'text-white');
+        } else {
+          btn.classList.remove('bg-emerald-600', 'text-white');
+          btn.classList.add('bg-gray-100', 'text-gray-700', 'hover:bg-gray-200');
+        }
+      });
+
+      fieldGroupP?.classList.remove('hidden');
+      fieldGroupR?.classList.remove('hidden');
+      fieldGroupT?.classList.remove('hidden');
+      fieldGroupI?.classList.add('hidden');
+
+      if (mode === 'interest') {
+        fieldGroupI?.classList.add('hidden');
+      } else if (mode === 'principal') {
+        fieldGroupP?.classList.add('hidden');
+        fieldGroupI?.classList.remove('hidden');
+      } else if (mode === 'rate') {
+        fieldGroupR?.classList.add('hidden');
+        fieldGroupI?.classList.remove('hidden');
+      } else if (mode === 'time') {
+        fieldGroupT?.classList.add('hidden');
+        fieldGroupI?.classList.remove('hidden');
+      }
+    };
+
+    const calculate = () => {
+      errorBox?.classList.add('hidden');
+
+      let P = parseFloat(inputP.value);
+      let R = parseFloat(inputR.value);
+      let rawT = parseFloat(inputT.value);
+      const unitT = selectTUnit.value;
+      let I = parseFloat(inputI.value);
+
+      if (mode === 'interest') {
+        if (isNaN(P) || P < 0 || isNaN(R) || R < 0 || isNaN(rawT) || rawT < 0) {
+          if (errorBox) {
+            errorBox.textContent = 'Please enter valid positive numbers for Principal, Rate, and Time.';
+            errorBox.classList.remove('hidden');
+          }
+          return;
+        }
+
+        const tYears = getTimeInYears(rawT, unitT);
+        I = (P * R * tYears) / 100;
+        const totalAmount = P + I;
+        const monthlyI = tYears > 0 ? I / (tYears * 12) : 0;
+        const dailyI = tYears > 0 ? I / (tYears * 365) : 0;
+
+        if (mainLabelEl) mainLabelEl.textContent = 'Simple Interest Earned (I)';
+        if (mainValueEl) mainValueEl.textContent = `$${formatCur(I)}`;
+        if (mainSubEl) mainSubEl.textContent = `Total Maturity Amount (A = P + I): $${formatCur(totalAmount)}`;
+
+        if (statPEl) statPEl.textContent = `$${formatCur(P)}`;
+        if (statREl) statREl.textContent = `${R.toFixed(2)}%`;
+        if (statMonthlyEl) statMonthlyEl.textContent = `$${formatCur(monthlyI)}`;
+        if (statDailyEl) statDailyEl.textContent = `$${formatCur(dailyI)}`;
+
+        if (stepsContentEl) {
+          stepsContentEl.innerHTML = `
+            <p>1. Formula: <strong>I = (P × R × T) / 100</strong></p>
+            <p>2. Time in Years: <strong>T = ${rawT} ${unitT} = ${tYears.toFixed(4)} years</strong></p>
+            <p>3. Calculation: <strong>I = (${formatCur(P)} × ${R} × ${tYears.toFixed(4)}) / 100 = $${formatCur(I)}</strong></p>
+            <p>4. Total Amount: <strong>A = P + I = ${formatCur(P)} + ${formatCur(I)} = $${formatCur(totalAmount)}</strong></p>
+          `;
+        }
+      } else if (mode === 'principal') {
+        if (isNaN(I) || I < 0 || isNaN(R) || R <= 0 || isNaN(rawT) || rawT <= 0) {
+          if (errorBox) {
+            errorBox.textContent = 'Please enter valid numbers (Rate and Time must be greater than 0).';
+            errorBox.classList.remove('hidden');
+          }
+          return;
+        }
+        const tYears = getTimeInYears(rawT, unitT);
+        P = (I * 100) / (R * tYears);
+        const totalAmount = P + I;
+
+        if (mainLabelEl) mainLabelEl.textContent = 'Calculated Principal (P)';
+        if (mainValueEl) mainValueEl.textContent = `$${formatCur(P)}`;
+        if (mainSubEl) mainSubEl.textContent = `Total Amount with Interest: $${formatCur(totalAmount)}`;
+
+        if (statPEl) statPEl.textContent = `$${formatCur(P)}`;
+        if (statREl) statREl.textContent = `${R.toFixed(2)}%`;
+        if (statMonthlyEl) statMonthlyEl.textContent = `$${formatCur(I / (tYears * 12))}`;
+        if (statDailyEl) statDailyEl.textContent = `$${formatCur(I / (tYears * 365))}`;
+
+        if (stepsContentEl) {
+          stepsContentEl.innerHTML = `
+            <p>1. Formula: <strong>P = (I × 100) / (R × T)</strong></p>
+            <p>2. Calculation: <strong>P = (${formatCur(I)} × 100) / (${R} × ${tYears.toFixed(4)}) = $${formatCur(P)}</strong></p>
+            <p>3. Total Amount: <strong>A = P + I = $${formatCur(totalAmount)}</strong></p>
+          `;
+        }
+      } else if (mode === 'rate') {
+        if (isNaN(I) || I < 0 || isNaN(P) || P <= 0 || isNaN(rawT) || rawT <= 0) {
+          if (errorBox) {
+            errorBox.textContent = 'Please enter valid numbers (Principal and Time must be greater than 0).';
+            errorBox.classList.remove('hidden');
+          }
+          return;
+        }
+        const tYears = getTimeInYears(rawT, unitT);
+        R = (I * 100) / (P * tYears);
+
+        if (mainLabelEl) mainLabelEl.textContent = 'Calculated Annual Interest Rate (R)';
+        if (mainValueEl) mainValueEl.textContent = `${R.toFixed(3)}%`;
+        if (mainSubEl) mainSubEl.textContent = `Yielding $${formatCur(I)} interest on $${formatCur(P)} over ${rawT} ${unitT}`;
+
+        if (statPEl) statPEl.textContent = `$${formatCur(P)}`;
+        if (statREl) statREl.textContent = `${R.toFixed(3)}%`;
+        if (statMonthlyEl) statMonthlyEl.textContent = `$${formatCur(I / (tYears * 12))}`;
+        if (statDailyEl) statDailyEl.textContent = `$${formatCur(I / (tYears * 365))}`;
+
+        if (stepsContentEl) {
+          stepsContentEl.innerHTML = `
+            <p>1. Formula: <strong>R = (I × 100) / (P × T)</strong></p>
+            <p>2. Calculation: <strong>R = (${formatCur(I)} × 100) / (${formatCur(P)} × ${tYears.toFixed(4)}) = ${R.toFixed(3)}%</strong></p>
+          `;
+        }
+      } else if (mode === 'time') {
+        if (isNaN(I) || I < 0 || isNaN(P) || P <= 0 || isNaN(R) || R <= 0) {
+          if (errorBox) {
+            errorBox.textContent = 'Please enter valid numbers (Principal and Rate must be greater than 0).';
+            errorBox.classList.remove('hidden');
+          }
+          return;
+        }
+        const tYears = (I * 100) / (P * R);
+        const tMonths = tYears * 12;
+        const tDays = tYears * 365;
+
+        if (mainLabelEl) mainLabelEl.textContent = 'Calculated Time Duration (T)';
+        if (mainValueEl) mainValueEl.textContent = `${tYears.toFixed(2)} Years`;
+        if (mainSubEl) mainSubEl.textContent = `Equivalent to ${tMonths.toFixed(1)} Months or ${Math.round(tDays)} Days`;
+
+        if (statPEl) statPEl.textContent = `$${formatCur(P)}`;
+        if (statREl) statREl.textContent = `${R.toFixed(2)}%`;
+        if (statMonthlyEl) statMonthlyEl.textContent = `$${formatCur(I / (tYears * 12))}`;
+        if (statDailyEl) statDailyEl.textContent = `$${formatCur(I / (tYears * 365))}`;
+
+        if (stepsContentEl) {
+          stepsContentEl.innerHTML = `
+            <p>1. Formula: <strong>T = (I × 100) / (P × R)</strong></p>
+            <p>2. Calculation: <strong>T = (${formatCur(I)} × 100) / (${formatCur(P)} × ${R}) = ${tYears.toFixed(4)} years</strong></p>
+          `;
+        }
+      }
+    };
+
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        mode = btn.getAttribute('data-mode') || 'interest';
+        updateVisibility();
+        calculate();
+      });
+    });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      calculate();
+    });
+
+    inputP.addEventListener('input', calculate);
+    inputR.addEventListener('input', calculate);
+    inputT.addEventListener('input', calculate);
+    selectTUnit.addEventListener('change', calculate);
+    inputI.addEventListener('input', calculate);
+
+    resetBtn?.addEventListener('click', () => {
+      mode = 'interest';
+      inputP.value = '5000';
+      inputR.value = '6';
+      inputT.value = '3';
+      selectTUnit.value = 'years';
+      inputI.value = '900';
+      updateVisibility();
+      calculate();
+    });
+
+    copyBtn?.addEventListener('click', async () => {
+      const text = mainValueEl?.textContent || '';
+      const success = await copyToClipboard(text);
+      if (success) {
+        const span = copyBtn.querySelector('span');
+        if (span) {
+          const original = span.textContent;
+          span.textContent = 'Copied!';
+          setTimeout(() => { span.textContent = original; }, 1500);
+        }
+      }
+    });
+
+    updateVisibility();
+    calculate();
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSimpleInterest);
+  } else {
+    initSimpleInterest();
+  }
+</script>

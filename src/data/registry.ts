@@ -783,9 +783,75 @@ export const tools: Tool[] = [
   { id: "relative-error-calculator", title: "Relative Error Calculator", description: "Calculate absolute and relative percentage error between experimental and true values.", slug: "relative-error-calculator", category: "Numerical Methods", subcategory: "Error Analysis", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"t","label":"True Value","options":[{"label":"val","factor":1}]},{"id":"a","label":"Approximate Value","options":[{"label":"val","factor":1}]}], expression: "abs(t - a) / t", outputLabel: "Relative Error" } },
   { id: "final-grade-calculator", title: "Final Grade Calculator", description: "Calculate required final exam scores needed to achieve target course grades.", slug: "final-grade-calculator", category: "Student Utilities", subcategory: "Grades", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"t","label":"Target Class Grade (%)","options":[{"label":"%","factor":1}]},{"id":"c","label":"Current Class Grade (%)","options":[{"label":"%","factor":1}]},{"id":"w","label":"Weight of Final Exam (%)","options":[{"label":"%","factor":1}]}], expression: "(t - c * (1 - (w/100))) / (w/100)", outputLabel: "Required Exam Score (%)" } },
   { id: "base-conversion-calculator", title: "Base Conversion Calculator", description: "Convert numbers between binary, octal, decimal, and hexadecimal numeral systems with steps.", slug: "base-conversion-calculator", category: "Computer Science", subcategory: "Number Systems", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>", component: "BaseConverter", aliases: ["binary converter", "hexadecimal converter", "hex converter", "octal converter", "decimal converter", "binary to decimal", "decimal to binary", "hex to binary", "binary to hex", "decimal to hex", "hex to decimal", "base 2", "base 8", "base 10", "base 16", "radix converter", "number systems calculator"], related: [] },
-  { id: "weighted-grade-calculator", title: "Weighted Grade Calculator", description: "Calculate weighted grade averages from assignment scores and category weight percentages.", slug: "weighted-grade-calculator", category: "Student Utilities", subcategory: "Grades", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"g1","label":"Grade 1","options":[{"label":"%","factor":1}]},{"id":"w1","label":"Weight 1","options":[{"label":"%","factor":1}]},{"id":"g2","label":"Grade 2","options":[{"label":"%","factor":1}]},{"id":"w2","label":"Weight 2","options":[{"label":"%","factor":1}]},{"id":"g3","label":"Grade 3","options":[{"label":"%","factor":1}]},{"id":"w3","label":"Weight 3","options":[{"label":"%","factor":1}]}], expression: "(g1*w1 + g2*w2 + g3*w3)/(w1+w2+w3)", outputLabel: "Weighted Grade" } }
-];
+  { id: "weighted-grade-calculator", title: "Weighted Grade Calculator", description: "Calculate weighted grade averages from assignment scores and category weight percentages.", slug: "weighted-grade-calculator", category: "Student Utilities", subcategory: "Grades", icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z'></path></svg>", component: "UnitAwareCalculator", physicsConfig: { inputs: [{"id":"g1","label":"Grade 1","options":[{"label":"%","factor":1}]},{"id":"w1","label":"Weight 1","options":[{"label":"%","factor":1}]},{"id":"g2","label":"Grade 2","options":[{"label":"%","factor":1}]},{"id":"w2","label":"Weight 2","options":[{"label":"%","factor":1}]},{"id":"g3","label":"Grade 3","options":[{"label":"%","factor":1}]},{"id":"w3","label":"Weight 3","options":[{"label":"%","factor":1}]}], expression: "(g1*w1 + g2*w2 + g3*w3)/(w1+w2+w3)", outputLabel: "Weighted Grade" } },
+  {
+    id: "words-to-pages",
+    title: "Words to Pages Converter",
+    description: "Convert word count to pages based on font family, font size, margins, and line spacing.",
+    slug: "words-to-pages",
+    category: "Study & Productivity",
+    subcategory: "Writing & Reading",
+    aliases: ["words to pages", "word to page converter", "how many pages is 1000 words", "words to pages calculator", "page count calculator", "convert words to pages", "single spaced words to pages", "double spaced words to pages", "essay page calculator", "words to pages times new roman"],
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z'></path></svg>",
+    component: "WordsToPages"
+  },
+  {
+    id: "compound-interest-calculator",
+    title: "Compound Interest Calculator",
+    description: "Calculate compound interest with regular monthly deposits, annual growth breakdowns, and customizable compounding frequencies.",
+    slug: "compound-interest-calculator",
+    category: "Finance",
+    subcategory: "Interest & Investments",
+    aliases: ["compound interest calculator", "calculate compound interest", "compound interest with contributions", "investment compound interest", "monthly compound interest", "annual compound interest", "compound interest formula", "savings compound interest", "compound interest formula calculator"],
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z'></path></svg>",
+    component: "CompoundInterestCalculator"
+  },
+  {
+    id: "simple-interest-calculator",
+    title: "Simple Interest Calculator",
+    description: "Calculate simple interest (P × R × T / 100), total amount, or solve for principal, rate, and time.",
+    slug: "simple-interest-calculator",
+    category: "Finance",
+    subcategory: "Interest & Loans",
+    aliases: ["simple interest calculator", "calculate simple interest", "simple interest formula", "SI calculator", "simple interest loan calculator", "principal rate time calculator", "simple interest solver", "simple interest step by step"],
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z'></path></svg>",
+    component: "SimpleInterestCalculator"
+  },
+  {
+    id: "z-score-calculator",
+    title: "Z-Score Calculator & Normal Distribution Probability",
+    description: "Calculate Z-score, left-tail, right-tail, two-tail P-values, and normal distribution percentiles.",
+    slug: "z-score-calculator",
+    category: "Statistics",
+    subcategory: "Distributions",
+    aliases: ["z score calculator", "calculate z score", "z score to p value", "z score percentile", "standard normal z score", "p value from z score", "z value calculator", "z score probability calculator"],
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z'></path></svg>",
+    component: "ZScoreCalculator"
+  },
+  {
+    id: "permutations-and-combinations",
+    title: "Permutations & Combinations Calculator (nPr & nCr)",
+    description: "Calculate permutations (nPr) and combinations (nCr) with or without repetition, including step-by-step factorial expansions.",
+    slug: "permutations-and-combinations",
+    category: "Mathematics",
+    subcategory: "Discrete Mathematics",
+    aliases: ["permutations and combinations calculator", "npr calculator", "ncr calculator", "permutation calculator", "combination calculator", "n choose r calculator", "npr and ncr", "permutations with repetition"],
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 6h16M4 12h16M4 18h7'></path></svg>",
+    component: "PermutationsAndCombinations"
+  },
+  {
+    id: "prime-factorization-calculator",
+    title: "Prime Factorization Calculator",
+    description: "Find prime factors, canonical exponential form, divisor count, and step-by-step factor division tree for any number.",
+    slug: "prime-factorization-calculator",
+    category: "Mathematics",
+    subcategory: "Number Theory",
+    aliases: ["prime factorization calculator", "prime factors calculator", "factor tree calculator", "prime decomposition", "find prime factors", "prime factor finder", "canonical prime factorization"],
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M7 20l4-16m2 16l4-16M6 9h14M4 15h14'></path></svg>",
+    component: "PrimeFactorization"
+  }
 
+];
 
 export const getActiveCategories = (): Category[] => {
   const uniqueNames = [...new Set(tools.map(t => t.category))].sort();

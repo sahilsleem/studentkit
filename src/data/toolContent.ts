@@ -1513,5 +1513,113 @@ export const toolContent: Record<string, ToolContent> = {
     },
     "example": "If your current grade is 82%, your target grade is 85%, and the final exam is worth 25% (0.25): Required Exam Score = [85 - 82 · (1 - 0.25)] / 0.25 = [85 - 61.5] / 0.25 = 23.5 / 0.25 = 94.0%.",
     "whenToUse": "Essential during finals week to prioritize study hours and determine whether target course letter grades are mathematically achievable."
+  },
+  "words-to-pages": {
+    "whatIsIt": "The Words to Pages Converter translates word counts into approximate printed or digital page counts based on typography settings including font family, font size, margins, and line spacing (single, 1.5, or double spaced). It also converts page counts back to estimated words and calculates estimated reading and speaking durations.",
+    "howToUse": "1. Select your conversion direction: 'Words → Pages' or 'Pages → Words'.\n2. Enter your word or page count, or choose a quick preset (Academic Double, Single Spaced, College Essay, or Book Manuscript).\n3. Adjust line spacing (single, 1.5, double), font family, font size (10pt, 11pt, 12pt), and margin sizes.\n4. View the calculated page count, estimated reading/speaking times, and formatting comparison table.",
+    "formula": "Estimated Pages = Total Word Count / Estimated Words Per Page\nEstimated Words Per Page = Base WPP × Font Factor × Size Factor × Margin Factor",
+    "variables": {
+      "Base WPP": "Baseline word capacity per standard page (500 for single spaced, 250 for double spaced with 12pt Times New Roman).",
+      "Font Factor": "Relative horizontal glyph width multiplier (e.g., Courier takes ~80% more space than Times New Roman).",
+      "Size Factor": "Scaling factor for 10pt (1.25x words), 11pt (1.10x), or 12pt (1.0x).",
+      "Margin Factor": "Scaling factor for standard 1.0\" (1.0x), narrow 0.5\" (1.30x), or wide 1.5\" (0.75x) margins."
+    },
+    "example": "A 2,000-word essay formatted in 12pt Times New Roman, double-spaced with 1-inch margins yields: 2,000 / 250 = 8.0 pages. At 1.5 spacing (~333 wpp), it is ~6.0 pages. Single-spaced (~500 wpp), it is ~4.0 pages.",
+    "whenToUse": "Use when planning academic essays, research papers, book manuscripts, articles, or speeches with strict page limits or presentation time constraints.",
+    "faq": [
+      { "q": "How many pages is 1,000 words?", "a": "1,000 words is approximately 4 pages double-spaced or 2 pages single-spaced when using standard 12pt Times New Roman font and 1-inch margins." },
+      { "q": "How long does it take to read 1,000 words?", "a": "At an average silent reading speed of 230 words per minute (wpm), 1,000 words takes about 4 minutes and 20 seconds to read." }
+    ]
+  },
+  "compound-interest-calculator": {
+    "whatIsIt": "The Compound Interest Calculator calculates the exponential growth of an investment or savings account over time when earned interest is continuously or periodically reinvested to earn additional interest. It supports regular periodic contributions (monthly or annual) and multiple compounding frequencies.",
+    "howToUse": "1. Enter your starting Principal amount.\n2. Input the expected Annual Interest Rate (%).\n3. Specify any regular additional contributions and select contribution frequency (Monthly or Annually).\n4. Choose the investment horizon (years) and compounding frequency (Monthly, Quarterly, Annually, Daily, or Continuously).\n5. View your total future balance, principal vs interest distribution, and year-by-year growth table.",
+    "formula": "• Without Deposits: A = P(1 + r/n)^(nt)\n• Continuous Compounding: A = P · e^(rt)\n• With Regular Deposits (PMT): A = P(1 + r/n)^(nt) + PMT · [((1 + r/n)^(nt) - 1) / (r/n)]",
+    "variables": {
+      "A": "Final future balance including principal and accumulated compound interest.",
+      "P": "Initial principal deposit.",
+      "r": "Nominal annual interest rate in decimal form (e.g., 7% = 0.07).",
+      "n": "Number of times interest is compounded per year (12 for monthly, 4 for quarterly, 1 for annually).",
+      "t": "Total investment duration in years.",
+      "PMT": "Regular recurring periodic deposit amount."
+    },
+    "example": "Investing $10,000 at 7% annual interest compounded monthly for 10 years with $200 monthly contributions yields a final future balance of $52,389.14 (Principal invested: $34,000.00, Compound Interest earned: $18,389.14).",
+    "whenToUse": "Essential for retirement planning, student loan repayment strategy, index fund investment forecasting, college fund savings, and evaluating savings accounts or certificates of deposit (CDs).",
+    "faq": [
+      { "q": "What is the difference between simple and compound interest?", "a": "Simple interest is calculated solely on the original principal balance. Compound interest is calculated on both the original principal and accumulated interest from previous periods, leading to exponential growth over time." },
+      { "q": "What is the Rule of 72?", "a": "The Rule of 72 is a quick estimation shortcut: divide 72 by your annual interest rate to find approximately how many years it will take for your money to double (e.g., at 8%, 72 / 8 = ~9 years)." }
+    ]
+  },
+  "simple-interest-calculator": {
+    "whatIsIt": "The Simple Interest Calculator computes fixed interest earned on investments or charged on short-term loans, promissory notes, and fixed-rate bonds where interest is earned purely on the initial principal. It also functions as a bidirectional algebraic solver to find Principal, Annual Rate, or Time Duration given other known variables.",
+    "howToUse": "1. Choose your calculation mode: 'Find Interest & Total', 'Find Principal', 'Find Rate', or 'Find Time'.\n2. Enter the known financial values and select the time unit (Years, Months, or Days).\n3. Click Calculate to see the interest amount, total maturity payout, and detailed step-by-step mathematical substitution.",
+    "formula": "• Simple Interest: I = (P × R × T) / 100\n• Total Maturity Amount: A = P + I\n• Principal Solver: P = (100 × I) / (R × T)\n• Rate Solver: R = (100 × I) / (P × T)\n• Time Solver: T = (100 × I) / (P × R)",
+    "variables": {
+      "I": "Total simple interest earned or owed ($ / ₹ / €).",
+      "P": "Original principal amount borrowed or invested.",
+      "R": "Annual nominal interest rate percentage (%).",
+      "T": "Time duration of the loan or deposit converted into years."
+    },
+    "example": "Borrowing $5,000 at 6% annual simple interest for 3 years: I = (5000 × 6 × 3) / 100 = $900.00. Total maturity repayment amount = $5,000 + $900 = $5,900.00.",
+    "whenToUse": "Ideal for short-term student loans, auto loans, personal promissory agreements, basic banking problems, certificates of deposit with fixed simple yields, and financial math coursework.",
+    "faq": [
+      { "q": "How is simple interest calculated when time is in months or days?", "a": "Convert the time to years first: divide months by 12 (e.g., 6 months = 0.5 years) or divide days by 365 (e.g., 90 days = 90/365 ≈ 0.2466 years)." },
+      { "q": "When is simple interest used in real life?", "a": "Simple interest is standard for short-term personal loans, certain federal student loans (subsidized/unsubsidized standard amortizations), auto installment loans, and treasury bills." }
+    ]
+  },
+  "z-score-calculator": {
+    "whatIsIt": "The Z-Score Calculator determines the standard score (number of standard deviations a data point lies above or below the mean) in a normal distribution. It computes left-tail, right-tail, two-tailed P-values, and percentile ranks, and can reverse-calculate raw scores from target Z-values.",
+    "howToUse": "1. Select your mode: 'Raw Score → Z-Score', 'Z-Score → P-Value / Percentile', or 'Z-Score → Raw Score'.\n2. Enter the raw score (x), population mean (μ), and standard deviation (σ).\n3. Click Calculate to view the standard Z-score, the visual normal curve indicator, and complete tail probability areas.",
+    "formula": "• Z-Score: Z = (x - μ) / σ\n• Raw Score from Z: x = μ + (Z × σ)\n• Cumulative Probability (Percentile): Φ(z) = P(Z < z) = ∫_{-∞}^{z} (1/√(2π)) e^(-t²/2) dt",
+    "variables": {
+      "x": "Raw observed score or measurement value.",
+      "μ (Mu)": "Population or dataset arithmetic mean.",
+      "σ (Sigma)": "Population standard deviation (must be strictly positive, σ > 0).",
+      "Z": "Standard score representing distance from mean in units of standard deviations.",
+      "P(Z < z)": "Left-tail cumulative probability area (percentile rank)."
+    },
+    "example": "On an exam with a mean of μ = 75 and standard deviation of σ = 10, a student scoring x = 85 has a Z-score of: Z = (85 - 75) / 10 = +1.00. The corresponding percentile is 84.13% (P(Z < 1.0) = 0.8413).",
+    "whenToUse": "Widely used in statistics, psychology, standardized testing (SAT, GRE, ACT scoring), quality control (Six Sigma), and hypothesis testing (Z-tests).",
+    "faq": [
+      { "q": "What does a negative Z-score mean?", "a": "A negative Z-score indicates that the data point lies below the population mean (e.g., Z = -1.5 is 1.5 standard deviations below the mean)." },
+      { "q": "What is the 68-95-99.7 Empirical Rule?", "a": "In any standard normal distribution, approximately 68.27% of observations lie within 1 standard deviation (Z = ±1), 95.45% lie within 2 standard deviations (Z = ±2), and 99.73% lie within 3 standard deviations (Z = ±3)." }
+    ]
+  },
+  "permutations-and-combinations": {
+    "whatIsIt": "The Permutations and Combinations Calculator computes the number of possible arrangements and selections of r items from a set of n items. It supports permutations without repetition (nPr), combinations without repetition (nCr), permutations with repetition (n^r), and combinations with repetition, providing full factorial derivations.",
+    "howToUse": "1. Enter the total number of items in the set (n ≥ 0).\n2. Enter the number of items to select or arrange (r ≥ 0).\n3. View the calculated nPr and nCr values, side-by-side comparison table, and step-by-step factorial expansions.",
+    "formula": "• Permutations (Order Matters, No Repetition): nPr = n! / (n - r)!\n• Combinations (Order Does NOT Matter, No Repetition): nCr = n! / (r! × (n - r)!)\n• Permutations with Repetition: n^r\n• Combinations with Repetition: (n + r - 1)! / (r! × (n - 1)!)",
+    "variables": {
+      "n": "Total number of available items in the master set.",
+      "r": "Number of items chosen or arranged.",
+      "n!": "Factorial of n (n! = n × (n-1) × ... × 2 × 1, with 0! = 1).",
+      "nPr": "Permutations count where sequential arrangement matters.",
+      "nCr": "Combinations count where selection group matters regardless of order."
+    },
+    "example": "Selecting and arranging 3 winners (1st, 2nd, 3rd) out of 10 competitors: nPr = 10! / (10 - 3)! = 10 × 9 × 8 = 720 ways. Choosing a 3-person committee from 10 candidates: nCr = 10! / (3! × 7!) = 720 / 6 = 120 ways.",
+    "whenToUse": "Essential in discrete mathematics, probability theory, statistics, combinatorics, cryptography, lottery analysis, and computer algorithm design.",
+    "faq": [
+      { "q": "What is the key difference between permutations and combinations?", "a": "Order! Permutations apply when sequence or order matters (e.g., race podiums, PIN codes, locker combinations). Combinations apply when order does not matter (e.g., poker hands, committee selections, pizza toppings)." },
+      { "q": "Why is 0! equal to 1?", "a": "By mathematical definition and gamma function extension, there is exactly one way to arrange 0 items: the empty set." }
+    ]
+  },
+  "prime-factorization-calculator": {
+    "whatIsIt": "The Prime Factorization Calculator decomposes any positive integer (N ≥ 2) into its unique constituent prime number building blocks (Fundamental Theorem of Arithmetic). It provides the canonical exponential representation, expanded prime multiplication string, distinct prime factors, total divisor count d(N), and step-by-step trial division steps.",
+    "howToUse": "1. Enter any positive integer N ≥ 2 (or pick from sample numbers like 360, 1024, 9973).\n2. Click 'Find Prime Factors'.\n3. View the canonical exponential form (e.g., 2³ × 3² × 5¹), prime/composite status badge, total divisor metrics, and the step-by-step factor division tree.",
+    "formula": "• Fundamental Theorem of Arithmetic: N = p₁^(e₁) × p₂^(e₂) × ... × p_k^(e_k)\n• Number of Divisors: d(N) = (e₁ + 1)(e₂ + 1)...(e_k + 1)\n• Sum of Divisors: σ(N) = ∏ [(p_i^(e_i+1) - 1) / (p_i - 1)]",
+    "variables": {
+      "N": "The composite or prime integer being factorized.",
+      "p_i": "Distinct prime factor numbers (e.g., 2, 3, 5, 7, 11...).",
+      "e_i": "Multiplicity exponent of prime factor p_i.",
+      "d(N)": "Total count of positive integer divisors/factors of N.",
+      "σ(N)": "Sum of all positive integer divisors of N."
+    },
+    "example": "Factorizing 360: 360 / 2 = 180, 180 / 2 = 90, 90 / 2 = 45, 45 / 3 = 15, 15 / 3 = 5, 5 / 5 = 1. Exponential form: 2³ × 3² × 5¹. Total divisors = (3+1)(2+1)(1+1) = 4 × 3 × 2 = 24 divisors.",
+    "whenToUse": "Crucial for finding greatest common divisors (GCD), least common multiples (LCM), simplifying fractions, modular arithmetic, RSA cryptography key generation, and number theory studies.",
+    "faq": [
+      { "q": "What is the Fundamental Theorem of Arithmetic?", "a": "It states that every integer greater than 1 either is a prime number itself or can be represented as the product of prime numbers in a unique way up to the order of the factors." },
+      { "q": "Is 1 a prime number?", "a": "No, 1 is neither prime nor composite by modern mathematical definition because a prime number must have exactly two distinct positive divisors (1 and itself)." }
+    ]
   }
+
 };

@@ -1,0 +1,458 @@
+<div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden mb-12 max-w-4xl mx-auto">
+  <div class="p-6 sm:p-8">
+    <div class="mb-6">
+      <h2 class="text-xl font-bold text-gray-900 mb-2">Words to Pages Converter</h2>
+      <p class="text-sm text-gray-600">Estimate document page count from word count or calculate word requirements from pages based on font family, font size, margins, and line spacing.</p>
+    </div>
+
+    <!-- Mode Selector -->
+    <div class="flex flex-wrap gap-2 mb-6 border-b border-gray-100 pb-4">
+      <button type="button" id="mode-w2p" class="mode-btn px-4 py-2 text-sm font-medium rounded-lg bg-emerald-600 text-white transition-colors">
+        Words → Pages
+      </button>
+      <button type="button" id="mode-p2w" class="mode-btn px-4 py-2 text-sm font-medium rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors">
+        Pages → Words
+      </button>
+    </div>
+
+    <!-- Quick Presets -->
+    <div class="mb-6 bg-emerald-50/60 border border-emerald-100 rounded-xl p-4">
+      <label class="block text-xs font-semibold uppercase tracking-wider text-emerald-800 mb-2">Quick Document Presets</label>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+        <button type="button" data-preset="academic-double" class="preset-btn text-xs font-medium py-2 px-2.5 rounded-lg bg-white border border-emerald-200 text-emerald-900 hover:bg-emerald-100/70 transition-colors text-center">
+          Academic (Double, ~250 wpp)
+        </button>
+        <button type="button" data-preset="academic-single" class="preset-btn text-xs font-medium py-2 px-2.5 rounded-lg bg-white border border-emerald-200 text-emerald-900 hover:bg-emerald-100/70 transition-colors text-center">
+          Single Spaced (~500 wpp)
+        </button>
+        <button type="button" data-preset="college-essay" class="preset-btn text-xs font-medium py-2 px-2.5 rounded-lg bg-white border border-emerald-200 text-emerald-900 hover:bg-emerald-100/70 transition-colors text-center">
+          College Essay (1.5 Spacing)
+        </button>
+        <button type="button" data-preset="book-manuscript" class="preset-btn text-xs font-medium py-2 px-2.5 rounded-lg bg-white border border-emerald-200 text-emerald-900 hover:bg-emerald-100/70 transition-colors text-center">
+          Book Manuscript (~300 wpp)
+        </button>
+      </div>
+    </div>
+
+    <form id="w2p-form" class="space-y-6">
+      <!-- Input Count Row -->
+      <div>
+        <label id="input-count-label" for="input-count" class="block text-sm font-semibold text-gray-800 mb-1">
+          Word Count
+        </label>
+        <div class="relative">
+          <input
+            type="number"
+            id="input-count"
+            min="1"
+            max="10000000"
+            step="1"
+            value="1000"
+            required
+            inputmode="numeric"
+            class="block w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-lg font-medium text-gray-900"
+            placeholder="e.g. 1500"
+          />
+        </div>
+      </div>
+
+      <!-- Formatting Options Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div>
+          <label for="spacing-select" class="block text-xs font-semibold uppercase tracking-wider text-gray-600 mb-1.5">Line Spacing</label>
+          <select id="spacing-select" class="block w-full px-3 py-2.5 bg-white border border-gray-300 rounded-lg text-sm text-gray-800 focus:ring-emerald-500 focus:border-emerald-500">
+            <option value="2.0" selected>Double Spaced (2.0)</option>
+            <option value="1.5">1.5 Spaced</option>
+            <option value="1.15">1.15 Spaced</option>
+            <option value="1.0">Single Spaced (1.0)</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="font-select" class="block text-xs font-semibold uppercase tracking-wider text-gray-600 mb-1.5">Font Family</label>
+          <select id="font-select" class="block w-full px-3 py-2.5 bg-white border border-gray-300 rounded-lg text-sm text-gray-800 focus:ring-emerald-500 focus:border-emerald-500">
+            <option value="times" selected>Times New Roman</option>
+            <option value="arial">Arial</option>
+            <option value="calibri">Calibri</option>
+            <option value="courier">Courier New</option>
+            <option value="georgia">Georgia</option>
+            <option value="verdana">Verdana</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="size-select" class="block text-xs font-semibold uppercase tracking-wider text-gray-600 mb-1.5">Font Size</label>
+          <select id="size-select" class="block w-full px-3 py-2.5 bg-white border border-gray-300 rounded-lg text-sm text-gray-800 focus:ring-emerald-500 focus:border-emerald-500">
+            <option value="10">10 pt</option>
+            <option value="11">11 pt</option>
+            <option value="12" selected>12 pt (Standard)</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="margin-select" class="block text-xs font-semibold uppercase tracking-wider text-gray-600 mb-1.5">Margins</label>
+          <select id="margin-select" class="block w-full px-3 py-2.5 bg-white border border-gray-300 rounded-lg text-sm text-gray-800 focus:ring-emerald-500 focus:border-emerald-500">
+            <option value="1.0" selected>Standard (1.0 in)</option>
+            <option value="0.75">Moderate (0.75 in)</option>
+            <option value="0.5">Narrow (0.5 in)</option>
+            <option value="1.5">Wide (1.5 in)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-col sm:flex-row gap-3 pt-2">
+        <button type="submit" class="flex-1 bg-emerald-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors shadow-sm min-h-[44px]">
+          Calculate
+        </button>
+        <button type="button" id="reset-btn" class="px-6 py-3 border border-gray-300 rounded-xl text-gray-700 font-semibold hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors min-h-[44px]">
+          Reset
+        </button>
+      </div>
+    </form>
+
+    <div id="error-box" class="hidden mt-6 bg-red-50 text-red-700 p-4 rounded-xl text-sm font-medium border border-red-200"></div>
+
+    <!-- Results Section -->
+    <div id="result-section" class="mt-8 pt-8 border-t border-gray-100" aria-live="polite">
+      <!-- Main Highlight Result Card -->
+      <div class="bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-200/80 rounded-2xl p-6 sm:p-8 text-center relative mb-6">
+        <div class="flex justify-end absolute top-4 right-4">
+          <button
+            type="button"
+            id="copy-result-btn"
+            class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-white/90 hover:bg-white text-emerald-800 border border-emerald-200 shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-emerald-500 min-h-[36px]"
+            title="Copy result to clipboard"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+            <span>Copy Result</span>
+          </button>
+        </div>
+        <p id="main-result-label" class="text-sm font-semibold uppercase tracking-wider text-emerald-800 mb-1">Estimated Page Count</p>
+        <div id="main-result-value" class="text-4xl sm:text-5xl font-extrabold text-emerald-950 my-2">4.0 Pages</div>
+        <p id="main-result-sub" class="text-sm text-emerald-700 font-medium">Approx. 250 words per page</p>
+      </div>
+
+      <!-- Secondary Metrics Grid -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+        <div class="bg-gray-50 rounded-xl p-4 border border-gray-200/70 text-center">
+          <p class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-1">Reading Time</p>
+          <div id="stat-reading" class="text-lg font-bold text-gray-900">4 min 21 sec</div>
+          <p class="text-xs text-gray-400 mt-0.5">@ 230 wpm</p>
+        </div>
+        <div class="bg-gray-50 rounded-xl p-4 border border-gray-200/70 text-center">
+          <p class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-1">Speaking Time</p>
+          <div id="stat-speaking" class="text-lg font-bold text-gray-900">7 min 42 sec</div>
+          <p class="text-xs text-gray-400 mt-0.5">@ 130 wpm</p>
+        </div>
+        <div class="bg-gray-50 rounded-xl p-4 border border-gray-200/70 text-center">
+          <p class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-1">Paragraphs</p>
+          <div id="stat-paragraphs" class="text-lg font-bold text-gray-900">~10</div>
+          <p class="text-xs text-gray-400 mt-0.5">@ ~100 w/para</p>
+        </div>
+        <div class="bg-gray-50 rounded-xl p-4 border border-gray-200/70 text-center">
+          <p class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-1">Characters</p>
+          <div id="stat-characters" class="text-lg font-bold text-gray-900">~6,000</div>
+          <p class="text-xs text-gray-400 mt-0.5">with spaces</p>
+        </div>
+      </div>
+
+      <!-- Formatting Summary Table -->
+      <div class="overflow-x-auto rounded-xl border border-gray-200 mb-4">
+        <table class="w-full text-left text-sm text-gray-600">
+          <thead class="bg-gray-50 text-xs font-semibold uppercase text-gray-700 border-b border-gray-200">
+            <tr>
+              <th class="px-4 py-3">Configuration</th>
+              <th class="px-4 py-3">Words Per Page</th>
+              <th class="px-4 py-3">Pages (1,000 Words)</th>
+              <th class="px-4 py-3">Pages (Your Words)</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100 bg-white">
+            <tr class="hover:bg-gray-50/80">
+              <td class="px-4 py-2.5 font-medium text-gray-900">Single Spaced (1.0)</td>
+              <td class="px-4 py-2.5" id="wpp-single">~500 wpp</td>
+              <td class="px-4 py-2.5">2.0 pages</td>
+              <td class="px-4 py-2.5 font-semibold text-emerald-700" id="pages-single">2.0 pages</td>
+            </tr>
+            <tr class="hover:bg-gray-50/80">
+              <td class="px-4 py-2.5 font-medium text-gray-900">1.5 Spaced</td>
+              <td class="px-4 py-2.5" id="wpp-15">~333 wpp</td>
+              <td class="px-4 py-2.5">3.0 pages</td>
+              <td class="px-4 py-2.5 font-semibold text-emerald-700" id="pages-15">3.0 pages</td>
+            </tr>
+            <tr class="hover:bg-gray-50/80">
+              <td class="px-4 py-2.5 font-medium text-gray-900">Double Spaced (2.0)</td>
+              <td class="px-4 py-2.5" id="wpp-double">~250 wpp</td>
+              <td class="px-4 py-2.5">4.0 pages</td>
+              <td class="px-4 py-2.5 font-semibold text-emerald-700" id="pages-double">4.0 pages</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Estimation Disclaimer Notice -->
+      <p class="text-xs text-gray-500 italic text-center">
+        * Note: Page counts are estimations based on standard word densities. Actual document length in Microsoft Word or Google Docs will vary depending on paragraph breaks, headings, images, and custom margins.
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { copyToClipboard } from '../../utils/formatters';
+
+  const initWordsToPages = () => {
+    let mode = 'w2p'; // 'w2p' or 'p2w'
+
+    const form = document.getElementById('w2p-form') as HTMLFormElement;
+    const inputCount = document.getElementById('input-count') as HTMLInputElement;
+    const inputCountLabel = document.getElementById('input-count-label');
+    const spacingSelect = document.getElementById('spacing-select') as HTMLSelectElement;
+    const fontSelect = document.getElementById('font-select') as HTMLSelectElement;
+    const sizeSelect = document.getElementById('size-select') as HTMLSelectElement;
+    const marginSelect = document.getElementById('margin-select') as HTMLSelectElement;
+    const resetBtn = document.getElementById('reset-btn');
+    const copyBtn = document.getElementById('copy-result-btn');
+    const errorBox = document.getElementById('error-box');
+
+    const modeW2PBtn = document.getElementById('mode-w2p');
+    const modeP2WBtn = document.getElementById('mode-p2w');
+
+    const mainResultLabel = document.getElementById('main-result-label');
+    const mainResultValue = document.getElementById('main-result-value');
+    const mainResultSub = document.getElementById('main-result-sub');
+
+    const statReading = document.getElementById('stat-reading');
+    const statSpeaking = document.getElementById('stat-speaking');
+    const statParagraphs = document.getElementById('stat-paragraphs');
+    const statCharacters = document.getElementById('stat-characters');
+
+    const wppSingle = document.getElementById('wpp-single');
+    const wpp15 = document.getElementById('wpp-15');
+    const wppDouble = document.getElementById('wpp-double');
+    const pagesSingle = document.getElementById('pages-single');
+    const pages15 = document.getElementById('pages-15');
+    const pagesDouble = document.getElementById('pages-double');
+
+    if (!form || !inputCount) return;
+
+    const fontMultipliers: Record<string, number> = {
+      times: 1.0,
+      arial: 0.92,
+      calibri: 1.04,
+      courier: 0.55,
+      georgia: 0.90,
+      verdana: 0.85
+    };
+
+    const sizeMultipliers: Record<string, number> = {
+      '10': 1.25,
+      '11': 1.10,
+      '12': 1.0
+    };
+
+    const marginMultipliers: Record<string, number> = {
+      '1.0': 1.0,
+      '0.75': 1.15,
+      '0.5': 1.30,
+      '1.5': 0.75
+    };
+
+    const calculateWPP = (spacing: number, font: string, size: string, margin: string): number => {
+      let baseWpp = 500;
+      if (spacing === 2.0) baseWpp = 250;
+      else if (spacing === 1.5) baseWpp = 333;
+      else if (spacing === 1.15) baseWpp = 435;
+      else baseWpp = 500;
+
+      const fM = fontMultipliers[font] || 1.0;
+      const sM = sizeMultipliers[size] || 1.0;
+      const mM = marginMultipliers[margin] || 1.0;
+
+      return Math.round(baseWpp * fM * sM * mM);
+    };
+
+    const formatTime = (totalSeconds: number): string => {
+      const minutes = Math.floor(totalSeconds / 60);
+      const seconds = Math.round(totalSeconds % 60);
+      if (minutes === 0) return `${seconds} sec`;
+      return `${minutes} min ${seconds} sec`;
+    };
+
+    const updateCalculation = () => {
+      errorBox?.classList.add('hidden');
+      const val = parseFloat(inputCount.value);
+
+      if (isNaN(val) || val <= 0) {
+        if (errorBox) {
+          errorBox.textContent = 'Please enter a valid positive number.';
+          errorBox.classList.remove('hidden');
+        }
+        return;
+      }
+
+      const spacing = parseFloat(spacingSelect.value) || 2.0;
+      const font = fontSelect.value || 'times';
+      const size = sizeSelect.value || '12';
+      const margin = marginSelect.value || '1.0';
+
+      const currentWPP = calculateWPP(spacing, font, size, margin);
+      const singleWPP = calculateWPP(1.0, font, size, margin);
+      const wpp15Val = calculateWPP(1.5, font, size, margin);
+      const doubleWPP = calculateWPP(2.0, font, size, margin);
+
+      if (mode === 'w2p') {
+        const words = val;
+        const pages = words / currentWPP;
+        const formattedPages = pages < 10 ? pages.toFixed(1) : Math.round(pages).toString();
+
+        if (mainResultLabel) mainResultLabel.textContent = 'Estimated Page Count';
+        if (mainResultValue) mainResultValue.textContent = `${formattedPages} ${pages === 1 ? 'Page' : 'Pages'}`;
+        if (mainResultSub) mainResultSub.textContent = `Approx. ${currentWPP} words per page`;
+
+        // Reading / Speaking stats
+        const readSeconds = (words / 230) * 60;
+        const speakSeconds = (words / 130) * 60;
+        if (statReading) statReading.textContent = formatTime(readSeconds);
+        if (statSpeaking) statSpeaking.textContent = formatTime(speakSeconds);
+        if (statParagraphs) statParagraphs.textContent = `~${Math.max(1, Math.round(words / 100))}`;
+        if (statCharacters) statCharacters.textContent = `~${(words * 6).toLocaleString()}`;
+
+        // Comparison table
+        const pSingle = (words / singleWPP).toFixed(1);
+        const p15 = (words / wpp15Val).toFixed(1);
+        const pDouble = (words / doubleWPP).toFixed(1);
+
+        if (wppSingle) wppSingle.textContent = `~${singleWPP} wpp`;
+        if (wpp15) wpp15.textContent = `~${wpp15Val} wpp`;
+        if (wppDouble) wppDouble.textContent = `~${doubleWPP} wpp`;
+
+        if (pagesSingle) pagesSingle.textContent = `${pSingle} pages`;
+        if (pages15) pages15.textContent = `${p15} pages`;
+        if (pagesDouble) pagesDouble.textContent = `${pDouble} pages`;
+      } else {
+        const pages = val;
+        const words = Math.round(pages * currentWPP);
+
+        if (mainResultLabel) mainResultLabel.textContent = 'Estimated Word Count';
+        if (mainResultValue) mainResultValue.textContent = `${words.toLocaleString()} Words`;
+        if (mainResultSub) mainResultSub.textContent = `Based on ${currentWPP} words per page`;
+
+        const readSeconds = (words / 230) * 60;
+        const speakSeconds = (words / 130) * 60;
+        if (statReading) statReading.textContent = formatTime(readSeconds);
+        if (statSpeaking) statSpeaking.textContent = formatTime(speakSeconds);
+        if (statParagraphs) statParagraphs.textContent = `~${Math.max(1, Math.round(words / 100))}`;
+        if (statCharacters) statCharacters.textContent = `~${(words * 6).toLocaleString()}`;
+
+        const wSingle = Math.round(pages * singleWPP);
+        const w15 = Math.round(pages * wpp15Val);
+        const wDouble = Math.round(pages * doubleWPP);
+
+        if (wppSingle) wppSingle.textContent = `~${singleWPP} wpp`;
+        if (wpp15) wpp15.textContent = `~${wpp15Val} wpp`;
+        if (wppDouble) wppDouble.textContent = `~${doubleWPP} wpp`;
+
+        if (pagesSingle) pagesSingle.textContent = `${wSingle.toLocaleString()} words`;
+        if (pages15) pages15.textContent = `${w15.toLocaleString()} words`;
+        if (pagesDouble) pagesDouble.textContent = `${wDouble.toLocaleString()} words`;
+      }
+    };
+
+    const setMode = (newMode: 'w2p' | 'p2w') => {
+      mode = newMode;
+      if (mode === 'w2p') {
+        modeW2PBtn?.classList.remove('bg-gray-100', 'text-gray-700');
+        modeW2PBtn?.classList.add('bg-emerald-600', 'text-white');
+        modeP2WBtn?.classList.remove('bg-emerald-600', 'text-white');
+        modeP2WBtn?.classList.add('bg-gray-100', 'text-gray-700');
+        if (inputCountLabel) inputCountLabel.textContent = 'Word Count';
+        inputCount.value = '1000';
+        inputCount.placeholder = 'e.g. 1500';
+      } else {
+        modeP2WBtn?.classList.remove('bg-gray-100', 'text-gray-700');
+        modeP2WBtn?.classList.add('bg-emerald-600', 'text-white');
+        modeW2PBtn?.classList.remove('bg-emerald-600', 'text-white');
+        modeW2PBtn?.classList.add('bg-gray-100', 'text-gray-700');
+        if (inputCountLabel) inputCountLabel.textContent = 'Number of Pages';
+        inputCount.value = '4';
+        inputCount.placeholder = 'e.g. 5';
+      }
+      updateCalculation();
+    };
+
+    modeW2PBtn?.addEventListener('click', () => setMode('w2p'));
+    modeP2WBtn?.addEventListener('click', () => setMode('p2w'));
+
+    // Presets
+    document.querySelectorAll('.preset-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const preset = btn.getAttribute('data-preset');
+        if (preset === 'academic-double') {
+          spacingSelect.value = '2.0';
+          fontSelect.value = 'times';
+          sizeSelect.value = '12';
+          marginSelect.value = '1.0';
+        } else if (preset === 'academic-single') {
+          spacingSelect.value = '1.0';
+          fontSelect.value = 'times';
+          sizeSelect.value = '12';
+          marginSelect.value = '1.0';
+        } else if (preset === 'college-essay') {
+          spacingSelect.value = '1.5';
+          fontSelect.value = 'arial';
+          sizeSelect.value = '12';
+          marginSelect.value = '1.0';
+        } else if (preset === 'book-manuscript') {
+          spacingSelect.value = '1.5';
+          fontSelect.value = 'times';
+          sizeSelect.value = '11';
+          marginSelect.value = '1.0';
+        }
+        updateCalculation();
+      });
+    });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      updateCalculation();
+    });
+
+    inputCount.addEventListener('input', updateCalculation);
+    spacingSelect.addEventListener('change', updateCalculation);
+    fontSelect.addEventListener('change', updateCalculation);
+    sizeSelect.addEventListener('change', updateCalculation);
+    marginSelect.addEventListener('change', updateCalculation);
+
+    resetBtn?.addEventListener('click', () => {
+      setMode('w2p');
+      spacingSelect.value = '2.0';
+      fontSelect.value = 'times';
+      sizeSelect.value = '12';
+      marginSelect.value = '1.0';
+      updateCalculation();
+    });
+
+    copyBtn?.addEventListener('click', async () => {
+      const text = mainResultValue?.textContent || '';
+      const success = await copyToClipboard(text);
+      if (success) {
+        const span = copyBtn.querySelector('span');
+        if (span) {
+          const original = span.textContent;
+          span.textContent = 'Copied!';
+          setTimeout(() => { span.textContent = original; }, 1500);
+        }
+      }
+    });
+
+    updateCalculation();
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initWordsToPages);
+  } else {
+    initWordsToPages();
+  }
+</script>
