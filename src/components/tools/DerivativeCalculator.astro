@@ -3,7 +3,7 @@ import { tools } from '../../data/registry';
 const { tool } = Astro.props;
 
 // Determine mode from slug
-let mode = 'first'; // first, second, partial, implicit, marginal, critical, inflection, concavity, increasing-decreasing, extrema
+let mode = 'first'; // first, second, partial, implicit, marginal, critical, inflection, concavity, increasing-decreasing, extrema, logarithmic, optimization, related-rates
 if (tool.slug.includes('second-derivative')) mode = 'second';
 if (tool.slug.includes('partial-derivative')) mode = 'partial';
 if (tool.slug.includes('implicit-differentiation')) mode = 'implicit';
@@ -16,24 +16,41 @@ if (tool.slug.includes('increasing-decreasing')) mode = 'increasing-decreasing';
 if (tool.slug.includes('extrema')) mode = 'extrema';
 if (tool.slug.includes('logarithmic-differentiation')) mode = 'logarithmic';
 if (tool.slug.includes('optimization')) mode = 'optimization';
+if (tool.slug.includes('related-rates')) mode = 'related-rates';
 ---
 
 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden max-w-3xl mx-auto">
   <div class="p-6 sm:p-8">
     <form id="deriv-form" class="space-y-5">
+      {mode === 'related-rates' && (
+        <div>
+          <label for="rr-preset-select" class="block text-sm font-medium text-gray-700 mb-2">Preset Problem Model (Optional)</label>
+          <select id="rr-preset-select" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-emerald-500 bg-white text-sm">
+            <option value="custom">Custom Equation (General Solver)</option>
+            <option value="circle_area">Circle Area: A = pi * r^2</option>
+            <option value="sphere_volume">Sphere Volume: V = (4/3) * pi * r^3</option>
+            <option value="sphere_surface">Sphere Surface Area: S = 4 * pi * r^2</option>
+            <option value="pythagorean">Right Triangle / Ladder: x^2 + y^2 = z^2</option>
+            <option value="cone_volume">Cone Volume: V = (1/3) * pi * r^2 * h</option>
+            <option value="cylinder_volume">Cylinder Volume: V = pi * r^2 * h</option>
+            <option value="rectangle_area">Rectangle Area: A = x * y</option>
+          </select>
+        </div>
+      )}
+
       <div>
         <label for="fn-expr" class="block text-sm font-medium text-gray-700 mb-2">
-          {mode === 'implicit' ? 'Equation F(x,y) = 0' : (mode === 'marginal' ? 'Cost/Revenue Function C(x)' : (mode === 'optimization' ? 'Objective Function f(x)' : 'Function f(x, y, ...)'))}
+          {mode === 'implicit' ? 'Equation F(x,y) = 0' : (mode === 'marginal' ? 'Cost/Revenue Function C(x)' : (mode === 'optimization' ? 'Objective Function f(x)' : (mode === 'related-rates' ? 'Governing Relationship / Equation' : 'Function f(x, y, ...)')))}
         </label>
         <div class="flex items-center gap-3">
-          <span class="font-mono text-gray-500 font-bold">{mode === 'implicit' ? 'F(x,y) =' : (mode === 'marginal' ? 'C(x) =' : 'f(...) =')}</span>
-          <input type="text" id="fn-expr" required class="flex-1 p-3 border border-gray-300 rounded-lg focus:ring-emerald-500 font-mono text-lg" placeholder={mode === 'implicit' ? 'x^2 + y^2 - 25' : (mode === 'logarithmic' ? 'x^x' : (mode === 'critical' || mode === 'inflection' || mode === 'concavity' || mode === 'increasing-decreasing' || mode === 'extrema' || mode === 'optimization' ? 'x^3 - 3x' : 'x^2 * sin(x)'))}>
+          <span class="font-mono text-gray-500 font-bold">{mode === 'implicit' ? 'F(x,y) =' : (mode === 'marginal' ? 'C(x) =' : (mode === 'related-rates' ? 'Eq:' : 'f(...) ='))}</span>
+          <input type="text" id="fn-expr" required class="flex-1 p-3 border border-gray-300 rounded-lg focus:ring-emerald-500 font-mono text-lg" placeholder={mode === 'implicit' ? 'x^2 + y^2 - 25' : (mode === 'logarithmic' ? 'x^x' : (mode === 'related-rates' ? 'A = pi * r^2' : (mode === 'critical' || mode === 'inflection' || mode === 'concavity' || mode === 'increasing-decreasing' || mode === 'extrema' || mode === 'optimization' ? 'x^3 - 3x' : 'x^2 * sin(x)')))}>
         </div>
-        <p class="text-xs text-gray-500 mt-2">Example: <code>2x^3 - 4x + 1</code>, <code>sin(x)*e^x</code>, <code>1/x</code></p>
+        <p class="text-xs text-gray-500 mt-2">{mode === 'related-rates' ? 'Example: A = pi * r^2, x^2 + y^2 = z^2, V = (4/3)*pi*r^3' : 'Example: 2x^3 - 4x + 1, sin(x)*e^x, 1/x'}</p>
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {mode !== 'implicit' && mode !== 'marginal' && (
+        {mode !== 'implicit' && mode !== 'marginal' && mode !== 'related-rates' && (
           <div>
             <label for="fn-var" class="block text-sm font-medium text-gray-700 mb-2">Respect to Variable</label>
             <input type="text" id="fn-var" value="x" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-emerald-500 font-mono text-center">
@@ -59,11 +76,29 @@ if (tool.slug.includes('optimization')) mode = 'optimization';
             </div>
           </div>
         )}
+
+        {mode === 'related-rates' && (
+          <div class="col-span-full space-y-4 pt-2 border-t border-gray-100">
+            <div class="flex items-center justify-between">
+              <h4 class="text-sm font-semibold text-gray-800">Known Values &amp; Known Rates (w.r.t. time t)</h4>
+              <span class="text-xs text-gray-500">Auto-detected from equation</span>
+            </div>
+            <div id="rr-vars-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <!-- Dynamically rendered variable values and rates -->
+            </div>
+            <div>
+              <label for="rr-target-select" class="block text-sm font-medium text-gray-700 mb-2">Target Rate to Solve For</label>
+              <select id="rr-target-select" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-emerald-500 bg-white font-mono text-base font-semibold text-emerald-800">
+                <!-- Dynamically populated -->
+              </select>
+            </div>
+          </div>
+        )}
       </div>
 
       <div class="pt-4">
         <button type="submit" class="w-full bg-emerald-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors shadow-sm">
-          {mode === 'critical' ? 'Find Critical Points' : (mode === 'inflection' ? 'Find Inflection Points' : (mode === 'concavity' ? 'Analyze Concavity' : (mode === 'increasing-decreasing' ? 'Find Increasing/Decreasing Intervals' : (mode === 'extrema' ? 'Find Local Extrema' : (mode === 'logarithmic' ? 'Differentiate Using Logarithms' : (mode === 'optimization' ? 'Optimize Function' : 'Calculate Derivative'))))))}
+          {mode === 'critical' ? 'Find Critical Points' : (mode === 'inflection' ? 'Find Inflection Points' : (mode === 'concavity' ? 'Analyze Concavity' : (mode === 'increasing-decreasing' ? 'Find Increasing/Decreasing Intervals' : (mode === 'extrema' ? 'Find Local Extrema' : (mode === 'logarithmic' ? 'Differentiate Using Logarithms' : (mode === 'optimization' ? 'Optimize Function' : (mode === 'related-rates' ? 'Solve Related Rates' : 'Calculate Derivative')))))))}
         </button>
       </div>
     </form>
@@ -157,6 +192,14 @@ if (tool.slug.includes('optimization')) mode = 'optimization';
              </div>
              <p id="opt-note" class="text-xs text-gray-500 italic mt-2"></p>
           </div>
+          <div id="related-rates-section" class="hidden mt-4 pt-4 border-t border-gray-200 space-y-4">
+            <div class="flex items-center justify-between">
+              <p class="text-xs text-gray-500 uppercase font-bold tracking-wide">Related Rates Solution</p>
+              <span class="text-xs text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 font-medium">Chain Rule &amp; Implicit Differentiation</span>
+            </div>
+            <div id="rr-steps-list" class="space-y-3 font-mono text-sm"></div>
+            <div id="rr-interpretation-note" class="p-3 bg-blue-50 rounded border border-blue-200 text-blue-800 text-xs"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -223,6 +266,13 @@ if (tool.slug.includes('optimization')) mode = 'optimization';
     const optCandSec = document.getElementById('opt-candidates-section');
     const optCandList = document.getElementById('opt-candidates-list');
     const optNote = document.getElementById('opt-note');
+
+    const rrPresetSelect = document.getElementById('rr-preset-select') as HTMLSelectElement | null;
+    const rrVarsGrid = document.getElementById('rr-vars-grid');
+    const rrTargetSelect = document.getElementById('rr-target-select') as HTMLSelectElement | null;
+    const rrSec = document.getElementById('related-rates-section');
+    const rrStepsList = document.getElementById('rr-steps-list');
+    const rrInterpNote = document.getElementById('rr-interpretation-note');
 
     if (!form) return;
 
@@ -341,6 +391,7 @@ if (tool.slug.includes('optimization')) mode = 'optimization';
       if (optSec) optSec.classList.add('hidden');
       if (optDiscWarning) optDiscWarning.classList.add('hidden');
       if (optLocalSec) optLocalSec.classList.add('hidden');
+      if (rrSec) rrSec.classList.add('hidden');
 
       let expr = cleanExpr(exprIn.value);
       let v = varIn ? varIn.value || 'x' : 'x';
@@ -1385,6 +1436,156 @@ if (tool.slug.includes('optimization')) mode = 'optimization';
             optSec.classList.remove('hidden');
           }
         }
+        else if (mode === 'related-rates') {
+          if (!rrTargetSelect) throw new Error('Target rate selector missing.');
+          const targetVar = rrTargetSelect.value;
+          if (!targetVar) throw new Error('Please select a target rate to solve for.');
+
+          const { diffStr, lhsStr, rhsStr, variables } = extractRRVariables(exprIn.value);
+          if (!variables.includes(targetVar)) {
+            throw new Error(`Target variable "${targetVar}" is not present in the relationship equation.`);
+          }
+
+          const values = {};
+          const rates = {};
+
+          for (const varName of variables) {
+            const valEl = document.getElementById(`rr-val-${varName}`) as HTMLInputElement | null;
+            const rateEl = document.getElementById(`rr-rate-${varName}`) as HTMLInputElement | null;
+
+            if (valEl && valEl.value.trim() !== '') {
+              const parsedVal = parseFloat(valEl.value);
+              if (isNaN(parsedVal)) throw new Error(`Invalid numeric value for variable "${varName}".`);
+              values[varName] = parsedVal;
+            }
+
+            if (varName !== targetVar) {
+              if (!rateEl || rateEl.value.trim() === '') {
+                throw new Error(`Missing known rate for variable "${varName}" (d${varName}/dt).`);
+              }
+              const parsedRate = parseFloat(rateEl.value);
+              if (isNaN(parsedRate)) throw new Error(`Invalid numeric rate for variable "${varName}" (d${varName}/dt).`);
+              rates[varName] = parsedRate;
+            }
+          }
+
+          // Calculate partial derivatives and solve
+          const partialDerivs = {};
+          const evalPartials = {};
+          let targetPartialEval = null;
+
+          const steps = [];
+          steps.push({
+            title: "Step 1: Governing Relationship & Implicit Form",
+            content: `Given equation: ${lhsStr} = ${rhsStr}\nStandard implicit form: F(${variables.join(', ')}) = ${diffStr} = 0`
+          });
+
+          const diffTermsLhs = [];
+          const diffTermsRhs = [];
+          const diffLhsNode = math.parse(cleanExpr(lhsStr));
+          const diffRhsNode = math.parse(cleanExpr(rhsStr));
+
+          for (const varName of variables) {
+            const dLhs = math.derivative(diffLhsNode, varName);
+            const dRhs = math.derivative(diffRhsNode, varName);
+            const simpLhs = math.simplify(dLhs).toString();
+            const simpRhs = math.simplify(dRhs).toString();
+
+            if (simpLhs !== '0') {
+              diffTermsLhs.push(`(${simpLhs.replace(/\s\*\s/g, '')}) · (d${varName}/dt)`);
+            }
+            if (simpRhs !== '0') {
+              diffTermsRhs.push(`(${simpRhs.replace(/\s\*\s/g, '')}) · (d${varName}/dt)`);
+            }
+
+            const dF = math.derivative(diffStr, varName);
+            partialDerivs[varName] = math.simplify(dF);
+
+            try {
+              const val = partialDerivs[varName].evaluate(values);
+              if (typeof val !== 'number' || isNaN(val) || !isFinite(val)) {
+                throw new Error(`Non-finite evaluation`);
+              }
+              evalPartials[varName] = val;
+              if (varName === targetVar) {
+                targetPartialEval = val;
+              }
+            } catch (evalErr) {
+              throw new Error(`Cannot evaluate ∂F/∂${varName} = ${partialDerivs[varName].toString()}: Ensure value for "${varName}" is provided and valid.`);
+            }
+          }
+
+          const lhsDiffStr = diffTermsLhs.length > 0 ? diffTermsLhs.join(' + ') : '0';
+          const rhsDiffStr = diffTermsRhs.length > 0 ? diffTermsRhs.join(' + ') : '0';
+
+          steps.push({
+            title: "Step 2: Differentiate with Respect to Time (t) via Chain Rule",
+            content: `d/dt [ ${lhsStr} ] = d/dt [ ${rhsStr} ]\n=> ${lhsDiffStr} = ${rhsDiffStr}`
+          });
+
+          if (targetPartialEval === null || typeof targetPartialEval !== 'number' || isNaN(targetPartialEval)) {
+            throw new Error(`Coefficient of d${targetVar}/dt could not be evaluated.`);
+          }
+
+          if (Math.abs(targetPartialEval) < 1e-12) {
+            throw new Error(`Cannot solve for d${targetVar}/dt: The derivative coefficient ∂F/∂${targetVar} evaluates to 0 at the given point.`);
+          }
+
+          let knownSum = 0;
+          for (const varName of variables) {
+            if (varName === targetVar) continue;
+            const rateVal = rates[varName];
+            const pVal = evalPartials[varName];
+            knownSum += pVal * rateVal;
+          }
+
+          const targetRate = - knownSum / targetPartialEval;
+          if (isNaN(targetRate) || !isFinite(targetRate)) {
+            throw new Error(`Calculated rate d${targetVar}/dt is non-finite or undefined.`);
+          }
+
+          const fmtKnownVals = variables.map(vName => `${vName} = ${values[vName] !== undefined ? values[vName] : '?'}`).join(', ');
+          const fmtKnownRates = variables.filter(vName => vName !== targetVar).map(vName => `d${vName}/dt = ${rates[vName]}`).join(', ');
+
+          steps.push({
+            title: "Step 3: Substitute Known Values & Rates",
+            content: `Values: ${fmtKnownVals}\nRates: ${fmtKnownRates}\nTarget derivative coefficient: ∂F/∂${targetVar} = ${targetPartialEval.toFixed(6)}\nSum of known rate terms: ${knownSum.toFixed(6)}`
+          });
+
+          const formattedRate = Math.abs(targetRate) < 1e-12 ? "0" : (Number.isInteger(targetRate) ? targetRate.toString() : parseFloat(targetRate.toFixed(6)).toString());
+
+          steps.push({
+            title: `Step 4: Solve for d${targetVar}/dt`,
+            content: `d${targetVar}/dt = -(${knownSum.toFixed(6)}) / (${targetPartialEval.toFixed(6)})\n=> d${targetVar}/dt = ${formattedRate}`
+          });
+
+          labelStr = `Related Rate: d${targetVar} / dt =`;
+          resultStr = formattedRate;
+
+          if (rrStepsList && rrInterpNote && rrSec) {
+            rrStepsList.innerHTML = '';
+            steps.forEach(st => {
+              const stepCard = document.createElement('div');
+              stepCard.className = 'bg-white p-3.5 rounded-lg border border-gray-200 text-sm shadow-sm space-y-1';
+              stepCard.innerHTML = `
+                <div class="font-bold text-gray-800 text-xs uppercase tracking-wide">${st.title}</div>
+                <div class="text-gray-900 whitespace-pre-wrap font-mono text-xs bg-gray-50 p-2.5 rounded border border-gray-100">${st.content}</div>
+              `;
+              rrStepsList.appendChild(stepCard);
+            });
+
+            let interp = '';
+            if (targetRate > 1e-12) {
+              interp = `Variable "${targetVar}" is INCREASING at a rate of ${formattedRate} units per unit time.`;
+            } else if (targetRate < -1e-12) {
+              interp = `Variable "${targetVar}" is DECREASING at a rate of ${Math.abs(parseFloat(formattedRate))} units per unit time (negative rate).`;
+            } else {
+              interp = `Variable "${targetVar}" is instantaneous stationary (rate of change is 0).`;
+            }
+            rrInterpNote.textContent = `Interpretation: ${interp}`;
+            rrSec.classList.remove('hidden');
+          }
+        }
         else {
           // first, marginal, tangent
           const d1 = math.derivative(expr, v);
@@ -1442,6 +1643,169 @@ if (tool.slug.includes('optimization')) mode = 'optimization';
 
       resSec.classList.remove('hidden');
     });
+
+    const BUILTIN_SYMBOLS = new Set([
+      'pi', 'PI', 'e', 'E', 'i', 'I',
+      'sin', 'cos', 'tan', 'sec', 'csc', 'cot',
+      'asin', 'acos', 'atan', 'asec', 'acsc', 'acot',
+      'sinh', 'cosh', 'tanh', 'asinh', 'acosh', 'atanh',
+      'log', 'ln', 'log10', 'log2', 'exp', 'sqrt', 'cbrt', 'abs', 'sign'
+    ]);
+
+    const RR_PRESETS: Record<string, { eq: string; target: string; values: Record<string, number>; rates: Record<string, number> }> = {
+      circle_area: { eq: 'A = pi * r^2', target: 'A', values: { r: 5 }, rates: { r: 2 } },
+      sphere_volume: { eq: 'V = (4/3) * pi * r^3', target: 'V', values: { r: 3 }, rates: { r: 2 } },
+      sphere_surface: { eq: 'S = 4 * pi * r^2', target: 'S', values: { r: 5 }, rates: { r: 2 } },
+      pythagorean: { eq: 'x^2 + y^2 = z^2', target: 'z', values: { x: 3, y: 4, z: 5 }, rates: { x: -2, y: 1 } },
+      cone_volume: { eq: 'V = (1/3) * pi * r^2 * h', target: 'V', values: { r: 3, h: 4 }, rates: { r: 2, h: -1 } },
+      cylinder_volume: { eq: 'V = pi * r^2 * h', target: 'V', values: { r: 2, h: 5 }, rates: { r: 0.5, h: 0 } },
+      rectangle_area: { eq: 'A = x * y', target: 'A', values: { x: 4, y: 5 }, rates: { x: 3, y: -2 } }
+    };
+
+    const extractRRVariables = (exprStr: string) => {
+      if (!exprStr || !exprStr.trim()) {
+        throw new Error('Please enter a governing relationship equation.');
+      }
+      const parts = exprStr.split('=');
+      let diffStr: string;
+      if (parts.length === 2) {
+        if (!parts[0].trim() || !parts[1].trim()) {
+          throw new Error('Both sides of the equation must contain valid mathematical expressions.');
+        }
+        diffStr = `(${parts[0]}) - (${parts[1]})`;
+      } else if (parts.length === 1) {
+        diffStr = parts[0];
+      } else {
+        throw new Error('Equation must contain at most one "=" sign.');
+      }
+
+      const parsed = math.parse(cleanExpr(diffStr));
+      const symbols = new Set<string>();
+      parsed.traverse((node: any) => {
+        if (node.isSymbolNode && !BUILTIN_SYMBOLS.has(node.name)) {
+          symbols.add(node.name);
+        }
+      });
+
+      const variables = Array.from(symbols);
+      if (variables.length === 0) {
+        throw new Error('No variables detected in equation.');
+      }
+      return {
+        diffStr,
+        lhsStr: parts.length === 2 ? parts[0].trim() : parts[0].trim(),
+        rhsStr: parts.length === 2 ? parts[1].trim() : '0',
+        variables
+      };
+    };
+
+    const updateRRInputs = (customValues: Record<string, number | string> = {}, customRates: Record<string, number | string> = {}, customTarget: string | null = null) => {
+      if (!rrVarsGrid || !rrTargetSelect || !exprIn) return;
+      try {
+        const { variables } = extractRRVariables(exprIn.value);
+
+        const currentVals: Record<string, number | string> = { ...customValues };
+        const currentRates: Record<string, number | string> = { ...customRates };
+        variables.forEach(vName => {
+          const vInput = document.getElementById(`rr-val-${vName}`) as HTMLInputElement | null;
+          const rInput = document.getElementById(`rr-rate-${vName}`) as HTMLInputElement | null;
+          if (currentVals[vName] === undefined && vInput && vInput.value !== '') {
+            currentVals[vName] = vInput.value;
+          }
+          if (currentRates[vName] === undefined && rInput && rInput.value !== '') {
+            currentRates[vName] = rInput.value;
+          }
+        });
+
+        rrVarsGrid.innerHTML = '';
+        variables.forEach(vName => {
+          const card = document.createElement('div');
+          card.className = 'p-3 bg-gray-50 rounded-lg border border-gray-200 space-y-2';
+          card.innerHTML = `
+            <div class="font-bold text-gray-700 font-mono text-sm flex items-center justify-between">
+              <span>Variable: <code class="text-emerald-700">${vName}</code></span>
+            </div>
+            <div class="grid grid-cols-2 gap-2">
+              <div>
+                <label for="rr-val-${vName}" class="block text-xs text-gray-500 font-medium mb-1">Value (${vName})</label>
+                <input type="number" step="any" id="rr-val-${vName}" class="w-full p-2 border border-gray-300 rounded font-mono text-sm bg-white" placeholder="e.g. 5" value="${currentVals[vName] !== undefined ? currentVals[vName] : ''}">
+              </div>
+              <div>
+                <label for="rr-rate-${vName}" class="block text-xs text-gray-500 font-medium mb-1">Rate (d${vName}/dt)</label>
+                <input type="number" step="any" id="rr-rate-${vName}" class="w-full p-2 border border-gray-300 rounded font-mono text-sm bg-white" placeholder="e.g. 2" value="${currentRates[vName] !== undefined ? currentRates[vName] : ''}">
+              </div>
+            </div>
+          `;
+          rrVarsGrid.appendChild(card);
+        });
+
+        const oldTarget = customTarget || rrTargetSelect.value;
+        rrTargetSelect.innerHTML = '';
+        variables.forEach(vName => {
+          const opt = document.createElement('option');
+          opt.value = vName;
+          opt.textContent = `d${vName}/dt (Rate of change of ${vName})`;
+          if (vName === oldTarget || (!variables.includes(oldTarget) && vName === variables[0])) {
+            opt.selected = true;
+          }
+          rrTargetSelect.appendChild(opt);
+        });
+
+        const syncTargetDisabled = () => {
+          const curTarget = rrTargetSelect.value;
+          variables.forEach(vName => {
+            const rInput = document.getElementById(`rr-rate-${vName}`) as HTMLInputElement | null;
+            if (rInput) {
+              if (vName === curTarget) {
+                rInput.disabled = true;
+                rInput.placeholder = '(To be solved)';
+                rInput.classList.add('bg-emerald-50', 'text-emerald-800', 'border-emerald-200');
+              } else {
+                rInput.disabled = false;
+                rInput.placeholder = 'e.g. 2';
+                rInput.classList.remove('bg-emerald-50', 'text-emerald-800', 'border-emerald-200');
+              }
+            }
+          });
+        };
+
+        rrTargetSelect.onchange = syncTargetDisabled;
+        syncTargetDisabled();
+
+      } catch (err) {
+        // Syntax not yet completed while user is typing
+      }
+    };
+
+    if (mode === 'related-rates') {
+      if (rrPresetSelect) {
+        rrPresetSelect.addEventListener('change', () => {
+          const key = rrPresetSelect.value;
+          if (key !== 'custom' && RR_PRESETS[key]) {
+            const p = RR_PRESETS[key];
+            if (exprIn) exprIn.value = p.eq;
+            updateRRInputs(p.values, p.rates, p.target);
+          }
+        });
+      }
+
+      if (exprIn) {
+        exprIn.addEventListener('input', () => {
+          if (rrPresetSelect) rrPresetSelect.value = 'custom';
+          updateRRInputs();
+        });
+
+        // Initial setup
+        const initialPreset = RR_PRESETS.circle_area;
+        if (!exprIn.value || exprIn.value === 'A = pi * r^2') {
+          exprIn.value = initialPreset.eq;
+          if (rrPresetSelect) rrPresetSelect.value = 'circle_area';
+          updateRRInputs(initialPreset.values, initialPreset.rates, initialPreset.target);
+        } else {
+          updateRRInputs();
+        }
+      }
+    }
   };
 
   initDeriv();
