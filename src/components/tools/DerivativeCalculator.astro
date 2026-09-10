@@ -14,6 +14,7 @@ if (tool.slug.includes('inflection')) mode = 'inflection';
 if (tool.slug.includes('concavity')) mode = 'concavity';
 if (tool.slug.includes('increasing-decreasing')) mode = 'increasing-decreasing';
 if (tool.slug.includes('extrema')) mode = 'extrema';
+if (tool.slug.includes('logarithmic-differentiation')) mode = 'logarithmic';
 ---
 
 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden max-w-3xl mx-auto">
@@ -25,7 +26,7 @@ if (tool.slug.includes('extrema')) mode = 'extrema';
         </label>
         <div class="flex items-center gap-3">
           <span class="font-mono text-gray-500 font-bold">{mode === 'implicit' ? 'F(x,y) =' : (mode === 'marginal' ? 'C(x) =' : 'f(...) =')}</span>
-          <input type="text" id="fn-expr" required class="flex-1 p-3 border border-gray-300 rounded-lg focus:ring-emerald-500 font-mono text-lg" placeholder={mode === 'implicit' ? 'x^2 + y^2 - 25' : (mode === 'critical' || mode === 'inflection' || mode === 'concavity' || mode === 'increasing-decreasing' || mode === 'extrema' ? 'x^3 - 3x' : 'x^2 * sin(x)')}>
+          <input type="text" id="fn-expr" required class="flex-1 p-3 border border-gray-300 rounded-lg focus:ring-emerald-500 font-mono text-lg" placeholder={mode === 'implicit' ? 'x^2 + y^2 - 25' : (mode === 'logarithmic' ? 'x^x' : (mode === 'critical' || mode === 'inflection' || mode === 'concavity' || mode === 'increasing-decreasing' || mode === 'extrema' ? 'x^3 - 3x' : 'x^2 * sin(x)'))}>
         </div>
         <p class="text-xs text-gray-500 mt-2">Example: <code>2x^3 - 4x + 1</code>, <code>sin(x)*e^x</code>, <code>1/x</code></p>
       </div>
@@ -38,7 +39,7 @@ if (tool.slug.includes('extrema')) mode = 'extrema';
           </div>
         )}
         
-        {(mode === 'first' || mode === 'marginal' || mode === 'tangent') && (
+        {(mode === 'first' || mode === 'marginal' || mode === 'tangent' || mode === 'logarithmic') && (
           <div>
             <label for="fn-eval" class="block text-sm font-medium text-gray-700 mb-2">Evaluate at (Optional)</label>
             <input type="number" step="any" id="fn-eval" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-emerald-500 font-mono text-center" placeholder="e.g. 2">
@@ -48,7 +49,7 @@ if (tool.slug.includes('extrema')) mode = 'extrema';
 
       <div class="pt-4">
         <button type="submit" class="w-full bg-emerald-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors shadow-sm">
-          {mode === 'critical' ? 'Find Critical Points' : (mode === 'inflection' ? 'Find Inflection Points' : (mode === 'concavity' ? 'Analyze Concavity' : (mode === 'increasing-decreasing' ? 'Find Increasing/Decreasing Intervals' : (mode === 'extrema' ? 'Find Local Extrema' : 'Calculate Derivative'))))}
+          {mode === 'critical' ? 'Find Critical Points' : (mode === 'inflection' ? 'Find Inflection Points' : (mode === 'concavity' ? 'Analyze Concavity' : (mode === 'increasing-decreasing' ? 'Find Increasing/Decreasing Intervals' : (mode === 'extrema' ? 'Find Local Extrema' : (mode === 'logarithmic' ? 'Differentiate Using Logarithms' : 'Calculate Derivative')))))}
         </button>
       </div>
     </form>
@@ -116,6 +117,15 @@ if (tool.slug.includes('extrema')) mode = 'extrema';
              <div id="extrema-points-list" class="space-y-2"></div>
              <p id="extrema-note" class="text-xs text-gray-500 italic mt-2"></p>
           </div>
+          <div id="log-diff-section" class="hidden mt-4 pt-4 border-t border-gray-200 space-y-4">
+             <div class="flex items-center justify-between">
+               <p class="text-xs text-gray-500 uppercase font-bold tracking-wide">Logarithmic Differentiation Steps</p>
+               <span class="text-xs text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 font-medium">Step-by-Step Method</span>
+             </div>
+             <div id="log-diff-steps" class="space-y-3 font-mono text-sm"></div>
+             <div id="log-diff-domain-note" class="hidden p-3 bg-amber-50 rounded border border-amber-200 text-amber-800 text-xs"></div>
+             <div id="log-diff-app-note" class="hidden p-3 bg-blue-50 rounded border border-blue-200 text-blue-800 text-xs"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -165,6 +175,11 @@ if (tool.slug.includes('extrema')) mode = 'extrema';
     const extremaSec = document.getElementById('extrema-section');
     const extremaList = document.getElementById('extrema-points-list');
     const extremaNote = document.getElementById('extrema-note');
+
+    const logDiffSec = document.getElementById('log-diff-section');
+    const logDiffSteps = document.getElementById('log-diff-steps');
+    const logDiffDomainNote = document.getElementById('log-diff-domain-note');
+    const logDiffAppNote = document.getElementById('log-diff-app-note');
 
     if (!form) return;
 
@@ -277,6 +292,9 @@ if (tool.slug.includes('extrema')) mode = 'extrema';
       if (concSec) concSec.classList.add('hidden');
       if (incDecSec) incDecSec.classList.add('hidden');
       if (extremaSec) extremaSec.classList.add('hidden');
+      if (logDiffSec) logDiffSec.classList.add('hidden');
+      if (logDiffDomainNote) logDiffDomainNote.classList.add('hidden');
+      if (logDiffAppNote) logDiffAppNote.classList.add('hidden');
 
       let expr = cleanExpr(exprIn.value);
       let v = varIn ? varIn.value || 'x' : 'x';
@@ -793,6 +811,256 @@ if (tool.slug.includes('extrema')) mode = 'extrema';
               extremaNote.textContent = `Found ${classifiedPoints.length} stationary point(s) classified using the First and Second Derivative Tests within [-100, 100].`;
             }
             extremaSec.classList.remove('hidden');
+          }
+        }
+        else if (mode === 'logarithmic') {
+          const parsed = math.parse(expr);
+
+          const unwrapParens = (node) => {
+            let curr = node;
+            while (curr && curr.isParenthesisNode) {
+              curr = curr.content;
+            }
+            return curr;
+          };
+
+          const rootNode = unwrapParens(parsed);
+
+          let step1 = '';
+          let step2 = '';
+          let step3 = '';
+          let step4 = '';
+          let domainNoteText = '';
+          let appNoteText = '';
+          let isPower = false;
+          let isQuotient = false;
+          let isProduct = false;
+
+          let baseNode = null;
+          let expNode = null;
+          let numNode = null;
+          let denNode = null;
+          let leftNode = null;
+          let rightNode = null;
+
+          if (rootNode.isOperatorNode && rootNode.op === '^') {
+            isPower = true;
+            baseNode = unwrapParens(rootNode.args[0]);
+            expNode = unwrapParens(rootNode.args[1]);
+
+            const uStr = baseNode.toString();
+            const vStr = expNode.toString();
+
+            const uDeriv = math.derivative(baseNode, v);
+            const vDeriv = math.derivative(expNode, v);
+
+            const uDerivStr = math.simplify(uDeriv).toString();
+            const vDerivStr = math.simplify(vDeriv).toString();
+
+            step1 = `y = (${uStr})^(${vStr})`;
+            step2 = `ln(y) = (${vStr}) * ln(${uStr})`;
+
+            let term1 = '';
+            if (vDerivStr === '1') {
+              term1 = `ln(${uStr})`;
+            } else if (vDerivStr === '0') {
+              term1 = '0';
+            } else {
+              term1 = `(${vDerivStr}) * ln(${uStr})`;
+            }
+
+            let term2 = '';
+            if (uDerivStr === '1') {
+              term2 = `(${vStr}) / (${uStr})`;
+            } else if (uDerivStr === '0') {
+              term2 = '0';
+            } else {
+              term2 = `[(${vStr}) * (${uDerivStr})] / (${uStr})`;
+            }
+
+            let rhsLogDeriv = '';
+            if (term1 === '0' && term2 === '0') rhsLogDeriv = '0';
+            else if (term1 === '0') rhsLogDeriv = term2;
+            else if (term2 === '0') rhsLogDeriv = term1;
+            else rhsLogDeriv = `${term1} + ${term2}`;
+
+            step3 = `y'/y = ${rhsLogDeriv}`;
+            step4 = `y' = (${uStr})^(${vStr}) * [${rhsLogDeriv}]`;
+
+            labelStr = `f'(${v}) = df/d${v} =`;
+            resultStr = `(${uStr})^(${vStr}) * [${rhsLogDeriv}]`;
+            domainNoteText = `Note: Real-valued logarithmic differentiation requires the base u(${v}) = ${uStr} > 0.`;
+          } else if (rootNode.isOperatorNode && rootNode.op === '/') {
+            isQuotient = true;
+            numNode = unwrapParens(rootNode.args[0]);
+            denNode = unwrapParens(rootNode.args[1]);
+
+            const uStr = numNode.toString();
+            const vStr = denNode.toString();
+
+            const uDeriv = math.derivative(numNode, v);
+            const vDeriv = math.derivative(denNode, v);
+
+            const uDerivStr = math.simplify(uDeriv).toString();
+            const vDerivStr = math.simplify(vDeriv).toString();
+
+            step1 = `y = (${uStr}) / (${vStr})`;
+            step2 = `ln(y) = ln(${uStr}) - ln(${vStr})`;
+            step3 = `y'/y = (${uDerivStr})/(${uStr}) - (${vDerivStr})/(${vStr})`;
+            step4 = `y' = [(${uStr})/(${vStr})] * [(${uDerivStr})/(${uStr}) - (${vDerivStr})/(${vStr})]`;
+
+            labelStr = `f'(${v}) = df/d${v} =`;
+            try {
+              const fullD = math.derivative(expr, v);
+              resultStr = math.simplify(fullD).toString();
+            } catch {
+              resultStr = `[(${uStr})/(${vStr})] * [(${uDerivStr})/(${uStr}) - (${vDerivStr})/(${vStr})]`;
+            }
+            domainNoteText = `Note: Logarithmic differentiation assumes positive numerator and denominator (${uStr} > 0 and ${vStr} > 0).`;
+          } else if (rootNode.isOperatorNode && rootNode.op === '*') {
+            isProduct = true;
+            leftNode = unwrapParens(rootNode.args[0]);
+            rightNode = unwrapParens(rootNode.args[1]);
+
+            const uStr = leftNode.toString();
+            const vStr = rightNode.toString();
+
+            const uDeriv = math.derivative(leftNode, v);
+            const vDeriv = math.derivative(rightNode, v);
+
+            const uDerivStr = math.simplify(uDeriv).toString();
+            const vDerivStr = math.simplify(vDeriv).toString();
+
+            step1 = `y = (${uStr}) * (${vStr})`;
+            step2 = `ln(y) = ln(${uStr}) + ln(${vStr})`;
+            step3 = `y'/y = (${uDerivStr})/(${uStr}) + (${vDerivStr})/(${vStr})`;
+            step4 = `y' = [(${uStr}) * (${vStr})] * [(${uDerivStr})/(${uStr}) + (${vDerivStr})/(${vStr})]`;
+
+            labelStr = `f'(${v}) = df/d${v} =`;
+            try {
+              const fullD = math.derivative(expr, v);
+              resultStr = math.simplify(fullD).toString();
+            } catch {
+              resultStr = `[(${uStr})*(${vStr})] * [(${uDerivStr})/(${uStr}) + (${vDerivStr})/(${vStr})]`;
+            }
+            domainNoteText = `Note: Logarithmic differentiation assumes positive factors (${uStr} > 0 and ${vStr} > 0).`;
+          } else {
+            const fStr = rootNode.toString();
+            const fDeriv = math.derivative(rootNode, v);
+            const fDerivStr = math.simplify(fDeriv).toString();
+
+            step1 = `y = ${fStr}`;
+            step2 = `ln(y) = ln(${fStr})`;
+            step3 = `y'/y = (${fDerivStr}) / (${fStr})`;
+            step4 = `y' = (${fStr}) * [(${fDerivStr}) / (${fStr})] = ${fDerivStr}`;
+
+            labelStr = `f'(${v}) = df/d${v} =`;
+            resultStr = fDerivStr;
+            appNoteText = `Logarithmic differentiation is especially useful for powers with variable exponents, complex products, and quotients. For this expression, the logarithmic identity yields the standard derivative f'(${v}) = ${fDerivStr}.`;
+          }
+
+          if (logDiffSec && logDiffSteps) {
+            logDiffSteps.innerHTML = `
+              <div class="bg-white p-3 rounded-lg border border-gray-200 shadow-sm space-y-1">
+                <div class="text-xs font-bold text-gray-500 uppercase tracking-wide">Step 1 — Set up equation</div>
+                <div class="text-base font-bold text-gray-900 font-mono">${step1}</div>
+              </div>
+              <div class="bg-white p-3 rounded-lg border border-gray-200 shadow-sm space-y-1">
+                <div class="text-xs font-bold text-gray-500 uppercase tracking-wide">Step 2 — Take natural logarithm of both sides</div>
+                <div class="text-base font-bold text-gray-900 font-mono">${step2}</div>
+              </div>
+              <div class="bg-white p-3 rounded-lg border border-gray-200 shadow-sm space-y-1">
+                <div class="text-xs font-bold text-gray-500 uppercase tracking-wide">Step 3 — Differentiate implicitly with respect to ${v}</div>
+                <div class="text-base font-bold text-gray-900 font-mono">${step3}</div>
+              </div>
+              <div class="bg-white p-3 rounded-lg border border-emerald-200 shadow-sm space-y-1 bg-emerald-50/30">
+                <div class="text-xs font-bold text-emerald-800 uppercase tracking-wide">Step 4 — Multiply by y to isolate y'</div>
+                <div class="text-base font-bold text-emerald-900 font-mono">${step4}</div>
+              </div>
+            `;
+
+            if (domainNoteText && logDiffDomainNote) {
+              logDiffDomainNote.textContent = domainNoteText;
+              logDiffDomainNote.classList.remove('hidden');
+            }
+            if (appNoteText && logDiffAppNote) {
+              logDiffAppNote.textContent = appNoteText;
+              logDiffAppNote.classList.remove('hidden');
+            }
+
+            logDiffSec.classList.remove('hidden');
+          }
+
+          if (evalAt !== '') {
+            const xVal = parseFloat(evalAt);
+            if (isNaN(xVal)) {
+              evalLabel.textContent = `Evaluation at ${v} = ${evalAt}`;
+              evalVal.textContent = 'Invalid evaluation number.';
+              evalSec.classList.remove('hidden');
+            } else {
+              const scope = { [v]: xVal, e: Math.E, pi: Math.PI };
+              try {
+                const yc = math.evaluate(expr, scope);
+                if (typeof yc !== 'number' || !isFinite(yc)) {
+                  evalLabel.textContent = `Evaluation at ${v} = ${xVal}`;
+                  evalVal.textContent = `f(${xVal}) is undefined or non-finite.`;
+                  evalSec.classList.remove('hidden');
+                } else if (isPower) {
+                  const uVal = baseNode.evaluate(scope);
+                  if (typeof uVal !== 'number' || uVal <= 0) {
+                    evalLabel.textContent = `Evaluation at ${v} = ${xVal}`;
+                    evalVal.textContent = `Base u(${xVal}) = ${fmt(uVal)} ≤ 0. Real-valued logarithmic differentiation is undefined for non-positive bases.`;
+                    evalSec.classList.remove('hidden');
+                  } else {
+                    const vVal = expNode.evaluate(scope);
+                    const uPrime = math.derivative(baseNode, v).evaluate(scope);
+                    const vPrime = math.derivative(expNode, v).evaluate(scope);
+                    const logDerivVal = vPrime * Math.log(uVal) + (vVal * uPrime) / uVal;
+                    const dyVal = yc * logDerivVal;
+
+                    evalLabel.textContent = `Evaluated at ${v} = ${xVal}`;
+                    evalVal.textContent = `f(${xVal}) = ${fmt(yc)},   f'(${xVal}) = ${fmt(dyVal)}`;
+                    evalSec.classList.remove('hidden');
+                  }
+                } else if (isQuotient) {
+                  const uVal = numNode.evaluate(scope);
+                  const vVal = denNode.evaluate(scope);
+                  if (vVal === 0) {
+                    evalLabel.textContent = `Evaluation at ${v} = ${xVal}`;
+                    evalVal.textContent = `Denominator is 0 at ${v} = ${xVal} (vertical asymptote).`;
+                    evalSec.classList.remove('hidden');
+                  } else if (uVal <= 0 || vVal <= 0) {
+                    evalLabel.textContent = `Evaluation at ${v} = ${xVal}`;
+                    evalVal.textContent = `Logarithmic transformation requires positive arguments (${fmt(uVal)} > 0 and ${fmt(vVal)} > 0). Outside positive domain.`;
+                    evalSec.classList.remove('hidden');
+                  } else {
+                    const uPrime = math.derivative(numNode, v).evaluate(scope);
+                    const vPrime = math.derivative(denNode, v).evaluate(scope);
+                    const logDerivVal = uPrime / uVal - vPrime / vVal;
+                    const dyVal = yc * logDerivVal;
+
+                    evalLabel.textContent = `Evaluated at ${v} = ${xVal}`;
+                    evalVal.textContent = `f(${xVal}) = ${fmt(yc)},   f'(${xVal}) = ${fmt(dyVal)}`;
+                    evalSec.classList.remove('hidden');
+                  }
+                } else {
+                  if (yc <= 0) {
+                    evalLabel.textContent = `Evaluation at ${v} = ${xVal}`;
+                    evalVal.textContent = `f(${xVal}) = ${fmt(yc)} ≤ 0. Real logarithm ln(f(${xVal})) is undefined.`;
+                    evalSec.classList.remove('hidden');
+                  } else {
+                    const fPrime = math.derivative(expr, v).evaluate(scope);
+                    evalLabel.textContent = `Evaluated at ${v} = ${xVal}`;
+                    evalVal.textContent = `f(${xVal}) = ${fmt(yc)},   f'(${xVal}) = ${fmt(fPrime)}`;
+                    evalSec.classList.remove('hidden');
+                  }
+                }
+              } catch (evalErr) {
+                evalLabel.textContent = `Evaluation at ${v} = ${xVal}`;
+                evalVal.textContent = `Error during evaluation: ${evalErr.message}`;
+                evalSec.classList.remove('hidden');
+              }
+            }
           }
         }
         else {
