@@ -19,47 +19,62 @@
       </div>
     </form>
 
-    <div id="stats-result" class="mt-8 pt-8 border-t border-gray-100 hidden">
+    <div id="stats-result" class="mt-8 pt-8 border-t border-gray-100 hidden" aria-live="polite">
+       <div class="flex items-center justify-between mb-4">
+         <h3 class="text-sm font-semibold uppercase text-gray-500 tracking-wider">Computed Statistics</h3>
+         <button
+           type="button"
+           id="stats-copy-btn"
+           class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-emerald-700 bg-white hover:bg-emerald-50 active:bg-emerald-100 border border-emerald-200 rounded-md transition-colors shadow-xs focus:outline-none focus:ring-2 focus:ring-emerald-500 cursor-pointer"
+           aria-label="Copy all computed statistics to clipboard"
+         >
+           <svg class="w-3.5 h-3.5 copy-icon text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+           </svg>
+           <span class="copy-text">Copy Summary</span>
+         </button>
+       </div>
+
        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
          <div class="bg-gray-50 p-4 rounded-lg border border-gray-100 text-center">
            <p class="text-xs text-gray-500 uppercase tracking-wider mb-1">Mean</p>
-           <p class="text-xl font-bold text-gray-900" id="res-mean">--</p>
+           <p class="text-xl font-bold text-gray-900 font-mono" id="res-mean">--</p>
          </div>
          <div class="bg-gray-50 p-4 rounded-lg border border-gray-100 text-center">
            <p class="text-xs text-gray-500 uppercase tracking-wider mb-1">Median</p>
-           <p class="text-xl font-bold text-gray-900" id="res-median">--</p>
+           <p class="text-xl font-bold text-gray-900 font-mono" id="res-median">--</p>
          </div>
          <div class="bg-gray-50 p-4 rounded-lg border border-gray-100 text-center">
            <p class="text-xs text-gray-500 uppercase tracking-wider mb-1">Mode</p>
-           <p class="text-xl font-bold text-gray-900" id="res-mode">--</p>
+           <p class="text-xl font-bold text-gray-900 font-mono" id="res-mode">--</p>
          </div>
          <div class="bg-gray-50 p-4 rounded-lg border border-gray-100 text-center">
            <p class="text-xs text-gray-500 uppercase tracking-wider mb-1">Range</p>
-           <p class="text-xl font-bold text-gray-900" id="res-range">--</p>
+           <p class="text-xl font-bold text-gray-900 font-mono" id="res-range">--</p>
          </div>
          <div class="bg-gray-50 p-4 rounded-lg border border-gray-100 text-center">
            <p class="text-xs text-gray-500 uppercase tracking-wider mb-1">Variance (Pop)</p>
-           <p class="text-xl font-bold text-gray-900" id="res-variance">--</p>
+           <p class="text-xl font-bold text-gray-900 font-mono" id="res-variance">--</p>
          </div>
          <div class="bg-gray-50 p-4 rounded-lg border border-gray-100 text-center">
            <p class="text-xs text-gray-500 uppercase tracking-wider mb-1">Std Deviation (Pop)</p>
-           <p class="text-xl font-bold text-gray-900" id="res-stddev">--</p>
+           <p class="text-xl font-bold text-gray-900 font-mono" id="res-stddev">--</p>
          </div>
          <div class="bg-gray-50 p-4 rounded-lg border border-gray-100 text-center">
            <p class="text-xs text-gray-500 uppercase tracking-wider mb-1">Variance (Sample)</p>
-           <p class="text-xl font-bold text-gray-900" id="res-variance-s">--</p>
+           <p class="text-xl font-bold text-gray-900 font-mono" id="res-variance-s">--</p>
          </div>
          <div class="bg-gray-50 p-4 rounded-lg border border-gray-100 text-center">
            <p class="text-xs text-gray-500 uppercase tracking-wider mb-1">Std Deviation (Sample)</p>
-           <p class="text-xl font-bold text-gray-900" id="res-stddev-s">--</p>
+           <p class="text-xl font-bold text-gray-900 font-mono" id="res-stddev-s">--</p>
          </div>
          <div class="bg-gray-50 p-4 rounded-lg border border-gray-100 text-center">
            <p class="text-xs text-gray-500 uppercase tracking-wider mb-1">Sum</p>
-           <p class="text-xl font-bold text-gray-900" id="res-sum">--</p>
+           <p class="text-xl font-bold text-gray-900 font-mono" id="res-sum">--</p>
          </div>
          <div class="bg-gray-50 p-4 rounded-lg border border-gray-100 text-center">
            <p class="text-xs text-gray-500 uppercase tracking-wider mb-1">Count</p>
-           <p class="text-xl font-bold text-gray-900" id="res-count">--</p>
+           <p class="text-xl font-bold text-gray-900 font-mono" id="res-count">--</p>
          </div>
        </div>
     </div>
@@ -67,35 +82,61 @@
 </div>
 
 <script>
+  import { formatResultNumber, copyToClipboard } from '../../utils/formatters';
+
   const initStatsCalculator = () => {
     const form = document.getElementById('stats-form') as HTMLFormElement;
     const dataInput = document.getElementById('data-input') as HTMLTextAreaElement;
     const resetBtn = document.getElementById('stats-reset-btn');
+    const copyBtn = document.getElementById('stats-copy-btn');
     const resultSection = document.getElementById('stats-result');
-    
+
     if (!form || !dataInput) return;
+
+    if (copyBtn) {
+      copyBtn.addEventListener('click', async () => {
+        const meanVal = document.getElementById('res-mean')?.textContent || '';
+        const medVal = document.getElementById('res-median')?.textContent || '';
+        const sdVal = document.getElementById('res-stddev')?.textContent || '';
+        const countVal = document.getElementById('res-count')?.textContent || '';
+        if (!meanVal || meanVal === '--') return;
+
+        const copyText = `Mean: ${meanVal}, Median: ${medVal}, Std Dev: ${sdVal}, N: ${countVal}`;
+        const success = await copyToClipboard(copyText);
+        if (success) {
+          const copyTextEl = copyBtn.querySelector('.copy-text');
+          const originalText = copyTextEl ? copyTextEl.textContent : 'Copy Summary';
+          if (copyTextEl) copyTextEl.textContent = 'Copied!';
+          copyBtn.classList.add('bg-emerald-100', 'text-emerald-800');
+          setTimeout(() => {
+            if (copyTextEl) copyTextEl.textContent = originalText;
+            copyBtn.classList.remove('bg-emerald-100', 'text-emerald-800');
+          }, 2000);
+        }
+      });
+    }
 
     form.addEventListener('submit', (e) => {
       e.preventDefault();
-      
+
       const raw = dataInput.value;
       const arr = raw.split(/[\s,]+/).map(s => parseFloat(s.trim())).filter(n => !isNaN(n));
-      
+
       if (arr.length === 0) return;
-      
+
       arr.sort((a, b) => a - b);
       const n = arr.length;
-      
+
       // Sum
       const sum = arr.reduce((a, b) => a + b, 0);
-      
+
       // Mean
       const mean = sum / n;
-      
+
       // Median
       const mid = Math.floor(n / 2);
       const median = n % 2 !== 0 ? arr[mid] : (arr[mid - 1] + arr[mid]) / 2;
-      
+
       // Mode
       const counts: Record<number, number> = {};
       let maxCount = 0;
@@ -104,32 +145,30 @@
         if (counts[val] > maxCount) maxCount = counts[val];
       });
       const modes = Object.keys(counts).filter(k => counts[parseFloat(k)] === maxCount).map(k => parseFloat(k));
-      const modeStr = modes.length === n ? 'None' : modes.join(', ');
-      
+      const modeStr = modes.length === n ? 'None' : modes.map(m => formatResultNumber(m)).join(', ');
+
       // Range
       const range = arr[n - 1] - arr[0];
-      
+
       // Variance & Std Dev (Population)
       const popVariance = arr.reduce((a, b) => a + Math.pow(b - mean, 2), 0) / n;
       const popStdDev = Math.sqrt(popVariance);
-      
+
       // Variance & Std Dev (Sample)
       const sampleVariance = n > 1 ? arr.reduce((a, b) => a + Math.pow(b - mean, 2), 0) / (n - 1) : 0;
       const sampleStdDev = Math.sqrt(sampleVariance);
 
-      const fmt = (num: number) => Number.isInteger(num) ? num.toString() : parseFloat(num.toFixed(4)).toString();
-
-      (document.getElementById('res-mean') as HTMLElement).textContent = fmt(mean);
-      (document.getElementById('res-median') as HTMLElement).textContent = fmt(median);
+      (document.getElementById('res-mean') as HTMLElement).textContent = formatResultNumber(mean);
+      (document.getElementById('res-median') as HTMLElement).textContent = formatResultNumber(median);
       (document.getElementById('res-mode') as HTMLElement).textContent = modeStr;
-      (document.getElementById('res-range') as HTMLElement).textContent = fmt(range);
-      (document.getElementById('res-variance') as HTMLElement).textContent = fmt(popVariance);
-      (document.getElementById('res-stddev') as HTMLElement).textContent = fmt(popStdDev);
-      (document.getElementById('res-variance-s') as HTMLElement).textContent = fmt(sampleVariance);
-      (document.getElementById('res-stddev-s') as HTMLElement).textContent = fmt(sampleStdDev);
-      (document.getElementById('res-sum') as HTMLElement).textContent = fmt(sum);
+      (document.getElementById('res-range') as HTMLElement).textContent = formatResultNumber(range);
+      (document.getElementById('res-variance') as HTMLElement).textContent = formatResultNumber(popVariance);
+      (document.getElementById('res-stddev') as HTMLElement).textContent = formatResultNumber(popStdDev);
+      (document.getElementById('res-variance-s') as HTMLElement).textContent = formatResultNumber(sampleVariance);
+      (document.getElementById('res-stddev-s') as HTMLElement).textContent = formatResultNumber(sampleStdDev);
+      (document.getElementById('res-sum') as HTMLElement).textContent = formatResultNumber(sum);
       (document.getElementById('res-count') as HTMLElement).textContent = n.toString();
-      
+
       resultSection?.classList.remove('hidden');
       resultSection?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     });

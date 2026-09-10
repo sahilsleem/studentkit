@@ -36,7 +36,7 @@ if (tool.slug.includes('infinity') || tool.slug.includes('infinite')) mode = 'in
                 <option value="-inf">-∞ (Negative Infinity)</option>
               </select>
             ) : (
-              <input type="number" step="any" id="fn-a" required class="flex-1 p-3 border border-gray-300 rounded-lg focus:ring-emerald-500 font-mono text-lg text-center" placeholder="0">
+              <input type="number" step="any" inputmode="decimal" id="fn-a" required class="flex-1 p-3 border border-gray-300 rounded-lg focus:ring-emerald-500 font-mono text-lg text-center" placeholder="0">
             )}
           </div>
         </div>
@@ -53,17 +53,30 @@ if (tool.slug.includes('infinity') || tool.slug.includes('infinite')) mode = 'in
       </div>
 
       <div class="pt-2">
-        <button type="submit" class="w-full bg-emerald-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors shadow-sm">
+        <button type="submit" class="w-full bg-emerald-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors shadow-sm cursor-pointer">
           Evaluate Limit
         </button>
       </div>
     </form>
 
-    <div id="limit-result" class="mt-8 pt-6 border-t border-gray-100 hidden">
-      <h3 class="text-lg font-semibold mb-3">Result</h3>
-      
+    <div id="limit-result" class="mt-8 pt-6 border-t border-gray-100 hidden" aria-live="polite">
+      <div class="flex items-center justify-between mb-3">
+        <h3 class="text-lg font-semibold text-gray-900">Result</h3>
+        <button
+          type="button"
+          id="limit-copy-btn"
+          class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-emerald-700 bg-white hover:bg-emerald-50 active:bg-emerald-100 border border-emerald-200 rounded-md transition-colors shadow-xs focus:outline-none focus:ring-2 focus:ring-emerald-500 cursor-pointer"
+          aria-label="Copy limit result to clipboard"
+        >
+          <svg class="w-3.5 h-3.5 copy-icon text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+          </svg>
+          <span class="copy-text">Copy Result</span>
+        </button>
+      </div>
+
       <div id="limit-err" class="hidden bg-red-50 text-red-700 p-4 rounded-lg text-sm font-medium border border-red-100 mb-4"></div>
-      
+
       <div id="limit-ans" class="bg-gray-50 p-6 rounded-xl border border-gray-200 overflow-x-auto text-center">
         <div class="text-gray-500 font-mono text-sm mb-2" id="ans-label"></div>
         <div class="text-3xl font-bold font-mono text-gray-900" id="ans-val"></div>
@@ -75,69 +88,91 @@ if (tool.slug.includes('infinity') || tool.slug.includes('infinite')) mode = 'in
 
 <div id="limit-config" data-mode={mode} class="hidden"></div>
 <script>
-  const mode = document.getElementById('limit-config').dataset.mode;
+  const mode = document.getElementById('limit-config')?.getAttribute('data-mode') || 'standard';
   import * as math from 'mathjs';
+  import { formatResultNumber, copyToClipboard } from '../../utils/formatters';
 
   const initLimit = () => {
     const form = document.getElementById('limit-form');
     const exprIn = document.getElementById('fn-expr');
-    
+
     const resSec = document.getElementById('limit-result');
     const errBox = document.getElementById('limit-err');
     const ansBox = document.getElementById('limit-ans');
     const ansLabel = document.getElementById('ans-label');
     const ansVal = document.getElementById('ans-val');
     const ansDetail = document.getElementById('ans-detail');
+    const copyBtn = document.getElementById('limit-copy-btn');
 
     if (!form) return;
 
-    const cleanExpr = (str) => str.replace(/(\d)([a-zA-Z])/g, '$1*$2');
+    if (copyBtn) {
+      copyBtn.addEventListener('click', async () => {
+        const valText = ansVal?.textContent?.trim() || '';
+        if (!valText) return;
+        const lblText = ansLabel?.textContent?.trim() || 'Result:';
+        const copyText = `${lblText} ${valText}`;
+
+        const success = await copyToClipboard(copyText);
+        if (success) {
+          const copyTextEl = copyBtn.querySelector('.copy-text');
+          const originalText = copyTextEl ? copyTextEl.textContent : 'Copy Result';
+          if (copyTextEl) copyTextEl.textContent = 'Copied!';
+          copyBtn.classList.add('bg-emerald-100', 'text-emerald-800');
+          setTimeout(() => {
+            if (copyTextEl) copyTextEl.textContent = originalText;
+            copyBtn.classList.remove('bg-emerald-100', 'text-emerald-800');
+          }, 2000);
+        }
+      });
+    }
+
+    const cleanExpr = (str: string) => str.replace(/(\d)([a-zA-Z])/g, '$1*$2');
 
     form.addEventListener('submit', (e) => {
       e.preventDefault();
-      errBox.classList.add('hidden');
-      ansBox.classList.remove('hidden');
+      errBox?.classList.add('hidden');
+      ansBox?.classList.remove('hidden');
 
-      let expr = cleanExpr(exprIn.value);
-      
+      let expr = cleanExpr((exprIn as HTMLInputElement).value);
+
       let aVal = 0;
       let isInf = false;
       let dir = 'both';
 
       if (mode === 'infinity') {
-        const infSel = document.getElementById('fn-a-inf');
+        const infSel = document.getElementById('fn-a-inf') as HTMLSelectElement;
         isInf = true;
         dir = infSel.value === 'inf' ? 'pos' : 'neg';
       } else {
-        const aIn = document.getElementById('fn-a');
+        const aIn = document.getElementById('fn-a') as HTMLInputElement;
         aVal = parseFloat(aIn.value);
         if (mode === 'one-sided') {
-          dir = (document.getElementById('fn-dir')).value;
+          dir = (document.getElementById('fn-dir') as HTMLSelectElement).value;
         }
       }
 
       try {
         const code = math.compile(expr);
-        const evalFn = (x) => code.evaluate({ x });
-        
+        const evalFn = (x: number) => code.evaluate({ x });
+
         let resultLabel = '';
         let resultVal = '';
         let detailStr = '';
 
-        const fmt = (n) => {
+        const fmt = (n: number) => {
            if (Math.abs(n) > 1e10) return n > 0 ? '∞' : '-∞';
-           if (Math.abs(n) < 1e-10) return '0';
-           return Number.isInteger(n) ? n : parseFloat(n.toFixed(6));
+           return formatResultNumber(n);
         };
 
         if (isInf) {
            resultLabel = `lim x→${dir === 'pos' ? '∞' : '-∞'} [ ${expr} ] =`;
            const step1 = dir === 'pos' ? 1e6 : -1e6;
            const step2 = dir === 'pos' ? 1e7 : -1e7;
-           
+
            const v1 = evalFn(step1);
            const v2 = evalFn(step2);
-           
+
            if (Math.abs(v1 - v2) < 1e-4) {
              resultVal = String(fmt(v2));
            } else if (Math.abs(v2) > 1e10 || isNaN(v2)) {
@@ -145,17 +180,17 @@ if (tool.slug.includes('infinity') || tool.slug.includes('infinite')) mode = 'in
            } else {
              resultVal = String(fmt(v2));
            }
-        } 
+        }
         else {
            resultLabel = `lim x→${aVal}${dir === 'left' ? '⁻' : (dir === 'right' ? '⁺' : '')} [ ${expr} ] =`;
-           
+
            const eps = 1e-8;
            const vLeft = evalFn(aVal - eps);
            const vRight = evalFn(aVal + eps);
-           
+
            const isLInf = Math.abs(vLeft) > 1e6;
            const isRInf = Math.abs(vRight) > 1e6;
-           
+
            if (dir === 'left') {
               resultVal = isLInf ? (vLeft > 0 ? '∞' : '-∞') : String(fmt(vLeft));
            } else if (dir === 'right') {
@@ -186,17 +221,20 @@ if (tool.slug.includes('infinity') || tool.slug.includes('infinite')) mode = 'in
            }
         }
 
-        ansLabel.textContent = resultLabel;
-        ansVal.textContent = resultVal;
-        ansDetail.textContent = detailStr;
+        if (ansLabel) ansLabel.textContent = resultLabel;
+        if (ansVal) ansVal.textContent = resultVal;
+        if (ansDetail) ansDetail.textContent = detailStr;
 
-      } catch (err) {
-        ansBox.classList.add('hidden');
-        errBox.textContent = `Error calculating limit: ${err.message}.`;
-        errBox.classList.remove('hidden');
+      } catch (err: any) {
+        ansBox?.classList.add('hidden');
+        if (errBox) {
+          errBox.textContent = `Error calculating limit: ${err.message}.`;
+          errBox.classList.remove('hidden');
+        }
       }
 
-      resSec.classList.remove('hidden');
+      resSec?.classList.remove('hidden');
+      resSec?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     });
   };
 

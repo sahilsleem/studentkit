@@ -40,8 +40,21 @@
       <button class="mat-op px-4 py-2 bg-indigo-600 text-white rounded shadow-sm hover:bg-indigo-700 font-medium" data-op="tranb">Bᵀ</button>
     </div>
 
-    <div id="mat-result" class="border-t border-gray-200 pt-6 hidden text-center">
-      <h3 class="text-lg font-bold text-gray-900 mb-4" id="res-title">Result</h3>
+    <div id="mat-result" class="border-t border-gray-200 pt-6 hidden text-center" aria-live="polite">
+      <div class="flex items-center justify-between mb-4 max-w-sm mx-auto">
+        <h3 class="text-lg font-bold text-gray-900" id="res-title">Result</h3>
+        <button
+          type="button"
+          id="mat-copy-btn"
+          class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-emerald-700 bg-white hover:bg-emerald-50 active:bg-emerald-100 border border-emerald-200 rounded-md transition-colors shadow-xs focus:outline-none focus:ring-2 focus:ring-emerald-500 cursor-pointer"
+          aria-label="Copy matrix result to clipboard"
+        >
+          <svg class="w-3.5 h-3.5 copy-icon text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+          </svg>
+          <span class="copy-text">Copy Result</span>
+        </button>
+      </div>
       <div id="res-content" class="inline-block bg-gray-50 p-6 rounded-xl border border-gray-200 shadow-inner min-w-[200px]">
         <!-- Result matrix or scalar here -->
       </div>
@@ -51,6 +64,7 @@
 
 <script>
   import * as math from 'mathjs';
+  import { formatResultNumber, copyToClipboard } from '../../utils/formatters';
 
   const initMatrix = () => {
     let size = 2;
@@ -61,10 +75,41 @@
     const resSec = document.getElementById('mat-result');
     const resTitle = document.getElementById('res-title');
     const resContent = document.getElementById('res-content');
+    const copyBtn = document.getElementById('mat-copy-btn');
 
     if (!btn2) return;
 
-    const renderGrid = (container, prefix) => {
+    let lastResultData: any = null;
+    let lastResultTitle = '';
+
+    if (copyBtn) {
+      copyBtn.addEventListener('click', async () => {
+        if (!lastResultData && lastResultData !== 0) return;
+        let copyText = `${lastResultTitle || 'Result'}:\n`;
+        if (typeof lastResultData === 'number') {
+          copyText += formatResultNumber(lastResultData);
+        } else if (typeof lastResultData === 'string') {
+          copyText += lastResultData;
+        } else if (Array.isArray(lastResultData)) {
+          copyText += lastResultData.map(row => `[ ${row.map((val: any) => formatResultNumber(val)).join(', ')} ]`).join('\n');
+        }
+
+        const success = await copyToClipboard(copyText);
+        if (success) {
+          const copyTextEl = copyBtn.querySelector('.copy-text');
+          const originalText = copyTextEl ? copyTextEl.textContent : 'Copy Result';
+          if (copyTextEl) copyTextEl.textContent = 'Copied!';
+          copyBtn.classList.add('bg-emerald-100', 'text-emerald-800');
+          setTimeout(() => {
+            if (copyTextEl) copyTextEl.textContent = originalText;
+            copyBtn.classList.remove('bg-emerald-100', 'text-emerald-800');
+          }, 2000);
+        }
+      });
+    }
+
+    const renderGrid = (container: HTMLElement | null, prefix: string) => {
+      if (!container) return;
       container.style.gridTemplateColumns = `repeat(${size}, minmax(0, 1fr))`;
       container.innerHTML = '';
       for (let i = 0; i < size; i++) {
@@ -72,6 +117,7 @@
           const input = document.createElement('input');
           input.type = 'number';
           input.step = 'any';
+          input.inputMode = 'decimal';
           input.id = `${prefix}-${i}-${j}`;
           input.className = 'w-16 h-12 text-center border border-gray-300 rounded focus:ring-emerald-500 font-mono text-sm';
           input.value = (i === j) ? '1' : '0'; // Default to identity matrix
@@ -80,7 +126,7 @@
       }
     };
 
-    const getMatrix = (prefix) => {
+    const getMatrix = (prefix: string) => {
       const m = [];
       for (let i = 0; i < size; i++) {
         const row = [];
@@ -93,17 +139,17 @@
       return m;
     };
 
-    const fmt = (n) => {
-      if(typeof n !== 'number') return n;
-      return Number.isInteger(n) ? n : parseFloat(n.toFixed(4));
-    }
+    const renderOutput = (data: any, title: string) => {
+      lastResultData = data;
+      lastResultTitle = title;
+      if (resTitle) resTitle.textContent = title;
+      resSec?.classList.remove('hidden');
 
-    const renderOutput = (data, title) => {
-      resTitle.textContent = title;
-      resSec.classList.remove('hidden');
-      
+      if (!resContent) return;
+
       if (typeof data === 'number' || typeof data === 'string') {
-        resContent.innerHTML = `<div class="text-2xl font-bold font-mono">${fmt(data)}</div>`;
+        resContent.innerHTML = `<div class="text-2xl font-bold font-mono text-gray-900">${typeof data === 'number' ? formatResultNumber(data) : data}</div>`;
+        resSec?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         return;
       }
 
@@ -113,37 +159,39 @@
       let html = `<div class="grid gap-2" style="grid-template-columns: repeat(${cols}, minmax(0, 1fr));">`;
       for (let i = 0; i < rows; i++) {
         for (let j = 0; j < cols; j++) {
-          html += `<div class="w-16 h-12 flex items-center justify-center bg-white border border-gray-300 rounded font-mono text-sm">${fmt(data[i][j])}</div>`;
+          html += `<div class="w-16 h-12 flex items-center justify-center bg-white border border-gray-300 rounded font-mono text-sm">${formatResultNumber(data[i][j])}</div>`;
         }
       }
       html += `</div>`;
       resContent.innerHTML = html;
+      resSec?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     };
 
-    const updateSize = (newSize) => {
+    const updateSize = (newSize: number) => {
       size = newSize;
       renderGrid(matA, 'a');
       renderGrid(matB, 'b');
-      resSec.classList.add('hidden');
+      resSec?.classList.add('hidden');
+      lastResultData = null;
     };
 
     btn2.addEventListener('click', () => {
       btn2.classList.replace('text-gray-500', 'text-gray-900');
       btn2.classList.replace('bg-transparent', 'bg-white');
       btn2.classList.add('shadow-sm');
-      btn3.classList.replace('text-gray-900', 'text-gray-500');
-      btn3.classList.replace('bg-white', 'bg-transparent');
-      btn3.classList.remove('shadow-sm');
+      btn3?.classList.replace('text-gray-900', 'text-gray-500');
+      btn3?.classList.replace('bg-white', 'bg-transparent');
+      btn3?.classList.remove('shadow-sm');
       updateSize(2);
     });
 
-    btn3.addEventListener('click', () => {
+    btn3?.addEventListener('click', () => {
       btn3.classList.replace('text-gray-500', 'text-gray-900');
       btn3.classList.replace('bg-transparent', 'bg-white');
       btn3.classList.add('shadow-sm');
-      btn2.classList.replace('text-gray-900', 'text-gray-500');
-      btn2.classList.replace('bg-white', 'bg-transparent');
-      btn2.classList.remove('shadow-sm');
+      btn2?.classList.replace('text-gray-900', 'text-gray-500');
+      btn2?.classList.replace('bg-white', 'bg-transparent');
+      btn2?.classList.remove('shadow-sm');
       updateSize(3);
     });
 
@@ -152,10 +200,11 @@
 
     document.querySelectorAll('.mat-op').forEach(btn => {
       btn.addEventListener('click', (e) => {
-        const op = (e.target as HTMLElement).getAttribute('data-op');
+        const target = (e.target as HTMLElement).closest('.mat-op') as HTMLElement;
+        const op = target ? target.getAttribute('data-op') : null;
         const A = getMatrix('a');
         const B = getMatrix('b');
-        
+
         try {
           if (op === 'add') renderOutput(math.add(A, B), 'A + B');
           else if (op === 'sub') renderOutput(math.subtract(A, B), 'A − B');

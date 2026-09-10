@@ -20,12 +20,13 @@ const configJson = JSON.stringify(config);
       {config.inputs.map(input => (
         <div>
           <label for={input.id} class="block text-sm font-medium text-gray-700 mb-1">{input.label}</label>
-          <input 
-            type={input.type || "number"} 
-            id={input.id} 
-            step="any" 
-            required 
-            class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 sm:text-base transition-colors calc-input" 
+          <input
+            type={input.type || "number"}
+            id={input.id}
+            step="any"
+            inputmode={input.type === 'text' ? undefined : 'decimal'}
+            required
+            class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 sm:text-base transition-colors calc-input"
             placeholder={input.placeholder || ""}
             data-id={input.id}
           />
@@ -33,21 +34,33 @@ const configJson = JSON.stringify(config);
       ))}
 
       <div class="flex flex-col sm:flex-row gap-4 pt-4">
-        <button type="submit" class="flex-1 bg-emerald-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors">
+        <button type="submit" class="flex-1 bg-emerald-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors cursor-pointer">
           Calculate
         </button>
-        <button type="button" class="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors calc-reset-btn">
+        <button type="button" class="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors calc-reset-btn cursor-pointer">
           Reset
         </button>
       </div>
     </form>
 
-    <div class="mt-8 pt-8 border-t border-gray-100 hidden calc-result-section">
+    <div class="mt-8 pt-8 border-t border-gray-100 hidden calc-result-section" aria-live="polite">
       <div class="text-center">
-        <p class="text-sm text-gray-500 mb-1">{config.outputLabel}</p>
-        <div class="text-4xl font-bold text-gray-900 mb-2 flex items-center justify-center gap-1">
-          <span class="calc-result-value">--</span>
-          {config.outputUnit && <span class="text-2xl text-gray-500">{config.outputUnit}</span>}
+        <div class="flex items-center justify-between mb-2">
+          <p class="text-sm font-medium text-gray-500 calc-output-label">{config.outputLabel}</p>
+          <button
+            type="button"
+            class="calc-copy-btn inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-emerald-700 bg-white hover:bg-emerald-50 active:bg-emerald-100 border border-emerald-200 rounded-md transition-colors shadow-xs focus:outline-none focus:ring-2 focus:ring-emerald-500 cursor-pointer"
+            aria-label="Copy result to clipboard"
+          >
+            <svg class="w-3.5 h-3.5 copy-icon text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+            </svg>
+            <span class="copy-text">Copy Result</span>
+          </button>
+        </div>
+        <div class="text-4xl font-bold text-gray-900 mb-2 flex items-center justify-center gap-2">
+          <span class="calc-result-value font-mono">--</span>
+          {config.outputUnit && <span class="text-2xl text-gray-500 calc-output-unit">{config.outputUnit}</span>}
         </div>
       </div>
     </div>
@@ -55,6 +68,8 @@ const configJson = JSON.stringify(config);
 </div>
 
 <script>
+  import { formatResultNumber, copyToClipboard } from '../../utils/formatters';
+
   const initFormulaCalculators = () => {
     document.querySelectorAll('.formula-calc-container').forEach((container) => {
       // Prevent multiple initializations if script runs twice
@@ -63,21 +78,17 @@ const configJson = JSON.stringify(config);
 
       const configStr = container.getAttribute('data-config');
       if (!configStr) return;
-      
+
       const config = JSON.parse(configStr);
       const form = container.querySelector('.calc-form') as HTMLFormElement;
       const inputs = container.querySelectorAll('.calc-input') as NodeListOf<HTMLInputElement>;
       const resetBtn = container.querySelector('.calc-reset-btn');
       const resultSection = container.querySelector('.calc-result-section');
       const resultValue = container.querySelector('.calc-result-value');
+      const outputLabelEl = container.querySelector('.calc-output-label');
+      const copyBtn = container.querySelector('.calc-copy-btn');
 
       // Create a calculation function dynamically.
-      // SECURITY JUSTIFICATION FOR new Function():
-      // 1. Build-time only data: `config.expression` originates purely from `registry.ts` which is statically generated.
-      // 2. No user input: The expression string is passed via the `data-config` HTML attribute at build time.
-      // 3. Separation of logic and input: User input (from the form) is parsed as floats and passed as arguments 
-      //    to the already-compiled function via `calcFn(...args)`, NEVER concatenated into the function string.
-      // 4. Cannot be removed: 15+ calculators rely on complex JS (IIFEs, loops, string manipulation) that mathjs cannot parse.
       const paramNames = config.inputs.map((i: any) => i.id);
       let calcFn: Function;
       try {
@@ -86,28 +97,49 @@ const configJson = JSON.stringify(config);
         console.error("Invalid formula expression in tool config", e);
       }
 
+      // Copy result functionality
+      if (copyBtn) {
+        copyBtn.addEventListener('click', async () => {
+          if (!resultValue || !resultValue.textContent || resultValue.textContent === '--') return;
+          const label = outputLabelEl ? outputLabelEl.textContent?.trim() : 'Result';
+          const val = resultValue.textContent.trim();
+          const unit = config.outputUnit ? ` ${config.outputUnit}` : '';
+          const copyText = `${label}: ${val}${unit}`;
+
+          const success = await copyToClipboard(copyText);
+          if (success) {
+            const copyTextEl = copyBtn.querySelector('.copy-text');
+            const originalText = copyTextEl ? copyTextEl.textContent : 'Copy Result';
+            if (copyTextEl) copyTextEl.textContent = 'Copied!';
+            copyBtn.classList.add('bg-emerald-100', 'text-emerald-800');
+            setTimeout(() => {
+              if (copyTextEl) copyTextEl.textContent = originalText;
+              copyBtn.classList.remove('bg-emerald-100', 'text-emerald-800');
+            }, 2000);
+          }
+        });
+      }
+
       form.addEventListener('submit', (e) => {
         e.preventDefault();
-        
+
         const args = Array.from(inputs).map(input => parseFloat(input.value));
-        
+
         if (args.some(isNaN)) return;
 
         try {
           const result = calcFn(...args);
-          
+
           if (typeof result === 'string') {
             if (resultValue) resultValue.textContent = result;
           } else if (typeof result === 'number' && !isFinite(result)) {
             if (resultValue) resultValue.textContent = "Error";
           } else if (typeof result === 'number') {
-            // Format number to avoid long decimals (e.g., 2.5000000000000004 -> 2.5)
-            const formatted = Number.isInteger(result) ? result : parseFloat(result.toFixed(6));
-            if (resultValue) resultValue.textContent = formatted.toString();
+            if (resultValue) resultValue.textContent = formatResultNumber(result);
           } else {
             if (resultValue) resultValue.textContent = String(result);
           }
-          
+
           resultSection?.classList.remove('hidden');
           resultSection?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         } catch (err) {

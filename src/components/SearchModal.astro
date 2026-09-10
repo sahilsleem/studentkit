@@ -1,0 +1,415 @@
+---
+import { tools } from '../data/registry';
+
+// Minimal search payload generated directly from canonical registry
+const searchIndex = tools.map(tool => ({
+  s: tool.slug,
+  t: tool.title,
+  d: tool.description,
+  c: tool.category,
+  sc: tool.subcategory || '',
+  a: tool.aliases || []
+}));
+---
+
+<div
+  id="global-search-modal"
+  class="fixed inset-0 z-50 hidden bg-gray-900/60 backdrop-blur-xs flex items-start justify-center p-4 sm:p-6 md:p-20 overflow-y-auto"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Global Tool Search"
+>
+  <div class="relative w-full max-w-2xl bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden my-auto sm:my-0">
+    <!-- Search Input Bar -->
+    <div class="flex items-center px-4 py-3.5 border-b border-gray-200 bg-gray-50/50">
+      <svg class="w-5 h-5 text-gray-400 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+      </svg>
+      <input
+        type="text"
+        id="modal-search-input"
+        class="w-full bg-transparent border-none text-gray-900 placeholder-gray-400 focus:outline-none text-base sm:text-lg"
+        placeholder="Search 400+ student tools, formulas, or concepts..."
+        autocomplete="off"
+        spellcheck="false"
+        role="combobox"
+        aria-expanded="true"
+        aria-autocomplete="list"
+        aria-controls="modal-search-results"
+      />
+      <button
+        type="button"
+        id="modal-search-clear"
+        class="hidden p-1 text-gray-400 hover:text-gray-600 rounded-md transition-colors mr-2"
+        aria-label="Clear search input"
+      >
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+      <button
+        type="button"
+        id="modal-search-close"
+        class="px-2 py-1 text-xs font-medium text-gray-500 bg-gray-200 hover:bg-gray-300 rounded transition-colors"
+        aria-label="Close search (Esc)"
+      >
+        Esc
+      </button>
+    </div>
+
+    <!-- Search Results Container -->
+    <div
+      id="modal-search-results"
+      role="listbox"
+      aria-label="Search Results"
+      class="max-h-[60vh] sm:max-h-96 overflow-y-auto divide-y divide-gray-100 p-2 text-left"
+    >
+      <!-- Initial State (rendered by JS) -->
+    </div>
+
+    <!-- Modal Footer / Keyboard Hints -->
+    <div class="px-4 py-2.5 bg-gray-50 border-t border-gray-100 flex items-center justify-between text-xs text-gray-500">
+      <div class="flex items-center gap-4">
+        <span><kbd class="px-1.5 py-0.5 bg-white border border-gray-200 rounded font-mono text-gray-700 shadow-xs">↑</kbd> <kbd class="px-1.5 py-0.5 bg-white border border-gray-200 rounded font-mono text-gray-700 shadow-xs">↓</kbd> Navigate</span>
+        <span><kbd class="px-1.5 py-0.5 bg-white border border-gray-200 rounded font-mono text-gray-700 shadow-xs">↵</kbd> Open</span>
+        <span><kbd class="px-1.5 py-0.5 bg-white border border-gray-200 rounded font-mono text-gray-700 shadow-xs">Esc</kbd> Close</span>
+      </div>
+      <div class="hidden sm:block text-gray-400">
+        401 Tools Available
+      </div>
+    </div>
+  </div>
+</div>
+
+<script id="global-search-index" type="application/json" set:html={JSON.stringify(searchIndex).replace(/</g, '\\u003c')} />
+
+<script>
+  interface SearchItem {
+    s: string;  // slug
+    t: string;  // title
+    d: string;  // description
+    c: string;  // category
+    sc: string; // subcategory
+    a: string[]; // aliases
+  }
+
+  const initGlobalSearch = () => {
+    const modal = document.getElementById('global-search-modal');
+    const input = document.getElementById('modal-search-input') as HTMLInputElement | null;
+    const clearBtn = document.getElementById('modal-search-clear');
+    const closeBtn = document.getElementById('modal-search-close');
+    const resultsContainer = document.getElementById('modal-search-results');
+    const indexDataEl = document.getElementById('global-search-index');
+    
+    // Header triggers
+    const desktopTrigger = document.getElementById('global-search-trigger');
+    const mobileTrigger = document.getElementById('mobile-search-trigger');
+
+    if (!modal || !input || !resultsContainer || !indexDataEl) return;
+
+    let searchItems: SearchItem[] = [];
+    try {
+      searchItems = JSON.parse(indexDataEl.textContent || '[]');
+    } catch (err) {
+      console.error('Failed to parse search index', err);
+      return;
+    }
+
+    let selectedIndex = -1;
+    let currentResults: SearchItem[] = [];
+    let lastActiveElement: HTMLElement | null = null;
+
+    // Detect Mac for shortcut label
+    const isMac = typeof navigator !== 'undefined' && /Mac|iPhone|iPod|iPad/i.test(navigator.platform);
+    const kbdBadge = document.getElementById('search-kbd-shortcut');
+    if (kbdBadge) {
+      kbdBadge.textContent = isMac ? '⌘K' : 'Ctrl K';
+    }
+
+    const normalize = (str: string): string => {
+      return str.toLowerCase().replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
+    };
+
+    const tokenize = (str: string): string[] => {
+      return normalize(str).split(' ').filter(Boolean);
+    };
+
+    const performSearch = (query: string): SearchItem[] => {
+      const normQ = normalize(query);
+      if (!normQ) return [];
+      const tokens = tokenize(query);
+
+      const scored: { item: SearchItem; score: number }[] = [];
+
+      for (const item of searchItems) {
+        const normTitle = normalize(item.t);
+        const normSlug = normalize(item.s);
+        const normDesc = normalize(item.d);
+        const normCat = normalize(item.c);
+        const normSubcat = normalize(item.sc);
+
+        let score = 0;
+
+        // 1. Exact title or slug match
+        if (normTitle === normQ || normSlug === normQ) {
+          score += 500;
+        }
+        // 2. Title starts with query
+        else if (normTitle.startsWith(normQ)) {
+          score += 300;
+        }
+        // 3. Title contains full query
+        else if (normTitle.includes(normQ)) {
+          score += 200;
+        }
+
+        // 4. Token matches in title
+        let titleTokensMatched = 0;
+        for (const tok of tokens) {
+          if (normTitle.includes(tok) || (tok.length > 3 && normTitle.includes(tok.slice(0, -1)))) {
+            titleTokensMatched++;
+          }
+        }
+        if (titleTokensMatched === tokens.length) {
+          score += 150;
+        } else if (titleTokensMatched > 0) {
+          score += titleTokensMatched * 35;
+        }
+
+        // 5. Aliases match
+        if (item.a && item.a.length > 0) {
+          for (const rawAlias of item.a) {
+            const normAlias = normalize(rawAlias);
+            if (normAlias === normQ) score += 400;
+            else if (normAlias.startsWith(normQ)) score += 250;
+            else if (normAlias.includes(normQ)) score += 180;
+            else if (tokens.every(tok => normAlias.includes(tok) || (tok.length > 3 && normAlias.includes(tok.slice(0, -1))))) {
+              score += 120;
+            }
+          }
+        }
+
+        // 6. Category / Subcategory match
+        if (normCat.includes(normQ) || normSubcat.includes(normQ)) {
+          score += 60;
+        } else {
+          for (const tok of tokens) {
+            if (normCat.includes(tok) || normSubcat.includes(tok)) {
+              score += 20;
+            }
+          }
+        }
+
+        // 7. Description match
+        if (normDesc.includes(normQ)) {
+          score += 40;
+        } else {
+          let descTokensMatched = 0;
+          for (const tok of tokens) {
+            if (normDesc.includes(tok)) descTokensMatched++;
+          }
+          if (descTokensMatched === tokens.length) {
+            score += 30;
+          } else {
+            score += descTokensMatched * 5;
+          }
+        }
+
+        if (score > 0) {
+          scored.push({ item, score });
+        }
+      }
+
+      scored.sort((a, b) => b.score - a.score || a.item.t.localeCompare(b.item.t));
+      return scored.slice(0, 8).map(s => s.item);
+    };
+
+    const renderResults = () => {
+      const q = input.value.trim();
+      
+      if (clearBtn) {
+        if (q.length > 0) clearBtn.classList.remove('hidden');
+        else clearBtn.classList.add('hidden');
+      }
+
+      if (!q) {
+        // Suggested quick starter tools
+        const starterSlugs = [
+          'gpa-calculator',
+          'attendance-calculator',
+          'cgpa-to-percentage',
+          'trigonometric-calculator',
+          'derivative-calculator',
+          'molar-mass-calculator',
+          'ohms-law-calculator',
+          'punnett-square'
+        ];
+        currentResults = searchItems.filter(item => starterSlugs.includes(item.s)).slice(0, 6);
+        selectedIndex = -1;
+
+        resultsContainer.innerHTML = `
+          <div class="px-3 py-2 text-xs font-semibold text-gray-400 uppercase tracking-wider">Suggested Tools</div>
+          ${currentResults.map((tool, idx) => createResultRow(tool, idx)).join('')}
+        `;
+        return;
+      }
+
+      currentResults = performSearch(q);
+      selectedIndex = currentResults.length > 0 ? 0 : -1;
+
+      if (currentResults.length === 0) {
+        resultsContainer.innerHTML = `
+          <div class="text-center py-10 px-4">
+            <svg class="mx-auto h-10 w-10 text-gray-300 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <p class="text-base font-medium text-gray-800">No tools found for "<span class="font-semibold text-gray-900">${escapeHtml(q)}</span>"</p>
+            <p class="text-sm text-gray-500 mt-1">Try searching by formula name, concept, or academic subject.</p>
+          </div>
+        `;
+        input.removeAttribute('aria-activedescendant');
+        return;
+      }
+
+      resultsContainer.innerHTML = currentResults.map((tool, idx) => createResultRow(tool, idx)).join('');
+      updateActiveSelection();
+    };
+
+    const escapeHtml = (unsafe: string): string => {
+      return unsafe
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    };
+
+    const createResultRow = (tool: SearchItem, index: number): string => {
+      return `
+        <a
+          href="/tools/${tool.s}"
+          id="search-item-${index}"
+          role="option"
+          aria-selected="${index === selectedIndex ? 'true' : 'false'}"
+          class="search-item flex items-center justify-between px-3 py-2.5 rounded-xl text-gray-900 hover:bg-emerald-50 hover:text-emerald-900 transition-colors group cursor-pointer ${index === selectedIndex ? 'bg-emerald-50 text-emerald-900' : ''}"
+        >
+          <div class="flex-1 min-w-0 pr-3">
+            <div class="flex items-center gap-2 mb-0.5">
+              <span class="font-semibold text-sm sm:text-base truncate group-hover:text-emerald-700">${escapeHtml(tool.t)}</span>
+              <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-600 group-hover:bg-emerald-100 group-hover:text-emerald-800 flex-shrink-0">${escapeHtml(tool.c)}</span>
+            </div>
+            <p class="text-xs text-gray-500 truncate group-hover:text-emerald-600">${escapeHtml(tool.d)}</p>
+          </div>
+          <svg class="w-4 h-4 text-gray-300 group-hover:text-emerald-500 flex-shrink-0 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </a>
+      `;
+    };
+
+    const updateActiveSelection = () => {
+      const items = resultsContainer.querySelectorAll<HTMLAnchorElement>('.search-item');
+      items.forEach((item, idx) => {
+        if (idx === selectedIndex) {
+          item.classList.add('bg-emerald-50', 'text-emerald-900');
+          item.setAttribute('aria-selected', 'true');
+          item.scrollIntoView({ block: 'nearest' });
+          input.setAttribute('aria-activedescendant', item.id);
+        } else {
+          item.classList.remove('bg-emerald-50', 'text-emerald-900');
+          item.setAttribute('aria-selected', 'false');
+        }
+      });
+      if (selectedIndex === -1) {
+        input.removeAttribute('aria-activedescendant');
+      }
+    };
+
+    const openSearch = () => {
+      lastActiveElement = document.activeElement as HTMLElement | null;
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      input.value = '';
+      renderResults();
+      setTimeout(() => input.focus(), 50);
+    };
+
+    const closeSearch = () => {
+      modal.classList.add('hidden');
+      document.body.style.overflow = '';
+      if (lastActiveElement) {
+        lastActiveElement.focus();
+      }
+    };
+
+    // Event Listeners
+    if (desktopTrigger) desktopTrigger.addEventListener('click', openSearch);
+    if (mobileTrigger) mobileTrigger.addEventListener('click', openSearch);
+    if (closeBtn) closeBtn.addEventListener('click', closeSearch);
+
+    if (clearBtn) {
+      clearBtn.addEventListener('click', () => {
+        input.value = '';
+        input.focus();
+        renderResults();
+      });
+    }
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        closeSearch();
+      }
+    });
+
+    input.addEventListener('input', () => {
+      renderResults();
+    });
+
+    // Keyboard navigation inside input
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        if (currentResults.length > 0) {
+          selectedIndex = (selectedIndex + 1) % currentResults.length;
+          updateActiveSelection();
+        }
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (currentResults.length > 0) {
+          selectedIndex = (selectedIndex - 1 + currentResults.length) % currentResults.length;
+          updateActiveSelection();
+        }
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        if (selectedIndex >= 0 && selectedIndex < currentResults.length) {
+          window.location.href = `/tools/${currentResults[selectedIndex].s}`;
+        } else if (currentResults.length > 0) {
+          window.location.href = `/tools/${currentResults[0].s}`;
+        }
+      } else if (e.key === 'Escape') {
+        e.preventDefault();
+        closeSearch();
+      }
+    });
+
+    // Global keyboard shortcut: Ctrl+K / Cmd+K
+    const handleGlobalKeydown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && (e.key === 'k' || e.key === 'K')) {
+        e.preventDefault();
+        if (modal.classList.contains('hidden')) {
+          openSearch();
+        } else {
+          closeSearch();
+        }
+      } else if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+        e.preventDefault();
+        closeSearch();
+      }
+    };
+
+    window.addEventListener('keydown', handleGlobalKeydown);
+  };
+
+  initGlobalSearch();
+  document.addEventListener('astro:page-load', initGlobalSearch);
+</script>

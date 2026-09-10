@@ -33,11 +33,11 @@ if (tool.slug.includes('indefinite')) mode = 'indefinite';
       <form id="integral-form" class="space-y-6">
         <div class="flex items-center gap-4">
           <div class="flex flex-col items-center gap-1 w-20">
-            <input type="number" step="any" id="int-b" aria-label="Upper limit b" required class="w-16 p-2 border border-gray-300 rounded text-center text-sm focus:ring-emerald-500" placeholder="b">
+            <input type="number" step="any" inputmode="decimal" id="int-b" aria-label="Upper limit b" required class="w-16 p-2 border border-gray-300 rounded text-center text-sm focus:ring-emerald-500" placeholder="b">
             <div class="text-4xl font-light text-gray-400">∫</div>
-            <input type="number" step="any" id="int-a" aria-label="Lower limit a" required class="w-16 p-2 border border-gray-300 rounded text-center text-sm focus:ring-emerald-500" placeholder="a">
+            <input type="number" step="any" inputmode="decimal" id="int-a" aria-label="Lower limit a" required class="w-16 p-2 border border-gray-300 rounded text-center text-sm focus:ring-emerald-500" placeholder="a">
           </div>
-          
+
           <div class="flex-1">
             <label for="fn-expr" class="block text-sm font-medium text-gray-700 mb-2">Function f(x)</label>
             <div class="flex items-center gap-2">
@@ -48,18 +48,31 @@ if (tool.slug.includes('indefinite')) mode = 'indefinite';
         </div>
 
         <div class="pt-4">
-          <button type="submit" class="w-full bg-emerald-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors shadow-sm">
+          <button type="submit" class="w-full bg-emerald-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors shadow-sm cursor-pointer">
             Evaluate Integral
           </button>
         </div>
       </form>
     )}
 
-    <div id="integral-result" class="mt-8 pt-6 border-t border-gray-100 hidden">
-      <h3 class="text-lg font-semibold mb-3">Result</h3>
-      
+    <div id="integral-result" class="mt-8 pt-6 border-t border-gray-100 hidden" aria-live="polite">
+      <div class="flex items-center justify-between mb-3">
+        <h3 class="text-lg font-semibold text-gray-900">Result</h3>
+        <button
+          type="button"
+          id="integral-copy-btn"
+          class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-emerald-700 bg-white hover:bg-emerald-50 active:bg-emerald-100 border border-emerald-200 rounded-md transition-colors shadow-xs focus:outline-none focus:ring-2 focus:ring-emerald-500 cursor-pointer"
+          aria-label="Copy integral result to clipboard"
+        >
+          <svg class="w-3.5 h-3.5 copy-icon text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+          </svg>
+          <span class="copy-text">Copy Result</span>
+        </button>
+      </div>
+
       <div id="integral-err" class="hidden bg-red-50 text-red-700 p-4 rounded-lg text-sm font-medium border border-red-100 mb-4"></div>
-      
+
       <div id="integral-ans" class="bg-gray-50 p-6 rounded-xl border border-gray-200 overflow-x-auto text-center">
         <div class="text-gray-500 font-mono text-sm mb-2" id="ans-label"></div>
         <div class="text-3xl font-bold font-mono text-gray-900" id="ans-val"></div>
@@ -70,72 +83,97 @@ if (tool.slug.includes('indefinite')) mode = 'indefinite';
 
 <script>
   import * as math from 'mathjs';
+  import { formatResultNumber, copyToClipboard } from '../../utils/formatters';
 
   const initIntegral = () => {
     const form = document.getElementById('integral-form');
     const exprIn = document.getElementById('fn-expr');
     const aIn = document.getElementById('int-a');
     const bIn = document.getElementById('int-b');
-    
+
     const resSec = document.getElementById('integral-result');
     const errBox = document.getElementById('integral-err');
     const ansBox = document.getElementById('integral-ans');
     const ansLabel = document.getElementById('ans-label');
     const ansVal = document.getElementById('ans-val');
+    const copyBtn = document.getElementById('integral-copy-btn');
 
     if (!form) return;
 
-    const cleanExpr = (str) => str.replace(/(\d)([a-zA-Z])/g, '$1*$2');
+    if (copyBtn) {
+      copyBtn.addEventListener('click', async () => {
+        const valText = ansVal?.textContent?.trim() || '';
+        if (!valText) return;
+        const lblText = ansLabel?.textContent?.trim() || 'Result:';
+        const copyText = `${lblText} ${valText}`;
+
+        const success = await copyToClipboard(copyText);
+        if (success) {
+          const copyTextEl = copyBtn.querySelector('.copy-text');
+          const originalText = copyTextEl ? copyTextEl.textContent : 'Copy Result';
+          if (copyTextEl) copyTextEl.textContent = 'Copied!';
+          copyBtn.classList.add('bg-emerald-100', 'text-emerald-800');
+          setTimeout(() => {
+            if (copyTextEl) copyTextEl.textContent = originalText;
+            copyBtn.classList.remove('bg-emerald-100', 'text-emerald-800');
+          }, 2000);
+        }
+      });
+    }
+
+    const cleanExpr = (str: string) => str.replace(/(\d)([a-zA-Z])/g, '$1*$2');
 
     form.addEventListener('submit', (e) => {
       e.preventDefault();
-      errBox.classList.add('hidden');
-      ansBox.classList.remove('hidden');
+      errBox?.classList.add('hidden');
+      ansBox?.classList.remove('hidden');
 
       let expr = cleanExpr((exprIn as HTMLInputElement).value);
       let a = parseFloat((aIn as HTMLInputElement).value);
       let b = parseFloat((bIn as HTMLInputElement).value);
 
       if (a === b) {
-        ansLabel.textContent = `∫ [ ${expr} ] dx from ${a} to ${b} =`;
-        ansVal.textContent = '0';
-        resSec.classList.remove('hidden');
+        if (ansLabel) ansLabel.textContent = `∫ [ ${expr} ] dx from ${a} to ${b} =`;
+        if (ansVal) ansVal.textContent = '0';
+        resSec?.classList.remove('hidden');
+        resSec?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         return;
       }
 
       try {
         const code = math.compile(expr);
-        const f = (x) => code.evaluate({ x });
-        
+        const f = (x: number) => code.evaluate({ x });
+
         // Simpson's 1/3 Rule
         const n = 10000; // Even number of intervals
         const h = (b - a) / n;
-        
+
         let sum = f(a) + f(b);
-        
+
         for (let i = 1; i < n; i++) {
            let x = a + i * h;
            sum += f(x) * (i % 2 === 0 ? 2 : 4);
         }
-        
+
         const area = (h / 3) * sum;
-        
+
         if (isNaN(area) || !isFinite(area)) {
            throw new Error("Integral diverges or hits an undefined asymptote (e.g. division by zero in domain).");
         }
 
-        const fmt = (num) => Number.isInteger(num) ? num : parseFloat(num.toFixed(6));
+        if (ansLabel) ansLabel.textContent = `∫ [ ${expr} ] dx from ${a} to ${b} =`;
+        if (ansVal) ansVal.textContent = formatResultNumber(area);
 
-        ansLabel.textContent = `∫ [ ${expr} ] dx from ${a} to ${b} =`;
-        ansVal.textContent = String(fmt(area));
-
-      } catch (err) {
-        ansBox.classList.add('hidden');
-        errBox.textContent = `Error evaluating integral: ${err.message}`;
-        errBox.classList.remove('hidden');
+      } catch (err: any) {
+        ansBox?.classList.add('hidden');
+        if (errBox) {
+          errBox.textContent = `Error evaluating integral: ${err.message}`;
+          errBox.classList.remove('hidden');
+        }
       }
 
-      resSec.classList.remove('hidden');
+      resSec?.classList.remove('hidden');
+      resSec?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     });
   };
 

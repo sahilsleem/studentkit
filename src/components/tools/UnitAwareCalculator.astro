@@ -11,12 +11,13 @@ const configJson = JSON.stringify(tool.physicsConfig || {});
         <div>
           <label for={input.id} class="block text-sm font-medium text-gray-700 mb-1">{input.label}</label>
           <div class="flex items-center gap-2">
-            <input 
-              type="number" 
-              id={input.id} 
-              step="any" 
-              required 
-              class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 transition-colors unit-calc-input" 
+            <input
+              type="number"
+              id={input.id}
+              step="any"
+              inputmode="decimal"
+              required
+              class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 transition-colors unit-calc-input"
               placeholder={input.placeholder || ""}
               data-id={input.id}
             />
@@ -32,20 +33,32 @@ const configJson = JSON.stringify(tool.physicsConfig || {});
       ))}
 
       <div class="flex flex-col sm:flex-row gap-4 pt-4">
-        <button type="submit" class="flex-1 bg-emerald-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors">
+        <button type="submit" class="flex-1 bg-emerald-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors cursor-pointer">
           Calculate
         </button>
-        <button type="reset" class="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors unit-calc-reset-btn">
+        <button type="reset" class="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors unit-calc-reset-btn cursor-pointer">
           Reset
         </button>
       </div>
     </form>
 
-    <div class="mt-8 pt-6 border-t border-gray-100 hidden unit-calc-result-section">
-      <h3 class="text-lg font-semibold mb-4 text-center">Result</h3>
-      
+    <div class="mt-8 pt-6 border-t border-gray-100 hidden unit-calc-result-section" aria-live="polite">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-lg font-semibold text-gray-900">Result</h3>
+        <button
+          type="button"
+          class="unit-calc-copy-btn inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-emerald-700 bg-white hover:bg-emerald-50 active:bg-emerald-100 border border-emerald-200 rounded-md transition-colors shadow-xs focus:outline-none focus:ring-2 focus:ring-emerald-500 cursor-pointer"
+          aria-label="Copy result to clipboard"
+        >
+          <svg class="w-3.5 h-3.5 copy-icon text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+          </svg>
+          <span class="copy-text">Copy Result</span>
+        </button>
+      </div>
+
       <div class="unit-calc-err hidden bg-red-50 text-red-700 p-4 rounded-lg text-sm font-medium border border-red-100 mb-4"></div>
-      
+
       {tool.medicalDisclaimer && (
         <div class="mb-6 bg-amber-50 border border-amber-200 rounded-lg p-4 flex items-start gap-3">
           <svg class="w-6 h-6 text-amber-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
@@ -58,10 +71,10 @@ const configJson = JSON.stringify(tool.physicsConfig || {});
 
       <div class="bg-emerald-50 p-6 rounded-xl border border-emerald-100 flex flex-col sm:flex-row items-center justify-between gap-4 unit-calc-ans-box">
         <div class="text-center sm:text-left">
-          <p class="text-sm text-gray-500 mb-1">{tool.physicsConfig?.outputLabel || 'Result'}</p>
+          <p class="text-sm text-gray-500 mb-1 unit-calc-output-label">{tool.physicsConfig?.outputLabel || 'Result'}</p>
           <div class="text-3xl font-bold font-mono text-gray-900 unit-calc-result-value">--</div>
         </div>
-        
+
         {tool.physicsConfig?.outputOptions && tool.physicsConfig.outputOptions.length > 0 && (
           <div class="w-full sm:w-auto">
              <label class="block text-xs font-medium text-gray-500 mb-1 sm:hidden">Output Unit</label>
@@ -115,6 +128,7 @@ const configJson = JSON.stringify(tool.physicsConfig || {});
   import * as math from 'mathjs';
   import { PHYSICS_CONSTANTS } from '../../utils/physicsConstants';
   import { CHEMISTRY_CONSTANTS } from '../../utils/chemistryConstants';
+  import { formatResultNumber, copyToClipboard } from '../../utils/formatters';
 
   const initUnitAwareCalculators = () => {
     document.querySelectorAll('.unit-aware-calc-container').forEach((container) => {
@@ -123,46 +137,46 @@ const configJson = JSON.stringify(tool.physicsConfig || {});
 
       const configStr = container.getAttribute('data-config');
       if (!configStr) return;
-      
+
       const config = JSON.parse(configStr);
       const form = container.querySelector('.unit-calc-form') as HTMLFormElement;
       const inputs = container.querySelectorAll('.unit-calc-input') as NodeListOf<HTMLInputElement>;
       const inputSelects = container.querySelectorAll('.unit-calc-select') as NodeListOf<HTMLSelectElement>;
       const outSelect = container.querySelector('.unit-calc-out-select') as HTMLSelectElement;
-      
+
       const resultSection = container.querySelector('.unit-calc-result-section');
       const resultValue = container.querySelector('.unit-calc-result-value');
+      const outputLabelEl = container.querySelector('.unit-calc-output-label');
+      const copyBtn = container.querySelector('.unit-calc-copy-btn');
       const errBox = container.querySelector('.unit-calc-err');
       const ansBox = container.querySelector('.unit-calc-ans-box');
 
-      let lastRawResultSI = null;
-
-      const formatNum = (num) => {
-         if (!isFinite(num)) return "Undefined";
-         if (Math.abs(num) < 1e-10) return "0";
-         if (Math.abs(num) > 1e10 || Math.abs(num) < 1e-4) return num.toExponential(4);
-         return Number.isInteger(num) ? String(num) : String(parseFloat(num.toFixed(6)));
-      };
+      let lastRawResultSI: number | null = null;
+      let lastDisplayStr = '';
+      let lastUnitLabel = '';
 
       const updateOutput = () => {
          if (lastRawResultSI === null || !resultValue) return;
          let finalVal = lastRawResultSI;
-         
+         lastUnitLabel = '';
+
          if (outSelect && config.outputOptions) {
             const outOpt = outSelect.options[outSelect.selectedIndex];
             const outFactor = parseFloat(outOpt.value);
             const outOffset = parseFloat(outOpt.getAttribute('data-offset') || '0');
             // Conversion to selected unit: (SI_val / factor) - offset
             finalVal = (lastRawResultSI / outFactor) - outOffset;
+            lastUnitLabel = outOpt.text.split('(')[0].trim() || outOpt.text;
          } else if (config.outputUnit) {
-            // Static unit
+            lastUnitLabel = config.outputUnit;
          }
-         
-         let displayStr = formatNum(finalVal);
+
+         let displayStr = formatResultNumber(finalVal);
          if (!outSelect && config.outputUnit && displayStr !== "Undefined") {
             displayStr += " " + config.outputUnit;
          }
-         
+
+         lastDisplayStr = displayStr;
          resultValue.textContent = displayStr;
       };
 
@@ -170,13 +184,45 @@ const configJson = JSON.stringify(tool.physicsConfig || {});
          outSelect.addEventListener('change', updateOutput);
       }
 
+      // Copy result functionality
+      if (copyBtn) {
+        copyBtn.addEventListener('click', async () => {
+          if (!resultValue || !resultValue.textContent || resultValue.textContent === '--') return;
+          const label = outputLabelEl ? outputLabelEl.textContent?.trim() : 'Result';
+          const val = resultValue.textContent.trim();
+          const copyText = `${label}: ${val}`;
+
+          const success = await copyToClipboard(copyText);
+          if (success) {
+            const copyTextEl = copyBtn.querySelector('.copy-text');
+            const originalText = copyTextEl ? copyTextEl.textContent : 'Copy Result';
+            if (copyTextEl) copyTextEl.textContent = 'Copied!';
+            copyBtn.classList.add('bg-emerald-100', 'text-emerald-800');
+            setTimeout(() => {
+              if (copyTextEl) copyTextEl.textContent = originalText;
+              copyBtn.classList.remove('bg-emerald-100', 'text-emerald-800');
+            }, 2000);
+          }
+        });
+      }
+
+      // Form reset handler
+      form.addEventListener('reset', () => {
+        resultSection?.classList.add('hidden');
+        ansBox?.classList.add('hidden');
+        errBox?.classList.add('hidden');
+        if (resultValue) resultValue.textContent = '--';
+        lastRawResultSI = null;
+        lastDisplayStr = '';
+      });
+
       form.addEventListener('submit', (e) => {
         e.preventDefault();
         errBox?.classList.add('hidden');
         ansBox?.classList.remove('hidden');
-        
+
         let scope: Record<string, number> = {};
-        
+
         // Inject physical constants into scope
         for (const [key, constant] of Object.entries(PHYSICS_CONSTANTS)) {
             scope[key] = constant.value;
@@ -185,15 +231,15 @@ const configJson = JSON.stringify(tool.physicsConfig || {});
             scope[key] = constant.value;
         }
 
-        let hasError = false;
+        let hasError: string | boolean = false;
 
         // Collect normalized inputs
-        config.inputs.forEach((inputConfig) => {
+        config.inputs.forEach((inputConfig: any) => {
            const inputEl = Array.from(inputs).find(el => el.getAttribute('data-id') === inputConfig.id);
            if (!inputEl) return;
-           
+
            let val = parseFloat(inputEl.value);
-           
+
            // Apply unit factor and offset (val + offset) * factor = SI_val
            const selEl = Array.from(inputSelects).find(el => el.getAttribute('data-for') === inputConfig.id);
            if (selEl) {
@@ -202,10 +248,10 @@ const configJson = JSON.stringify(tool.physicsConfig || {});
               const offset = parseFloat(selOpt.getAttribute('data-offset') || '0');
               val = (val + offset) * factor;
            }
-           
+
            scope[inputConfig.id] = val;
         });
-        
+
         if (Object.values(scope).some(isNaN)) return;
 
         // Edge case physical validation (prevent mathjs from silently outputting non-real numbers)
@@ -213,7 +259,7 @@ const configJson = JSON.stringify(tool.physicsConfig || {});
            hasError = "Mass cannot be negative.";
         } else if (scope.v !== undefined && Math.abs(scope.v) >= PHYSICS_CONSTANTS.c.value && config.expression.includes('sqrt(1 - (v*v)')) {
            hasError = "Velocity cannot equal or exceed the speed of light.";
-        } else if (scope.t !== undefined && scope.t < 0 && (tool.slug.includes('time') || config.expression.includes(' / t'))) {
+        } else if (scope.t !== undefined && scope.t < 0 && (container.getAttribute('data-config')?.includes('time') || config.expression.includes(' / t'))) {
            hasError = "Time cannot be negative in this context.";
         } else if ((scope.tc !== undefined && scope.tc < 0) || (scope.th !== undefined && scope.th < 0) || (scope.t1 !== undefined && scope.t1 < 0) || (scope.t2 !== undefined && scope.t2 < 0) || (scope.T !== undefined && scope.T < 0)) {
            hasError = "Absolute temperature (Kelvin) cannot be negative.";
@@ -221,8 +267,10 @@ const configJson = JSON.stringify(tool.physicsConfig || {});
 
         if (hasError) {
            ansBox?.classList.add('hidden');
-           errBox.textContent = hasError;
-           errBox.classList.remove('hidden');
+           if (errBox) {
+             errBox.textContent = typeof hasError === 'string' ? hasError : 'Invalid input parameters.';
+             errBox.classList.remove('hidden');
+           }
            resultSection?.classList.remove('hidden');
            return;
         }
@@ -239,13 +287,13 @@ const configJson = JSON.stringify(tool.physicsConfig || {});
 
           const resultSI = math.evaluate(expr, scope);
           lastRawResultSI = resultSI;
-          
+
           if (isNaN(resultSI) || !isFinite(resultSI) || typeof resultSI === 'complex') {
              throw new Error("Mathematical error (e.g., division by zero or invalid domain).");
           }
-          
+
           updateOutput();
-        } catch (err) {
+        } catch (err: any) {
           console.error("Calculation error", err);
           ansBox?.classList.add('hidden');
           if (errBox) {
@@ -253,8 +301,9 @@ const configJson = JSON.stringify(tool.physicsConfig || {});
              errBox.classList.remove('hidden');
           }
         }
-        
+
         resultSection?.classList.remove('hidden');
+        resultSection?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
       });
     });
   };

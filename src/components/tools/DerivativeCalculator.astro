@@ -56,11 +56,11 @@ if (tool.slug.includes('related-rates')) mode = 'related-rates';
             <input type="text" id="fn-var" value="x" required class="w-full p-3 border border-gray-300 rounded-lg focus:ring-emerald-500 font-mono text-center">
           </div>
         )}
-        
+
         {(mode === 'first' || mode === 'marginal' || mode === 'tangent' || mode === 'logarithmic') && (
           <div>
             <label for="fn-eval" class="block text-sm font-medium text-gray-700 mb-2">Evaluate at (Optional)</label>
-            <input type="number" step="any" id="fn-eval" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-emerald-500 font-mono text-center" placeholder="e.g. 2">
+            <input type="number" step="any" inputmode="decimal" id="fn-eval" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-emerald-500 font-mono text-center" placeholder="e.g. 2">
           </div>
         )}
 
@@ -68,11 +68,11 @@ if (tool.slug.includes('related-rates')) mode = 'related-rates';
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 col-span-full">
             <div>
               <label for="opt-lower" class="block text-sm font-medium text-gray-700 mb-2">Interval Lower Bound a (Optional)</label>
-              <input type="number" step="any" id="opt-lower" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-emerald-500 font-mono text-center" placeholder="e.g. -5">
+              <input type="number" step="any" inputmode="decimal" id="opt-lower" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-emerald-500 font-mono text-center" placeholder="e.g. -5">
             </div>
             <div>
               <label for="opt-upper" class="block text-sm font-medium text-gray-700 mb-2">Interval Upper Bound b (Optional)</label>
-              <input type="number" step="any" id="opt-upper" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-emerald-500 font-mono text-center" placeholder="e.g. 5">
+              <input type="number" step="any" inputmode="decimal" id="opt-upper" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-emerald-500 font-mono text-center" placeholder="e.g. 5">
             </div>
           </div>
         )}
@@ -97,17 +97,30 @@ if (tool.slug.includes('related-rates')) mode = 'related-rates';
       </div>
 
       <div class="pt-4">
-        <button type="submit" class="w-full bg-emerald-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors shadow-sm">
+        <button type="submit" class="w-full bg-emerald-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors shadow-sm cursor-pointer">
           {mode === 'critical' ? 'Find Critical Points' : (mode === 'inflection' ? 'Find Inflection Points' : (mode === 'concavity' ? 'Analyze Concavity' : (mode === 'increasing-decreasing' ? 'Find Increasing/Decreasing Intervals' : (mode === 'extrema' ? 'Find Local Extrema' : (mode === 'logarithmic' ? 'Differentiate Using Logarithms' : (mode === 'optimization' ? 'Optimize Function' : (mode === 'related-rates' ? 'Solve Related Rates' : 'Calculate Derivative')))))))}
         </button>
       </div>
     </form>
 
-    <div id="deriv-result" class="mt-8 pt-6 border-t border-gray-100 hidden">
-      <h3 class="text-lg font-semibold mb-3">Result</h3>
-      
+    <div id="deriv-result" class="mt-8 pt-6 border-t border-gray-100 hidden" aria-live="polite">
+      <div class="flex items-center justify-between mb-3">
+        <h3 class="text-lg font-semibold text-gray-900">Result</h3>
+        <button
+          type="button"
+          id="deriv-copy-btn"
+          class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-emerald-700 bg-white hover:bg-emerald-50 active:bg-emerald-100 border border-emerald-200 rounded-md transition-colors shadow-xs focus:outline-none focus:ring-2 focus:ring-emerald-500 cursor-pointer"
+          aria-label="Copy derivative result to clipboard"
+        >
+          <svg class="w-3.5 h-3.5 copy-icon text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+          </svg>
+          <span class="copy-text">Copy Result</span>
+        </button>
+      </div>
+
       <div id="deriv-err" class="hidden bg-red-50 text-red-700 p-4 rounded-lg text-sm font-medium border border-red-100 mb-4"></div>
-      
+
       <div id="deriv-ans" class="bg-gray-50 p-6 rounded-xl border border-gray-200 overflow-x-auto">
         <div class="flex flex-col gap-4">
           <div class="text-gray-600 font-mono text-sm" id="ans-label"></div>
@@ -208,27 +221,55 @@ if (tool.slug.includes('related-rates')) mode = 'related-rates';
 
 <div id="deriv-config" data-mode={mode} class="hidden"></div>
 <script>
-  const mode = document.getElementById('deriv-config').dataset.mode;
+  const mode = document.getElementById('deriv-config')?.getAttribute('data-mode') || 'first';
   import * as math from 'mathjs';
+  import { formatResultNumber, copyToClipboard } from '../../utils/formatters';
 
   const initDeriv = () => {
-    const form = document.getElementById('deriv-form');
-    const exprIn = document.getElementById('fn-expr');
-    const varIn = document.getElementById('fn-var');
-    const evalIn = document.getElementById('fn-eval');
-    
+    const form = document.getElementById('deriv-form') as HTMLFormElement;
+    const exprIn = document.getElementById('fn-expr') as HTMLInputElement;
+    const varIn = document.getElementById('fn-var') as HTMLInputElement;
+    const evalIn = document.getElementById('fn-eval') as HTMLInputElement;
+
     const resSec = document.getElementById('deriv-result');
     const errBox = document.getElementById('deriv-err');
     const ansBox = document.getElementById('deriv-ans');
     const ansLabel = document.getElementById('ans-label');
     const ansVal = document.getElementById('ans-val');
+    const copyBtn = document.getElementById('deriv-copy-btn');
     const evalSec = document.getElementById('eval-section');
     const evalLabel = document.getElementById('eval-label');
     const evalVal = document.getElementById('eval-val');
-    
+
     const tangSec = document.getElementById('tangent-section');
     const tangEq = document.getElementById('tangent-eq');
     const normEq = document.getElementById('normal-eq');
+
+    if (!form || !exprIn) return;
+
+    if (copyBtn) {
+      copyBtn.addEventListener('click', async () => {
+        const valText = ansVal?.textContent?.trim() || '';
+        if (!valText) return;
+        const lblText = ansLabel?.textContent?.trim() || 'Result';
+        let copyText = `${lblText} ${valText}`;
+        if (evalSec && !evalSec.classList.contains('hidden') && evalVal?.textContent) {
+          copyText += `\n${evalLabel?.textContent || 'Evaluated'}: ${evalVal.textContent}`;
+        }
+
+        const success = await copyToClipboard(copyText);
+        if (success) {
+          const copyTextEl = copyBtn.querySelector('.copy-text');
+          const originalText = copyTextEl ? copyTextEl.textContent : 'Copy Result';
+          if (copyTextEl) copyTextEl.textContent = 'Copied!';
+          copyBtn.classList.add('bg-emerald-100', 'text-emerald-800');
+          setTimeout(() => {
+            if (copyTextEl) copyTextEl.textContent = originalText;
+            copyBtn.classList.remove('bg-emerald-100', 'text-emerald-800');
+          }, 2000);
+        }
+      });
+    }
 
     const critSec = document.getElementById('critical-section');
     const critList = document.getElementById('critical-points-list');
@@ -406,13 +447,13 @@ if (tool.slug.includes('related-rates')) mode = 'related-rates';
           const fx = math.derivative(expr, 'x');
           const fy = math.derivative(expr, 'y');
           labelStr = 'dy / dx = - (∂F/∂x) / (∂F/∂y)';
-          
+
           let num = math.simplify(fx).toString();
           let den = math.simplify(fy).toString();
-          
+
           if (den === '0') throw new Error('Derivative undefined (∂F/∂y = 0)');
           resultStr = `-(${num}) / (${den})`;
-        } 
+        }
         else if (mode === 'partial') {
           const d1 = math.derivative(expr, v);
           labelStr = `∂f / ∂${v} =`;
@@ -1591,14 +1632,14 @@ if (tool.slug.includes('related-rates')) mode = 'related-rates';
           const d1 = math.derivative(expr, v);
           labelStr = mode === 'marginal' ? `C'(${v}) = Marginal Function` : `f'(${v}) = df/d${v} =`;
           resultStr = math.simplify(d1).toString();
-          
+
           if (evalAt !== '') {
              const xVal = parseFloat(evalAt);
              const evalRes = d1.evaluate({ [v]: xVal });
              const yVal = math.evaluate(expr, { [v]: xVal });
-             
+
              evalLabel.textContent = `Evaluated at ${v} = ${xVal}`;
-             evalVal.textContent = mode === 'marginal' 
+             evalVal.textContent = mode === 'marginal'
                 ? `C'(${xVal}) = ${Number.isInteger(evalRes) ? evalRes : evalRes.toFixed(4)}`
                 : `f'(${xVal}) = ${Number.isInteger(evalRes) ? evalRes : evalRes.toFixed(4)}`;
              evalSec.classList.remove('hidden');
@@ -1607,7 +1648,7 @@ if (tool.slug.includes('related-rates')) mode = 'related-rates';
                 const m = evalRes;
                 const fmtM = Number.isInteger(m) ? m : parseFloat(m.toFixed(4));
                 const fmtY = Number.isInteger(yVal) ? yVal : parseFloat(yVal.toFixed(4));
-                
+
                 // y - y1 = m(x - x1)  => y = mx - mx1 + y1
                 const b = yVal - (m * xVal);
                 const fmtB = Number.isInteger(b) ? b : parseFloat(b.toFixed(4));
@@ -1631,7 +1672,7 @@ if (tool.slug.includes('related-rates')) mode = 'related-rates';
 
         // Clean up output string format from mathjs (e.g. "2 * x" -> "2x")
         resultStr = resultStr.replace(/\s\*\s/g, '');
-        
+
         ansLabel.textContent = labelStr;
         ansVal.textContent = resultStr;
 
