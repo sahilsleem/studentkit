@@ -24,3 +24,9 @@
 /tools/arccsc-calculator /tools/trigonometric-calculator 301
 /tools/arcsec-calculator /tools/trigonometric-calculator 301
 /tools/arccot-calculator /tools/trigonometric-calculator 301
+/tools/percent-composition-calculator /tools/molar-mass-calculator 301
+/tools/chemical-formula-calculator /tools/molar-mass-calculator 301
+/tools/moles-calculator /tools/molar-mass-calculator 301
+/tools/atoms-calculator /tools/molar-mass-calculator 301
+/tools/molecules-calculator /tools/molar-mass-calculator 301
+/tools/ions-calculator /tools/molar-mass-calculator 301

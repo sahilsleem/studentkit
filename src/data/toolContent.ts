@@ -1109,5 +1109,11 @@ export const toolContent: Record<string, ToolContent> = {
     "howToUse": "1. Select the desired standard or inverse trigonometric function from the dropdown.\n2. Choose your preferred angle unit (Degrees or Radians).\n3. Enter the angle (for standard functions) or numeric ratio (for inverse functions).\n4. Click Calculate to view the precise evaluated result.",
     "formula": "Standard Trigonometric Functions:\n• sin(θ) = Opposite / Hypotenuse\n• cos(θ) = Adjacent / Hypotenuse\n• tan(θ) = sin(θ) / cos(θ) = Opposite / Adjacent\n• csc(θ) = 1 / sin(θ)\n• sec(θ) = 1 / cos(θ)\n• cot(θ) = 1 / tan(θ)\n\nInverse Trigonometric Functions:\n• arcsin(x) = θ where sin(θ) = x, x ∈ [-1, 1]\n• arccos(x) = θ where cos(θ) = x, x ∈ [-1, 1]\n• arctan(x) = θ where tan(θ) = x, x ∈ (-∞, ∞)\n• arccsc(x) = arcsin(1/x), |x| ≥ 1\n• arcsec(x) = arccos(1/x), |x| ≥ 1\n• arccot(x) = arctan(1/x), x ∈ (-∞, ∞)",
     "whenToUse": "Use this tool to solve geometric triangles, evaluate trigonometric equations, compute wave phases and vectors in physics, and determine angular coordinates in engineering calculations."
+  },
+  "molar-mass-calculator": {
+    "whatIsIt": "A chemical formula analyzer and molar mass calculator that computes molecular weight, formula mass, and elemental percent mass composition for any chemical compound, supporting nested parentheses and polyatomic groups.",
+    "howToUse": "1. Enter a chemical formula (e.g. H2O, C6H12O6, Fe(CN)6, Ca(NO3)2).\n2. Maintain correct elemental capitalization (e.g., Co for Cobalt vs CO for Carbon Monoxide).\n3. Click Calculate to view the total molar mass in g/mol and the itemized elemental mass percentage breakdown.",
+    "formula": "Molar Mass (M) = ∑ (n_i × atomic_mass_i)\n\nElement Mass % = ( (n_i × atomic_mass_i) / Total_Molar_Mass ) × 100%\n\nwhere n_i is the number of atoms of element i in the chemical formula.",
+    "whenToUse": "Essential for stoichiometry calculations, preparing standard molar solutions in the chemistry laboratory, determining empirical and molecular formulas, and converting between mass (grams) and amount of substance (moles)."
   }
 };
