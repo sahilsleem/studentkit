@@ -473,12 +473,12 @@ export const toolContent: Record<string, ToolContent> = {
     ]
   },
 
-  "dna-complement": {
-    whatIsIt: "Generates the complementary strand of a DNA sequence using Watson-Crick base pairing rules: A pairs with T, and G pairs with C.",
-    howToUse: "Enter a DNA sequence using only the letters A, T, G, and C. The tool returns the complementary strand in the 3'→5' direction.",
-    formula: "A ↔ T, G ↔ C",
-    example: "For the sequence 5'-ATGCATGC-3', the complementary strand is 3'-TACGTACG-5'.",
-    whenToUse: "Used in molecular biology for primer design, PCR analysis, and understanding DNA replication and repair."
+  "dna-sequence-analyzer": {
+    whatIsIt: "A comprehensive bioinformatics nucleotide analyzer for DNA and RNA sequences, computing sequence complement, reverse complement, mRNA transcription, protein translation, GC content percentage, and estimated melting temperature (Tm).",
+    howToUse: "1. Paste or type any standard DNA sequence (A, T, G, C) or RNA sequence (A, U, G, C).\n2. Click 'Analyze Sequence'.\n3. View sequence metrics (Length, GC%, Tm, Sequence Type) alongside the generated complementary, transcribed, and translated sequences.",
+    formula: "• Watson-Crick Base Pairing: A ↔ T (or U in RNA), G ↔ C\n• Reverse Complement: Complement read in reverse 3'→5' direction\n• Transcription: DNA coding strand T → U\n• Translation: Codon triplet mapping to amino acids via Standard Genetic Code\n• GC Content (%) = ((G + C) / Total Bases) × 100\n• Oligo Tm (<14 nt) = 2(A + T) + 4(G + C) °C\n• Oligo Tm (≥14 nt) = 64.9 + 41 × (G + C - 16.4) / Length °C",
+    example: "For DNA sequence 'ATGCGTACGTAGC': Length = 13 bp, GC Content = 53.8%, Est. Tm = 40.0°C, Complement = 'TACGCATGCATCG', Reverse Complement = 'GCTACGTACGCAT', Transcribed mRNA = 'AUGCGUACGUAGC', Translated Protein = 'MRT*'.",
+    whenToUse: "Essential for molecular biology coursework, PCR primer design, recombinant DNA cloning, genetic code analysis, and bioinformatics research."
   }
 
 ,

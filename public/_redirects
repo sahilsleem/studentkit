@@ -30,3 +30,12 @@
 /tools/atoms-calculator /tools/molar-mass-calculator 301
 /tools/molecules-calculator /tools/molar-mass-calculator 301
 /tools/ions-calculator /tools/molar-mass-calculator 301
+/tools/dna-complement /tools/dna-sequence-analyzer 301
+/tools/reverse-complement /tools/dna-sequence-analyzer 301
+/tools/rna-transcription /tools/dna-sequence-analyzer 301
+/tools/codon-translator /tools/dna-sequence-analyzer 301
+/tools/dna-melting-temperature /tools/dna-sequence-analyzer 301
+/tools/gc-content /tools/dna-sequence-analyzer 301
+/tools/dna-to-rna /tools/dna-sequence-analyzer 301
+/tools/rna-to-protein /tools/dna-sequence-analyzer 301
+/tools/peptide-mass-calculator /tools/dna-sequence-analyzer 301
