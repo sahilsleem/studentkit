@@ -1,25 +1,39 @@
 ---
 import { tools } from '../../data/registry';
 const { tool } = Astro.props;
-
-// Infer function from slug
-const funcName = tool.slug.replace('-calculator', '');
-const isInverse = funcName.startsWith('arc');
-
-// Map to math.js functions
-const fnMap: Record<string, string> = {
-  'sin': 'sin', 'cos': 'cos', 'tan': 'tan',
-  'cosecant': 'csc', 'secant': 'sec', 'cotangent': 'cot',
-  'arcsin': 'asin', 'arccos': 'acos', 'arctan': 'atan',
-  'arccsc': 'acsc', 'arcsec': 'asec', 'arccot': 'acot'
-};
-const mathFn = fnMap[funcName] || 'sin';
 ---
 
 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden max-w-lg mx-auto">
   <div class="p-6 sm:p-8">
     <form id="trig-form" class="space-y-6">
-      <div class="flex justify-center mb-2">
+      <!-- Function Selector -->
+      <div>
+        <label for="trig-func" class="block text-sm font-medium text-gray-700 mb-1">
+          Trigonometric Function
+        </label>
+        <select id="trig-func" class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 sm:text-base font-medium transition-colors bg-white">
+          <optgroup label="Standard Trigonometric Functions">
+            <option value="sin" data-math="sin" data-inverse="false" selected>Sine — sin(θ)</option>
+            <option value="cos" data-math="cos" data-inverse="false">Cosine — cos(θ)</option>
+            <option value="tan" data-math="tan" data-inverse="false">Tangent — tan(θ)</option>
+            <option value="csc" data-math="csc" data-inverse="false">Cosecant — csc(θ)</option>
+            <option value="sec" data-math="sec" data-inverse="false">Secant — sec(θ)</option>
+            <option value="cot" data-math="cot" data-inverse="false">Cotangent — cot(θ)</option>
+          </optgroup>
+          <optgroup label="Inverse Trigonometric Functions">
+            <option value="arcsin" data-math="asin" data-inverse="true">Arcsine — arcsin(x)</option>
+            <option value="arccos" data-math="acos" data-inverse="true">Arccosine — arccos(x)</option>
+            <option value="arctan" data-math="atan" data-inverse="true">Arctangent — arctan(x)</option>
+            <option value="arccsc" data-math="acsc" data-inverse="true">Arccosecant — arccsc(x)</option>
+            <option value="arcsec" data-math="asec" data-inverse="true">Arcsecant — arcsec(x)</option>
+            <option value="arccot" data-math="acot" data-inverse="true">Arccotangent — arccot(x)</option>
+          </optgroup>
+        </select>
+      </div>
+
+      <!-- Unit Selector (Degrees / Radians) -->
+      <div class="flex flex-col items-center gap-1.5">
+        <span class="text-xs font-medium text-gray-500" id="unit-context-label">Angle Unit (Input)</span>
         <div class="inline-flex bg-gray-100 p-1 rounded-lg">
           <label class="cursor-pointer">
             <input type="radio" name="angleUnit" value="deg" class="peer sr-only" checked>
@@ -32,14 +46,18 @@ const mathFn = fnMap[funcName] || 'sin';
         </div>
       </div>
 
+      <!-- Input Value Field -->
       <div>
-        <label for="trig-input" class="block text-sm font-medium text-gray-700 mb-1">
-          {isInverse ? 'Input Value (Ratio)' : 'Input Angle'}
-        </label>
+        <div class="flex justify-between items-center mb-1">
+          <label for="trig-input" id="input-label" class="block text-sm font-medium text-gray-700">
+            Input Angle (θ)
+          </label>
+          <span id="domain-hint" class="text-xs text-gray-400 font-mono hidden"></span>
+        </div>
         <div class="relative">
-          <input type="number" step="any" id="trig-input" required class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 sm:text-base font-mono transition-colors" placeholder="e.g. 0.5">
+          <input type="number" step="any" id="trig-input" required class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 sm:text-base font-mono transition-colors" placeholder="e.g. 30">
           <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-gray-400 font-mono" id="unit-label">
-            {isInverse ? '' : '°'}
+            °
           </div>
         </div>
       </div>
@@ -59,70 +77,126 @@ const mathFn = fnMap[funcName] || 'sin';
   </div>
 </div>
 
-<div id="trig-config" data-is-inverse={isInverse.toString()} data-math-fn={mathFn} data-func-name={funcName} class="hidden"></div>
 <script>
-  const conf = document.getElementById('trig-config').dataset;
-  const isInverse = conf.isInverse === 'true';
-  const mathFn = conf.mathFn;
-  const funcName = conf.funcName;
   import * as math from 'mathjs';
 
+  const fnMap: Record<string, string> = {
+    'sin': 'sin', 'cos': 'cos', 'tan': 'tan',
+    'csc': 'csc', 'sec': 'sec', 'cot': 'cot',
+    'arcsin': 'asin', 'arccos': 'acos', 'arctan': 'atan',
+    'arccsc': 'acsc', 'arcsec': 'asec', 'arccot': 'acot'
+  };
+
+  const domainHints: Record<string, string> = {
+    'arcsin': 'Domain: [-1, 1]',
+    'arccos': 'Domain: [-1, 1]',
+    'arctan': 'Domain: (-∞, ∞)',
+    'arccsc': 'Domain: |x| ≥ 1',
+    'arcsec': 'Domain: |x| ≥ 1',
+    'arccot': 'Domain: (-∞, ∞)'
+  };
+
   const initTrig = () => {
-    const form = document.getElementById('trig-form');
-    const input = document.getElementById('trig-input');
+    const form = document.getElementById('trig-form') as HTMLFormElement;
+    const funcSelect = document.getElementById('trig-func') as HTMLSelectElement;
+    const input = document.getElementById('trig-input') as HTMLInputElement;
+    const inputLabel = document.getElementById('input-label');
     const unitLabel = document.getElementById('unit-label');
+    const unitContextLabel = document.getElementById('unit-context-label');
+    const domainHint = document.getElementById('domain-hint');
     const radios = document.getElementsByName('angleUnit');
     const resSec = document.getElementById('trig-result');
     const resExpr = document.getElementById('res-expr');
     const resVal = document.getElementById('res-val');
 
-    if (!form || !input) return;
+    if (!form || !funcSelect || !input) return;
 
     const getUnit = () => Array.from(radios).find(r => (r as HTMLInputElement).checked)?.value || 'deg';
 
-    if (!isInverse) {
-      radios.forEach(r => r.addEventListener('change', () => {
-        unitLabel.textContent = getUnit() === 'deg' ? '°' : 'rad';
-      }));
-    }
+    const updateModeUI = () => {
+      const selectedOption = funcSelect.options[funcSelect.selectedIndex];
+      const isInverse = selectedOption.getAttribute('data-inverse') === 'true';
+      const funcName = funcSelect.value;
+      const unit = getUnit();
+
+      if (isInverse) {
+        if (inputLabel) inputLabel.textContent = 'Input Value / Ratio (x)';
+        if (unitContextLabel) unitContextLabel.textContent = 'Angle Unit (Output)';
+        if (unitLabel) unitLabel.textContent = '';
+        input.placeholder = funcName === 'arccsc' || funcName === 'arcsec' ? 'e.g. 2' : 'e.g. 0.5';
+        if (domainHint) {
+          domainHint.textContent = domainHints[funcName] || '';
+          domainHint.classList.remove('hidden');
+        }
+      } else {
+        if (inputLabel) inputLabel.textContent = 'Input Angle (θ)';
+        if (unitContextLabel) unitContextLabel.textContent = 'Angle Unit (Input)';
+        if (unitLabel) unitLabel.textContent = unit === 'deg' ? '°' : 'rad';
+        input.placeholder = unit === 'deg' ? 'e.g. 30' : 'e.g. 0.5236';
+        if (domainHint) {
+          domainHint.classList.add('hidden');
+        }
+      }
+
+      // Clear previous results on mode switch
+      if (resSec) resSec.classList.add('hidden');
+    };
+
+    funcSelect.addEventListener('change', updateModeUI);
+
+    radios.forEach(r => r.addEventListener('change', () => {
+      const selectedOption = funcSelect.options[funcSelect.selectedIndex];
+      const isInverse = selectedOption.getAttribute('data-inverse') === 'true';
+      const unit = getUnit();
+      if (!isInverse && unitLabel) {
+        unitLabel.textContent = unit === 'deg' ? '°' : 'rad';
+        input.placeholder = unit === 'deg' ? 'e.g. 30' : 'e.g. 0.5236';
+      }
+    }));
 
     form.addEventListener('submit', (e) => {
       e.preventDefault();
-      const val = parseFloat((input as HTMLInputElement).value);
+      const val = parseFloat(input.value);
       if (isNaN(val)) return;
 
+      const funcName = funcSelect.value;
+      const selectedOption = funcSelect.options[funcSelect.selectedIndex];
+      const isInverse = selectedOption.getAttribute('data-inverse') === 'true';
+      const mathFn = fnMap[funcName] || funcName;
       const unit = getUnit();
-      let result;
-      let error = null;
+
+      let result: number | null = null;
+      let error: string | null = null;
 
       try {
         if (isInverse) {
-          // Domains:
-          // asin, acos: [-1, 1]
+          // Domain checks
           if ((mathFn === 'asin' || mathFn === 'acos') && (val < -1 || val > 1)) {
-             error = 'Undefined (out of domain [-1, 1])';
-          }
-          // asec, acsc: x <= -1 or x >= 1
-          else if ((mathFn === 'asec' || mathFn === 'acsc') && (val > -1 && val < 1)) {
-             error = 'Undefined (out of domain |x| >= 1)';
-          }
-          else {
+            error = 'Undefined (out of domain [-1, 1])';
+          } else if ((mathFn === 'asec' || mathFn === 'acsc') && (val > -1 && val < 1)) {
+            error = 'Undefined (out of domain |x| >= 1)';
+          } else {
             result = math.evaluate(`${mathFn}(${val})`);
-            // result is in radians. If unit is deg, convert.
-            if (unit === 'deg') result = result * (180 / Math.PI);
+            // mathjs returns radians for inverse trig; convert to degrees if unit is 'deg'
+            if (unit === 'deg' && typeof result === 'number') {
+              result = result * (180 / Math.PI);
+            }
           }
         } else {
-          // Undefined handling (tan 90, sec 90, cot 0, csc 0)
+          // Standard trig evaluation
           let evalStr = unit === 'deg' ? `${mathFn}(${val} deg)` : `${mathFn}(${val} rad)`;
-          
-          // Modulo logic for undefined
           let angDeg = unit === 'deg' ? val : val * (180 / Math.PI);
-          let mod90 = Math.abs(angDeg % 180);
-          let mod180 = Math.abs(angDeg % 180);
 
-          if ((mathFn === 'tan' || mathFn === 'sec') && Math.abs(mod90 - 90) < 1e-10) {
+          // Normalized positive angle modulo 180
+          let norm180 = ((angDeg % 180) + 180) % 180;
+
+          // Singularity detection:
+          // tan and sec are undefined at 90° + 180°k (e.g. 90, 270, -90)
+          if ((mathFn === 'tan' || mathFn === 'sec') && Math.abs(norm180 - 90) < 1e-9) {
             error = 'Undefined';
-          } else if ((mathFn === 'cot' || mathFn === 'csc') && Math.abs(mod180) < 1e-10) {
+          }
+          // cot and csc are undefined at 0° + 180°k (e.g. 0, 180, 360, -180)
+          else if ((mathFn === 'cot' || mathFn === 'csc') && (Math.abs(norm180) < 1e-9 || Math.abs(norm180 - 180) < 1e-9)) {
             error = 'Undefined';
           } else {
             result = math.evaluate(evalStr);
@@ -130,15 +204,16 @@ const mathFn = fnMap[funcName] || 'sin';
         }
 
         if (error) {
-          resExpr.textContent = `${funcName}(${val}${isInverse ? '' : (unit === 'deg' ? '°' : ' rad')})`;
-          resVal.innerHTML = `<span class="text-red-500 text-xl"></span>`;
-          (resVal.querySelector('span') as HTMLElement).textContent = error;
-        } else {
-          // Format
-          if (Math.abs(result) < 1e-10) result = 0; // Fix floating point issues
-          
+          if (resExpr) resExpr.textContent = `${funcName}(${val}${isInverse ? '' : (unit === 'deg' ? '°' : ' rad')})`;
+          if (resVal) {
+            resVal.innerHTML = `<span class="text-red-500 text-xl">${error}</span>`;
+          }
+        } else if (typeof result === 'number') {
+          // Floating point zero-snapping
+          if (Math.abs(result) < 1e-10) result = 0;
+
           const formatted = Number.isInteger(result) ? result : parseFloat(result.toFixed(6));
-          
+
           let exprStr = '';
           if (isInverse) {
             exprStr = `${funcName}(${val}) = ${formatted}${unit === 'deg' ? '°' : ' rad'}`;
@@ -146,16 +221,19 @@ const mathFn = fnMap[funcName] || 'sin';
             exprStr = `${funcName}(${val}${unit === 'deg' ? '°' : ' rad'}) =`;
           }
 
-          resExpr.textContent = exprStr;
-          resVal.textContent = isInverse ? `${formatted}${unit === 'deg' ? '°' : ''}` : String(formatted);
+          if (resExpr) resExpr.textContent = exprStr;
+          if (resVal) resVal.textContent = isInverse ? `${formatted}${unit === 'deg' ? '°' : ''}` : String(formatted);
         }
-        
-        resSec.classList.remove('hidden');
+
+        if (resSec) resSec.classList.remove('hidden');
       } catch (err) {
-        resVal.textContent = 'Error';
-        resSec.classList.remove('hidden');
+        if (resVal) resVal.textContent = 'Error';
+        if (resSec) resSec.classList.remove('hidden');
       }
     });
+
+    // Initial UI setup
+    updateModeUI();
   };
 
   initTrig();

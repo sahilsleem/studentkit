@@ -12,3 +12,15 @@
 /tools/valence-electron-calculator /tools/periodic-table 301
 /tools/oxidation-state-calculator /tools/periodic-table 301
 /tools/isotope-abundance-calculator /tools/periodic-table 301
+/tools/sin-calculator /tools/trigonometric-calculator 301
+/tools/cos-calculator /tools/trigonometric-calculator 301
+/tools/tan-calculator /tools/trigonometric-calculator 301
+/tools/cosecant-calculator /tools/trigonometric-calculator 301
+/tools/secant-calculator /tools/trigonometric-calculator 301
+/tools/cotangent-calculator /tools/trigonometric-calculator 301
+/tools/arcsin-calculator /tools/trigonometric-calculator 301
+/tools/arccos-calculator /tools/trigonometric-calculator 301
+/tools/arctan-calculator /tools/trigonometric-calculator 301
+/tools/arccsc-calculator /tools/trigonometric-calculator 301
+/tools/arcsec-calculator /tools/trigonometric-calculator 301
+/tools/arccot-calculator /tools/trigonometric-calculator 301

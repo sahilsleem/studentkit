@@ -1103,5 +1103,11 @@ export const toolContent: Record<string, ToolContent> = {
       { "q": "What are the 5 mandatory assumptions of Hardy-Weinberg equilibrium?", "a": "1. No mutation (no new alleles formed). 2. Completely random mating (no assortative mating or sexual selection). 3. No gene flow (closed population with zero immigration or emigration). 4. Infinite population size (eliminating sampling error and genetic drift). 5. No natural selection (all genotypes possess identical survival and reproductive fitness)." },
       { "q": "Why must we always calculate q first?", "a": "Because the recessive phenotype is the only phenotype whose underlying genotype is unambiguous (aa = q²). The dominant phenotype contains a mixture of AA (p²) and Aa (2pq), preventing direct extraction of p without first solving for q." }
     ]
+  },
+  "trigonometric-calculator": {
+    "whatIsIt": "A comprehensive trigonometric calculator for evaluating both standard (sin, cos, tan, csc, sec, cot) and inverse (arcsin, arccos, arctan, arccsc, arcsec, arccot) trigonometric functions with full support for degrees and radians.",
+    "howToUse": "1. Select the desired standard or inverse trigonometric function from the dropdown.\n2. Choose your preferred angle unit (Degrees or Radians).\n3. Enter the angle (for standard functions) or numeric ratio (for inverse functions).\n4. Click Calculate to view the precise evaluated result.",
+    "formula": "Standard Trigonometric Functions:\n• sin(θ) = Opposite / Hypotenuse\n• cos(θ) = Adjacent / Hypotenuse\n• tan(θ) = sin(θ) / cos(θ) = Opposite / Adjacent\n• csc(θ) = 1 / sin(θ)\n• sec(θ) = 1 / cos(θ)\n• cot(θ) = 1 / tan(θ)\n\nInverse Trigonometric Functions:\n• arcsin(x) = θ where sin(θ) = x, x ∈ [-1, 1]\n• arccos(x) = θ where cos(θ) = x, x ∈ [-1, 1]\n• arctan(x) = θ where tan(θ) = x, x ∈ (-∞, ∞)\n• arccsc(x) = arcsin(1/x), |x| ≥ 1\n• arcsec(x) = arccos(1/x), |x| ≥ 1\n• arccot(x) = arctan(1/x), x ∈ (-∞, ∞)",
+    "whenToUse": "Use this tool to solve geometric triangles, evaluate trigonometric equations, compute wave phases and vectors in physics, and determine angular coordinates in engineering calculations."
   }
 };
