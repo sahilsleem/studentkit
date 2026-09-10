@@ -3,13 +3,15 @@ import { tools } from '../../data/registry';
 const { tool } = Astro.props;
 
 // Determine mode from slug
-let mode = 'first'; // first, second, partial, implicit, marginal, critical
-if (tool.slug.includes('second-derivative') || tool.slug.includes('concavity') || tool.slug.includes('inflection')) mode = 'second';
+let mode = 'first'; // first, second, partial, implicit, marginal, critical, inflection, concavity
+if (tool.slug.includes('second-derivative')) mode = 'second';
 if (tool.slug.includes('partial-derivative')) mode = 'partial';
 if (tool.slug.includes('implicit-differentiation')) mode = 'implicit';
 if (tool.slug.includes('marginal')) mode = 'marginal';
 if (tool.slug.includes('tangent') || tool.slug.includes('normal')) mode = 'tangent';
 if (tool.slug.includes('critical-point')) mode = 'critical';
+if (tool.slug.includes('inflection')) mode = 'inflection';
+if (tool.slug.includes('concavity')) mode = 'concavity';
 ---
 
 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden max-w-3xl mx-auto">
@@ -21,7 +23,7 @@ if (tool.slug.includes('critical-point')) mode = 'critical';
         </label>
         <div class="flex items-center gap-3">
           <span class="font-mono text-gray-500 font-bold">{mode === 'implicit' ? 'F(x,y) =' : (mode === 'marginal' ? 'C(x) =' : 'f(...) =')}</span>
-          <input type="text" id="fn-expr" required class="flex-1 p-3 border border-gray-300 rounded-lg focus:ring-emerald-500 font-mono text-lg" placeholder={mode === 'implicit' ? 'x^2 + y^2 - 25' : (mode === 'critical' ? 'x^3 - 3x' : 'x^2 * sin(x)')}>
+          <input type="text" id="fn-expr" required class="flex-1 p-3 border border-gray-300 rounded-lg focus:ring-emerald-500 font-mono text-lg" placeholder={mode === 'implicit' ? 'x^2 + y^2 - 25' : (mode === 'critical' || mode === 'inflection' || mode === 'concavity' ? 'x^3 - 3x' : 'x^2 * sin(x)')}>
         </div>
         <p class="text-xs text-gray-500 mt-2">Example: <code>2x^3 - 4x + 1</code>, <code>sin(x)*e^x</code>, <code>1/x</code></p>
       </div>
@@ -44,7 +46,7 @@ if (tool.slug.includes('critical-point')) mode = 'critical';
 
       <div class="pt-4">
         <button type="submit" class="w-full bg-emerald-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors shadow-sm">
-          {mode === 'critical' ? 'Find Critical Points' : 'Calculate Derivative'}
+          {mode === 'critical' ? 'Find Critical Points' : (mode === 'inflection' ? 'Find Inflection Points' : (mode === 'concavity' ? 'Analyze Concavity' : 'Calculate Derivative'))}
         </button>
       </div>
     </form>
@@ -80,6 +82,22 @@ if (tool.slug.includes('critical-point')) mode = 'critical';
              <div id="critical-points-list" class="space-y-2"></div>
              <p id="critical-note" class="text-xs text-gray-500 italic mt-2"></p>
           </div>
+          <div id="inflection-section" class="hidden mt-4 pt-4 border-t border-gray-200 space-y-3">
+             <div class="flex items-center justify-between">
+               <p class="text-xs text-gray-500 uppercase font-bold tracking-wide">Inflection Points</p>
+               <span class="text-xs text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 font-medium">Numerical search [-100, 100]</span>
+             </div>
+             <div id="inflection-points-list" class="space-y-2"></div>
+             <p id="inflection-note" class="text-xs text-gray-500 italic mt-2"></p>
+          </div>
+          <div id="concavity-section" class="hidden mt-4 pt-4 border-t border-gray-200 space-y-3">
+             <div class="flex items-center justify-between">
+               <p class="text-xs text-gray-500 uppercase font-bold tracking-wide">Concavity Intervals</p>
+               <span class="text-xs text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 font-medium">Numerical search [-100, 100]</span>
+             </div>
+             <div id="concavity-intervals-list" class="space-y-2"></div>
+             <p id="concavity-note" class="text-xs text-gray-500 italic mt-2"></p>
+          </div>
         </div>
       </div>
     </div>
@@ -114,10 +132,112 @@ if (tool.slug.includes('critical-point')) mode = 'critical';
     const critList = document.getElementById('critical-points-list');
     const critNote = document.getElementById('critical-note');
 
+    const inflSec = document.getElementById('inflection-section');
+    const inflList = document.getElementById('inflection-points-list');
+    const inflNote = document.getElementById('inflection-note');
+
+    const concSec = document.getElementById('concavity-section');
+    const concList = document.getElementById('concavity-intervals-list');
+    const concNote = document.getElementById('concavity-note');
+
     if (!form) return;
 
     const cleanExpr = (str) => {
       return str.replace(/(\d)([a-zA-Z])/g, '$1*$2'); // Fix implicit mult 2x -> 2*x
+    };
+
+    const findRoots = (evalDerivFn, searchMin = -100, searchMax = 100) => {
+      const refineRoot = (x1, x2) => {
+        let y1 = evalDerivFn(x1), y2 = evalDerivFn(x2);
+        if (y1 === null || y2 === null) return null;
+        if (Math.abs(y1) < 1e-10) return x1;
+        if (Math.abs(y2) < 1e-10) return x2;
+
+        let a = x1, b = x2, fa = y1, fb = y2;
+        if (fa * fb <= 0) {
+          for (let i = 0; i < 50; i++) {
+            const mid = (a + b) / 2;
+            const fmid = evalDerivFn(mid);
+            if (fmid === null) break;
+            if (Math.abs(fmid) < 1e-10 || (b - a) / 2 < 1e-10) return mid;
+            if (fa * fmid <= 0) { b = mid; fb = fmid; } else { a = mid; fa = fmid; }
+          }
+          return (a + b) / 2;
+        } else {
+          let xCurr = (x1 + x2) / 2;
+          for (let i = 0; i < 30; i++) {
+            const fx = evalDerivFn(xCurr);
+            if (fx === null) break;
+            if (Math.abs(fx) < 1e-10) return xCurr;
+            const h = 1e-5;
+            const dPlus = evalDerivFn(xCurr + h);
+            const dMinus = evalDerivFn(xCurr - h);
+            if (dPlus === null || dMinus === null) break;
+            const dfx = (dPlus - dMinus) / (2 * h);
+            if (Math.abs(dfx) < 1e-12) break;
+            const step = fx / dfx;
+            xCurr -= step;
+            if (Math.abs(step) < 1e-10) break;
+          }
+          const valAtRoot = evalDerivFn(xCurr);
+          if (valAtRoot !== null && Math.abs(valAtRoot) < 1e-6) {
+            const left = evalDerivFn(xCurr - 0.01);
+            const right = evalDerivFn(xCurr + 0.01);
+            if (left !== null && right !== null) {
+              if (left * right > 0 && Math.abs(valAtRoot) < Math.abs(left) * 0.1 && Math.abs(valAtRoot) < Math.abs(right) * 0.1) {
+                return xCurr;
+              }
+            }
+          }
+          return null;
+        }
+      };
+
+      const rawRoots = [];
+      const scanRegions = [
+        { start: -5, end: 5, step: 0.02 },
+        { start: -50, end: -5, step: 0.1 },
+        { start: 5, end: 50, step: 0.1 },
+        { start: searchMin, end: -50, step: 0.5 },
+        { start: 50, end: searchMax, step: 0.5 }
+      ];
+
+      for (const region of scanRegions) {
+        let prevX = region.start;
+        let prevY = evalDerivFn(prevX);
+        for (let x = region.start + region.step; x <= region.end; x += region.step) {
+          const y = evalDerivFn(x);
+          if (y === null || prevY === null) { prevX = x; prevY = y; continue; }
+          if (prevY * y <= 0) {
+            const r = refineRoot(prevX, x);
+            if (r !== null && isFinite(r)) rawRoots.push(r);
+          } else if (Math.abs(y) < 0.05 && (prevY - y) * (y - (evalDerivFn(x + region.step) || y)) <= 0) {
+            const r = refineRoot(prevX, x + region.step);
+            if (r !== null && isFinite(r)) rawRoots.push(r);
+          }
+          prevX = x;
+          prevY = y;
+        }
+      }
+
+      const uniqueRoots = [];
+      rawRoots.sort((a, b) => a - b);
+      for (const r of rawRoots) {
+        const cleaned = Math.abs(r) < 1e-6 ? 0 : Math.round(r * 1e6) / 1e6;
+        if (!uniqueRoots.some(ex => Math.abs(ex - cleaned) < 1e-3)) {
+          const dVal = evalDerivFn(cleaned);
+          if (dVal !== null && Math.abs(dVal) < 1e-4) {
+            uniqueRoots.push(cleaned);
+          }
+        }
+      }
+      return uniqueRoots;
+    };
+
+    const fmt = (num) => {
+      if (Math.abs(num) < 1e-9) return '0';
+      const rounded = Math.round(num * 10000) / 10000;
+      return String(rounded);
     };
 
     form.addEventListener('submit', (e) => {
@@ -125,8 +245,10 @@ if (tool.slug.includes('critical-point')) mode = 'critical';
       errBox.classList.add('hidden');
       ansBox.classList.remove('hidden');
       evalSec.classList.add('hidden');
-      if(tangSec) tangSec.classList.add('hidden');
-      if(critSec) critSec.classList.add('hidden');
+      if (tangSec) tangSec.classList.add('hidden');
+      if (critSec) critSec.classList.add('hidden');
+      if (inflSec) inflSec.classList.add('hidden');
+      if (concSec) concSec.classList.add('hidden');
 
       let expr = cleanExpr(exprIn.value);
       let v = varIn ? varIn.value || 'x' : 'x';
@@ -182,97 +304,7 @@ if (tool.slug.includes('critical-point')) mode = 'critical';
             }
           };
 
-          const refineRoot = (x1, x2) => {
-            let y1 = evalD1(x1), y2 = evalD1(x2);
-            if (y1 === null || y2 === null) return null;
-            if (Math.abs(y1) < 1e-10) return x1;
-            if (Math.abs(y2) < 1e-10) return x2;
-
-            let a = x1, b = x2, fa = y1, fb = y2;
-            if (fa * fb <= 0) {
-              for (let i = 0; i < 50; i++) {
-                const mid = (a + b) / 2;
-                const fmid = evalD1(mid);
-                if (fmid === null) break;
-                if (Math.abs(fmid) < 1e-10 || (b - a) / 2 < 1e-10) return mid;
-                if (fa * fmid <= 0) { b = mid; fb = fmid; } else { a = mid; fa = fmid; }
-              }
-              return (a + b) / 2;
-            } else {
-              let xCurr = (x1 + x2) / 2;
-              for (let i = 0; i < 30; i++) {
-                const fx = evalD1(xCurr);
-                if (fx === null) break;
-                if (Math.abs(fx) < 1e-10) return xCurr;
-                const h = 1e-5;
-                const d1Plus = evalD1(xCurr + h);
-                const d1Minus = evalD1(xCurr - h);
-                if (d1Plus === null || d1Minus === null) break;
-                const dfx = (d1Plus - d1Minus) / (2 * h);
-                if (Math.abs(dfx) < 1e-12) break;
-                const step = fx / dfx;
-                xCurr -= step;
-                if (Math.abs(step) < 1e-10) break;
-              }
-              const valAtRoot = evalD1(xCurr);
-              if (valAtRoot !== null && Math.abs(valAtRoot) < 1e-6) {
-                const left = evalD1(xCurr - 0.01);
-                const right = evalD1(xCurr + 0.01);
-                if (left !== null && right !== null) {
-                  if (left * right > 0 && Math.abs(valAtRoot) < Math.abs(left) * 0.1 && Math.abs(valAtRoot) < Math.abs(right) * 0.1) {
-                    return xCurr;
-                  }
-                }
-              }
-              return null;
-            }
-          };
-
-          const rawRoots = [];
-          const scanRegions = [
-            { start: -5, end: 5, step: 0.02 },
-            { start: -50, end: -5, step: 0.1 },
-            { start: 5, end: 50, step: 0.1 },
-            { start: -100, end: -50, step: 0.5 },
-            { start: 50, end: 100, step: 0.5 }
-          ];
-
-          for (const region of scanRegions) {
-            let prevX = region.start;
-            let prevY = evalD1(prevX);
-            for (let x = region.start + region.step; x <= region.end; x += region.step) {
-              const y = evalD1(x);
-              if (y === null || prevY === null) { prevX = x; prevY = y; continue; }
-              if (prevY * y <= 0) {
-                const r = refineRoot(prevX, x);
-                if (r !== null && isFinite(r)) rawRoots.push(r);
-              } else if (Math.abs(y) < 0.05 && (prevY - y) * (y - (evalD1(x + region.step) || y)) <= 0) {
-                const r = refineRoot(prevX, x + region.step);
-                if (r !== null && isFinite(r)) rawRoots.push(r);
-              }
-              prevX = x;
-              prevY = y;
-            }
-          }
-
-          const uniqueRoots = [];
-          rawRoots.sort((a, b) => a - b);
-          for (const r of rawRoots) {
-            const cleaned = Math.abs(r) < 1e-6 ? 0 : Math.round(r * 1e6) / 1e6;
-            if (!uniqueRoots.some(ex => Math.abs(ex - cleaned) < 1e-3)) {
-              const dVal = evalD1(cleaned);
-              const fVal = evalF(cleaned);
-              if (dVal !== null && Math.abs(dVal) < 1e-4 && fVal !== null) {
-                uniqueRoots.push(cleaned);
-              }
-            }
-          }
-
-          const fmt = (num) => {
-            if (Math.abs(num) < 1e-9) return '0';
-            const rounded = Math.round(num * 10000) / 10000;
-            return Number.isInteger(rounded) ? String(rounded) : String(rounded);
-          };
+          const uniqueRoots = findRoots(evalD1, -100, 100).filter(rx => evalF(rx) !== null);
 
           if (critSec && critList && critNote) {
             critList.innerHTML = '';
@@ -290,6 +322,203 @@ if (tool.slug.includes('critical-point')) mode = 'critical';
               critNote.textContent = `Found ${uniqueRoots.length} stationary critical point(s) where f'(${v}) = 0 within [-100, 100]. Non-differentiable points where f'(${v}) is undefined are not included.`;
             }
             critSec.classList.remove('hidden');
+          }
+        }
+        else if (mode === 'inflection') {
+          const d1 = math.derivative(expr, v);
+          const d2 = math.derivative(d1, v);
+          labelStr = `f''(${v}) = d²f / d${v}² =`;
+          resultStr = math.simplify(d2).toString();
+
+          const evalF = (val) => {
+            try {
+              const res = math.evaluate(expr, { [v]: val });
+              return (typeof res === 'number' && isFinite(res)) ? res : null;
+            } catch {
+              return null;
+            }
+          };
+
+          const evalD2 = (val) => {
+            try {
+              const res = d2.evaluate({ [v]: val });
+              return (typeof res === 'number' && isFinite(res)) ? res : null;
+            } catch {
+              return null;
+            }
+          };
+
+          const candidateRoots = findRoots(evalD2, -100, 100);
+          const inflectionPoints = [];
+
+          for (let i = 0; i < candidateRoots.length; i++) {
+            const c = candidateRoots[i];
+            let delta = 0.01;
+            if (i > 0) delta = Math.min(delta, Math.abs(c - candidateRoots[i - 1]) / 4);
+            if (i < candidateRoots.length - 1) delta = Math.min(delta, Math.abs(candidateRoots[i + 1] - c) / 4);
+
+            const left = evalD2(c - delta);
+            const right = evalD2(c + delta);
+            const fc = evalF(c);
+
+            // Strict concavity sign change test & finite function value
+            if (left !== null && right !== null && (left * right < 0) && fc !== null) {
+              inflectionPoints.push({ x: c, y: fc });
+            }
+          }
+
+          if (inflSec && inflList && inflNote) {
+            inflList.innerHTML = '';
+            if (inflectionPoints.length === 0) {
+              inflList.innerHTML = '<div class="p-3 bg-amber-50 rounded border border-amber-200 text-amber-800 text-sm">No inflection points found in the numerical search range [-100, 100].</div>';
+              inflNote.textContent = `Note: Inflection points are verified by checking for an actual concavity sign change of f''(${v}) across candidate roots within [-100, 100]. Roots where concavity does not change (e.g. x^4) or where f(${v}) is undefined (e.g. asymptotes) are excluded.`;
+            } else {
+              inflectionPoints.forEach((pt) => {
+                const item = document.createElement('div');
+                item.className = 'bg-white p-3 rounded-lg border border-gray-200 flex items-center justify-between text-sm shadow-sm';
+                item.innerHTML = `<div><span class="text-gray-500 font-mono text-xs">${v} =</span> <strong class="font-mono text-gray-900 text-base">${fmt(pt.x)}</strong></div><div class="font-mono font-bold text-emerald-700 bg-emerald-50 px-3 py-1 rounded border border-emerald-100">Point: (${fmt(pt.x)}, ${fmt(pt.y)})</div>`;
+                inflList.appendChild(item);
+              });
+              inflNote.textContent = `Found ${inflectionPoints.length} verified inflection point(s) where concavity changes sign.`;
+            }
+            inflSec.classList.remove('hidden');
+          }
+        }
+        else if (mode === 'concavity') {
+          const d1 = math.derivative(expr, v);
+          const d2 = math.derivative(d1, v);
+          labelStr = `f''(${v}) = d²f / d${v}² =`;
+          resultStr = math.simplify(d2).toString();
+
+          const evalF = (val) => {
+            try {
+              const res = math.evaluate(expr, { [v]: val });
+              return (typeof res === 'number' && isFinite(res)) ? res : null;
+            } catch {
+              return null;
+            }
+          };
+
+          const evalD2 = (val) => {
+            try {
+              const res = d2.evaluate({ [v]: val });
+              return (typeof res === 'number' && isFinite(res)) ? res : null;
+            } catch {
+              return null;
+            }
+          };
+
+          const candidateRoots = findRoots(evalD2, -100, 100);
+
+          // Discontinuity / domain boundary detection
+          const discPoints = [];
+          const scanSamples = [-100];
+          for (let s = -99; s <= 100; s += 1) scanSamples.push(s);
+          for (let s = -2; s <= 2; s += 0.1) scanSamples.push(Math.round(s * 10) / 10);
+          scanSamples.sort((a, b) => a - b);
+
+          let prevValid = evalF(scanSamples[0]) !== null && evalD2(scanSamples[0]) !== null;
+          for (let i = 1; i < scanSamples.length; i++) {
+            const currX = scanSamples[i];
+            const currValid = evalF(currX) !== null && evalD2(currX) !== null;
+            if (prevValid !== currValid) {
+              let bA = scanSamples[i - 1], bB = currX;
+              for (let k = 0; k < 20; k++) {
+                const mid = (bA + bB) / 2;
+                const vMid = evalF(mid) !== null && evalD2(mid) !== null;
+                if (vMid === prevValid) bA = mid; else bB = mid;
+              }
+              const disc = Math.abs((bA + bB) / 2) < 1e-4 ? 0 : Math.round(((bA + bB) / 2) * 10000) / 10000;
+              if (!discPoints.some(d => Math.abs(d - disc) < 0.05)) {
+                discPoints.push(disc);
+              }
+            }
+            prevValid = currValid;
+          }
+
+          // Combine partition boundaries
+          const allBoundaries = [];
+          for (const r of candidateRoots) {
+            if (r > -100 && r < 100 && !allBoundaries.some(b => Math.abs(b - r) < 1e-3)) allBoundaries.push(r);
+          }
+          for (const d of discPoints) {
+            if (d > -100 && d < 100 && !allBoundaries.some(b => Math.abs(b - d) < 1e-3)) allBoundaries.push(d);
+          }
+          allBoundaries.sort((a, b) => a - b);
+
+          const partitionNodes = [-100, ...allBoundaries, 100];
+          const rawIntervals = [];
+
+          for (let i = 0; i < partitionNodes.length - 1; i++) {
+            const start = partitionNodes[i];
+            const end = partitionNodes[i + 1];
+            if (Math.abs(end - start) < 1e-4) continue;
+
+            const mid = (start + end) / 2;
+            const fMid = evalF(mid);
+            const d2Mid = evalD2(mid);
+
+            if (fMid === null || d2Mid === null) {
+              rawIntervals.push({ start, end, type: 'undefined' });
+            } else if (d2Mid > 1e-6) {
+              rawIntervals.push({ start, end, type: 'up' });
+            } else if (d2Mid < -1e-6) {
+              rawIntervals.push({ start, end, type: 'down' });
+            } else {
+              rawIntervals.push({ start, end, type: 'flat' });
+            }
+          }
+
+          // Merge contiguous intervals of identical type when domain is smooth across the boundary
+          const mergedIntervals = [];
+          for (const seg of rawIntervals) {
+            if (seg.type === 'undefined') continue;
+            if (mergedIntervals.length > 0) {
+              const prev = mergedIntervals[mergedIntervals.length - 1];
+              const boundary = seg.start;
+              const isContinuousAtBoundary = evalF(boundary) !== null && evalD2(boundary) !== null;
+              if (prev.type === seg.type && isContinuousAtBoundary) {
+                prev.end = seg.end;
+                continue;
+              }
+            }
+            mergedIntervals.push({ ...seg });
+          }
+
+          const formatInterval = (intvl) => {
+            const sStr = intvl.start === -100 ? '[-100' : `(${fmt(intvl.start)}`;
+            const eStr = intvl.end === 100 ? '100]' : `${fmt(intvl.end)})`;
+            return `${sStr}, ${eStr}`;
+          };
+
+          const upIntervals = mergedIntervals.filter(i => i.type === 'up').map(formatInterval);
+          const downIntervals = mergedIntervals.filter(i => i.type === 'down').map(formatInterval);
+          const flatIntervals = mergedIntervals.filter(i => i.type === 'flat').map(formatInterval);
+
+          if (concSec && concList && concNote) {
+            concList.innerHTML = '';
+
+            if (flatIntervals.length > 0 && upIntervals.length === 0 && downIntervals.length === 0) {
+              concList.innerHTML = '<div class="p-3 bg-amber-50 rounded border border-amber-200 text-amber-800 text-sm font-medium">Linear function: f\'\' = 0 across searched domain (no concavity direction).</div>';
+            } else if (upIntervals.length === 0 && downIntervals.length === 0) {
+              concList.innerHTML = '<div class="p-3 bg-amber-50 rounded border border-amber-200 text-amber-800 text-sm">No valid concavity intervals found in the searched numerical range [-100, 100].</div>';
+            } else {
+              if (upIntervals.length > 0) {
+                const upItem = document.createElement('div');
+                upItem.className = 'bg-white p-3 rounded-lg border border-emerald-200 shadow-sm';
+                upItem.innerHTML = `<div class="text-xs font-bold text-emerald-800 uppercase tracking-wide mb-1">Concave Up (f'' > 0)</div><div class="font-mono text-base font-bold text-emerald-900">${upIntervals.join(' ∪ ')}</div>`;
+                concList.appendChild(upItem);
+              }
+              if (downIntervals.length > 0) {
+                const downItem = document.createElement('div');
+                downItem.className = 'bg-white p-3 rounded-lg border border-indigo-200 shadow-sm';
+                downItem.innerHTML = `<div class="text-xs font-bold text-indigo-800 uppercase tracking-wide mb-1">Concave Down (f'' < 0)</div><div class="font-mono text-base font-bold text-indigo-900">${downIntervals.join(' ∪ ')}</div>`;
+                concList.appendChild(downItem);
+              }
+            }
+
+            concNote.textContent = `Note: Intervals represent numerical regions within [-100, 100] where f''(${v}) is positive (concave up) or negative (concave down). Points/intervals outside the function domain are excluded.`;
+            concSec.classList.remove('hidden');
           }
         }
         else {
