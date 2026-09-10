@@ -1116,5 +1116,12 @@ export const toolContent: Record<string, ToolContent> = {
     "howToUse": "1. Enter a chemical formula (e.g. H2O, C6H12O6, Fe(CN)6, Ca(NO3)2).\n2. Maintain correct elemental capitalization (e.g., Co for Cobalt vs CO for Carbon Monoxide).\n3. Click Calculate to view the total molar mass in g/mol and the itemized elemental mass percentage breakdown.",
     "formula": "Molar Mass (M) = ∑ (n_i × atomic_mass_i)\n\nElement Mass % = ( (n_i × atomic_mass_i) / Total_Molar_Mass ) × 100%\n\nwhere n_i is the number of atoms of element i in the chemical formula.",
     "whenToUse": "Essential for stoichiometry calculations, preparing standard molar solutions in the chemistry laboratory, determining empirical and molecular formulas, and converting between mass (grams) and amount of substance (moles)."
+  },
+  "set-calculator": {
+    "whatIsIt": "A comprehensive set theory calculator for computing set operations including union, intersection, set difference, symmetric difference, cardinality, subset relations, disjointness, and Cartesian product size.",
+    "howToUse": "1. Enter elements for Set A and Set B as comma-separated values (e.g., 1, 2, 3, a, b).\n2. Duplicate values within each set are automatically deduplicated.\n3. Click 'Calculate Sets' to view formatted set results in standard curly-brace mathematical notation.",
+    "formula": "• Union (A ∪ B) = { x | x ∈ A or x ∈ B }\n• Intersection (A ∩ B) = { x | x ∈ A and x ∈ B }\n• Difference (A - B) = { x | x ∈ A and x ∉ B }\n• Symmetric Difference (A △ B) = (A - B) ∪ (B - A)\n• Cartesian Product Size |A × B| = |A| × |B|",
+    "example": "For Set A = {1, 2, 3} and Set B = {3, 4, 5}:\n• A ∪ B = {1, 2, 3, 4, 5}\n• A ∩ B = {3}\n• A - B = {1, 2}\n• B - A = {4, 5}\n• A △ B = {1, 2, 4, 5}\n• |A| = 3, |B| = 3, |A × B| = 9",
+    "whenToUse": "Essential for discrete mathematics, probability theory, computer science data structures, database relational algebra, and Venn diagram analysis."
   }
 };
