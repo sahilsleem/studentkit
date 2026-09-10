@@ -3,7 +3,7 @@ import { tools } from '../../data/registry';
 const { tool } = Astro.props;
 
 // Determine mode from slug
-let mode = 'first'; // first, second, partial, implicit, marginal, critical, inflection, concavity
+let mode = 'first'; // first, second, partial, implicit, marginal, critical, inflection, concavity, increasing-decreasing
 if (tool.slug.includes('second-derivative')) mode = 'second';
 if (tool.slug.includes('partial-derivative')) mode = 'partial';
 if (tool.slug.includes('implicit-differentiation')) mode = 'implicit';
@@ -12,6 +12,7 @@ if (tool.slug.includes('tangent') || tool.slug.includes('normal')) mode = 'tange
 if (tool.slug.includes('critical-point')) mode = 'critical';
 if (tool.slug.includes('inflection')) mode = 'inflection';
 if (tool.slug.includes('concavity')) mode = 'concavity';
+if (tool.slug.includes('increasing-decreasing')) mode = 'increasing-decreasing';
 ---
 
 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden max-w-3xl mx-auto">
@@ -23,7 +24,7 @@ if (tool.slug.includes('concavity')) mode = 'concavity';
         </label>
         <div class="flex items-center gap-3">
           <span class="font-mono text-gray-500 font-bold">{mode === 'implicit' ? 'F(x,y) =' : (mode === 'marginal' ? 'C(x) =' : 'f(...) =')}</span>
-          <input type="text" id="fn-expr" required class="flex-1 p-3 border border-gray-300 rounded-lg focus:ring-emerald-500 font-mono text-lg" placeholder={mode === 'implicit' ? 'x^2 + y^2 - 25' : (mode === 'critical' || mode === 'inflection' || mode === 'concavity' ? 'x^3 - 3x' : 'x^2 * sin(x)')}>
+          <input type="text" id="fn-expr" required class="flex-1 p-3 border border-gray-300 rounded-lg focus:ring-emerald-500 font-mono text-lg" placeholder={mode === 'implicit' ? 'x^2 + y^2 - 25' : (mode === 'critical' || mode === 'inflection' || mode === 'concavity' || mode === 'increasing-decreasing' ? 'x^3 - 3x' : 'x^2 * sin(x)')}>
         </div>
         <p class="text-xs text-gray-500 mt-2">Example: <code>2x^3 - 4x + 1</code>, <code>sin(x)*e^x</code>, <code>1/x</code></p>
       </div>
@@ -46,7 +47,7 @@ if (tool.slug.includes('concavity')) mode = 'concavity';
 
       <div class="pt-4">
         <button type="submit" class="w-full bg-emerald-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors shadow-sm">
-          {mode === 'critical' ? 'Find Critical Points' : (mode === 'inflection' ? 'Find Inflection Points' : (mode === 'concavity' ? 'Analyze Concavity' : 'Calculate Derivative'))}
+          {mode === 'critical' ? 'Find Critical Points' : (mode === 'inflection' ? 'Find Inflection Points' : (mode === 'concavity' ? 'Analyze Concavity' : (mode === 'increasing-decreasing' ? 'Find Increasing/Decreasing Intervals' : 'Calculate Derivative')))}
         </button>
       </div>
     </form>
@@ -98,6 +99,14 @@ if (tool.slug.includes('concavity')) mode = 'concavity';
              <div id="concavity-intervals-list" class="space-y-2"></div>
              <p id="concavity-note" class="text-xs text-gray-500 italic mt-2"></p>
           </div>
+          <div id="inc-dec-section" class="hidden mt-4 pt-4 border-t border-gray-200 space-y-3">
+             <div class="flex items-center justify-between">
+               <p class="text-xs text-gray-500 uppercase font-bold tracking-wide">Monotonicity Intervals</p>
+               <span class="text-xs text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 font-medium">Numerical search [-100, 100]</span>
+             </div>
+             <div id="inc-dec-intervals-list" class="space-y-2"></div>
+             <p id="inc-dec-note" class="text-xs text-gray-500 italic mt-2"></p>
+          </div>
         </div>
       </div>
     </div>
@@ -139,6 +148,10 @@ if (tool.slug.includes('concavity')) mode = 'concavity';
     const concSec = document.getElementById('concavity-section');
     const concList = document.getElementById('concavity-intervals-list');
     const concNote = document.getElementById('concavity-note');
+
+    const incDecSec = document.getElementById('inc-dec-section');
+    const incDecList = document.getElementById('inc-dec-intervals-list');
+    const incDecNote = document.getElementById('inc-dec-note');
 
     if (!form) return;
 
@@ -249,6 +262,7 @@ if (tool.slug.includes('concavity')) mode = 'concavity';
       if (critSec) critSec.classList.add('hidden');
       if (inflSec) inflSec.classList.add('hidden');
       if (concSec) concSec.classList.add('hidden');
+      if (incDecSec) incDecSec.classList.add('hidden');
 
       let expr = cleanExpr(exprIn.value);
       let v = varIn ? varIn.value || 'x' : 'x';
@@ -519,6 +533,142 @@ if (tool.slug.includes('concavity')) mode = 'concavity';
 
             concNote.textContent = `Note: Intervals represent numerical regions within [-100, 100] where f''(${v}) is positive (concave up) or negative (concave down). Points/intervals outside the function domain are excluded.`;
             concSec.classList.remove('hidden');
+          }
+        }
+        else if (mode === 'increasing-decreasing') {
+          const d1 = math.derivative(expr, v);
+          labelStr = `f'(${v}) = df/d${v} =`;
+          resultStr = math.simplify(d1).toString();
+
+          const evalF = (val) => {
+            try {
+              const res = math.evaluate(expr, { [v]: val });
+              return (typeof res === 'number' && isFinite(res)) ? res : null;
+            } catch {
+              return null;
+            }
+          };
+
+          const evalD1 = (val) => {
+            try {
+              const res = d1.evaluate({ [v]: val });
+              return (typeof res === 'number' && isFinite(res)) ? res : null;
+            } catch {
+              return null;
+            }
+          };
+
+          const candidateRoots = findRoots(evalD1, -100, 100);
+
+          // Discontinuity / domain boundary detection
+          const discPoints = [];
+          const scanSamples = [-100];
+          for (let s = -99; s <= 100; s += 1) scanSamples.push(s);
+          for (let s = -2; s <= 2; s += 0.1) scanSamples.push(Math.round(s * 10) / 10);
+          scanSamples.sort((a, b) => a - b);
+
+          let prevValid = evalF(scanSamples[0]) !== null && evalD1(scanSamples[0]) !== null;
+          for (let i = 1; i < scanSamples.length; i++) {
+            const currX = scanSamples[i];
+            const currValid = evalF(currX) !== null && evalD1(currX) !== null;
+            if (prevValid !== currValid) {
+              let bA = scanSamples[i - 1], bB = currX;
+              for (let k = 0; k < 20; k++) {
+                const mid = (bA + bB) / 2;
+                const vMid = evalF(mid) !== null && evalD1(mid) !== null;
+                if (vMid === prevValid) bA = mid; else bB = mid;
+              }
+              const disc = Math.abs((bA + bB) / 2) < 1e-4 ? 0 : Math.round(((bA + bB) / 2) * 10000) / 10000;
+              if (!discPoints.some(d => Math.abs(d - disc) < 0.05)) {
+                discPoints.push(disc);
+              }
+            }
+            prevValid = currValid;
+          }
+
+          // Combine partition boundaries
+          const allBoundaries = [];
+          for (const r of candidateRoots) {
+            if (r > -100 && r < 100 && !allBoundaries.some(b => Math.abs(b - r) < 1e-3)) allBoundaries.push(r);
+          }
+          for (const d of discPoints) {
+            if (d > -100 && d < 100 && !allBoundaries.some(b => Math.abs(b - d) < 1e-3)) allBoundaries.push(d);
+          }
+          allBoundaries.sort((a, b) => a - b);
+
+          const partitionNodes = [-100, ...allBoundaries, 100];
+          const rawIntervals = [];
+
+          for (let i = 0; i < partitionNodes.length - 1; i++) {
+            const start = partitionNodes[i];
+            const end = partitionNodes[i + 1];
+            if (Math.abs(end - start) < 1e-4) continue;
+
+            const mid = (start + end) / 2;
+            const fMid = evalF(mid);
+            const d1Mid = evalD1(mid);
+
+            if (fMid === null || d1Mid === null) {
+              rawIntervals.push({ start, end, type: 'undefined' });
+            } else if (d1Mid > 1e-6) {
+              rawIntervals.push({ start, end, type: 'increasing' });
+            } else if (d1Mid < -1e-6) {
+              rawIntervals.push({ start, end, type: 'decreasing' });
+            } else {
+              rawIntervals.push({ start, end, type: 'constant' });
+            }
+          }
+
+          // Merge contiguous intervals of identical type when domain is smooth across the boundary
+          const mergedIntervals = [];
+          for (const seg of rawIntervals) {
+            if (seg.type === 'undefined') continue;
+            if (mergedIntervals.length > 0) {
+              const prev = mergedIntervals[mergedIntervals.length - 1];
+              const boundary = seg.start;
+              const isContinuousAtBoundary = evalF(boundary) !== null && evalD1(boundary) !== null;
+              if (prev.type === seg.type && isContinuousAtBoundary) {
+                prev.end = seg.end;
+                continue;
+              }
+            }
+            mergedIntervals.push({ ...seg });
+          }
+
+          const formatInterval = (intvl) => {
+            const sStr = intvl.start === -100 ? '[-100' : `(${fmt(intvl.start)}`;
+            const eStr = intvl.end === 100 ? '100]' : `${fmt(intvl.end)})`;
+            return `${sStr}, ${eStr}`;
+          };
+
+          const incIntervals = mergedIntervals.filter(i => i.type === 'increasing').map(formatInterval);
+          const decIntervals = mergedIntervals.filter(i => i.type === 'decreasing').map(formatInterval);
+          const constIntervals = mergedIntervals.filter(i => i.type === 'constant').map(formatInterval);
+
+          if (incDecSec && incDecList && incDecNote) {
+            incDecList.innerHTML = '';
+
+            if (constIntervals.length > 0 && incIntervals.length === 0 && decIntervals.length === 0) {
+              incDecList.innerHTML = '<div class="p-3 bg-amber-50 rounded border border-amber-200 text-amber-800 text-sm font-medium">Constant function: f\' = 0 across searched domain.</div>';
+            } else if (incIntervals.length === 0 && decIntervals.length === 0) {
+              incDecList.innerHTML = '<div class="p-3 bg-amber-50 rounded border border-amber-200 text-amber-800 text-sm">No valid increasing or decreasing intervals found in the searched numerical range [-100, 100].</div>';
+            } else {
+              if (incIntervals.length > 0) {
+                const incItem = document.createElement('div');
+                incItem.className = 'bg-white p-3 rounded-lg border border-emerald-200 shadow-sm';
+                incItem.innerHTML = `<div class="text-xs font-bold text-emerald-800 uppercase tracking-wide mb-1">Increasing Intervals (f' > 0)</div><div class="font-mono text-base font-bold text-emerald-900">${incIntervals.join(' ∪ ')}</div>`;
+                incDecList.appendChild(incItem);
+              }
+              if (decIntervals.length > 0) {
+                const decItem = document.createElement('div');
+                decItem.className = 'bg-white p-3 rounded-lg border border-indigo-200 shadow-sm';
+                decItem.innerHTML = `<div class="text-xs font-bold text-indigo-800 uppercase tracking-wide mb-1">Decreasing Intervals (f' < 0)</div><div class="font-mono text-base font-bold text-indigo-900">${decIntervals.join(' ∪ ')}</div>`;
+                incDecList.appendChild(decItem);
+              }
+            }
+
+            incDecNote.textContent = `Note: Intervals represent numerical regions within [-100, 100] where f'(${v}) is positive (increasing) or negative (decreasing). Critical points and domain boundaries are excluded.`;
+            incDecSec.classList.remove('hidden');
           }
         }
         else {
