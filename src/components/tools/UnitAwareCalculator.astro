@@ -22,7 +22,7 @@ const configJson = JSON.stringify(tool.physicsConfig || {});
               data-id={input.id}
             />
             {input.options && input.options.length > 0 && (
-              <select class="w-32 px-2 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 bg-gray-50 unit-calc-select" data-for={input.id}>
+              <select class="w-28 sm:w-32 px-2 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 bg-gray-50 unit-calc-select text-sm" data-for={input.id} aria-label={`${input.label.replace(/\(.*\)/, '').trim()} unit`}>
                 {input.options.map((opt) => (
                   <option value={opt.factor} data-offset={opt.offset || '0'} selected={opt.default}>{opt.label}</option>
                 ))}
@@ -77,8 +77,8 @@ const configJson = JSON.stringify(tool.physicsConfig || {});
 
         {tool.physicsConfig?.outputOptions && tool.physicsConfig.outputOptions.length > 0 && (
           <div class="w-full sm:w-auto">
-             <label class="block text-xs font-medium text-gray-500 mb-1 sm:hidden">Output Unit</label>
-             <select class="w-full sm:w-32 px-3 py-2 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 bg-white unit-calc-out-select">
+             <label for="unit-calc-out-select" class="block text-xs font-medium text-gray-500 mb-1 sm:hidden">Output Unit</label>
+             <select id="unit-calc-out-select" class="w-full sm:w-32 px-3 py-2 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 bg-white unit-calc-out-select text-sm" aria-label="Output unit">
                 {tool.physicsConfig.outputOptions.map((opt) => (
                   <option value={opt.factor} data-offset={opt.offset || '0'} selected={opt.default}>{opt.label}</option>
                 ))}

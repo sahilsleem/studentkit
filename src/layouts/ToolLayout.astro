@@ -82,7 +82,7 @@ const appSchema = {
         <li aria-current="page">
           <div class="flex items-center">
             <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-            <span class="ml-1 md:ml-2 text-gray-700 font-medium">{tool.title}</span>
+            <span class="ml-1 md:ml-2 text-gray-700 font-medium truncate max-w-[140px] sm:max-w-none">{tool.title}</span>
           </div>
         </li>
       </ol>
@@ -95,7 +95,7 @@ const appSchema = {
           <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight mb-2 pr-12">{tool.title}</h1>
           <p class="text-lg text-gray-500">{tool.description}</p>
         </div>
-        <button id="favorite-btn" class="absolute top-0 right-0 sm:relative sm:top-auto sm:right-auto p-2 rounded-full hover:bg-gray-100 text-gray-400 hover:text-red-500 transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500" aria-label="Add to favorites">
+        <button id="favorite-btn" class="absolute top-0 right-0 sm:relative sm:top-auto sm:right-auto min-w-[44px] min-h-[44px] inline-flex items-center justify-center p-2 rounded-full hover:bg-gray-100 text-gray-400 hover:text-red-500 transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 cursor-pointer" aria-label="Add to favorites" aria-pressed="false">
           <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
         </button>
       </div>
@@ -233,6 +233,11 @@ const appSchema = {
     if (isFav) {
       svg.setAttribute('fill', 'currentColor');
       favBtn.classList.add('text-red-500');
+      favBtn.setAttribute('aria-label', 'Remove from favorites');
+      favBtn.setAttribute('aria-pressed', 'true');
+    } else {
+      favBtn.setAttribute('aria-label', 'Add to favorites');
+      favBtn.setAttribute('aria-pressed', 'false');
     }
 
     favBtn.addEventListener('click', () => {
@@ -243,10 +248,14 @@ const appSchema = {
         currentFavs.push(toolId);
         svg.setAttribute('fill', 'currentColor');
         favBtn.classList.add('text-red-500');
+        favBtn.setAttribute('aria-label', 'Remove from favorites');
+        favBtn.setAttribute('aria-pressed', 'true');
       } else {
         currentFavs.splice(index, 1);
         svg.setAttribute('fill', 'none');
         favBtn.classList.remove('text-red-500');
+        favBtn.setAttribute('aria-label', 'Add to favorites');
+        favBtn.setAttribute('aria-pressed', 'false');
       }
       
       localStorage.setItem('studentkit_favorites', JSON.stringify(currentFavs));

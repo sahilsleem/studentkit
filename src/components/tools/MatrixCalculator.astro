@@ -4,8 +4,8 @@
   <div class="p-6 sm:p-8">
     <div class="flex justify-center mb-8">
       <div class="inline-flex bg-gray-100 p-1 rounded-lg">
-        <button id="btn-2x2" class="px-4 py-2 text-sm font-medium rounded-md bg-white shadow-sm text-gray-900 transition-colors">2×2 Matrices</button>
-        <button id="btn-3x3" class="px-4 py-2 text-sm font-medium rounded-md text-gray-500 hover:text-gray-900 transition-colors">3×3 Matrices</button>
+        <button type="button" id="btn-2x2" class="px-4 py-2 text-sm font-medium rounded-md bg-white shadow-sm text-gray-900 transition-colors min-h-[40px] cursor-pointer" aria-label="Switch to 2 by 2 matrices">2×2 Matrices</button>
+        <button type="button" id="btn-3x3" class="px-4 py-2 text-sm font-medium rounded-md text-gray-500 hover:text-gray-900 transition-colors min-h-[40px] cursor-pointer" aria-label="Switch to 3 by 3 matrices">3×3 Matrices</button>
       </div>
     </div>
 
@@ -55,7 +55,7 @@
           <span class="copy-text">Copy Result</span>
         </button>
       </div>
-      <div id="res-content" class="inline-block bg-gray-50 p-6 rounded-xl border border-gray-200 shadow-inner min-w-[200px]">
+      <div id="res-content" class="inline-block bg-gray-50 p-6 rounded-xl border border-gray-200 shadow-inner min-w-[200px] max-w-full overflow-x-auto">
         <!-- Result matrix or scalar here -->
       </div>
     </div>
@@ -119,6 +119,7 @@
           input.step = 'any';
           input.inputMode = 'decimal';
           input.id = `${prefix}-${i}-${j}`;
+          input.setAttribute('aria-label', `Matrix ${prefix.toUpperCase()} row ${i + 1} column ${j + 1}`);
           input.className = 'w-16 h-12 text-center border border-gray-300 rounded focus:ring-emerald-500 font-mono text-sm';
           input.value = (i === j) ? '1' : '0'; // Default to identity matrix
           container.appendChild(input);
