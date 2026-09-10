@@ -15,6 +15,7 @@ if (tool.slug.includes('concavity')) mode = 'concavity';
 if (tool.slug.includes('increasing-decreasing')) mode = 'increasing-decreasing';
 if (tool.slug.includes('extrema')) mode = 'extrema';
 if (tool.slug.includes('logarithmic-differentiation')) mode = 'logarithmic';
+if (tool.slug.includes('optimization')) mode = 'optimization';
 ---
 
 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden max-w-3xl mx-auto">
@@ -22,11 +23,11 @@ if (tool.slug.includes('logarithmic-differentiation')) mode = 'logarithmic';
     <form id="deriv-form" class="space-y-5">
       <div>
         <label for="fn-expr" class="block text-sm font-medium text-gray-700 mb-2">
-          {mode === 'implicit' ? 'Equation F(x,y) = 0' : (mode === 'marginal' ? 'Cost/Revenue Function C(x)' : 'Function f(x, y, ...)')}
+          {mode === 'implicit' ? 'Equation F(x,y) = 0' : (mode === 'marginal' ? 'Cost/Revenue Function C(x)' : (mode === 'optimization' ? 'Objective Function f(x)' : 'Function f(x, y, ...)'))}
         </label>
         <div class="flex items-center gap-3">
           <span class="font-mono text-gray-500 font-bold">{mode === 'implicit' ? 'F(x,y) =' : (mode === 'marginal' ? 'C(x) =' : 'f(...) =')}</span>
-          <input type="text" id="fn-expr" required class="flex-1 p-3 border border-gray-300 rounded-lg focus:ring-emerald-500 font-mono text-lg" placeholder={mode === 'implicit' ? 'x^2 + y^2 - 25' : (mode === 'logarithmic' ? 'x^x' : (mode === 'critical' || mode === 'inflection' || mode === 'concavity' || mode === 'increasing-decreasing' || mode === 'extrema' ? 'x^3 - 3x' : 'x^2 * sin(x)'))}>
+          <input type="text" id="fn-expr" required class="flex-1 p-3 border border-gray-300 rounded-lg focus:ring-emerald-500 font-mono text-lg" placeholder={mode === 'implicit' ? 'x^2 + y^2 - 25' : (mode === 'logarithmic' ? 'x^x' : (mode === 'critical' || mode === 'inflection' || mode === 'concavity' || mode === 'increasing-decreasing' || mode === 'extrema' || mode === 'optimization' ? 'x^3 - 3x' : 'x^2 * sin(x)'))}>
         </div>
         <p class="text-xs text-gray-500 mt-2">Example: <code>2x^3 - 4x + 1</code>, <code>sin(x)*e^x</code>, <code>1/x</code></p>
       </div>
@@ -45,11 +46,24 @@ if (tool.slug.includes('logarithmic-differentiation')) mode = 'logarithmic';
             <input type="number" step="any" id="fn-eval" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-emerald-500 font-mono text-center" placeholder="e.g. 2">
           </div>
         )}
+
+        {mode === 'optimization' && (
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 col-span-full">
+            <div>
+              <label for="opt-lower" class="block text-sm font-medium text-gray-700 mb-2">Interval Lower Bound a (Optional)</label>
+              <input type="number" step="any" id="opt-lower" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-emerald-500 font-mono text-center" placeholder="e.g. -5">
+            </div>
+            <div>
+              <label for="opt-upper" class="block text-sm font-medium text-gray-700 mb-2">Interval Upper Bound b (Optional)</label>
+              <input type="number" step="any" id="opt-upper" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-emerald-500 font-mono text-center" placeholder="e.g. 5">
+            </div>
+          </div>
+        )}
       </div>
 
       <div class="pt-4">
         <button type="submit" class="w-full bg-emerald-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors shadow-sm">
-          {mode === 'critical' ? 'Find Critical Points' : (mode === 'inflection' ? 'Find Inflection Points' : (mode === 'concavity' ? 'Analyze Concavity' : (mode === 'increasing-decreasing' ? 'Find Increasing/Decreasing Intervals' : (mode === 'extrema' ? 'Find Local Extrema' : (mode === 'logarithmic' ? 'Differentiate Using Logarithms' : 'Calculate Derivative')))))}
+          {mode === 'critical' ? 'Find Critical Points' : (mode === 'inflection' ? 'Find Inflection Points' : (mode === 'concavity' ? 'Analyze Concavity' : (mode === 'increasing-decreasing' ? 'Find Increasing/Decreasing Intervals' : (mode === 'extrema' ? 'Find Local Extrema' : (mode === 'logarithmic' ? 'Differentiate Using Logarithms' : (mode === 'optimization' ? 'Optimize Function' : 'Calculate Derivative'))))))}
         </button>
       </div>
     </form>
@@ -126,6 +140,23 @@ if (tool.slug.includes('logarithmic-differentiation')) mode = 'logarithmic';
              <div id="log-diff-domain-note" class="hidden p-3 bg-amber-50 rounded border border-amber-200 text-amber-800 text-xs"></div>
              <div id="log-diff-app-note" class="hidden p-3 bg-blue-50 rounded border border-blue-200 text-blue-800 text-xs"></div>
           </div>
+          <div id="optimization-section" class="hidden mt-4 pt-4 border-t border-gray-200 space-y-4">
+             <div class="flex items-center justify-between">
+               <p class="text-xs text-gray-500 uppercase font-bold tracking-wide">Optimization Analysis</p>
+               <span id="opt-badge" class="text-xs text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 font-medium">Closed Interval Method</span>
+             </div>
+             <div id="opt-discontinuity-warning" class="hidden p-3 bg-amber-50 rounded border border-amber-200 text-amber-800 text-xs font-medium"></div>
+             <div id="opt-global-cards" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
+             <div id="opt-local-section" class="hidden space-y-2">
+               <p class="text-xs text-gray-500 uppercase font-bold tracking-wide">Local Extrema in Search Region [-100, 100]</p>
+               <div id="opt-local-list" class="space-y-2"></div>
+             </div>
+             <div id="opt-candidates-section" class="space-y-2">
+               <p class="text-xs text-gray-500 uppercase font-bold tracking-wide">Evaluated Candidates</p>
+               <div id="opt-candidates-list" class="space-y-2"></div>
+             </div>
+             <p id="opt-note" class="text-xs text-gray-500 italic mt-2"></p>
+          </div>
         </div>
       </div>
     </div>
@@ -180,6 +211,18 @@ if (tool.slug.includes('logarithmic-differentiation')) mode = 'logarithmic';
     const logDiffSteps = document.getElementById('log-diff-steps');
     const logDiffDomainNote = document.getElementById('log-diff-domain-note');
     const logDiffAppNote = document.getElementById('log-diff-app-note');
+
+    const optLowerIn = document.getElementById('opt-lower');
+    const optUpperIn = document.getElementById('opt-upper');
+    const optSec = document.getElementById('optimization-section');
+    const optBadge = document.getElementById('opt-badge');
+    const optDiscWarning = document.getElementById('opt-discontinuity-warning');
+    const optGlobalCards = document.getElementById('opt-global-cards');
+    const optLocalSec = document.getElementById('opt-local-section');
+    const optLocalList = document.getElementById('opt-local-list');
+    const optCandSec = document.getElementById('opt-candidates-section');
+    const optCandList = document.getElementById('opt-candidates-list');
+    const optNote = document.getElementById('opt-note');
 
     if (!form) return;
 
@@ -295,6 +338,9 @@ if (tool.slug.includes('logarithmic-differentiation')) mode = 'logarithmic';
       if (logDiffSec) logDiffSec.classList.add('hidden');
       if (logDiffDomainNote) logDiffDomainNote.classList.add('hidden');
       if (logDiffAppNote) logDiffAppNote.classList.add('hidden');
+      if (optSec) optSec.classList.add('hidden');
+      if (optDiscWarning) optDiscWarning.classList.add('hidden');
+      if (optLocalSec) optLocalSec.classList.add('hidden');
 
       let expr = cleanExpr(exprIn.value);
       let v = varIn ? varIn.value || 'x' : 'x';
@@ -1061,6 +1107,282 @@ if (tool.slug.includes('logarithmic-differentiation')) mode = 'logarithmic';
                 evalSec.classList.remove('hidden');
               }
             }
+          }
+        }
+        else if (mode === 'optimization') {
+          const lowerValStr = optLowerIn ? optLowerIn.value.trim() : '';
+          const upperValStr = optUpperIn ? optUpperIn.value.trim() : '';
+
+          const hasLower = lowerValStr !== '';
+          const hasUpper = upperValStr !== '';
+
+          if ((hasLower && !hasUpper) || (!hasLower && hasUpper)) {
+            throw new Error('Please provide both lower and upper bounds for interval optimization, or leave both empty for local search.');
+          }
+
+          let isClosedInterval = false;
+          let a = -100, b = 100;
+          if (hasLower && hasUpper) {
+            a = parseFloat(lowerValStr);
+            b = parseFloat(upperValStr);
+            if (isNaN(a) || isNaN(b) || !isFinite(a) || !isFinite(b)) {
+              throw new Error('Interval bounds must be valid real numbers.');
+            }
+            if (a >= b) {
+              throw new Error(`Lower bound a (${a}) must be strictly less than upper bound b (${b}).`);
+            }
+            isClosedInterval = true;
+          }
+
+          const d1 = math.derivative(expr, v);
+          let d2 = null;
+          try { d2 = math.derivative(d1, v); } catch { d2 = null; }
+
+          labelStr = `f'(${v}) = df/d${v} =`;
+          resultStr = math.simplify(d1).toString();
+
+          const evalF = (val) => {
+            try {
+              const res = math.evaluate(expr, { [v]: val, e: Math.E, pi: Math.PI });
+              return (typeof res === 'number' && isFinite(res)) ? res : null;
+            } catch {
+              return null;
+            }
+          };
+
+          const evalD1 = (val) => {
+            try {
+              const res = d1.evaluate({ [v]: val, e: Math.E, pi: Math.PI });
+              return (typeof res === 'number' && isFinite(res)) ? res : null;
+            } catch {
+              return null;
+            }
+          };
+
+          const evalD2 = (val) => {
+            try {
+              if (d2) {
+                const res = d2.evaluate({ [v]: val, e: Math.E, pi: Math.PI });
+                if (typeof res === 'number' && isFinite(res)) return res;
+              }
+              const h = 1e-5;
+              const dPlus = evalD1(val + h);
+              const dMinus = evalD1(val - h);
+              if (dPlus !== null && dMinus !== null) return (dPlus - dMinus) / (2 * h);
+              return null;
+            } catch {
+              return null;
+            }
+          };
+
+          let hasDiscontinuity = false;
+          if (isClosedInterval) {
+            const N = 200;
+            const dt = (b - a) / N;
+            let prevX = a;
+            let prevY = evalF(a);
+            let prevD = evalD1(a);
+
+            if (prevY === null || !isFinite(prevY) || prevD === null || !isFinite(prevD)) {
+              hasDiscontinuity = true;
+            } else {
+              for (let i = 1; i <= N; i++) {
+                const currX = a + i * dt;
+                const currY = evalF(currX);
+                const currD = evalD1(currX);
+
+                if (currY === null || !isFinite(currY) || currD === null || !isFinite(currD)) {
+                  hasDiscontinuity = true;
+                  break;
+                }
+
+                if (prevY * currY < 0 && (Math.abs(currY) > 5 || Math.abs(prevY) > 5) && Math.abs(currY - prevY) > 10) {
+                  const midX = (prevX + currX) / 2;
+                  const midY = evalF(midX);
+                  if (midY === null || !isFinite(midY) || Math.abs(midY) > Math.max(Math.abs(prevY), Math.abs(currY))) {
+                    hasDiscontinuity = true;
+                    break;
+                  }
+                }
+
+                if (prevD !== null && currD !== null && prevD * currD > 0 && Math.abs(currD) > 500 && Math.abs(prevD) > 500) {
+                  const midX = (prevX + currX) / 2;
+                  const midY = evalF(midX);
+                  if (midY === null || !isFinite(midY) || Math.abs(midY) > 1000) {
+                    hasDiscontinuity = true;
+                    break;
+                  }
+                }
+
+                prevX = currX;
+                prevY = currY;
+                prevD = currD;
+              }
+            }
+          }
+
+          const rawRoots = findRoots(evalD1, isClosedInterval ? a : -100, isClosedInterval ? b : 100);
+          const candidates = [];
+          const localExtrema = [];
+
+          if (isClosedInterval) {
+            const fa = evalF(a);
+            if (fa !== null) candidates.push({ x: a, y: fa, origin: 'Endpoint (Lower)' });
+
+            for (const cr of rawRoots) {
+              if (cr > a + 1e-4 && cr < b - 1e-4) {
+                const fcr = evalF(cr);
+                if (fcr !== null) candidates.push({ x: cr, y: fcr, origin: 'Critical Point' });
+              }
+            }
+
+            const fb = evalF(b);
+            if (fb !== null) candidates.push({ x: b, y: fb, origin: 'Endpoint (Upper)' });
+          } else {
+            for (const cr of rawRoots) {
+              const fcr = evalF(cr);
+              if (fcr !== null) {
+                const delta = 0.01;
+                const dL = evalD1(cr - delta);
+                const dR = evalD1(cr + delta);
+                const d2Val = evalD2(cr);
+
+                let type = 'Stationary Point (Neither)';
+                if (dL !== null && dR !== null) {
+                  if (dL > 1e-6 && dR < -1e-6) type = 'Local Maximum';
+                  else if (dL < -1e-6 && dR > 1e-6) type = 'Local Minimum';
+                  else if (dL * dR > 0) type = 'Stationary Point (Neither)';
+                  else if (d2Val !== null && Math.abs(d2Val) > 1e-5) type = d2Val > 0 ? 'Local Minimum' : 'Local Maximum';
+                } else if (d2Val !== null && Math.abs(d2Val) > 1e-5) {
+                  type = d2Val > 0 ? 'Local Minimum' : 'Local Maximum';
+                }
+
+                candidates.push({ x: cr, y: fcr, origin: 'Critical Point', type });
+                if (type === 'Local Maximum' || type === 'Local Minimum') {
+                  localExtrema.push({ x: cr, y: fcr, type });
+                }
+              }
+            }
+          }
+
+          if (optSec && optGlobalCards && optCandList && optNote) {
+            optGlobalCards.innerHTML = '';
+            optCandList.innerHTML = '';
+            if (optLocalList) optLocalList.innerHTML = '';
+
+            if (isClosedInterval) {
+              if (optBadge) {
+                optBadge.textContent = hasDiscontinuity ? 'Discontinuous on Interval' : 'Closed Interval Method';
+                optBadge.className = hasDiscontinuity
+                  ? 'text-xs text-amber-800 bg-amber-50 px-2 py-0.5 rounded border border-amber-200 font-medium'
+                  : 'text-xs text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 font-medium';
+              }
+
+              if (hasDiscontinuity && optDiscWarning) {
+                optDiscWarning.textContent = `Warning: Discontinuity, vertical asymptote, or undefined domain detected within [${fmt(a)}, ${fmt(b)}]. The Extreme Value Theorem requires continuity across the entire closed interval; therefore, global extrema cannot be guaranteed.`;
+                optDiscWarning.classList.remove('hidden');
+              }
+
+              if (!hasDiscontinuity && candidates.length > 0) {
+                let maxVal = -Infinity;
+                let minVal = Infinity;
+                for (const c of candidates) {
+                  if (c.y > maxVal) maxVal = c.y;
+                  if (c.y < minVal) minVal = c.y;
+                }
+
+                const maxCands = candidates.filter(c => Math.abs(c.y - maxVal) < 1e-4);
+                const minCands = candidates.filter(c => Math.abs(c.y - minVal) < 1e-4);
+
+                const maxCard = document.createElement('div');
+                maxCard.className = 'bg-white p-4 rounded-xl border border-emerald-200 shadow-sm space-y-2';
+                const maxOrigins = maxCands.map(c => `<span class="ml-1 text-xs px-2 py-0.5 rounded font-semibold bg-emerald-100 text-emerald-800 border border-emerald-200">${c.origin} (${v}=${fmt(c.x)})</span>`).join(' ');
+                maxCard.innerHTML = `
+                  <div class="text-xs font-bold text-emerald-800 uppercase tracking-wide">Global Maximum</div>
+                  <div class="text-2xl font-bold font-mono text-emerald-900">${fmt(maxVal)}</div>
+                  <div class="text-xs text-gray-600">Attained at ${maxOrigins}</div>
+                `;
+
+                const minCard = document.createElement('div');
+                minCard.className = 'bg-white p-4 rounded-xl border border-indigo-200 shadow-sm space-y-2';
+                const minOrigins = minCands.map(c => `<span class="ml-1 text-xs px-2 py-0.5 rounded font-semibold bg-indigo-100 text-indigo-800 border border-indigo-200">${c.origin} (${v}=${fmt(c.x)})</span>`).join(' ');
+                minCard.innerHTML = `
+                  <div class="text-xs font-bold text-indigo-800 uppercase tracking-wide">Global Minimum</div>
+                  <div class="text-2xl font-bold font-mono text-indigo-900">${fmt(minVal)}</div>
+                  <div class="text-xs text-gray-600">Attained at ${minOrigins}</div>
+                `;
+
+                optGlobalCards.appendChild(maxCard);
+                optGlobalCards.appendChild(minCard);
+                optGlobalCards.classList.remove('hidden');
+              } else {
+                optGlobalCards.classList.add('hidden');
+              }
+
+              candidates.forEach((c) => {
+                const item = document.createElement('div');
+                item.className = 'bg-white p-3 rounded-lg border border-gray-200 flex items-center justify-between text-sm shadow-sm';
+                item.innerHTML = `
+                  <div>
+                    <span class="text-gray-500 font-mono text-xs">${v} =</span> <strong class="font-mono text-gray-900 text-base">${fmt(c.x)}</strong>
+                    <span class="ml-2 text-xs px-2 py-0.5 rounded font-semibold bg-gray-100 text-gray-700 border border-gray-200">${c.origin}</span>
+                  </div>
+                  <div class="font-mono font-bold text-gray-800 bg-gray-50 px-3 py-1 rounded border border-gray-200">f(${fmt(c.x)}) = ${fmt(c.y)}</div>
+                `;
+                optCandList.appendChild(item);
+              });
+
+              optNote.textContent = hasDiscontinuity
+                ? `Note: Evaluated candidates on [${fmt(a)}, ${fmt(b)}] are shown above, but global extrema cannot be guaranteed due to detected discontinuity.`
+                : `Note: Results determined via the Closed Interval Method on [${fmt(a)}, ${fmt(b)}]. All critical points and endpoints were evaluated and compared.`;
+            } else {
+              if (optBadge) {
+                optBadge.textContent = 'Local Search [-100, 100]';
+                optBadge.className = 'text-xs text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded border border-indigo-200 font-medium';
+              }
+
+              optGlobalCards.classList.add('hidden');
+
+              if (localExtrema.length > 0 && optLocalSec && optLocalList) {
+                localExtrema.forEach((le) => {
+                  const item = document.createElement('div');
+                  item.className = 'bg-white p-3 rounded-lg border border-gray-200 flex items-center justify-between text-sm shadow-sm';
+                  const badgeClass = le.type === 'Local Maximum'
+                    ? 'bg-emerald-100 text-emerald-800 border border-emerald-200'
+                    : 'bg-indigo-100 text-indigo-800 border border-indigo-200';
+                  item.innerHTML = `
+                    <div>
+                      <span class="text-gray-500 font-mono text-xs">${v} =</span> <strong class="font-mono text-gray-900 text-base">${fmt(le.x)}</strong>
+                      <span class="ml-2 text-xs px-2 py-0.5 rounded font-semibold ${badgeClass}">${le.type}</span>
+                    </div>
+                    <div class="font-mono font-bold text-gray-800 bg-gray-50 px-3 py-1 rounded border border-gray-200">f(${fmt(le.x)}) = ${fmt(le.y)}</div>
+                  `;
+                  optLocalList.appendChild(item);
+                });
+                optLocalSec.classList.remove('hidden');
+              }
+
+              if (candidates.length === 0) {
+                optCandList.innerHTML = '<div class="p-3 bg-amber-50 rounded border border-amber-200 text-amber-800 text-sm">No stationary critical points detected in the numerical search region [-100, 100].</div>';
+              } else {
+                candidates.forEach((c) => {
+                  const item = document.createElement('div');
+                  item.className = 'bg-white p-3 rounded-lg border border-gray-200 flex items-center justify-between text-sm shadow-sm';
+                  item.innerHTML = `
+                    <div>
+                      <span class="text-gray-500 font-mono text-xs">${v} =</span> <strong class="font-mono text-gray-900 text-base">${fmt(c.x)}</strong>
+                      <span class="ml-2 text-xs px-2 py-0.5 rounded font-semibold bg-gray-100 text-gray-700 border border-gray-200">${c.type || c.origin}</span>
+                    </div>
+                    <div class="font-mono font-bold text-gray-800 bg-gray-50 px-3 py-1 rounded border border-gray-200">f(${fmt(c.x)}) = ${fmt(c.y)}</div>
+                  `;
+                  optCandList.appendChild(item);
+                });
+              }
+
+              optNote.textContent = 'Note: No interval was supplied. Results above are local extrema detected within the numerical search region [-100, 100]; they are not guaranteed global extrema over the full domain.';
+            }
+
+            optSec.classList.remove('hidden');
           }
         }
         else {
