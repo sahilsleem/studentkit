@@ -63,15 +63,15 @@
       const paragraphCount = paragraphs.length;
 
       // Avg read time: 238 words per minute
-      const timeMinutes = Math.ceil(wordCount / 238);
-      const timeDisplay = timeMinutes < 1 && wordCount > 0 ? '< 1 min' : `${timeMinutes} min`;
+      const timeMinutes = wordCount / 238;
+      const timeDisplay = wordCount === 0 ? '0 min' : (timeMinutes < 1 ? '< 1 min' : `${Math.ceil(timeMinutes)} min`);
 
       if(els.words) els.words.textContent = wordCount.toString();
       if(els.chars) els.chars.textContent = charCount.toString();
       if(els.charsNs) els.charsNs.textContent = charCountNs.toString();
       if(els.sentences) els.sentences.textContent = sentenceCount.toString();
       if(els.paragraphs) els.paragraphs.textContent = paragraphCount.toString();
-      if(els.time) els.time.textContent = wordCount === 0 ? '0 min' : timeDisplay;
+      if(els.time) els.time.textContent = timeDisplay;
     };
 
     input.addEventListener('input', updateStats);
