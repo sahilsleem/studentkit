@@ -101,29 +101,25 @@ export const tools: Tool[] = [
   {
     id: "attendance-calculator",
     title: "Attendance Calculator",
-    description: "Calculate current attendance and forecast future attendance.",
+    description: "Calculate current attendance percentage, safe classes to skip, and classes needed to reach target goal.",
     slug: "attendance-calculator",
     category: "Academic",
     subcategory: "Attendance",
-    aliases: ["check my attendance","attendance percentage calculator","calculate attendance percentage","am i short on attendance"], icon: `<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>`
-  },
-  {
-    id: "required-attendance",
-    title: "Required Attendance",
-    description: "Find out how many classes you need to attend to reach your goal.",
-    slug: "required-attendance",
-    category: "Academic",
-    subcategory: "Attendance",
-    aliases: ["how many classes do i need to attend","classes needed for 75 attendance","minimum classes to attend","attendance required to pass"], icon: `<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`
-  },
-  {
-    id: "classes-to-miss",
-    title: "Classes You Can Miss",
-    description: "Calculate how many classes you can afford to miss safely.",
-    slug: "classes-to-miss",
-    category: "Academic",
-    subcategory: "Attendance",
-    icon: `<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`
+    aliases: [
+      "check my attendance",
+      "attendance percentage calculator",
+      "calculate attendance percentage",
+      "am i short on attendance",
+      "classes you can miss",
+      "classes to miss",
+      "how many classes can i miss",
+      "how many classes do i need to attend",
+      "classes needed for 75 attendance",
+      "minimum classes to attend",
+      "required attendance",
+      "attendance required to pass"
+    ],
+    icon: `<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>`
   },
 
   // Study
