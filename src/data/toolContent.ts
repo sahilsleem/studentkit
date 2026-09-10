@@ -1620,6 +1620,93 @@ export const toolContent: Record<string, ToolContent> = {
       { "q": "What is the Fundamental Theorem of Arithmetic?", "a": "It states that every integer greater than 1 either is a prime number itself or can be represented as the product of prime numbers in a unique way up to the order of the factors." },
       { "q": "Is 1 a prime number?", "a": "No, 1 is neither prime nor composite by modern mathematical definition because a prime number must have exactly two distinct positive divisors (1 and itself)." }
     ]
-  }
+  },
 
+  "bitwise-calculator": {
+    "whatIsIt": "The Bitwise Calculator computes binary and integer bitwise operations including AND (&), OR (|), XOR (^), NOT (~), Left Shift (<<), Right Shift (>>), and Zero-fill Right Shift (>>>). It supports multiple bit widths (8-bit, 16-bit, 32-bit, 64-bit) and displays aligned binary representations for intuitive visual inspection of every bit position.",
+    "howToUse": "1. Enter Operand A and Operand B as decimal integers or prefix with 0b for binary or 0x for hexadecimal.\n2. Select your desired bit width (8-bit, 16-bit, 32-bit, or 64-bit).\n3. Click any operation button (AND, OR, XOR, NOT, Left Shift, Right Shift) or view the full side-by-side operations matrix.",
+    "formula": "• AND (A & B): 1 only when both corresponding bits are 1.\n• OR (A | B): 1 when at least one corresponding bit is 1.\n• XOR (A ^ B): 1 when bits differ (one is 1, the other is 0).\n• NOT (~A): Inverts all bits (0 becomes 1, 1 becomes 0).\n• Left Shift (A << k): Shifts bits left by k positions, inserting zeros on the right (multiplies by 2^k).\n• Right Shift (A >> k): Shifts bits right by k positions, preserving the sign bit.",
+    "variables": {
+      "Operand A": "The first input integer (decimal, hex 0x, or binary 0b).",
+      "Operand B": "The second input integer or bit shift amount.",
+      "Bit Width": "Fixed word size (8, 16, 32, or 64 bits) determining masking and overflow limits.",
+      "Mask": "Bitmask (2^width - 1) applied to keep results within the selected integer width."
+    },
+    "example": "For 8-bit integers A = 12 (00001100) and B = 10 (00001010):\n• A AND B = 8 (00001000)\n• A OR B = 14 (00001110)\n• A XOR B = 6 (00000110)\n• NOT A = 243 (11110011 unsigned 8-bit)\n• A << 2 = 48 (00110000)",
+    "whenToUse": "Essential in computer systems programming, embedded microcontrollers, network protocol packet parsing, cryptography, graphics shaders, game development bitmasks, and low-level algorithm optimization.",
+    "faq": [
+      { "q": "Why does bit width matter in bitwise operations?", "a": "Bit width defines the number of binary digits allocated. For example, NOT 0 is 255 (0xFF) in 8-bit, but 65535 (0xFFFF) in 16-bit and 4294967295 (0xFFFFFFFF) in 32-bit." },
+      { "q": "What is the difference between arithmetic and logical right shift?", "a": "Arithmetic right shift (>>) preserves the sign bit (sign-extension for negative numbers), while logical/zero-fill right shift (>>>) always shifts in zeros from the left regardless of sign." }
+    ]
+  },
+  "scientific-notation-calculator": {
+    "whatIsIt": "The Scientific Notation Calculator & Converter allows users to perform arithmetic (+, -, ×, ÷) on numbers in scientific form (a × 10^b) and convert seamlessly between standard decimal notation, normalized scientific notation (1 ≤ |a| < 10), and engineering notation (where the exponent b is a multiple of 3).",
+    "howToUse": "1. In Converter Mode: Enter any decimal number or scientific notation string (e.g., 6.022e23) to see instant conversions to standard scientific and engineering forms.\n2. In Calculator Mode: Enter two scientific notation operands (coefficient and power of 10) and choose an operator (+, -, ×, ÷) to view the step-by-step arithmetic solution.",
+    "formula": "• Scientific Notation Form: a × 10^b where 1 ≤ |a| < 10 and b is an integer.\n• Engineering Notation Form: a × 10^(3k) where 1 ≤ |a| < 1000 and the exponent is a multiple of 3.\n• Multiplication: (a × 10^m) × (c × 10^n) = (a × c) × 10^(m + n)\n• Division: (a × 10^m) / (c × 10^n) = (a / c) × 10^(m - n)\n• Addition/Subtraction: Align exponents first: a × 10^m ± c × 10^n = (a + c × 10^(n - m)) × 10^m",
+    "variables": {
+      "a, c": "Mantissa / Significand (coefficient of the number).",
+      "b, m, n": "Exponent (power of 10 indicating magnitude order).",
+      "E-notation": "Computer representation shorthand where 3.5 × 10^8 is written as 3.5e8."
+    },
+    "example": "Multiply (3.0 × 10^4) by (2.0 × 10^5):\n1. Multiply coefficients: 3.0 × 2.0 = 6.0\n2. Add exponents: 4 + 5 = 9\n3. Result: 6.0 × 10^9 (Standard decimal: 6,000,000,000; Engineering: 6 × 10^9).",
+    "whenToUse": "Used across physics, chemistry, astronomy, biology, electrical engineering, and computing when dealing with extremely large (e.g., speed of light, Avogadro's number) or microscopically small numbers (e.g., Planck's constant, atomic radius).",
+    "faq": [
+      { "q": "What is the difference between scientific and engineering notation?", "a": "Scientific notation requires the mantissa to be between 1 and 10 with any integer exponent. Engineering notation restricts exponents to multiples of 3 (e.g., 10^3, 10^6, 10^-9) matching metric SI prefixes like kilo, mega, and nano." },
+      { "q": "How is zero represented in scientific notation?", "a": "Zero is represented as 0 × 10^0 or simply 0, because zero cannot be expressed with a non-zero mantissa in the range [1, 10)." }
+    ]
+  },
+  "confidence-interval-calculator": {
+    "whatIsIt": "The Confidence Interval Calculator computes two-sided confidence intervals for population parameters, including population means with known variance (Z-interval), population means with unknown variance (Student's T-interval), and population proportions. It displays critical values (z* or t*), standard errors, margins of error, and lower/upper interval bounds.",
+    "howToUse": "1. Select calculation mode: Mean with known σ (Z-Interval), Mean with unknown σ (T-Interval), or Population Proportion.\n2. Enter the sample mean or sample count, standard deviation, sample size (n), and desired confidence level (e.g., 90%, 95%, 99%).\n3. View the calculated margin of error, critical value, and the resulting confidence interval range [Lower Bound, Upper Bound].",
+    "formula": "• Z-Interval for Mean (Known σ): CI = x̄ ± z* × (σ / √n)\n• T-Interval for Mean (Unknown σ): CI = x̄ ± t* × (s / √n) with df = n - 1\n• Proportion Interval: CI = p̂ ± z* × √[p̂(1 - p̂) / n]\n• Margin of Error (ME): ME = Critical Value × Standard Error",
+    "variables": {
+      "x̄": "Sample mean.",
+      "σ": "Known population standard deviation.",
+      "s": "Sample standard deviation (estimator for unknown σ).",
+      "n": "Sample size (total observations).",
+      "p̂": "Sample proportion (p̂ = x / n).",
+      "z*, t*": "Critical value associated with the chosen confidence level (1 - α).",
+      "SE": "Standard error of the sampling distribution."
+    },
+    "example": "A sample of n = 64 students has a mean test score of x̄ = 82 with sample standard deviation s = 8. For a 95% confidence level (df = 63, t* ≈ 1.9983):\n• Standard Error: SE = 8 / √64 = 8 / 8 = 1.0\n• Margin of Error: ME = 1.9983 × 1.0 = 1.9983\n• 95% Confidence Interval: [82 - 1.9983, 82 + 1.9983] = [80.00, 83.998].",
+    "whenToUse": "Indispensable in statistical inference, polling, medical clinical trials, A/B testing, quality assurance, market research, and academic research.",
+    "faq": [
+      { "q": "When should I use Z-interval vs T-interval?", "a": "Use a Z-interval when the population standard deviation (σ) is known, or when sample size n is very large. Use a T-interval when the population standard deviation is unknown and estimated from the sample standard deviation (s)." },
+      { "q": "What does a 95% confidence interval actually mean?", "a": "It means that if we were to take repeated random samples of the same size and construct confidence intervals from each, approximately 95% of those calculated intervals would contain the true population parameter." }
+    ]
+  },
+  "case-converter": {
+    "whatIsIt": "The Case Converter is a comprehensive text manipulation tool that instantly transforms text between 10 standard capitalization styles: Sentence case, lower case, UPPER CASE, Capitalized Case, Title Case, camelCase, PascalCase, snake_case, kebab-case, and aLtErNaTiNg cAsE. It also provides live text analytics including character count, word count, sentence count, and line count.",
+    "howToUse": "1. Type or paste your text into the input area (or click 'Sample Text').\n2. Click any of the 10 conversion buttons to transform your text instantly.\n3. Use 'Copy to Clipboard' to copy the converted text, or download the result.",
+    "formula": "• Sentence case: Capitalizes the first letter of each sentence.\n• Title Case: Capitalizes principal words while keeping articles, conjunctions, and short prepositions lowercase.\n• camelCase: Words concatenated without spaces; first word lowercase, subsequent words capitalized.\n• PascalCase: Words concatenated without spaces; every word capitalized.\n• snake_case: Words in lowercase separated by underscores (_).\n• kebab-case: Words in lowercase separated by hyphens (-).",
+    "variables": {
+      "Input String": "Source text to transform.",
+      "Word Delimiters": "Spaces, punctuation, underscores, and hyphens used to segment words.",
+      "Output Format": "Target casing convention applied to the word tokens."
+    },
+    "example": "Input: 'hello world of coding'\n• UPPERCASE: 'HELLO WORLD OF CODING'\n• Title Case: 'Hello World of Coding'\n• camelCase: 'helloWorldOfCoding'\n• PascalCase: 'HelloWorldOfCoding'\n• snake_case: 'hello_world_of_coding'\n• kebab-case: 'hello-world-of-coding'",
+    "whenToUse": "Essential for software developers formatting variable and file names, copywriters standardizing headlines, students formatting essays and bibliography citations, and data cleaners standardizing CSV column headers.",
+    "faq": [
+      { "q": "What words are kept lowercase in Title Case?", "a": "Standard Title Case style guides (AP, Chicago, APA) keep minor words lowercase unless they are the first or last word: articles (a, an, the), coordinating conjunctions (and, but, for, or, nor), and short prepositions (in, to, on, of, for, at, by, with)." },
+      { "q": "What is the difference between camelCase and PascalCase?", "a": "camelCase begins with a lowercase letter (e.g., studentName), whereas PascalCase begins with an uppercase letter (e.g., StudentName). Both capitalize subsequent words without spaces." }
+    ]
+  },
+  "subnet-calculator": {
+    "whatIsIt": "The IPv4 Subnet Calculator is a network engineering utility that analyzes IPv4 addresses and CIDR prefix lengths (/0 to /32) to compute network addresses, broadcast addresses, usable IP address ranges, subnet masks, wildcard masks, total host capacities, and IP class categories. It supports standard subnetting rules and RFC 3021 point-to-point /31 prefixes.",
+    "howToUse": "1. Enter an IPv4 address (e.g., 192.168.1.100).\n2. Select a CIDR prefix length or subnet mask from the dropdown (e.g., /24 - 255.255.255.0).\n3. View the network address, broadcast address, first and last usable host IPs, usable host count, and binary address breakdown.",
+    "formula": "• Network Address = IP Address AND Subnet Mask\n• Wildcard Mask = 255.255.255.255 XOR Subnet Mask = NOT Subnet Mask\n• Broadcast Address = Network Address OR Wildcard Mask\n• Total Addresses = 2^(32 - CIDR)\n• Usable Hosts = 2^(32 - CIDR) - 2 (For CIDR /1 to /30; RFC 3021 /31 gives 2 hosts; /32 gives 1 host)",
+    "variables": {
+      "IP Address": "32-bit IPv4 address formatted as four dot-separated octets (0-255).",
+      "CIDR Prefix": "Number of leading network bits (0 to 32) denoted with a slash (e.g., /24).",
+      "Subnet Mask": "32-bit mask with 1s in network positions and 0s in host positions.",
+      "Wildcard Mask": "Inverse of the subnet mask, indicating variable host bits.",
+      "Usable Range": "The span between First Usable Host and Last Usable Host."
+    },
+    "example": "For IP 192.168.1.50 with CIDR /24 (Subnet Mask: 255.255.255.0):\n• Network Address: 192.168.1.0\n• Broadcast Address: 192.168.1.255\n• First Usable Host: 192.168.1.1\n• Last Usable Host: 192.168.1.254\n• Total Usable Hosts: 2^(32 - 24) - 2 = 256 - 2 = 254 hosts.",
+    "whenToUse": "Essential for network administrators, systems architects, cybersecurity analysts, CCNA/CompTIA Network+ students, cloud VPC architects (AWS, Azure, GCP), and home lab networking.",
+    "faq": [
+      { "q": "Why are two IP addresses subtracted from total hosts in standard subnets?", "a": "In standard IPv4 subnets (/1 to /30), the all-zeros host address is reserved as the Network Identifier, and the all-ones host address is reserved as the Subnet Broadcast Address." },
+      { "q": "What is RFC 3021 (/31 subnetting)?", "a": "RFC 3021 defines point-to-point links using /31 subnets (2 addresses total). In /31 networks, both addresses are usable hosts because broadcast and network address reservations are not required on point-to-point links." }
+    ]
+  }
 };

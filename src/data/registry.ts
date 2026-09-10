@@ -849,8 +849,63 @@ export const tools: Tool[] = [
     aliases: ["prime factorization calculator", "prime factors calculator", "factor tree calculator", "prime decomposition", "find prime factors", "prime factor finder", "canonical prime factorization"],
     icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M7 20l4-16m2 16l4-16M6 9h14M4 15h14'></path></svg>",
     component: "PrimeFactorization"
-  }
+  },
 
+  {
+    id: "bitwise-calculator",
+    title: "Bitwise Calculator (AND, OR, XOR, NOT, Shifts)",
+    description: "Perform bitwise operations (AND, OR, XOR, NOT, left/right shifts) across 8-bit, 16-bit, 32-bit, and 64-bit integer widths with binary and hex views.",
+    slug: "bitwise-calculator",
+    category: "Computer Science",
+    subcategory: "Binary & Logic",
+    aliases: ["bitwise calculator", "bitwise operations calculator", "and or xor not calculator", "bit shift calculator", "binary bitwise calculator", "bit mask calculator"],
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z'></path></svg>",
+    component: "BitwiseCalculator"
+  },
+  {
+    id: "scientific-notation-calculator",
+    title: "Scientific Notation Calculator & Converter",
+    description: "Convert numbers between standard decimal, scientific notation (a × 10^b), and engineering notation, with support for arithmetic calculations.",
+    slug: "scientific-notation-calculator",
+    category: "Converters",
+    subcategory: "Scientific Notation",
+    aliases: ["scientific notation calculator", "standard form calculator", "engineering notation calculator", "exponential notation calculator", "scientific notation converter"],
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z'></path></svg>",
+    component: "ScientificNotationCalculator"
+  },
+  {
+    id: "confidence-interval-calculator",
+    title: "Confidence Interval Calculator (Mean & Proportion)",
+    description: "Compute two-sided confidence intervals for population means (Z-interval and T-interval) and population proportions with critical value calculations.",
+    slug: "confidence-interval-calculator",
+    category: "Statistics",
+    subcategory: "Inferential Statistics",
+    aliases: ["confidence interval calculator", "margin of error calculator", "confidence interval for mean", "proportion confidence interval", "z interval calculator", "t interval calculator"],
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z'></path></svg>",
+    component: "ConfidenceIntervalCalculator"
+  },
+  {
+    id: "case-converter",
+    title: "Case Converter (UPPERCASE, lowercase, Title, camelCase, snake_case)",
+    description: "Transform text between 10 different casing styles including Sentence case, Title Case, camelCase, snake_case, kebab-case, and alternating case.",
+    slug: "case-converter",
+    category: "Study & Productivity",
+    subcategory: "Writing & Reading",
+    aliases: ["case converter", "text case converter", "uppercase lowercase converter", "camelcase converter", "title case converter", "snake case converter", "kebab case converter"],
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M3 5h12M9 5v14m6-8h6m-3 0v8'></path></svg>",
+    component: "CaseConverter"
+  },
+  {
+    id: "subnet-calculator",
+    title: "IPv4 Subnet Calculator (CIDR & IP Network Planner)",
+    description: "Calculate network address, broadcast address, usable IP range, subnet mask, wildcard mask, and total usable hosts for any IPv4 CIDR block.",
+    slug: "subnet-calculator",
+    category: "Computer Science",
+    subcategory: "Networking",
+    aliases: ["subnet calculator", "ipv4 subnet calculator", "cidr calculator", "ip range calculator", "network mask calculator", "subnet mask calculator", "usable ip calculator"],
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9'></path></svg>",
+    component: "SubnetCalculator"
+  }
 ];
 
 export const getActiveCategories = (): Category[] => {

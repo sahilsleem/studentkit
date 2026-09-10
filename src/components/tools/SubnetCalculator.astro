@@ -1,0 +1,358 @@
+<div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden mb-12 max-w-4xl mx-auto">
+  <div class="p-6 sm:p-8">
+    <div class="mb-6">
+      <h2 class="text-xl font-bold text-gray-900 mb-2">IP Subnet & CIDR Calculator (IPv4)</h2>
+      <p class="text-sm text-gray-600">Calculate IPv4 network address, broadcast address, usable host IP range, subnet mask, wildcard mask, and usable host capacity from CIDR notation.</p>
+    </div>
+
+    <!-- Quick Sample Subnet Buttons -->
+    <div class="mb-6 bg-emerald-50/60 border border-emerald-100 rounded-xl p-4">
+      <label class="block text-xs font-semibold uppercase tracking-wider text-emerald-800 mb-2">Try Sample Subnets</label>
+      <div class="flex flex-wrap gap-2">
+        <button type="button" data-ip="192.168.1.100" data-p="24" class="subnet-sample-btn text-xs font-medium py-1.5 px-3 rounded-lg bg-white border border-emerald-200 text-emerald-900 hover:bg-emerald-100 transition-colors">
+          192.168.1.100/24 (Class C LAN)
+        </button>
+        <button type="button" data-ip="10.0.0.1" data-p="8" class="subnet-sample-btn text-xs font-medium py-1.5 px-3 rounded-lg bg-white border border-emerald-200 text-emerald-900 hover:bg-emerald-100 transition-colors">
+          10.0.0.1/8 (Class A Large)
+        </button>
+        <button type="button" data-ip="172.16.5.10" data-p="16" class="subnet-sample-btn text-xs font-medium py-1.5 px-3 rounded-lg bg-white border border-emerald-200 text-emerald-900 hover:bg-emerald-100 transition-colors">
+          172.16.5.10/16 (Class B Campus)
+        </button>
+        <button type="button" data-ip="192.168.1.1" data-p="30" class="subnet-sample-btn text-xs font-medium py-1.5 px-3 rounded-lg bg-white border border-emerald-200 text-emerald-900 hover:bg-emerald-100 transition-colors">
+          192.168.1.1/30 (Point-to-Point)
+        </button>
+      </div>
+    </div>
+
+    <form id="subnet-form" class="space-y-6">
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <!-- IP Address -->
+        <div class="sm:col-span-2">
+          <label for="subnet-ip" class="block text-sm font-semibold text-gray-800 mb-1">
+            IPv4 Address
+          </label>
+          <input
+            type="text"
+            id="subnet-ip"
+            value="192.168.1.100"
+            required
+            class="block w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 font-mono text-base font-medium text-gray-900"
+            placeholder="e.g. 192.168.1.100"
+          />
+        </div>
+
+        <!-- CIDR Prefix -->
+        <div>
+          <label for="subnet-prefix" class="block text-sm font-semibold text-gray-800 mb-1">
+            CIDR Prefix
+          </label>
+          <select id="subnet-prefix" class="block w-full px-3 py-2.5 bg-white border border-gray-300 rounded-xl font-mono text-base text-gray-800 focus:ring-emerald-500 focus:border-emerald-500">
+            <!-- Populated 0 to 32 -->
+          </select>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-col sm:flex-row gap-3 pt-2">
+        <button type="submit" class="flex-1 bg-emerald-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors shadow-sm min-h-[44px]">
+          Calculate Subnet
+        </button>
+        <button type="button" id="reset-btn" class="px-6 py-3 border border-gray-300 rounded-xl text-gray-700 font-semibold hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors min-h-[44px]">
+          Reset
+        </button>
+      </div>
+    </form>
+
+    <div id="error-box" class="hidden mt-6 bg-red-50 text-red-700 p-4 rounded-xl text-sm font-medium border border-red-200"></div>
+
+    <!-- Results Section -->
+    <div id="result-section" class="mt-8 pt-8 border-t border-gray-100" aria-live="polite">
+      <!-- Main Result Card -->
+      <div class="bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-200/80 rounded-2xl p-6 sm:p-8 text-center relative mb-6">
+        <div class="flex justify-end absolute top-4 right-4">
+          <button
+            type="button"
+            id="copy-result-btn"
+            class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-white/90 hover:bg-white text-emerald-800 border border-emerald-200 shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-emerald-500 min-h-[36px]"
+            title="Copy network address and CIDR"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+            <span>Copy Result</span>
+          </button>
+        </div>
+        <p class="text-xs font-bold uppercase tracking-wider text-emerald-800 mb-1">Calculated Network ID (CIDR)</p>
+        <div id="sn-res-network-cidr" class="text-3xl sm:text-5xl font-extrabold text-emerald-950 my-2 font-mono break-all">192.168.1.0/24</div>
+        <div class="flex flex-wrap items-center justify-center gap-2 mt-2">
+          <span id="sn-badge-scope" class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800">
+            Private IP (RFC 1918)
+          </span>
+          <span id="sn-badge-class" class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-gray-100 text-gray-700">
+            Class C (Historical)
+          </span>
+        </div>
+      </div>
+
+      <!-- Key Subnet Properties Table -->
+      <div class="overflow-x-auto rounded-xl border border-gray-200 mb-6">
+        <table class="w-full text-left text-sm text-gray-600">
+          <thead class="bg-gray-50 text-xs font-semibold uppercase text-gray-700 border-b border-gray-200">
+            <tr>
+              <th class="px-4 py-3">Property</th>
+              <th class="px-4 py-3">IP / Decimal Value</th>
+              <th class="px-4 py-3">Binary Representation</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100 bg-white">
+            <tr class="hover:bg-gray-50/80">
+              <td class="px-4 py-2.5 font-semibold text-gray-900">Network Address</td>
+              <td class="px-4 py-2.5 font-mono text-emerald-700 font-bold" id="sn-row-network">192.168.1.0</td>
+              <td class="px-4 py-2.5 font-mono text-xs text-gray-500" id="sn-bin-network">11000000.10101000.00000001.00000000</td>
+            </tr>
+            <tr class="hover:bg-gray-50/80">
+              <td class="px-4 py-2.5 font-semibold text-gray-900">Broadcast Address</td>
+              <td class="px-4 py-2.5 font-mono text-emerald-700 font-bold" id="sn-row-broadcast">192.168.1.255</td>
+              <td class="px-4 py-2.5 font-mono text-xs text-gray-500" id="sn-bin-broadcast">11000000.10101000.00000001.11111111</td>
+            </tr>
+            <tr class="hover:bg-gray-50/80">
+              <td class="px-4 py-2.5 font-semibold text-gray-900">Subnet Mask</td>
+              <td class="px-4 py-2.5 font-mono" id="sn-row-mask">255.255.255.0</td>
+              <td class="px-4 py-2.5 font-mono text-xs text-gray-500" id="sn-bin-mask">11111111.11111111.11111111.00000000</td>
+            </tr>
+            <tr class="hover:bg-gray-50/80">
+              <td class="px-4 py-2.5 font-semibold text-gray-900">Wildcard Mask</td>
+              <td class="px-4 py-2.5 font-mono" id="sn-row-wildcard">0.0.0.255</td>
+              <td class="px-4 py-2.5 font-mono text-xs text-gray-500" id="sn-bin-wildcard">00000000.00000000.00000000.11111111</td>
+            </tr>
+            <tr class="hover:bg-gray-50/80">
+              <td class="px-4 py-2.5 font-semibold text-gray-900">Usable Host Range</td>
+              <td class="px-4 py-2.5 font-mono font-medium text-gray-900" id="sn-row-range" colspan="2">192.168.1.1 - 192.168.1.254</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Capacity Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="bg-gray-50 rounded-xl p-4 border border-gray-200/70 text-center">
+          <p class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-1">Total IP Addresses</p>
+          <div id="sn-stat-total" class="text-xl font-bold font-mono text-gray-900">256</div>
+          <p class="text-xs text-gray-400 mt-0.5">2^(32 - 24)</p>
+        </div>
+        <div class="bg-gray-50 rounded-xl p-4 border border-gray-200/70 text-center">
+          <p class="text-xs font-semibold uppercase tracking-wider text-emerald-700 mb-1">Usable Host Count</p>
+          <div id="sn-stat-usable" class="text-xl font-bold font-mono text-emerald-600">254</div>
+          <p id="sn-stat-usable-sub" class="text-xs text-gray-400 mt-0.5">Total − 2 (Network & Broadcast)</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { copyToClipboard } from '../../utils/formatters';
+
+  const initSubnetCalculator = () => {
+    const form = document.getElementById('subnet-form') as HTMLFormElement;
+    const inputIp = document.getElementById('subnet-ip') as HTMLInputElement;
+    const selectPrefix = document.getElementById('subnet-prefix') as HTMLSelectElement;
+    const resetBtn = document.getElementById('reset-btn');
+    const copyBtn = document.getElementById('copy-result-btn');
+    const errorBox = document.getElementById('error-box');
+
+    const resNetworkCidr = document.getElementById('sn-res-network-cidr');
+    const badgeScope = document.getElementById('sn-badge-scope');
+    const badgeClass = document.getElementById('sn-badge-class');
+
+    const rowNetwork = document.getElementById('sn-row-network');
+    const binNetwork = document.getElementById('sn-bin-network');
+    const rowBroadcast = document.getElementById('sn-row-broadcast');
+    const binBroadcast = document.getElementById('sn-bin-broadcast');
+    const rowMask = document.getElementById('sn-row-mask');
+    const binMask = document.getElementById('sn-bin-mask');
+    const rowWildcard = document.getElementById('sn-row-wildcard');
+    const binWildcard = document.getElementById('sn-bin-wildcard');
+    const rowRange = document.getElementById('sn-row-range');
+    const statTotal = document.getElementById('sn-stat-total');
+    const statUsable = document.getElementById('sn-stat-usable');
+    const statUsableSub = document.getElementById('sn-stat-usable-sub');
+
+    if (!form || !inputIp || !selectPrefix) return;
+
+    // Populate prefix dropdown 0 to 32
+    if (selectPrefix.options.length === 0) {
+      for (let p = 32; p >= 0; p--) {
+        const opt = document.createElement('option');
+        opt.value = p.toString();
+        const total = p === 0 ? '4,294,967,296 hosts' : `${(2 ** (32 - p)).toLocaleString()} addresses`;
+        opt.textContent = `/${p} (${total})`;
+        if (p === 24) opt.selected = true;
+        selectPrefix.appendChild(opt);
+      }
+    }
+
+    const intToIp = (val: bigint): string => {
+      return `${(val >> 24n) & 0xFFn}.${(val >> 16n) & 0xFFn}.${(val >> 8n) & 0xFFn}.${val & 0xFFn}`;
+    };
+
+    const intToBinaryOctets = (val: bigint): string => {
+      const o1 = ((val >> 24n) & 0xFFn).toString(2).padStart(8, '0');
+      const o2 = ((val >> 16n) & 0xFFn).toString(2).padStart(8, '0');
+      const o3 = ((val >> 8n) & 0xFFn).toString(2).padStart(8, '0');
+      const o4 = (val & 0xFFn).toString(2).padStart(8, '0');
+      return `${o1}.${o2}.${o3}.${o4}`;
+    };
+
+    const calculate = () => {
+      errorBox?.classList.add('hidden');
+
+      let rawIpStr = inputIp.value.trim();
+      let prefix = parseInt(selectPrefix.value, 10);
+
+      // Handle unified CIDR string input like "192.168.1.100/24"
+      if (rawIpStr.includes('/')) {
+        const parts = rawIpStr.split('/');
+        rawIpStr = parts[0].trim();
+        const pParsed = parseInt(parts[1], 10);
+        if (!isNaN(pParsed) && pParsed >= 0 && pParsed <= 32) {
+          prefix = pParsed;
+          selectPrefix.value = prefix.toString();
+        }
+      }
+
+      const octets = rawIpStr.split('.').map(x => parseInt(x, 10));
+      if (octets.length !== 4 || octets.some(o => isNaN(o) || o < 0 || o > 255) || isNaN(prefix) || prefix < 0 || prefix > 32) {
+        if (errorBox) {
+          errorBox.textContent = 'Please enter a valid IPv4 address (e.g. 192.168.1.1) and CIDR prefix (/0 to /32).';
+          errorBox.classList.remove('hidden');
+        }
+        return;
+      }
+
+      const ipInt = (BigInt(octets[0]) << 24n) | (BigInt(octets[1]) << 16n) | (BigInt(octets[2]) << 8n) | BigInt(octets[3]);
+      const maskInt = prefix === 0 ? 0n : ((0xFFFFFFFFn << BigInt(32 - prefix)) & 0xFFFFFFFFn);
+      const wildcardInt = (~maskInt) & 0xFFFFFFFFn;
+      const networkInt = ipInt & maskInt;
+      const broadcastInt = networkInt | wildcardInt;
+
+      const networkIp = intToIp(networkInt);
+      const broadcastIp = intToIp(broadcastInt);
+      const maskIp = intToIp(maskInt);
+      const wildcardIp = intToIp(wildcardInt);
+
+      const totalAddresses = 2n ** BigInt(32 - prefix);
+      let usableHosts = 0n;
+      let firstHost = '';
+      let lastHost = '';
+      let usableSubNote = 'Total − 2 (Network & Broadcast)';
+
+      if (prefix <= 30) {
+        usableHosts = totalAddresses - 2n;
+        firstHost = intToIp(networkInt + 1n);
+        lastHost = intToIp(broadcastInt - 1n);
+      } else if (prefix === 31) {
+        usableHosts = 2n; // RFC 3021 Point-to-Point
+        firstHost = intToIp(networkInt);
+        lastHost = intToIp(broadcastInt);
+        usableSubNote = 'RFC 3021 (Point-to-Point Link, 2 hosts)';
+      } else {
+        usableHosts = 1n; // /32 Single host route
+        firstHost = intToIp(networkInt);
+        lastHost = intToIp(networkInt);
+        usableSubNote = 'Single Host (/32 Loopback/Host route)';
+      }
+
+      // IP Class (Historical)
+      const firstOctet = octets[0];
+      let ipClass = 'Class C';
+      if (firstOctet >= 1 && firstOctet <= 126) ipClass = 'Class A';
+      else if (firstOctet >= 128 && firstOctet <= 191) ipClass = 'Class B';
+      else if (firstOctet >= 192 && firstOctet <= 223) ipClass = 'Class C';
+      else if (firstOctet >= 224 && firstOctet <= 239) ipClass = 'Class D (Multicast)';
+      else if (firstOctet >= 240 && firstOctet <= 255) ipClass = 'Class E (Experimental)';
+      else if (firstOctet === 127) ipClass = 'Loopback (127.0.0.0/8)';
+
+      // IP Scope
+      let scope = 'Public IP';
+      if (firstOctet === 10 || (firstOctet === 172 && octets[1] >= 16 && octets[1] <= 31) || (firstOctet === 192 && octets[1] === 168)) {
+        scope = 'Private IP (RFC 1918)';
+      } else if (firstOctet === 127) {
+        scope = 'Loopback IP';
+      } else if (firstOctet === 169 && octets[1] === 254) {
+        scope = 'Link-Local (APIPA)';
+      }
+
+      if (resNetworkCidr) resNetworkCidr.textContent = `${networkIp}/${prefix}`;
+      if (badgeScope) badgeScope.textContent = scope;
+      if (badgeClass) badgeClass.textContent = `${ipClass} (Historical)`;
+
+      if (rowNetwork) rowNetwork.textContent = networkIp;
+      if (binNetwork) binNetwork.textContent = intToBinaryOctets(networkInt);
+
+      if (rowBroadcast) rowBroadcast.textContent = broadcastIp;
+      if (binBroadcast) binBroadcast.textContent = intToBinaryOctets(broadcastInt);
+
+      if (rowMask) rowMask.textContent = maskIp;
+      if (binMask) binMask.textContent = intToBinaryOctets(maskInt);
+
+      if (rowWildcard) rowWildcard.textContent = wildcardIp;
+      if (binWildcard) binWildcard.textContent = intToBinaryOctets(wildcardInt);
+
+      if (rowRange) {
+        if (prefix === 32) rowRange.textContent = `${firstHost} (Single Host)`;
+        else rowRange.textContent = `${firstHost}  —  ${lastHost}`;
+      }
+
+      if (statTotal) statTotal.textContent = totalAddresses.toLocaleString();
+      if (statUsable) statUsable.textContent = usableHosts.toLocaleString();
+      if (statUsableSub) statUsableSub.textContent = usableSubNote;
+    };
+
+    // Quick Sample buttons
+    document.querySelectorAll('.subnet-sample-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const ip = btn.getAttribute('data-ip');
+        const p = btn.getAttribute('data-p');
+        if (ip && p) {
+          inputIp.value = ip;
+          selectPrefix.value = p;
+          calculate();
+        }
+      });
+    });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      calculate();
+    });
+
+    inputIp.addEventListener('input', calculate);
+    selectPrefix.addEventListener('change', calculate);
+
+    resetBtn?.addEventListener('click', () => {
+      inputIp.value = '192.168.1.100';
+      selectPrefix.value = '24';
+      calculate();
+    });
+
+    copyBtn?.addEventListener('click', async () => {
+      const text = resNetworkCidr?.textContent || '';
+      const success = await copyToClipboard(text);
+      if (success) {
+        const span = copyBtn.querySelector('span');
+        if (span) {
+          const original = span.textContent;
+          span.textContent = 'Copied!';
+          setTimeout(() => { span.textContent = original; }, 1500);
+        }
+      }
+    });
+
+    calculate();
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSubnetCalculator);
+  } else {
+    initSubnetCalculator();
+  }
+</script>
