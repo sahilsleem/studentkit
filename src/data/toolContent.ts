@@ -85,12 +85,13 @@ export const toolContent: Record<string, ToolContent> = {
     whenToUse: "Fundamental in thermodynamics, stoichiometry of gases, and general chemistry."
   },
   "punnett-square": {
-    whatIsIt: "A Punnett Square is a graphical tool used in genetics to predict the probability of an offspring having a particular genotype based on the alleles of the parents.",
-    howToUse: "Enter the genotype of Parent 1 (e.g., Aa) and Parent 2 (e.g., Aa). The calculator will generate the grid and calculate the genotypic and phenotypic ratios.",
-    example: "Crossing two heterozygous parents (Aa × Aa) yields 25% AA, 50% Aa, and 25% aa. If A is dominant, the phenotypic ratio is 75% dominant to 25% recessive.",
-    whenToUse: "Used in introductory biology, genetic counseling predictions, and evolutionary biology.",
+    whatIsIt: "A versatile genetic cross solver that predicts offspring genotype and phenotype probabilities for monohybrid (single gene), dihybrid (two gene), test cross, ABO blood type, and sex-linked inheritance patterns.",
+    howToUse: "1. Enter the genotype for Parent 1 (e.g., 'Aa' for monohybrid, 'AaBb' for dihybrid, 'AO' for blood type, or 'Xx' for sex-linked).\n2. Enter the corresponding genotype for Parent 2 (e.g., 'Aa', 'AaBb', 'BO', or 'XY').\n3. Click 'Generate Punnett Square' to view the complete grid alongside itemized genotypic and phenotypic percentage breakdowns.",
+    formula: "Offspring Probability = (Number of Matching Genotype Combinations / Total Grid Cells) × 100%",
+    example: "• Monohybrid (Aa × Aa): 25% AA, 50% Aa, 25% aa (75% dominant, 25% recessive).\n• Dihybrid (AaBb × AaBb): 16-cell grid producing classic 9:3:3:1 phenotypic distribution.\n• Test Cross (Aa × aa): 50% Aa, 50% aa (1:1 ratio).\n• Blood Type (AO × BO): 25% AB, 25% AO (Type A), 25% BO (Type B), 25% OO (Type O).",
+    whenToUse: "Essential for genetics problem solving, Mendelian inheritance analysis, studying codominance/blood types, and predicting trait transmission in biology.",
     faq: [
-      { q: "What is the difference between Genotype and Phenotype?", a: "Genotype refers to the actual genetic makeup (the letters, like Aa). Phenotype refers to the physical expression of that trait (like Brown eyes)." }
+      { q: "What is the difference between Genotype and Phenotype?", a: "Genotype refers to the actual genetic allele makeup (the letters, like Aa). Phenotype refers to the physical expression or trait (like dominant vs recessive trait)." }
     ]
   },
   "percentage-calculator": {

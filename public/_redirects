@@ -39,3 +39,8 @@
 /tools/dna-to-rna /tools/dna-sequence-analyzer 301
 /tools/rna-to-protein /tools/dna-sequence-analyzer 301
 /tools/peptide-mass-calculator /tools/dna-sequence-analyzer 301
+/tools/monohybrid-cross /tools/punnett-square 301
+/tools/dihybrid-cross /tools/punnett-square 301
+/tools/test-cross /tools/punnett-square 301
+/tools/blood-type-inheritance /tools/punnett-square 301
+/tools/sex-linked-inheritance /tools/punnett-square 301
