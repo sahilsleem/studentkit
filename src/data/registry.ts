@@ -185,25 +185,10 @@ export const tools: Tool[] = [
   {
     id: "date-difference",
     title: "Date Difference",
-    description: "Calculate the exact difference between two dates.",
+    description: "Calculate the exact difference between two dates in days, weeks, months, and years.",
     slug: "date-difference",
     category: "Date & Time",
-    icon: `<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>`
-  },
-  {
-    id: "days-between-dates",
-    title: "Days Between Dates",
-    description: "Find out exactly how many days are between two dates.",
-    slug: "days-between-dates",
-    category: "Date & Time",
-    icon: `<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>`
-  },
-  {
-    id: "weeks-between-dates",
-    title: "Weeks Between Dates",
-    description: "Calculate the number of weeks between two dates.",
-    slug: "weeks-between-dates",
-    category: "Date & Time",
+    aliases: ["days between dates", "weeks between dates", "days difference", "duration between dates", "how many days between dates"],
     icon: `<svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>`
   },
   {
