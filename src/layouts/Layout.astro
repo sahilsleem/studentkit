@@ -58,17 +58,7 @@ const socialImageURL = new URL('/og-image.png', Astro.site || 'https://studentki
 		<Header />
 		
 		<main class="flex-grow w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-			<!-- Top Ad Placeholder -->
-			<div class="w-full max-w-3xl mx-auto h-24 bg-gray-100 border border-gray-200 rounded flex items-center justify-center text-gray-400 text-sm mb-8 hidden sm:flex">
-				Advertisement
-			</div>
-			
 			<slot />
-			
-			<!-- Bottom Ad Placeholder -->
-			<div class="w-full max-w-3xl mx-auto h-24 bg-gray-100 border border-gray-200 rounded flex items-center justify-center text-gray-400 text-sm mt-12 hidden sm:flex">
-				Advertisement
-			</div>
 		</main>
 		
 		<Footer />

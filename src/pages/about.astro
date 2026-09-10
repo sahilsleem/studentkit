@@ -1,8 +1,19 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+const aboutSchema = {
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "name": "About StudentKit",
+  "description": "About StudentKit - the lightweight, fast, and free collection of tools for students.",
+  "url": "https://studentkit.in/about"
+};
 ---
 
 <Layout title="About" description="About StudentKit - the lightweight, fast, and free collection of tools for students.">
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(aboutSchema)}></script>
+  </Fragment>
   <div class="max-w-3xl mx-auto py-12">
     <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight mb-8">About StudentKit</h1>
     

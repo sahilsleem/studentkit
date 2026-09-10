@@ -24,9 +24,42 @@ const groupedTools = categoryTools.reduce((acc, tool) => {
   acc[sub].push(tool);
   return acc;
 }, {});
+
+const categorySlug = getCategorySlug(categoryData.name);
+
+const collectionSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": `${categoryData.name} Tools & Calculators`,
+  "description": categoryData.description,
+  "url": `https://studentkit.in/category/${categorySlug}`
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://studentkit.in/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": categoryData.name,
+      "item": `https://studentkit.in/category/${categorySlug}`
+    }
+  ]
+};
 ---
 
 <Layout title={`${categoryData.name} Tools & Calculators`} description={categoryData.description}>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(collectionSchema)}></script>
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)}></script>
+  </Fragment>
   <div class="max-w-6xl mx-auto px-4 sm:px-6">
     <!-- Breadcrumbs -->
     <nav class="flex text-sm text-gray-500 mb-8" aria-label="Breadcrumb">

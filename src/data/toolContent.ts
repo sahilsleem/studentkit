@@ -1120,5 +1120,398 @@ export const toolContent: Record<string, ToolContent> = {
     "example": "• Resistors in Series: 100 Ω + 200 Ω = 300 Ω.\n• Resistors in Parallel: 100 Ω || 100 Ω = 50 Ω; 100 Ω || 200 Ω = 66.67 Ω.\n• Capacitors in Parallel: 10 F + 20 F = 30 F.\n• Capacitors in Series: 10 F and 20 F in series = 6.67 F.",
     "whenToUse": "Use for introductory and advanced physics circuit problems, electrical engineering circuit design, breadboard prototyping, and impedance matching.",
     "commonMistakes": "1. Confusing resistor and capacitor rules: Resistors add directly in series, whereas capacitors add directly in parallel.\n2. Forgetting to invert the sum of reciprocals when calculating parallel resistors or series capacitors.\n3. Entering negative component values."
+  },
+  "tangent-line-calculator": {
+    "whatIsIt": "Calculates the linear equation of the tangent line touching a differentiable curve f(x) at a given point x₀.",
+    "howToUse": "Enter your mathematical function f(x) (e.g., x^2, sin(x), e^x) and the target point x₀. The calculator evaluates the derivative f'(x₀) to find the slope m, determines the point (x₀, f(x₀)), and constructs the line equation.",
+    "formula": "y - f(x₀) = f'(x₀) · (x - x₀)   ⟹   y = mx + b, where m = f'(x₀) and b = f(x₀) - m · x₀",
+    "variables": {
+      "f(x)": "The continuous, differentiable mathematical function.",
+      "x₀": "The x-coordinate at the point of tangency.",
+      "f'(x₀) (m)": "The slope of the curve at x₀ (instantaneous rate of change).",
+      "f(x₀)": "The y-coordinate of the function evaluated at x₀."
+    },
+    "example": "For f(x) = x² at x₀ = 3: f(3) = 9. The derivative is f'(x) = 2x, so m = f'(3) = 6. Tangent line: y - 9 = 6(x - 3) ⟹ y = 6x - 9.",
+    "whenToUse": "Used in calculus for linear approximations, physics for instantaneous velocity trajectories, and optimization.",
+    "commonMistakes": "1. Forgetting to evaluate the derivative at x₀ (leaving x in the slope).\n2. Confusing the tangent line with the perpendicular normal line (which has slope -1/m)."
+  },
+  "critical-point-calculator": {
+    "whatIsIt": "Finds the critical points of a function f(x) where the first derivative equals zero or is undefined.",
+    "howToUse": "Input a differentiable function f(x). The calculator computes the first derivative f'(x), solves for f'(x) = 0, and checks points in the domain where f'(x) is undefined.",
+    "formula": "f'(x) = 0   or   f'(x) does not exist (for x in the domain of f)",
+    "variables": {
+      "f(x)": "The given continuous mathematical function.",
+      "f'(x)": "The first derivative representing the instantaneous rate of change.",
+      "c": "A critical value in the domain where f'(c) = 0 or f'(c) does not exist."
+    },
+    "example": "For f(x) = x³ - 3x: f'(x) = 3x² - 3. Setting 3x² - 3 = 0 gives x² = 1, so x = 1 and x = -1. Evaluating f(1) = -2 and f(-1) = 2 gives critical points (1, -2) and (-1, 2).",
+    "whenToUse": "Essential in curve sketching, finding local maxima and minima, and solving real-world optimization problems.",
+    "commonMistakes": "1. Assuming every critical point is an extremum (saddle points and inflection points like f(x) = x³ at x = 0 have f'(0) = 0 but no local extremum).\n2. Including values where the original function f(x) itself is not defined."
+  },
+  "arithmetic-series-calculator": {
+    "whatIsIt": "Calculates the sum of an arithmetic sequence where each consecutive term differs by a constant common difference d.",
+    "howToUse": "Enter the first term (a₁), the common difference (d), and the number of terms (n). The calculator computes the nth term (aₙ) and the total sum Sₙ.",
+    "formula": "Sₙ = (n / 2) · [2a₁ + (n - 1)d]   or   Sₙ = (n / 2) · (a₁ + aₙ)",
+    "variables": {
+      "a₁": "The initial term of the arithmetic sequence.",
+      "d": "The common difference between consecutive terms (aₖ₊₁ - aₖ).",
+      "n": "The total number of terms being summed.",
+      "aₙ": "The nth term: aₙ = a₁ + (n - 1)d.",
+      "Sₙ": "The sum of the first n terms."
+    },
+    "example": "For a₁ = 3, d = 4, and n = 10: a₁₀ = 3 + 9(4) = 39. S₁₀ = (10 / 2) · (3 + 39) = 5 · 42 = 210.",
+    "whenToUse": "Used in finance (calculating linear loan payments), physics (discrete uniform acceleration steps), and discrete mathematics."
+  },
+  "geometric-series-calculator": {
+    "whatIsIt": "Computes the finite sum of a geometric sequence where each successive term is multiplied by a constant ratio r.",
+    "howToUse": "Enter the first term (a₁), common ratio (r), and number of terms (n). The calculator evaluates the sequence terms and the partial sum Sₙ.",
+    "formula": "Sₙ = a₁ · (1 - rⁿ) / (1 - r)   (for r ≠ 1; if r = 1, Sₙ = n · a₁)",
+    "variables": {
+      "a₁": "The initial term of the geometric sequence.",
+      "r": "The common ratio multiplier between successive terms (aₖ₊₁ / aₖ).",
+      "n": "The total number of terms in the finite series.",
+      "Sₙ": "The cumulative sum of the first n terms."
+    },
+    "example": "For a₁ = 2, r = 3, and n = 4: The terms are 2, 6, 18, 54. Sum S₄ = 2 · (1 - 3⁴) / (1 - 3) = 2 · (1 - 81) / (-2) = 80.",
+    "whenToUse": "Crucial for compound interest models, population growth compounding, annuities, and computer algorithm complexity analysis."
+  },
+  "infinite-geometric-series": {
+    "whatIsIt": "Calculates the convergent sum of an infinite geometric series whose common ratio satisfies |r| < 1.",
+    "howToUse": "Enter the initial term (a₁) and the common ratio (r). If |r| < 1, the calculator computes the finite limit of the infinite sum S_∞. If |r| ≥ 1, the series diverges.",
+    "formula": "S_∞ = a₁ / (1 - r)   (valid strictly when |r| < 1)",
+    "variables": {
+      "a₁": "The first term of the infinite series.",
+      "r": "The common ratio multiplier (|r| must be strictly less than 1).",
+      "S_∞": "The finite sum that the infinite series converges to."
+    },
+    "example": "For a₁ = 8 and r = 0.5 (series: 8 + 4 + 2 + 1 + 0.5 + ...): S_∞ = 8 / (1 - 0.5) = 8 / 0.5 = 16.",
+    "whenToUse": "Used to convert repeating decimals to exact fractions, analyze decaying physical oscillations, and calculate perpetual annuity values.",
+    "commonMistakes": "Attempting to calculate the sum when |r| ≥ 1 (e.g., r = 1.2). The series diverges to infinity and no finite sum exists."
+  },
+  "maclaurin-series-calculator": {
+    "whatIsIt": "Computes the Maclaurin series expansion (a Taylor series centered at x = 0) of a function f(x) up to a specified polynomial degree.",
+    "howToUse": "Enter a standard analytic function f(x) (such as e^x, sin(x), cos(x), or ln(1+x)) and the desired order n. The calculator evaluates successive derivatives at 0 to generate the polynomial.",
+    "formula": "f(x) = Σ [ f^(k)(0) / k! ] · xᵏ = f(0) + f'(0)x + [f''(0)/2!]x² + [f'''(0)/3!]x³ + ...",
+    "variables": {
+      "f(x)": "The analytic function being approximated around x = 0.",
+      "f^(k)(0)": "The kth derivative of f(x) evaluated at x = 0.",
+      "k!": "k factorial (k · (k-1) ··· 1).",
+      "n": "The degree / truncation order of the polynomial."
+    },
+    "example": "For f(x) = sin(x) up to degree 5: f(0)=0, f'(0)=1, f''(0)=0, f'''(0)=-1, f^(4)(0)=0, f^(5)(0)=1. Series = x - x³/6 + x⁵/120.",
+    "whenToUse": "Used across numerical analysis, physics approximations (e.g., small-angle approximations), and evaluating limits with indeterminate forms."
+  },
+  "ohms-law-calculator": {
+    "whatIsIt": "Calculates voltage (V), current (I), or resistance (R) in a linear direct-current electrical circuit using Ohm's Law.",
+    "howToUse": "Select the variable to solve for and input the two known electrical parameters. Supports standard units including V, mV, kV, A, mA, Ω, kΩ, and MΩ.",
+    "formula": "V = I · R   |   I = V / R   |   R = V / I",
+    "variables": {
+      "V": "Electrical potential difference (voltage) in volts (V).",
+      "I": "Electric current flow in amperes (A).",
+      "R": "Electrical resistance in ohms (Ω)."
+    },
+    "example": "If a 12 V battery is connected across a 4 Ω resistor: Current I = 12 V / 4 Ω = 3.0 A.",
+    "whenToUse": "Essential for electronics prototyping, sizing current-limiting resistors for LEDs, electrical troubleshooting, and physics labs."
+  },
+  "coulombs-law-calculator": {
+    "whatIsIt": "Calculates the magnitude of the electrostatic force of attraction or repulsion between two point charges separated by a distance.",
+    "howToUse": "Enter charge 1 (q₁), charge 2 (q₂), and the separation distance (r). Supports coulombs (C), microcoulombs (μC), and nanocoulombs (nC).",
+    "formula": "F = k_e · |q₁ · q₂| / r²",
+    "variables": {
+      "F": "Electrostatic force in newtons (N).",
+      "k_e": "Coulomb's electrostatic constant ≈ 8.98755 × 10⁹ N·m²/C².",
+      "q₁, q₂": "Magnitudes of the two point charges in coulombs (C).",
+      "r": "Straight-line center-to-center separation distance in meters (m)."
+    },
+    "example": "Two +2 μC charges separated by 0.5 m: F = (8.99×10⁹) · (2×10⁻⁶ · 2×10⁻⁶) / (0.5)² = (8.99×10⁹ · 4×10⁻¹²) / 0.25 = 0.1438 N (repulsive).",
+    "whenToUse": "Fundamental in electrostatics, atomic structure physics, and calculating intermolecular bonding forces."
+  },
+  "gravitational-force-calculator": {
+    "whatIsIt": "Calculates the mutual attractive gravitational force between two masses based on Newton's Law of Universal Gravitation.",
+    "howToUse": "Input the mass of the first body (m₁), mass of the second body (m₂), and the center-to-center distance (r).",
+    "formula": "F = G · (m₁ · m₂) / r²",
+    "variables": {
+      "F": "Gravitational attraction force in newtons (N).",
+      "G": "Universal gravitational constant ≈ 6.67430 × 10⁻¹¹ N·m²/kg².",
+      "m₁, m₂": "Masses of the interacting bodies in kilograms (kg).",
+      "r": "Center-to-center separation distance in meters (m)."
+    },
+    "example": "Earth (5.972×10²⁴ kg) and Moon (7.348×10²² kg) separated by 3.844×10⁸ m: F = (6.674×10⁻¹¹ · 5.972×10²⁴ · 7.348×10²²) / (3.844×10⁸)² ≈ 1.98 × 10²⁰ N.",
+    "whenToUse": "Used in astrophysics, satellite orbit planning, celestial mechanics, and planetary physics."
+  },
+  "centripetal-force-calculator": {
+    "whatIsIt": "Calculates the net inward radial force required to maintain an object's uniform circular motion at constant speed.",
+    "howToUse": "Enter the object mass (m), tangential velocity (v), and circular curvature radius (r).",
+    "formula": "F_c = (m · v²) / r   =   m · a_c, where a_c = v² / r",
+    "variables": {
+      "F_c": "Centripetal force directed toward the rotation center in newtons (N).",
+      "m": "Mass of the rotating object in kilograms (kg).",
+      "v": "Tangential linear speed in meters per second (m/s).",
+      "r": "Radius of the circular trajectory in meters (m)."
+    },
+    "example": "A 1,000 kg vehicle rounding a curve with radius 50 m at 20 m/s: F_c = 1,000 · (20)² / 50 = 1,000 · 400 / 50 = 8,000 N.",
+    "whenToUse": "Applied in roadway curve banking engineering, roller coaster design, centrifuge calibration, and orbital mechanics."
+  },
+  "spring-force-calculator": {
+    "whatIsIt": "Calculates the restoring force exerted by an ideal elastic spring displaced from its equilibrium length according to Hooke's Law.",
+    "howToUse": "Enter the spring constant stiffness (k) and the displacement distance (x) from resting length.",
+    "formula": "F = -k · x   (|F| = k · x)",
+    "variables": {
+      "F": "Restoring force exerted by the spring in newtons (N).",
+      "k": "Spring stiffness constant in newtons per meter (N/m).",
+      "x": "Displacement distance from equilibrium in meters (m)."
+    },
+    "example": "A spring with stiffness k = 250 N/m stretched by 0.08 m (8 cm): |F| = 250 N/m · 0.08 m = 20 N.",
+    "whenToUse": "Used in mechanical engineering (vehicle suspensions, shock absorbers), simple harmonic motion physics, and material elasticity testing."
+  },
+  "snells-law-calculator": {
+    "whatIsIt": "Calculates refraction angles and refractive indices for light rays crossing the boundary between two optical media.",
+    "howToUse": "Enter the refractive index of medium 1 (n₁), angle of incidence (θ₁), and refractive index of medium 2 (n₂). The calculator solves for the angle of refraction (θ₂).",
+    "formula": "n₁ · sin(θ₁) = n₂ · sin(θ₂)   ⟹   θ₂ = arcsin[(n₁ / n₂) · sin(θ₁)]",
+    "variables": {
+      "n₁": "Refractive index of the incident medium (e.g., air ≈ 1.0003).",
+      "θ₁": "Angle of incidence measured from the surface normal (degrees).",
+      "n₂": "Refractive index of the refracting medium (e.g., water ≈ 1.333, glass ≈ 1.5).",
+      "θ₂": "Angle of refraction measured from the surface normal (degrees)."
+    },
+    "example": "Light passing from air (n₁ = 1.0) into water (n₂ = 1.33) at 30°: sin(θ₂) = (1.0 / 1.33) · sin(30°) = 0.5 / 1.33 ≈ 0.3759 ⟹ θ₂ ≈ 22.08°.",
+    "whenToUse": "Essential for optical lens design, fiber optic communications, prism dispersion, and calculating critical angles for total internal reflection."
+  },
+  "buoyant-force-calculator": {
+    "whatIsIt": "Calculates the upward buoyant force exerted by a fluid on a submerged or floating body according to Archimedes' Principle.",
+    "howToUse": "Enter fluid density (ρ), displaced fluid volume (V), and gravitational acceleration (g, default 9.80665 m/s²).",
+    "formula": "F_b = ρ · V · g",
+    "variables": {
+      "F_b": "Upward buoyant force in newtons (N).",
+      "ρ": "Density of the surrounding fluid in kg/m³ (e.g., water ≈ 1000 kg/m³).",
+      "V": "Volume of fluid displaced by the object in m³.",
+      "g": "Gravitational acceleration (9.81 m/s² on Earth)."
+    },
+    "example": "An object displacing 0.05 m³ of fresh water (ρ = 1000 kg/m³): F_b = 1000 kg/m³ · 0.05 m³ · 9.81 m/s² = 490.5 N.",
+    "whenToUse": "Applied in naval architecture (ship flotation stability), submarine ballast tank engineering, hydrometers, and scuba diving buoyancy control."
+  },
+  "de-broglie-wavelength-calculator": {
+    "whatIsIt": "Calculates the quantum matter wavelength of any moving particle with mass and velocity.",
+    "howToUse": "Input the particle mass (m) and velocity (v), or total momentum (p). The calculator uses Planck's constant to determine the matter wavelength.",
+    "formula": "λ = h / p = h / (m · v)",
+    "variables": {
+      "λ": "De Broglie wavelength in meters (m) or nanometers (nm).",
+      "h": "Planck's constant ≈ 6.62607 × 10⁻³⁴ J·s.",
+      "p": "Linear momentum in kg·m/s.",
+      "m": "Particle mass in kilograms (kg).",
+      "v": "Particle velocity in meters per second (m/s)."
+    },
+    "example": "An electron (m = 9.109×10⁻³¹ kg) moving at 1.0×10⁶ m/s: λ = (6.626×10⁻³⁴) / (9.109×10⁻³¹ · 1.0×10⁶) ≈ 7.27 × 10⁻¹⁰ m = 0.727 nm.",
+    "whenToUse": "Fundamental in quantum physics, electron microscopy resolution analysis, and wave-particle duality experiments."
+  },
+  "henderson-hasselbalch": {
+    "whatIsIt": "Calculates the pH of a chemical buffer solution from the acid dissociation constant (pKa) and the molar ratio of conjugate base to weak acid.",
+    "howToUse": "Enter the pKa of the weak acid, molar concentration of the conjugate base [A⁻], and concentration of the undissociated weak acid [HA].",
+    "formula": "pH = pKa + log₁₀([A⁻] / [HA])",
+    "variables": {
+      "pH": "Acidity of the buffer solution.",
+      "pKa": "Negative logarithm of the acid dissociation constant (-log₁₀ Ka).",
+      "[A⁻]": "Molar concentration of the conjugate base salt.",
+      "[HA]": "Molar concentration of the weak acid."
+    },
+    "example": "An acetic acid buffer with pKa = 4.76, [CH₃COO⁻] = 0.20 M, and [CH₃COOH] = 0.10 M: pH = 4.76 + log₁₀(0.20 / 0.10) = 4.76 + 0.301 = 5.06.",
+    "whenToUse": "Essential in biochemistry for preparing biological buffers (e.g., PBS, Tris), analyzing blood bicarbonate systems, and pharmacology.",
+    "commonMistakes": "1. Inverting the ratio (placing acid in numerator instead of base).\n2. Using the equation for strong acids where buffer equilibrium approximations fail."
+  },
+  "nernst-equation": {
+    "whatIsIt": "Calculates the non-standard electrical reduction potential of an electrochemical cell as a function of temperature and reactant/product concentrations.",
+    "howToUse": "Input the standard cell potential (E°), number of transferred electrons (n), reaction quotient (Q), and temperature (T, default 298.15 K).",
+    "formula": "E = E° - (RT / nF) · ln(Q)   or at 25°C: E = E° - (0.05916 / n) · log₁₀(Q)",
+    "variables": {
+      "E": "Non-standard cell potential in volts (V).",
+      "E°": "Standard reduction potential in volts (V).",
+      "R": "Ideal gas constant (8.314 J/(mol·K)).",
+      "T": "Absolute temperature in Kelvin (K).",
+      "n": "Moles of electrons transferred in the balanced redox equation.",
+      "F": "Faraday constant ≈ 96,485 C/mol e⁻.",
+      "Q": "Reaction quotient ([Products]ᵖ / [Reactants]ʳ)."
+    },
+    "example": "For a 2-electron cell (E° = +1.10 V) with Q = 0.01 at 25°C: E = 1.10 - (0.0592 / 2) · log₁₀(0.01) = 1.10 - (0.0296 · (-2)) = 1.10 + 0.0592 = 1.159 V.",
+    "whenToUse": "Used in battery engineering (discharge voltage curves), biological membrane potentials, corrosion science, and potentiometric sensors."
+  },
+  "arrhenius-equation": {
+    "whatIsIt": "Calculates the temperature dependence of chemical reaction rate constants from activation energy and collision frequency.",
+    "howToUse": "Enter the pre-exponential frequency factor (A), activation energy (Ea in J/mol), and absolute temperature (T in Kelvin).",
+    "formula": "k = A · e^(-Ea / (R · T))",
+    "variables": {
+      "k": "Chemical reaction rate constant.",
+      "A": "Pre-exponential frequency factor (frequency of collisions with proper orientation).",
+      "Ea": "Activation energy required for reaction in J/mol.",
+      "R": "Ideal gas constant (8.314 J/(mol·K)).",
+      "T": "Absolute temperature in Kelvin (K)."
+    },
+    "example": "For Ea = 50,000 J/mol, A = 1.0×10¹¹ s⁻¹ at T = 300 K: Exponent = -50000 / (8.314 · 300) = -20.046. k = 1.0×10¹¹ · e^(-20.046) ≈ 197.8 s⁻¹.",
+    "whenToUse": "Used in chemical kinetics to evaluate catalysts, food shelf-life thermal degradation, and pharmaceutical product stability."
+  },
+  "gibbs-free-energy": {
+    "whatIsIt": "Determines whether a chemical reaction or physical process is thermodynamically spontaneous under constant temperature and pressure.",
+    "howToUse": "Input enthalpy change (ΔH), absolute temperature (T), and entropy change (ΔS). The calculator computes ΔG and indicates spontaneity.",
+    "formula": "ΔG = ΔH - T · ΔS",
+    "variables": {
+      "ΔG": "Change in Gibbs free energy (spontaneous if ΔG < 0, non-spontaneous if ΔG > 0, at equilibrium if ΔG = 0).",
+      "ΔH": "Enthalpy change of reaction (exothermic if negative, endothermic if positive).",
+      "T": "Absolute temperature in Kelvin (K).",
+      "ΔS": "Entropy change of reaction in J/K (disorder increase if positive, decrease if negative)."
+    },
+    "example": "For ΔH = -80 kJ (-80,000 J), ΔS = +150 J/K at T = 298.15 K: ΔG = -80,000 - (298.15 · 150) = -80,000 - 44,722.5 = -124,722.5 J = -124.72 kJ (spontaneous).",
+    "whenToUse": "Fundamental in chemical thermodynamics, predicting reaction feasibility, phase transitions, and biological metabolic coupling.",
+    "commonMistakes": "Mismatching units between ΔH (often given in kJ) and ΔS (often given in J/K). Always convert both to joules before multiplying."
+  },
+  "percent-yield-calculator": {
+    "whatIsIt": "Computes the percentage efficiency of a chemical reaction by comparing the actual recovered product mass against the theoretical maximum yield.",
+    "howToUse": "Enter the actual mass of product recovered in the lab and the theoretical yield calculated from stoichiometry.",
+    "formula": "Percent Yield = (Actual Yield / Theoretical Yield) × 100%",
+    "variables": {
+      "Actual Yield": "The measured mass of product obtained from laboratory experiment (g).",
+      "Theoretical Yield": "The maximum calculated product mass based on the limiting reagent (g)."
+    },
+    "example": "If stoichiometry predicts 25.0 g of aspirin, but the experiment recovers 21.5 g: Percent Yield = (21.5 / 25.0) × 100% = 86.0%.",
+    "whenToUse": "Essential in synthetic chemistry labs, pharmaceutical manufacturing quality control, and industrial process optimization."
+  },
+  "molality-calculator": {
+    "whatIsIt": "Calculates molal concentration (mol/kg), measuring moles of dissolved solute per kilogram of pure solvent.",
+    "howToUse": "Input the amount of solute in moles and the mass of the solvent in kilograms or grams.",
+    "formula": "m = Moles of Solute (mol) / Mass of Solvent (kg)",
+    "variables": {
+      "m": "Molality of the solution in mol/kg (or molal).",
+      "Moles of Solute": "Total chemical amount of dissolved substance (mol).",
+      "Mass of Solvent": "Mass of the pure dissolving solvent liquid in kilograms (kg)."
+    },
+    "example": "Dissolving 0.5 moles of NaCl into 250 g (0.25 kg) of water: m = 0.5 mol / 0.25 kg = 2.0 m (mol/kg).",
+    "whenToUse": "Crucial for colligative property calculations (boiling point elevation and freezing point depression) because molality is independent of temperature changes, unlike volume-based molarity."
+  },
+  "boyles-law": {
+    "whatIsIt": "Calculates the inverse relationship between gas pressure and volume at constant temperature for a fixed amount of ideal gas.",
+    "howToUse": "Enter initial pressure (P₁), initial volume (V₁), and either the final volume (V₂) or final pressure (P₂). The calculator computes the unknown state.",
+    "formula": "P₁ · V₁ = P₂ · V₂   ⟹   P₂ = (P₁ · V₁) / V₂   or   V₂ = (P₁ · V₁) / P₂",
+    "variables": {
+      "P₁": "Initial pressure (atm, Pa, kPa, mmHg, bar).",
+      "V₁": "Initial volume (L, mL, m³).",
+      "P₂": "Final pressure after compression or expansion.",
+      "V₂": "Final volume of the gas."
+    },
+    "example": "A gas occupies 4.0 L at 1.0 atm. If compressed isothermally to 2.0 L: P₂ = (1.0 atm · 4.0 L) / 2.0 L = 2.0 atm.",
+    "whenToUse": "Applied in scuba diving physiology (lung overexpansion risks), pneumatic cylinders, syringe mechanics, and meteorology."
+  },
+  "michaelis-menten": {
+    "whatIsIt": "Calculates the initial reaction velocity of an enzyme-catalyzed reaction as a function of substrate concentration [S].",
+    "howToUse": "Enter the maximum reaction rate (Vmax), substrate concentration ([S]), and the Michaelis constant (Km).",
+    "formula": "v₀ = (Vmax · [S]) / (Km + [S])",
+    "variables": {
+      "v₀": "Initial enzymatic reaction velocity.",
+      "Vmax": "Maximum reaction rate when enzyme active sites are fully saturated.",
+      "[S]": "Substrate concentration.",
+      "Km": "Michaelis constant (substrate concentration at which velocity is half of Vmax: v₀ = 0.5 · Vmax)."
+    },
+    "example": "For an enzyme with Vmax = 100 μmol/min and Km = 2.0 mM operating at [S] = 6.0 mM: v₀ = (100 · 6.0) / (2.0 + 6.0) = 600 / 8.0 = 75 μmol/min.",
+    "whenToUse": "Central to biochemistry, pharmacology (drug enzyme inhibition models), and metabolic engineering."
+  },
+  "beer-lambert-law": {
+    "whatIsIt": "Calculates light absorbance (A) and relates it linearly to the molar absorptivity, optical path length, and concentration of an absorbing solution.",
+    "howToUse": "Input the molar absorptivity (ε), cuvette path length (l, typically 1 cm), and solution concentration (c).",
+    "formula": "A = ε · l · c = -log₁₀(I / I₀)",
+    "variables": {
+      "A": "Optical absorbance (dimensionless optical density).",
+      "ε": "Molar absorptivity / extinction coefficient (L/(mol·cm)).",
+      "l": "Optical path length of the light beam through the cuvette (cm).",
+      "c": "Molar concentration of the absorbing solute (mol/L or M)."
+    },
+    "example": "A protein sample with ε = 15,000 M⁻¹cm⁻¹ in a 1.0 cm cuvette with concentration c = 4.0×10⁻⁵ M: A = 15,000 · 1.0 · 4.0×10⁻⁵ = 0.60.",
+    "whenToUse": "Standard method in analytical chemistry, molecular biology (DNA/RNA purity at A260/A280), and clinical blood chemistry."
+  },
+  "pcr-amplification": {
+    "whatIsIt": "Calculates the theoretical number of double-stranded DNA target copies generated after repeated polymerase chain reaction (PCR) thermal cycles.",
+    "howToUse": "Enter the initial number of template DNA molecules (N₀) and the total number of thermal cycles (n).",
+    "formula": "N = N₀ · (1 + E)ⁿ   (for 100% efficiency E = 1: N = N₀ · 2ⁿ)",
+    "variables": {
+      "N": "Final theoretical number of DNA copies.",
+      "N₀": "Initial starting template molecule copy number.",
+      "n": "Number of amplification cycles completed.",
+      "E": "Cycle amplification efficiency (1.0 for ideal doubling)."
+    },
+    "example": "Starting with 50 template copies through 30 ideal cycles: N = 50 · 2³⁰ = 50 · 1,073,741,824 ≈ 5.37 × 10¹⁰ DNA copies.",
+    "whenToUse": "Used in molecular diagnostics (viral load detection, forensic DNA profiling, sequencing library prep, and RT-qPCR quantification)."
+  },
+  "cardiac-output": {
+    "whatIsIt": "Calculates the total volume of blood pumped by the left ventricle of the heart into systemic circulation per minute.",
+    "howToUse": "Enter heart rate (HR in beats per minute) and stroke volume (SV in mL per beat).",
+    "formula": "CO = HR · SV",
+    "variables": {
+      "CO": "Cardiac output in liters per minute (L/min) or mL/min.",
+      "HR": "Heart rate in beats per minute (bpm).",
+      "SV": "Stroke volume ejected per ventricular contraction in mL/beat."
+    },
+    "example": "A resting student with HR = 70 bpm and stroke volume SV = 70 mL: CO = 70 bpm · 70 mL = 4,900 mL/min = 4.90 L/min.",
+    "whenToUse": "Vital in cardiovascular physiology, exercise science, intensive care hemodynamic monitoring, and assessing athletic cardiac adaptation."
+  },
+  "mean-arterial-pressure": {
+    "whatIsIt": "Estimates the average arterial blood pressure during a complete cardiac cycle, representing the perfusion pressure driving blood into vital organs.",
+    "howToUse": "Enter the systolic blood pressure (SBP) and diastolic blood pressure (DBP) in mmHg.",
+    "formula": "MAP ≈ DBP + ⅓(SBP - DBP)   =   (SBP + 2 · DBP) / 3",
+    "variables": {
+      "MAP": "Mean arterial pressure in mmHg (normal resting range: 70–105 mmHg).",
+      "SBP": "Peak systolic blood pressure during ventricular contraction (mmHg).",
+      "DBP": "Trough diastolic blood pressure during ventricular relaxation (mmHg).",
+      "SBP - DBP": "Pulse pressure (PP)."
+    },
+    "example": "For a blood pressure reading of 120/80 mmHg: MAP = 80 + ⅓(120 - 80) = 80 + ⅓(40) = 80 + 13.33 = 93.33 mmHg.",
+    "whenToUse": "Crucial in emergency medicine and anesthesiology; a minimum MAP of ~65 mmHg is essential to maintain adequate kidney and cerebral organ perfusion."
+  },
+  "iqr-calculator": {
+    "whatIsIt": "Calculates the interquartile range (IQR = Q3 - Q1), which measures the statistical spread of the middle 50% of a dataset and defines Tukey outlier fences.",
+    "howToUse": "Enter raw dataset numbers separated by commas or spaces. The calculator sorts the data, determines Q1 (25th percentile) and Q3 (75th percentile), computes IQR, and flags mild/extreme outliers.",
+    "formula": "IQR = Q₃ - Q₁   |   Lower Bound = Q₁ - 1.5 · IQR   |   Upper Bound = Q₃ + 1.5 · IQR",
+    "variables": {
+      "Q₁": "First quartile / 25th percentile of the ordered dataset.",
+      "Q₃": "Third quartile / 75th percentile of the ordered dataset.",
+      "IQR": "Interquartile range spanning the central 50% of observations.",
+      "Outlier Thresholds": "Values outside [Q₁ - 1.5·IQR, Q₃ + 1.5·IQR] are classified as statistical outliers."
+    },
+    "example": "Dataset [3, 7, 8, 12, 14, 17, 20, 25]: Q1 = 7.5, Q3 = 18.5. IQR = 18.5 - 7.5 = 11. Lower fence = 7.5 - 1.5(11) = -9; Upper fence = 18.5 + 1.5(11) = 35.",
+    "whenToUse": "Preferred over standard deviation for skewed distributions or datasets containing extreme outliers (e.g., household incomes, test score spreads)."
+  },
+  "truth-table-generator": {
+    "whatIsIt": "Generates comprehensive truth tables for compound boolean and propositional logic statements across all possible input truth-value combinations.",
+    "howToUse": "Enter propositional variables (e.g., P, Q, R) connected by logical operators (AND/∧, OR/∨, NOT/¬, IMPLIES/→, IFF/↔). The tool builds the step-by-step matrix evaluation.",
+    "formula": "Total Table Rows = 2ⁿ, where n is the number of distinct boolean variables.",
+    "variables": {
+      "P, Q, R": "Propositional truth variables (True = 1 / T, False = 0 / F).",
+      "∧ (AND)": "True only if both operands are true.",
+      "∨ (OR)": "True if at least one operand is true.",
+      "¬ (NOT)": "Inverts the truth value.",
+      "→ (Conditional)": "False only when the antecedent is True and the consequent is False.",
+      "↔ (Biconditional)": "True when both operands share the identical truth value."
+    },
+    "example": "For 2 variables (P, Q), the table has 2² = 4 rows: (T,T), (T,F), (F,T), (F,F). For P → Q, output values are T, F, T, T.",
+    "whenToUse": "Used in discrete mathematics, computer science (digital circuit design, boolean minimization), philosophy logic, and formal proof verification."
+  },
+  "weighted-grade-calculator": {
+    "whatIsIt": "Calculates composite overall academic course grades when different assignment categories (homework, quizzes, midterms, finals) contribute different percentage weights.",
+    "howToUse": "Enter each assignment category's score percentage alongside its corresponding weight percentage (e.g., Homework: 95% at 20% weight; Midterm: 82% at 30% weight; Final: 88% at 50% weight).",
+    "formula": "Weighted Grade = Σ (Grade_i × Weight_i) / Σ Weight_i",
+    "variables": {
+      "Grade_i": "Your earned percentage score in category i.",
+      "Weight_i": "The proportional syllabus percentage weight allocated to category i.",
+      "Σ Weight_i": "Total weight sum (normally 100%)."
+    },
+    "example": "If Homework (90%) is worth 20%, Midterm (80%) is worth 30%, and Final (85%) is worth 50%: Weighted Grade = (90·20 + 80·30 + 85·50) / 100 = (1800 + 2400 + 4250) / 100 = 84.50%.",
+    "whenToUse": "Indispensable throughout the semester to monitor actual syllabus standing and forecast final GPA impact."
+  },
+  "final-grade-calculator": {
+    "whatIsIt": "Calculates the exact minimum score a student must achieve on their final exam to secure their desired target overall grade in a course.",
+    "howToUse": "Enter your target overall course grade (%), your current standing (%), and the weight percentage that the final exam carries on the syllabus.",
+    "formula": "Required Exam Score = [Target Grade - Current Grade × (1 - Final Weight / 100)] / (Final Weight / 100)",
+    "variables": {
+      "Target Grade": "The minimum final course percentage required (e.g., 90% for an A, 80% for a B).",
+      "Current Grade": "Your current accumulated grade percentage before taking the final.",
+      "Final Weight": "The percentage weight of the final exam in the course syllabus (e.g., 30%)."
+    },
+    "example": "If your current grade is 82%, your target grade is 85%, and the final exam is worth 25% (0.25): Required Exam Score = [85 - 82 · (1 - 0.25)] / 0.25 = [85 - 61.5] / 0.25 = 23.5 / 0.25 = 94.0%.",
+    "whenToUse": "Essential during finals week to prioritize study hours and determine whether target course letter grades are mathematically achievable."
   }
 };

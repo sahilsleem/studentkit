@@ -5,16 +5,15 @@ import { tools, getActiveCategories, getCategorySlug } from '../data/registry';
 import AdSlot from '../components/AdSlot.astro';
 const categories = getActiveCategories();
 
-// Select 6 popular tools
 const popularTools = [
   "Quadratic Equation Solver",
   "Percentile Calculator",
-  "Sine Calculator (sin)",
+  "Trigonometric Calculator",
   "Derivative Calculator",
   "Speed Calculator",
   "Molar Mass Calculator",
   "Punnett Square Calculator",
-  "Binary Converter",
+  "Base Conversion Calculator",
   "Attendance Calculator",
   "Age Calculator"
 ];
@@ -48,9 +47,29 @@ const searchData = {
     icon: getIconIndex(tool.icon || '')
   }))
 };
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "StudentKit",
+  "url": "https://studentkit.in/",
+  "description": "Everything you need for student life. Calculate marks, check attendance, and use simple study tools — all in one place."
+};
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "StudentKit",
+  "url": "https://studentkit.in/",
+  "logo": "https://studentkit.in/favicon.svg"
+};
 ---
 
 <Layout title="Home" description="Everything you need for student life. Calculate marks, check attendance, and use simple study tools — all in one place.">
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)}></script>
+    <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)}></script>
+  </Fragment>
   
   <!-- Hero Section -->
   <section class="py-16 sm:py-24 text-center">

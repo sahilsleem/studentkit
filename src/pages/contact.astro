@@ -1,8 +1,19 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+const contactSchema = {
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  "name": "Contact StudentKit",
+  "description": "Contact page for StudentKit.",
+  "url": "https://studentkit.in/contact"
+};
 ---
 
 <Layout title="Contact StudentKit" description="Contact page for StudentKit.">
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(contactSchema)}></script>
+  </Fragment>
   <div class="max-w-3xl mx-auto py-12">
     <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight mb-8">Contact StudentKit</h1>
     <div class="prose prose-emerald prose-lg text-gray-600">
