@@ -47,3 +47,5 @@
 /tools/set-union-calculator /tools/set-calculator 301
 /tools/set-intersection-calculator /tools/set-calculator 301
 /tools/set-difference-calculator /tools/set-calculator 301
+/tools/binary-calculator /tools/base-conversion-calculator 301
+/tools/hexadecimal-converter /tools/base-conversion-calculator 301

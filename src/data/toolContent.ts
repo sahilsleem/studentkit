@@ -113,14 +113,6 @@ export const toolContent: Record<string, ToolContent> = {
     example: "For Water (H2O): Hydrogen is ~1.008 g/mol, Oxygen is ~16.00 g/mol. Molar Mass = (1.008 × 2) + 16.00 = 18.015 g/mol.",
     whenToUse: "Crucial for converting between moles and grams in chemistry stoichiometry problems."
   },
-  "base-conversion-calculator": {
-    whatIsIt: "A computer science tool that translates numbers between binary (base-2), octal (base-8), decimal (base-10), and hexadecimal (base-16) systems.",
-    howToUse: "Select your starting base, input your number, and choose the target base. The tool handles infinitely large integer strings.",
-    example: "Converting the decimal number 255 to hexadecimal yields FF. Converting to binary yields 11111111.",
-    whenToUse: "Used by software engineers, networking students parsing IP addresses/subnet masks, and hardware designers."
-  }
-,
-
   "fraction-calculator": {
     whatIsIt: "A tool designed to instantly add, subtract, multiply, and divide fractions. It automatically simplifies the result and provides the decimal equivalent.",
     howToUse: "Enter your first fraction (numerator on top, denominator on bottom), select an operator (+, -, ×, ÷), and enter your second fraction.",
@@ -525,12 +517,6 @@ export const toolContent: Record<string, ToolContent> = {
     "howToUse": "Paste or type your dataset (comma or space separated) and input the desired percentile (0-100).",
     "commonMistakes": "Do not confuse percentile with percentage score. A score of 80% on a test means you got 80% of the questions right. Being in the 80th percentile means you scored better than 80% of the test-takers."
 },
-  "binary-calculator": {
-    "whatIsIt": "Performs arithmetic operations (addition, subtraction, multiplication, division) directly on binary (base-2) numbers.",
-    "howToUse": "Enter two binary sequences (1s and 0s) and select the arithmetic operation you wish to perform.",
-    "example": "1010 (10 in decimal) + 0101 (5 in decimal) = 1111 (15 in decimal).",
-    "commonMistakes": "Mixing binary with hexadecimal or decimal digits. Only 1s and 0s are valid inputs."
-},
   "unit-circle": {
     "whatIsIt": "An interactive reference tool displaying the angles (in degrees and radians) and their corresponding trigonometric coordinates (cosine, sine) on a circle with a radius of 1.",
     "howToUse": "Use it to quickly look up exact values for sine, cosine, and tangent for common angles like 30°, 45°, 60°, and 90°.",
@@ -683,11 +669,21 @@ export const toolContent: Record<string, ToolContent> = {
     ]
   },
   "base-conversion-calculator": {
-    "whatIsIt": "Translates numbers between different positional numeral systems, specifically decimal (base 10), binary (base 2), octal (base 8), and hexadecimal (base 16).",
-    "howToUse": "Select your starting base and your target base. Enter the number you want to convert. The tool supports standard formats, including letters A-F for hexadecimal values.",
-    "example": "Converting the decimal number 255 to hexadecimal yields FF. Converting 255 to binary yields 11111111.",
-    "commonMistakes": "Entering digits that are invalid for the selected starting base. For instance, you cannot enter a '2' if you have selected Binary as your input base."
-},
+    "whatIsIt": "A comprehensive positional numeral system converter that translates numbers between binary (base-2), octal (base-8), decimal (base-10), and hexadecimal (base-16). It evaluates arbitrary-precision integers and simultaneously displays the equivalent representation in all four standard computing radices.",
+    "howToUse": "1. Enter your integer value in the Number field.\n2. Select the starting base from the 'From Base' dropdown (Decimal, Binary, Octal, or Hexadecimal).\n3. Click 'Convert Base' to instantly see the simultaneous converted values in Binary (base 2), Octal (base 8), Decimal (base 10), and Hexadecimal (base 16).",
+    "formula": "Positional Base Conversion to Decimal:\nDecimal = ∑ (digit_i × baseⁱ)\n\nDecimal to Target Base (Repeated Division):\nQuotient = floor(Decimal / base)\nRemainder = Decimal mod base (recorded right-to-left, with 10=A, 11=B, 12=C, 13=D, 14=E, 15=F)",
+    "variables": {
+      "digit_i": "The face value of each digit at position i (0 to base - 1)",
+      "baseⁱ": "The positional place weight for radix 'base' at index i (e.g. 2⁰, 2¹, 2² for binary; 16⁰, 16¹, 16² for hex)"
+    },
+    "example": "Converting Hexadecimal '2A' to other bases:\n• Decimal: (2 × 16¹) + (10 × 16⁰) = 32 + 10 = 42\n• Binary: 2 = 0010, A = 1010 → 101010\n• Octal: 42 in octal = 52 (5×8¹ + 2×8⁰ = 42)\n\nConverting Decimal 255:\n• Binary: 11111111\n• Octal: 377\n• Hexadecimal: FF",
+    "whenToUse": "Essential in computer science, software engineering, low-level systems programming, networking (IP subnetting, MAC addresses), bitwise logic operations, and microcontroller register manipulation.",
+    "commonMistakes": "1. Entering digits outside the selected radix (e.g., entering '2' in Binary, '8' in Octal, or 'G' in Hexadecimal).\n2. Confusing bit-length with numerical magnitude (e.g., leading zeros in binary do not change decimal value).\n3. Forgetting that Hexadecimal digits A through F represent numeric values 10 through 15.",
+    "faq": [
+      { "q": "Why are binary and hexadecimal so closely related in computing?", "a": "Because 16 is 2⁴, exactly four binary bits (a nibble) correspond to one hexadecimal digit, allowing compact, human-readable representations of raw binary memory." },
+      { "q": "Does this converter support very large numbers?", "a": "Yes, calculations use arbitrary-precision BigInt integers, preventing standard 53-bit floating-point rounding errors on large inputs." }
+    ]
+  },
   "normal-distribution-calculator": {
     "whatIsIt": "Calculates probabilities (p-values) and z-scores for a normally distributed dataset (the bell curve). Essential for statistics and probability theory.",
     "howToUse": "Input your population mean (μ) and standard deviation (σ). To find a probability, input your boundaries (x). The tool calculates the area under the normal curve for that region.",
@@ -701,21 +697,6 @@ export const toolContent: Record<string, ToolContent> = {
     "whatIsIt": "Calculates Body Mass Index (BMI), a rapid screening tool used to estimate whether a person has a healthy body weight proportional to their height.",
     "howToUse": "Enter your weight and height using either metric or imperial units. The calculator will automatically apply the correct conversion and formula.",
     "commonMistakes": "BMI is only a general screening measure. It does not directly measure body fat percentage and may misclassify athletes with high muscle mass or elderly individuals who have lost muscle mass."
-},
-  "hexadecimal-converter": {
-    "whatIsIt": "Converts numbers between hexadecimal (base-16) notation and other positional number systems including decimal (base-10), binary (base-2), and octal (base-8). Hexadecimal is widely used in computing because each hex digit maps directly to 4 binary bits (a nibble).",
-    "howToUse": "Enter a number in the input field and select your starting base. The converter immediately calculates equivalent representations across binary, octal, decimal, and hexadecimal.",
-    "formula": "Decimal Value = Σ (digit_i × 16ⁱ)\nHexadecimal = Repeated division by 16 recording remainders (10=A, 11=B, 12=C, 13=D, 14=E, 15=F)",
-    "variables": {
-      "digit_i": "The value of each hexadecimal digit from right to left (0-9, A=10, B=11, C=12, D=13, E=14, F=15)",
-      "16ⁱ": "The positional base weight corresponding to index i (16⁰ = 1, 16¹ = 16, 16² = 256, etc.)"
-    },
-    "example": "To convert hex 2A to decimal: (2 × 16¹) + (10 × 16⁰) = 32 + 10 = 42.",
-    "whenToUse": "Use when working with memory addresses, low-level debugging, subnetting, CSS color codes (#RRGGBB), or microcontroller registers.",
-    "commonMistakes": "Forgetting that hex letters are case-insensitive but represent values 10 through 15 (A=10, B=11, C=12, D=13, E=14, F=15), or entering digits above F.",
-    "faq": [
-      { "q": "Why is hexadecimal preferred over binary in programming?", "a": "Hexadecimal is much more compact and human-readable than binary. A byte (8 bits) is represented by exactly 2 hex digits instead of 8 binary digits." }
-    ]
 },
   "unit-converter": {
     "whatIsIt": "A multi-purpose dimensional analysis converter that converts quantities between metric (SI) and imperial systems across length, mass/weight, temperature, and digital data storage.",
