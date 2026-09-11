@@ -1,0 +1,417 @@
+---
+---
+
+<div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden max-w-3xl mx-auto">
+  <div class="p-6 sm:p-8">
+    <div class="mb-6">
+      <h2 class="text-xl font-bold text-gray-900 mb-2">Quadratic Formula Calculator</h2>
+      <p class="text-sm text-gray-600">Solve second-degree polynomial equations of the form <span class="font-mono font-semibold text-gray-800">ax² + bx + c = 0</span> with step-by-step discriminant analysis and real or complex roots.</p>
+    </div>
+
+    <!-- Quick Example Presets -->
+    <div class="mb-6 bg-emerald-50/60 border border-emerald-100 rounded-xl p-4">
+      <label class="block text-xs font-semibold uppercase tracking-wider text-emerald-800 mb-2">Try Sample Equations</label>
+      <div class="flex flex-wrap gap-2">
+        <button type="button" data-a="1" data-b="-5" data-c="6" class="sample-btn text-xs font-medium py-1.5 px-3 rounded-lg bg-white border border-emerald-200 text-emerald-900 hover:bg-emerald-100 transition-colors">
+          x² − 5x + 6 = 0 (Roots: 2, 3)
+        </button>
+        <button type="button" data-a="1" data-b="2" data-c="1" class="sample-btn text-xs font-medium py-1.5 px-3 rounded-lg bg-white border border-emerald-200 text-emerald-900 hover:bg-emerald-100 transition-colors">
+          x² + 2x + 1 = 0 (Repeated: −1)
+        </button>
+        <button type="button" data-a="1" data-b="0" data-c="1" class="sample-btn text-xs font-medium py-1.5 px-3 rounded-lg bg-white border border-emerald-200 text-emerald-900 hover:bg-emerald-100 transition-colors">
+          x² + 1 = 0 (Complex: ±i)
+        </button>
+        <button type="button" data-a="2" data-b="-4" data-c="-3" class="sample-btn text-xs font-medium py-1.5 px-3 rounded-lg bg-white border border-emerald-200 text-emerald-900 hover:bg-emerald-100 transition-colors">
+          2x² − 4x − 3 = 0 (Irrational)
+        </button>
+      </div>
+    </div>
+
+    <form id="quad-form" class="space-y-6">
+      <!-- Equation Preview -->
+      <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 text-center">
+        <p class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-1">Standard Equation Form</p>
+        <div id="equation-display" class="text-2xl sm:text-3xl font-bold font-mono text-gray-900">
+          1x² − 5x + 6 = 0
+        </div>
+      </div>
+
+      <!-- Inputs for a, b, c -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div>
+          <label for="coeff-a" class="block text-sm font-semibold text-gray-800 mb-1">
+            Coefficient a (x²)
+          </label>
+          <input
+            type="number"
+            step="any"
+            id="coeff-a"
+            value="1"
+            required
+            class="block w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-lg font-mono text-gray-900"
+            placeholder="e.g. 1"
+          />
+        </div>
+        <div>
+          <label for="coeff-b" class="block text-sm font-semibold text-gray-800 mb-1">
+            Coefficient b (x)
+          </label>
+          <input
+            type="number"
+            step="any"
+            id="coeff-b"
+            value="-5"
+            required
+            class="block w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-lg font-mono text-gray-900"
+            placeholder="e.g. -5"
+          />
+        </div>
+        <div>
+          <label for="coeff-c" class="block text-sm font-semibold text-gray-800 mb-1">
+            Constant c
+          </label>
+          <input
+            type="number"
+            step="any"
+            id="coeff-c"
+            value="6"
+            required
+            class="block w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 text-lg font-mono text-gray-900"
+            placeholder="e.g. 6"
+          />
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-col sm:flex-row gap-3 pt-2">
+        <button type="submit" class="flex-1 bg-emerald-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors shadow-sm min-h-[44px]">
+          Calculate Roots
+        </button>
+        <button type="button" id="reset-btn" class="px-6 py-3 border border-gray-300 rounded-xl text-gray-700 font-semibold hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors min-h-[44px]">
+          Reset
+        </button>
+      </div>
+    </form>
+
+    <div id="error-box" class="hidden mt-6 bg-red-50 text-red-700 p-4 rounded-xl text-sm font-medium border border-red-200"></div>
+
+    <!-- Results Section -->
+    <div id="result-section" class="mt-8 pt-8 border-t border-gray-100" aria-live="polite">
+      <!-- Main Highlight Result Card -->
+      <div class="bg-gradient-to-br from-emerald-50 to-teal-50 border border-emerald-200/80 rounded-2xl p-6 sm:p-8 text-center relative mb-6">
+        <div class="flex justify-end absolute top-4 right-4">
+          <button
+            type="button"
+            id="copy-result-btn"
+            class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-white/90 hover:bg-white text-emerald-800 border border-emerald-200 shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-emerald-500 min-h-[36px]"
+            title="Copy quadratic roots"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+            <span>Copy Roots</span>
+          </button>
+        </div>
+        <p class="text-sm font-semibold uppercase tracking-wider text-emerald-800 mb-1">Equation Roots (x)</p>
+        <div id="roots-display" class="text-3xl sm:text-5xl font-extrabold text-emerald-950 my-2 font-mono break-all">x₁ = 3,  x₂ = 2</div>
+        <div class="flex items-center justify-center gap-2 mt-3">
+          <span id="nature-badge" class="inline-flex items-center px-3 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800">
+            Two Distinct Real Roots (Δ > 0)
+          </span>
+        </div>
+      </div>
+
+      <!-- Properties Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
+        <div class="bg-gray-50 rounded-xl p-4 border border-gray-200/70 text-center">
+          <p class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-1">Discriminant (Δ)</p>
+          <div id="stat-discriminant" class="text-xl font-bold font-mono text-gray-900">1</div>
+          <p id="stat-disc-detail" class="text-xs text-gray-500 mt-0.5">b² − 4ac</p>
+        </div>
+        <div class="bg-gray-50 rounded-xl p-4 border border-gray-200/70 text-center">
+          <p class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-1">Parabola Vertex (h, k)</p>
+          <div id="stat-vertex" class="text-xl font-bold font-mono text-gray-900">(2.5, −0.25)</div>
+          <p id="stat-orientation" class="text-xs text-emerald-700 font-medium mt-0.5">Opens Upward (Minimum)</p>
+        </div>
+        <div class="bg-gray-50 rounded-xl p-4 border border-gray-200/70 text-center">
+          <p class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-1">Axis of Symmetry</p>
+          <div id="stat-axis" class="text-xl font-bold font-mono text-gray-900">x = 2.5</div>
+          <p class="text-xs text-gray-500 mt-0.5">x = −b / (2a)</p>
+        </div>
+      </div>
+
+      <!-- Step-by-Step Derivation -->
+      <div class="bg-gray-50 rounded-xl p-5 border border-gray-200">
+        <h3 class="text-sm font-bold text-gray-900 uppercase tracking-wider mb-2">Step-by-Step Derivation</h3>
+        <div id="steps-content" class="text-sm text-gray-700 font-mono space-y-1.5 bg-white p-4 rounded-lg border border-gray-200/80">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { copyToClipboard, formatResultNumber } from '../../utils/formatters';
+
+  const initQuadratic = () => {
+    const form = document.getElementById('quad-form') as HTMLFormElement;
+    const inputA = document.getElementById('coeff-a') as HTMLInputElement;
+    const inputB = document.getElementById('coeff-b') as HTMLInputElement;
+    const inputC = document.getElementById('coeff-c') as HTMLInputElement;
+    const eqDisplay = document.getElementById('equation-display');
+    const resetBtn = document.getElementById('reset-btn');
+    const copyBtn = document.getElementById('copy-result-btn');
+    const errorBox = document.getElementById('error-box');
+
+    const rootsDisplay = document.getElementById('roots-display');
+    const natureBadge = document.getElementById('nature-badge');
+    const statDisc = document.getElementById('stat-discriminant');
+    const statVertex = document.getElementById('stat-vertex');
+    const statOrientation = document.getElementById('stat-orientation');
+    const statAxis = document.getElementById('stat-axis');
+    const stepsContent = document.getElementById('steps-content');
+
+    if (!form || !inputA || !inputB || !inputC) return;
+
+    // Helper to format equation string
+    const formatEquation = (a: number, b: number, c: number) => {
+      let str = '';
+      if (a === 1) str += 'x²';
+      else if (a === -1) str += '−x²';
+      else str += `${a}x²`;
+
+      if (b > 0) str += ` + ${b === 1 ? '' : b}x`;
+      else if (b < 0) str += ` − ${Math.abs(b) === 1 ? '' : Math.abs(b)}x`;
+
+      if (c > 0) str += ` + ${c}`;
+      else if (c < 0) str += ` − ${Math.abs(c)}`;
+
+      return `${str} = 0`;
+    };
+
+    const updatePreview = () => {
+      const a = parseFloat(inputA.value);
+      const b = parseFloat(inputB.value);
+      const c = parseFloat(inputC.value);
+      if (!isNaN(a) && !isNaN(b) && !isNaN(c) && eqDisplay) {
+        eqDisplay.textContent = formatEquation(a, b, c);
+      }
+    };
+
+    inputA.addEventListener('input', updatePreview);
+    inputB.addEventListener('input', updatePreview);
+    inputC.addEventListener('input', updatePreview);
+
+    const calculate = () => {
+      errorBox?.classList.add('hidden');
+      const a = parseFloat(inputA.value);
+      const b = parseFloat(inputB.value);
+      const c = parseFloat(inputC.value);
+
+      if (isNaN(a) || isNaN(b) || isNaN(c)) {
+        if (errorBox) {
+          errorBox.textContent = 'Please enter valid numerical coefficients for a, b, and c.';
+          errorBox.classList.remove('hidden');
+        }
+        return;
+      }
+
+      // Handle linear case when a = 0
+      if (a === 0) {
+        if (b === 0) {
+          if (c === 0) {
+            if (rootsDisplay) rootsDisplay.textContent = 'Infinitely Many Solutions';
+            if (natureBadge) {
+              natureBadge.className = 'inline-flex items-center px-3 py-0.5 rounded-full text-xs font-bold bg-amber-100 text-amber-800';
+              natureBadge.textContent = 'Identity (0 = 0)';
+            }
+          } else {
+            if (rootsDisplay) rootsDisplay.textContent = 'No Solution';
+            if (natureBadge) {
+              natureBadge.className = 'inline-flex items-center px-3 py-0.5 rounded-full text-xs font-bold bg-red-100 text-red-800';
+              natureBadge.textContent = 'Contradiction (c ≠ 0)';
+            }
+          }
+          if (statDisc) statDisc.textContent = 'N/A';
+          if (statVertex) statVertex.textContent = 'N/A';
+          if (statOrientation) statOrientation.textContent = 'Not a parabola (a = 0)';
+          if (statAxis) statAxis.textContent = 'N/A';
+          if (stepsContent) {
+            stepsContent.innerHTML = `
+              <p>1. With a = 0 and b = 0, the equation reduces to the constant ${c} = 0.</p>
+              <p>2. This is ${c === 0 ? 'an identity with infinitely many solutions' : 'a contradiction with no real or complex solution'}.</p>
+            `;
+          }
+          return;
+        }
+
+        // Linear equation: bx + c = 0 => x = -c / b
+        const xLinear = -c / b;
+        const xStr = formatResultNumber(xLinear);
+        if (rootsDisplay) rootsDisplay.textContent = `x = ${xStr}`;
+        if (natureBadge) {
+          natureBadge.className = 'inline-flex items-center px-3 py-0.5 rounded-full text-xs font-bold bg-blue-100 text-blue-800';
+          natureBadge.textContent = 'Linear Equation (a = 0, Single Root)';
+        }
+        if (statDisc) statDisc.textContent = 'N/A';
+        if (statVertex) statVertex.textContent = 'N/A';
+        if (statOrientation) statOrientation.textContent = 'Linear (Slope m = ' + b + ')';
+        if (statAxis) statAxis.textContent = 'N/A';
+        if (stepsContent) {
+          stepsContent.innerHTML = `
+            <p>1. Since a = 0, this is a first-degree linear equation: ${b}x + (${c}) = 0.</p>
+            <p>2. Subtract c from both sides: ${b}x = ${-c}.</p>
+            <p>3. Divide by b (${b}): x = ${-c} / ${b} = ${xStr}.</p>
+          `;
+        }
+        return;
+      }
+
+      // Standard Quadratic Formula Calculation
+      const disc = (b * b) - (4 * a * c);
+      const discStr = formatResultNumber(disc);
+      if (statDisc) statDisc.textContent = discStr;
+
+      // Parabola Vertex (h, k)
+      const h = -b / (2 * a);
+      const k = c - ((b * b) / (4 * a));
+      const hStr = formatResultNumber(h);
+      const kStr = formatResultNumber(k);
+      if (statVertex) statVertex.textContent = `(${hStr}, ${kStr})`;
+      if (statAxis) statAxis.textContent = `x = ${hStr}`;
+      if (statOrientation) {
+        if (a > 0) {
+          statOrientation.className = 'text-xs text-emerald-700 font-medium mt-0.5';
+          statOrientation.textContent = 'Opens Upward (Vertex is Minimum)';
+        } else {
+          statOrientation.className = 'text-xs text-purple-700 font-medium mt-0.5';
+          statOrientation.textContent = 'Opens Downward (Vertex is Maximum)';
+        }
+      }
+
+      let rootsText = '';
+      let stepsHtml = `
+        <p class="font-semibold text-gray-900">Quadratic Formula: x = [ −b ± √(b² − 4ac) ] / (2a)</p>
+        <p>1. Identify coefficients: a = ${a}, b = ${b}, c = ${c}</p>
+        <p>2. Calculate discriminant: Δ = (${b})² − 4(${a})(${c}) = ${b * b} − (${4 * a * c}) = ${discStr}</p>
+      `;
+
+      if (disc > 0) {
+        const sqrtDisc = Math.sqrt(disc);
+        const r1 = (-b + sqrtDisc) / (2 * a);
+        const r2 = (-b - sqrtDisc) / (2 * a);
+        const r1Str = formatResultNumber(r1);
+        const r2Str = formatResultNumber(r2);
+
+        // Sort descending
+        const [first, second] = r1 >= r2 ? [r1Str, r2Str] : [r2Str, r1Str];
+        rootsText = `x₁ = ${first},  x₂ = ${second}`;
+
+        if (natureBadge) {
+          natureBadge.className = 'inline-flex items-center px-3 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800';
+          natureBadge.textContent = 'Two Distinct Real Roots (Δ > 0)';
+        }
+
+        stepsHtml += `
+          <p>3. Since Δ > 0, there are two distinct real roots.</p>
+          <p>4. √Δ = √${discStr} ≈ ${formatResultNumber(sqrtDisc)}</p>
+          <p>5. Root 1: x₁ = [ −(${b}) + ${formatResultNumber(sqrtDisc)} ] / (2 × ${a}) = ${formatResultNumber(-b + sqrtDisc)} / ${2 * a} = ${r1Str}</p>
+          <p>6. Root 2: x₂ = [ −(${b}) − ${formatResultNumber(sqrtDisc)} ] / (2 × ${a}) = ${formatResultNumber(-b - sqrtDisc)} / ${2 * a} = ${r2Str}</p>
+        `;
+      } else if (disc === 0) {
+        const r = -b / (2 * a);
+        const rStr = formatResultNumber(r);
+        rootsText = `x = ${rStr} (multiplicity 2)`;
+
+        if (natureBadge) {
+          natureBadge.className = 'inline-flex items-center px-3 py-0.5 rounded-full text-xs font-bold bg-blue-100 text-blue-800';
+          natureBadge.textContent = 'One Repeated Real Root (Δ = 0)';
+        }
+
+        stepsHtml += `
+          <p>3. Since Δ = 0, the parabola touches the x-axis at exactly one point.</p>
+          <p>4. Root: x = −(${b}) / (2 × ${a}) = ${-b} / ${2 * a} = ${rStr}</p>
+        `;
+      } else {
+        // Complex conjugate roots
+        const realPart = -b / (2 * a);
+        const imagPart = Math.sqrt(-disc) / (2 * Math.abs(a));
+        const realStr = formatResultNumber(realPart);
+        const imagStr = formatResultNumber(imagPart);
+
+        const imagFormatted = imagStr === '1' ? 'i' : `${imagStr}i`;
+        rootsText = realPart === 0 
+          ? `x = ±${imagFormatted}`
+          : `x = ${realStr} ± ${imagFormatted}`;
+
+        if (natureBadge) {
+          natureBadge.className = 'inline-flex items-center px-3 py-0.5 rounded-full text-xs font-bold bg-purple-100 text-purple-800';
+          natureBadge.textContent = 'Two Complex Conjugate Roots (Δ < 0)';
+        }
+
+        stepsHtml += `
+          <p>3. Since Δ < 0, there are no real solutions; roots are complex conjugates.</p>
+          <p>4. √Δ = √(−${formatResultNumber(-disc)}) = i√${formatResultNumber(-disc)} ≈ ${imagStr}i</p>
+          <p>5. Real part: Re(x) = −(${b}) / (2 × ${a}) = ${realStr}</p>
+          <p>6. Imaginary part: Im(x) = √(${formatResultNumber(-disc)}) / (2 × |${a}|) = ${imagStr}</p>
+          <p>7. Complex Roots: x = ${realStr} ± ${imagFormatted}</p>
+        `;
+      }
+
+      if (rootsDisplay) rootsDisplay.textContent = rootsText;
+      if (stepsContent) stepsContent.innerHTML = stepsHtml;
+    };
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      calculate();
+    });
+
+    // Sample buttons
+    document.querySelectorAll('.sample-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const a = btn.getAttribute('data-a') || '1';
+        const b = btn.getAttribute('data-b') || '0';
+        const c = btn.getAttribute('data-c') || '0';
+        inputA.value = a;
+        inputB.value = b;
+        inputC.value = c;
+        updatePreview();
+        calculate();
+      });
+    });
+
+    // Copy result button
+    copyBtn?.addEventListener('click', async () => {
+      const text = rootsDisplay?.textContent?.trim();
+      if (!text) return;
+      const eq = eqDisplay?.textContent?.trim() || '';
+      const success = await copyToClipboard(`${eq} => ${text}`);
+      if (success) {
+        const span = copyBtn.querySelector('span');
+        const orig = span ? span.textContent : 'Copy Roots';
+        if (span) span.textContent = 'Copied!';
+        copyBtn.classList.add('bg-emerald-100', 'text-emerald-900');
+        setTimeout(() => {
+          if (span) span.textContent = orig;
+          copyBtn.classList.remove('bg-emerald-100', 'text-emerald-900');
+        }, 2000);
+      }
+    });
+
+    // Reset button
+    resetBtn?.addEventListener('click', () => {
+      inputA.value = '1';
+      inputB.value = '-5';
+      inputC.value = '6';
+      updatePreview();
+      calculate();
+    });
+
+    // Initial calculation on load
+    updatePreview();
+    calculate();
+  };
+
+  initQuadratic();
+  document.addEventListener('astro:page-load', initQuadratic);
+</script>

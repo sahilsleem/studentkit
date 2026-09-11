@@ -74,6 +74,19 @@ export default defineConfig({
     "/tools/spring-potential-energy-calculator": "/tools/friction-calculator",
     "/tools/logistic-growth": "/tools/dna-sequence-analyzer",
     "/tools/doubling-time": "/tools/half-life-calculator",
-    "/tools/quadratic-equation-solver": "/tools/prime-factorization-calculator"
+    "/tools/quadratic-equation-solver": "/tools/prime-factorization-calculator",
+    "/tools/second-derivative-calculator": "/tools/derivative-calculator",
+    "/tools/partial-derivative-calculator": "/tools/derivative-calculator",
+    "/tools/definite-integral-calculator": "/tools/integral-calculator",
+    "/tools/indefinite-integral-calculator": "/tools/integral-calculator",
+    "/tools/one-sided-limit-calculator": "/tools/limit-calculator",
+    "/tools/infinite-limit-calculator": "/tools/limit-calculator",
+    "/tools/right-triangle-calculator": "/tools/triangle-calculator",
+    "/tools/triangle-area-calculator": "/tools/triangle-calculator",
+    "/tools/half-life-first-order": "/tools/half-life-calculator",
+    "/tools/half-life-nuclear": "/tools/half-life-calculator",
+    "/tools/standard-cell-potential": "/tools/cell-potential-calculator",
+    "/tools/nernst-equation": "/tools/cell-potential-calculator",
+    "/tools/q-mc-delta-t": "/tools/calorimetry-calculator"
 }
 });

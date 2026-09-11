@@ -450,26 +450,7 @@ export const toolContent: Record<string, ToolContent> = {
       }
     ]
   },
-  "q-mc-delta-t": {
-    "whatIsIt": "Calculates the sensible thermal energy (heat) absorbed or released by a substance during a temperature change without a change of state.",
-    "formula": "Q = m × c × ΔT\nΔT = T_final - T_initial",
-    "variables": {
-      "Q": "Heat energy transferred in Joules (J) or kiloJoules (kJ)",
-      "m": "Mass of the substance in grams (g) or kilograms (kg)",
-      "c": "Specific heat capacity of the material in J/(g·°C) or J/(g·K) (e.g., water = 4.184 J/g·°C)",
-      "ΔT": "Temperature change in °C or K (T_final - T_initial)"
-    },
-    "howToUse": "Enter the mass of the substance, its specific heat capacity, and the temperature change (ΔT). The calculator returns the total heat transferred in Joules and kJ.",
-    "example": "Heating 250 g of water (c = 4.184 J/g·°C) from 20°C to 80°C (ΔT = 60°C): Q = 250 × 4.184 × 60 = 62,760 J = 62.76 kJ.",
-    "whenToUse": "Crucial in thermochemistry, calorimetry experiments, HVAC design, chemical engineering, and determining heating/cooling requirements.",
-    "commonMistakes": "Applying Q = mcΔT during phase changes (melting/boiling), where temperature remains constant and latent heat formulas (Q = m·ΔH_fus or Q = m·ΔH_vap) must be used instead, or mixing grams and kilograms.",
-    "faq": [
-      {
-        "q": "What does a negative Q value mean?",
-        "a": "A negative Q indicates that the process is exothermic—the substance released heat into its surroundings, causing its temperature to decrease."
-      }
-    ]
-  },
+
   "rref-calculator": {
     "whatIsIt": "Reduced Row Echelon Form (RREF) is the canonical, fully solved matrix state obtained by applying Gauss-Jordan elimination to an augmented matrix. A matrix satisfies RREF if and only if:\n1. All zero rows are grouped at the very bottom of the matrix.\n2. The first non-zero number in each non-zero row is a leading 1 (termed a pivot).\n3. Each pivot appears strictly to the right of the pivot in the row above it.\n4. Each pivot is the sole non-zero entry in its entire column (all entries above and below every pivot are reduced to zero).\n\nUnlike standard Row Echelon Form (REF)—which merely requires an upper-triangular ladder with zeros below each pivot—RREF requires leading 1s and zeroing out entries both below and above each pivot. Crucially, while a matrix can have many valid REF representations, its RREF form is mathematically unique.",
     "howToUse": "Enter the coefficients of your linear system into the matrix grid, with the rightmost column representing the constant vector [b]. The calculator executes Gauss-Jordan elimination via three valid Elementary Row Operations:\n1. Row Swapping (Pivoting): R_i ↔ R_j to position non-zero coefficients into pivot positions.\n2. Non-zero Scalar Multiplication: k · R_i → R_i (k ≠ 0) to normalize the leading pivot entry to 1.\n3. Row Addition / Elimination: R_i + k · R_j → R_i to eliminate all non-zero coefficients in the pivot column.\n\nOnce reduced, each pivot column identifies a basic variable, while columns without pivots identify free variables.",
@@ -494,31 +475,7 @@ export const toolContent: Record<string, ToolContent> = {
       }
     ]
   },
-  "definite-integral-calculator": {
-    "whatIsIt": "A definite integral represents the net signed area bounded between the graph of a continuous function f(x) and the horizontal x-axis over an interval [a, b]. Defined rigorously as the limit of a Riemann sum as the partition mesh size approaches zero, a definite integral evaluates to a single real number representing cumulative accumulation (such as net distance, total work, or accumulated charge).",
-    "howToUse": "Enter your mathematical expression f(x), lower limit of integration (a), and upper limit of integration (b). The calculator applies the Fundamental Theorem of Calculus (FTC):\n1. Finds an analytical antiderivative function F(x) such that F'(x) = f(x).\n2. Evaluates the antiderivative at the upper bound b: F(b).\n3. Evaluates the antiderivative at the lower bound a: F(a).\n4. Computes the definite integral value as the difference: F(b) - F(a).",
-    "formula": "The Fundamental Theorem of Calculus (Part 2):\n∫[a to b] f(x) dx = [F(x)]_a^b = F(b) - F(a)  (where F'(x) = f(x))\n\nLimit Reversal Property:\n∫[b to a] f(x) dx = -∫[a to b] f(x) dx\n\nInterval Additivity Property:\n∫[a to b] f(x) dx = ∫[a to c] f(x) dx + ∫[c to b] f(x) dx",
-    "variables": {
-      "f(x) (Integrand)": "The continuous rate function or mathematical expression being integrated.",
-      "a (Lower Limit)": "The starting boundary of the integration interval on the independent axis.",
-      "b (Upper Limit)": "The terminal boundary of the integration interval on the independent axis.",
-      "F(x) (Antiderivative)": "A primitive function whose derivative reproduces the integrand: d/dx[F(x)] = f(x).",
-      "dx (Differential)": "The infinitesimal width of subintervals along the x-axis."
-    },
-    "example": "Evaluate the definite integral:\n∫[0 to 2] (3x² - 2x + 1) dx\n\nStep 1: Determine the general antiderivative F(x) using the power rule of integration:\n  ∫ 3x² dx = 3(x³/3) = x³\n  ∫ -2x dx = -2(x²/2) = -x²\n  ∫ 1 dx = x\n  F(x) = x³ - x² + x\n\nStep 2: Evaluate F(x) at the upper limit (b = 2):\n  F(2) = (2)³ - (2)² + (2) = 8 - 4 + 2 = 6\n\nStep 3: Evaluate F(x) at the lower limit (a = 0):\n  F(0) = (0)³ - (0)² + (0) = 0\n\nStep 4: Subtract F(a) from F(b) according to the FTC:\n  ∫[0 to 2] (3x² - 2x + 1) dx = F(2) - F(0) = 6 - 0 = 6\n\nResult: The net signed area under the curve is 6.",
-    "whenToUse": "Ubiquitous in calculus, physics (evaluating work W = ∫ F·dx, center of mass, fluid hydrostatic force), electrical engineering (root-mean-square voltage, energy dissipation), and probability theory (cumulative probability distributions).",
-    "commonMistakes": "1. Confusing Net Signed Area with Total Geometric Area: Regions where f(x) < 0 lie below the x-axis and contribute negative signed area, cancelling out positive regions above the axis. To find total physical enclosed area, you must locate roots of f(x), split the interval, and integrate |f(x)|.\n2. Forgetting the Lower Endpoint: Never assume F(a) = 0 simply because a = 0. For expressions containing cos(x), e^x, or rational functions, F(0) is frequently non-zero (e.g., cos(0) = 1, e^0 = 1).\n3. Swapping Upper and Lower Limits: Reversing the boundaries reverses the sign of integration: ∫[2 to 0] f(x)dx = -∫[0 to 2] f(x)dx.\n4. Blindly Integrating Across Singularities: The Fundamental Theorem of Calculus requires f(x) to be continuous across [a, b]. Attempting an ordinary evaluation across an infinite discontinuity or vertical asymptote (e.g. ∫[-1 to 1] (1/x²) dx) yields an invalid result; such integrals must be treated as improper integrals using limits.",
-    "faq": [
-      {
-        "q": "Why is the constant of integration (+C) omitted in definite integrals?",
-        "a": "Because [F(b) + C] - [F(a) + C] = F(b) - F(a) + C - C = F(b) - F(a). The arbitrary constant C subtracts to zero identically."
-      },
-      {
-        "q": "Can a definite integral equal zero or a negative value?",
-        "a": "Yes. If the area beneath the x-axis exceeds the area above it on [a, b], the definite integral is negative. If positive and negative areas balance perfectly (e.g. ∫[-π to π] sin(x) dx), the integral equals zero."
-      }
-    ]
-  },
+
   "integral-calculator": {
     "whatIsIt": "The Integral Calculator evaluates definite integrals numerically in your browser. It uses Simpson's 1/3 rule with 10 000 sub‑intervals to approximate the net signed area under a continuous function.",
     "howToUse": "Enter a mathematical expression f(x) and the lower (a) and upper (b) limits. The calculator runs the Simpson's rule approximation locally and returns the result. For indefinite integrals, the page displays a notice that symbolic antiderivatives are not supported.",
@@ -645,22 +602,7 @@ export const toolContent: Record<string, ToolContent> = {
     "whenToUse": "Essential in biochemistry for preparing biological buffers (e.g., PBS, Tris), analyzing blood bicarbonate systems, and pharmacology.",
     "commonMistakes": "1. Inverting the ratio (placing acid in numerator instead of base).\n2. Using the equation for strong acids where buffer equilibrium approximations fail."
   },
-  "nernst-equation": {
-    "whatIsIt": "Calculates the non-standard electrical reduction potential of an electrochemical cell as a function of temperature and reactant/product concentrations.",
-    "howToUse": "Input the standard cell potential (E°), number of transferred electrons (n), reaction quotient (Q), and temperature (T, default 298.15 K).",
-    "formula": "E = E° - (RT / nF) · ln(Q)   or at 25°C: E = E° - (0.05916 / n) · log₁₀(Q)",
-    "variables": {
-      "E": "Non-standard cell potential in volts (V).",
-      "E°": "Standard reduction potential in volts (V).",
-      "R": "Ideal gas constant (8.314 J/(mol·K)).",
-      "T": "Absolute temperature in Kelvin (K).",
-      "n": "Moles of electrons transferred in the balanced redox equation.",
-      "F": "Faraday constant ≈ 96,485 C/mol e⁻.",
-      "Q": "Reaction quotient ([Products]ᵖ / [Reactants]ʳ)."
-    },
-    "example": "For a 2-electron cell (E° = +1.10 V) with Q = 0.01 at 25°C: E = 1.10 - (0.0592 / 2) · log₁₀(0.01) = 1.10 - (0.0296 · (-2)) = 1.10 + 0.0592 = 1.159 V.",
-    "whenToUse": "Used in battery engineering (discharge voltage curves), biological membrane potentials, corrosion science, and potentiometric sensors."
-  },
+
   "percent-yield-calculator": {
     "whatIsIt": "Computes the percentage efficiency of a chemical reaction by comparing the actual recovered product mass against the theoretical maximum yield.",
     "howToUse": "Enter the actual mass of product recovered in the lab and the theoretical yield calculated from stoichiometry.",
@@ -970,5 +912,48 @@ export const toolContent: Record<string, ToolContent> = {
         "a": "RFC 3021 defines point-to-point links using /31 subnets (2 addresses total). In /31 networks, both addresses are usable hosts because broadcast and network address reservations are not required on point-to-point links."
       }
     ]
-  }
+  },
+
+  "quadratic-formula-calculator": {
+    "whatIsIt": "Solves standard second-degree polynomial equations of the form ax² + bx + c = 0 using the quadratic formula. Evaluates the discriminant to determine root multiplicity and real or complex roots.",
+    "formula": "x = [ -b ± √(b² - 4ac) ] / (2a)\nDiscriminant (Δ) = b² - 4ac\nVertex (h, k) = ( -b / (2a), c - b² / (4a) )",
+    "variables": {
+      "a": "Quadratic coefficient (multiplying x²). Cannot be zero for a true quadratic.",
+      "b": "Linear coefficient (multiplying x).",
+      "c": "Constant term.",
+      "Δ (Discriminant)": "Determines the nature of roots: Δ > 0 (2 distinct real), Δ = 0 (1 repeated real), Δ < 0 (2 complex conjugates)."
+    },
+    "howToUse": "Enter the coefficients a, b, and c. The calculator computes the discriminant, finds the exact and decimal roots, identifies the parabola vertex, and provides full step-by-step algebraic derivation.",
+    "example": "For x² - 5x + 6 = 0 (a = 1, b = -5, c = 6): Δ = (-5)² - 4(1)(6) = 25 - 24 = 1. Roots: x = [ 5 ± √1 ] / 2 => x₁ = 3, x₂ = 2.",
+    "whenToUse": "Essential across algebra, physics (projectile trajectories, kinematics), calculus (optimization, critical points), and engineering.",
+    "commonMistakes": "1. Forgetting the negative sign in -b when b is already negative (e.g. -(-5) = +5).\n2. Squaring negative b values incorrectly without parentheses (e.g. (-5)² = +25, not -25).\n3. Dividing only the square root part by 2a instead of the entire numerator -b ± √Δ."
+  },
+  "discount-calculator": {
+    "whatIsIt": "Calculates the final sale price, amount of money saved, percentage discount, and optional sales tax for retail shopping and student budgeting.",
+    "formula": "Discount Amount = Original Price × (Discount % / 100)\nPrice After Discount = Original Price - Discount Amount\nFinal Price = Price After Discount × (1 + Tax % / 100)",
+    "variables": {
+      "Original Price": "The marked / list retail price before discounts.",
+      "Discount (% or $)": "The percentage markdown (e.g. 20% off) or fixed dollar reduction.",
+      "Additional Discount": "Optional second-tier stackable coupon applied to the subtotal.",
+      "Sales Tax": "Optional percentage tax rate applied to the discounted subtotal."
+    },
+    "howToUse": "Enter the original retail price and your discount percentage (or amount off). Optionally enter an extra coupon percentage or local sales tax rate to compute the total checkout price.",
+    "example": "A $100 textbook with a 20% student discount and 8% sales tax: Discount = $20.00, Subtotal = $80.00, Tax = $6.40, Final Price = $86.40 (Total Savings = $20.00).",
+    "whenToUse": "Everyday shopping for textbooks, laptops, clothing sales, calculating clearance discounts, and estimating final checkout totals with tax.",
+    "commonMistakes": "1. Adding multiple discount percentages together directly instead of applying them sequentially (e.g. 20% off + extra 10% off is not 30% off, but 28% total off).\n2. Calculating sales tax on the original full price instead of the discounted subtotal."
+  },
+  "significant-figures-calculator": {
+    "whatIsIt": "Counts significant digits in scientific measurements, rounds numbers to a target precision, and applies scientific arithmetic rules (+, −, ×, ÷) for laboratory experiments.",
+    "formula": "Multiplication / Division Rule: Round result to the FEWEST significant figures of the inputs.\nAddition / Subtraction Rule: Round result to the FEWEST decimal places (least precision) of the inputs.",
+    "variables": {
+      "Non-zero digits": "Always significant (e.g. 1-9).",
+      "Captive zeros": "Zeros between non-zero digits are always significant (e.g. 1002 has 4 sig figs).",
+      "Leading zeros": "Zeros to the left of the first non-zero digit are NOT significant (e.g. 0.0045 has 2 sig figs).",
+      "Trailing zeros": "Significant ONLY if the number contains a decimal point (e.g. 4.50 has 3 sig figs; 450 is ambiguous/2 sig figs)."
+    },
+    "howToUse": "Enter any number to count its significant figures and view its canonical scientific notation form. Switch to Arithmetic mode to compute additions, subtractions, multiplications, and divisions with strict scientific precision rounding.",
+    "example": "Multiplying 12.34 (4 sig figs) × 5.6 (2 sig figs) = 69.104 → rounded to 2 sig figs yields 69.",
+    "whenToUse": "Mandatory in chemistry and physics lab reports, engineering calculations, and scientific uncertainty analysis.",
+    "commonMistakes": "1. Counting leading zeros as significant (e.g. 0.0025 has only 2 sig figs, not 5).\n2. Using the multiplication rule (least sig figs) for addition or subtraction (which requires the least decimal places rule)."
+  },
 };

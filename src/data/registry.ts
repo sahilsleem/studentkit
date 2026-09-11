@@ -475,6 +475,17 @@ export const tools: Tool[] = [
     icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 6h16v12H4V6z'></path></svg>"
   },
   {
+    id: "quadratic-formula-calculator",
+    title: "Quadratic Formula Calculator",
+    description: "Solve quadratic equations (ax² + bx + c = 0) with step-by-step discriminant and real or complex roots.",
+    slug: "quadratic-formula-calculator",
+    category: "Mathematics",
+    subcategory: "Algebra",
+    aliases: ["quadratic equation solver", "quadratic formula", "solve quadratic equation", "find roots of quadratic", "parabola vertex calculator", "discriminant calculator"],
+    component: "QuadraticFormulaCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z'></path></svg>"
+  },
+  {
     id: "fraction-calculator",
     title: "Fraction Calculator",
     description: "Add, subtract, multiply, and divide fractions.",
@@ -484,16 +495,7 @@ export const tools: Tool[] = [
     component: "FractionCalculator",
     icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 6h16v12H4V6z'></path></svg>"
   },
-  {
-    id: "right-triangle-calculator",
-    title: "Right Triangle Calculator",
-    description: "Solve unknown angles and sides of right triangles using trigonometric ratios.",
-    slug: "right-triangle-calculator",
-    category: "Mathematics",
-    subcategory: "Trigonometry",
-    component: "TriangleCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M3 21h18L12 3z'></path></svg>"
-  },
+
   {
     id: "triangle-calculator",
     title: "Triangle Calculator",
@@ -524,29 +526,7 @@ export const tools: Tool[] = [
     component: "TriangleCalculator",
     icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M3 21h18L12 3z'></path></svg>"
   },
-  {
-    id: "triangle-area-calculator",
-    title: "Triangle Area Calculator",
-    description: "Calculate the area of a triangle given its base and perpendicular height.",
-    slug: "triangle-area-calculator",
-    category: "Mathematics",
-    subcategory: "Geometry",
-    formulaConfig: {
-          "inputs": [
-                {
-                      "id": "b",
-                      "label": "Base"
-                },
-                {
-                      "id": "h",
-                      "label": "Height"
-                }
-          ],
-          "expression": "0.5 * b * h",
-          "outputLabel": "Area"
-    },
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M3 21h18L12 3z'></path></svg>"
-  },
+
   {
     id: "unit-circle",
     title: "Unit Circle",
@@ -567,26 +547,7 @@ export const tools: Tool[] = [
     component: "LimitCalculator",
     icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>"
   },
-  {
-    id: "one-sided-limit-calculator",
-    title: "One-Sided Limit Calculator",
-    description: "Compute left-hand (x→a⁻) and right-hand (x→a⁺) limits of piecewise and rational functions.",
-    slug: "one-sided-limit-calculator",
-    category: "Mathematics",
-    subcategory: "Calculus",
-    component: "LimitCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>"
-  },
-  {
-    id: "infinite-limit-calculator",
-    title: "Infinite Limit Calculator",
-    description: "Evaluate function limits where values approach positive or negative infinity.",
-    slug: "infinite-limit-calculator",
-    category: "Mathematics",
-    subcategory: "Calculus",
-    component: "LimitCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>"
-  },
+
   {
     id: "derivative-calculator",
     title: "Derivative Calculator",
@@ -597,26 +558,7 @@ export const tools: Tool[] = [
     component: "DerivativeCalculator",
     icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'></path></svg>"
   },
-  {
-    id: "second-derivative-calculator",
-    title: "Second Derivative Calculator",
-    description: "Compute symbolic second derivatives to analyze concavity and inflection points.",
-    slug: "second-derivative-calculator",
-    category: "Mathematics",
-    subcategory: "Calculus",
-    component: "DerivativeCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'></path></svg>"
-  },
-  {
-    id: "partial-derivative-calculator",
-    title: "Partial Derivative Calculator",
-    description: "Calculate partial derivatives with respect to specified multivariable functions.",
-    slug: "partial-derivative-calculator",
-    category: "Mathematics",
-    subcategory: "Calculus",
-    component: "DerivativeCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'></path></svg>"
-  },
+
   {
     id: "integral-calculator",
     title: "Integral Calculator",
@@ -627,27 +569,7 @@ export const tools: Tool[] = [
     component: "IntegralCalculator",
     icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z'></path></svg>"
   },
-  {
-    id: "definite-integral-calculator",
-    title: "Definite Integral Calculator",
-    description: "Calculate exact and numerical definite integrals across specified lower and upper bounds.",
-    slug: "definite-integral-calculator",
-    category: "Mathematics",
-    subcategory: "Calculus",
-    component: "IntegralCalculator",
-    related: ["indefinite-integral-calculator","derivative-calculator","limit-calculator"],
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z'></path></svg>"
-  },
-  {
-    id: "indefinite-integral-calculator",
-    title: "Indefinite Integral Calculator",
-    description: "Find antiderivatives and indefinite integrals with arbitrary integration constants.",
-    slug: "indefinite-integral-calculator",
-    category: "Mathematics",
-    subcategory: "Calculus",
-    component: "IntegralCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z'></path></svg>"
-  },
+
   {
     id: "free-fall-calculator",
     title: "Free Fall Calculator",
@@ -781,6 +703,17 @@ export const tools: Tool[] = [
     icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
   },
   {
+    id: "significant-figures-calculator",
+    title: "Significant Figures Calculator",
+    description: "Count significant digits, round numbers to N sig figs, and apply precision rules for arithmetic calculations.",
+    slug: "significant-figures-calculator",
+    category: "Chemistry",
+    subcategory: "General Chemistry",
+    aliases: ["sig fig calculator", "significant digits", "sig fig counter", "sig fig rounder", "significant figures arithmetic"],
+    component: "SignificantFiguresCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z'></path></svg>"
+  },
+  {
     id: "periodic-table",
     title: "Interactive Periodic Table",
     description: "View elements, electron configurations, oxidation states, and atomic properties.",
@@ -852,36 +785,7 @@ export const tools: Tool[] = [
     component: "UnitAwareCalculator",
     icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
   },
-  {
-    id: "standard-cell-potential",
-    title: "Standard Cell Potential",
-    description: "Calculate standard electrochemical cell potential from cathode and anode reduction potentials.",
-    slug: "standard-cell-potential",
-    category: "Chemistry",
-    subcategory: "Electrochemistry",
-    component: "UnitAwareCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
-  },
-  {
-    id: "nernst-equation",
-    title: "Nernst Equation",
-    description: "E = E° - (RT/nF)ln(Q).",
-    slug: "nernst-equation",
-    category: "Chemistry",
-    subcategory: "Electrochemistry",
-    component: "UnitAwareCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
-  },
-  {
-    id: "half-life-first-order",
-    title: "First-Order Half-Life",
-    description: "Calculate decomposition half-life for first-order radioactive and chemical kinetics.",
-    slug: "half-life-first-order",
-    category: "Chemistry",
-    subcategory: "Kinetics",
-    component: "UnitAwareCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
-  },
+
   {
     id: "solubility-rules",
     title: "Solubility Rules",
@@ -892,16 +796,7 @@ export const tools: Tool[] = [
     component: "ChemistryReference",
     icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
   },
-  {
-    id: "q-mc-delta-t",
-    title: "Q = mcΔT Calculator",
-    description: "Calculate thermochemical heat transfer from mass, specific heat, and temperature change.",
-    slug: "q-mc-delta-t",
-    category: "Chemistry",
-    subcategory: "Thermochemistry",
-    component: "UnitAwareCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
-  },
+
   {
     id: "calorimetry-calculator",
     title: "Calorimetry Calculator",
@@ -942,16 +837,7 @@ export const tools: Tool[] = [
     component: "ChemistryReference",
     icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
   },
-  {
-    id: "half-life-nuclear",
-    title: "Nuclear Half-Life",
-    description: "Calculate radioisotope decay half-life and remaining activity over elapsed duration.",
-    slug: "half-life-nuclear",
-    category: "Chemistry",
-    subcategory: "Nuclear Chemistry",
-    component: "UnitAwareCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
-  },
+
   {
     id: "bmi-calculator",
     title: "BMI Calculator (Body Mass Index)",
@@ -1345,6 +1231,17 @@ export const tools: Tool[] = [
     aliases: ["simple interest calculator","calculate simple interest","simple interest formula","SI calculator","simple interest loan calculator","principal rate time calculator","simple interest solver","simple interest step by step"],
     component: "SimpleInterestCalculator",
     icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z'></path></svg>"
+  },
+  {
+    id: "discount-calculator",
+    title: "Discount & Sale Price Calculator",
+    description: "Calculate discounted sale prices, total money saved, percentage markdowns, and final prices with sales tax.",
+    slug: "discount-calculator",
+    category: "Everyday Utilities",
+    subcategory: "Everyday Math",
+    aliases: ["sale price calculator", "percentage off calculator", "percent discount", "sales tax calculator", "price after discount"],
+    component: "DiscountCalculator",
+    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z'></path></svg>"
   },
   {
     id: "z-score-calculator",
