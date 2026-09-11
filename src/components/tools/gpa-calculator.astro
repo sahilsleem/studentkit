@@ -99,7 +99,7 @@ export interface Props {
         '</select>' +
       '</td>' +
       '<td class="py-2.5 px-2 text-right">' +
-        '<button type="button" class="gpa-del-btn text-slate-400 hover:text-red-500 font-bold p-1">&times;</button>' +
+        '<button type="button" class="gpa-del-btn text-slate-400 hover:text-red-500 font-bold p-1" aria-label="Remove course">&times;</button>' +
       '</td>';
 
     tbody?.appendChild(tr);
@@ -154,7 +154,6 @@ export interface Props {
   }
 
   addBtn?.addEventListener('click', () => createRow('', 3, 'A'));
-  calcBtn?.addEventListener('click', calculateGPA);
   calcBtn?.addEventListener('click', calculateGPA);
   resetBtn?.addEventListener('click', init);
 
