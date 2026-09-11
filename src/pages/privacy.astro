@@ -1,32 +1,64 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+const privacySchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Privacy Policy - StudentKit",
+  "url": "https://studentkit.in/privacy"
+};
 ---
 
-<Layout title="Privacy Policy" description="Privacy policy for StudentKit.">
-  <div class="max-w-3xl mx-auto py-12">
-    <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight mb-8">Privacy Policy</h1>
-    
-    <div class="prose prose-emerald text-gray-600">
-      <p>Last updated: {new Date().toLocaleDateString()}</p>
-      
-      <h2>1. Introduction</h2>
-      <p>At StudentKit, your privacy is our priority. This Privacy Policy explains how we handle data when you use our website and tools.</p>
-      
-      <h2>2. Local Processing (No Data Collection)</h2>
-      <p>All calculators and tools on StudentKit run entirely locally in your web browser using JavaScript. When you enter data (such as grades, attendance numbers, dates, or text), this information is <strong>never transmitted to, stored on, or processed by our servers</strong>. All calculations happen directly on your device.</p>
-      
-      <h2>3. Analytics and Cookies</h2>
-      <p>StudentKit uses Google Analytics 4 to understand aggregate website usage and improve the site. This service uses standard analytics cookies. We do not track individual users or collect personally identifiable information.</p>
-      
-      <h2>4. Third-Party Advertisements</h2>
-      <p>StudentKit uses Google AdSense and other Google advertising services. These providers may use cookies or similar technologies to serve, measure, or personalize advertisements, which can be based on your visits to this site or other sites. You can manage personalized ads via <a href="https://adssettings.google.com/" target="_blank" rel="noopener">Google Ads Settings</a>. Learn more about Google's advertising and privacy practices through Google's privacy resources.</p>
-<p>For privacy questions, concerns, or requests, contact: <a href="mailto:sahilsleem01@gmail.com" class="text-emerald-600 hover:underline">sahilsleem01@gmail.com</a></p>
-      
-      <h2>5. External Links</h2>
-      <p>Our website may contain links to external sites that are not operated by us. We have no control over the content and practices of these sites and cannot accept responsibility for their respective privacy policies.</p>
-      
-      <h2>6. Changes to This Policy</h2>
-      <p>We may update our Privacy Policy from time to time. Any changes will be reflected on this page.</p>
+<Layout title="Privacy Policy" description="StudentKit Privacy Policy. Learn about our commitment to 100% client-side calculation privacy.">
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(privacySchema)}></script>
+  </Fragment>
+
+  <div class="max-w-3xl mx-auto">
+    <div class="mb-4">
+      <h1 class="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-1">Privacy Policy</h1>
+      <p class="text-xs sm:text-sm text-slate-500">Last Updated: September 2026</p>
+    </div>
+
+    <div class="prose prose-slate max-w-none space-y-5 text-slate-600 bg-white p-4 sm:p-8 rounded-xl border border-slate-200/80 shadow-xs">
+
+      <section>
+        <h2 class="text-lg font-bold text-slate-900 mb-2">1. Overview & Core Privacy Promise</h2>
+        <p class="text-sm leading-relaxed">
+          At StudentKit, your privacy is paramount. Our fundamental architecture is built around client-side computation: all calculator inputs, formulas, grades, and variables entered into our tools are processed entirely within your web browser. We do not store or transmit your calculations to remote servers.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-lg font-bold text-slate-900 mb-2">2. Data We Do Not Collect</h2>
+        <ul class="list-disc pl-5 text-sm space-y-1">
+          <li>We do not require user accounts or registrations.</li>
+          <li>We do not collect names, passwords, or phone numbers.</li>
+          <li>We do not store student grade transcripts or exam scores.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="text-lg font-bold text-slate-900 mb-2">3. Local Storage</h2>
+        <p class="text-sm leading-relaxed">
+          StudentKit may use standard browser `localStorage` solely to enhance your user experience (such as remembering your recently opened calculators). This information remains stored strictly on your device and can be cleared at any time through your browser settings.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-lg font-bold text-slate-900 mb-2">4. Third-Party Services & Analytics</h2>
+        <p class="text-sm leading-relaxed">
+          We use Google Analytics and Google AdSense to understand general traffic trends and fund server hosting. These providers may use cookies and web beacons to serve non-personalized or personalized advertisements based on your prior visits. You can manage cookie preferences via your browser settings or Google Ad settings.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-lg font-bold text-slate-900 mb-2">5. Contact</h2>
+        <p class="text-sm leading-relaxed">
+          If you have questions regarding this Privacy Policy, please contact us via <a href="mailto:sahilsleem01@gmail.com" class="text-blue-600 underline hover:text-blue-700 font-medium">Email</a>.
+        </p>
+      </section>
+
     </div>
   </div>
 </Layout>

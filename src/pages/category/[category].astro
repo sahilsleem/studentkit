@@ -1,8 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import ToolCard from '../../components/ToolCard.astro';
 import { tools, getActiveCategories, getCategorySlug } from '../../data/registry';
-const categories = getActiveCategories();
 
 export function getStaticPaths() {
   return getActiveCategories().map((cat) => {
@@ -16,22 +14,13 @@ export function getStaticPaths() {
 
 const { categoryData } = Astro.props;
 const categoryTools = tools.filter(t => t.category === categoryData.name);
-
-// Group by subcategory
-const groupedTools = categoryTools.reduce((acc, tool) => {
-  const sub = tool.subcategory || 'General';
-  if (!acc[sub]) acc[sub] = [];
-  acc[sub].push(tool);
-  return acc;
-}, {});
-
 const categorySlug = getCategorySlug(categoryData.name);
 
 const collectionSchema = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
-  "name": `${categoryData.name} Tools & Calculators`,
-  "description": categoryData.description,
+  "name": `${categoryData.name} Tools`,
+  "description": `${categoryData.name} tools and calculators.`,
   "url": `https://studentkit.in/category/${categorySlug}`
 };
 
@@ -55,237 +44,46 @@ const breadcrumbSchema = {
 };
 ---
 
-<Layout title={`${categoryData.name} Tools & Calculators`} description={categoryData.description}>
+<Layout title={categoryData.name} description={`${categoryData.name} tools and calculators for students.`}>
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(collectionSchema)}></script>
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)}></script>
   </Fragment>
-  <div class="max-w-6xl mx-auto px-4 sm:px-6">
-    <!-- Breadcrumbs -->
-    <nav class="flex text-sm text-gray-500 mb-8" aria-label="Breadcrumb">
-      <ol class="inline-flex items-center space-x-1 md:space-x-3">
-        <li class="inline-flex items-center">
-          <a href="/" class="inline-flex items-center hover:text-emerald-600 transition-colors">
-            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
-            Home
-          </a>
-        </li>
-        <li aria-current="page">
-          <div class="flex items-center">
-            <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-            <span class="ml-1 md:ml-2 text-gray-700 font-medium">{categoryData.name}</span>
-          </div>
-        </li>
-      </ol>
-    </nav>
 
-    <!-- Header -->
-    <div class="mb-8 border-b border-gray-100 pb-8 text-center sm:text-left">
-      <h1 class="text-4xl font-extrabold text-gray-900 tracking-tight mb-4">{categoryData.name}</h1>
-      <p class="text-xl text-gray-600 max-w-3xl mb-6">{categoryData.description}</p>
+  <!-- Breadcrumbs -->
+  <nav class="flex text-xs text-slate-500 mb-3" aria-label="Breadcrumb">
+    <ol class="inline-flex items-center space-x-1.5">
+      <li class="inline-flex items-center">
+        <a href="/" class="inline-flex items-center hover:text-blue-600 transition-colors">
+          Home
+        </a>
+      </li>
+      <li aria-current="page" class="flex items-center">
+        <svg class="w-3.5 h-3.5 text-slate-400 mx-1" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+        </svg>
+        <span class="text-slate-800 font-medium">{categoryData.name}</span>
+      </li>
+    </ol>
+  </nav>
 
-      {Object.keys(groupedTools).length > 1 && (
-        <div class="flex flex-wrap justify-center sm:justify-start gap-2">
-          {Object.keys(groupedTools).map(subcat => (
-            <a href={`#${getCategorySlug(subcat)}`} class="px-3 py-1 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 rounded-full text-sm font-medium transition-colors border border-emerald-100">
-              {subcat}
-            </a>
-          ))}
-        </div>
-      )}
-    </div>
-
-    <!-- Category Filter Toolbar (displayed for large categories with >= 20 tools) -->
-    {categoryTools.length >= 20 && (
-      <div class="mb-10 p-4 bg-gray-50 rounded-xl border border-gray-200 shadow-xs" id="category-filter-container">
-        <div class="flex flex-col md:flex-row gap-4 items-stretch md:items-center justify-between">
-          <!-- Filter Search Input -->
-          <div class="relative flex-1">
-            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-            </div>
-            <input
-              type="text"
-              id="category-search-input"
-              placeholder={`Search within ${categoryData.name} (${categoryTools.length} tools)...`}
-              class="w-full pl-10 pr-9 py-2 bg-white border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 shadow-sm transition-all"
-              autocomplete="off"
-            />
-            <button
-              id="category-search-clear"
-              class="hidden absolute inset-y-0 right-0 pr-3 min-w-[36px] min-h-[36px] flex items-center justify-center text-gray-400 hover:text-gray-600 focus:outline-none cursor-pointer"
-              type="button"
-              aria-label="Clear filter search"
-            >
-              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-              </svg>
-            </button>
-          </div>
-
-          <!-- Subcategory Select Filter -->
-          {Object.keys(groupedTools).length > 1 && (
-            <div class="flex flex-col sm:flex-row sm:items-center gap-2">
-              <label for="category-subcat-select" class="text-xs font-semibold text-gray-500 uppercase tracking-wider whitespace-nowrap">
-                Subcategory:
-              </label>
-              <select
-                id="category-subcat-select"
-                class="w-full sm:w-auto bg-white border border-gray-300 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 shadow-sm cursor-pointer"
-              >
-                <option value="all">All Subcategories ({categoryTools.length})</option>
-                {Object.entries(groupedTools).map(([subcat, toolsArr]) => (
-                  <option value={subcat.toLowerCase()}>{subcat} ({(toolsArr as any[]).length})</option>
-                ))}
-              </select>
-            </div>
-          )}
-
-          <!-- Live Result Count -->
-          <div class="text-xs font-medium text-gray-500 whitespace-nowrap text-right self-center">
-            Showing <span id="category-visible-count" class="font-bold text-gray-800">{categoryTools.length}</span> of {categoryTools.length} tools
-          </div>
-        </div>
-      </div>
-    )}
-
-    <!-- Empty Filter Results State -->
-    <div id="category-filter-empty" class="hidden text-center py-16 px-4 bg-gray-50 rounded-xl border border-gray-200 my-8">
-      <svg class="w-12 h-12 text-gray-400 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-      </svg>
-      <h3 class="text-lg font-bold text-gray-900 mb-1">No matching tools found</h3>
-      <p class="text-sm text-gray-500 mb-4">Try refining your search terms or selecting a different subcategory.</p>
-      <button
-        id="category-filter-reset-btn"
-        class="inline-flex items-center px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold rounded-lg shadow-sm transition-colors min-h-[40px] cursor-pointer"
-      >
-        Reset Filters
-      </button>
-    </div>
-
-    <!-- Subcategories -->
-    <div class="space-y-16">
-      {Object.entries(groupedTools).map(([subcat, toolsArr]) => (
-        <section id={getCategorySlug(subcat)} class="subcategory-section" data-subcategory={subcat.toLowerCase()}>
-          <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
-            <span class="w-8 h-1 bg-emerald-500 rounded-full inline-block mr-2"></span>
-            {subcat}
-          </h2>
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {(toolsArr as any[]).map(tool => (
-              <ToolCard
-                title={tool.title}
-                description={tool.description}
-                url={`/tools/${tool.slug}`}
-                icon={tool.icon}
-                category={tool.category}
-                subcategory={tool.subcategory}
-                keywords={tool.keywords}
-                aliases={tool.aliases}
-              />
-            ))}
-          </div>
-        </section>
-      ))}
-    </div>
+  <!-- Category Header (Minimal) -->
+  <div class="mb-4 text-left">
+    <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">{categoryData.name}</h1>
   </div>
 
-  {categoryTools.length >= 20 && (
-    <script is:inline>
-      (function() {
-        const searchInput = document.getElementById('category-search-input');
-        const clearBtn = document.getElementById('category-search-clear');
-        const subcatSelect = document.getElementById('category-subcat-select');
-        const countEl = document.getElementById('category-visible-count');
-        const emptyEl = document.getElementById('category-filter-empty');
-        const resetBtn = document.getElementById('category-filter-reset-btn');
-        const sections = document.querySelectorAll('.subcategory-section');
-
-        if (!searchInput) return;
-
-        function applyFilter() {
-          const query = searchInput.value.trim().toLowerCase();
-          const selectedSubcat = subcatSelect ? subcatSelect.value.toLowerCase() : 'all';
-
-          if (clearBtn) {
-            clearBtn.classList.toggle('hidden', query.length === 0);
-          }
-
-          const queryTokens = query ? query.split(/\s+/).filter(Boolean) : [];
-          let totalVisible = 0;
-
-          sections.forEach(function(section) {
-            const sectionSubcat = (section.getAttribute('data-subcategory') || '').toLowerCase();
-            const cards = section.querySelectorAll('.tool-card');
-            let sectionVisible = 0;
-
-            cards.forEach(function(card) {
-              const cardSubcat = (card.getAttribute('data-subcategory') || '').toLowerCase();
-              const title = card.getAttribute('data-title') || '';
-              const desc = card.getAttribute('data-desc') || '';
-              const keywords = card.getAttribute('data-keywords') || '';
-              const aliases = card.getAttribute('data-aliases') || '';
-              const searchable = (title + ' ' + desc + ' ' + keywords + ' ' + aliases).toLowerCase();
-
-              // Subcategory matching
-              const subcatMatch = (selectedSubcat === 'all' || cardSubcat === selectedSubcat || sectionSubcat === selectedSubcat);
-
-              // Query token matching
-              let textMatch = true;
-              if (queryTokens.length > 0) {
-                for (let i = 0; i < queryTokens.length; i++) {
-                  if (!searchable.includes(queryTokens[i])) {
-                    textMatch = false;
-                    break;
-                  }
-                }
-              }
-
-              if (subcatMatch && textMatch) {
-                card.classList.remove('hidden');
-                sectionVisible++;
-                totalVisible++;
-              } else {
-                card.classList.add('hidden');
-              }
-            });
-
-            // Toggle section visibility
-            if (sectionVisible > 0) {
-              section.classList.remove('hidden');
-            } else {
-              section.classList.add('hidden');
-            }
-          });
-
-          if (countEl) {
-            countEl.textContent = String(totalVisible);
-          }
-
-          if (emptyEl) {
-            if (totalVisible === 0) {
-              emptyEl.classList.remove('hidden');
-            } else {
-              emptyEl.classList.add('hidden');
-            }
-          }
-        }
-
-        function resetFilter() {
-          if (searchInput) searchInput.value = '';
-          if (subcatSelect) subcatSelect.value = 'all';
-          applyFilter();
-          if (searchInput) searchInput.focus();
-        }
-
-        searchInput.addEventListener('input', applyFilter);
-        if (clearBtn) clearBtn.addEventListener('click', resetFilter);
-        if (subcatSelect) subcatSelect.addEventListener('change', applyFilter);
-        if (resetBtn) resetBtn.addEventListener('click', resetFilter);
-      })();
-    </script>
-  )}
+  <!-- Single Consolidated Tools Collection (Compact) -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-3">
+    {categoryTools.map(tool => (
+      <a
+        href={`/tools/${tool.slug}`}
+        class="group flex items-center gap-2.5 sm:gap-3 p-2.5 sm:p-3 bg-white rounded-xl border border-slate-200/90 hover:border-blue-500 hover:shadow-xs transition-all min-h-[44px]"
+      >
+        <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 group-hover:bg-blue-600 group-hover:text-white transition-colors text-xs sm:text-sm" set:html={tool.icon} />
+        <span class="text-xs sm:text-sm font-semibold text-slate-900 group-hover:text-blue-600 transition-colors leading-snug">
+          {tool.title}
+        </span>
+      </a>
+    ))}
+  </div>
 </Layout>

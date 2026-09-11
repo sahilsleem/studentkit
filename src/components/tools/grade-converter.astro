@@ -1,0 +1,131 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-4 sm:space-y-5">
+  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Input Format</label>
+          <select id="gc-format" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="percentage">Percentage (0 - 100%)</option>
+            <option value="letter">Letter Grade (A+, A, B...)</option>
+            <option value="gpa4">4.0 GPA Scale</option>
+            <option value="gpa10">10.0 CGPA Scale</option>
+          </select>
+        </div>
+
+        <div id="gc-input-container">
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Enter Value</label>
+          <input type="number" id="gc-val-num" step="0.1" placeholder="e.g. 88" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          <select id="gc-val-letter" class="hidden w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="A+">A+ (97-100%)</option>
+            <option value="A">A (93-96%)</option>
+            <option value="A-">A- (90-92%)</option>
+            <option value="B+">B+ (87-89%)</option>
+            <option value="B" selected>B (83-86%)</option>
+            <option value="B-">B- (80-82%)</option>
+            <option value="C+">C+ (77-79%)</option>
+            <option value="C">C (73-76%)</option>
+            <option value="C-">C- (70-72%)</option>
+            <option value="D">D (60-69%)</option>
+            <option value="F">F (&lt;60%)</option>
+          </select>
+        </div>
+
+        <button id="gc-calc-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+          Convert Grade
+        </button>
+      </div>
+
+      <div class="p-6 bg-slate-50 rounded-xl border border-slate-200/80 space-y-4">
+        <h3 class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Converted Equivalencies</h3>
+
+        <div class="grid grid-cols-2 gap-3 text-sm">
+          <div class="bg-white p-3 rounded-lg border border-slate-200">
+            <div class="text-xs text-slate-500">Letter Grade</div>
+            <div id="gc-res-letter" class="text-lg font-bold text-blue-600 font-mono mt-0.5">--</div>
+          </div>
+          <div class="bg-white p-3 rounded-lg border border-slate-200">
+            <div class="text-xs text-slate-500">Percentage</div>
+            <div id="gc-res-pct" class="text-lg font-bold text-blue-600 font-mono mt-0.5">--</div>
+          </div>
+          <div class="bg-white p-3 rounded-lg border border-slate-200">
+            <div class="text-xs text-slate-500">4.0 GPA</div>
+            <div id="gc-res-gpa4" class="text-lg font-bold text-blue-600 font-mono mt-0.5">--</div>
+          </div>
+          <div class="bg-white p-3 rounded-lg border border-slate-200">
+            <div class="text-xs text-slate-500">10.0 CGPA</div>
+            <div id="gc-res-gpa10" class="text-lg font-bold text-blue-600 font-mono mt-0.5">--</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const formatSelect = document.getElementById('gc-format') as HTMLSelectElement;
+  const numInput = document.getElementById('gc-val-num') as HTMLInputElement;
+  const letterSelect = document.getElementById('gc-val-letter') as HTMLSelectElement;
+  const resLetter = document.getElementById('gc-res-letter');
+  const resPct = document.getElementById('gc-res-pct');
+  const resGpa4 = document.getElementById('gc-res-gpa4');
+  const resGpa10 = document.getElementById('gc-res-gpa10');
+
+  function convert() {
+    const fmt = formatSelect.value;
+    let pct = 0;
+
+    if (fmt === 'percentage') {
+      pct = parseFloat(numInput.value || '0');
+    } else if (fmt === 'letter') {
+      const map: Record<string, number> = { 'A+': 98, 'A': 95, 'A-': 91, 'B+': 88, 'B': 85, 'B-': 81, 'C+': 78, 'C': 75, 'C-': 71, 'D': 65, 'F': 50 };
+      pct = map[letterSelect.value] || 0;
+    } else if (fmt === 'gpa4') {
+      const gpa = parseFloat(numInput.value || '0');
+      pct = (gpa / 4.0) * 100;
+    } else if (fmt === 'gpa10') {
+      const gpa = parseFloat(numInput.value || '0');
+      pct = gpa * 10;
+    }
+
+    let letter = 'F';
+    let gpa4 = 0.0;
+    if (pct >= 97) { letter = 'A+'; gpa4 = 4.0; }
+    else if (pct >= 93) { letter = 'A'; gpa4 = 4.0; }
+    else if (pct >= 90) { letter = 'A-'; gpa4 = 3.7; }
+    else if (pct >= 87) { letter = 'B+'; gpa4 = 3.3; }
+    else if (pct >= 83) { letter = 'B'; gpa4 = 3.0; }
+    else if (pct >= 80) { letter = 'B-'; gpa4 = 2.7; }
+    else if (pct >= 77) { letter = 'C+'; gpa4 = 2.3; }
+    else if (pct >= 73) { letter = 'C'; gpa4 = 2.0; }
+    else if (pct >= 70) { letter = 'C-'; gpa4 = 1.7; }
+    else if (pct >= 60) { letter = 'D'; gpa4 = 1.0; }
+    else { letter = 'F'; gpa4 = 0.0; }
+
+    if (resLetter) resLetter.textContent = letter;
+    if (resPct) resPct.textContent = pct.toFixed(1) + '%';
+    if (resGpa4) resGpa4.textContent = gpa4.toFixed(2);
+    if (resGpa10) resGpa10.textContent = (pct / 10).toFixed(2);
+  }
+
+  formatSelect?.addEventListener('change', () => {
+    if (formatSelect.value === 'letter') {
+      numInput.classList.add('hidden');
+      letterSelect.classList.remove('hidden');
+    } else {
+      numInput.classList.remove('hidden');
+      letterSelect.classList.add('hidden');
+    }
+    convert();
+  });
+
+  numInput?.addEventListener('input', convert);
+  letterSelect?.addEventListener('change', convert);
+  document.getElementById('gc-calc-btn')?.addEventListener('click', convert);
+  convert();
+</script>

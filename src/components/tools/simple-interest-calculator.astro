@@ -1,0 +1,71 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-4 sm:space-y-5">
+  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Principal Amount ($)</label>
+          <input type="number" id="si-principal" step="100" min="0" placeholder="e.g. 5000" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Annual Interest Rate (%)</label>
+          <input type="number" id="si-rate" step="0.1" min="0" placeholder="e.g. 6" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Time Period (Years)</label>
+          <input type="number" id="si-time" step="0.5" min="0.1" placeholder="e.g. 3" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+        <button id="si-calc-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+          Calculate Interest
+        </button>
+      </div>
+
+      <div class="flex flex-col justify-between p-6 bg-slate-50 rounded-xl border border-slate-200/80">
+        <div>
+          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Total Simple Interest (I)</div>
+          <div id="si-interest" class="text-4xl font-extrabold text-blue-600 mt-2 font-mono">--</div>
+          <div class="text-xs text-slate-500 mt-2">Formula: I = P × r × t</div>
+        </div>
+
+        <div class="pt-4 border-t border-slate-200/80 mt-6 space-y-2 text-xs text-slate-600">
+          <div class="flex justify-between">
+            <span>Total Maturity Amount (A = P + I):</span>
+            <strong id="si-total" class="text-slate-800 font-bold">--</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const pIn = document.getElementById('si-principal') as HTMLInputElement;
+  const rIn = document.getElementById('si-rate') as HTMLInputElement;
+  const tIn = document.getElementById('si-time') as HTMLInputElement;
+  const iEl = document.getElementById('si-interest');
+  const aEl = document.getElementById('si-total');
+
+  function calculate() {
+    const P = parseFloat(pIn?.value || '0');
+    const r = parseFloat(rIn?.value || '0') / 100;
+    const t = parseFloat(tIn?.value || '0');
+
+    const I = P * r * t;
+    const A = P + I;
+
+    const fmt = (v: number) => '$' + v.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    if (iEl) iEl.textContent = fmt(I);
+    if (aEl) aEl.textContent = fmt(A);
+  }
+
+
+  document.getElementById('si-calc-btn')?.addEventListener('click', calculate);
+</script>

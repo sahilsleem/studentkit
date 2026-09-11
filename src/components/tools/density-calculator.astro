@@ -1,0 +1,51 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-4 sm:space-y-5">
+  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Mass (m in kg)</label>
+          <input type="number" id="den-m" placeholder="e.g. 2.7" min="0" step="any" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Volume (V in m³)</label>
+          <input type="number" id="den-v" placeholder="e.g. 0.001" min="0.000001" step="any" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm" />
+        </div>
+
+        <button id="den-calc-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+          Calculate Density
+        </button>
+      </div>
+
+      <div class="flex flex-col justify-between p-6 bg-slate-50 rounded-xl border border-slate-200/80">
+        <div>
+          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Density (ρ = m / V)</div>
+          <div id="den-rho" class="text-4xl font-extrabold text-blue-600 mt-2 font-mono">--</div>
+          <div id="den-gcm3" class="text-xs text-slate-500 mt-2">2.70 g/cm³ (Aluminum)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function calculate() {
+    const m = parseFloat((document.getElementById('den-m') as HTMLInputElement)?.value || '0');
+    const v = parseFloat((document.getElementById('den-v') as HTMLInputElement)?.value || '1');
+
+    if (v <= 0) return;
+    const rho = m / v;
+    const gcm3 = rho / 1000;
+
+    document.getElementById('den-rho')!.textContent = rho.toLocaleString() + ' kg/m³';
+    document.getElementById('den-gcm3')!.textContent = gcm3.toFixed(3) + ' g/cm³';
+  }
+
+
+  document.getElementById('den-calc-btn')?.addEventListener('click', calculate);
+</script>

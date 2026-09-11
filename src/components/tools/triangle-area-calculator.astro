@@ -1,0 +1,94 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-4 sm:space-y-5">
+  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Calculation Method</label>
+          <select id="ta-method" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="base-height" selected>Base & Height (½ × b × h)</option>
+            <option value="heron">3 Sides / Heron's Formula</option>
+            <option value="sas">2 Sides & Included Angle (½ab sin C)</option>
+          </select>
+        </div>
+
+        <div id="ta-inputs" class="space-y-3">
+          <div>
+            <label class="block text-xs text-slate-500 mb-1">Base (b)</label>
+            <input type="number" id="ta-v1" placeholder="e.g. 10" step="any" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm" />
+          </div>
+          <div>
+            <label class="block text-xs text-slate-500 mb-1">Height (h)</label>
+            <input type="number" id="ta-v2" placeholder="e.g. 6" step="any" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm" />
+          </div>
+          <div id="ta-v3-box" class="hidden">
+            <label class="block text-xs text-slate-500 mb-1">Side c</label>
+            <input type="number" id="ta-v3" placeholder="e.g. 8" step="any" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm" />
+          </div>
+        </div>
+
+        <button id="ta-calc-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+          Calculate Area
+        </button>
+      </div>
+
+      <div class="flex flex-col justify-between p-6 bg-slate-50 rounded-xl border border-slate-200/80">
+        <div>
+          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Calculated Triangle Area</div>
+          <div id="ta-result" class="text-4xl font-extrabold text-blue-600 mt-2 font-mono">--</div>
+          <div id="ta-formula-note" class="text-xs text-slate-500 mt-2">Area = ½ × 10 × 6 = 30</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function calculate() {
+    const method = (document.getElementById('ta-method') as HTMLSelectElement)?.value;
+    const v1 = parseFloat((document.getElementById('ta-v1') as HTMLInputElement)?.value || '0');
+    const v2 = parseFloat((document.getElementById('ta-v2') as HTMLInputElement)?.value || '0');
+    const v3 = parseFloat((document.getElementById('ta-v3') as HTMLInputElement)?.value || '0');
+
+    let area = 0;
+    let note = '';
+
+    if (method === 'base-height') {
+      area = 0.5 * v1 * v2;
+      note = 'Area = ½ × ' + v1 + ' × ' + v2;
+    } else if (method === 'heron') {
+      const s = (v1 + v2 + v3) / 2;
+      area = Math.sqrt(Math.max(0, s * (s - v1) * (s - v2) * (s - v3)));
+      note = "Heron's Formula: s = " + s.toFixed(2);
+    } else if (method === 'sas') {
+      const rad = (v3 * Math.PI) / 180;
+      area = 0.5 * v1 * v2 * Math.sin(rad);
+      note = 'Area = ½ × ' + v1 + ' × ' + v2 + ' × sin(' + v3 + '°)';
+    }
+
+    const resEl = document.getElementById('ta-result');
+    const noteEl = document.getElementById('ta-formula-note');
+
+    if (resEl) resEl.textContent = area.toFixed(2);
+    if (noteEl) noteEl.textContent = note;
+  }
+
+  document.getElementById('ta-method')?.addEventListener('change', () => {
+    const method = (document.getElementById('ta-method') as HTMLSelectElement)?.value;
+    const v3Box = document.getElementById('ta-v3-box');
+    if (method === 'heron' || method === 'sas') {
+      v3Box?.classList.remove('hidden');
+    } else {
+      v3Box?.classList.add('hidden');
+    }
+    calculate();
+  });
+
+
+  document.getElementById('ta-calc-btn')?.addEventListener('click', calculate);
+</script>

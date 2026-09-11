@@ -1,0 +1,59 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-4 sm:space-y-5">
+  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div>
+        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">From</label>
+        <div class="flex gap-2">
+          <input type="number" id="spd-val" placeholder="e.g. 65" step="any" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm" />
+          <select id="spd-from" class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm">
+            <option value="mph" selected>Miles/hour (mph)</option>
+            <option value="kmh">Kilometers/hour (km/h)</option>
+            <option value="mps">Meters/second (m/s)</option>
+            <option value="knot">Knots (kn)</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">To</label>
+        <div class="flex gap-2">
+          <div id="spd-res" class="w-full px-4 py-2 bg-blue-50 border border-blue-200 rounded-xl text-sm font-bold text-blue-600 flex items-center">--</div>
+          <select id="spd-to" class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm">
+            <option value="kmh" selected>Kilometers/hour (km/h)</option>
+            <option value="mph">Miles/hour (mph)</option>
+            <option value="mps">Meters/second (m/s)</option>
+            <option value="knot">Knots (kn)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const toMps: Record<string, number> = { mps: 1, kmh: 1 / 3.6, mph: 0.44704, knot: 0.514444 };
+
+  function convert() {
+    const raw = (document.getElementById('spd-val') as HTMLInputElement)?.value;
+    if (raw === '' || raw === undefined || isNaN(parseFloat(raw))) {
+      document.getElementById('spd-res')!.textContent = '--';
+      return;
+    }
+    const val = parseFloat(raw);
+    const from = (document.getElementById('spd-from') as HTMLSelectElement)?.value || 'mph';
+    const to = (document.getElementById('spd-to') as HTMLSelectElement)?.value || 'kmh';
+
+    const mps = val * (toMps[from] || 1);
+    const res = mps / (toMps[to] || 1);
+
+    document.getElementById('spd-res')!.textContent = res.toFixed(4);
+  }
+
+  ['spd-val', 'spd-from', 'spd-to'].forEach(id => document.getElementById(id)?.addEventListener('input', convert));
+</script>

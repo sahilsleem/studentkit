@@ -1,0 +1,94 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-4 sm:space-y-5">
+  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
+    <div class="space-y-4">
+      <div>
+        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Integrand Function f(x)</label>
+        <input type="text" id="ic-func" placeholder="e.g. 3x^2 - 4x + 5" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono" />
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Lower Limit (a)</label>
+          <input type="number" id="ic-a" placeholder="e.g. 0" step="any" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Upper Limit (b)</label>
+          <input type="number" id="ic-b" placeholder="e.g. 3" step="any" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm" />
+        </div>
+      </div>
+
+      <button id="ic-calc-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+        Compute Definite & Indefinite Integral
+      </button>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+        <div class="p-5 bg-slate-50 rounded-xl border border-slate-200/80">
+          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Indefinite Integral ∫ f(x) dx</div>
+          <div id="ic-indef" class="text-2xl font-extrabold text-blue-600 mt-2 font-mono">--</div>
+        </div>
+        <div class="p-5 bg-slate-50 rounded-xl border border-slate-200/80">
+          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Definite Value ∫ₐᵇ f(x) dx</div>
+          <div id="ic-def" class="text-2xl font-extrabold text-slate-800 mt-2 font-mono">24.00</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function integratePoly(str: string): { expr: string, evalFn: (x: number) => number } {
+    str = str.replace(/\s+/g, '');
+    const termRegex = /([+-]?[0-9]*\.?[0-9]*)x(?:\^([+-]?[0-9]+))?|([+-]?[0-9]+)/g;
+    let match;
+    const terms: { coeff: number, power: number }[] = [];
+
+    while ((match = termRegex.exec(str)) !== null) {
+      if (!match[0]) continue;
+      if (match[3]) {
+        let c = parseFloat(match[3]);
+        terms.push({ coeff: c, power: 1 });
+      } else {
+        let coeffStr = match[1];
+        let coeff = coeffStr === '' || coeffStr === '+' ? 1 : coeffStr === '-' ? -1 : parseFloat(coeffStr);
+        let power = match[2] !== undefined ? parseInt(match[2], 10) : 1;
+        terms.push({ coeff: coeff / (power + 1), power: power + 1 });
+      }
+    }
+
+    const strList = terms.map((t, idx) => {
+      let sign = t.coeff >= 0 ? (idx > 0 ? '+ ' : '') : '- ';
+      let mag = Math.abs(t.coeff);
+      let pStr = t.power === 1 ? 'x' : 'x^' + t.power;
+      return sign + (mag === 1 ? '' : mag.toFixed(2)) + pStr;
+    });
+
+    const expr = (strList.join(' ') || '0') + ' + C';
+    const evalFn = (x: number) => terms.reduce((sum, t) => sum + t.coeff * Math.pow(x, t.power), 0);
+
+    return { expr, evalFn };
+  }
+
+  function calculate() {
+    const funcStr = (document.getElementById('ic-func') as HTMLInputElement)?.value || '';
+    const a = parseFloat((document.getElementById('ic-a') as HTMLInputElement)?.value || '0');
+    const b = parseFloat((document.getElementById('ic-b') as HTMLInputElement)?.value || '1');
+
+    const { expr, evalFn } = integratePoly(funcStr);
+    const defVal = evalFn(b) - evalFn(a);
+
+    const indefEl = document.getElementById('ic-indef');
+    const defEl = document.getElementById('ic-def');
+
+    if (indefEl) indefEl.textContent = expr;
+    if (defEl) defEl.textContent = defVal.toFixed(2);
+  }
+
+
+  document.getElementById('ic-calc-btn')?.addEventListener('click', calculate);
+</script>

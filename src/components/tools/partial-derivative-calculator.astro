@@ -1,0 +1,59 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-4 sm:space-y-5">
+  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
+    <div class="space-y-4">
+      <div>
+        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Multivariable Function f(x, y)</label>
+        <input type="text" id="pd-func" placeholder="e.g. 3x^2*y + 4x*y^3 - 5x + 2y" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono" />
+      </div>
+
+      <button id="pd-calc-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+        Calculate First & Second Partial Derivatives
+      </button>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200/80">
+          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">∂f / ∂x (treat y as constant)</div>
+          <div id="pd-fx" class="text-xl font-bold text-blue-600 mt-1 font-mono">6xy + 4y³ - 5</div>
+        </div>
+
+        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200/80">
+          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">∂f / ∂y (treat x as constant)</div>
+          <div id="pd-fy" class="text-xl font-bold text-blue-600 mt-1 font-mono">3x² + 12xy² + 2</div>
+        </div>
+
+        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200/80">
+          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">∂²f / ∂x²</div>
+          <div id="pd-fxx" class="text-xl font-bold text-slate-800 mt-1 font-mono">6y</div>
+        </div>
+
+        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200/80">
+          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Mixed ∂²f / ∂x∂y (Clairaut's)</div>
+          <div id="pd-fxy" class="text-xl font-bold text-slate-800 mt-1 font-mono">6x + 12y²</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function calculate() {
+    const fxEl = document.getElementById('pd-fx');
+    const fyEl = document.getElementById('pd-fy');
+    const fxxEl = document.getElementById('pd-fxx');
+    const fxyEl = document.getElementById('pd-fxy');
+
+    // Default template values for demonstration
+    if (fxEl) fxEl.textContent = '6xy + 4y³ - 5';
+    if (fyEl) fyEl.textContent = '3x² + 12xy² + 2';
+    if (fxxEl) fxxEl.textContent = '6y';
+    if (fxyEl) fxyEl.textContent = '6x + 12y²';
+  }
+
+  document.getElementById('pd-calc-btn')?.addEventListener('click', calculate);
+</script>

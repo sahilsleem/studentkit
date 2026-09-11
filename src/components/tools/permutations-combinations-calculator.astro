@@ -1,0 +1,68 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-4 sm:space-y-5">
+  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Total Items (n)</label>
+          <input type="number" id="pc-n" min="0" max="50" placeholder="e.g. 8" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Selected Items (r)</label>
+          <input type="number" id="pc-r" min="0" max="50" placeholder="e.g. 3" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+        <button id="pc-calc-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+          Calculate nPr & nCr
+        </button>
+      </div>
+
+      <div class="flex flex-col justify-between p-6 bg-slate-50 rounded-xl border border-slate-200/80">
+        <div>
+          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Combinations nCr (Order does NOT matter)</div>
+          <div id="pc-ncr" class="text-3xl font-extrabold text-blue-600 mt-2 font-mono">--</div>
+          <div class="text-xs text-slate-500 mt-1">Formula: n! / (r!(n-r)!)</div>
+        </div>
+
+        <div class="pt-4 border-t border-slate-200/80 mt-6">
+          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Permutations nPr (Order DOES matter)</div>
+          <div id="pc-npr" class="text-3xl font-extrabold text-blue-600 mt-1 font-mono">--</div>
+          <div class="text-xs text-slate-500 mt-1">Formula: n! / (n-r)!</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function fact(n: number): number {
+    let res = 1;
+    for (let i = 2; i <= n; i++) res *= i;
+    return res;
+  }
+
+  function calculate() {
+    const n = parseInt((document.getElementById('pc-n') as HTMLInputElement)?.value || '0', 10);
+    const r = parseInt((document.getElementById('pc-r') as HTMLInputElement)?.value || '0', 10);
+
+    if (n < 0 || r < 0 || r > n) return;
+
+    const npr = fact(n) / fact(n - r);
+    const ncr = fact(n) / (fact(r) * fact(n - r));
+
+    const nprEl = document.getElementById('pc-npr');
+    const ncrEl = document.getElementById('pc-ncr');
+
+    if (nprEl) nprEl.textContent = npr.toLocaleString();
+    if (ncrEl) ncrEl.textContent = ncr.toLocaleString();
+  }
+
+
+  document.getElementById('pc-calc-btn')?.addEventListener('click', calculate);
+</script>

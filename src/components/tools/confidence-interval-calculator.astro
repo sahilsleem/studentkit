@@ -1,0 +1,87 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-4 sm:space-y-5">
+  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Sample Mean (x̄)</label>
+          <input type="number" id="ci-mean" step="any" placeholder="e.g. 105" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Sample Standard Deviation (s)</label>
+          <input type="number" id="ci-sd" min="0.001" step="any" placeholder="e.g. 15" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Sample Size (n)</label>
+          <input type="number" id="ci-n" min="2" placeholder="e.g. 64" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Confidence Level</label>
+          <select id="ci-level" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="90">90% (z* = 1.645)</option>
+            <option value="95" selected>95% (z* = 1.960)</option>
+            <option value="99">99% (z* = 2.576)</option>
+          </select>
+        </div>
+
+        <button id="ci-calc-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+          Calculate Confidence Interval
+        </button>
+      </div>
+
+      <div class="flex flex-col justify-between p-6 bg-slate-50 rounded-xl border border-slate-200/80">
+        <div>
+          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Confidence Interval Range</div>
+          <div id="ci-range" class="text-3xl font-extrabold text-blue-600 mt-2 font-mono">--</div>
+          <div id="ci-me" class="text-xs text-slate-500 mt-2">Margin of Error (E) = ±3.675</div>
+        </div>
+
+        <div class="pt-4 border-t border-slate-200/80 mt-6 space-y-2 text-xs text-slate-600">
+          <div class="flex justify-between">
+            <span>Standard Error (s / √n):</span>
+            <strong id="ci-se" class="text-slate-800 font-mono">1.875</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const zCrit: Record<string, number> = { '90': 1.645, '95': 1.96, '99': 2.576 };
+
+  function calculate() {
+    const mean = parseFloat((document.getElementById('ci-mean') as HTMLInputElement)?.value || '0');
+    const sd = parseFloat((document.getElementById('ci-sd') as HTMLInputElement)?.value || '1');
+    const n = parseFloat((document.getElementById('ci-n') as HTMLInputElement)?.value || '1');
+    const level = (document.getElementById('ci-level') as HTMLSelectElement)?.value || '95';
+
+    if (n <= 1 || sd <= 0) return;
+
+    const z = zCrit[level] || 1.96;
+    const se = sd / Math.sqrt(n);
+    const me = z * se;
+
+    const lower = mean - me;
+    const upper = mean + me;
+
+    const rangeEl = document.getElementById('ci-range');
+    const meEl = document.getElementById('ci-me');
+    const seEl = document.getElementById('ci-se');
+
+    if (rangeEl) rangeEl.textContent = '[' + lower.toFixed(2) + ', ' + upper.toFixed(2) + ']';
+    if (meEl) meEl.textContent = 'Margin of Error (E) = ±' + me.toFixed(3);
+    if (seEl) seEl.textContent = se.toFixed(3);
+  }
+
+
+  document.getElementById('ci-calc-btn')?.addEventListener('click', calculate);
+</script>

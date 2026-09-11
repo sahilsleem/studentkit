@@ -1,0 +1,117 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-4 sm:space-y-5">
+  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">3D Solid</label>
+          <select id="vsa-solid" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="sphere" selected>Sphere (Radius r)</option>
+            <option value="cylinder">Cylinder (Radius r, Height h)</option>
+            <option value="cone">Cone (Radius r, Height h)</option>
+            <option value="box">Rectangular Prism (L × W × H)</option>
+          </select>
+        </div>
+
+        <div class="grid grid-cols-3 gap-2">
+          <div>
+            <label id="vsa-l1" class="block text-xs text-slate-500 mb-1">Radius (r)</label>
+            <input type="number" id="vsa-v1" placeholder="e.g. 4" step="any" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm" />
+          </div>
+          <div id="vsa-v2-box">
+            <label id="vsa-l2" class="block text-xs text-slate-500 mb-1">Height (h)</label>
+            <input type="number" id="vsa-v2" placeholder="e.g. 8" step="any" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm" />
+          </div>
+          <div id="vsa-v3-box" class="hidden">
+            <label id="vsa-l3" class="block text-xs text-slate-500 mb-1">Height (h)</label>
+            <input type="number" id="vsa-v3" placeholder="e.g. 5" step="any" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm" />
+          </div>
+        </div>
+
+        <button id="vsa-calc-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+          Calculate Volume & Surface Area
+        </button>
+      </div>
+
+      <div class="flex flex-col justify-between p-6 bg-slate-50 rounded-xl border border-slate-200/80">
+        <div>
+          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Volume (V)</div>
+          <div id="vsa-vol" class="text-4xl font-extrabold text-blue-600 mt-2 font-mono">--</div>
+        </div>
+
+        <div class="pt-4 border-t border-slate-200/80 mt-6 space-y-2 text-xs text-slate-600">
+          <div class="flex justify-between">
+            <span>Total Surface Area (A):</span>
+            <strong id="vsa-area" class="text-slate-800 font-mono">201.06</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function calculate() {
+    const solid = (document.getElementById('vsa-solid') as HTMLSelectElement)?.value;
+    const v1 = parseFloat((document.getElementById('vsa-v1') as HTMLInputElement)?.value || '0');
+    const v2 = parseFloat((document.getElementById('vsa-v2') as HTMLInputElement)?.value || '0');
+    const v3 = parseFloat((document.getElementById('vsa-v3') as HTMLInputElement)?.value || '0');
+
+    let vol = 0;
+    let area = 0;
+
+    if (solid === 'sphere') {
+      vol = (4 / 3) * Math.PI * Math.pow(v1, 3);
+      area = 4 * Math.PI * v1 * v1;
+    } else if (solid === 'cylinder') {
+      vol = Math.PI * v1 * v1 * v2;
+      area = 2 * Math.PI * v1 * (v1 + v2);
+    } else if (solid === 'cone') {
+      vol = (1 / 3) * Math.PI * v1 * v1 * v2;
+      const slant = Math.sqrt(v1 * v1 + v2 * v2);
+      area = Math.PI * v1 * (v1 + slant);
+    } else if (solid === 'box') {
+      vol = v1 * v2 * v3;
+      area = 2 * (v1 * v2 + v2 * v3 + v1 * v3);
+    }
+
+    const volEl = document.getElementById('vsa-vol');
+    const areaEl = document.getElementById('vsa-area');
+
+    if (volEl) volEl.textContent = vol.toFixed(2);
+    if (areaEl) areaEl.textContent = area.toFixed(2);
+  }
+
+  document.getElementById('vsa-solid')?.addEventListener('change', () => {
+    const solid = (document.getElementById('vsa-solid') as HTMLSelectElement)?.value;
+    const v2Box = document.getElementById('vsa-v2-box');
+    const v3Box = document.getElementById('vsa-v3-box');
+    const l1 = document.getElementById('vsa-l1');
+    const l2 = document.getElementById('vsa-l2');
+
+    if (solid === 'sphere') {
+      if (v2Box) v2Box.classList.add('hidden');
+      if (v3Box) v3Box.classList.add('hidden');
+      if (l1) l1.textContent = 'Radius (r)';
+    } else if (solid === 'box') {
+      if (v2Box) v2Box.classList.remove('hidden');
+      if (v3Box) v3Box.classList.remove('hidden');
+      if (l1) l1.textContent = 'Length (L)';
+      if (l2) l2.textContent = 'Width (W)';
+    } else {
+      if (v2Box) v2Box.classList.remove('hidden');
+      if (v3Box) v3Box.classList.add('hidden');
+      if (l1) l1.textContent = 'Radius (r)';
+      if (l2) l2.textContent = 'Height (h)';
+    }
+    calculate();
+  });
+
+
+  document.getElementById('vsa-calc-btn')?.addEventListener('click', calculate);
+</script>

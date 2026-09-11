@@ -1,0 +1,68 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-4 sm:space-y-5">
+  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
+    <div class="space-y-4">
+      <div>
+        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Boolean Logic Gate</label>
+        <select id="tt-gate" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm">
+          <option value="and" selected>AND Gate (A ∧ B)</option>
+          <option value="or">OR Gate (A ∨ B)</option>
+          <option value="xor">XOR Gate (A ⊕ B)</option>
+          <option value="nand">NAND Gate (¬(A ∧ B))</option>
+          <option value="nor">NOR Gate (¬(A ∨ B))</option>
+        </select>
+      </div>
+      <button id="tt-calc-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">Generate Truth Table</button>
+
+      <div class="overflow-x-auto mt-4">
+        <table class="w-full text-center text-sm font-mono border border-slate-200 rounded-xl overflow-hidden">
+          <thead class="bg-slate-50 text-xs font-bold uppercase text-slate-500 border-b border-slate-200">
+            <tr>
+              <th class="py-2.5 px-4">A</th>
+              <th class="py-2.5 px-4">B</th>
+              <th class="py-2.5 px-4 text-blue-600">Output (Q)</th>
+            </tr>
+          </thead>
+          <tbody id="tt-body" class="divide-y divide-slate-100">
+            <tr><td>0</td><td>0</td><td class="font-bold text-blue-600">0</td></tr>
+            <tr><td>0</td><td>1</td><td class="font-bold text-blue-600">0</td></tr>
+            <tr><td>1</td><td>0</td><td class="font-bold text-blue-600">0</td></tr>
+            <tr><td>1</td><td>1</td><td class="font-bold text-blue-600">1</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const tables: Record<string, number[]> = {
+    and: [0, 0, 0, 1],
+    or: [0, 1, 1, 1],
+    xor: [0, 1, 1, 0],
+    nand: [1, 1, 1, 0],
+    nor: [1, 0, 0, 0]
+  };
+
+  function update() {
+    const gate = (document.getElementById('tt-gate') as HTMLSelectElement)?.value || 'and';
+    const outputs = tables[gate] || [0, 0, 0, 1];
+
+    const tbody = document.getElementById('tt-body');
+    if (tbody) {
+      tbody.innerHTML =
+        '<tr><td>0</td><td>0</td><td class="font-bold text-blue-600">' + outputs[0] + '</td></tr>' +
+        '<tr><td>0</td><td>1</td><td class="font-bold text-blue-600">' + outputs[1] + '</td></tr>' +
+        '<tr><td>1</td><td>0</td><td class="font-bold text-blue-600">' + outputs[2] + '</td></tr>' +
+        '<tr><td>1</td><td>1</td><td class="font-bold text-blue-600">' + outputs[3] + '</td></tr>';
+    }
+  }
+
+
+document.getElementById('tt-calc-btn')?.addEventListener('click', update);
+</script>

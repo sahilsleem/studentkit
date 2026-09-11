@@ -1,0 +1,71 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-4 sm:space-y-5">
+  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Margin of Error (E %)</label>
+          <input type="number" id="ss-me" min="0.5" max="20" step="0.5" placeholder="e.g. 5" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Confidence Level</label>
+          <select id="ss-conf" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="90">90% (z* = 1.645)</option>
+            <option value="95" selected>95% (z* = 1.960)</option>
+            <option value="99">99% (z* = 2.576)</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Total Population Size (Leave empty if infinite)</label>
+          <input type="number" id="ss-pop" placeholder="e.g. 50000" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+        <button id="ss-calc-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+          Calculate Required Sample Size
+        </button>
+      </div>
+
+      <div class="flex flex-col justify-between p-6 bg-slate-50 rounded-xl border border-slate-200/80">
+        <div>
+          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Recommended Sample Size (n)</div>
+          <div id="ss-result" class="text-4xl font-extrabold text-blue-600 mt-2 font-mono">--</div>
+          <div class="text-xs text-slate-500 mt-2">Assumes 50% population proportion (maximum variance)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const zMap: Record<string, number> = { '90': 1.645, '95': 1.96, '99': 2.576 };
+
+  function calculate() {
+    const e = parseFloat((document.getElementById('ss-me') as HTMLInputElement)?.value || '5') / 100;
+    const conf = (document.getElementById('ss-conf') as HTMLSelectElement)?.value || '95';
+    const popStr = (document.getElementById('ss-pop') as HTMLInputElement)?.value;
+    const N = popStr ? parseFloat(popStr) : 0;
+
+    const z = zMap[conf] || 1.96;
+    const p = 0.5;
+
+    let n = (z * z * p * (1 - p)) / (e * e);
+
+    if (N > 0) {
+      n = n / (1 + (n - 1) / N);
+    }
+
+    const finalN = Math.ceil(n);
+    const resEl = document.getElementById('ss-result');
+    if (resEl) resEl.textContent = finalN.toLocaleString() + ' respondents';
+  }
+
+
+  document.getElementById('ss-calc-btn')?.addEventListener('click', calculate);
+</script>

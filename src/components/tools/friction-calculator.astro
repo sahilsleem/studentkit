@@ -1,0 +1,63 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-4 sm:space-y-5">
+  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Coefficient of Friction (μ)</label>
+          <input type="number" id="fric-mu" placeholder="e.g. 0.35" min="0" max="2" step="0.05" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Mass of Object (m in kg)</label>
+          <input type="number" id="fric-m" placeholder="e.g. 20" min="0" step="any" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Incline Angle (θ in degrees)</label>
+          <input type="number" id="fric-angle" placeholder="e.g. 0" min="0" max="89" step="1" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm" />
+        </div>
+
+        <button id="fric-calc-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+          Calculate Friction Force
+        </button>
+      </div>
+
+      <div class="flex flex-col justify-between p-6 bg-slate-50 rounded-xl border border-slate-200/80">
+        <div>
+          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Friction Force (f = μ · N)</div>
+          <div id="fric-force" class="text-4xl font-extrabold text-blue-600 mt-2 font-mono">--</div>
+        </div>
+
+        <div class="pt-4 border-t border-slate-200/80 mt-6 space-y-2 text-xs text-slate-600">
+          <div class="flex justify-between">
+            <span>Normal Force (N = mg cos θ):</span>
+            <strong id="fric-normal" class="text-slate-800 font-mono">196.13 N</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function calculate() {
+    const mu = parseFloat((document.getElementById('fric-mu') as HTMLInputElement)?.value || '0');
+    const m = parseFloat((document.getElementById('fric-m') as HTMLInputElement)?.value || '0');
+    const deg = parseFloat((document.getElementById('fric-angle') as HTMLInputElement)?.value || '0');
+    const g = 9.80665;
+
+    const rad = (deg * Math.PI) / 180;
+    const normal = m * g * Math.cos(rad);
+    const friction = mu * normal;
+
+    document.getElementById('fric-force')!.textContent = friction.toFixed(2) + ' N';
+    document.getElementById('fric-normal')!.textContent = normal.toFixed(2) + ' N';
+  }
+
+
+  document.getElementById('fric-calc-btn')?.addEventListener('click', calculate);
+</script>

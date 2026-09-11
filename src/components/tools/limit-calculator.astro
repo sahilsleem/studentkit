@@ -1,0 +1,98 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-4 sm:space-y-5">
+  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Function f(x) Expression</label>
+          <input type="text" id="lim-func" placeholder="e.g. (x^2 - 4) / (x - 2)" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono" />
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Approaching Point (x → c)</label>
+          <input type="number" id="lim-point" placeholder="e.g. 2" step="any" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+        <button id="lim-calc-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+          Evaluate Limit
+        </button>
+      </div>
+
+      <div class="flex flex-col justify-between p-6 bg-slate-50 rounded-xl border border-slate-200/80">
+        <div>
+          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Two-Sided Limit lim x→c f(x)</div>
+          <div id="lim-val" class="text-4xl font-extrabold text-blue-600 mt-2 font-mono">--</div>
+          <div id="lim-status" class="text-xs text-emerald-600 font-semibold mt-2">Removable Discontinuity (0/0 indeterminate) resolved</div>
+        </div>
+
+        <div class="pt-4 border-t border-slate-200/80 mt-6 space-y-2 text-xs text-slate-600">
+          <div class="flex justify-between">
+            <span>Left-hand Limit (x → c⁻):</span>
+            <strong id="lim-left" class="text-slate-800 font-mono">3.9999</strong>
+          </div>
+          <div class="flex justify-between">
+            <span>Right-hand Limit (x → c⁺):</span>
+            <strong id="lim-right" class="text-slate-800 font-mono">4.0001</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function evalSafe(expr: string, x: number): number {
+    try {
+      const clean = expr
+        .replace(/x\^([0-9]+)/g, 'Math.pow(x, $1)')
+        .replace(/sin/g, 'Math.sin')
+        .replace(/cos/g, 'Math.cos')
+        .replace(/tan/g, 'Math.tan')
+        .replace(/ln/g, 'Math.log')
+        .replace(/e\^x/g, 'Math.exp(x)');
+      const fn = new Function('x', 'return ' + clean);
+      return fn(x);
+    } catch {
+      return NaN;
+    }
+  }
+
+  function calculate() {
+    const expr = (document.getElementById('lim-func') as HTMLInputElement)?.value || 'x';
+    const c = parseFloat((document.getElementById('lim-point') as HTMLInputElement)?.value || '0');
+
+    const eps = 1e-6;
+    const leftVal = evalSafe(expr, c - eps);
+    const rightVal = evalSafe(expr, c + eps);
+
+    const valEl = document.getElementById('lim-val');
+    const leftEl = document.getElementById('lim-left');
+    const rightEl = document.getElementById('lim-right');
+    const statEl = document.getElementById('lim-status');
+
+    if (isNaN(leftVal) || isNaN(rightVal)) {
+      if (valEl) valEl.textContent = 'Undefined';
+      return;
+    }
+
+    if (Math.abs(leftVal - rightVal) < 1e-3) {
+      const avg = (leftVal + rightVal) / 2;
+      if (valEl) valEl.textContent = avg.toFixed(4);
+      if (statEl) statEl.textContent = 'Continuous / Convergent Limit';
+    } else {
+      if (valEl) valEl.textContent = 'Does Not Exist (DNE)';
+      if (statEl) statEl.textContent = 'Jump or Infinite Discontinuity';
+    }
+
+    if (leftEl) leftEl.textContent = leftVal.toFixed(4);
+    if (rightEl) rightEl.textContent = rightVal.toFixed(4);
+  }
+
+
+  document.getElementById('lim-calc-btn')?.addEventListener('click', calculate);
+</script>

@@ -1,180 +1,89 @@
-<div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden mb-12 max-w-3xl mx-auto">
-      <div class="p-6 sm:p-8">
-        <form id="calculator-form" class="space-y-6">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <label for="classes-held" class="block text-sm font-medium text-gray-700 mb-1">Total Classes Held</label>
-              <input type="number" id="classes-held" min="1" required class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 sm:text-base transition-colors" placeholder="e.g. 40">
-            </div>
-            <div>
-              <label for="classes-attended" class="block text-sm font-medium text-gray-700 mb-1">Classes Attended</label>
-              <input type="number" id="classes-attended" min="0" required class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 sm:text-base transition-colors" placeholder="e.g. 32">
-            </div>
-          </div>
-          
-          <div>
-            <label for="target-percentage" class="block text-sm font-medium text-gray-700 mb-1">Target Attendance (%)</label>
-            <select id="target-percentage" class="block w-full md:w-1/2 px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 sm:text-base transition-colors bg-white">
-              <option value="75" selected>75% (Standard)</option>
-              <option value="50">50%</option>
-              <option value="60">60%</option>
-              <option value="65">65%</option>
-              <option value="70">70%</option>
-              <option value="80">80%</option>
-              <option value="85">85%</option>
-              <option value="90">90%</option>
-              <option value="95">95%</option>
-            </select>
-          </div>
+---
+export interface Props {
+  tool?: any;
+}
+---
 
-          <div class="flex flex-col sm:flex-row gap-4 pt-4">
-            <button type="submit" class="flex-1 bg-emerald-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors">
-              Calculate
-            </button>
-            <button type="button" id="reset-btn" class="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors">
-              Reset
-            </button>
-          </div>
-        </form>
+<div class="space-y-4 sm:space-y-5">
+  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Classes Attended</label>
+          <input type="number" id="att-attended" min="0" placeholder="e.g. 38" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
 
-        <div id="error-box" class="hidden mt-6 bg-red-50 text-red-700 p-4 rounded-lg text-sm font-medium border border-red-100"></div>
-        <div id="result-section" class="mt-8 pt-8 border-t border-gray-100 hidden">
-          <div class="text-center mb-8">
-            <p class="text-sm text-gray-500 mb-1">Current Attendance</p>
-            <div class="text-5xl font-bold mb-2" id="current-attendance">--%</div>
-            <p id="attendance-status" class="text-sm font-medium"></p>
-          </div>
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Total Classes Held</label>
+          <input type="number" id="att-total" min="1" placeholder="e.g. 45" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="bg-gray-50 rounded-lg p-5 border border-gray-100 text-center">
-              <p class="text-sm text-gray-600 mb-2">Classes you can miss safely</p>
-              <div class="text-2xl font-bold text-gray-900" id="classes-to-miss">--</div>
-            </div>
-            <div class="bg-gray-50 rounded-lg p-5 border border-gray-100 text-center">
-              <p class="text-sm text-gray-600 mb-2">Classes required to hit target</p>
-              <div class="text-2xl font-bold text-gray-900" id="classes-to-attend">--</div>
-            </div>
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Target Attendance Requirement (%)</label>
+          <input type="number" id="att-target" min="1" max="100" placeholder="e.g. 75" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+        <button id="att-calc-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+          Calculate Attendance Status
+        </button>
+      </div>
+
+      <div class="flex flex-col justify-between p-6 bg-slate-50 rounded-xl border border-slate-200/80">
+        <div>
+          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Current Attendance</div>
+          <div id="att-curr-pct" class="text-4xl font-extrabold text-blue-600 mt-2 font-mono">--</div>
+          <div id="att-status" class="text-xs text-emerald-600 font-medium mt-2">Enter details and calculate.</div>
+        </div>
+
+        <div class="pt-4 border-t border-slate-200/80 mt-6 space-y-2 text-xs text-slate-600">
+          <div class="flex justify-between">
+            <span id="att-advice-label">Bunk Safety / Required Classes:</span>
+            <strong id="att-advice-val" class="text-blue-600 font-bold">--</strong>
           </div>
         </div>
       </div>
     </div>
+  </div>
+</div>
 
-    <!-- Content Sections -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
-      <div class="prose prose-emerald">
-        <h3>How it works</h3>
-        <p>This calculator determines your current attendance percentage and projects your future attendance based on your selected target.</p>
-        <ul>
-          <li><strong>Current Attendance:</strong> (Attended / Held) × 100</li>
-          <li><strong>Classes to miss:</strong> How many future classes you can skip before your percentage falls below the target.</li>
-          <li><strong>Classes to attend:</strong> How many consecutive future classes you must attend to pull your percentage up to the target.</li>
-        </ul>
-      </div>
-      
-      <div class="prose prose-emerald">
-        <h3>Frequently Asked Questions</h3>
-        <details class="mb-4">
-          <summary class="font-medium cursor-pointer text-gray-900">What if I have 0 classes held?</summary>
-          <p class="text-sm mt-2 text-gray-600">You must have at least 1 class held to calculate a percentage. Otherwise, division by zero occurs.</p>
-        </details>
-        <details class="mb-4">
-          <summary class="font-medium cursor-pointer text-gray-900">Why does it say "0" for classes I need to attend?</summary>
-          <p class="text-sm mt-2 text-gray-600">This means your current attendance is already equal to or above your target!</p>
-        </details>
-      </div>
-    </div>
+<script>
+  const attendedIn = document.getElementById('att-attended') as HTMLInputElement;
+  const totalIn = document.getElementById('att-total') as HTMLInputElement;
+  const targetIn = document.getElementById('att-target') as HTMLInputElement;
+  const pctEl = document.getElementById('att-curr-pct');
+  const statusEl = document.getElementById('att-status');
+  const adviceLabel = document.getElementById('att-advice-label');
+  const adviceVal = document.getElementById('att-advice-val');
 
-    <script>
-  const initCalculator = () => {
-    const form = document.getElementById('calculator-form') as HTMLFormElement;
-    const heldInput = document.getElementById('classes-held') as HTMLInputElement;
-    const attendedInput = document.getElementById('classes-attended') as HTMLInputElement;
-    const targetSelect = document.getElementById('target-percentage') as HTMLSelectElement;
-    
-    const resultSection = document.getElementById('result-section');
-    const currentEl = document.getElementById('current-attendance');
-    const statusEl = document.getElementById('attendance-status');
-    const missEl = document.getElementById('classes-to-miss');
-    const attendEl = document.getElementById('classes-to-attend');
-    const resetBtn = document.getElementById('reset-btn');
+  function calculate() {
+    const attended = parseInt(attendedIn?.value || '0', 10);
+    const total = parseInt(totalIn?.value || '1', 10);
+    const target = parseFloat(targetIn?.value || '75') / 100;
 
-    if (!form) return;
+    if (total <= 0 || attended < 0 || attended > total) return;
 
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      document.getElementById('error-box')?.classList.add('hidden');
-      
-      const held = parseInt(heldInput.value, 10);
-      const attended = parseInt(attendedInput.value, 10);
-      const target = parseInt(targetSelect.value, 10);
+    const currentPct = (attended / total) * 100;
+    if (pctEl) pctEl.textContent = currentPct.toFixed(2) + '%';
 
-      if (isNaN(held) || isNaN(attended) || held <= 0 || attended < 0) return;
-      
-      if (attended > held) {
-        const errBox = document.getElementById('error-box');
-        if (errBox) {
-          errBox.textContent = "Classes attended cannot be greater than classes held.";
-          errBox.classList.remove('hidden');
-        }
-        return;
-        return;
+    if (currentPct >= target * 100) {
+      const canMiss = Math.floor((attended - target * total) / target);
+      if (statusEl) {
+        statusEl.textContent = 'You are currently above the target requirement.';
+        statusEl.className = 'text-xs text-emerald-600 font-medium mt-2';
       }
-
-      const current = (attended / held) * 100;
-      
-      if (currentEl) currentEl.textContent = `${current.toFixed(2)}%`;
-      
-      if (currentEl) {
-        if (current < target) {
-          currentEl.className = 'text-5xl font-bold mb-2 text-red-600';
-          if (statusEl) {
-            statusEl.textContent = 'Short of attendance';
-            statusEl.className = 'text-sm font-medium text-red-600';
-          }
-        } else {
-          currentEl.className = 'text-5xl font-bold mb-2 text-emerald-600';
-          if (statusEl) {
-            statusEl.textContent = 'On track';
-            statusEl.className = 'text-sm font-medium text-emerald-600';
-          }
-        }
+      if (adviceLabel) adviceLabel.textContent = 'Safe to Miss:';
+      if (adviceVal) adviceVal.textContent = canMiss > 0 ? canMiss + ' upcoming classes' : '0 classes (at boundary)';
+    } else {
+      const needed = Math.ceil((target * total - attended) / (1 - target));
+      if (statusEl) {
+        statusEl.textContent = 'Attendance is below requirement (Shortage Alert).';
+        statusEl.className = 'text-xs text-rose-600 font-medium mt-2';
       }
+      if (adviceLabel) adviceLabel.textContent = 'Classes Needed:';
+      if (adviceVal) adviceVal.textContent = 'Must attend next ' + needed + ' consecutive classes';
+    }
+  }
 
-      // Math for classes to miss/attend
-      // Target = (Attended + x) / (Held + x)
-      // For missing: Target = Attended / (Held + x) => x = (Attended / Target) - Held
-      // For attending: Target = (Attended + x) / (Held + x) => x = (Target*Held - Attended) / (1 - Target)
-      
-      let toMiss = 0;
-      let toAttend = 0;
-      const targetDec = target / 100;
 
-      if (current >= target) {
-        // Can miss
-        toMiss = Math.floor((attended / targetDec) - held);
-        toAttend = 0;
-      } else {
-        // Need to attend
-        toMiss = 0;
-        toAttend = Math.ceil((targetDec * held - attended) / (1 - targetDec));
-      }
-
-      if (missEl) missEl.textContent = toMiss.toString();
-      if (attendEl) attendEl.textContent = toAttend.toString();
-
-      if (resultSection) {
-        resultSection.classList.remove('hidden');
-        resultSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      }
-    });
-
-    resetBtn?.addEventListener('click', () => {
-      form.reset();
-      document.getElementById('error-box')?.classList.add('hidden');
-      resultSection?.classList.add('hidden');
-    });
-  };
-
-  initCalculator();
-  document.addEventListener('astro:page-load', initCalculator);
+  document.getElementById('att-calc-btn')?.addEventListener('click', calculate);
 </script>

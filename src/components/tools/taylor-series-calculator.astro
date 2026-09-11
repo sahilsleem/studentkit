@@ -1,0 +1,71 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-4 sm:space-y-5">
+  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Standard Function f(x)</label>
+          <select id="ts-func" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="exp" selected>eˣ (Exponential)</option>
+            <option value="sin">sin(x)</option>
+            <option value="cos">cos(x)</option>
+            <option value="ln">ln(1 + x)</option>
+            <option value="geom">1 / (1 - x)</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Order / Degree (n)</label>
+          <input type="number" id="ts-n" min="1" max="8" placeholder="e.g. 4" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+        <button id="ts-calc-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+          Generate Maclaurin Series
+        </button>
+      </div>
+
+      <div class="flex flex-col justify-between p-6 bg-slate-50 rounded-xl border border-slate-200/80">
+        <div>
+          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Series Polynomial Pₙ(x) (Center a = 0)</div>
+          <div id="ts-series" class="text-2xl font-extrabold text-blue-600 mt-2 font-mono">--</div>
+        </div>
+
+        <div class="pt-4 border-t border-slate-200/80 mt-6 text-xs text-slate-500">
+          <span>Radius of Convergence: </span>
+          <strong id="ts-radius" class="text-slate-800 font-mono">R = ∞</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const seriesMap: Record<string, { series: string[], radius: string }> = {
+    exp: { series: ['1', 'x', 'x²/2!', 'x³/3!', 'x⁴/4!', 'x⁵/5!', 'x⁶/6!'], radius: 'R = ∞' },
+    sin: { series: ['x', '- x³/3!', '+ x⁵/5!', '- x⁷/7!'], radius: 'R = ∞' },
+    cos: { series: ['1', '- x²/2!', '+ x⁴/4!', '- x⁶/6!'], radius: 'R = ∞' },
+    ln: { series: ['x', '- x²/2', '+ x³/3', '- x⁴/4', '+ x⁵/5'], radius: 'R = 1 (-1 < x ≤ 1)' },
+    geom: { series: ['1', 'x', 'x²', 'x³', 'x⁴', 'x⁵', 'x⁶'], radius: 'R = 1 (|x| < 1)' }
+  };
+
+  function update() {
+    const fn = (document.getElementById('ts-func') as HTMLSelectElement)?.value || 'exp';
+    const n = parseInt((document.getElementById('ts-n') as HTMLInputElement)?.value || '4', 10);
+    const data = seriesMap[fn];
+
+    const seriesEl = document.getElementById('ts-series');
+    const radEl = document.getElementById('ts-radius');
+
+    if (seriesEl && data) seriesEl.textContent = data.series.slice(0, n + 1).join(' + ').replace(/\+ -/g, '- ');
+    if (radEl && data) radEl.textContent = data.radius;
+  }
+
+
+  document.getElementById('ts-calc-btn')?.addEventListener('click', update);
+  update();
+</script>

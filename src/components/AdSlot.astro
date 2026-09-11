@@ -6,11 +6,10 @@ export interface Props {
 
 const { variant = 'horizontal', class: className = '' } = Astro.props;
 
-// To be populated when AdSense is approved
-const publisherId = ""; 
+// AdSense active flag
 const isAdSenseActive = false;
 
-// Reserve stable dimensions to prevent CLS (Cumulative Layout Shift)
+// Strict layout constraints to prevent CLS
 const layoutMap = {
   horizontal: "w-full max-w-[728px] min-h-[90px]",
   rectangle: "w-full max-w-[300px] min-h-[250px]",
@@ -20,14 +19,8 @@ const layoutMap = {
 const dimensionClasses = layoutMap[variant];
 ---
 
-<div class={`ad-wrapper flex justify-center items-center mx-auto ${className || 'my-8'} ${dimensionClasses}`}>
-  {isAdSenseActive ? (
-    // Future AdSense implementation
+{isAdSenseActive && (
+  <div class={`ad-wrapper flex justify-center items-center mx-auto ${className || 'my-6'} ${dimensionClasses}`}>
     <div class="ad-content w-full h-full"></div>
-  ) : (
-    // Subtle space reservation for CLS prevention
-    <div class="w-full h-full bg-gray-50/50 border border-gray-100/50 rounded flex items-center justify-center text-[10px] text-gray-300 uppercase tracking-widest select-none pointer-events-none transition-colors">
-      <span class="sr-only">Advertisement</span>
-    </div>
-  )}
-</div>
+  </div>
+)}

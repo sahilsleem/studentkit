@@ -1,0 +1,72 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-4 sm:space-y-5">
+  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Initial Velocity (v₀ in m/s)</label>
+          <input type="number" id="pm-v0" placeholder="e.g. 25" min="0.1" step="any" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Launch Angle (θ in degrees)</label>
+          <input type="number" id="pm-angle" placeholder="e.g. 45" min="0" max="90" step="1" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Initial Launch Height (h₀ in m)</label>
+          <input type="number" id="pm-h0" placeholder="e.g. 0" min="0" step="any" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm" />
+        </div>
+
+        <button id="pm-calc-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+          Calculate Trajectory
+        </button>
+      </div>
+
+      <div class="flex flex-col justify-between p-6 bg-slate-50 rounded-xl border border-slate-200/80">
+        <div>
+          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Horizontal Range (R)</div>
+          <div id="pm-range" class="text-4xl font-extrabold text-blue-600 mt-2 font-mono">--</div>
+        </div>
+
+        <div class="pt-4 border-t border-slate-200/80 mt-6 space-y-2 text-xs text-slate-600">
+          <div class="flex justify-between">
+            <span>Max Height (H_max):</span>
+            <strong id="pm-hmax" class="text-slate-800 font-mono">15.94 m</strong>
+          </div>
+          <div class="flex justify-between">
+            <span>Time of Flight (T):</span>
+            <strong id="pm-flight" class="text-slate-800 font-mono">3.61 s</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function calculate() {
+    const v0 = parseFloat((document.getElementById('pm-v0') as HTMLInputElement)?.value || '0');
+    const deg = parseFloat((document.getElementById('pm-angle') as HTMLInputElement)?.value || '45');
+    const h0 = parseFloat((document.getElementById('pm-h0') as HTMLInputElement)?.value || '0');
+    const g = 9.80665;
+
+    const rad = (deg * Math.PI) / 180;
+    const vx = v0 * Math.cos(rad);
+    const vy = v0 * Math.sin(rad);
+
+    const tFlight = (vy + Math.sqrt(vy * vy + 2 * g * h0)) / g;
+    const range = vx * tFlight;
+    const hMax = h0 + (vy * vy) / (2 * g);
+
+    document.getElementById('pm-range')!.textContent = range.toFixed(2) + ' m';
+    document.getElementById('pm-hmax')!.textContent = hMax.toFixed(2) + ' m';
+    document.getElementById('pm-flight')!.textContent = tFlight.toFixed(2) + ' s';
+  }
+
+
+  document.getElementById('pm-calc-btn')?.addEventListener('click', calculate);
+</script>

@@ -1,0 +1,60 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-4 sm:space-y-5">
+  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Applied Force (F in N)</label>
+          <input type="number" id="tq-f" placeholder="e.g. 50" min="0" step="any" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Lever Arm Length (r in meters)</label>
+          <input type="number" id="tq-r" placeholder="e.g. 0.4" min="0" step="any" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Angle θ (degrees)</label>
+          <input type="number" id="tq-angle" placeholder="e.g. 90" min="0" max="180" step="1" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm" />
+        </div>
+
+        <button id="tq-calc-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+          Calculate Torque
+        </button>
+      </div>
+
+      <div class="flex flex-col justify-between p-6 bg-slate-50 rounded-xl border border-slate-200/80">
+        <div>
+          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Resulting Torque (τ = r·F·sin θ)</div>
+          <div id="tq-res" class="text-4xl font-extrabold text-blue-600 mt-2 font-mono">--</div>
+        </div>
+
+        <div class="pt-4 border-t border-slate-200/80 mt-6 text-xs text-slate-600">
+          <span>Equivalent in Foot-Pounds: </span>
+          <strong id="tq-ftlb" class="text-slate-800 font-mono">14.75 ft·lb</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function calculate() {
+    const f = parseFloat((document.getElementById('tq-f') as HTMLInputElement)?.value || '0');
+    const r = parseFloat((document.getElementById('tq-r') as HTMLInputElement)?.value || '0');
+    const deg = parseFloat((document.getElementById('tq-angle') as HTMLInputElement)?.value || '90');
+
+    const rad = (deg * Math.PI) / 180;
+    const torque = r * f * Math.sin(rad);
+    const ftlb = torque * 0.737562;
+
+    document.getElementById('tq-res')!.textContent = torque.toFixed(2) + ' N·m';
+    document.getElementById('tq-ftlb')!.textContent = ftlb.toFixed(2) + ' ft·lb';
+  }
+
+
+  document.getElementById('tq-calc-btn')?.addEventListener('click', calculate);
+</script>

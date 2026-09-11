@@ -1,0 +1,60 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-4 sm:space-y-5">
+  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Fluid Density (ρ in kg/m³)</label>
+          <input type="number" id="pb-rho" placeholder="e.g. 1000" min="1" step="any" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Depth / Submerged Height (h in m)</label>
+          <input type="number" id="pb-h" placeholder="e.g. 10" min="0" step="any" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Displaced Volume (V in m³)</label>
+          <input type="number" id="pb-v" placeholder="e.g. 0.05" min="0" step="any" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm" />
+        </div>
+
+        <button id="pb-calc-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+          Calculate Pressure & Buoyant Force
+        </button>
+      </div>
+
+      <div class="flex flex-col justify-between p-6 bg-slate-50 rounded-xl border border-slate-200/80">
+        <div>
+          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Hydrostatic Pressure (P = ρgh)</div>
+          <div id="pb-press" class="text-3xl font-extrabold text-blue-600 mt-2 font-mono">--</div>
+        </div>
+
+        <div class="pt-4 border-t border-slate-200/80 mt-6 text-xs text-slate-600">
+          <span>Buoyant Force (F_b = ρ V g): </span>
+          <strong id="pb-buoy" class="text-slate-800 font-mono">490.33 N</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function calculate() {
+    const rho = parseFloat((document.getElementById('pb-rho') as HTMLInputElement)?.value || '1000');
+    const h = parseFloat((document.getElementById('pb-h') as HTMLInputElement)?.value || '0');
+    const v = parseFloat((document.getElementById('pb-v') as HTMLInputElement)?.value || '0');
+    const g = 9.80665;
+
+    const p = (rho * g * h) / 1000;
+    const fb = rho * v * g;
+
+    document.getElementById('pb-press')!.textContent = p.toFixed(2) + ' kPa';
+    document.getElementById('pb-buoy')!.textContent = fb.toFixed(2) + ' N';
+  }
+
+
+  document.getElementById('pb-calc-btn')?.addEventListener('click', calculate);
+</script>

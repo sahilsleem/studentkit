@@ -1,12 +1,12 @@
-import { PERIODIC_TABLE } from '../data/periodicTable';
+import { ELEMENT_MASSES } from './chemistryConstants';
 
 export function parseChemicalFormula(formula: string): Record<string, number> {
   const stack: Record<string, number>[] = [{}];
   let i = 0;
-  
+
   while (i < formula.length) {
     const char = formula[i];
-    
+
     if (char === '(' || char === '[') {
       stack.push({});
       i++;
@@ -20,7 +20,7 @@ export function parseChemicalFormula(formula: string): Record<string, number> {
       const multiplier = multiplierStr ? parseInt(multiplierStr, 10) : 1;
       const top = stack.pop();
       if (!top || stack.length === 0) throw new Error('Mismatched parentheses in formula.');
-      
+
       const current = stack[stack.length - 1];
       for (const [element, count] of Object.entries(top)) {
         current[element] = (current[element] || 0) + (count * multiplier);
@@ -38,35 +38,31 @@ export function parseChemicalFormula(formula: string): Record<string, number> {
         i++;
       }
       const count = countStr ? parseInt(countStr, 10) : 1;
-      
+
       const current = stack[stack.length - 1];
       current[element] = (current[element] || 0) + count;
-    } else if (char === ' ' || char === '·' || char === '.') {
-       // skip whitespace or dot (could handle hydrates if needed, but basic implementation skips)
+    } else if (char === ' ' || char === '·' || char === '*' || char === '.') {
        i++;
     } else {
       throw new Error(`Invalid character in formula: ${char}`);
     }
   }
-  
+
   if (stack.length !== 1) throw new Error('Mismatched parentheses in formula.');
   return stack[0];
 }
 
-export function calculateMolarMass(formula: string): { totalMass: number, elements: Record<string, { count: number, mass: number }> } {
+export function calculateMolarMass(formula: string): number {
   const parsed = parseChemicalFormula(formula);
   let totalMass = 0;
-  const elementsInfo: Record<string, { count: number, mass: number }> = {};
-  
+
   for (const [symbol, count] of Object.entries(parsed)) {
-    const element = PERIODIC_TABLE.find(e => e.symbol === symbol);
-    if (!element) {
+    const mass = ELEMENT_MASSES[symbol];
+    if (mass === undefined) {
       throw new Error(`Unknown element: ${symbol}`);
     }
-    const mass = element.atomicMass * count;
-    totalMass += mass;
-    elementsInfo[symbol] = { count, mass };
+    totalMass += mass * count;
   }
-  
-  return { totalMass, elements: elementsInfo };
+
+  return totalMass;
 }

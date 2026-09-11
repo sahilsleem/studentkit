@@ -1,0 +1,87 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-4 sm:space-y-5">
+  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">IPv4 Address</label>
+          <input type="text" id="sub-ip" placeholder="e.g. 192.168.1.50" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm font-mono" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">CIDR Subnet Prefix</label>
+          <select id="sub-cidr" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm font-mono">
+            <option value="24" selected>/24 (255.255.255.0 - 254 Hosts)</option>
+            <option value="25">/25 (255.255.255.128 - 126 Hosts)</option>
+            <option value="26">/26 (255.255.255.192 - 62 Hosts)</option>
+            <option value="27">/27 (255.255.255.224 - 30 Hosts)</option>
+            <option value="28">/28 (255.255.255.240 - 14 Hosts)</option>
+            <option value="16">/16 (255.255.0.0 - 65,534 Hosts)</option>
+          </select>
+        </div>
+
+        <button id="sub-calc-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+          Calculate Subnet
+        </button>
+      </div>
+
+      <div class="p-6 bg-slate-50 rounded-xl border border-slate-200/80 space-y-3">
+        <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Subnet Allocation</div>
+
+        <div class="space-y-2 text-xs text-slate-600">
+          <div class="flex justify-between">
+            <span>Network Address:</span>
+            <strong id="sub-net" class="text-blue-600 font-mono font-bold">192.168.1.0</strong>
+          </div>
+          <div class="flex justify-between">
+            <span>Broadcast Address:</span>
+            <strong id="sub-bcast" class="text-slate-800 font-mono">192.168.1.255</strong>
+          </div>
+          <div class="flex justify-between">
+            <span>Usable Host Range:</span>
+            <strong id="sub-range" class="text-slate-800 font-mono">192.168.1.1 - 192.168.1.254</strong>
+          </div>
+          <div class="flex justify-between">
+            <span>Total Usable Hosts:</span>
+            <strong id="sub-hosts" class="text-emerald-600 font-bold font-mono">254 hosts</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function calculate() {
+    const ipStr = (document.getElementById('sub-ip') as HTMLInputElement)?.value || '192.168.1.1';
+    const cidr = parseInt((document.getElementById('sub-cidr') as HTMLSelectElement)?.value || '24', 10);
+
+    const parts = ipStr.split('.').map(s => parseInt(s, 10));
+    if (parts.length !== 4 || parts.some(n => isNaN(n) || n < 0 || n > 255)) return;
+
+    const ipNum = (parts[0] << 24) | (parts[1] << 16) | (parts[2] << 8) | parts[3];
+    const mask = cidr === 0 ? 0 : (~0 << (32 - cidr));
+    const netNum = ipNum & mask;
+    const bcastNum = netNum | (~mask);
+
+    const toIp = (n: number) => [(n >>> 24) & 255, (n >>> 16) & 255, (n >>> 8) & 255, n & 255].join('.');
+
+    const netStr = toIp(netNum);
+    const bcastStr = toIp(bcastNum);
+    const firstHost = toIp(netNum + 1);
+    const lastHost = toIp(bcastNum - 1);
+    const usable = Math.max(0, Math.pow(2, 32 - cidr) - 2);
+
+    document.getElementById('sub-net')!.textContent = netStr;
+    document.getElementById('sub-bcast')!.textContent = bcastStr;
+    document.getElementById('sub-range')!.textContent = firstHost + ' - ' + lastHost;
+    document.getElementById('sub-hosts')!.textContent = usable.toLocaleString() + ' hosts';
+  }
+
+
+  document.getElementById('sub-calc-btn')?.addEventListener('click', calculate);
+</script>

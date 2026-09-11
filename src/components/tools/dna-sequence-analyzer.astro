@@ -1,0 +1,70 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-4 sm:space-y-5">
+  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
+    <div class="space-y-4">
+      <div>
+        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">5' to 3' DNA Sequence (A, T, C, G)</label>
+        <textarea id="dna-input" rows="3" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono uppercase" placeholder="e.g. ATGCGATCGATCGATCGTAA"></textarea>
+      </div>
+
+      <button id="dna-calc-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+        Analyze Sequence
+      </button>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200/80">
+          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Complementary Strand (3' → 5')</div>
+          <div id="dna-comp" class="text-sm font-bold text-blue-600 font-mono mt-1 break-all">TACGCTAGCTAGCTAGCATT</div>
+        </div>
+
+        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200/80">
+          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">mRNA Transcript (5' → 3')</div>
+          <div id="dna-mrna" class="text-sm font-bold text-blue-600 font-mono mt-1 break-all">AUGCGAUCGAUCGAUCGUAA</div>
+        </div>
+
+        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200/80">
+          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">GC Content %</div>
+          <div id="dna-gc" class="text-2xl font-extrabold text-slate-800 font-mono mt-1">45.0%</div>
+        </div>
+
+        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200/80">
+          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Estimated Melting Temp (Tm)</div>
+          <div id="dna-tm" class="text-2xl font-extrabold text-slate-800 font-mono mt-1">54.0°C</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function calculate() {
+    const raw = ((document.getElementById('dna-input') as HTMLTextAreaElement)?.value || '').toUpperCase().replace(/[^ATCG]/g, '');
+    if (!raw) return;
+
+    const compMap: Record<string, string> = { 'A': 'T', 'T': 'A', 'C': 'G', 'G': 'C' };
+    const comp = raw.split('').map(c => compMap[c] || c).join('');
+    const mrna = raw.replace(/T/g, 'U');
+
+    const gCount = (raw.match(/G/g) || []).length;
+    const cCount = (raw.match(/C/g) || []).length;
+    const aCount = (raw.match(/A/g) || []).length;
+    const tCount = (raw.match(/T/g) || []).length;
+
+    const gc = ((gCount + cCount) / raw.length) * 100;
+    // Marmur & Doty formula
+    const tm = raw.length < 14 ? (aCount + tCount) * 2 + (gCount + cCount) * 4 : 64.9 + 41 * (gCount + cCount - 16.4) / raw.length;
+
+    document.getElementById('dna-comp')!.textContent = comp;
+    document.getElementById('dna-mrna')!.textContent = mrna;
+    document.getElementById('dna-gc')!.textContent = gc.toFixed(1) + '%';
+    document.getElementById('dna-tm')!.textContent = tm.toFixed(1) + '°C';
+  }
+
+
+  document.getElementById('dna-calc-btn')?.addEventListener('click', calculate);
+</script>

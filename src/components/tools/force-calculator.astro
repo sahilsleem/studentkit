@@ -1,0 +1,57 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-4 sm:space-y-5">
+  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Mass (m in kg)</label>
+          <input type="number" id="fc-mass" placeholder="e.g. 12" min="0" step="any" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Acceleration (a in m/s²)</label>
+          <input type="number" id="fc-acc" placeholder="e.g. 3.5" step="any" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm" />
+        </div>
+
+        <button id="fc-calc-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+          Calculate Net Force
+        </button>
+      </div>
+
+      <div class="flex flex-col justify-between p-6 bg-slate-50 rounded-xl border border-slate-200/80">
+        <div>
+          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Net Force (F = m · a)</div>
+          <div id="fc-force" class="text-4xl font-extrabold text-blue-600 mt-2 font-mono">--</div>
+          <div class="text-xs text-slate-500 mt-2">Newtons (kg·m/s²)</div>
+        </div>
+
+        <div class="pt-4 border-t border-slate-200/80 mt-6 space-y-2 text-xs text-slate-600">
+          <div class="flex justify-between">
+            <span>Force in Pounds-Force (lbf):</span>
+            <strong id="fc-lbf" class="text-slate-800 font-mono">9.44 lbf</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function calculate() {
+    const m = parseFloat((document.getElementById('fc-mass') as HTMLInputElement)?.value || '0');
+    const a = parseFloat((document.getElementById('fc-acc') as HTMLInputElement)?.value || '0');
+
+    const f = m * a;
+    const lbf = f * 0.224809;
+
+    document.getElementById('fc-force')!.textContent = f.toFixed(2) + ' N';
+    document.getElementById('fc-lbf')!.textContent = lbf.toFixed(2) + ' lbf';
+  }
+
+
+  document.getElementById('fc-calc-btn')?.addEventListener('click', calculate);
+</script>

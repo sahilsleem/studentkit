@@ -1,0 +1,79 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-4 sm:space-y-5">
+  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">First-Order ODE Standard Form</label>
+          <select id="ode-type" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="growth" selected>dy/dx = k·y (Exponential Growth / Decay)</option>
+            <option value="linear">dy/dx + P·y = Q (Linear First-Order)</option>
+            <option value="separable">dy/dx = x / y (Separable)</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Rate Constant / Parameter (k)</label>
+          <input type="number" id="ode-k" placeholder="e.g. 0.5" step="any" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Initial Condition y(0) = y₀</label>
+          <input type="number" id="ode-y0" placeholder="e.g. 10" step="any" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+        <button id="ode-calc-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+          Solve Differential Equation
+        </button>
+      </div>
+
+      <div class="flex flex-col justify-between p-6 bg-slate-50 rounded-xl border border-slate-200/80">
+        <div>
+          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Particular Solution y(x)</div>
+          <div id="ode-sol" class="text-2xl font-extrabold text-blue-600 mt-2 font-mono">--</div>
+          <div id="ode-method" class="text-xs text-slate-500 mt-2">Solved via Separation of Variables: ∫(1/y)dy = ∫k dx</div>
+        </div>
+
+        <div class="pt-4 border-t border-slate-200/80 mt-6 text-xs text-slate-600">
+          <span>General Solution: </span>
+          <strong id="ode-general" class="text-slate-800 font-mono">y(x) = C · e^(0.5x)</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function calculate() {
+    const type = (document.getElementById('ode-type') as HTMLSelectElement)?.value || 'growth';
+    const k = parseFloat((document.getElementById('ode-k') as HTMLInputElement)?.value || '0.5');
+    const y0 = parseFloat((document.getElementById('ode-y0') as HTMLInputElement)?.value || '10');
+
+    const solEl = document.getElementById('ode-sol');
+    const genEl = document.getElementById('ode-general');
+    const methodEl = document.getElementById('ode-method');
+
+    if (type === 'growth') {
+      if (solEl) solEl.textContent = 'y(x) = ' + y0 + ' · e^(' + k + 'x)';
+      if (genEl) genEl.textContent = 'y(x) = C · e^(' + k + 'x)';
+      if (methodEl) methodEl.textContent = 'Solved via Separation of Variables: ∫(1/y)dy = ∫k dx';
+    } else if (type === 'separable') {
+      const c = y0 * y0;
+      if (solEl) solEl.textContent = 'y(x) = √(x² + ' + c + ')';
+      if (genEl) genEl.textContent = 'y² = x² + C';
+      if (methodEl) methodEl.textContent = 'Separation: ∫y dy = ∫x dx';
+    } else {
+      if (solEl) solEl.textContent = 'y(x) = (Q/P) + (y₀ - Q/P)e^(-Px)';
+      if (genEl) genEl.textContent = 'y(x) = Q/P + C · e^(-Px)';
+      if (methodEl) methodEl.textContent = 'Integrating Factor: I(x) = e^(∫P dx)';
+    }
+  }
+
+
+  document.getElementById('ode-calc-btn')?.addEventListener('click', calculate);
+</script>

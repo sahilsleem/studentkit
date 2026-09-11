@@ -1,0 +1,80 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-4 sm:space-y-5">
+  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Enter Integer (n &gt; 1)</label>
+          <input type="number" id="pf-num" min="2" max="100000000" placeholder="e.g. 360" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+        <button id="pf-calc-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+          Factorize Integer
+        </button>
+      </div>
+
+      <div class="flex flex-col justify-between p-6 bg-slate-50 rounded-xl border border-slate-200/80">
+        <div>
+          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Prime Factorization</div>
+          <div id="pf-exp" class="text-3xl font-extrabold text-blue-600 mt-2 font-mono">--</div>
+          <div id="pf-list" class="text-xs text-slate-500 mt-2">Factors: 2, 2, 2, 3, 3, 5</div>
+        </div>
+
+        <div class="pt-4 border-t border-slate-200/80 mt-6 space-y-2 text-xs text-slate-600">
+          <div class="flex justify-between">
+            <span>Total Divisors:</span>
+            <strong id="pf-div-count" class="text-slate-800">24 divisors</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function factorize() {
+    let n = parseInt((document.getElementById('pf-num') as HTMLInputElement)?.value || '2', 10);
+    if (n < 2) return;
+
+    const factors: Record<number, number> = {};
+    const flatList: number[] = [];
+    let d = 2;
+
+    while (d * d <= n) {
+      while (n % d === 0) {
+        factors[d] = (factors[d] || 0) + 1;
+        flatList.push(d);
+        n /= d;
+      }
+      d++;
+    }
+    if (n > 1) {
+      factors[n] = (factors[n] || 0) + 1;
+      flatList.push(n);
+    }
+
+    const expStr = Object.entries(factors).map(([p, e]) => e === 1 ? p : p + '^' + e).join(' × ');
+
+    let divisorCount = 1;
+    for (const e of Object.values(factors)) {
+      divisorCount *= (e + 1);
+    }
+
+    const expEl = document.getElementById('pf-exp');
+    const listEl = document.getElementById('pf-list');
+    const divCountEl = document.getElementById('pf-div-count');
+
+    if (expEl) expEl.textContent = expStr;
+    if (listEl) listEl.textContent = 'Factors: ' + flatList.join(', ');
+    if (divCountEl) divCountEl.textContent = divisorCount + ' divisors';
+  }
+
+  document.getElementById('pf-num')?.addEventListener('input', factorize);
+  document.getElementById('pf-calc-btn')?.addEventListener('click', factorize);
+  factorize();
+</script>

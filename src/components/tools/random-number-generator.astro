@@ -1,0 +1,119 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-4 sm:space-y-5">
+  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+      <div class="space-y-4">
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Minimum Value</label>
+            <input type="number" id="rng-min" placeholder="e.g. 1" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Maximum Value</label>
+            <input type="number" id="rng-max" placeholder="e.g. 100" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Quantity of Numbers</label>
+          <input type="number" id="rng-count" min="1" max="100" placeholder="e.g. 5" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+        <div class="space-y-2 pt-2">
+          <label class="flex items-center gap-2 text-xs text-slate-600">
+            <input type="checkbox" id="rng-unique" checked class="rounded border-slate-300 text-blue-600 focus:ring-blue-500" />
+            Allow unique numbers only (no duplicates)
+          </label>
+          <label class="flex items-center gap-2 text-xs text-slate-600">
+            <input type="checkbox" id="rng-sort" class="rounded border-slate-300 text-blue-600 focus:ring-blue-500" />
+            Sort generated numbers ascending
+          </label>
+        </div>
+
+        <button id="rng-gen-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+          Generate Numbers
+        </button>
+      </div>
+
+      <div class="p-6 bg-slate-50 rounded-xl border border-slate-200/80 flex flex-col justify-between">
+        <div>
+          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Generated Result</div>
+          <div id="rng-results-container" class="flex flex-wrap gap-2"></div>
+        </div>
+
+        <div class="pt-4 border-t border-slate-200/80 mt-6 flex items-center justify-between text-xs text-slate-500">
+          <span id="rng-stats">Sum: -- | Avg: --</span>
+          <button id="rng-copy-btn" type="button" class="text-blue-600 hover:text-blue-700 font-semibold">Copy All</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const minIn = document.getElementById('rng-min') as HTMLInputElement;
+  const maxIn = document.getElementById('rng-max') as HTMLInputElement;
+  const countIn = document.getElementById('rng-count') as HTMLInputElement;
+  const uniqueIn = document.getElementById('rng-unique') as HTMLInputElement;
+  const sortIn = document.getElementById('rng-sort') as HTMLInputElement;
+  const container = document.getElementById('rng-results-container');
+  const statsEl = document.getElementById('rng-stats');
+  const genBtn = document.getElementById('rng-gen-btn');
+  const copyBtn = document.getElementById('rng-copy-btn');
+
+  let currentResults: number[] = [];
+
+  function generate() {
+    const min = parseInt(minIn?.value || '1', 10);
+    const max = parseInt(maxIn?.value || '100', 10);
+    let count = parseInt(countIn?.value || '1', 10);
+    const unique = uniqueIn?.checked;
+    const sort = sortIn?.checked;
+
+    if (min >= max) return;
+    const range = max - min + 1;
+    if (unique && count > range) count = range;
+
+    const results: number[] = [];
+    const used = new Set<number>();
+
+    while (results.length < count) {
+      const num = Math.floor(Math.random() * range) + min;
+      if (unique) {
+        if (!used.has(num)) {
+          used.add(num);
+          results.push(num);
+        }
+      } else {
+        results.push(num);
+      }
+    }
+
+    if (sort) results.sort((a, b) => a - b);
+    currentResults = results;
+
+    if (container) {
+      container.innerHTML = results.map(n =>
+        '<div class="px-4 py-2 bg-white rounded-xl border border-slate-200 text-lg font-bold text-blue-600 font-mono shadow-sm">' + n + '</div>'
+      ).join('');
+    }
+
+    const sum = results.reduce((a, b) => a + b, 0);
+    const avg = sum / (results.length || 1);
+    if (statsEl) statsEl.textContent = 'Sum: ' + sum + ' | Avg: ' + avg.toFixed(1);
+  }
+
+  genBtn?.addEventListener('click', generate);
+  copyBtn?.addEventListener('click', () => {
+    if (currentResults.length > 0) {
+      navigator.clipboard.writeText(currentResults.join(', '));
+    }
+  });
+
+  generate();
+</script>

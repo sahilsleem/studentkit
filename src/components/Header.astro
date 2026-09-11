@@ -1,89 +1,600 @@
 ---
+import { tools } from '../data/registry';
+
+const pathname = new URL(Astro.request.url).pathname;
+
+const navLinks = [
+  { name: 'Home', href: '/' },
+  { name: 'Tools', href: '/tools' },
+  { name: 'About', href: '/about' },
+  { name: 'Contact', href: '/contact' }
+];
+
+const searchIndex = tools.map(tool => ({
+  s: tool.slug,
+  t: tool.title,
+  c: tool.category,
+  sc: tool.subcategory || '',
+  a: tool.aliases || [],
+  k: tool.keywords || []
+}));
 ---
-<header class="bg-white border-b border-gray-200">
+
+<header class="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-slate-200/80 transition-all">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex justify-between h-16">
-      <div class="flex">
-        <a href="/" class="flex-shrink-0 flex items-center gap-2 text-gray-900 font-bold text-xl tracking-tight">
-          <svg class="w-6 h-6 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-          </svg>
-          StudentKit
+    <div class="flex items-center justify-between h-16 relative">
+
+      <!-- Brand Logo (Hidden on mobile when mobile inline search is active) -->
+      <div id="header-brand" class="flex items-center gap-3">
+        <a href="/" class="group flex items-center gap-2.5 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-600 rounded-lg p-1">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center text-white shadow-sm shadow-blue-500/20 group-hover:scale-105 transition-transform">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
+            </svg>
+          </div>
+          <div class="flex flex-col">
+            <span class="text-lg font-bold tracking-tight text-slate-900 group-hover:text-blue-600 transition-colors leading-none">
+              Student<span class="text-blue-600">Kit</span>
+            </span>
+            <span class="text-[10px] font-medium text-slate-500 uppercase tracking-wider mt-0.5">Study Utilities</span>
+          </div>
         </a>
       </div>
 
-      <!-- Desktop Search & Nav -->
-      <div class="hidden sm:flex sm:items-center sm:space-x-6">
-        <button
-          type="button"
-          id="global-search-trigger"
-          class="flex items-center gap-2 px-3 py-1.5 text-sm text-gray-500 bg-gray-50 hover:bg-gray-100 hover:text-gray-900 border border-gray-200 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-emerald-500 cursor-pointer"
-          aria-label="Search tools (Ctrl+K)"
-        >
-          <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-          </svg>
-          <span class="text-gray-400 font-normal">Search tools...</span>
-          <kbd id="search-kbd-shortcut" class="inline-flex items-center px-1.5 py-0.5 text-xs font-mono font-medium text-gray-400 bg-white border border-gray-200 rounded shadow-xs ml-1">Ctrl K</kbd>
-        </button>
+      <!-- Desktop Search Bar & Navigation -->
+      <div class="hidden md:flex items-center gap-4 lg:gap-6">
+        <!-- Desktop Inline Search Container -->
+        <div class="relative" id="desktop-search-container">
+          <!-- Collapsed State: Search Button -->
+          <button
+            type="button"
+            id="desktop-search-trigger"
+            class="flex items-center gap-2.5 px-3 py-1.5 text-sm text-slate-500 bg-slate-50 hover:bg-slate-100 hover:text-slate-800 border border-slate-200 hover:border-slate-300 rounded-lg transition-all focus:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-600 cursor-pointer shadow-xs"
+            aria-label="Search tools"
+          >
+            <svg class="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+            </svg>
+            <span class="text-slate-400 font-normal pr-3">Search tools...</span>
+          </button>
 
-        <nav class="flex space-x-6">
-          <a href="/" class="text-gray-500 hover:text-gray-900 inline-flex items-center px-1 pt-1 text-sm font-medium">Home</a>
-          <a href="/tools" class="text-gray-500 hover:text-gray-900 inline-flex items-center px-1 pt-1 text-sm font-medium">Tools</a>
-          <a href="/about" class="text-gray-500 hover:text-gray-900 inline-flex items-center px-1 pt-1 text-sm font-medium">About</a>
+          <!-- Expanded State: Inline Input Field -->
+          <div id="desktop-search-expanded" class="hidden relative items-center w-64 lg:w-72">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+              </svg>
+            </div>
+            <input
+              type="text"
+              id="desktop-search-input"
+              class="w-full pl-9 pr-8 py-1.5 text-sm bg-white border border-blue-500 rounded-lg text-slate-900 placeholder-slate-400 focus:outline-hidden focus:ring-2 focus:ring-blue-600/20 shadow-xs"
+              placeholder="Search tools..."
+              autocomplete="off"
+              spellcheck="false"
+              aria-label="Search tools"
+              role="combobox"
+              aria-expanded="false"
+              aria-autocomplete="list"
+              aria-controls="desktop-search-results"
+            />
+            <button
+              type="button"
+              id="desktop-search-close"
+              class="absolute inset-y-0 right-0 pr-2.5 flex items-center text-slate-400 hover:text-slate-600 cursor-pointer"
+              aria-label="Close search"
+            >
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+
+          <!-- Desktop Results Dropdown (Inline underneath search input, page stays naturally scrollable) -->
+          <div
+            id="desktop-search-results"
+            role="listbox"
+            aria-label="Search Results"
+            class="hidden absolute top-full left-0 right-0 mt-1.5 w-72 lg:w-80 bg-white rounded-xl border border-slate-200 shadow-lg max-h-80 overflow-y-auto p-1.5 text-left z-50"
+          >
+          </div>
+        </div>
+
+        <nav class="flex items-center gap-1" aria-label="Main Navigation">
+          {navLinks.map((link) => {
+            const isActive = link.href === '/' ? pathname === '/' : pathname.startsWith(link.href);
+            return (
+              <a
+                href={link.href}
+                class={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+                  isActive
+                    ? 'text-blue-600 bg-blue-50/80 font-semibold'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/70'
+                }`}
+                aria-current={isActive ? 'page' : undefined}
+              >
+                {link.name}
+              </a>
+            );
+          })}
         </nav>
       </div>
 
-      <!-- Mobile actions (Search + Hamburger) -->
-      <div class="flex items-center gap-1 sm:hidden">
+      <!-- Mobile Actions (Normal State) -->
+      <div id="mobile-actions" class="flex items-center gap-1.5 md:hidden">
         <button
           type="button"
           id="mobile-search-trigger"
-          class="inline-flex items-center justify-center p-2 rounded-md text-gray-500 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-emerald-500 min-w-[44px] min-h-[44px] cursor-pointer"
+          class="p-2 text-slate-600 hover:text-blue-600 hover:bg-slate-100 rounded-lg transition-colors focus:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-600 cursor-pointer min-w-[44px] min-h-[44px] flex items-center justify-center"
           aria-label="Search tools"
         >
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
           </svg>
         </button>
 
-        <button type="button" id="mobile-menu-btn" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-emerald-500 min-w-[44px] min-h-[44px] cursor-pointer" aria-expanded="false">
-          <span class="sr-only">Open main menu</span>
-          <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        <button
+          type="button"
+          id="mobile-menu-btn"
+          class="p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors focus:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-600 cursor-pointer min-w-[44px] min-h-[44px] flex items-center justify-center"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+          aria-label="Toggle navigation menu"
+        >
+          <svg id="hamburger-icon" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+          </svg>
+          <svg id="close-icon" class="w-6 h-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
           </svg>
         </button>
       </div>
+
+      <!-- Mobile Active Inline Search Bar (Smoothly expands within header row, no modal/overlay) -->
+      <div id="mobile-search-bar" class="hidden absolute inset-0 bg-white flex items-center px-3 sm:px-4 gap-2 z-40">
+        <div class="flex-grow relative">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+            </svg>
+          </div>
+          <input
+            type="text"
+            id="mobile-search-input"
+            class="w-full pl-9 pr-8 py-1.5 text-sm bg-slate-50 border border-slate-300 rounded-lg text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-hidden focus:border-blue-500 focus:ring-2 focus:ring-blue-600/20"
+            placeholder="Search tools..."
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Search tools"
+          />
+          <button
+            type="button"
+            id="mobile-search-clear"
+            class="hidden absolute inset-y-0 right-0 pr-2.5 flex items-center text-slate-400 hover:text-slate-600 cursor-pointer"
+            aria-label="Clear query"
+          >
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <button
+          type="button"
+          id="mobile-search-close"
+          class="px-2.5 py-1.5 text-xs font-semibold text-slate-600 hover:text-slate-900 bg-slate-100 rounded-lg shrink-0 cursor-pointer"
+          aria-label="Close search"
+        >
+          Cancel
+        </button>
+      </div>
+
     </div>
   </div>
 
-  <!-- Mobile Menu -->
-  <div class="sm:hidden hidden" id="mobile-menu">
-    <div class="pt-2 pb-3 space-y-1">
-      <a href="/" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800">Home</a>
-      <a href="/tools" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800">Tools</a>
-      <a href="/about" class="block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800">About</a>
+  <!-- Mobile Inline Results Container (Below header bar in natural page layout) -->
+  <div
+    id="mobile-search-results"
+    role="listbox"
+    aria-label="Mobile Search Results"
+    class="hidden md:hidden border-b border-slate-200 bg-white px-4 py-2 max-h-72 overflow-y-auto shadow-md"
+  >
+  </div>
+
+  <!-- Mobile Dropdown Menu -->
+  <div id="mobile-menu" class="hidden md:hidden border-b border-slate-200 bg-white px-4 pt-2 pb-4 space-y-1 shadow-lg">
+    {navLinks.map((link) => {
+      const isActive = link.href === '/' ? pathname === '/' : pathname.startsWith(link.href);
+      return (
+        <a
+          href={link.href}
+          class={`block px-3 py-2.5 rounded-lg text-base font-medium transition-colors ${
+            isActive
+              ? 'text-blue-600 bg-blue-50 font-semibold'
+              : 'text-slate-700 hover:text-slate-900 hover:bg-slate-50'
+          }`}
+          aria-current={isActive ? 'page' : undefined}
+        >
+          {link.name}
+        </a>
+      );
+    })}
+    <div class="pt-2 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400 px-3">
+      <span>100% Free & Client-Side</span>
+      <span>No Sign-Up</span>
     </div>
   </div>
 </header>
 
+<script id="header-search-index" type="application/json" set:html={JSON.stringify(searchIndex).replace(/</g, '\\u003c')} />
+
 <script>
-  // Setup mobile menu toggle
-  const setupMenu = () => {
-    const btn = document.getElementById('mobile-menu-btn');
-    const menu = document.getElementById('mobile-menu');
-    if (btn && menu) {
-      btn.addEventListener('click', () => {
-        const expanded = btn.getAttribute('aria-expanded') === 'true' || false;
-        btn.setAttribute('aria-expanded', String(!expanded));
-        menu.classList.toggle('hidden');
+  interface SearchItem {
+    s: string;  // slug
+    t: string;  // title
+    c: string;  // category
+    sc: string; // subcategory
+    a: string[]; // aliases
+    k: string[]; // keywords
+  }
+
+  const setupHeaderSearch = () => {
+    // Mobile navigation menu controls
+    const mobileBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const hamburgerIcon = document.getElementById('hamburger-icon');
+    const closeIcon = document.getElementById('close-icon');
+
+    if (mobileBtn && mobileMenu) {
+      mobileBtn.addEventListener('click', () => {
+        const isExpanded = mobileBtn.getAttribute('aria-expanded') === 'true';
+        mobileBtn.setAttribute('aria-expanded', String(!isExpanded));
+        mobileMenu.classList.toggle('hidden');
+        if (hamburgerIcon && closeIcon) {
+          hamburgerIcon.classList.toggle('hidden');
+          closeIcon.classList.toggle('hidden');
+        }
       });
     }
+
+    // Search data indexing
+    const rawDataEl = document.getElementById('header-search-index');
+    if (!rawDataEl) return;
+
+    let searchItems: SearchItem[] = [];
+    try {
+      searchItems = JSON.parse(rawDataEl.textContent || '[]');
+    } catch (e) {
+      searchItems = [];
+    }
+
+    const normalize = (str: string) => str ? str.toLowerCase().trim().replace(/\s+/g, ' ') : '';
+    const getWords = (str: string) => str.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim().split(/\s+/).filter(Boolean);
+
+    const indexedItems = searchItems.map(item => {
+      const titleNorm = normalize(item.t);
+      const titleWords = getWords(item.t);
+      const slugNorm = normalize(item.s.replace(/-/g, ' '));
+      const slugWords = getWords(item.s);
+      const categoryNorm = normalize(item.c);
+      const categoryWords = getWords(item.c);
+      const aliases = (item.a || []).map(normalize);
+      const keywords = (item.k || []).map(normalize);
+
+      const allPhrases = [titleNorm, slugNorm, ...aliases, ...keywords];
+      const allWords = [...titleWords, ...slugWords, ...aliases.flatMap(getWords), ...keywords.flatMap(getWords)];
+
+      return {
+        ...item,
+        titleNorm,
+        allPhrases,
+        allWords,
+        categoryWords
+      };
+    });
+
+    const runQuery = (q: string): { s: string; t: string }[] => {
+      const normQ = normalize(q);
+      if (!normQ) return [];
+
+      const qWords = getWords(normQ);
+      const results: { s: string; t: string; score: number }[] = [];
+
+      for (const item of indexedItems) {
+        let isMatch = false;
+        let score = 0;
+
+        // 1. Exact or prefix match on title
+        if (item.titleNorm.startsWith(normQ)) {
+          isMatch = true;
+          score += 200;
+        } else if (item.titleNorm.includes(normQ)) {
+          if (normQ.length <= 3) {
+            if (item.allWords.some(w => w.startsWith(normQ) || w === normQ)) {
+              isMatch = true;
+              score += 150;
+            }
+          } else {
+            isMatch = true;
+            score += 120;
+          }
+        }
+
+        // 2. Keyword / Alias / Phrase match
+        if (!isMatch) {
+          for (const phrase of item.allPhrases) {
+            if (phrase.includes(normQ)) {
+              if (normQ.length <= 3) {
+                if (item.allWords.some(w => w.startsWith(normQ) || w === normQ)) {
+                  isMatch = true;
+                  score += 100;
+                  break;
+                }
+              } else {
+                isMatch = true;
+                score += 90;
+                break;
+              }
+            }
+          }
+        }
+
+        // 3. Multi-word query check
+        if (!isMatch && qWords.length > 1) {
+          const allPresent = qWords.every(qw =>
+            item.allWords.some(w => w.startsWith(qw) || w === qw) ||
+            item.allPhrases.some(p => p.includes(qw))
+          );
+          if (allPresent) {
+            isMatch = true;
+            score += 80;
+          }
+        }
+
+        // 4. Category match
+        if (!isMatch) {
+          if (item.categoryWords.some(w => w === normQ || (normQ.length >= 4 && w.startsWith(normQ)))) {
+            isMatch = true;
+            score += 30;
+          }
+        }
+
+        if (isMatch) {
+          results.push({ s: item.s, t: item.t, score });
+        }
+      }
+
+      results.sort((a, b) => b.score - a.score || a.t.length - b.t.length);
+      return results.slice(0, 10).map(r => ({ s: r.s, t: r.t }));
+    };
+
+    // --- DESKTOP SEARCH CONTROLS ---
+    const deskTrigger = document.getElementById('desktop-search-trigger');
+    const deskExpanded = document.getElementById('desktop-search-expanded');
+    const deskInput = document.getElementById('desktop-search-input') as HTMLInputElement | null;
+    const deskClose = document.getElementById('desktop-search-close');
+    const deskResults = document.getElementById('desktop-search-results');
+    let deskSelectedIdx = -1;
+    let deskFiltered: { s: string; t: string }[] = [];
+
+    const openDesktopSearch = () => {
+      if (!deskTrigger || !deskExpanded || !deskInput) return;
+      deskTrigger.classList.add('hidden');
+      deskExpanded.classList.remove('hidden');
+      deskExpanded.classList.add('flex');
+      deskInput.value = '';
+      deskFiltered = [];
+      deskSelectedIdx = -1;
+      if (deskResults) {
+        deskResults.innerHTML = '';
+        deskResults.classList.add('hidden');
+      }
+      deskInput.focus();
+    };
+
+    const closeDesktopSearch = () => {
+      if (!deskTrigger || !deskExpanded || !deskInput) return;
+      deskExpanded.classList.add('hidden');
+      deskExpanded.classList.remove('flex');
+      deskTrigger.classList.remove('hidden');
+      deskInput.value = '';
+      if (deskResults) {
+        deskResults.innerHTML = '';
+        deskResults.classList.add('hidden');
+      }
+      deskSelectedIdx = -1;
+    };
+
+    deskTrigger?.addEventListener('click', openDesktopSearch);
+    deskClose?.addEventListener('click', closeDesktopSearch);
+
+    const updateDeskSelection = (idx: number) => {
+      if (!deskResults) return;
+      const options = deskResults.querySelectorAll<HTMLElement>('a[role="option"]');
+      options.forEach((opt, i) => {
+        if (i === idx) {
+          opt.classList.add('bg-blue-50', 'text-blue-600');
+          opt.scrollIntoView({ block: 'nearest' });
+        } else {
+          opt.classList.remove('bg-blue-50', 'text-blue-600');
+        }
+      });
+      deskSelectedIdx = idx;
+    };
+
+    deskInput?.addEventListener('input', (e) => {
+      const q = (e.target as HTMLInputElement).value;
+      if (!deskResults) return;
+
+      if (!q.trim()) {
+        deskFiltered = [];
+        deskSelectedIdx = -1;
+        deskResults.innerHTML = '';
+        deskResults.classList.add('hidden');
+        return;
+      }
+
+      deskFiltered = runQuery(q);
+      deskSelectedIdx = -1;
+
+      if (deskFiltered.length === 0) {
+        deskResults.innerHTML = '<div class="p-3 text-center text-xs text-slate-500">No tools found.</div>';
+        deskResults.classList.remove('hidden');
+        return;
+      }
+
+      deskResults.innerHTML = deskFiltered.map((tool, idx) => `
+        <a
+          href="/tools/${tool.s}"
+          role="option"
+          id="desk-result-${idx}"
+          class="block px-3 py-2 rounded-lg text-xs font-semibold text-slate-800 hover:text-blue-600 hover:bg-slate-50 transition-colors truncate"
+        >
+          ${tool.t}
+        </a>
+      `).join('');
+      deskResults.classList.remove('hidden');
+    });
+
+    deskInput?.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeDesktopSearch();
+        return;
+      }
+      if (deskFiltered.length === 0) return;
+
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        const next = deskSelectedIdx < deskFiltered.length - 1 ? deskSelectedIdx + 1 : 0;
+        updateDeskSelection(next);
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        const prev = deskSelectedIdx > 0 ? deskSelectedIdx - 1 : deskFiltered.length - 1;
+        updateDeskSelection(prev);
+      } else if (e.key === 'Enter') {
+        if (deskSelectedIdx >= 0 && deskSelectedIdx < deskFiltered.length) {
+          e.preventDefault();
+          window.location.href = `/tools/${deskFiltered[deskSelectedIdx].s}`;
+        }
+      }
+    });
+
+    // --- MOBILE SEARCH CONTROLS ---
+    const mobTrigger = document.getElementById('mobile-search-trigger');
+    const mobBar = document.getElementById('mobile-search-bar');
+    const mobInput = document.getElementById('mobile-search-input') as HTMLInputElement | null;
+    const mobClear = document.getElementById('mobile-search-clear');
+    const mobClose = document.getElementById('mobile-search-close');
+    const mobResults = document.getElementById('mobile-search-results');
+    let mobFiltered: { s: string; t: string }[] = [];
+
+    const openMobileSearch = () => {
+      if (!mobBar || !mobInput) return;
+      mobBar.classList.remove('hidden');
+      mobInput.value = '';
+      mobFiltered = [];
+      if (mobClear) mobClear.classList.add('hidden');
+      if (mobResults) {
+        mobResults.innerHTML = '';
+        mobResults.classList.add('hidden');
+      }
+      // Close mobile navigation menu if open
+      if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+        mobileMenu.classList.add('hidden');
+        if (mobileBtn) mobileBtn.setAttribute('aria-expanded', 'false');
+        if (hamburgerIcon && closeIcon) {
+          hamburgerIcon.classList.remove('hidden');
+          closeIcon.classList.add('hidden');
+        }
+      }
+      setTimeout(() => mobInput.focus(), 50);
+    };
+
+    const closeMobileSearch = () => {
+      if (!mobBar || !mobInput) return;
+      mobBar.classList.add('hidden');
+      mobInput.value = '';
+      if (mobClear) mobClear.classList.add('hidden');
+      if (mobResults) {
+        mobResults.innerHTML = '';
+        mobResults.classList.add('hidden');
+      }
+    };
+
+    mobTrigger?.addEventListener('click', openMobileSearch);
+    mobClose?.addEventListener('click', closeMobileSearch);
+    mobClear?.addEventListener('click', () => {
+      if (!mobInput) return;
+      mobInput.value = '';
+      if (mobClear) mobClear.classList.add('hidden');
+      if (mobResults) {
+        mobResults.innerHTML = '';
+        mobResults.classList.add('hidden');
+      }
+      mobInput.focus();
+    });
+
+    mobInput?.addEventListener('input', (e) => {
+      const q = (e.target as HTMLInputElement).value;
+      if (!mobResults) return;
+
+      if (!q.trim()) {
+        mobFiltered = [];
+        if (mobClear) mobClear.classList.add('hidden');
+        mobResults.innerHTML = '';
+        mobResults.classList.add('hidden');
+        return;
+      }
+
+      if (mobClear) mobClear.classList.remove('hidden');
+      mobFiltered = runQuery(q);
+
+      if (mobFiltered.length === 0) {
+        mobResults.innerHTML = '<div class="p-3 text-center text-xs text-slate-500">No tools found.</div>';
+        mobResults.classList.remove('hidden');
+        return;
+      }
+
+      mobResults.innerHTML = mobFiltered.map(tool => `
+        <a
+          href="/tools/${tool.s}"
+          class="block px-3 py-2.5 rounded-lg text-xs font-semibold text-slate-800 hover:text-blue-600 hover:bg-slate-50 transition-colors truncate"
+        >
+          ${tool.t}
+        </a>
+      `).join('');
+      mobResults.classList.remove('hidden');
+    });
+
+    mobInput?.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeMobileSearch();
+      }
+    });
+
+    // Close desktop search when clicking outside
+    document.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      if (deskExpanded && !deskExpanded.classList.contains('hidden')) {
+        const container = document.getElementById('desktop-search-container');
+        if (container && !container.contains(target)) {
+          closeDesktopSearch();
+        }
+      }
+    });
+
+    // Global keyboard shortcut: Cmd+K / Ctrl+K
+    document.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        if (window.innerWidth >= 768) {
+          openDesktopSearch();
+        } else {
+          openMobileSearch();
+        }
+      }
+    });
   };
 
-  // Run on initial load
-  setupMenu();
-
-  // Run on page navigation (Astro view transitions support if used)
-  document.addEventListener('astro:page-load', setupMenu);
+  setupHeaderSearch();
+  document.addEventListener('astro:page-load', setupHeaderSearch);
 </script>

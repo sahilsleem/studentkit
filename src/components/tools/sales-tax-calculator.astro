@@ -1,0 +1,82 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-4 sm:space-y-5">
+  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Pre-Tax Amount ($)</label>
+          <input type="number" id="st-amount" step="0.01" min="0" placeholder="e.g. 85" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Sales Tax Rate (%)</label>
+          <input type="number" id="st-rate" step="0.05" min="0" max="50" placeholder="e.g. 8.25" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Quantity</label>
+          <input type="number" id="st-qty" step="1" min="1" placeholder="e.g. 1" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+        <button id="st-calc-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+          Calculate Sales Tax
+        </button>
+      </div>
+
+      <div class="flex flex-col justify-between p-6 bg-slate-50 rounded-xl border border-slate-200/80">
+        <div>
+          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Total Gross Price (Tax Included)</div>
+          <div id="st-total" class="text-4xl font-extrabold text-blue-600 mt-2 font-mono">--</div>
+          <div id="st-tax-val" class="text-xs text-slate-400 font-semibold mt-2">Tax amount appears here</div>
+        </div>
+
+        <div class="pt-4 border-t border-slate-200/80 mt-6 space-y-2 text-xs text-slate-600">
+          <div class="flex justify-between">
+            <span>Net Subtotal:</span>
+            <strong id="st-subtotal" class="text-slate-800">--</strong>
+          </div>
+          <div class="flex justify-between">
+            <span>Effective Rate:</span>
+            <strong id="st-eff-rate" class="text-slate-800">8.25%</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const amtIn = document.getElementById('st-amount') as HTMLInputElement;
+  const rateIn = document.getElementById('st-rate') as HTMLInputElement;
+  const qtyIn = document.getElementById('st-qty') as HTMLInputElement;
+
+  const totalEl = document.getElementById('st-total');
+  const taxValEl = document.getElementById('st-tax-val');
+  const subtotalEl = document.getElementById('st-subtotal');
+  const effRateEl = document.getElementById('st-eff-rate');
+
+  function calculate() {
+    const amt = parseFloat(amtIn?.value || '0');
+    const rate = parseFloat(rateIn?.value || '0') / 100;
+    const qty = parseInt(qtyIn?.value || '1', 10);
+
+    const subtotal = amt * qty;
+    const tax = subtotal * rate;
+    const total = subtotal + tax;
+
+    const fmt = (v: number) => '$' + v.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+    if (totalEl) totalEl.textContent = fmt(total);
+    if (taxValEl) taxValEl.textContent = '+' + fmt(tax) + ' in Sales Tax';
+    if (subtotalEl) subtotalEl.textContent = fmt(subtotal);
+    if (effRateEl) effRateEl.textContent = (rate * 100).toFixed(2) + '%';
+  }
+
+
+  document.getElementById('st-calc-btn')?.addEventListener('click', calculate);
+</script>

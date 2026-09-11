@@ -1,0 +1,59 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-4 sm:space-y-5">
+  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Body Weight (kg)</label>
+          <input type="number" id="wi-weight" placeholder="e.g. 68" min="20" step="1" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Daily Exercise (minutes)</label>
+          <input type="number" id="wi-exercise" placeholder="e.g. 45" min="0" step="15" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm" />
+        </div>
+
+        <button id="wi-calc-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+          Calculate Daily Water Goal
+        </button>
+      </div>
+
+      <div class="flex flex-col justify-between p-6 bg-slate-50 rounded-xl border border-slate-200/80">
+        <div>
+          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Recommended Daily Hydration</div>
+          <div id="wi-liters" class="text-4xl font-extrabold text-blue-600 mt-2 font-mono">--</div>
+          <div id="wi-cups" class="text-xs text-slate-500 mt-2">~11 standard 250ml glasses</div>
+        </div>
+
+        <div class="pt-4 border-t border-slate-200/80 mt-6 text-xs text-slate-600">
+          <span>In Fluid Ounces: </span>
+          <strong id="wi-floz" class="text-slate-800 font-mono">95 fl oz</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function calculate() {
+    const w = parseFloat((document.getElementById('wi-weight') as HTMLInputElement)?.value || '65');
+    const ex = parseFloat((document.getElementById('wi-exercise') as HTMLInputElement)?.value || '0');
+
+    // Base: 35ml per kg + 350ml per 30 min workout
+    const totalMl = w * 35 + (ex / 30) * 350;
+    const liters = totalMl / 1000;
+    const cups = Math.round(totalMl / 250);
+    const floz = Math.round(totalMl * 0.033814);
+
+    document.getElementById('wi-liters')!.textContent = liters.toFixed(1) + ' Liters';
+    document.getElementById('wi-cups')!.textContent = '~' + cups + ' standard 250ml glasses';
+    document.getElementById('wi-floz')!.textContent = floz + ' fl oz';
+  }
+
+
+  document.getElementById('wi-calc-btn')?.addEventListener('click', calculate);
+</script>

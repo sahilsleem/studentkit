@@ -1,0 +1,93 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-4 sm:space-y-5">
+  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
+    <div class="space-y-4">
+      <div>
+        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Polynomial P(x) Coefficients (highest power first, comma separated)</label>
+        <input type="text" id="poly-coeffs" placeholder="e.g. 2, -4, 3, -5" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono" />
+        <span class="text-xs text-slate-400 mt-1 block">Example: "2, -4, 3, -5" represents 2x³ - 4x² + 3x - 5</span>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Evaluate P(x) at x =</label>
+          <input type="number" id="poly-x-val" placeholder="e.g. 3" step="any" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+        <div class="flex items-end">
+          <button id="poly-calc-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+            Analyze Polynomial
+          </button>
+        </div>
+      </div>
+
+      <div class="p-6 bg-slate-50 rounded-xl border border-slate-200/80 space-y-4">
+        <div>
+          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Evaluation P(x)</div>
+          <div id="poly-eval-res" class="text-3xl font-extrabold text-blue-600 mt-1 font-mono">--</div>
+        </div>
+
+        <div class="pt-4 border-t border-slate-200/80 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-600">
+          <div>
+            <span>Derivative P'(x): </span>
+            <strong id="poly-deriv" class="text-slate-800 font-mono">6x² - 8x + 3</strong>
+          </div>
+          <div>
+            <span>Degree & Leading Coeff: </span>
+            <strong id="poly-degree" class="text-slate-800 font-mono">Degree 3, an = 2</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const coeffIn = document.getElementById('poly-coeffs') as HTMLInputElement;
+  const xValIn = document.getElementById('poly-x-val') as HTMLInputElement;
+  const evalResEl = document.getElementById('poly-eval-res');
+  const derivEl = document.getElementById('poly-deriv');
+  const degreeEl = document.getElementById('poly-degree');
+
+  function analyze() {
+    const raw = (coeffIn?.value || '1').split(',').map(s => parseFloat(s.trim())).filter(n => !isNaN(n));
+    const x = parseFloat(xValIn?.value || '0');
+
+    if (raw.length === 0) return;
+
+    // Evaluate using Horner's method
+    let val = 0;
+    for (let c of raw) {
+      val = val * x + c;
+    }
+
+    const deg = raw.length - 1;
+    if (evalResEl) evalResEl.textContent = 'P(' + x + ') = ' + val.toFixed(4);
+    if (degreeEl) degreeEl.textContent = 'Degree ' + deg + ', an = ' + raw[0];
+
+    // Derivative coeffs
+    const derivCoeffs: { coeff: number, power: number }[] = [];
+    for (let i = 0; i < raw.length - 1; i++) {
+      const p = deg - i;
+      derivCoeffs.push({ coeff: raw[i] * p, power: p - 1 });
+    }
+
+    const derivStr = derivCoeffs.map((t, idx) => {
+      let sign = t.coeff >= 0 ? (idx > 0 ? '+ ' : '') : '- ';
+      let mag = Math.abs(t.coeff);
+      let powerStr = t.power === 0 ? '' : t.power === 1 ? 'x' : 'x^' + t.power;
+      return sign + mag + powerStr;
+    }).join(' ') || '0';
+
+    if (derivEl) derivEl.textContent = derivStr;
+  }
+
+  coeffIn?.addEventListener('input', analyze);
+  xValIn?.addEventListener('input', analyze);
+  document.getElementById('poly-calc-btn')?.addEventListener('click', analyze);
+  analyze();
+</script>

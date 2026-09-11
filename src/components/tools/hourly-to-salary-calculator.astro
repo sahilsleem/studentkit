@@ -1,0 +1,84 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-4 sm:space-y-5">
+  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Hourly Wage ($/hour)</label>
+          <input type="number" id="hs-wage" step="0.5" min="0" placeholder="e.g. 22" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Hours Worked Per Week</label>
+          <input type="number" id="hs-hours" step="1" min="1" max="80" placeholder="e.g. 40" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Weeks Worked Per Year</label>
+          <input type="number" id="hs-weeks" step="1" min="1" max="52" placeholder="e.g. 52" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+        <button id="hs-calc-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+          Calculate Salary Equivalents
+        </button>
+      </div>
+
+      <div class="flex flex-col justify-between p-6 bg-slate-50 rounded-xl border border-slate-200/80">
+        <div>
+          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Equivalent Annual Salary</div>
+          <div id="hs-annual" class="text-4xl font-extrabold text-blue-600 mt-2 font-mono">--</div>
+          <div id="hs-monthly" class="text-xs text-slate-400 mt-2">Monthly estimate appears here</div>
+        </div>
+
+        <div class="pt-4 border-t border-slate-200/80 mt-6 space-y-2 text-xs text-slate-600">
+          <div class="flex justify-between">
+            <span>Bi-Weekly Pay (Every 2 Weeks):</span>
+            <strong id="hs-biweekly" class="text-slate-800">--</strong>
+          </div>
+          <div class="flex justify-between">
+            <span>Weekly Pay:</span>
+            <strong id="hs-weekly" class="text-slate-800">--</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const wageIn = document.getElementById('hs-wage') as HTMLInputElement;
+  const hoursIn = document.getElementById('hs-hours') as HTMLInputElement;
+  const weeksIn = document.getElementById('hs-weeks') as HTMLInputElement;
+
+  const annualEl = document.getElementById('hs-annual');
+  const monthlyEl = document.getElementById('hs-monthly');
+  const biweeklyEl = document.getElementById('hs-biweekly');
+  const weeklyEl = document.getElementById('hs-weekly');
+
+  function calculate() {
+    const wage = parseFloat(wageIn?.value || '0');
+    const hours = parseFloat(hoursIn?.value || '40');
+    const weeks = parseFloat(weeksIn?.value || '52');
+
+    const weekly = wage * hours;
+    const annual = weekly * weeks;
+    const monthly = annual / 12;
+    const biweekly = annual / 26;
+
+    const fmt = (v: number) => '$' + Math.round(v).toLocaleString('en-US');
+    const fmtDec = (v: number) => '$' + v.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+    if (annualEl) annualEl.textContent = fmt(annual);
+    if (monthlyEl) monthlyEl.textContent = fmtDec(monthly) + ' per month';
+    if (biweeklyEl) biweeklyEl.textContent = fmtDec(biweekly);
+    if (weeklyEl) weeklyEl.textContent = fmtDec(weekly);
+  }
+
+
+  document.getElementById('hs-calc-btn')?.addEventListener('click', calculate);
+</script>

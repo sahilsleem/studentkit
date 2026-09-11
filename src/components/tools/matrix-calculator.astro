@@ -1,0 +1,82 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-4 sm:space-y-5">
+  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
+    <div class="space-y-4">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Matrix A (2×2)</label>
+          <div class="grid grid-cols-2 gap-2">
+            <input type="number" id="mat-a11" placeholder="e.g. 1" class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-center font-bold" />
+            <input type="number" id="mat-a12" placeholder="e.g. 2" class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-center font-bold" />
+            <input type="number" id="mat-a21" placeholder="e.g. 3" class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-center font-bold" />
+            <input type="number" id="mat-a22" placeholder="e.g. 4" class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-center font-bold" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Matrix B (2×2)</label>
+          <div class="grid grid-cols-2 gap-2">
+            <input type="number" id="mat-b11" placeholder="e.g. 2" class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-center font-bold" />
+            <input type="number" id="mat-b12" placeholder="e.g. 0" class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-center font-bold" />
+            <input type="number" id="mat-b21" placeholder="e.g. 1" class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-center font-bold" />
+            <input type="number" id="mat-b22" placeholder="e.g. 3" class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-center font-bold" />
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 pt-2">
+        <button id="mat-calc-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+          Multiply Matrices (A × B)
+        </button>
+      </div>
+
+      <div class="p-6 bg-slate-50 rounded-xl border border-slate-200/80 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div>
+          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Product Matrix (A × B)</div>
+          <div id="mat-prod" class="text-2xl font-extrabold text-blue-600 mt-2 font-mono">--</div>
+        </div>
+        <div class="text-right text-xs text-slate-500">
+          <div>Sum (A + B): <strong id="mat-sum" class="text-slate-800">[3, 2], [4, 7]</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function calculate() {
+    const a11 = parseFloat((document.getElementById('mat-a11') as HTMLInputElement)?.value || '0');
+    const a12 = parseFloat((document.getElementById('mat-a12') as HTMLInputElement)?.value || '0');
+    const a21 = parseFloat((document.getElementById('mat-a21') as HTMLInputElement)?.value || '0');
+    const a22 = parseFloat((document.getElementById('mat-a22') as HTMLInputElement)?.value || '0');
+
+    const b11 = parseFloat((document.getElementById('mat-b11') as HTMLInputElement)?.value || '0');
+    const b12 = parseFloat((document.getElementById('mat-b12') as HTMLInputElement)?.value || '0');
+    const b21 = parseFloat((document.getElementById('mat-b21') as HTMLInputElement)?.value || '0');
+    const b22 = parseFloat((document.getElementById('mat-b22') as HTMLInputElement)?.value || '0');
+
+    const c11 = a11 * b11 + a12 * b21;
+    const c12 = a11 * b12 + a12 * b22;
+    const c21 = a21 * b11 + a22 * b21;
+    const c22 = a21 * b12 + a22 * b22;
+
+    const s11 = a11 + b11;
+    const s12 = a12 + b12;
+    const s21 = a21 + b21;
+    const s22 = a22 + b22;
+
+    const prodEl = document.getElementById('mat-prod');
+    const sumEl = document.getElementById('mat-sum');
+
+    if (prodEl) prodEl.textContent = '[' + c11 + ', ' + c12 + ']  |  [' + c21 + ', ' + c22 + ']';
+    if (sumEl) sumEl.textContent = '[' + s11 + ', ' + s12 + '], [' + s21 + ', ' + s22 + ']';
+  }
+
+
+  document.getElementById('mat-calc-btn')?.addEventListener('click', calculate);
+</script>

@@ -1,0 +1,91 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-4 sm:space-y-5">
+  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
+    <div class="space-y-4">
+      <div class="flex justify-between items-center pb-3 border-b border-slate-100">
+        <h3 class="text-sm font-bold text-slate-800">2×2 System: a₁x + b₁y = c₁ &nbsp;|&nbsp; a₂x + b₂y = c₂</h3>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200/80 space-y-3">
+          <span class="text-xs font-bold text-slate-500">Equation 1</span>
+          <div class="flex items-center gap-2">
+            <input type="number" id="se-a1" placeholder="e.g. 2" class="w-16 px-2 py-1.5 bg-white border border-slate-200 rounded-lg text-sm text-center" />
+            <span class="text-sm font-mono">x +</span>
+            <input type="number" id="se-b1" placeholder="e.g. 3" class="w-16 px-2 py-1.5 bg-white border border-slate-200 rounded-lg text-sm text-center" />
+            <span class="text-sm font-mono">y =</span>
+            <input type="number" id="se-c1" placeholder="e.g. 13" class="w-20 px-2 py-1.5 bg-white border border-slate-200 rounded-lg text-sm text-center" />
+          </div>
+        </div>
+
+        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200/80 space-y-3">
+          <span class="text-xs font-bold text-slate-500">Equation 2</span>
+          <div class="flex items-center gap-2">
+            <input type="number" id="se-a2" placeholder="e.g. 1" class="w-16 px-2 py-1.5 bg-white border border-slate-200 rounded-lg text-sm text-center" />
+            <span class="text-sm font-mono">x -</span>
+            <input type="number" id="se-b2" placeholder="e.g. -2" class="w-16 px-2 py-1.5 bg-white border border-slate-200 rounded-lg text-sm text-center" />
+            <span class="text-sm font-mono">y =</span>
+            <input type="number" id="se-c2" placeholder="e.g. -4" class="w-20 px-2 py-1.5 bg-white border border-slate-200 rounded-lg text-sm text-center" />
+          </div>
+        </div>
+      </div>
+
+      <button id="se-calc-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+        Solve Linear System
+      </button>
+
+      <div class="p-6 bg-slate-50 rounded-xl border border-slate-200/80 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div>
+          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Solution Set</div>
+          <div id="se-solution" class="text-3xl font-extrabold text-blue-600 mt-1 font-mono">--</div>
+        </div>
+        <div class="text-right">
+          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Determinant (D)</div>
+          <div id="se-det" class="text-sm font-mono font-bold text-slate-700 mt-1">D = -7.00</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const ids = ['se-a1', 'se-b1', 'se-c1', 'se-a2', 'se-b2', 'se-c2'];
+  const solEl = document.getElementById('se-solution');
+  const detEl = document.getElementById('se-det');
+
+  function solve() {
+    const a1 = parseFloat((document.getElementById('se-a1') as HTMLInputElement)?.value || '0');
+    const b1 = parseFloat((document.getElementById('se-b1') as HTMLInputElement)?.value || '0');
+    const c1 = parseFloat((document.getElementById('se-c1') as HTMLInputElement)?.value || '0');
+    const a2 = parseFloat((document.getElementById('se-a2') as HTMLInputElement)?.value || '0');
+    const b2 = parseFloat((document.getElementById('se-b2') as HTMLInputElement)?.value || '0');
+    const c2 = parseFloat((document.getElementById('se-c2') as HTMLInputElement)?.value || '0');
+
+    const D = a1 * b2 - a2 * b1;
+    const Dx = c1 * b2 - c2 * b1;
+    const Dy = a1 * c2 - a2 * c1;
+
+    if (detEl) detEl.textContent = 'D = ' + D.toFixed(2);
+
+    if (Math.abs(D) < 1e-9) {
+      if (Math.abs(Dx) < 1e-9 && Math.abs(Dy) < 1e-9) {
+        if (solEl) solEl.textContent = 'Infinitely Many Solutions';
+      } else {
+        if (solEl) solEl.textContent = 'No Solution (Inconsistent)';
+      }
+    } else {
+      const x = Dx / D;
+      const y = Dy / D;
+      if (solEl) solEl.textContent = 'x = ' + x.toFixed(3) + ', y = ' + y.toFixed(3);
+    }
+  }
+
+  ids.forEach(id => document.getElementById(id)?.addEventListener('input', solve));
+  document.getElementById('se-calc-btn')?.addEventListener('click', solve);
+  solve();
+</script>

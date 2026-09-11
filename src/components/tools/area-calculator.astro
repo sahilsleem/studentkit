@@ -1,0 +1,101 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-4 sm:space-y-5">
+  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">2D Shape</label>
+          <select id="ac-shape" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="rectangle" selected>Rectangle (Length × Width)</option>
+            <option value="trapezoid">Trapezoid (½(a+b)h)</option>
+            <option value="parallelogram">Parallelogram (Base × Height)</option>
+            <option value="ellipse">Ellipse (π × a × b)</option>
+            <option value="rhombus">Rhombus (½ × d₁ × d₂)</option>
+          </select>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label id="ac-l1" class="block text-xs text-slate-500 mb-1">Length (a)</label>
+            <input type="number" id="ac-v1" placeholder="e.g. 8" step="any" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm" />
+          </div>
+          <div>
+            <label id="ac-l2" class="block text-xs text-slate-500 mb-1">Width (b)</label>
+            <input type="number" id="ac-v2" placeholder="e.g. 5" step="any" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm" />
+          </div>
+        </div>
+
+        <div id="ac-v3-box" class="hidden">
+          <label class="block text-xs text-slate-500 mb-1">Height (h)</label>
+          <input type="number" id="ac-v3" placeholder="e.g. 4" step="any" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm" />
+        </div>
+
+        <button id="ac-calc-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+          Calculate Area
+        </button>
+      </div>
+
+      <div class="flex flex-col justify-between p-6 bg-slate-50 rounded-xl border border-slate-200/80">
+        <div>
+          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Calculated Area</div>
+          <div id="ac-area" class="text-4xl font-extrabold text-blue-600 mt-2 font-mono">--</div>
+          <div id="ac-perimeter" class="text-xs text-slate-500 mt-2">Perimeter: 26.00 units</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function calculate() {
+    const shape = (document.getElementById('ac-shape') as HTMLSelectElement)?.value;
+    const v1 = parseFloat((document.getElementById('ac-v1') as HTMLInputElement)?.value || '0');
+    const v2 = parseFloat((document.getElementById('ac-v2') as HTMLInputElement)?.value || '0');
+    const v3 = parseFloat((document.getElementById('ac-v3') as HTMLInputElement)?.value || '0');
+
+    let area = 0;
+    let perim = 0;
+
+    if (shape === 'rectangle') {
+      area = v1 * v2;
+      perim = 2 * (v1 + v2);
+    } else if (shape === 'trapezoid') {
+      area = 0.5 * (v1 + v2) * v3;
+      perim = v1 + v2 + 2 * Math.sqrt(Math.pow((v1 - v2) / 2, 2) + v3 * v3);
+    } else if (shape === 'parallelogram') {
+      area = v1 * v2;
+      perim = 2 * (v1 + v2);
+    } else if (shape === 'ellipse') {
+      area = Math.PI * v1 * v2;
+      perim = Math.PI * (3 * (v1 + v2) - Math.sqrt((3 * v1 + v2) * (v1 + 3 * v2)));
+    } else if (shape === 'rhombus') {
+      area = 0.5 * v1 * v2;
+      perim = 4 * Math.sqrt(Math.pow(v1 / 2, 2) + Math.pow(v2 / 2, 2));
+    }
+
+    const areaEl = document.getElementById('ac-area');
+    const perimEl = document.getElementById('ac-perimeter');
+
+    if (areaEl) areaEl.textContent = area.toFixed(2);
+    if (perimEl) perimEl.textContent = 'Perimeter: ' + perim.toFixed(2) + ' units';
+  }
+
+  document.getElementById('ac-shape')?.addEventListener('change', () => {
+    const shape = (document.getElementById('ac-shape') as HTMLSelectElement)?.value;
+    const v3Box = document.getElementById('ac-v3-box');
+    if (shape === 'trapezoid') {
+      v3Box?.classList.remove('hidden');
+    } else {
+      v3Box?.classList.add('hidden');
+    }
+    calculate();
+  });
+
+
+  document.getElementById('ac-calc-btn')?.addEventListener('click', calculate);
+</script>

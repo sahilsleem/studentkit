@@ -27,14 +27,14 @@ export function generateGametes(genotype: string): string[] {
 export function generatePunnettSquare(p1: string, p2: string) {
   if (p1.length !== p2.length) throw new Error("Parents must have same number of alleles");
   if (p1.length % 2 !== 0) throw new Error("Genotype length must be even");
-  
+
   const g1 = generateGametes(p1);
   const g2 = generateGametes(p2);
-  
+
   const grid: string[][] = [];
   const counts: Record<string, number> = {};
   const phenotypes: Record<string, number> = {};
-  
+
   for (let r = 0; r < g1.length; r++) {
     grid[r] = [];
     for (let c = 0; c < g2.length; c++) {
@@ -52,15 +52,15 @@ export function generatePunnettSquare(p1: string, p2: string) {
         combined += pair;
         phenotype += (pair[0] === pair[0].toUpperCase()) ? pair[0].toUpperCase() : pair[0].toLowerCase();
       }
-      
+
       grid[r][c] = combined;
       counts[combined] = (counts[combined] || 0) + 1;
       phenotypes[phenotype] = (phenotypes[phenotype] || 0) + 1;
     }
   }
-  
+
   const total = g1.length * g2.length;
-  
+
   return {
     gametes1: g1,
     gametes2: g2,

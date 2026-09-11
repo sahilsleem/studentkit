@@ -1,0 +1,99 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-4 sm:space-y-5">
+  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
+    <div class="space-y-4">
+      <div class="flex items-center justify-between">
+        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500">Input Text</label>
+        <button id="cc-clear-btn" type="button" class="text-xs text-slate-400 hover:text-slate-600 font-medium">Clear</button>
+      </div>
+
+      <textarea id="cc-input" rows="5" placeholder="Enter or paste text to convert case..." class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all"></textarea>
+    </div>
+
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-4">
+      <button data-action="upper" class="cc-btn px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-lg transition-colors">UPPERCASE</button>
+      <button data-action="lower" class="cc-btn px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-lg transition-colors">lowercase</button>
+      <button data-action="title" class="cc-btn px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-lg transition-colors">Title Case</button>
+      <button data-action="sentence" class="cc-btn px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-lg transition-colors">Sentence case</button>
+      <button data-action="camel" class="cc-btn px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-lg transition-colors">camelCase</button>
+      <button data-action="pascal" class="cc-btn px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-lg transition-colors">PascalCase</button>
+      <button data-action="snake" class="cc-btn px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-lg transition-colors">snake_case</button>
+      <button data-action="kebab" class="cc-btn px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-lg transition-colors">kebab-case</button>
+    </div>
+
+    <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
+      <div id="cc-status" class="text-xs text-emerald-600 font-medium hidden">Copied to clipboard!</div>
+      <button id="cc-copy-btn" type="button" class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs rounded-xl shadow-sm transition-all ml-auto">
+        Copy Converted Text
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const inputEl = document.getElementById('cc-input') as HTMLTextAreaElement;
+  const buttons = document.querySelectorAll('.cc-btn');
+  const copyBtn = document.getElementById('cc-copy-btn');
+  const clearBtn = document.getElementById('cc-clear-btn');
+  const statusEl = document.getElementById('cc-status');
+
+  function toTitleCase(str: string) {
+    return str.replace(/\w\S*/g, txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+  }
+
+  function toSentenceCase(str: string) {
+    return str.toLowerCase().replace(/(^\s*\w|[.!?]\s*\w)/g, c => c.toUpperCase());
+  }
+
+  function toCamelCase(str: string) {
+    return str.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (_, chr) => chr.toUpperCase()).replace(/[^a-zA-Z0-9]/g, '');
+  }
+
+  function toPascalCase(str: string) {
+    const camel = toCamelCase(str);
+    return camel.charAt(0).toUpperCase() + camel.slice(1);
+  }
+
+  function toSnakeCase(str: string) {
+    return str.trim().toLowerCase().replace(/[^a-zA-Z0-9]+/g, '_').replace(/^_+|_+$/g, '');
+  }
+
+  function toKebabCase(str: string) {
+    return str.trim().toLowerCase().replace(/[^a-zA-Z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+  }
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const action = btn.getAttribute('data-action');
+      const val = inputEl.value;
+      if (!val) return;
+
+      if (action === 'upper') inputEl.value = val.toUpperCase();
+      else if (action === 'lower') inputEl.value = val.toLowerCase();
+      else if (action === 'title') inputEl.value = toTitleCase(val);
+      else if (action === 'sentence') inputEl.value = toSentenceCase(val);
+      else if (action === 'camel') inputEl.value = toCamelCase(val);
+      else if (action === 'pascal') inputEl.value = toPascalCase(val);
+      else if (action === 'snake') inputEl.value = toSnakeCase(val);
+      else if (action === 'kebab') inputEl.value = toKebabCase(val);
+    });
+  });
+
+  clearBtn?.addEventListener('click', () => {
+    inputEl.value = '';
+  });
+
+  copyBtn?.addEventListener('click', () => {
+    if (!inputEl.value) return;
+    navigator.clipboard.writeText(inputEl.value);
+    if (statusEl) {
+      statusEl.classList.remove('hidden');
+      setTimeout(() => statusEl.classList.add('hidden'), 2000);
+    }
+  });
+</script>

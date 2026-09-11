@@ -1,0 +1,77 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-4 sm:space-y-5">
+  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Parent 1 Genotype</label>
+          <input type="text" id="ps-p1" placeholder="e.g. Bb" maxlength="4" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm font-mono uppercase" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Parent 2 Genotype</label>
+          <input type="text" id="ps-p2" placeholder="e.g. Bb" maxlength="4" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm font-mono uppercase" />
+        </div>
+
+        <button id="ps-calc-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+          Generate Punnett Square
+        </button>
+      </div>
+
+      <div class="flex flex-col justify-between p-6 bg-slate-50 rounded-xl border border-slate-200/80">
+        <div>
+          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">2×2 Punnett Grid</div>
+          <div id="ps-grid" class="grid grid-cols-2 gap-2 text-center font-mono font-bold text-blue-600 text-lg">
+            <div class="p-3 bg-white rounded-lg border border-slate-200">BB</div>
+            <div class="p-3 bg-white rounded-lg border border-slate-200">Bb</div>
+            <div class="p-3 bg-white rounded-lg border border-slate-200">Bb</div>
+            <div class="p-3 bg-white rounded-lg border border-slate-200">bb</div>
+          </div>
+        </div>
+
+        <div class="pt-4 border-t border-slate-200/80 mt-6 space-y-1 text-xs text-slate-600">
+          <div>Genotype Ratio: <strong id="ps-geno-ratio">1 BB : 2 Bb : 1 bb (25% : 50% : 25%)</strong></div>
+          <div>Phenotype Ratio: <strong id="ps-pheno-ratio">3 Dominant : 1 Recessive (75% : 25%)</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function calculate() {
+    let p1 = (document.getElementById('ps-p1') as HTMLInputElement)?.value || 'Bb';
+    let p2 = (document.getElementById('ps-p2') as HTMLInputElement)?.value || 'Bb';
+
+    if (p1.length < 2 || p2.length < 2) return;
+    const a1 = p1[0], a2 = p1[1];
+    const b1 = p2[0], b2 = p2[1];
+
+    const sortAlleles = (x: string, y: string) => (x.toUpperCase() === y.toUpperCase() ? (x <= y ? x + y : y + x) : x + y);
+
+    const offspring = [
+      sortAlleles(a1, b1),
+      sortAlleles(a1, b2),
+      sortAlleles(a2, b1),
+      sortAlleles(a2, b2)
+    ];
+
+    const gridEl = document.getElementById('ps-grid');
+    if (gridEl) {
+      gridEl.innerHTML = offspring.map(g => '<div class="p-3 bg-white rounded-lg border border-slate-200">' + g + '</div>').join('');
+    }
+
+    const freq: Record<string, number> = {};
+    offspring.forEach(g => freq[g] = (freq[g] || 0) + 1);
+
+    const genoStr = Object.entries(freq).map(([g, c]) => c + ' ' + g + ' (' + (c * 25) + '%)').join(' : ');
+    document.getElementById('ps-geno-ratio')!.textContent = genoStr;
+  }
+
+
+  document.getElementById('ps-calc-btn')?.addEventListener('click', calculate);
+</script>

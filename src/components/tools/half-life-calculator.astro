@@ -1,0 +1,57 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-4 sm:space-y-5">
+  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Initial Quantity (N₀)</label>
+          <input type="number" id="hl-n0" placeholder="e.g. 100" min="0" step="any" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Half-Life (t₁/₂ in years)</label>
+          <input type="number" id="hl-thalf" placeholder="e.g. 5730" min="0.001" step="any" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Elapsed Time (t in years)</label>
+          <input type="number" id="hl-t" placeholder="e.g. 11460" min="0" step="any" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm" />
+        </div>
+
+        <button id="hl-calc-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+          Calculate Remaining Quantity
+        </button>
+      </div>
+
+      <div class="flex flex-col justify-between p-6 bg-slate-50 rounded-xl border border-slate-200/80">
+        <div>
+          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Remaining Amount (N(t))</div>
+          <div id="hl-rem" class="text-4xl font-extrabold text-blue-600 mt-2 font-mono">--</div>
+          <div id="hl-pct" class="text-xs text-slate-500 mt-2">25.00% of initial mass (2.0 half-lives elapsed)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function calculate() {
+    const n0 = parseFloat((document.getElementById('hl-n0') as HTMLInputElement)?.value || '0');
+    const thalf = parseFloat((document.getElementById('hl-thalf') as HTMLInputElement)?.value || '1');
+    const t = parseFloat((document.getElementById('hl-t') as HTMLInputElement)?.value || '0');
+
+    if (thalf <= 0) return;
+    const halfLives = t / thalf;
+    const rem = n0 * Math.pow(0.5, halfLives);
+    const pct = n0 > 0 ? (rem / n0) * 100 : 0;
+
+    document.getElementById('hl-rem')!.textContent = rem.toFixed(2);
+    document.getElementById('hl-pct')!.textContent = pct.toFixed(2) + '% of initial (' + halfLives.toFixed(2) + ' half-lives)';
+  }
+
+
+  document.getElementById('hl-calc-btn')?.addEventListener('click', calculate);
+</script>

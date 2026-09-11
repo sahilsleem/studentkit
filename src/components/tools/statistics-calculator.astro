@@ -1,0 +1,97 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-4 sm:space-y-5">
+  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
+    <div class="space-y-4">
+      <div>
+        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Dataset Values (comma separated)</label>
+        <textarea id="stat-data" rows="3" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono" placeholder="e.g. 12, 15, 18, 22, 22, 25, 29, 34, 40"></textarea>
+      </div>
+
+      <button id="stat-calc-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+        Calculate Summary Statistics
+      </button>
+
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6">
+        <div class="p-3 bg-slate-50 rounded-xl border border-slate-200/80 text-center">
+          <div class="text-xs text-slate-500 font-medium">Mean (x̄)</div>
+          <div id="stat-mean" class="text-xl font-bold text-blue-600 font-mono mt-1">--</div>
+        </div>
+        <div class="p-3 bg-slate-50 rounded-xl border border-slate-200/80 text-center">
+          <div class="text-xs text-slate-500 font-medium">Median</div>
+          <div id="stat-median" class="text-xl font-bold text-slate-800 font-mono mt-1">--</div>
+        </div>
+        <div class="p-3 bg-slate-50 rounded-xl border border-slate-200/80 text-center">
+          <div class="text-xs text-slate-500 font-medium">Mode</div>
+          <div id="stat-mode" class="text-xl font-bold text-slate-800 font-mono mt-1">--</div>
+        </div>
+        <div class="p-3 bg-slate-50 rounded-xl border border-slate-200/80 text-center">
+          <div class="text-xs text-slate-500 font-medium">Sample Std Dev (s)</div>
+          <div id="stat-sd" class="text-xl font-bold text-slate-800 font-mono mt-1">--</div>
+        </div>
+        <div class="p-3 bg-slate-50 rounded-xl border border-slate-200/80 text-center">
+          <div class="text-xs text-slate-500 font-medium">Variance (s²)</div>
+          <div id="stat-var" class="text-xl font-bold text-slate-800 font-mono mt-1">--</div>
+        </div>
+        <div class="p-3 bg-slate-50 rounded-xl border border-slate-200/80 text-center">
+          <div class="text-xs text-slate-500 font-medium">Range</div>
+          <div id="stat-range" class="text-xl font-bold text-slate-800 font-mono mt-1">--</div>
+        </div>
+        <div class="p-3 bg-slate-50 rounded-xl border border-slate-200/80 text-center">
+          <div class="text-xs text-slate-500 font-medium">IQR (Q₃ - Q₁)</div>
+          <div id="stat-iqr" class="text-xl font-bold text-slate-800 font-mono mt-1">--</div>
+        </div>
+        <div class="p-3 bg-slate-50 rounded-xl border border-slate-200/80 text-center">
+          <div class="text-xs text-slate-500 font-medium">Count (n)</div>
+          <div id="stat-count" class="text-xl font-bold text-slate-800 font-mono mt-1">--</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function calculate() {
+    const raw = (document.getElementById('stat-data') as HTMLTextAreaElement)?.value || '';
+    const nums = raw.split(/[,\s]+/).map(s => parseFloat(s.trim())).filter(n => !isNaN(n)).sort((a, b) => a - b);
+
+    const n = nums.length;
+    if (n === 0) return;
+
+    const sum = nums.reduce((a, b) => a + b, 0);
+    const mean = sum / n;
+    const median = n % 2 === 1 ? nums[Math.floor(n / 2)] : (nums[n / 2 - 1] + nums[n / 2]) / 2;
+
+    const freq: Record<number, number> = {};
+    nums.forEach(x => freq[x] = (freq[x] || 0) + 1);
+    let maxFreq = 0;
+    let modeVal = nums[0];
+    for (const [k, v] of Object.entries(freq)) {
+      if (v > maxFreq) { maxFreq = v; modeVal = parseFloat(k); }
+    }
+
+    const variance = n > 1 ? nums.reduce((acc, x) => acc + Math.pow(x - mean, 2), 0) / (n - 1) : 0;
+    const sd = Math.sqrt(variance);
+    const range = nums[n - 1] - nums[0];
+
+    const q1 = nums[Math.floor(n * 0.25)];
+    const q3 = nums[Math.floor(n * 0.75)];
+    const iqr = q3 - q1;
+
+    document.getElementById('stat-mean')!.textContent = mean.toFixed(2);
+    document.getElementById('stat-median')!.textContent = median.toFixed(2);
+    document.getElementById('stat-mode')!.textContent = modeVal.toString();
+    document.getElementById('stat-sd')!.textContent = sd.toFixed(2);
+    document.getElementById('stat-var')!.textContent = variance.toFixed(2);
+    document.getElementById('stat-range')!.textContent = range.toFixed(2);
+    document.getElementById('stat-iqr')!.textContent = iqr.toFixed(2);
+    document.getElementById('stat-count')!.textContent = n.toString();
+  }
+
+
+  document.getElementById('stat-calc-btn')?.addEventListener('click', calculate);
+</script>

@@ -2,67 +2,64 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import SearchModal from '../components/SearchModal.astro';
 
 export interface Props {
-	title: string;
-	description?: string;
+  title: string;
+  description?: string;
 }
 
-const { title, description = "Simple tools for student life. Calculate marks, check attendance, and more." } = Astro.props;
+const { title, description = "Clean, instant study tools and calculators for students. Grades, mathematics, physics, and chemistry solvers." } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://studentkit.in');
 const socialImageURL = new URL('/og-image.png', Astro.site || 'https://studentkit.in');
 ---
 
 <!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content={description} />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<link rel="canonical" href={canonicalURL} />
-		<slot name="head" />
-		<title>{title} | StudentKit</title>
+<html lang="en" class="h-full">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="canonical" href={canonicalURL} />
+    <slot name="head" />
+    <title>{title} | StudentKit</title>
 
-		<!-- Open Graph / Facebook -->
-		<meta property="og:type" content="website" />
-		<meta property="og:url" content={canonicalURL} />
-		<meta property="og:title" content={`${title} | StudentKit`} />
-		<meta property="og:description" content={description} />
-		<meta property="og:image" content={socialImageURL} />
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={`${title} | StudentKit`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={socialImageURL} />
 
-		<!-- Twitter -->
-		<meta name="twitter:card" content="summary_large_image" />
-		<meta name="twitter:title" content={`${title} | StudentKit`} />
-		<meta name="twitter:description" content={description} />
-		<meta name="twitter:image" content={socialImageURL} />
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={`${title} | StudentKit`} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImageURL} />
 
-		<!-- Google AdSense -->
-		<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1741354477413638" crossorigin="anonymous"></script>
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1741354477413638" crossorigin="anonymous"></script>
 
-		<!-- Google Search Console -->
-		<meta name="google-site-verification" content="ppJ_DWdRJ9YsunHonWw4RmpLiMQ8mGHxW4JzCW7mRuA" />
+    <!-- Google Search Console -->
+    <meta name="google-site-verification" content="ppJ_DWdRJ9YsunHonWw4RmpLiMQ8mGHxW4JzCW7mRuA" />
 
-		<!-- Google tag (gtag.js) -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=G-PJ3BLKWBPN"></script>
-		<script>
-		  window.dataLayer = window.dataLayer || [];
-		  function gtag(){dataLayer.push(arguments);}
-		  gtag('js', new Date());
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PJ3BLKWBPN"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-PJ3BLKWBPN');
+    </script>
+  </head>
+  <body class="bg-slate-50 text-slate-900 font-sans min-h-screen flex flex-col antialiased selection:bg-blue-100 selection:text-blue-900">
+    <Header />
 
-		  gtag('config', 'G-PJ3BLKWBPN');
-		</script>
-	</head>
-	<body class="bg-gray-50 text-gray-900 font-sans min-h-screen flex flex-col antialiased">
-		<Header />
+    <main class="flex-grow w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+      <slot />
+    </main>
 
-		<main class="flex-grow w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-			<slot />
-		</main>
-
-		<SearchModal />
-		<Footer />
-	</body>
+    <Footer />
+  </body>
 </html>

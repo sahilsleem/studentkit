@@ -1,0 +1,129 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-4 sm:space-y-5">
+  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Conversion Scale</label>
+          <select id="cgpa-scale" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="cbse">CBSE 10-Point Scale (CGPA × 9.5)</option>
+            <option value="direct">Direct 10-Point Scale (CGPA × 10)</option>
+            <option value="us4">US 4.0 Scale (CGPA / 4 × 100)</option>
+            <option value="mumbai">Mumbai University (7.1 × CGPA + 12)</option>
+            <option value="custom">Custom Multiplier</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">CGPA / GPA Score</label>
+          <input type="number" id="cgpa-val" step="0.01" min="0" max="10" placeholder="Enter CGPA (e.g. 8.5)" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+        <div id="cgpa-custom-box" class="hidden">
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Custom Multiplier</label>
+          <input type="number" id="cgpa-multiplier" step="0.01" placeholder="Enter multiplier (e.g. 9.5)" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+        <div class="flex gap-2.5 pt-1">
+          <button id="cgpa-calc-btn" type="button" class="flex-1 px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all cursor-pointer">
+            Calculate
+          </button>
+          <button id="cgpa-reset-btn" type="button" class="px-4 py-2.5 border border-slate-200 hover:bg-slate-50 text-slate-700 font-medium text-sm rounded-xl transition-all cursor-pointer">
+            Reset
+          </button>
+        </div>
+      </div>
+
+      <div class="flex flex-col justify-between p-6 bg-slate-50 rounded-xl border border-slate-200/80">
+        <div>
+          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Equivalent Percentage</div>
+          <div id="cgpa-result" class="text-4xl font-extrabold text-blue-600 mt-2 font-mono">--</div>
+          <div id="cgpa-formula-note" class="text-xs text-slate-500 mt-2"></div>
+        </div>
+
+        <div class="pt-4 border-t border-slate-200/80 mt-6">
+          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Division / Honors</div>
+          <div id="cgpa-division" class="text-sm font-semibold text-slate-700 mt-1">--</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const scaleSelect = document.getElementById('cgpa-scale') as HTMLSelectElement;
+  const valInput = document.getElementById('cgpa-val') as HTMLInputElement;
+  const customBox = document.getElementById('cgpa-custom-box');
+  const multiplierInput = document.getElementById('cgpa-multiplier') as HTMLInputElement;
+  const calcBtn = document.getElementById('cgpa-calc-btn');
+  const resetBtn = document.getElementById('cgpa-reset-btn');
+  const resultEl = document.getElementById('cgpa-result');
+  const formulaEl = document.getElementById('cgpa-formula-note');
+  const divisionEl = document.getElementById('cgpa-division');
+
+  function calculate() {
+    const scale = scaleSelect?.value || 'cbse';
+    const cgpa = parseFloat(valInput?.value || '');
+    if (isNaN(cgpa)) {
+      valInput?.focus();
+      return;
+    }
+    let percentage = 0;
+    let formula = '';
+
+    if (scale === 'cbse') {
+      percentage = cgpa * 9.5;
+      formula = 'Formula: ' + cgpa + ' × 9.5';
+    } else if (scale === 'direct') {
+      percentage = cgpa * 10;
+      formula = 'Formula: ' + cgpa + ' × 10';
+    } else if (scale === 'us4') {
+      percentage = (cgpa / 4) * 100;
+      formula = 'Formula: (' + cgpa + ' / 4.0) × 100';
+    } else if (scale === 'mumbai') {
+      percentage = (7.1 * cgpa) + 12;
+      formula = 'Formula: 7.1 × ' + cgpa + ' + 12';
+    } else {
+      const mult = parseFloat(multiplierInput?.value || '10');
+      percentage = cgpa * mult;
+      formula = 'Formula: ' + cgpa + ' × ' + mult;
+    }
+
+    if (resultEl) resultEl.textContent = Math.min(percentage, 100).toFixed(2) + '%';
+    if (formulaEl) formulaEl.textContent = formula;
+
+    let div = 'Pass';
+    if (percentage >= 75) div = 'First Division with Distinction';
+    else if (percentage >= 60) div = 'First Division';
+    else if (percentage >= 50) div = 'Second Division';
+    else if (percentage >= 40) div = 'Third Division / Pass';
+    else div = 'Fail / Reappear';
+
+    if (divisionEl) divisionEl.textContent = div;
+  }
+
+  function reset() {
+    if (valInput) valInput.value = '';
+    if (multiplierInput) multiplierInput.value = '';
+    if (resultEl) resultEl.textContent = '--';
+    if (formulaEl) formulaEl.textContent = '';
+    if (divisionEl) divisionEl.textContent = '--';
+    if (valInput) valInput.focus();
+  }
+
+  scaleSelect?.addEventListener('change', () => {
+    if (scaleSelect.value === 'custom') {
+      customBox?.classList.remove('hidden');
+    } else {
+      customBox?.classList.add('hidden');
+    }
+  });
+
+  calcBtn?.addEventListener('click', calculate);
+  resetBtn?.addEventListener('click', reset);
+</script>

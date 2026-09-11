@@ -1,0 +1,63 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-4 sm:space-y-5">
+  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div>
+        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">From</label>
+        <div class="flex gap-2">
+          <input type="number" id="len-val" placeholder="e.g. 10" step="any" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm" />
+          <select id="len-from" class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm">
+            <option value="m" selected>Meters (m)</option>
+            <option value="km">Kilometers (km)</option>
+            <option value="cm">Centimeters (cm)</option>
+            <option value="mi">Miles (mi)</option>
+            <option value="ft">Feet (ft)</option>
+            <option value="in">Inches (in)</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">To</label>
+        <div class="flex gap-2">
+          <div id="len-res" class="w-full px-4 py-2 bg-blue-50 border border-blue-200 rounded-xl text-sm font-bold text-blue-600 flex items-center">--</div>
+          <select id="len-to" class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm">
+            <option value="ft" selected>Feet (ft)</option>
+            <option value="m">Meters (m)</option>
+            <option value="km">Kilometers (km)</option>
+            <option value="cm">Centimeters (cm)</option>
+            <option value="mi">Miles (mi)</option>
+            <option value="in">Inches (in)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const toMeters: Record<string, number> = { m: 1, km: 1000, cm: 0.01, mi: 1609.344, ft: 0.3048, in: 0.0254 };
+
+  function convert() {
+    const raw = (document.getElementById('len-val') as HTMLInputElement)?.value;
+    if (raw === '' || raw === undefined || isNaN(parseFloat(raw))) {
+      document.getElementById('len-res')!.textContent = '--';
+      return;
+    }
+    const val = parseFloat(raw);
+    const from = (document.getElementById('len-from') as HTMLSelectElement)?.value || 'm';
+    const to = (document.getElementById('len-to') as HTMLSelectElement)?.value || 'ft';
+
+    const meters = val * (toMeters[from] || 1);
+    const result = meters / (toMeters[to] || 1);
+
+    document.getElementById('len-res')!.textContent = result.toFixed(4);
+  }
+
+  ['len-val', 'len-from', 'len-to'].forEach(id => document.getElementById(id)?.addEventListener('input', convert));
+</script>

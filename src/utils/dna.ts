@@ -46,7 +46,7 @@ export function calculateTm(seq: string): number {
   const t = (seq.match(/T/g) || []).length;
   const g = (seq.match(/G/g) || []).length;
   const c = (seq.match(/C/g) || []).length;
-  
+
   if (seq.length < 14) {
     return (a + t) * 2 + (g + c) * 4;
   } else {

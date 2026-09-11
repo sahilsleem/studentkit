@@ -1,0 +1,80 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-4 sm:space-y-5">
+  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Reaction Order</label>
+          <select id="ck-order" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="1" selected>First Order (ln[A] = -kt + ln[A]₀)</option>
+            <option value="0">Zero Order ([A] = -kt + [A]₀)</option>
+            <option value="2">Second Order (1/[A] = kt + 1/[A]₀)</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Initial Conc [A]₀ (M)</label>
+          <input type="number" id="ck-a0" placeholder="e.g. 0.8" min="0.001" step="any" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Rate Constant (k)</label>
+          <input type="number" id="ck-k" placeholder="e.g. 0.05" min="0.0001" step="any" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Time (t in seconds)</label>
+          <input type="number" id="ck-t" placeholder="e.g. 20" min="0" step="any" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm" />
+        </div>
+
+        <button id="ck-calc-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+          Calculate Concentration & Half-Life
+        </button>
+      </div>
+
+      <div class="flex flex-col justify-between p-6 bg-slate-50 rounded-xl border border-slate-200/80">
+        <div>
+          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Remaining Conc [A] at time t</div>
+          <div id="ck-at" class="text-4xl font-extrabold text-blue-600 mt-2 font-mono">--</div>
+        </div>
+
+        <div class="pt-4 border-t border-slate-200/80 mt-6 text-xs text-slate-600">
+          <span>Half-Life (t₁/₂ = ln 2 / k): </span>
+          <strong id="ck-thalf" class="text-slate-800 font-mono">13.86 s</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function calculate() {
+    const order = (document.getElementById('ck-order') as HTMLSelectElement)?.value || '1';
+    const a0 = parseFloat((document.getElementById('ck-a0') as HTMLInputElement)?.value || '1');
+    const k = parseFloat((document.getElementById('ck-k') as HTMLInputElement)?.value || '0.01');
+    const t = parseFloat((document.getElementById('ck-t') as HTMLInputElement)?.value || '0');
+
+    let at = 0;
+    let thalf = 0;
+
+    if (order === '1') {
+      at = a0 * Math.exp(-k * t);
+      thalf = Math.log(2) / k;
+    } else if (order === '0') {
+      at = Math.max(0, a0 - k * t);
+      thalf = a0 / (2 * k);
+    } else if (order === '2') {
+      at = 1 / (k * t + 1 / a0);
+      thalf = 1 / (k * a0);
+    }
+
+    document.getElementById('ck-at')!.textContent = at.toFixed(3) + ' M';
+    document.getElementById('ck-thalf')!.textContent = thalf.toFixed(2) + ' s';
+  }
+
+
+  document.getElementById('ck-calc-btn')?.addEventListener('click', calculate);
+</script>

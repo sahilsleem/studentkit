@@ -1,0 +1,89 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-4 sm:space-y-5">
+  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Vector A (x, y, z)</label>
+          <div class="grid grid-cols-3 gap-2">
+            <input type="number" id="vec-a1" placeholder="e.g. 3" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm text-center" />
+            <input type="number" id="vec-a2" placeholder="e.g. -2" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm text-center" />
+            <input type="number" id="vec-a3" placeholder="e.g. 4" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm text-center" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Vector B (x, y, z)</label>
+          <div class="grid grid-cols-3 gap-2">
+            <input type="number" id="vec-b1" placeholder="e.g. 1" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm text-center" />
+            <input type="number" id="vec-b2" placeholder="e.g. 5" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm text-center" />
+            <input type="number" id="vec-b3" placeholder="e.g. -2" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm text-center" />
+          </div>
+        </div>
+
+        <button id="vec-calc-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+          Calculate Vector Operations
+        </button>
+      </div>
+
+      <div class="flex flex-col justify-between p-6 bg-slate-50 rounded-xl border border-slate-200/80">
+        <div>
+          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Dot Product (A · B)</div>
+          <div id="vec-dot" class="text-3xl font-extrabold text-blue-600 mt-2 font-mono">--</div>
+          <div id="vec-angle" class="text-xs text-slate-500 mt-2">Angle Between Vectors: 122.8°</div>
+        </div>
+
+        <div class="pt-4 border-t border-slate-200/80 mt-6 space-y-2 text-xs text-slate-600">
+          <div class="flex justify-between">
+            <span>Cross Product (A × B):</span>
+            <strong id="vec-cross" class="text-slate-800 font-mono">(-16, 10, 17)</strong>
+          </div>
+          <div class="flex justify-between">
+            <span>Magnitudes:</span>
+            <strong id="vec-mags" class="text-slate-800 font-mono">|A| = 5.39, |B| = 5.48</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function calculate() {
+    const a1 = parseFloat((document.getElementById('vec-a1') as HTMLInputElement)?.value || '0');
+    const a2 = parseFloat((document.getElementById('vec-a2') as HTMLInputElement)?.value || '0');
+    const a3 = parseFloat((document.getElementById('vec-a3') as HTMLInputElement)?.value || '0');
+    const b1 = parseFloat((document.getElementById('vec-b1') as HTMLInputElement)?.value || '0');
+    const b2 = parseFloat((document.getElementById('vec-b2') as HTMLInputElement)?.value || '0');
+    const b3 = parseFloat((document.getElementById('vec-b3') as HTMLInputElement)?.value || '0');
+
+    const dot = a1 * b1 + a2 * b2 + a3 * b3;
+    const magA = Math.sqrt(a1 * a1 + a2 * a2 + a3 * a3);
+    const magB = Math.sqrt(b1 * b1 + b2 * b2 + b3 * b3);
+
+    const cosTheta = (magA * magB > 0) ? Math.max(-1, Math.min(1, dot / (magA * magB))) : 0;
+    const angleDeg = (Math.acos(cosTheta) * 180) / Math.PI;
+
+    const cx = a2 * b3 - a3 * b2;
+    const cy = a3 * b1 - a1 * b3;
+    const cz = a1 * b2 - a2 * b1;
+
+    const dotEl = document.getElementById('vec-dot');
+    const angleEl = document.getElementById('vec-angle');
+    const crossEl = document.getElementById('vec-cross');
+    const magsEl = document.getElementById('vec-mags');
+
+    if (dotEl) dotEl.textContent = dot.toFixed(2);
+    if (angleEl) angleEl.textContent = 'Angle Between Vectors: ' + angleDeg.toFixed(1) + '°';
+    if (crossEl) crossEl.textContent = '(' + cx.toFixed(2) + ', ' + cy.toFixed(2) + ', ' + cz.toFixed(2) + ')';
+    if (magsEl) magsEl.textContent = '|A| = ' + magA.toFixed(2) + ', |B| = ' + magB.toFixed(2);
+  }
+
+
+  document.getElementById('vec-calc-btn')?.addEventListener('click', calculate);
+</script>

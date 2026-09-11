@@ -1,0 +1,69 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-4 sm:space-y-5">
+  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Radius (r in meters)</label>
+          <input type="number" id="cm-r" placeholder="e.g. 5" min="0.1" step="any" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Linear Speed (v in m/s)</label>
+          <input type="number" id="cm-v" placeholder="e.g. 15" min="0" step="any" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Mass (m in kg)</label>
+          <input type="number" id="cm-m" placeholder="e.g. 2" min="0.01" step="any" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm" />
+        </div>
+
+        <button id="cm-calc-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+          Calculate Centripetal Force
+        </button>
+      </div>
+
+      <div class="flex flex-col justify-between p-6 bg-slate-50 rounded-xl border border-slate-200/80">
+        <div>
+          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Centripetal Force (Fc = mv²/r)</div>
+          <div id="cm-force" class="text-4xl font-extrabold text-blue-600 mt-2 font-mono">--</div>
+        </div>
+
+        <div class="pt-4 border-t border-slate-200/80 mt-6 space-y-2 text-xs text-slate-600">
+          <div class="flex justify-between">
+            <span>Centripetal Acceleration (a_c = v²/r):</span>
+            <strong id="cm-acc" class="text-slate-800 font-mono">45.00 m/s²</strong>
+          </div>
+          <div class="flex justify-between">
+            <span>Angular Velocity (ω = v/r):</span>
+            <strong id="cm-omega" class="text-slate-800 font-mono">3.00 rad/s</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function calculate() {
+    const r = parseFloat((document.getElementById('cm-r') as HTMLInputElement)?.value || '1');
+    const v = parseFloat((document.getElementById('cm-v') as HTMLInputElement)?.value || '0');
+    const m = parseFloat((document.getElementById('cm-m') as HTMLInputElement)?.value || '1');
+
+    if (r <= 0) return;
+
+    const ac = (v * v) / r;
+    const fc = m * ac;
+    const omega = v / r;
+
+    document.getElementById('cm-force')!.textContent = fc.toFixed(2) + ' N';
+    document.getElementById('cm-acc')!.textContent = ac.toFixed(2) + ' m/s²';
+    document.getElementById('cm-omega')!.textContent = omega.toFixed(2) + ' rad/s';
+  }
+
+
+  document.getElementById('cm-calc-btn')?.addEventListener('click', calculate);
+</script>

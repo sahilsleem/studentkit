@@ -1,0 +1,59 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-4 sm:space-y-5">
+  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div>
+        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">From</label>
+        <div class="flex gap-2">
+          <input type="number" id="time-val" placeholder="e.g. 2.5" step="any" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm" />
+          <select id="time-from" class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm">
+            <option value="hr" selected>Hours (hr)</option>
+            <option value="min">Minutes (min)</option>
+            <option value="sec">Seconds (s)</option>
+            <option value="day">Days (d)</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">To</label>
+        <div class="flex gap-2">
+          <div id="time-res" class="w-full px-4 py-2 bg-blue-50 border border-blue-200 rounded-xl text-sm font-bold text-blue-600 flex items-center">--</div>
+          <select id="time-to" class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm">
+            <option value="min" selected>Minutes (min)</option>
+            <option value="hr">Hours (hr)</option>
+            <option value="sec">Seconds (s)</option>
+            <option value="day">Days (d)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const toSec: Record<string, number> = { sec: 1, min: 60, hr: 3600, day: 86400 };
+
+  function convert() {
+    const raw = (document.getElementById('time-val') as HTMLInputElement)?.value;
+    if (raw === '' || raw === undefined || isNaN(parseFloat(raw))) {
+      document.getElementById('time-res')!.textContent = '--';
+      return;
+    }
+    const val = parseFloat(raw);
+    const from = (document.getElementById('time-from') as HTMLSelectElement)?.value || 'hr';
+    const to = (document.getElementById('time-to') as HTMLSelectElement)?.value || 'min';
+
+    const sec = val * (toSec[from] || 1);
+    const res = sec / (toSec[to] || 1);
+
+    document.getElementById('time-res')!.textContent = res.toFixed(2);
+  }
+
+  ['time-val', 'time-from', 'time-to'].forEach(id => document.getElementById(id)?.addEventListener('input', convert));
+</script>

@@ -1,0 +1,117 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-4 sm:space-y-5">
+  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Initial Principal ($)</label>
+          <input type="number" id="ci-principal" step="100" min="0" placeholder="e.g. 10000" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Monthly Contribution ($)</label>
+          <input type="number" id="ci-monthly" step="25" min="0" placeholder="e.g. 100" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Annual Interest Rate (%)</label>
+          <input type="number" id="ci-rate" step="0.1" min="0" placeholder="e.g. 7.5" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Term (Years)</label>
+            <input type="number" id="ci-years" step="1" min="1" max="50" placeholder="e.g. 5" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+          <div>
+            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Compounding</label>
+            <select id="ci-freq" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <option value="12" selected>Monthly (12/yr)</option>
+              <option value="4">Quarterly (4/yr)</option>
+              <option value="1">Annually (1/yr)</option>
+              <option value="365">Daily (365/yr)</option>
+            </select>
+          </div>
+        </div>
+
+        <button id="ci-calc-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+          Calculate Compound Growth
+        </button>
+      </div>
+
+      <div class="flex flex-col justify-between p-6 bg-slate-50 rounded-xl border border-slate-200/80">
+        <div>
+          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Future Ending Balance</div>
+          <div id="ci-future-val" class="text-4xl font-extrabold text-blue-600 mt-2 font-mono">--</div>
+          <div id="ci-interest-val" class="text-xs text-slate-400 font-semibold mt-2">Interest will appear here</div>
+        </div>
+
+        <div class="pt-4 border-t border-slate-200/80 mt-6 space-y-2 text-xs text-slate-600">
+          <div class="flex justify-between">
+            <span>Starting Principal:</span>
+            <strong id="ci-start-p" class="text-slate-800">--</strong>
+          </div>
+          <div class="flex justify-between">
+            <span>Total Regular Contributions:</span>
+            <strong id="ci-total-contrib" class="text-slate-800">--</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const pIn = document.getElementById('ci-principal') as HTMLInputElement;
+  const mIn = document.getElementById('ci-monthly') as HTMLInputElement;
+  const rIn = document.getElementById('ci-rate') as HTMLInputElement;
+  const yIn = document.getElementById('ci-years') as HTMLInputElement;
+  const freqSelect = document.getElementById('ci-freq') as HTMLSelectElement;
+
+  const futureValEl = document.getElementById('ci-future-val');
+  const interestValEl = document.getElementById('ci-interest-val');
+  const startPEl = document.getElementById('ci-start-p');
+  const totalContribEl = document.getElementById('ci-total-contrib');
+
+  function calculate() {
+    const P = parseFloat(pIn?.value || '0');
+    const PMT = parseFloat(mIn?.value || '0');
+    const r = parseFloat(rIn?.value || '0') / 100;
+    const t = parseFloat(yIn?.value || '1');
+    const n = parseFloat(freqSelect?.value || '12');
+
+    // Future value of lump sum: P * (1 + r/n)^(n*t)
+    const fvLump = P * Math.pow(1 + r / n, n * t);
+
+    // Future value of annuity / monthly contributions:
+    // With monthly compounding/contributions:
+    const monthlyRate = r / 12;
+    const totalMonths = t * 12;
+    let fvAnnuity = 0;
+    if (monthlyRate > 0) {
+      fvAnnuity = PMT * ((Math.pow(1 + monthlyRate, totalMonths) - 1) / monthlyRate);
+    } else {
+      fvAnnuity = PMT * totalMonths;
+    }
+
+    const totalFV = fvLump + fvAnnuity;
+    const totalContributions = PMT * totalMonths;
+    const totalPrincipal = P + totalContributions;
+    const totalInterest = totalFV - totalPrincipal;
+
+    const fmt = (v: number) => '$' + v.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+    if (futureValEl) futureValEl.textContent = fmt(totalFV);
+    if (interestValEl) interestValEl.textContent = '+' + fmt(totalInterest) + ' in Total Compound Interest';
+    if (startPEl) startPEl.textContent = fmt(P);
+    if (totalContribEl) totalContribEl.textContent = fmt(totalContributions);
+  }
+
+
+  document.getElementById('ci-calc-btn')?.addEventListener('click', calculate);
+</script>

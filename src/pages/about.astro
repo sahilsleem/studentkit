@@ -5,43 +5,71 @@ const aboutSchema = {
   "@context": "https://schema.org",
   "@type": "AboutPage",
   "name": "About StudentKit",
-  "description": "About StudentKit - the lightweight, fast, and free collection of tools for students.",
+  "description": "About StudentKit — the lightweight, fast, and completely free collection of precision study tools for students.",
   "url": "https://studentkit.in/about"
 };
 ---
 
-<Layout title="About" description="About StudentKit - the lightweight, fast, and free collection of tools for students.">
+<Layout title="About" description="Learn about StudentKit — our mission to provide clean, fast, privacy-first academic utilities with no paywalls or sign-ups.">
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(aboutSchema)}></script>
   </Fragment>
-  <div class="max-w-3xl mx-auto py-12">
-    <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight mb-8">About StudentKit</h1>
-    
-    <div class="prose prose-emerald prose-lg text-gray-600">
-      <p>
-        StudentKit was built with one simple goal: to provide a clean, fast, and completely free collection of everyday tools for college and university students.
-      </p>
-      
-      <p>
-        We noticed that most student calculators online are cluttered with intrusive ads, confusing interfaces, or require unnecessary sign-ups. Some even send your data to remote servers just to calculate a simple percentage.
-      </p>
 
-      <h2>Our Philosophy</h2>
-      <ul>
-        <li><strong>Always Free:</strong> We will never charge for these basic utilities.</li>
-        <li><strong>No Accounts:</strong> You don't need to log in to calculate your GPA or check your attendance.</li>
-        <li><strong>Privacy First:</strong> Every tool on this website runs locally in your browser using JavaScript. We do not store your grades, attendance, or personal data on our servers.</li>
-        <li><strong>Fast & Minimal:</strong> We don't use bulky frameworks that slow down your device. The site is designed to be lightweight and work perfectly on mobile.</li>
-      </ul>
-
-      <h2>The Tools</h2>
-      <p>
-        Whether you need to convert your CGPA to a percentage, find out exactly how many classes you can afford to miss, or just need a minimal Pomodoro timer to focus on your studies, StudentKit has you covered.
+  <div class="max-w-3xl mx-auto">
+    <div class="mb-6 text-left">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-semibold uppercase tracking-wider mb-2">
+        Our Story & Mission
+      </div>
+      <h1 class="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-2">About StudentKit</h1>
+      <p class="text-sm sm:text-base text-slate-600 leading-relaxed">
+        Building the cleanest, fastest, and most trustworthy suite of everyday study calculators on the web.
       </p>
+    </div>
 
-      <p class="mt-8">
-        <a href="/tools" class="text-emerald-600 font-semibold hover:text-emerald-700">Explore all tools &rarr;</a>
-      </p>
+    <div class="prose prose-slate prose-lg max-w-none space-y-6 text-slate-600">
+
+      <section class="bg-white p-4 sm:p-6 rounded-xl border border-slate-200/80 shadow-xs">
+        <h2 class="text-lg sm:text-xl font-bold text-slate-900 mb-2">Why We Built StudentKit</h2>
+        <p class="text-sm text-slate-600 leading-relaxed mb-3">
+          Most online calculators are buried under intrusive pop-ups, confusing interfaces, or artificial paywalls just to calculate a basic GPA or chemistry equation. Some even harvest student emails and send personal grades to third-party marketing servers.
+        </p>
+        <p class="text-sm text-slate-600 leading-relaxed">
+          StudentKit was created as a direct antidote: a fast, calm, client-side utility platform that gives students immediate answers without tracking, subscriptions, or friction.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 mb-3">Our Core Design Principles</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 not-prose">
+          <div class="p-4 bg-white rounded-xl border border-slate-200/80">
+            <h3 class="text-sm font-bold text-slate-900 mb-1">1. Tool-First Experience</h3>
+            <p class="text-xs text-slate-500 leading-relaxed">When you open a calculator, you get straight to the input fields. No scrolling past thousands of words of search engine filler.</p>
+          </div>
+          <div class="p-4 bg-white rounded-xl border border-slate-200/80">
+            <h3 class="text-sm font-bold text-slate-900 mb-1">2. 100% Client-Side Privacy</h3>
+            <p class="text-xs text-slate-500 leading-relaxed">All calculations execute on your own device using vanilla JavaScript. We do not store your grades or inputs.</p>
+          </div>
+          <div class="p-4 bg-white rounded-xl border border-slate-200/80">
+            <h3 class="text-sm font-bold text-slate-900 mb-1">3. Mobile-First Speed</h3>
+            <p class="text-xs text-slate-500 leading-relaxed">Optimized for fast mobile performance so you can check numbers in the middle of a class or library session.</p>
+          </div>
+          <div class="p-4 bg-white rounded-xl border border-slate-200/80">
+            <h3 class="text-sm font-bold text-slate-900 mb-1">4. No Accounts Needed</h3>
+            <p class="text-xs text-slate-500 leading-relaxed">Zero logins, zero passwords, and zero verification emails. Jump right into your calculation.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="bg-blue-50/60 p-4 sm:p-6 rounded-xl border border-blue-200/70">
+        <h2 class="text-lg sm:text-xl font-bold text-slate-900 mb-2">Community & Feedback</h2>
+        <p class="text-sm text-slate-600 leading-relaxed mb-3">
+          Have a formula or calculator suggestion? Notice an edge case in our math? We actively welcome student suggestions and educator contributions.
+        </p>
+        <a href="/contact" class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-semibold text-xs sm:text-sm">
+          Get in touch with us &rarr;
+        </a>
+      </section>
+
     </div>
   </div>
 </Layout>

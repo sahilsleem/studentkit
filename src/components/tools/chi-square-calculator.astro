@@ -1,0 +1,63 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-4 sm:space-y-5">
+  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
+    <div class="space-y-4">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Observed Frequencies (O)</label>
+          <input type="text" id="cs-obs" placeholder="e.g. 22, 18, 20, 25, 15" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Expected Frequencies (E)</label>
+          <input type="text" id="cs-exp" placeholder="e.g. 20, 20, 20, 20, 20" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono" />
+        </div>
+      </div>
+
+      <button id="cs-calc-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+        Calculate Chi-Square Test Statistic
+      </button>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+        <div class="p-5 bg-slate-50 rounded-xl border border-slate-200/80">
+          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Chi-Square Statistic (χ²)</div>
+          <div id="cs-stat" class="text-3xl font-extrabold text-blue-600 mt-2 font-mono">--</div>
+          <div class="text-xs text-slate-500 mt-1">Formula: Σ (O - E)² / E</div>
+        </div>
+
+        <div class="p-5 bg-slate-50 rounded-xl border border-slate-200/80">
+          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Degrees of Freedom (df)</div>
+          <div id="cs-df" class="text-3xl font-extrabold text-slate-800 mt-2 font-mono">df = 4</div>
+          <div class="text-xs text-slate-500 mt-1">k - 1 = 5 - 1</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function calculate() {
+    const obs = (document.getElementById('cs-obs') as HTMLInputElement)?.value.split(',').map(s => parseFloat(s.trim())).filter(n => !isNaN(n));
+    const exp = (document.getElementById('cs-exp') as HTMLInputElement)?.value.split(',').map(s => parseFloat(s.trim())).filter(n => !isNaN(n));
+
+    const n = Math.min(obs.length, exp.length);
+    if (n < 2) return;
+
+    let chiSq = 0;
+    for (let i = 0; i < n; i++) {
+      if (exp[i] > 0) chiSq += Math.pow(obs[i] - exp[i], 2) / exp[i];
+    }
+
+    const df = n - 1;
+
+    document.getElementById('cs-stat')!.textContent = chiSq.toFixed(4);
+    document.getElementById('cs-df')!.textContent = 'df = ' + df;
+  }
+
+
+  document.getElementById('cs-calc-btn')?.addEventListener('click', calculate);
+</script>

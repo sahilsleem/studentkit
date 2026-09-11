@@ -6,10 +6,10 @@ export interface Category {
 }
 
 export interface Tool {
-  id: string; // Unique identifier (usually same as slug)
+  id: string;
   title: string;
   description: string;
-  slug: string; // e.g., 'cgpa-to-percentage'
+  slug: string;
   category: string;
   subcategory?: string;
   icon: string;
@@ -21,7 +21,7 @@ export interface Tool {
   component?: string;
   formulaConfig?: {
     inputs: { id: string; label: string; placeholder?: string; type?: string }[];
-    expression: string; // JavaScript math expression, variables match input ids
+    expression: string;
     outputLabel: string;
     outputUnit?: string;
   };
@@ -36,1300 +36,2099 @@ export const categories: Category[] = [
   {
     "id": "academic-grades",
     "name": "Academic & Grades",
-    "description": "GPA, CGPA, grades, attendance, and exam target calculators."
+    "description": "GPA, CGPA, target marks, attendance forecasting, and exam grade calculations."
   },
   {
-    "id": "study-writing",
-    "name": "Study & Writing",
-    "description": "Pomodoro timers, word counters, reading speed, and writing utilities."
+    "id": "everyday-finance",
+    "name": "Everyday & Student Finance",
+    "description": "Student loans, EMI repayment, interest, discounts, budgeting, and shared roommate expenses."
   },
   {
     "id": "mathematics",
     "name": "Mathematics",
-    "description": "Algebra, calculus, trigonometry, geometry, matrices, and number theory."
+    "description": "Quadratic equations, linear systems, polynomials, fractions, percentages, and number theory."
+  },
+  {
+    "id": "geometry-trigonometry-matrices",
+    "name": "Geometry, Trigonometry & Matrices",
+    "description": "Triangles, circles, polygon area, 3D volume, trigonometry, vectors, and matrix operations."
+  },
+  {
+    "id": "calculus-advanced-math",
+    "name": "Calculus & Advanced Math",
+    "description": "Differentiation, integration, limits, power series, and differential equations."
+  },
+  {
+    "id": "statistics-probability",
+    "name": "Statistics & Probability",
+    "description": "Descriptive statistics, normal curves, confidence intervals, regressions, and distributions."
   },
   {
     "id": "physics",
     "name": "Physics",
-    "description": "Kinematics, forces, energy, optics, electromagnetism, and thermodynamics."
+    "description": "Kinematics, forces, energy, momentum, circuits, optics, wave mechanics, and fluids."
   },
   {
     "id": "chemistry",
     "name": "Chemistry",
-    "description": "Molarity, stoichiometry, gas laws, periodic table, and chemical reactions."
+    "description": "Molar mass, stoichiometry, gas laws, pH, buffers, half-life, and electrochemistry."
   },
   {
     "id": "biology-health",
-    "name": "Biology & Health",
-    "description": "Genetics, cellular biology, anatomy, BMI, and health metrics."
+    "name": "Biology & Health Metrics",
+    "description": "Genetics crosses, DNA analysis, population genetics, BMI, BMR, and hydration metrics."
   },
   {
-    "id": "statistics",
-    "name": "Statistics",
-    "description": "Descriptive statistics, probability distributions, regression, and z-scores."
+    "id": "computer-science-logic",
+    "name": "Computer Science & Digital Logic",
+    "description": "Base conversions, subnetting, bitwise operations, truth tables, and binary arithmetic."
   },
   {
-    "id": "computer-science",
-    "name": "Computer Science",
-    "description": "Bitwise operations, binary conversion, subnetting, and logic."
+    "id": "study-productivity-writing",
+    "name": "Study Productivity & Writing",
+    "description": "Word counts, reading speeds, words-to-pages, case conversion, study timers, and date diffs."
   },
   {
-    "id": "converters",
-    "name": "Converters",
-    "description": "Unit, scientific notation, and base conversion tools."
-  },
-  {
-    "id": "everyday-utilities",
-    "name": "Everyday Utilities",
-    "description": "Date differences, age calculations, countdowns, and random number generators."
+    "id": "universal-converters",
+    "name": "Universal Measurement Converters",
+    "description": "Length, weight, temperature, duration, velocity, area, and fluid volume converters."
   }
 ];
 
 export const tools: Tool[] = [
   {
-    id: "cgpa-to-percentage",
-    title: "CGPA to Percentage & Percentage to CGPA Converter",
-    description: "Convert between 10-point CGPA and percentage scores using standard or custom university formulas.",
-    slug: "cgpa-to-percentage",
-    category: "Academic & Grades",
-    aliases: ["convert cgpa to percentage","cgpa to percentage india","cgpa to percent","cgpa percentage formula","percentage to cgpa","convert percentage to cgpa","percentage to cgpa formula","percent to grade point","cgpa converter","grade point to percentage","percentage to grade point average"],
-    icon: "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z\"></path></svg>"
-  },
-  {
-    id: "gpa-calculator",
-    title: "GPA Calculator (Grade Point Average)",
-    description: "Calculate your semester GPA based on subject credits and grades.",
-    slug: "gpa-calculator",
-    category: "Academic & Grades",
-    aliases: ["calculate my gpa","semester gpa calculator","gpa from credits and grades","how to calculate gpa","grade point average calculator"],
-    icon: "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M12 14l9-5-9-5-9 5 9 5z\"></path><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z\"></path></svg>"
-  },
-  {
-    id: "percentage-calculator",
-    title: "Percentage Calculator",
-    description: "Find out your total percentage from multiple subjects.",
-    slug: "percentage-calculator",
-    category: "Academic & Grades",
-    icon: "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z\"></path><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z\"></path></svg>"
-  },
-  {
-    id: "attendance-calculator",
-    title: "Attendance Calculator",
-    description: "Calculate current attendance percentage, safe classes to skip, and classes needed to reach target goal.",
-    slug: "attendance-calculator",
-    category: "Academic & Grades",
-    subcategory: "Attendance",
-    aliases: ["check my attendance","attendance percentage calculator","calculate attendance percentage","am i short on attendance","classes you can miss","classes to miss","how many classes can i miss","how many classes do i need to attend","classes needed for 75 attendance","minimum classes to attend","required attendance","attendance required to pass"],
-    icon: "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z\"></path></svg>"
-  },
-  {
-    id: "study-hours",
-    title: "Study Hours Calculator",
-    description: "Distribute your available time across subjects realistically.",
-    slug: "study-hours",
-    category: "Study & Writing",
-    subcategory: "Study Tools",
-    icon: "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z\"></path></svg>"
-  },
-  {
-    id: "pomodoro-timer",
-    title: "Pomodoro Timer",
-    description: "Stay focused with a minimal study and break timer.",
-    slug: "pomodoro-timer",
-    category: "Study & Writing",
-    subcategory: "Study Tools",
-    icon: "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z\"></path></svg>"
-  },
-  {
-    id: "word-counter",
-    title: "Word Counter",
-    description: "Count words, characters, sentences, paragraphs, and estimated reading time instantly.",
-    slug: "word-counter",
-    category: "Study & Writing",
-    subcategory: "Study Tools",
-    aliases: ["character counter","character count","chars counter","letter counter","reading time calculator","reading time","sentence counter","paragraph counter","text counter","word count calculator","words count"],
-    icon: "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z\"></path></svg>"
-  },
-  {
-    id: "age-calculator",
-    title: "Age Calculator",
-    description: "Calculate your exact age in years, months, and days.",
-    slug: "age-calculator",
-    category: "Everyday Utilities",
-    icon: "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18zm-3-9v-2a2 2 0 00-2-2H8a2 2 0 00-2 2v2h12z\"></path></svg>"
-  },
-  {
-    id: "date-difference",
-    title: "Date Difference",
-    description: "Calculate the exact difference between two dates in days, weeks, months, and years.",
-    slug: "date-difference",
-    category: "Everyday Utilities",
-    aliases: ["days between dates","weeks between dates","days difference","duration between dates","how many days between dates"],
-    icon: "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z\"></path></svg>"
-  },
-  {
-    id: "exam-countdown",
-    title: "Exam Countdown",
-    description: "Track the exact remaining time until your upcoming exams with a live countdown timer.",
-    slug: "exam-countdown",
-    category: "Everyday Utilities",
-    icon: "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z\"></path></svg>"
-  },
-  {
-    id: "unit-converter",
-    title: "Unit Converter",
-    description: "Convert between common units of length, mass, temperature, area, volume, speed, time, and more with this unit converter.",
-    slug: "unit-converter",
-    category: "Converters",
-    aliases: ["convert km to miles","temperature converter","length converter","weight converter","metric to imperial","convert kg to lbs"],
-    icon: "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4\"></path></svg>"
-  },
-  {
-    id: "percentage-change",
-    title: "Percentage Change",
-    description: "Calculate the percentage increase or decrease between numbers.",
-    slug: "percentage-change",
-    category: "Academic & Grades",
-    subcategory: "Basic Math",
-    aliases: ["find percentage increase","percentage increase calculator","calculate percent change","percentage decrease"],
-    icon: "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M13 7h8m0 0v8m0-8l-8 8-4-4-6 6\"></path></svg>"
-  },
-  {
-    id: "random-number",
-    title: "Random Number Generator",
-    description: "Generate random numbers within a chosen range with optional minimum and maximum values.",
-    slug: "random-number",
-    category: "Everyday Utilities",
-    icon: "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2-1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5\"></path></svg>"
-  },
-  {
-    id: "rectangle-area-calculator",
-    title: "Rectangle Area Calculator",
-    description: "Calculate the area and perimeter of a rectangle from length and width measurements.",
-    slug: "rectangle-area-calculator",
-    category: "Mathematics",
-    subcategory: "Geometry",
-    formulaConfig: {
-          "inputs": [
-                {
-                      "id": "l",
-                      "label": "Length"
-                },
-                {
-                      "id": "w",
-                      "label": "Width"
-                }
-          ],
-          "expression": "l * w",
-          "outputLabel": "Area"
-    },
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 6h16v12H4V6z'></path></svg>"
-  },
-  {
-    id: "exponent-calculator",
-    title: "Exponent Calculator",
-    description: "Calculate powers and exponentiation for any base raised to a power.",
-    slug: "exponent-calculator",
-    category: "Mathematics",
-    subcategory: "Basic Math",
-    formulaConfig: {
-          "inputs": [
-                {
-                      "id": "b",
-                      "label": "Base"
-                },
-                {
-                      "id": "e",
-                      "label": "Exponent"
-                }
-          ],
-          "expression": "Math.pow(b, e)",
-          "outputLabel": "Result"
-    },
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>"
-  },
-  {
-    id: "logarithm-calculator",
-    title: "Logarithm Calculator",
-    description: "Calculate logarithms for any positive number with arbitrary base or natural base.",
-    slug: "logarithm-calculator",
-    category: "Mathematics",
-    subcategory: "Basic Math",
-    formulaConfig: {
-          "inputs": [
-                {
-                      "id": "n",
-                      "label": "Number"
-                },
-                {
-                      "id": "b",
-                      "label": "Base"
-                }
-          ],
-          "expression": "Math.log(n) / Math.log(b)",
-          "outputLabel": "Logarithm"
-    },
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 6h16v12H4V6z'></path></svg>"
-  },
-  {
-    id: "lcm-calculator",
-    title: "LCM Calculator",
-    description: "Calculate the least common multiple (LCM) of two or more integer numbers.",
-    slug: "lcm-calculator",
-    category: "Mathematics",
-    subcategory: "Basic Math",
-    formulaConfig: {
-          "inputs": [
-                {
-                      "id": "a",
-                      "label": "First Number"
-                },
-                {
-                      "id": "b",
-                      "label": "Second Number"
-                }
-          ],
-          "expression": "(function(a,b){ let oA=Math.abs(a), oB=Math.abs(b); while(b){ let t=b; b=a%b; a=t; } return (oA*oB)/a; })(a,b)",
-          "outputLabel": "LCM"
-    },
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M12 6v6m0 0v6m-6-6h12'></path></svg>"
-  },
-  {
-    id: "pythagorean-theorem-calculator",
-    title: "Pythagorean Theorem Calculator",
-    description: "Calculate the hypotenuse or missing leg of a right-angled triangle using a² + b² = c².",
-    slug: "pythagorean-theorem-calculator",
-    category: "Mathematics",
-    subcategory: "Geometry",
-    formulaConfig: {
-          "inputs": [
-                {
-                      "id": "a",
-                      "label": "Leg A"
-                },
-                {
-                      "id": "b",
-                      "label": "Leg B"
-                }
-          ],
-          "expression": "Math.sqrt(a*a + b*b)",
-          "outputLabel": "Hypotenuse (c)"
-    },
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M3 21h18L12 3z'></path></svg>"
-  },
-  {
-    id: "circle-area-calculator",
-    title: "Circle Area Calculator",
-    description: "Calculate the surface area of a circle from its radius or diameter using πr².",
-    slug: "circle-area-calculator",
-    category: "Mathematics",
-    subcategory: "Geometry",
-    formulaConfig: {
-          "inputs": [
-                {
-                      "id": "r",
-                      "label": "Radius"
-                }
-          ],
-          "expression": "Math.PI * r * r",
-          "outputLabel": "Area"
-    },
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z'></path></svg>"
-  },
-  {
-    id: "cube-volume-calculator",
-    title: "Cube Volume Calculator",
-    description: "Calculate the volume of a cube from the length of its side edge.",
-    slug: "cube-volume-calculator",
-    category: "Mathematics",
-    subcategory: "Geometry",
-    formulaConfig: {
-          "inputs": [
-                {
-                      "id": "s",
-                      "label": "Side Length"
-                }
-          ],
-          "expression": "s * s * s",
-          "outputLabel": "Volume"
-    },
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4'></path></svg>"
-  },
-  {
-    id: "sphere-volume-calculator",
-    title: "Sphere Volume Calculator",
-    description: "Calculate the volume and capacity of a sphere from its radius using 4/3 πr³.",
-    slug: "sphere-volume-calculator",
-    category: "Mathematics",
-    subcategory: "Geometry",
-    formulaConfig: {
-          "inputs": [
-                {
-                      "id": "r",
-                      "label": "Radius"
-                }
-          ],
-          "expression": "(4/3) * Math.PI * Math.pow(r, 3)",
-          "outputLabel": "Volume"
-    },
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z'></path></svg>"
-  },
-  {
-    id: "cylinder-volume-calculator",
-    title: "Cylinder Volume Calculator",
-    description: "Calculate the volume and capacity of a cylinder from radius and height.",
-    slug: "cylinder-volume-calculator",
-    category: "Mathematics",
-    subcategory: "Geometry",
-    formulaConfig: {
-          "inputs": [
-                {
-                      "id": "r",
-                      "label": "Radius"
-                },
-                {
-                      "id": "h",
-                      "label": "Height"
-                }
-          ],
-          "expression": "Math.PI * r * r * h",
-          "outputLabel": "Volume"
-    },
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z'></path></svg>"
-  },
-  {
-    id: "cone-volume-calculator",
-    title: "Cone Volume Calculator",
-    description: "Calculate the volume of a right circular cone from base radius and height.",
-    slug: "cone-volume-calculator",
-    category: "Mathematics",
-    subcategory: "Geometry",
-    formulaConfig: {
-          "inputs": [
-                {
-                      "id": "r",
-                      "label": "Radius"
-                },
-                {
-                      "id": "h",
-                      "label": "Height"
-                }
-          ],
-          "expression": "(1/3) * Math.PI * r * r * h",
-          "outputLabel": "Volume"
-    },
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M3 21h18L12 3z'></path></svg>"
-  },
-  {
-    id: "arithmetic-sequence-calculator",
-    title: "Arithmetic Sequence Calculator",
-    description: "Find the nth term of an arithmetic sequence.",
-    slug: "arithmetic-sequence-calculator",
-    category: "Mathematics",
-    subcategory: "Algebra",
-    formulaConfig: {
-          "inputs": [
-                {
-                      "id": "a",
-                      "label": "First Term (a)"
-                },
-                {
-                      "id": "d",
-                      "label": "Common Difference (d)"
-                },
-                {
-                      "id": "n",
-                      "label": "Term Number (n)"
-                }
-          ],
-          "expression": "a + (n - 1) * d",
-          "outputLabel": "Nth Term"
-    },
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 6h16v12H4V6z'></path></svg>"
-  },
-  {
-    id: "geometric-sequence-calculator",
-    title: "Geometric Sequence Calculator",
-    description: "Find the nth term of a geometric sequence.",
-    slug: "geometric-sequence-calculator",
-    category: "Mathematics",
-    subcategory: "Algebra",
-    formulaConfig: {
-          "inputs": [
-                {
-                      "id": "a",
-                      "label": "First Term (a)"
-                },
-                {
-                      "id": "r",
-                      "label": "Common Ratio (r)"
-                },
-                {
-                      "id": "n",
-                      "label": "Term Number (n)"
-                }
-          ],
-          "expression": "a * Math.pow(r, n - 1)",
-          "outputLabel": "Nth Term"
-    },
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 6h16v12H4V6z'></path></svg>"
-  },
-  {
-    id: "quadratic-formula-calculator",
-    title: "Quadratic Formula Calculator",
-    description: "Solve quadratic equations (ax² + bx + c = 0) with step-by-step discriminant and real or complex roots.",
-    slug: "quadratic-formula-calculator",
-    category: "Mathematics",
-    subcategory: "Algebra",
-    aliases: ["quadratic equation solver", "quadratic formula", "solve quadratic equation", "find roots of quadratic", "parabola vertex calculator", "discriminant calculator"],
-    component: "QuadraticFormulaCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z'></path></svg>"
-  },
-  {
-    id: "fraction-calculator",
-    title: "Fraction Calculator",
-    description: "Add, subtract, multiply, and divide fractions.",
-    slug: "fraction-calculator",
-    category: "Mathematics",
-    subcategory: "Basic Math",
-    component: "FractionCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 6h16v12H4V6z'></path></svg>"
-  },
-
-  {
-    id: "triangle-calculator",
-    title: "Triangle Calculator",
-    description: "Solve oblique and right triangles using the laws of sines and cosines.",
-    slug: "triangle-calculator",
-    category: "Mathematics",
-    subcategory: "Trigonometry",
-    component: "TriangleCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M3 21h18L12 3z'></path></svg>"
-  },
-  {
-    id: "law-of-sines-calculator",
-    title: "Law of Sines Calculator",
-    description: "Solve missing sides and angles of triangles using the Law of Sines ratio.",
-    slug: "law-of-sines-calculator",
-    category: "Mathematics",
-    subcategory: "Trigonometry",
-    component: "TriangleCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M3 21h18L12 3z'></path></svg>"
-  },
-  {
-    id: "law-of-cosines-calculator",
-    title: "Law of Cosines Calculator",
-    description: "Calculate unknown sides or angles of triangles using the Law of Cosines.",
-    slug: "law-of-cosines-calculator",
-    category: "Mathematics",
-    subcategory: "Trigonometry",
-    component: "TriangleCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M3 21h18L12 3z'></path></svg>"
-  },
-
-  {
-    id: "unit-circle",
-    title: "Unit Circle",
-    description: "Interactive unit circle reference displaying exact angle radians, degrees, and coordinates.",
-    slug: "unit-circle",
-    category: "Mathematics",
-    subcategory: "Trigonometry",
-    component: "UnitCircle",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z'></path></svg>"
-  },
-  {
-    id: "limit-calculator",
-    title: "Limit Calculator",
-    description: "Evaluate one-sided, two-sided, and infinite limits of mathematical functions.",
-    slug: "limit-calculator",
-    category: "Mathematics",
-    subcategory: "Calculus",
-    component: "LimitCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>"
-  },
-
-  {
-    id: "derivative-calculator",
-    title: "Derivative Calculator",
-    description: "Compute symbolic first derivatives of polynomial, trigonometric, and exponential functions.",
-    slug: "derivative-calculator",
-    category: "Mathematics",
-    subcategory: "Calculus",
-    component: "DerivativeCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z'></path></svg>"
-  },
-
-  {
-    id: "integral-calculator",
-    title: "Integral Calculator",
-    description: "Evaluate definite and indefinite integrals numerically and symbolically.",
-    slug: "integral-calculator",
-    category: "Mathematics",
-    subcategory: "Calculus",
-    component: "IntegralCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z'></path></svg>"
-  },
-
-  {
-    id: "free-fall-calculator",
-    title: "Free Fall Calculator",
-    description: "Calculate velocity and drop distance for free-falling objects under gravitational acceleration.",
-    slug: "free-fall-calculator",
-    category: "Physics",
-    subcategory: "Mechanics",
-    component: "UnitAwareCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>"
-  },
-  {
-    id: "projectile-motion-calculator",
-    title: "Projectile Range",
-    description: "Calculate projectile range, maximum height, and flight time from launch velocity and angle.",
-    slug: "projectile-motion-calculator",
-    category: "Physics",
-    subcategory: "Mechanics",
-    component: "UnitAwareCalculator",
-    related: ["free-fall-calculator"],
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>"
-  },
-  {
-    id: "centripetal-acceleration-calculator",
-    title: "Centripetal Acceleration",
-    description: "Calculate inward radial acceleration for circular paths from speed and radius.",
-    slug: "centripetal-acceleration-calculator",
-    category: "Physics",
-    subcategory: "Mechanics",
-    component: "UnitAwareCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>"
-  },
-  {
-    id: "friction-calculator",
-    title: "Friction Calculator",
-    description: "Calculate static and kinetic frictional resistance forces from normal force and friction coefficients.",
-    slug: "friction-calculator",
-    category: "Physics",
-    subcategory: "Mechanics",
-    component: "UnitAwareCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>"
-  },
-  {
-    id: "gravitational-force-calculator",
-    title: "Gravitational Force",
-    description: "Calculate gravitational attraction between two masses using Newton's universal gravity law.",
-    slug: "gravitational-force-calculator",
-    category: "Physics",
-    subcategory: "Gravity",
-    component: "UnitAwareCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>"
-  },
-  {
-    id: "thermal-expansion-calculator",
-    title: "Thermal Expansion",
-    description: "Calculate linear thermal expansion and length changes resulting from temperature shifts.",
-    slug: "thermal-expansion-calculator",
-    category: "Physics",
-    subcategory: "Thermodynamics",
-    component: "UnitAwareCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>"
-  },
-  {
-    id: "ohms-law-calculator",
-    title: "Ohm's Law Calculator",
-    description: "Calculate voltage, electric current, or resistance using Ohm's law (V = IR).",
-    slug: "ohms-law-calculator",
-    category: "Physics",
-    subcategory: "Electricity",
-    component: "UnitAwareCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>"
-  },
-  {
-    id: "coulombs-law-calculator",
-    title: "Coulomb's Law",
-    description: "Calculate Electric Force (F = k|q1q2|/r²).",
-    slug: "coulombs-law-calculator",
-    category: "Physics",
-    subcategory: "Electricity",
-    component: "UnitAwareCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>"
-  },
-  {
-    id: "capacitance-calculator",
-    title: "Capacitance Calculator",
-    description: "Calculate capacitance in farads from stored electric charge and applied voltage.",
-    slug: "capacitance-calculator",
-    category: "Physics",
-    subcategory: "Electricity",
-    component: "UnitAwareCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>"
-  },
-  {
-    id: "magnetic-force-calculator",
-    title: "Magnetic Force",
-    description: "Calculate magnetic Lorentz force acting on moving charges inside magnetic fields.",
-    slug: "magnetic-force-calculator",
-    category: "Physics",
-    subcategory: "Magnetism",
-    component: "UnitAwareCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>"
-  },
-  {
-    id: "snells-law-calculator",
-    title: "Snell's Law Calculator",
-    description: "Calculate refraction angles and light bending across optical boundaries using Snell's law.",
-    slug: "snells-law-calculator",
-    category: "Physics",
-    subcategory: "Optics",
-    component: "UnitAwareCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>"
-  },
-  {
-    id: "lens-equation-calculator",
-    title: "Lens Equation",
-    description: "Calculate image position, object distance, or focal length using the thin lens equation.",
-    slug: "lens-equation-calculator",
-    category: "Physics",
-    subcategory: "Optics",
-    component: "UnitAwareCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 10V3L4 14h7v7l9-11h-7z'></path></svg>"
-  },
-  {
-    id: "molar-mass-calculator",
-    title: "Molar Mass Calculator",
-    description: "Calculate molar mass, formula weight, and element percent composition from any chemical formula.",
-    slug: "molar-mass-calculator",
-    category: "Chemistry",
-    subcategory: "General Chemistry",
-    aliases: ["calculate molar mass","molecular weight calculator","molar mass formula","percent composition calculator","percent composition","mass percent calculator","chemical formula calculator","chemical formula mass","formula mass calculator","empirical formula calculator","molecular formula calculator","moles calculator","atoms calculator","molecules calculator","ions calculator"],
-    component: "ChemicalFormulaCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
-  },
-  {
-    id: "significant-figures-calculator",
-    title: "Significant Figures Calculator",
-    description: "Count significant digits, round numbers to N sig figs, and apply precision rules for arithmetic calculations.",
-    slug: "significant-figures-calculator",
-    category: "Chemistry",
-    subcategory: "General Chemistry",
-    aliases: ["sig fig calculator", "significant digits", "sig fig counter", "sig fig rounder", "significant figures arithmetic"],
-    component: "SignificantFiguresCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z'></path></svg>"
-  },
-  {
-    id: "periodic-table",
-    title: "Interactive Periodic Table",
-    description: "View elements, electron configurations, oxidation states, and atomic properties.",
-    slug: "periodic-table",
-    category: "Chemistry",
-    subcategory: "Periodic Table",
-    aliases: ["electron configuration","electron configuration calculator","valence electrons","valence electron calculator","oxidation states","oxidation state calculator","isotope calculator","isotope abundance","element lookup","chemistry periodic table"],
-    component: "PeriodicTable",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
-  },
-  {
-    id: "ideal-gas-law",
-    title: "Ideal Gas Law",
-    description: "Calculate Pressure (P = nRT/V).",
-    slug: "ideal-gas-law",
-    category: "Chemistry",
-    subcategory: "Gas Laws",
-    component: "UnitAwareCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
-  },
-  {
-    id: "molarity-calculator",
-    title: "Molarity Calculator",
-    description: "Calculate molar concentration (M = mol/L) from solute moles and solution volume.",
-    slug: "molarity-calculator",
-    category: "Chemistry",
-    subcategory: "Solutions",
-    component: "UnitAwareCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
-  },
-  {
-    id: "dilution-calculator",
-    title: "Dilution Calculator",
-    description: "Calculate final volume or concentration for solution dilutions using M₁V₁ = M₂V₂.",
-    slug: "dilution-calculator",
-    category: "Chemistry",
-    subcategory: "Solutions",
-    component: "UnitAwareCalculator",
-    related: ["molarity-calculator","molar-mass-calculator","ph-calculator"],
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
-  },
-  {
-    id: "ph-calculator",
-    title: "pH Calculator",
-    description: "Calculate solution pH and hydronium ion concentration [H⁺] for acid solutions.",
-    slug: "ph-calculator",
-    category: "Chemistry",
-    subcategory: "Acids & Bases",
-    component: "UnitAwareCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
-  },
-  {
-    id: "henderson-hasselbalch",
-    title: "Henderson-Hasselbalch",
-    description: "pH = pKa + log([A-]/[HA]).",
-    slug: "henderson-hasselbalch",
-    category: "Chemistry",
-    subcategory: "Acids & Bases",
-    component: "UnitAwareCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
-  },
-  {
-    id: "percent-yield-calculator",
-    title: "Percent Yield Calculator",
-    description: "Calculate percentage reaction yield from actual laboratory and theoretical yields.",
-    slug: "percent-yield-calculator",
-    category: "Chemistry",
-    subcategory: "Stoichiometry",
-    component: "UnitAwareCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
-  },
-
-  {
-    id: "solubility-rules",
-    title: "Solubility Rules",
-    description: "Reference guide of general aqueous solubility rules for ionic salts and precipitates.",
-    slug: "solubility-rules",
-    category: "Chemistry",
-    subcategory: "Reference",
-    component: "ChemistryReference",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
-  },
-
-  {
-    id: "calorimetry-calculator",
-    title: "Calorimetry Calculator",
-    description: "Calculate enthalpy and heat exchange in constant-pressure calorimeter experiments.",
-    slug: "calorimetry-calculator",
-    category: "Chemistry",
-    subcategory: "Thermochemistry",
-    component: "UnitAwareCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
-  },
-  {
-    id: "cell-potential-calculator",
-    title: "Cell Potential Calculator",
-    description: "Calculate electrochemical galvanic cell potential voltage from half-cell potentials.",
-    slug: "cell-potential-calculator",
-    category: "Chemistry",
-    subcategory: "Electrochemistry",
-    component: "UnitAwareCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
-  },
-  {
-    id: "half-life-calculator",
-    title: "Half-Life (1st Order)",
-    description: "Calculate first-order kinetic reaction half-life from rate constants.",
-    slug: "half-life-calculator",
-    category: "Chemistry",
-    subcategory: "Kinetics",
-    component: "UnitAwareCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
-  },
-  {
-    id: "organic-functional-groups",
-    title: "Organic Functional Groups",
-    description: "Interactive reference guide for identifying common organic chemical functional groups.",
-    slug: "organic-functional-groups",
-    category: "Chemistry",
-    subcategory: "Organic Chemistry",
-    component: "ChemistryReference",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
-  },
-
-  {
-    id: "bmi-calculator",
-    title: "BMI Calculator (Body Mass Index)",
-    description: "Calculate Body Mass Index (BMI) and health category classification from height and weight.",
-    slug: "bmi-calculator",
-    category: "Biology & Health",
-    subcategory: "Calculators",
-    aliases: ["calculate bmi","body mass index calculator","bmi formula"],
-    component: "UnitAwareCalculator",
-    medicalDisclaimer: true,
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
-  },
-  {
-    id: "heart-rate-zones",
-    title: "Max Heart Rate",
-    description: "Calculate cardiovascular training heart rate zones based on age and resting heart rate.",
-    slug: "heart-rate-zones",
-    category: "Biology & Health",
-    subcategory: "Calculators",
-    component: "UnitAwareCalculator",
-    medicalDisclaimer: true,
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
-  },
-  {
-    id: "animal-cell",
-    title: "Animal Cell Organelles",
-    description: "Interactive anatomical reference diagram of animal cell organelles and internal structures.",
-    slug: "animal-cell",
-    category: "Biology & Health",
-    subcategory: "Cell Biology",
-    component: "BiologyReference",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
-  },
-  {
-    id: "plant-cell",
-    title: "Plant Cell Organelles",
-    description: "Interactive diagram of plant cell organelles including chloroplasts, vacuoles, and cell walls.",
-    slug: "plant-cell",
-    category: "Biology & Health",
-    subcategory: "Cell Biology",
-    component: "BiologyReference",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
-  },
-  {
-    id: "mitosis-stages",
-    title: "Mitosis Stages",
-    description: "Step-by-step visual reference of mitotic cell division phases from prophase to telophase.",
-    slug: "mitosis-stages",
-    category: "Biology & Health",
-    subcategory: "Cell Biology",
-    component: "BiologyReference",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
-  },
-  {
-    id: "punnett-square",
-    title: "Punnett Square Calculator",
-    description: "Generate Monohybrid and Dihybrid crosses.",
-    slug: "punnett-square",
-    category: "Biology & Health",
-    subcategory: "Genetics",
-    aliases: ["monohybrid cross","dihybrid cross","test cross","genetics calculator","blood type inheritance","sex linked inheritance","allele cross calculator","phenotype ratio calculator","genotype ratio calculator"],
-    component: "PunnettSquare",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
-  },
-  {
-    id: "hardy-weinberg-calculator",
-    title: "Hardy-Weinberg (q² to p)",
-    description: "Calculate allele and genotype frequencies in populations assuming Hardy-Weinberg equilibrium.",
-    slug: "hardy-weinberg-calculator",
-    category: "Biology & Health",
-    subcategory: "Genetics",
-    component: "UnitAwareCalculator",
-    related: ["punnett-square"],
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
-  },
-  {
-    id: "dna-sequence-analyzer",
-    title: "DNA & RNA Sequence Analyzer",
-    description: "Analyze nucleotide sequences: complement, reverse complement, transcription, translation, GC content, and Tm.",
-    slug: "dna-sequence-analyzer",
-    category: "Biology & Health",
-    subcategory: "DNA & RNA",
-    aliases: ["dna complement","reverse complement","reverse complement calculator","dna to rna","rna transcription","codon translator","dna translation","rna to protein","gc content calculator","dna melting temperature","oligonucleotide tm calculator","peptide mass calculator","molecular biology calculator","bioinformatics sequence analyzer"],
-    component: "DNASequenceCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
-  },
-  {
-    id: "central-dogma",
-    title: "Central Dogma",
-    description: "Visual overview of molecular biology central dogma from DNA transcription to translation.",
-    slug: "central-dogma",
-    category: "Biology & Health",
-    subcategory: "Molecular Biology",
-    component: "BiologyReference",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
-  },
-  {
-    id: "amino-acid-reference",
-    title: "Amino Acid Reference",
-    description: "Reference table of standard amino acid structures, polarities, and molecular weights.",
-    slug: "amino-acid-reference",
-    category: "Biology & Health",
-    subcategory: "Molecular Biology",
-    component: "BiologyReference",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
-  },
-  {
-    id: "bmr-calculator",
-    title: "BMR Calculator (Mifflin-St Jeor)",
-    description: "Calculate Basal Metabolic Rate (BMR) and daily caloric expenditure using Mifflin-St Jeor formulas.",
-    slug: "bmr-calculator",
-    category: "Biology & Health",
-    subcategory: "Calculators",
-    component: "UnitAwareCalculator",
-    medicalDisclaimer: true,
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
-  },
-  {
-    id: "ideal-body-weight",
-    title: "Ideal Body Weight (Devine, Male)",
-    description: "Calculate ideal body weight (IBW) ranges based on gender and height formulas.",
-    slug: "ideal-body-weight",
-    category: "Biology & Health",
-    subcategory: "Calculators",
-    component: "UnitAwareCalculator",
-    medicalDisclaimer: true,
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
-  },
-  {
-    id: "protein-structure",
-    title: "Protein Structure",
-    description: "Reference guide explaining primary, secondary, tertiary, and quaternary protein structures.",
-    slug: "protein-structure",
-    category: "Biology & Health",
-    subcategory: "Molecular Biology",
-    component: "BiologyReference",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
-  },
-  {
-    id: "photosynthesis-equation",
-    title: "Photosynthesis Equation",
-    description: "Reference guide detailing light-dependent and Calvin cycle photosynthetic reactions.",
-    slug: "photosynthesis-equation",
-    category: "Biology & Health",
-    subcategory: "Photosynthesis",
-    component: "BiologyReference",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
-  },
-  {
-    id: "cellular-respiration",
-    title: "Cellular Respiration",
-    description: "Reference guide detailing glycolysis, Krebs cycle, and oxidative phosphorylation pathways.",
-    slug: "cellular-respiration",
-    category: "Biology & Health",
-    subcategory: "Cellular Respiration",
-    component: "BiologyReference",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
-  },
-  {
-    id: "human-skeleton",
-    title: "Human Skeleton",
-    description: "Anatomical reference diagram of the human skeletal system and major bone structures.",
-    slug: "human-skeleton",
-    category: "Biology & Health",
-    subcategory: "Human Anatomy",
-    component: "BiologyReference",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
-  },
-  {
-    id: "circulatory-system",
-    title: "Circulatory System",
-    description: "Anatomical reference of systemic circulation, heart chambers, and blood flow pathways.",
-    slug: "circulatory-system",
-    category: "Biology & Health",
-    subcategory: "Human Anatomy",
-    component: "BiologyReference",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
-  },
-  {
-    id: "nervous-system",
-    title: "Nervous System",
-    description: "Overview of the human nervous system covering central and peripheral neural pathways.",
-    slug: "nervous-system",
-    category: "Biology & Health",
-    subcategory: "Human Anatomy",
-    component: "BiologyReference",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
-  },
-  {
-    id: "digestive-system",
-    title: "Digestive System",
-    description: "Diagram of the human gastrointestinal tract and digestive organ functions.",
-    slug: "digestive-system",
-    category: "Biology & Health",
-    subcategory: "Human Anatomy",
-    component: "BiologyReference",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
-  },
-  {
-    id: "endocrine-system",
-    title: "Endocrine System",
-    description: "Reference map of hormone-producing endocrine glands and metabolic signaling pathways.",
-    slug: "endocrine-system",
-    category: "Biology & Health",
-    subcategory: "Human Anatomy",
-    component: "BiologyReference",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
-  },
-  {
-    id: "percentile-calculator",
-    title: "Percentile Calculator",
-    description: "Calculate specific percentile values and rank rankings for numeric data distributions.",
-    slug: "percentile-calculator",
-    category: "Statistics",
-    subcategory: "Descriptive Statistics",
-    aliases: ["percentiles"],
-    component: "DatasetCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
-  },
-  {
-    id: "five-number-summary",
-    title: "Five Number Summary",
-    description: "Calculate minimum, Q1, median, Q3, and maximum five-number summary statistics.",
-    slug: "five-number-summary",
-    category: "Statistics",
-    subcategory: "Descriptive Statistics",
-    aliases: ["boxplot data"],
-    component: "DatasetCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
-  },
-  {
-    id: "mean-absolute-deviation",
-    title: "Mean Absolute Deviation",
-    description: "Calculate mean absolute deviation (MAD) to evaluate variability around sample means.",
-    slug: "mean-absolute-deviation",
-    category: "Statistics",
-    subcategory: "Descriptive Statistics",
-    aliases: ["mad"],
-    component: "DatasetCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
-  },
-  {
-    id: "linear-regression-calculator",
-    title: "Linear Regression Calculator",
-    description: "Fit linear regression trendline models to paired datasets and evaluate fit.",
-    slug: "linear-regression-calculator",
-    category: "Statistics",
-    subcategory: "Regression",
-    aliases: ["line of best fit"],
-    component: "DatasetCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
-  },
-  {
-    id: "normal-distribution-calculator",
-    title: "Normal Distribution (Z-Score) Calculator",
-    description: "Calculate cumulative normal distribution probabilities and z-score areas.",
-    slug: "normal-distribution-calculator",
-    category: "Statistics",
-    subcategory: "Distributions",
-    aliases: ["z distribution"],
-    component: "DistributionCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
-  },
-  {
-    id: "binomial-distribution-calculator",
-    title: "Binomial Distribution",
-    description: "Calculate discrete binomial probabilities for independent Bernoulli trial experiments.",
-    slug: "binomial-distribution-calculator",
-    category: "Statistics",
-    subcategory: "Distributions",
-    aliases: ["bernoulli"],
-    component: "DistributionCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
-  },
-  {
-    id: "poisson-distribution-calculator",
-    title: "Poisson Distribution",
-    description: "Calculate discrete Poisson probabilities for event counts occurring in fixed intervals.",
-    slug: "poisson-distribution-calculator",
-    category: "Statistics",
-    subcategory: "Distributions",
-    aliases: ["poisson"],
-    component: "DistributionCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
-  },
-  {
-    id: "truth-table-generator",
-    title: "Truth Table Generator",
-    description: "Generate complete truth tables for complex compound propositional logic expressions.",
-    slug: "truth-table-generator",
-    category: "Computer Science",
-    subcategory: "Logic",
-    aliases: ["boolean logic table"],
-    component: "TruthTableGenerator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
-  },
-  {
-    id: "set-calculator",
-    title: "Set Operations Calculator",
-    description: "Calculate set union, intersection, difference, symmetric difference, and Cartesian product.",
-    slug: "set-calculator",
-    category: "Computer Science",
-    subcategory: "Sets",
-    aliases: ["set union calculator","set intersection calculator","set difference calculator","union of sets","intersection of sets","symmetric difference","relative complement","venn diagram sets","set theory calculator","disjoint sets calculator"],
-    component: "SetCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
-  },
-  {
-    id: "rref-calculator",
-    title: "RREF Calculator (Reduced Row Echelon Form)",
-    description: "Compute Reduced Row Echelon Form (RREF) for matrices using Gauss-Jordan elimination.",
-    slug: "rref-calculator",
-    category: "Mathematics",
-    subcategory: "Matrices",
-    aliases: ["row reduce","gauss jordan"],
-    component: "MatrixCalculator",
-    related: ["eigenvalue-calculator"],
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
-  },
-  {
-    id: "eigenvalue-calculator",
-    title: "Eigenvalue Calculator",
-    description: "Calculate eigenvalues and characteristic polynomial roots for square matrices.",
-    slug: "eigenvalue-calculator",
-    category: "Mathematics",
-    subcategory: "Matrices",
-    aliases: ["eigenvalues"],
-    component: "MatrixCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
-  },
-  {
-    id: "final-grade-calculator",
-    title: "Final Grade Calculator",
-    description: "Calculate required final exam scores needed to achieve target course grades.",
-    slug: "final-grade-calculator",
-    category: "Academic & Grades",
-    subcategory: "Grades",
-    component: "UnitAwareCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z'></path></svg>"
-  },
-  {
-    id: "base-conversion-calculator",
-    title: "Base Conversion Calculator",
-    description: "Convert numbers between binary, octal, decimal, and hexadecimal numeral systems with steps.",
-    slug: "base-conversion-calculator",
-    category: "Converters",
-    subcategory: "Number Systems",
-    aliases: ["binary converter","hexadecimal converter","hex converter","octal converter","decimal converter","binary to decimal","decimal to binary","hex to binary","binary to hex","decimal to hex","hex to decimal","base 2","base 8","base 10","base 16","radix converter","number systems calculator"],
-    component: "BaseConverter",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z'></path></svg>"
-  },
-  {
-    id: "weighted-grade-calculator",
-    title: "Weighted Grade Calculator",
-    description: "Calculate weighted grade averages from assignment scores and category weight percentages.",
-    slug: "weighted-grade-calculator",
-    category: "Academic & Grades",
-    subcategory: "Grades",
-    component: "UnitAwareCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z'></path></svg>"
-  },
-  {
-    id: "words-to-pages",
-    title: "Words to Pages Converter",
-    description: "Convert word count to pages based on font family, font size, margins, and line spacing.",
-    slug: "words-to-pages",
-    category: "Study & Writing",
-    subcategory: "Writing & Reading",
-    aliases: ["words to pages","word to page converter","how many pages is 1000 words","words to pages calculator","page count calculator","convert words to pages","single spaced words to pages","double spaced words to pages","essay page calculator","words to pages times new roman"],
-    component: "WordsToPages",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z'></path></svg>"
-  },
-  {
-    id: "compound-interest-calculator",
-    title: "Compound Interest Calculator",
-    description: "Calculate compound interest with regular monthly deposits, annual growth breakdowns, and customizable compounding frequencies.",
-    slug: "compound-interest-calculator",
-    category: "Everyday Utilities",
-    subcategory: "Interest & Investments",
-    aliases: ["compound interest calculator","calculate compound interest","compound interest with contributions","investment compound interest","monthly compound interest","annual compound interest","compound interest formula","savings compound interest","compound interest formula calculator"],
-    component: "CompoundInterestCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z'></path></svg>"
-  },
-  {
-    id: "simple-interest-calculator",
-    title: "Simple Interest Calculator",
-    description: "Calculate simple interest (P × R × T / 100), total amount, or solve for principal, rate, and time.",
-    slug: "simple-interest-calculator",
-    category: "Everyday Utilities",
-    subcategory: "Interest & Loans",
-    aliases: ["simple interest calculator","calculate simple interest","simple interest formula","SI calculator","simple interest loan calculator","principal rate time calculator","simple interest solver","simple interest step by step"],
-    component: "SimpleInterestCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z'></path></svg>"
-  },
-  {
-    id: "discount-calculator",
-    title: "Discount & Sale Price Calculator",
-    description: "Calculate discounted sale prices, total money saved, percentage markdowns, and final prices with sales tax.",
-    slug: "discount-calculator",
-    category: "Everyday Utilities",
-    subcategory: "Everyday Math",
-    aliases: ["sale price calculator", "percentage off calculator", "percent discount", "sales tax calculator", "price after discount"],
-    component: "DiscountCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z'></path></svg>"
-  },
-  {
-    id: "z-score-calculator",
-    title: "Z-Score Calculator & Normal Distribution Probability",
-    description: "Calculate Z-score, left-tail, right-tail, two-tail P-values, and normal distribution percentiles.",
-    slug: "z-score-calculator",
-    category: "Statistics",
-    subcategory: "Distributions",
-    aliases: ["z score calculator","calculate z score","z score to p value","z score percentile","standard normal z score","p value from z score","z value calculator","z score probability calculator"],
-    component: "ZScoreCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z'></path></svg>"
-  },
-  {
-    id: "permutations-and-combinations",
-    title: "Permutations & Combinations Calculator (nPr & nCr)",
-    description: "Calculate permutations (nPr) and combinations (nCr) with or without repetition, including step-by-step factorial expansions.",
-    slug: "permutations-and-combinations",
-    category: "Computer Science",
-    subcategory: "Discrete Mathematics",
-    aliases: ["permutations and combinations calculator","npr calculator","ncr calculator","permutation calculator","combination calculator","n choose r calculator","npr and ncr","permutations with repetition"],
-    component: "PermutationsAndCombinations",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M4 6h16M4 12h16M4 18h7'></path></svg>"
-  },
-  {
-    id: "prime-factorization-calculator",
-    title: "Prime Factorization Calculator",
-    description: "Find prime factors, canonical exponential form, divisor count, and step-by-step factor division tree for any number.",
-    slug: "prime-factorization-calculator",
-    category: "Mathematics",
-    subcategory: "Number Theory",
-    aliases: ["prime factorization calculator","prime factors calculator","factor tree calculator","prime decomposition","find prime factors","prime factor finder","canonical prime factorization"],
-    component: "PrimeFactorization",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M7 20l4-16m2 16l4-16M6 9h14M4 15h14'></path></svg>"
-  },
-  {
-    id: "bitwise-calculator",
-    title: "Bitwise Calculator (AND, OR, XOR, NOT, Shifts)",
-    description: "Perform bitwise operations (AND, OR, XOR, NOT, left/right shifts) across 8-bit, 16-bit, 32-bit, and 64-bit integer widths with binary and hex views.",
-    slug: "bitwise-calculator",
-    category: "Computer Science",
-    subcategory: "Binary & Logic",
-    aliases: ["bitwise calculator","bitwise operations calculator","and or xor not calculator","bit shift calculator","binary bitwise calculator","bit mask calculator"],
-    component: "BitwiseCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z'></path></svg>"
-  },
-  {
-    id: "scientific-notation-calculator",
-    title: "Scientific Notation Calculator & Converter",
-    description: "Convert numbers between standard decimal, scientific notation (a × 10^b), and engineering notation, with support for arithmetic calculations.",
-    slug: "scientific-notation-calculator",
-    category: "Converters",
-    subcategory: "Scientific Notation",
-    aliases: ["scientific notation calculator","standard form calculator","engineering notation calculator","exponential notation calculator","scientific notation converter"],
-    component: "ScientificNotationCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z'></path></svg>"
-  },
-  {
-    id: "confidence-interval-calculator",
-    title: "Confidence Interval Calculator (Mean & Proportion)",
-    description: "Compute two-sided confidence intervals for population means (Z-interval and T-interval) and population proportions with critical value calculations.",
-    slug: "confidence-interval-calculator",
-    category: "Statistics",
-    subcategory: "Inferential Statistics",
-    aliases: ["confidence interval calculator","margin of error calculator","confidence interval for mean","proportion confidence interval","z interval calculator","t interval calculator"],
-    component: "ConfidenceIntervalCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z'></path></svg>"
-  },
-  {
-    id: "case-converter",
-    title: "Case Converter (UPPERCASE, lowercase, Title, camelCase, snake_case)",
-    description: "Transform text between 10 different casing styles including Sentence case, Title Case, camelCase, snake_case, kebab-case, and alternating case.",
-    slug: "case-converter",
-    category: "Study & Writing",
-    subcategory: "Writing & Reading",
-    aliases: ["case converter","text case converter","uppercase lowercase converter","camelcase converter","title case converter","snake case converter","kebab case converter"],
-    component: "CaseConverter",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M3 5h12M9 5v14m6-8h6m-3 0v8'></path></svg>"
-  },
-  {
-    id: "subnet-calculator",
-    title: "IPv4 Subnet Calculator (CIDR & IP Network Planner)",
-    description: "Calculate network address, broadcast address, usable IP range, subnet mask, wildcard mask, and total usable hosts for any IPv4 CIDR block.",
-    slug: "subnet-calculator",
-    category: "Computer Science",
-    subcategory: "Networking",
-    aliases: ["subnet calculator","ipv4 subnet calculator","cidr calculator","ip range calculator","network mask calculator","subnet mask calculator","usable ip calculator"],
-    component: "SubnetCalculator",
-    icon: "<svg fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9'></path></svg>"
+    "id": "gpa-calculator",
+    "title": "GPA Calculator (Semester & Cumulative)",
+    "description": "Calculate your semester and cumulative GPA on the standard 4.0 scale with custom credit hours and target projections.",
+    "slug": "gpa-calculator",
+    "category": "Academic & Grades",
+    "subcategory": "GPA & CGPA",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342\" /></svg>",
+    "keywords": [
+      "gpa",
+      "grade point average",
+      "college gpa",
+      "semester gpa",
+      "cumulative gpa",
+      "4.0 scale"
+    ],
+    "popular": true
+  },
+  {
+    "id": "cgpa-percentage-calculator",
+    "title": "CGPA & Percentage Converter",
+    "description": "Convert between 10-point CGPA and equivalent percentage scores with CBSE (9.5), direct (10.0), and custom multipliers.",
+    "slug": "cgpa-percentage-calculator",
+    "category": "Academic & Grades",
+    "subcategory": "GPA & CGPA",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342\" /></svg>",
+    "keywords": [
+      "cgpa to percentage",
+      "percentage to cgpa",
+      "cbse cgpa converter",
+      "aicte multiplier",
+      "10 point cgpa"
+    ],
+    "popular": true
+  },
+  {
+    "id": "final-grade-calculator",
+    "title": "Final Grade Calculator",
+    "description": "Find the exact grade or score you need on your final exam to achieve your target overall course letter grade.",
+    "slug": "final-grade-calculator",
+    "category": "Academic & Grades",
+    "subcategory": "Exam Planning",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342\" /></svg>",
+    "keywords": [
+      "final exam calculator",
+      "what do i need on final",
+      "target grade",
+      "exam grade requirement"
+    ],
+    "popular": true
+  },
+  {
+    "id": "weighted-grade-calculator",
+    "title": "Weighted Grade Calculator",
+    "description": "Calculate your overall weighted class average based on homework, quiz, lab, midterm, and final exam percentage weights.",
+    "slug": "weighted-grade-calculator",
+    "category": "Academic & Grades",
+    "subcategory": "Grade Weighting",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342\" /></svg>",
+    "keywords": [
+      "weighted grade",
+      "class average",
+      "syllabus weighting",
+      "percentage grade",
+      "grade breakdown"
+    ]
+  },
+  {
+    "id": "attendance-calculator",
+    "title": "Attendance Calculator & Bunk Planner",
+    "description": "Calculate your current attendance percentage, check if you meet 75%/85% criteria, and plan safe lecture skips.",
+    "slug": "attendance-calculator",
+    "category": "Academic & Grades",
+    "subcategory": "Attendance",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342\" /></svg>",
+    "keywords": [
+      "attendance tracker",
+      "bunk planner",
+      "75 attendance criteria",
+      "classes to attend",
+      "safe skips"
+    ],
+    "popular": true
+  },
+  {
+    "id": "target-marks-calculator",
+    "title": "Target Marks Calculator",
+    "description": "Determine the exact marks needed in upcoming internal exams, assignments, and finals to reach your target semester score.",
+    "slug": "target-marks-calculator",
+    "category": "Academic & Grades",
+    "subcategory": "Exam Planning",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342\" /></svg>",
+    "keywords": [
+      "required marks",
+      "target score",
+      "internal marks calculator",
+      "exam target"
+    ]
+  },
+  {
+    "id": "grade-converter",
+    "title": "Grade & Letter Scale Converter",
+    "description": "Convert seamlessly between letter grades (A+, A, B), percentage intervals, and 4.0 grade point averages.",
+    "slug": "grade-converter",
+    "category": "Academic & Grades",
+    "subcategory": "Grade Weighting",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342\" /></svg>",
+    "keywords": [
+      "letter grade converter",
+      "gpa scale",
+      "percentage to letter grade",
+      "grade point chart"
+    ]
+  },
+  {
+    "id": "marks-percentage-calculator",
+    "title": "Marks & Percentage Total Calculator",
+    "description": "Calculate your total marks, overall percentage, class rank score, and highest/lowest subject performance.",
+    "slug": "marks-percentage-calculator",
+    "category": "Academic & Grades",
+    "subcategory": "Grade Weighting",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342\" /></svg>",
+    "keywords": [
+      "marks calculator",
+      "total marks to percentage",
+      "subject marks average",
+      "student score calculator"
+    ]
+  },
+  {
+    "id": "student-loan-calculator",
+    "title": "Student Loan & EMI Calculator",
+    "description": "Calculate monthly student loan installments (EMI), total interest charges, and accelerated payoff schedules.",
+    "slug": "student-loan-calculator",
+    "category": "Everyday & Student Finance",
+    "subcategory": "Loans & Debt",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z\" /></svg>",
+    "keywords": [
+      "student loan emi",
+      "loan repayment",
+      "tuition loan interest",
+      "monthly loan payment",
+      "amortization schedule"
+    ],
+    "popular": true
+  },
+  {
+    "id": "simple-interest-calculator",
+    "title": "Simple Interest Calculator",
+    "description": "Compute simple interest, principal, annual interest rate, and term duration with the classic I = Prt formula.",
+    "slug": "simple-interest-calculator",
+    "category": "Everyday & Student Finance",
+    "subcategory": "Interest & Savings",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z\" /></svg>",
+    "keywords": [
+      "simple interest",
+      "prt formula",
+      "interest calculation",
+      "principal interest rate"
+    ]
+  },
+  {
+    "id": "compound-interest-calculator",
+    "title": "Compound Interest Calculator",
+    "description": "Calculate compound growth on savings and student investments with annual, monthly, or daily compounding frequencies.",
+    "slug": "compound-interest-calculator",
+    "category": "Everyday & Student Finance",
+    "subcategory": "Interest & Savings",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z\" /></svg>",
+    "keywords": [
+      "compound interest",
+      "future value",
+      "compounding growth",
+      "savings growth",
+      "annual yield"
+    ],
+    "popular": true
+  },
+  {
+    "id": "discount-calculator",
+    "title": "Discount & Sale Price Calculator",
+    "description": "Calculate final sale prices, dollar savings, and stacked student percentage discounts on shopping and textbooks.",
+    "slug": "discount-calculator",
+    "category": "Everyday & Student Finance",
+    "subcategory": "Shopping & Budget",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z\" /></svg>",
+    "keywords": [
+      "discount calculator",
+      "sale price",
+      "percent off",
+      "student discount",
+      "price reduction"
+    ],
+    "popular": true
+  },
+  {
+    "id": "sales-tax-calculator",
+    "title": "Sales Tax & GST Calculator",
+    "description": "Calculate net price, gross total, and sales tax or GST amounts for any customizable tax percentage rate.",
+    "slug": "sales-tax-calculator",
+    "category": "Everyday & Student Finance",
+    "subcategory": "Shopping & Budget",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z\" /></svg>",
+    "keywords": [
+      "sales tax",
+      "gst calculator",
+      "vat calculator",
+      "tax amount",
+      "gross price net price"
+    ]
+  },
+  {
+    "id": "tip-bill-split-calculator",
+    "title": "Tip & Bill Split Calculator",
+    "description": "Calculate standard restaurant tips and split the final bill evenly among friends or roommates with zero friction.",
+    "slug": "tip-bill-split-calculator",
+    "category": "Everyday & Student Finance",
+    "subcategory": "Shopping & Budget",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z\" /></svg>",
+    "keywords": [
+      "tip calculator",
+      "bill splitter",
+      "split the bill",
+      "group dining calculator",
+      "restaurant tip"
+    ]
+  },
+  {
+    "id": "student-budget-calculator",
+    "title": "College Student Budget & Savings Planner",
+    "description": "Plan monthly student stipends, rent, groceries, study supplies, and estimate emergency savings funds.",
+    "slug": "student-budget-calculator",
+    "category": "Everyday & Student Finance",
+    "subcategory": "Shopping & Budget",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z\" /></svg>",
+    "keywords": [
+      "student budget",
+      "college spending",
+      "monthly expense planner",
+      "dorm budget",
+      "savings tracker"
+    ]
+  },
+  {
+    "id": "inflation-calculator",
+    "title": "Inflation & Purchasing Power Calculator",
+    "description": "Estimate the future buying power of money and equivalent costs over time based on custom inflation rates.",
+    "slug": "inflation-calculator",
+    "category": "Everyday & Student Finance",
+    "subcategory": "Interest & Savings",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z\" /></svg>",
+    "keywords": [
+      "inflation calculator",
+      "purchasing power",
+      "future cost of money",
+      "cpi inflation",
+      "real value"
+    ]
+  },
+  {
+    "id": "margin-markup-calculator",
+    "title": "Margin & Markup Calculator",
+    "description": "Calculate gross profit margins, markup percentages, cost of goods, and selling prices for student projects.",
+    "slug": "margin-markup-calculator",
+    "category": "Everyday & Student Finance",
+    "subcategory": "Shopping & Budget",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z\" /></svg>",
+    "keywords": [
+      "profit margin",
+      "markup calculator",
+      "cost of goods",
+      "gross margin",
+      "selling price"
+    ]
+  },
+  {
+    "id": "hourly-to-salary-calculator",
+    "title": "Hourly Wage to Salary Calculator",
+    "description": "Convert part-time student hourly wages into equivalent weekly, monthly, and annual gross earnings.",
+    "slug": "hourly-to-salary-calculator",
+    "category": "Everyday & Student Finance",
+    "subcategory": "Income & Work",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z\" /></svg>",
+    "keywords": [
+      "hourly to salary",
+      "wage converter",
+      "student job pay",
+      "weekly wage to annual salary"
+    ]
+  },
+  {
+    "id": "rent-split-calculator",
+    "title": "Rent Split & Roommate Expense Calculator",
+    "description": "Fairly split apartment rent, utility bills, and shared household subscriptions based on room dimensions or equal shares.",
+    "slug": "rent-split-calculator",
+    "category": "Everyday & Student Finance",
+    "subcategory": "Shopping & Budget",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z\" /></svg>",
+    "keywords": [
+      "rent split",
+      "roommate calculator",
+      "split utilities",
+      "apartment expense share",
+      "shared rent"
+    ]
+  },
+  {
+    "id": "quadratic-formula-calculator",
+    "title": "Quadratic Formula & Equation Solver",
+    "description": "Solve quadratic equations (ax² + bx + c = 0) with discriminant, real/complex roots, and parabola vertex.",
+    "slug": "quadratic-formula-calculator",
+    "category": "Mathematics",
+    "subcategory": "Algebra",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M15.75 15.75V18a2.25 2.25 0 0 1-2.25 2.25h-6A2.25 2.25 0 0 1 5.25 18v-6A2.25 2.25 0 0 1 7.5 9.75h2.25m4.5 0a2.25 2.25 0 0 0-2.25-2.25h-6A2.25 2.25 0 0 0 3.75 9.75v6A2.25 2.25 0 0 0 6 18h2.25\" /></svg>",
+    "keywords": [
+      "quadratic formula",
+      "solve quadratic equation",
+      "discriminant",
+      "parabola vertex",
+      "roots of polynomial"
+    ],
+    "popular": true
+  },
+  {
+    "id": "simultaneous-equations-solver",
+    "title": "Simultaneous Equations Solver (2x2 & 3x3)",
+    "description": "Solve systems of 2-variable and 3-variable linear equations using matrix elimination with clear solutions.",
+    "slug": "simultaneous-equations-solver",
+    "category": "Mathematics",
+    "subcategory": "Algebra",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M15.75 15.75V18a2.25 2.25 0 0 1-2.25 2.25h-6A2.25 2.25 0 0 1 5.25 18v-6A2.25 2.25 0 0 1 7.5 9.75h2.25m4.5 0a2.25 2.25 0 0 0-2.25-2.25h-6A2.25 2.25 0 0 0 3.75 9.75v6A2.25 2.25 0 0 0 6 18h2.25\" /></svg>",
+    "keywords": [
+      "simultaneous equations",
+      "system of linear equations",
+      "2x2 solver",
+      "3x3 solver",
+      "cramers rule"
+    ]
+  },
+  {
+    "id": "polynomial-calculator",
+    "title": "Polynomial Calculator & Root Finder",
+    "description": "Evaluate polynomial functions, calculate degrees, leading coefficients, and solve quadratic and cubic roots.",
+    "slug": "polynomial-calculator",
+    "category": "Mathematics",
+    "subcategory": "Algebra",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M15.75 15.75V18a2.25 2.25 0 0 1-2.25 2.25h-6A2.25 2.25 0 0 1 5.25 18v-6A2.25 2.25 0 0 1 7.5 9.75h2.25m4.5 0a2.25 2.25 0 0 0-2.25-2.25h-6A2.25 2.25 0 0 0 3.75 9.75v6A2.25 2.25 0 0 0 6 18h2.25\" /></svg>",
+    "keywords": [
+      "polynomial solver",
+      "polynomial roots",
+      "synthetic division",
+      "degree of polynomial",
+      "cubic solver"
+    ]
+  },
+  {
+    "id": "fraction-calculator",
+    "title": "Fraction Calculator & Simplifier",
+    "description": "Add, subtract, multiply, divide, and reduce proper, improper, and mixed fractions with step-by-step simplification.",
+    "slug": "fraction-calculator",
+    "category": "Mathematics",
+    "subcategory": "Arithmetic",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M15.75 15.75V18a2.25 2.25 0 0 1-2.25 2.25h-6A2.25 2.25 0 0 1 5.25 18v-6A2.25 2.25 0 0 1 7.5 9.75h2.25m4.5 0a2.25 2.25 0 0 0-2.25-2.25h-6A2.25 2.25 0 0 0 3.75 9.75v6A2.25 2.25 0 0 0 6 18h2.25\" /></svg>",
+    "keywords": [
+      "fraction calculator",
+      "simplify fractions",
+      "mixed numbers",
+      "add fractions",
+      "fraction arithmetic"
+    ],
+    "popular": true
+  },
+  {
+    "id": "ratio-calculator",
+    "title": "Ratio & Proportion Calculator",
+    "description": "Solve direct and inverse proportions (A : B = C : D), scale dimensions, and simplify multi-term ratios.",
+    "slug": "ratio-calculator",
+    "category": "Mathematics",
+    "subcategory": "Arithmetic",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M15.75 15.75V18a2.25 2.25 0 0 1-2.25 2.25h-6A2.25 2.25 0 0 1 5.25 18v-6A2.25 2.25 0 0 1 7.5 9.75h2.25m4.5 0a2.25 2.25 0 0 0-2.25-2.25h-6A2.25 2.25 0 0 0 3.75 9.75v6A2.25 2.25 0 0 0 6 18h2.25\" /></svg>",
+    "keywords": [
+      "ratio solver",
+      "proportion calculator",
+      "cross multiplication",
+      "simplify ratio",
+      "aspect ratio"
+    ]
+  },
+  {
+    "id": "percentage-calculator",
+    "title": "Percentage Calculator",
+    "description": "Solve all standard percentage problems: what is X% of Y, X is what % of Y, and percentage shares.",
+    "slug": "percentage-calculator",
+    "category": "Mathematics",
+    "subcategory": "Arithmetic",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M15.75 15.75V18a2.25 2.25 0 0 1-2.25 2.25h-6A2.25 2.25 0 0 1 5.25 18v-6A2.25 2.25 0 0 1 7.5 9.75h2.25m4.5 0a2.25 2.25 0 0 0-2.25-2.25h-6A2.25 2.25 0 0 0 3.75 9.75v6A2.25 2.25 0 0 0 6 18h2.25\" /></svg>",
+    "keywords": [
+      "percentage calculator",
+      "percent of number",
+      "calculate percentage",
+      "percentage formula"
+    ],
+    "popular": true
+  },
+  {
+    "id": "percentage-change-calculator",
+    "title": "Percentage Change Calculator",
+    "description": "Calculate percentage increase, percentage decrease, and relative percentage difference between initial and final values.",
+    "slug": "percentage-change-calculator",
+    "category": "Mathematics",
+    "subcategory": "Arithmetic",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M15.75 15.75V18a2.25 2.25 0 0 1-2.25 2.25h-6A2.25 2.25 0 0 1 5.25 18v-6A2.25 2.25 0 0 1 7.5 9.75h2.25m4.5 0a2.25 2.25 0 0 0-2.25-2.25h-6A2.25 2.25 0 0 0 3.75 9.75v6A2.25 2.25 0 0 0 6 18h2.25\" /></svg>",
+    "keywords": [
+      "percentage change",
+      "percent increase",
+      "percent decrease",
+      "relative change",
+      "percentage difference"
+    ],
+    "popular": true
+  },
+  {
+    "id": "prime-factorization-calculator",
+    "title": "Prime Factorization Calculator",
+    "description": "Decompose any positive integer into prime factor trees, find exponential forms, and check primality.",
+    "slug": "prime-factorization-calculator",
+    "category": "Mathematics",
+    "subcategory": "Number Theory",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M15.75 15.75V18a2.25 2.25 0 0 1-2.25 2.25h-6A2.25 2.25 0 0 1 5.25 18v-6A2.25 2.25 0 0 1 7.5 9.75h2.25m4.5 0a2.25 2.25 0 0 0-2.25-2.25h-6A2.25 2.25 0 0 0 3.75 9.75v6A2.25 2.25 0 0 0 6 18h2.25\" /></svg>",
+    "keywords": [
+      "prime factorization",
+      "prime numbers",
+      "factor tree",
+      "prime factors",
+      "composite number"
+    ]
+  },
+  {
+    "id": "lcm-gcd-calculator",
+    "title": "LCM and GCD / GCF Calculator",
+    "description": "Calculate the Least Common Multiple (LCM) and Greatest Common Divisor (GCD/GCF) for multiple integers.",
+    "slug": "lcm-gcd-calculator",
+    "category": "Mathematics",
+    "subcategory": "Number Theory",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M15.75 15.75V18a2.25 2.25 0 0 1-2.25 2.25h-6A2.25 2.25 0 0 1 5.25 18v-6A2.25 2.25 0 0 1 7.5 9.75h2.25m4.5 0a2.25 2.25 0 0 0-2.25-2.25h-6A2.25 2.25 0 0 0 3.75 9.75v6A2.25 2.25 0 0 0 6 18h2.25\" /></svg>",
+    "keywords": [
+      "lcm calculator",
+      "gcd calculator",
+      "greatest common factor",
+      "least common multiple",
+      "gcf"
+    ]
+  },
+  {
+    "id": "significant-figures-calculator",
+    "title": "Significant Figures Calculator",
+    "description": "Count significant digits, convert to proper scientific rounding, and perform sig-fig arithmetic.",
+    "slug": "significant-figures-calculator",
+    "category": "Mathematics",
+    "subcategory": "Arithmetic",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M15.75 15.75V18a2.25 2.25 0 0 1-2.25 2.25h-6A2.25 2.25 0 0 1 5.25 18v-6A2.25 2.25 0 0 1 7.5 9.75h2.25m4.5 0a2.25 2.25 0 0 0-2.25-2.25h-6A2.25 2.25 0 0 0 3.75 9.75v6A2.25 2.25 0 0 0 6 18h2.25\" /></svg>",
+    "keywords": [
+      "significant figures",
+      "sig fig calculator",
+      "sig fig counter",
+      "sig fig rounding",
+      "scientific precision"
+    ],
+    "popular": true
+  },
+  {
+    "id": "scientific-notation-calculator",
+    "title": "Scientific Notation Calculator",
+    "description": "Convert numbers into standard scientific notation (a × 10^b) and perform multiplication and division.",
+    "slug": "scientific-notation-calculator",
+    "category": "Mathematics",
+    "subcategory": "Arithmetic",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M15.75 15.75V18a2.25 2.25 0 0 1-2.25 2.25h-6A2.25 2.25 0 0 1 5.25 18v-6A2.25 2.25 0 0 1 7.5 9.75h2.25m4.5 0a2.25 2.25 0 0 0-2.25-2.25h-6A2.25 2.25 0 0 0 3.75 9.75v6A2.25 2.25 0 0 0 6 18h2.25\" /></svg>",
+    "keywords": [
+      "scientific notation",
+      "standard form",
+      "exponential notation",
+      "powers of 10",
+      "e notation"
+    ]
+  },
+  {
+    "id": "exponent-calculator",
+    "title": "Exponent & Power Calculator",
+    "description": "Calculate integer, fractional, negative, and decimal exponents (x^y) with radical equivalents.",
+    "slug": "exponent-calculator",
+    "category": "Mathematics",
+    "subcategory": "Arithmetic",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M15.75 15.75V18a2.25 2.25 0 0 1-2.25 2.25h-6A2.25 2.25 0 0 1 5.25 18v-6A2.25 2.25 0 0 1 7.5 9.75h2.25m4.5 0a2.25 2.25 0 0 0-2.25-2.25h-6A2.25 2.25 0 0 0 3.75 9.75v6A2.25 2.25 0 0 0 6 18h2.25\" /></svg>",
+    "keywords": [
+      "exponent calculator",
+      "power calculator",
+      "fractional powers",
+      "negative exponents",
+      "exponential solver"
+    ]
+  },
+  {
+    "id": "logarithm-calculator",
+    "title": "Logarithm Calculator (log & ln)",
+    "description": "Compute common log (base 10), natural log (ln, base e), and arbitrary custom base logarithms (log_b x).",
+    "slug": "logarithm-calculator",
+    "category": "Mathematics",
+    "subcategory": "Algebra",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M15.75 15.75V18a2.25 2.25 0 0 1-2.25 2.25h-6A2.25 2.25 0 0 1 5.25 18v-6A2.25 2.25 0 0 1 7.5 9.75h2.25m4.5 0a2.25 2.25 0 0 0-2.25-2.25h-6A2.25 2.25 0 0 0 3.75 9.75v6A2.25 2.25 0 0 0 6 18h2.25\" /></svg>",
+    "keywords": [
+      "logarithm calculator",
+      "natural log ln",
+      "log base 10",
+      "log base 2",
+      "change of base"
+    ]
+  },
+  {
+    "id": "sequence-series-calculator",
+    "title": "Sequence & Series Calculator",
+    "description": "Find the n-th term, common difference/ratio, and sum of arithmetic and geometric sequences.",
+    "slug": "sequence-series-calculator",
+    "category": "Mathematics",
+    "subcategory": "Algebra",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M15.75 15.75V18a2.25 2.25 0 0 1-2.25 2.25h-6A2.25 2.25 0 0 1 5.25 18v-6A2.25 2.25 0 0 1 7.5 9.75h2.25m4.5 0a2.25 2.25 0 0 0-2.25-2.25h-6A2.25 2.25 0 0 0 3.75 9.75v6A2.25 2.25 0 0 0 6 18h2.25\" /></svg>",
+    "keywords": [
+      "arithmetic sequence",
+      "geometric sequence",
+      "sum of series",
+      "nth term",
+      "series formula"
+    ]
+  },
+  {
+    "id": "set-calculator",
+    "title": "Set Theory & Venn Operations Calculator",
+    "description": "Perform set union (A ∪ B), intersection (A ∩ B), relative difference (A \\ B), and symmetric difference.",
+    "slug": "set-calculator",
+    "category": "Mathematics",
+    "subcategory": "Discrete Math",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M15.75 15.75V18a2.25 2.25 0 0 1-2.25 2.25h-6A2.25 2.25 0 0 1 5.25 18v-6A2.25 2.25 0 0 1 7.5 9.75h2.25m4.5 0a2.25 2.25 0 0 0-2.25-2.25h-6A2.25 2.25 0 0 0 3.75 9.75v6A2.25 2.25 0 0 0 6 18h2.25\" /></svg>",
+    "keywords": [
+      "set theory",
+      "union and intersection",
+      "venn diagram operations",
+      "set difference",
+      "complement of set"
+    ]
+  },
+  {
+    "id": "permutations-combinations-calculator",
+    "title": "Permutations & Combinations Calculator",
+    "description": "Calculate permutations (nPr) and combinations (nCr) with step-by-step factorial breakdowns.",
+    "slug": "permutations-combinations-calculator",
+    "category": "Mathematics",
+    "subcategory": "Discrete Math",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M15.75 15.75V18a2.25 2.25 0 0 1-2.25 2.25h-6A2.25 2.25 0 0 1 5.25 18v-6A2.25 2.25 0 0 1 7.5 9.75h2.25m4.5 0a2.25 2.25 0 0 0-2.25-2.25h-6A2.25 2.25 0 0 0 3.75 9.75v6A2.25 2.25 0 0 0 6 18h2.25\" /></svg>",
+    "keywords": [
+      "npr calculator",
+      "ncr calculator",
+      "permutations and combinations",
+      "combinatorics",
+      "factorials"
+    ],
+    "popular": true
+  },
+  {
+    "id": "triangle-calculator",
+    "title": "Right Triangle & Pythagorean Solver",
+    "description": "Solve right triangle sides, hypotenuse, and acute angles using the Pythagorean theorem and trigonometry.",
+    "slug": "triangle-calculator",
+    "category": "Geometry, Trigonometry & Matrices",
+    "subcategory": "Geometry",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M9 4.5v15m6-15v15m-10.875 0h15.75c.621 0 1.125-.504 1.125-1.125V5.625c0-.621-.504-1.125-1.125-1.125H4.125C3.504 4.5 3 5.004 3 5.625v12.75c0 .621.504 1.125 1.125 1.125Z\" /></svg>",
+    "keywords": [
+      "right triangle solver",
+      "pythagorean theorem",
+      "hypotenuse calculator",
+      "sohcahtoa",
+      "right angle trigonometry"
+    ],
+    "popular": true
+  },
+  {
+    "id": "triangle-area-calculator",
+    "title": "Triangle Area & Geometry Calculator",
+    "description": "Calculate general triangle area and perimeter using Heron's formula (SSS), SAS, base & height, and AAS.",
+    "slug": "triangle-area-calculator",
+    "category": "Geometry, Trigonometry & Matrices",
+    "subcategory": "Geometry",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M9 4.5v15m6-15v15m-10.875 0h15.75c.621 0 1.125-.504 1.125-1.125V5.625c0-.621-.504-1.125-1.125-1.125H4.125C3.504 4.5 3 5.004 3 5.625v12.75c0 .621.504 1.125 1.125 1.125Z\" /></svg>",
+    "keywords": [
+      "triangle area",
+      "herons formula",
+      "sas triangle",
+      "area of triangle",
+      "perimeter of triangle"
+    ]
+  },
+  {
+    "id": "circle-calculator",
+    "title": "Circle & Sector Calculator",
+    "description": "Calculate circle radius, diameter, circumference, area, arc length, and sector area given any dimension.",
+    "slug": "circle-calculator",
+    "category": "Geometry, Trigonometry & Matrices",
+    "subcategory": "Geometry",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M9 4.5v15m6-15v15m-10.875 0h15.75c.621 0 1.125-.504 1.125-1.125V5.625c0-.621-.504-1.125-1.125-1.125H4.125C3.504 4.5 3 5.004 3 5.625v12.75c0 .621.504 1.125 1.125 1.125Z\" /></svg>",
+    "keywords": [
+      "circle area",
+      "circumference calculator",
+      "arc length",
+      "sector area",
+      "radius diameter"
+    ]
+  },
+  {
+    "id": "area-calculator",
+    "title": "2D Polygon Area Calculator",
+    "description": "Calculate area and perimeter for rectangles, parallelograms, trapezoids, rhombuses, and regular polygons.",
+    "slug": "area-calculator",
+    "category": "Geometry, Trigonometry & Matrices",
+    "subcategory": "Geometry",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M9 4.5v15m6-15v15m-10.875 0h15.75c.621 0 1.125-.504 1.125-1.125V5.625c0-.621-.504-1.125-1.125-1.125H4.125C3.504 4.5 3 5.004 3 5.625v12.75c0 .621.504 1.125 1.125 1.125Z\" /></svg>",
+    "keywords": [
+      "area of polygon",
+      "rectangle area",
+      "trapezoid area",
+      "parallelogram area",
+      "perimeter calculator"
+    ]
+  },
+  {
+    "id": "volume-surface-area-calculator",
+    "title": "3D Volume & Surface Area Calculator",
+    "description": "Calculate volume and surface area for spheres, cylinders, cones, pyramids, and rectangular prisms.",
+    "slug": "volume-surface-area-calculator",
+    "category": "Geometry, Trigonometry & Matrices",
+    "subcategory": "Geometry",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M9 4.5v15m6-15v15m-10.875 0h15.75c.621 0 1.125-.504 1.125-1.125V5.625c0-.621-.504-1.125-1.125-1.125H4.125C3.504 4.5 3 5.004 3 5.625v12.75c0 .621.504 1.125 1.125 1.125Z\" /></svg>",
+    "keywords": [
+      "volume calculator",
+      "surface area",
+      "sphere volume",
+      "cylinder volume",
+      "cone volume"
+    ]
+  },
+  {
+    "id": "trigonometric-calculator",
+    "title": "Trigonometric & Inverse Functions Calculator",
+    "description": "Evaluate sin, cos, tan, csc, sec, cot, and inverse functions (arcsin, arccos, arctan) in degrees and radians.",
+    "slug": "trigonometric-calculator",
+    "category": "Geometry, Trigonometry & Matrices",
+    "subcategory": "Trigonometry",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M9 4.5v15m6-15v15m-10.875 0h15.75c.621 0 1.125-.504 1.125-1.125V5.625c0-.621-.504-1.125-1.125-1.125H4.125C3.504 4.5 3 5.004 3 5.625v12.75c0 .621.504 1.125 1.125 1.125Z\" /></svg>",
+    "keywords": [
+      "trig calculator",
+      "sin cos tan",
+      "inverse trig",
+      "arcsin arccos arctan",
+      "radians to degrees"
+    ],
+    "popular": true
+  },
+  {
+    "id": "unit-circle-calculator",
+    "title": "Unit Circle Interactive Calculator",
+    "description": "Look up exact radical coordinates (x, y), radian angles, and degree positions on the mathematical unit circle.",
+    "slug": "unit-circle-calculator",
+    "category": "Geometry, Trigonometry & Matrices",
+    "subcategory": "Trigonometry",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M9 4.5v15m6-15v15m-10.875 0h15.75c.621 0 1.125-.504 1.125-1.125V5.625c0-.621-.504-1.125-1.125-1.125H4.125C3.504 4.5 3 5.004 3 5.625v12.75c0 .621.504 1.125 1.125 1.125Z\" /></svg>",
+    "keywords": [
+      "unit circle",
+      "unit circle angles",
+      "exact trig values",
+      "pi radians",
+      "sin cos coordinates"
+    ]
+  },
+  {
+    "id": "vector-calculator",
+    "title": "Vector Operations Calculator (2D & 3D)",
+    "description": "Calculate vector magnitude, unit vectors, dot products, cross products, and angle between 2D and 3D vectors.",
+    "slug": "vector-calculator",
+    "category": "Geometry, Trigonometry & Matrices",
+    "subcategory": "Vectors & Matrices",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M9 4.5v15m6-15v15m-10.875 0h15.75c.621 0 1.125-.504 1.125-1.125V5.625c0-.621-.504-1.125-1.125-1.125H4.125C3.504 4.5 3 5.004 3 5.625v12.75c0 .621.504 1.125 1.125 1.125Z\" /></svg>",
+    "keywords": [
+      "vector magnitude",
+      "dot product",
+      "cross product",
+      "unit vector",
+      "3d vector calculator"
+    ]
+  },
+  {
+    "id": "matrix-calculator",
+    "title": "Matrix Arithmetic Calculator",
+    "description": "Perform matrix addition, subtraction, scalar multiplication, and matrix product multiplication up to 3x3.",
+    "slug": "matrix-calculator",
+    "category": "Geometry, Trigonometry & Matrices",
+    "subcategory": "Vectors & Matrices",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M9 4.5v15m6-15v15m-10.875 0h15.75c.621 0 1.125-.504 1.125-1.125V5.625c0-.621-.504-1.125-1.125-1.125H4.125C3.504 4.5 3 5.004 3 5.625v12.75c0 .621.504 1.125 1.125 1.125Z\" /></svg>",
+    "keywords": [
+      "matrix multiplication",
+      "matrix addition",
+      "matrix math",
+      "matrix dot product",
+      "linear algebra"
+    ]
+  },
+  {
+    "id": "matrix-inverse-calculator",
+    "title": "Matrix Determinant & Inverse Calculator",
+    "description": "Calculate determinants, matrix adjugates, and inverse matrices for 2x2 and 3x3 matrices with step checks.",
+    "slug": "matrix-inverse-calculator",
+    "category": "Geometry, Trigonometry & Matrices",
+    "subcategory": "Vectors & Matrices",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M9 4.5v15m6-15v15m-10.875 0h15.75c.621 0 1.125-.504 1.125-1.125V5.625c0-.621-.504-1.125-1.125-1.125H4.125C3.504 4.5 3 5.004 3 5.625v12.75c0 .621.504 1.125 1.125 1.125Z\" /></svg>",
+    "keywords": [
+      "matrix determinant",
+      "matrix inverse",
+      "invertible matrix",
+      "det a",
+      "adjugate matrix"
+    ]
+  },
+  {
+    "id": "rref-calculator",
+    "title": "RREF & Matrix Rank Calculator",
+    "description": "Transform matrices to Reduced Row Echelon Form (RREF) using Gaussian elimination and determine matrix rank.",
+    "slug": "rref-calculator",
+    "category": "Geometry, Trigonometry & Matrices",
+    "subcategory": "Vectors & Matrices",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M9 4.5v15m6-15v15m-10.875 0h15.75c.621 0 1.125-.504 1.125-1.125V5.625c0-.621-.504-1.125-1.125-1.125H4.125C3.504 4.5 3 5.004 3 5.625v12.75c0 .621.504 1.125 1.125 1.125Z\" /></svg>",
+    "keywords": [
+      "rref calculator",
+      "reduced row echelon form",
+      "gaussian elimination",
+      "matrix rank",
+      "row reduction"
+    ]
+  },
+  {
+    "id": "derivative-calculator",
+    "title": "Derivative Calculator (1st & 2nd Order)",
+    "description": "Differentiate mathematical expressions with respect to x using product, quotient, and chain rules.",
+    "slug": "derivative-calculator",
+    "category": "Calculus & Advanced Math",
+    "subcategory": "Differential Calculus",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6\" /></svg>",
+    "keywords": [
+      "derivative calculator",
+      "differentiation",
+      "chain rule",
+      "product rule",
+      "second derivative",
+      "calculus solver"
+    ],
+    "popular": true
+  },
+  {
+    "id": "integral-calculator",
+    "title": "Integral Calculator (Definite & Indefinite)",
+    "description": "Evaluate definite and indefinite integrals with standard calculus integration rules and boundary limits.",
+    "slug": "integral-calculator",
+    "category": "Calculus & Advanced Math",
+    "subcategory": "Integral Calculus",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6\" /></svg>",
+    "keywords": [
+      "integral calculator",
+      "integration",
+      "antiderivative",
+      "definite integral",
+      "calculus integral"
+    ],
+    "popular": true
+  },
+  {
+    "id": "limit-calculator",
+    "title": "Limit Calculator (One-Sided & Infinite)",
+    "description": "Evaluate two-sided and one-sided limits as x approaches finite points (x → a) or infinity (x → ±∞).",
+    "slug": "limit-calculator",
+    "category": "Calculus & Advanced Math",
+    "subcategory": "Differential Calculus",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6\" /></svg>",
+    "keywords": [
+      "limit calculator",
+      "one sided limits",
+      "limits at infinity",
+      "lhopital rule",
+      "calculus limits"
+    ]
+  },
+  {
+    "id": "taylor-series-calculator",
+    "title": "Taylor & Maclaurin Series Calculator",
+    "description": "Generate polynomial Taylor and Maclaurin power series expansions around center point x = a up to specified order.",
+    "slug": "taylor-series-calculator",
+    "category": "Calculus & Advanced Math",
+    "subcategory": "Series & Sequences",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6\" /></svg>",
+    "keywords": [
+      "taylor series",
+      "maclaurin series",
+      "power series expansion",
+      "polynomial approximation",
+      "series order"
+    ]
+  },
+  {
+    "id": "partial-derivative-calculator",
+    "title": "Partial Derivative Calculator (Multivariable)",
+    "description": "Compute first-order and second-order partial derivatives (∂f/∂x, ∂f/∂y) and multivariable gradient vectors.",
+    "slug": "partial-derivative-calculator",
+    "category": "Calculus & Advanced Math",
+    "subcategory": "Differential Calculus",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6\" /></svg>",
+    "keywords": [
+      "partial derivative",
+      "multivariable calculus",
+      "gradient vector",
+      "second partial derivative",
+      "del operator"
+    ]
+  },
+  {
+    "id": "differential-equations-calculator",
+    "title": "Differential Equations First-Order Solver",
+    "description": "Solve separable and first-order linear ordinary differential equations (y' + P(x)y = Q(x)) with initial values.",
+    "slug": "differential-equations-calculator",
+    "category": "Calculus & Advanced Math",
+    "subcategory": "Differential Equations",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6\" /></svg>",
+    "keywords": [
+      "differential equation solver",
+      "first order ode",
+      "separable differential equations",
+      "integrating factor"
+    ]
+  },
+  {
+    "id": "numerical-integration-calculator",
+    "title": "Numerical Integration Calculator",
+    "description": "Approximate definite integrals using Simpson's 1/3 Rule, the Trapezoidal Rule, and Riemann midpoint sums.",
+    "slug": "numerical-integration-calculator",
+    "category": "Calculus & Advanced Math",
+    "subcategory": "Integral Calculus",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6\" /></svg>",
+    "keywords": [
+      "numerical integration",
+      "simpsons rule",
+      "trapezoidal rule",
+      "riemann sum",
+      "definite integral approximation"
+    ]
+  },
+  {
+    "id": "statistics-calculator",
+    "title": "Descriptive Statistics Calculator",
+    "description": "Calculate mean, median, mode, minimum, maximum, range, interquartile range (IQR), and variance for datasets.",
+    "slug": "statistics-calculator",
+    "category": "Statistics & Probability",
+    "subcategory": "Descriptive Statistics",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z\" /></svg>",
+    "keywords": [
+      "statistics calculator",
+      "mean median mode",
+      "summary statistics",
+      "interquartile range",
+      "dataset analysis"
+    ],
+    "popular": true
+  },
+  {
+    "id": "standard-deviation-calculator",
+    "title": "Standard Deviation & Variance Calculator",
+    "description": "Calculate sample standard deviation (s), population standard deviation (σ), and sample/population variance.",
+    "slug": "standard-deviation-calculator",
+    "category": "Statistics & Probability",
+    "subcategory": "Descriptive Statistics",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z\" /></svg>",
+    "keywords": [
+      "standard deviation",
+      "variance calculator",
+      "sample standard deviation",
+      "population variance",
+      "spread of data"
+    ],
+    "popular": true
+  },
+  {
+    "id": "z-score-calculator",
+    "title": "Z-Score & Normal Distribution Calculator",
+    "description": "Calculate standard normal z-scores, p-values, percentiles, and cumulative probabilities under N(0,1).",
+    "slug": "z-score-calculator",
+    "category": "Statistics & Probability",
+    "subcategory": "Inferential Statistics",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z\" /></svg>",
+    "keywords": [
+      "z score calculator",
+      "normal distribution",
+      "standard normal curve",
+      "p value",
+      "bell curve"
+    ],
+    "popular": true
+  },
+  {
+    "id": "confidence-interval-calculator",
+    "title": "Confidence Interval Calculator",
+    "description": "Compute 90%, 95%, and 99% confidence intervals for population means and survey sample proportions.",
+    "slug": "confidence-interval-calculator",
+    "category": "Statistics & Probability",
+    "subcategory": "Inferential Statistics",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z\" /></svg>",
+    "keywords": [
+      "confidence interval",
+      "margin of error",
+      "95 confidence interval",
+      "sample mean interval",
+      "estimation"
+    ]
+  },
+  {
+    "id": "linear-regression-calculator",
+    "title": "Linear Regression & Correlation Calculator",
+    "description": "Calculate the line of best fit (y = mx + b), Pearson correlation coefficient (r), and coefficient of determination (R²).",
+    "slug": "linear-regression-calculator",
+    "category": "Statistics & Probability",
+    "subcategory": "Regression Analysis",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z\" /></svg>",
+    "keywords": [
+      "linear regression",
+      "correlation coefficient",
+      "line of best fit",
+      "r squared",
+      "scatter plot regression"
+    ]
+  },
+  {
+    "id": "probability-calculator",
+    "title": "Probability Calculator (Single & Compound)",
+    "description": "Calculate single event probabilities, mutually exclusive events, independent events, and conditional probabilities.",
+    "slug": "probability-calculator",
+    "category": "Statistics & Probability",
+    "subcategory": "Probability",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z\" /></svg>",
+    "keywords": [
+      "probability calculator",
+      "odds calculator",
+      "independent events",
+      "compound probability",
+      "conditional probability"
+    ]
+  },
+  {
+    "id": "binomial-distribution-calculator",
+    "title": "Binomial Distribution Calculator",
+    "description": "Calculate exact P(X = k), cumulative P(X ≤ k), expected mean, and variance for n binomial trials with success rate p.",
+    "slug": "binomial-distribution-calculator",
+    "category": "Statistics & Probability",
+    "subcategory": "Probability Distributions",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z\" /></svg>",
+    "keywords": [
+      "binomial distribution",
+      "binomial probability",
+      "bernoulli trials",
+      "cumulative binomial",
+      "success probability"
+    ]
+  },
+  {
+    "id": "poisson-distribution-calculator",
+    "title": "Poisson Distribution Calculator",
+    "description": "Calculate exact and cumulative Poisson distribution probabilities for independent events occurring at rate λ.",
+    "slug": "poisson-distribution-calculator",
+    "category": "Statistics & Probability",
+    "subcategory": "Probability Distributions",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z\" /></svg>",
+    "keywords": [
+      "poisson distribution",
+      "poisson probability",
+      "lambda rate",
+      "event frequency probability"
+    ]
+  },
+  {
+    "id": "chi-square-calculator",
+    "title": "Chi-Square Test Calculator",
+    "description": "Compute Chi-Square goodness-of-fit and 2x2 contingency table independence test statistics (χ²).",
+    "slug": "chi-square-calculator",
+    "category": "Statistics & Probability",
+    "subcategory": "Inferential Statistics",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z\" /></svg>",
+    "keywords": [
+      "chi square test",
+      "contingency table",
+      "goodness of fit",
+      "chi square p value",
+      "degrees of freedom"
+    ]
+  },
+  {
+    "id": "percentile-calculator",
+    "title": "Percentile & Quartile Calculator",
+    "description": "Calculate the k-th percentile value, deciles, and 5-number summary (Min, Q1, Median, Q3, Max) for datasets.",
+    "slug": "percentile-calculator",
+    "category": "Statistics & Probability",
+    "subcategory": "Descriptive Statistics",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z\" /></svg>",
+    "keywords": [
+      "percentile calculator",
+      "quartiles",
+      "5 number summary",
+      "interquartile range",
+      "dataset rank"
+    ]
+  },
+  {
+    "id": "sample-size-calculator",
+    "title": "Sample Size & Margin of Error Calculator",
+    "description": "Calculate required survey sample sizes based on desired confidence level (95%, 99%) and acceptable margin of error.",
+    "slug": "sample-size-calculator",
+    "category": "Statistics & Probability",
+    "subcategory": "Inferential Statistics",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z\" /></svg>",
+    "keywords": [
+      "sample size calculator",
+      "margin of error",
+      "survey sample",
+      "confidence level",
+      "population sample"
+    ]
+  },
+  {
+    "id": "kinematics-calculator",
+    "title": "Kinematics & Motion Calculator (1D)",
+    "description": "Solve constant acceleration 1D motion problems using kinematic equations for velocity, acceleration, time, and displacement.",
+    "slug": "kinematics-calculator",
+    "category": "Physics",
+    "subcategory": "Mechanics",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z\" /></svg>",
+    "keywords": [
+      "kinematics calculator",
+      "motion calculator",
+      "acceleration velocity displacement",
+      "physics motion",
+      "suvat equations"
+    ],
+    "popular": true
+  },
+  {
+    "id": "projectile-motion-calculator",
+    "title": "Projectile Motion Calculator (2D)",
+    "description": "Calculate launch range, maximum height, flight time, and velocity vectors for 2D projectile trajectories.",
+    "slug": "projectile-motion-calculator",
+    "category": "Physics",
+    "subcategory": "Mechanics",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z\" /></svg>",
+    "keywords": [
+      "projectile motion",
+      "trajectory calculator",
+      "launch velocity",
+      "maximum height",
+      "horizontal range"
+    ],
+    "popular": true
+  },
+  {
+    "id": "force-calculator",
+    "title": "Newton's Second Law & Force Calculator",
+    "description": "Calculate net force, object mass, and linear acceleration using Newton's Second Law (F = ma).",
+    "slug": "force-calculator",
+    "category": "Physics",
+    "subcategory": "Mechanics",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z\" /></svg>",
+    "keywords": [
+      "force calculator",
+      "newtons second law",
+      "f ma formula",
+      "mass acceleration",
+      "net force"
+    ]
+  },
+  {
+    "id": "friction-calculator",
+    "title": "Friction & Incline Plane Calculator",
+    "description": "Calculate static and kinetic friction force (f = μN) and parallel/perpendicular force components on inclined ramps.",
+    "slug": "friction-calculator",
+    "category": "Physics",
+    "subcategory": "Mechanics",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z\" /></svg>",
+    "keywords": [
+      "friction calculator",
+      "coefficient of friction",
+      "inclined plane",
+      "normal force",
+      "ramp physics"
+    ]
+  },
+  {
+    "id": "work-energy-calculator",
+    "title": "Work, Kinetic & Potential Energy Calculator",
+    "description": "Calculate mechanical work (W = Fd cos θ), kinetic energy (1/2 mv²), and gravitational potential energy (mgh).",
+    "slug": "work-energy-calculator",
+    "category": "Physics",
+    "subcategory": "Mechanics",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z\" /></svg>",
+    "keywords": [
+      "work energy calculator",
+      "kinetic energy",
+      "potential energy",
+      "mechanical work",
+      "conservation of energy"
+    ],
+    "popular": true
+  },
+  {
+    "id": "momentum-collision-calculator",
+    "title": "Momentum & Collision Calculator",
+    "description": "Solve conservation of linear momentum (p = mv), impulse (J = FΔt), and elastic/inelastic 1D collisions.",
+    "slug": "momentum-collision-calculator",
+    "category": "Physics",
+    "subcategory": "Mechanics",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z\" /></svg>",
+    "keywords": [
+      "momentum calculator",
+      "elastic collision",
+      "inelastic collision",
+      "impulse formula",
+      "conservation of momentum"
+    ]
+  },
+  {
+    "id": "free-fall-calculator",
+    "title": "Free Fall Calculator",
+    "description": "Calculate impact velocity, fall duration, and distance fallen under Earth's standard gravity (g = 9.8 m/s²).",
+    "slug": "free-fall-calculator",
+    "category": "Physics",
+    "subcategory": "Mechanics",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z\" /></svg>",
+    "keywords": [
+      "free fall calculator",
+      "gravity drop",
+      "impact velocity",
+      "falling body",
+      "terminal velocity"
+    ]
+  },
+  {
+    "id": "gravitational-force-calculator",
+    "title": "Gravitational Force & Orbit Calculator",
+    "description": "Compute universal gravitational attraction (F = G m1m2/r²) and circular orbital speeds around celestial bodies.",
+    "slug": "gravitational-force-calculator",
+    "category": "Physics",
+    "subcategory": "Mechanics",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z\" /></svg>",
+    "keywords": [
+      "gravitational force",
+      "newtons gravity",
+      "orbital speed",
+      "gravity formula",
+      "planetary orbit"
+    ]
+  },
+  {
+    "id": "circular-motion-calculator",
+    "title": "Centripetal Force & Circular Motion Calculator",
+    "description": "Compute centripetal acceleration (a = v²/r), centripetal force (F = m v²/r), and rotational angular velocity.",
+    "slug": "circular-motion-calculator",
+    "category": "Physics",
+    "subcategory": "Mechanics",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z\" /></svg>",
+    "keywords": [
+      "centripetal force",
+      "centripetal acceleration",
+      "circular motion",
+      "angular velocity",
+      "tangential speed"
+    ]
+  },
+  {
+    "id": "torque-calculator",
+    "title": "Torque & Rotational Equilibrium Calculator",
+    "description": "Calculate rotational torque (τ = r F sin θ), moment arms, and lever balance conditions.",
+    "slug": "torque-calculator",
+    "category": "Physics",
+    "subcategory": "Mechanics",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z\" /></svg>",
+    "keywords": [
+      "torque calculator",
+      "rotational equilibrium",
+      "lever arm",
+      "moment of force",
+      "torque formula"
+    ]
+  },
+  {
+    "id": "harmonic-motion-calculator",
+    "title": "Simple Harmonic Motion & Pendulum Calculator",
+    "description": "Calculate oscillation period, frequency, and spring constants for simple pendulums and mass-spring oscillators.",
+    "slug": "harmonic-motion-calculator",
+    "category": "Physics",
+    "subcategory": "Waves & Oscillations",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z\" /></svg>",
+    "keywords": [
+      "simple harmonic motion",
+      "pendulum period",
+      "spring oscillator",
+      "frequency calculation",
+      "shm formula"
+    ]
+  },
+  {
+    "id": "ohms-law-calculator",
+    "title": "Ohm's Law & Electric Power Calculator",
+    "description": "Calculate Voltage (V), Current (I), Resistance (R), and Power (P = VI = I²R = V²/R) with interactive unit options.",
+    "slug": "ohms-law-calculator",
+    "category": "Physics",
+    "subcategory": "Electromagnetism",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z\" /></svg>",
+    "keywords": [
+      "ohms law",
+      "voltage current resistance",
+      "electric power",
+      "watts amps volts",
+      "circuit calculations"
+    ],
+    "popular": true
+  },
+  {
+    "id": "circuit-calculator",
+    "title": "Resistor & Capacitor Circuit Calculator",
+    "description": "Calculate equivalent resistance and capacitance for Series and Parallel electronic circuits.",
+    "slug": "circuit-calculator",
+    "category": "Physics",
+    "subcategory": "Electromagnetism",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z\" /></svg>",
+    "keywords": [
+      "series parallel circuit",
+      "equivalent resistance",
+      "equivalent capacitance",
+      "circuit calculator",
+      "resistors in series"
+    ],
+    "popular": true
+  },
+  {
+    "id": "coulombs-law-calculator",
+    "title": "Coulomb's Law Electrostatic Force Calculator",
+    "description": "Calculate electrostatic attraction and repulsion forces between two point electric charges (F = k |q1q2|/r²).",
+    "slug": "coulombs-law-calculator",
+    "category": "Physics",
+    "subcategory": "Electromagnetism",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z\" /></svg>",
+    "keywords": [
+      "coulombs law",
+      "electrostatic force",
+      "point charge force",
+      "electric constant",
+      "charge attraction"
+    ]
+  },
+  {
+    "id": "lens-mirror-calculator",
+    "title": "Lens & Mirror Equation Calculator",
+    "description": "Solve focal length, object distance, image distance, and magnification (1/f = 1/do + 1/di) for optics.",
+    "slug": "lens-mirror-calculator",
+    "category": "Physics",
+    "subcategory": "Optics",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z\" /></svg>",
+    "keywords": [
+      "lens equation",
+      "thin lens formula",
+      "mirror equation",
+      "focal length",
+      "magnification optics"
+    ]
+  },
+  {
+    "id": "wave-speed-calculator",
+    "title": "Wave Speed, Frequency & Wavelength Calculator",
+    "description": "Solve the universal wave equation (v = fλ), wave period (T = 1/f), and photon energy calculations.",
+    "slug": "wave-speed-calculator",
+    "category": "Physics",
+    "subcategory": "Waves & Oscillations",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z\" /></svg>",
+    "keywords": [
+      "wave speed",
+      "wavelength frequency",
+      "v f lambda",
+      "wave period",
+      "speed of wave"
+    ]
+  },
+  {
+    "id": "density-calculator",
+    "title": "Density, Mass & Volume Calculator",
+    "description": "Calculate physical density (ρ = m/V), total mass, and volume with metric and imperial unit conversions.",
+    "slug": "density-calculator",
+    "category": "Physics",
+    "subcategory": "Thermodynamics & Fluids",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z\" /></svg>",
+    "keywords": [
+      "density calculator",
+      "mass volume density",
+      "specific gravity",
+      "rho m v",
+      "density formula"
+    ],
+    "popular": true
+  },
+  {
+    "id": "pressure-buoyancy-calculator",
+    "title": "Pressure & Buoyancy (Archimedes) Calculator",
+    "description": "Calculate hydrostatic fluid pressure (P = ρgh) and Archimedes upward buoyant force (Fb = ρVg).",
+    "slug": "pressure-buoyancy-calculator",
+    "category": "Physics",
+    "subcategory": "Thermodynamics & Fluids",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z\" /></svg>",
+    "keywords": [
+      "hydrostatic pressure",
+      "buoyant force",
+      "archimedes principle",
+      "fluid pressure",
+      "buoyancy calculator"
+    ]
+  },
+  {
+    "id": "molar-mass-calculator",
+    "title": "Molar Mass & Molecular Weight Calculator",
+    "description": "Parse chemical formulas (e.g. H2SO4, Ca(NO3)2) to compute exact molecular weights and elemental breakdowns.",
+    "slug": "molar-mass-calculator",
+    "category": "Chemistry",
+    "subcategory": "Stoichiometry",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M9.75 3.104v5.714a2.25 2.25 0 0 1-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 0 1 4.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.942A4.5 4.5 0 0 1 15.918 17H8.082a4.5 4.5 0 0 1-2.312-.758L4.2 15.3\" /></svg>",
+    "keywords": [
+      "molar mass",
+      "molecular weight",
+      "formula mass",
+      "grams per mole",
+      "chemical formula parser"
+    ],
+    "popular": true
+  },
+  {
+    "id": "moles-converter",
+    "title": "Moles, Grams & Molecule Particles Converter",
+    "description": "Convert between mass (grams), substance amount (moles), and molecule count using Avogadro's constant.",
+    "slug": "moles-converter",
+    "category": "Chemistry",
+    "subcategory": "Stoichiometry",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M9.75 3.104v5.714a2.25 2.25 0 0 1-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 0 1 4.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.942A4.5 4.5 0 0 1 15.918 17H8.082a4.5 4.5 0 0 1-2.312-.758L4.2 15.3\" /></svg>",
+    "keywords": [
+      "moles to grams",
+      "grams to moles",
+      "avogadros number",
+      "mole conversion",
+      "particles to moles"
+    ],
+    "popular": true
+  },
+  {
+    "id": "molarity-calculator",
+    "title": "Solution Molarity & Dilution Calculator",
+    "description": "Calculate solution molarity (M = mol/L) and solution dilution formula (M1V1 = M2V2) for laboratory chemistry.",
+    "slug": "molarity-calculator",
+    "category": "Chemistry",
+    "subcategory": "Solutions",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M9.75 3.104v5.714a2.25 2.25 0 0 1-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 0 1 4.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.942A4.5 4.5 0 0 1 15.918 17H8.082a4.5 4.5 0 0 1-2.312-.758L4.2 15.3\" /></svg>",
+    "keywords": [
+      "molarity calculator",
+      "solution dilution",
+      "m1v1 m2v2",
+      "moles per liter",
+      "concentration calculator"
+    ],
+    "popular": true
+  },
+  {
+    "id": "ideal-gas-law",
+    "title": "Ideal Gas Law Calculator (PV = nRT)",
+    "description": "Solve the Ideal Gas Law (PV = nRT) and combined gas laws (P1V1/T1 = P2V2/T2) for pressure, volume, or temperature.",
+    "slug": "ideal-gas-law",
+    "category": "Chemistry",
+    "subcategory": "Gas Laws",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M9.75 3.104v5.714a2.25 2.25 0 0 1-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 0 1 4.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.942A4.5 4.5 0 0 1 15.918 17H8.082a4.5 4.5 0 0 1-2.312-.758L4.2 15.3\" /></svg>",
+    "keywords": [
+      "ideal gas law",
+      "pv nrt calculator",
+      "gas equation",
+      "combined gas law",
+      "boyles law charles law"
+    ],
+    "popular": true
+  },
+  {
+    "id": "chemical-equation-balancer",
+    "title": "Chemical Reaction Balancer",
+    "description": "Balance chemical reaction equations automatically using linear matrix nullspace stoichiometry algorithms.",
+    "slug": "chemical-equation-balancer",
+    "category": "Chemistry",
+    "subcategory": "Reactions",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M9.75 3.104v5.714a2.25 2.25 0 0 1-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 0 1 4.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.942A4.5 4.5 0 0 1 15.918 17H8.082a4.5 4.5 0 0 1-2.312-.758L4.2 15.3\" /></svg>",
+    "keywords": [
+      "balance chemical equation",
+      "chemical equation balancer",
+      "stoichiometric coefficients",
+      "reaction balancer"
+    ],
+    "popular": true
+  },
+  {
+    "id": "stoichiometry-calculator",
+    "title": "Stoichiometry & Theoretical Yield Calculator",
+    "description": "Identify the limiting reactant, calculate theoretical product yield in grams, and determine percentage yield.",
+    "slug": "stoichiometry-calculator",
+    "category": "Chemistry",
+    "subcategory": "Stoichiometry",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M9.75 3.104v5.714a2.25 2.25 0 0 1-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 0 1 4.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.942A4.5 4.5 0 0 1 15.918 17H8.082a4.5 4.5 0 0 1-2.312-.758L4.2 15.3\" /></svg>",
+    "keywords": [
+      "stoichiometry calculator",
+      "limiting reactant",
+      "theoretical yield",
+      "percent yield",
+      "reaction stoichiometry"
+    ],
+    "popular": true
+  },
+  {
+    "id": "ph-calculator",
+    "title": "pH, pOH & Ion Concentration Calculator",
+    "description": "Calculate pH = -log[H+], pOH = -log[OH-], and hydrogen ion concentrations for acid-base solutions.",
+    "slug": "ph-calculator",
+    "category": "Chemistry",
+    "subcategory": "Acids & Bases",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M9.75 3.104v5.714a2.25 2.25 0 0 1-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 0 1 4.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.942A4.5 4.5 0 0 1 15.918 17H8.082a4.5 4.5 0 0 1-2.312-.758L4.2 15.3\" /></svg>",
+    "keywords": [
+      "ph calculator",
+      "poh calculator",
+      "hydrogen ion concentration",
+      "acid base ph",
+      "h+ to ph"
+    ],
+    "popular": true
+  },
+  {
+    "id": "buffer-ph-calculator",
+    "title": "Buffer pH (Henderson-Hasselbalch) Calculator",
+    "description": "Calculate buffer solution pH from pKa and weak acid / conjugate base molar concentrations.",
+    "slug": "buffer-ph-calculator",
+    "category": "Chemistry",
+    "subcategory": "Acids & Bases",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M9.75 3.104v5.714a2.25 2.25 0 0 1-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 0 1 4.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.942A4.5 4.5 0 0 1 15.918 17H8.082a4.5 4.5 0 0 1-2.312-.758L4.2 15.3\" /></svg>",
+    "keywords": [
+      "henderson hasselbalch",
+      "buffer ph",
+      "pka to ph",
+      "acid buffer calculator",
+      "conjugate base ratio"
+    ]
+  },
+  {
+    "id": "percent-composition-calculator",
+    "title": "Percent Composition by Mass Calculator",
+    "description": "Calculate elemental percentage composition by mass for chemical formulas and compound mixtures.",
+    "slug": "percent-composition-calculator",
+    "category": "Chemistry",
+    "subcategory": "Stoichiometry",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M9.75 3.104v5.714a2.25 2.25 0 0 1-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 0 1 4.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.942A4.5 4.5 0 0 1 15.918 17H8.082a4.5 4.5 0 0 1-2.312-.758L4.2 15.3\" /></svg>",
+    "keywords": [
+      "percent composition",
+      "mass percent",
+      "elemental analysis",
+      "percentage by weight",
+      "composition by mass"
+    ]
+  },
+  {
+    "id": "half-life-calculator",
+    "title": "Radioactive Decay & Half-Life Calculator",
+    "description": "Calculate exponential radioactive decay (N(t) = N0 (1/2)^(t/t_half)), remaining mass, and elapsed half-lives.",
+    "slug": "half-life-calculator",
+    "category": "Chemistry",
+    "subcategory": "Nuclear Chemistry",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M9.75 3.104v5.714a2.25 2.25 0 0 1-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 0 1 4.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.942A4.5 4.5 0 0 1 15.918 17H8.082a4.5 4.5 0 0 1-2.312-.758L4.2 15.3\" /></svg>",
+    "keywords": [
+      "half life calculator",
+      "radioactive decay",
+      "decay constant",
+      "carbon dating",
+      "exponential decay"
+    ]
+  },
+  {
+    "id": "calorimetry-calculator",
+    "title": "Calorimetry & Specific Heat Calculator",
+    "description": "Calculate heat energy transfer (q = mcΔT), specific heat capacity, and thermal equilibrium temperatures.",
+    "slug": "calorimetry-calculator",
+    "category": "Chemistry",
+    "subcategory": "Thermodynamics",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M9.75 3.104v5.714a2.25 2.25 0 0 1-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 0 1 4.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.942A4.5 4.5 0 0 1 15.918 17H8.082a4.5 4.5 0 0 1-2.312-.758L4.2 15.3\" /></svg>",
+    "keywords": [
+      "calorimetry calculator",
+      "q mc delta t",
+      "specific heat capacity",
+      "heat transfer",
+      "thermal energy"
+    ]
+  },
+  {
+    "id": "chemical-kinetics-calculator",
+    "title": "Chemical Kinetics & Rate Law Calculator",
+    "description": "Calculate reaction rates, rate constants (k), and concentration decay for zero, first, and second-order reactions.",
+    "slug": "chemical-kinetics-calculator",
+    "category": "Chemistry",
+    "subcategory": "Kinetics",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M9.75 3.104v5.714a2.25 2.25 0 0 1-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 0 1 4.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.942A4.5 4.5 0 0 1 15.918 17H8.082a4.5 4.5 0 0 1-2.312-.758L4.2 15.3\" /></svg>",
+    "keywords": [
+      "chemical kinetics",
+      "rate law calculator",
+      "first order reaction",
+      "reaction rate constant",
+      "integrated rate law"
+    ]
+  },
+  {
+    "id": "cell-potential-calculator",
+    "title": "Electrochemical Cell Potential (Nernst) Calculator",
+    "description": "Compute standard cell potential (E°cell) from reduction potentials and non-standard voltage via the Nernst equation.",
+    "slug": "cell-potential-calculator",
+    "category": "Chemistry",
+    "subcategory": "Electrochemistry",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M9.75 3.104v5.714a2.25 2.25 0 0 1-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 0 1 4.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.942A4.5 4.5 0 0 1 15.918 17H8.082a4.5 4.5 0 0 1-2.312-.758L4.2 15.3\" /></svg>",
+    "keywords": [
+      "cell potential",
+      "nernst equation",
+      "galvanic cell voltage",
+      "reduction potential",
+      "electrochemical cell"
+    ]
+  },
+  {
+    "id": "empirical-formula-calculator",
+    "title": "Empirical & Molecular Formula Calculator",
+    "description": "Determine the simplest whole-number empirical formula and molecular formula from elemental percentage compositions.",
+    "slug": "empirical-formula-calculator",
+    "category": "Chemistry",
+    "subcategory": "Stoichiometry",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M9.75 3.104v5.714a2.25 2.25 0 0 1-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 0 1 4.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.942A4.5 4.5 0 0 1 15.918 17H8.082a4.5 4.5 0 0 1-2.312-.758L4.2 15.3\" /></svg>",
+    "keywords": [
+      "empirical formula",
+      "molecular formula",
+      "simplest formula",
+      "element percentages",
+      "empirical formula solver"
+    ]
+  },
+  {
+    "id": "punnett-square",
+    "title": "Punnett Square & Genetics Calculator",
+    "description": "Generate monohybrid (2x2) and dihybrid (4x4) genetic crosses, genotype ratios, and phenotype percentage outcomes.",
+    "slug": "punnett-square",
+    "category": "Biology & Health Metrics",
+    "subcategory": "Genetics",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z\" /></svg>",
+    "keywords": [
+      "punnett square",
+      "genetics calculator",
+      "monohybrid cross",
+      "dihybrid cross",
+      "allele cross",
+      "phenotype ratio"
+    ],
+    "popular": true
+  },
+  {
+    "id": "dna-sequence-analyzer",
+    "title": "DNA Sequence Analyzer",
+    "description": "Analyze DNA nucleotide sequences to generate reverse complements, GC content %, melting temp (Tm), and RNA translation.",
+    "slug": "dna-sequence-analyzer",
+    "category": "Biology & Health Metrics",
+    "subcategory": "Molecular Biology",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z\" /></svg>",
+    "keywords": [
+      "dna analyzer",
+      "reverse complement",
+      "gc content",
+      "dna translation",
+      "melting temperature"
+    ]
+  },
+  {
+    "id": "hardy-weinberg-calculator",
+    "title": "Hardy-Weinberg Equilibrium Calculator",
+    "description": "Calculate population allele frequencies (p, q) and genotype frequencies (p², 2pq, q²) using Hardy-Weinberg equations.",
+    "slug": "hardy-weinberg-calculator",
+    "category": "Biology & Health Metrics",
+    "subcategory": "Genetics",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z\" /></svg>",
+    "keywords": [
+      "hardy weinberg",
+      "allele frequency",
+      "population genetics",
+      "p2 2pq q2",
+      "genotype frequency"
+    ]
+  },
+  {
+    "id": "bmi-calculator",
+    "title": "BMI & Body Surface Area Calculator",
+    "description": "Calculate Body Mass Index (BMI category score) and Mosteller Body Surface Area (BSA) with metric/imperial units.",
+    "slug": "bmi-calculator",
+    "category": "Biology & Health Metrics",
+    "subcategory": "Health Metrics",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z\" /></svg>",
+    "keywords": [
+      "bmi calculator",
+      "body mass index",
+      "healthy weight",
+      "body surface area",
+      "bsa formula"
+    ],
+    "popular": true
+  },
+  {
+    "id": "bmr-calculator",
+    "title": "BMR & Daily Calorie Calculator (TDEE)",
+    "description": "Calculate Basal Metabolic Rate (Mifflin-St Jeor) and Total Daily Energy Expenditure based on activity levels.",
+    "slug": "bmr-calculator",
+    "category": "Biology & Health Metrics",
+    "subcategory": "Health Metrics",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z\" /></svg>",
+    "keywords": [
+      "bmr calculator",
+      "tdee calculator",
+      "basal metabolic rate",
+      "daily calorie needs",
+      "maintenance calories"
+    ]
+  },
+  {
+    "id": "target-heart-rate-calculator",
+    "title": "Target Heart Rate & Training Zones Calculator",
+    "description": "Calculate aerobic, anaerobic, and max heart rate training zones using the Karvonen resting heart rate formula.",
+    "slug": "target-heart-rate-calculator",
+    "category": "Biology & Health Metrics",
+    "subcategory": "Health Metrics",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z\" /></svg>",
+    "keywords": [
+      "target heart rate",
+      "heart rate zones",
+      "karvonen formula",
+      "cardio zone",
+      "max heart rate"
+    ]
+  },
+  {
+    "id": "water-intake-calculator",
+    "title": "Daily Water Intake Calculator",
+    "description": "Estimate optimal daily hydration targets in liters and ounces based on body weight, climate, and exercise.",
+    "slug": "water-intake-calculator",
+    "category": "Biology & Health Metrics",
+    "subcategory": "Health Metrics",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z\" /></svg>",
+    "keywords": [
+      "water intake calculator",
+      "daily hydration",
+      "water consumption",
+      "liters of water per day"
+    ]
+  },
+  {
+    "id": "base-converter",
+    "title": "Base Converter (Binary/Dec/Hex/Oct)",
+    "description": "Convert numbers between Binary (Base 2), Octal (Base 8), Decimal (Base 10), Hexadecimal (Base 16), and custom bases.",
+    "slug": "base-converter",
+    "category": "Computer Science & Digital Logic",
+    "subcategory": "Number Systems",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5\" /></svg>",
+    "keywords": [
+      "base converter",
+      "binary to hex",
+      "hex to decimal",
+      "decimal to binary",
+      "octal converter",
+      "radix converter"
+    ],
+    "popular": true
+  },
+  {
+    "id": "subnet-calculator",
+    "title": "IPv4 Subnet & CIDR Calculator",
+    "description": "Calculate network address, broadcast address, usable IP range, subnet mask, and total hosts for any IPv4 CIDR block.",
+    "slug": "subnet-calculator",
+    "category": "Computer Science & Digital Logic",
+    "subcategory": "Networking",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5\" /></svg>",
+    "keywords": [
+      "subnet calculator",
+      "ipv4 cidr",
+      "ip range calculator",
+      "subnet mask",
+      "network address",
+      "broadcast ip"
+    ],
+    "popular": true
+  },
+  {
+    "id": "bitwise-calculator",
+    "title": "Bitwise Operations & Shift Calculator",
+    "description": "Perform bitwise AND, OR, XOR, NOT, NAND, NOR, and left/right bit shifts with live 32-bit binary register display.",
+    "slug": "bitwise-calculator",
+    "category": "Computer Science & Digital Logic",
+    "subcategory": "Digital Logic",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5\" /></svg>",
+    "keywords": [
+      "bitwise calculator",
+      "bitwise and or xor",
+      "bit shift",
+      "binary bitwise",
+      "bitwise not"
+    ]
+  },
+  {
+    "id": "truth-table-generator",
+    "title": "Truth Table Generator & Logic Evaluator",
+    "description": "Generate complete truth tables for boolean logic expressions containing AND, OR, NOT, XOR, NAND, and Implication.",
+    "slug": "truth-table-generator",
+    "category": "Computer Science & Digital Logic",
+    "subcategory": "Digital Logic",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5\" /></svg>",
+    "keywords": [
+      "truth table generator",
+      "boolean logic",
+      "propositional logic",
+      "logic gate truth table",
+      "boolean algebra"
+    ],
+    "popular": true
+  },
+  {
+    "id": "bandwidth-calculator",
+    "title": "Data Storage & Bandwidth Calculator",
+    "description": "Calculate file download and upload transfer durations across varying internet connection bandwidths and data sizes.",
+    "slug": "bandwidth-calculator",
+    "category": "Computer Science & Digital Logic",
+    "subcategory": "Networking",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5\" /></svg>",
+    "keywords": [
+      "bandwidth calculator",
+      "download time calculator",
+      "upload speed",
+      "file transfer duration",
+      "data transfer rate"
+    ]
+  },
+  {
+    "id": "ascii-converter",
+    "title": "ASCII, Text & Hexadecimal Converter",
+    "description": "Convert text characters to ASCII decimal codes, binary 8-bit bytes, and hexadecimal strings with ASCII table lookup.",
+    "slug": "ascii-converter",
+    "category": "Computer Science & Digital Logic",
+    "subcategory": "Number Systems",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5\" /></svg>",
+    "keywords": [
+      "ascii converter",
+      "text to binary",
+      "text to hex",
+      "ascii code lookup",
+      "hex to text"
+    ]
+  },
+  {
+    "id": "binary-arithmetic-calculator",
+    "title": "Binary Arithmetic Calculator",
+    "description": "Perform binary addition, binary subtraction, multiplication, and division with bit-by-bit carry and borrow displays.",
+    "slug": "binary-arithmetic-calculator",
+    "category": "Computer Science & Digital Logic",
+    "subcategory": "Number Systems",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5\" /></svg>",
+    "keywords": [
+      "binary calculator",
+      "binary addition",
+      "binary subtraction",
+      "binary multiplication",
+      "binary division"
+    ]
+  },
+  {
+    "id": "twos-complement-calculator",
+    "title": "Two's Complement & Signed Converter",
+    "description": "Convert signed and unsigned integers to 8-bit, 16-bit, and 32-bit Two's Complement binary representations.",
+    "slug": "twos-complement-calculator",
+    "category": "Computer Science & Digital Logic",
+    "subcategory": "Number Systems",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5\" /></svg>",
+    "keywords": [
+      "twos complement",
+      "signed binary",
+      "ones complement",
+      "binary negative numbers",
+      "8 bit twos complement"
+    ]
+  },
+  {
+    "id": "word-counter",
+    "title": "Word, Character & Sentence Counter",
+    "description": "Analyze text in real time to count words, characters (with/without spaces), sentences, paragraphs, and reading level.",
+    "slug": "word-counter",
+    "category": "Study Productivity & Writing",
+    "subcategory": "Writing Utilities",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10\" /></svg>",
+    "keywords": [
+      "word counter",
+      "character count",
+      "sentence count",
+      "paragraph counter",
+      "essay word counter"
+    ],
+    "popular": true
+  },
+  {
+    "id": "reading-time-calculator",
+    "title": "Reading & Speaking Time Calculator",
+    "description": "Estimate silent reading time and spoken presentation duration for essays, speeches, and lecture presentations.",
+    "slug": "reading-time-calculator",
+    "category": "Study Productivity & Writing",
+    "subcategory": "Writing Utilities",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10\" /></svg>",
+    "keywords": [
+      "reading time calculator",
+      "speaking time",
+      "speech duration",
+      "words per minute",
+      "presentation time"
+    ]
+  },
+  {
+    "id": "words-to-pages-calculator",
+    "title": "Words to Pages Converter",
+    "description": "Convert word counts to estimated academic paper page counts for single, 1.5, and double line spacing in standard fonts.",
+    "slug": "words-to-pages-calculator",
+    "category": "Study Productivity & Writing",
+    "subcategory": "Writing Utilities",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10\" /></svg>",
+    "keywords": [
+      "words to pages",
+      "pages calculator",
+      "essay page count",
+      "double spaced pages",
+      "word count to pages"
+    ]
+  },
+  {
+    "id": "case-converter",
+    "title": "Text Case Converter",
+    "description": "Convert text instantly between UPPERCASE, lowercase, Title Case, Sentence case, camelCase, snake_case, and kebab-case.",
+    "slug": "case-converter",
+    "category": "Study Productivity & Writing",
+    "subcategory": "Writing Utilities",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10\" /></svg>",
+    "keywords": [
+      "case converter",
+      "uppercase to lowercase",
+      "title case converter",
+      "camelcase converter",
+      "text capitalization"
+    ]
+  },
+  {
+    "id": "pomodoro-timer",
+    "title": "Pomodoro Study Timer & Tracker",
+    "description": "Minimalist 25/5 study interval timer with customizable work/break periods and audio bell chime notifications.",
+    "slug": "pomodoro-timer",
+    "category": "Study Productivity & Writing",
+    "subcategory": "Productivity",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10\" /></svg>",
+    "keywords": [
+      "pomodoro timer",
+      "study timer",
+      "focus timer",
+      "productivity interval",
+      "25 minute timer"
+    ],
+    "popular": true
+  },
+  {
+    "id": "date-difference-calculator",
+    "title": "Exam Countdown & Date Difference Calculator",
+    "description": "Calculate exact days, weeks, and hours between dates, count business days, or set an exam study countdown.",
+    "slug": "date-difference-calculator",
+    "category": "Study Productivity & Writing",
+    "subcategory": "Productivity",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10\" /></svg>",
+    "keywords": [
+      "date difference",
+      "days between dates",
+      "exam countdown",
+      "days until exam",
+      "calendar difference"
+    ]
+  },
+  {
+    "id": "random-number-generator",
+    "title": "Random Number & Team Generator",
+    "description": "Generate cryptographically random numbers within a range, roll custom dice, and shuffle students into random project teams.",
+    "slug": "random-number-generator",
+    "category": "Study Productivity & Writing",
+    "subcategory": "Productivity",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10\" /></svg>",
+    "keywords": [
+      "random number generator",
+      "random team picker",
+      "dice roller",
+      "random student group",
+      "rng picker"
+    ]
+  },
+  {
+    "id": "length-converter",
+    "title": "Length & Distance Converter",
+    "description": "Convert between meters, centimeters, millimeters, kilometers, inches, feet, yards, and miles with high precision.",
+    "slug": "length-converter",
+    "category": "Universal Measurement Converters",
+    "subcategory": "Measurement",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5\" /></svg>",
+    "keywords": [
+      "length converter",
+      "meters to feet",
+      "inches to cm",
+      "kilometers to miles",
+      "distance unit conversion"
+    ]
+  },
+  {
+    "id": "weight-converter",
+    "title": "Weight & Mass Converter",
+    "description": "Convert between kilograms, grams, milligrams, pounds (lb), ounces (oz), and metric tons.",
+    "slug": "weight-converter",
+    "category": "Universal Measurement Converters",
+    "subcategory": "Measurement",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5\" /></svg>",
+    "keywords": [
+      "weight converter",
+      "kg to lbs",
+      "grams to ounces",
+      "pounds to kilograms",
+      "mass converter"
+    ]
+  },
+  {
+    "id": "temperature-converter",
+    "title": "Temperature Converter",
+    "description": "Convert instantly between Celsius (°C), Fahrenheit (°F), and Kelvin (K) with dynamic formula explanations.",
+    "slug": "temperature-converter",
+    "category": "Universal Measurement Converters",
+    "subcategory": "Measurement",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5\" /></svg>",
+    "keywords": [
+      "temperature converter",
+      "celsius to fahrenheit",
+      "fahrenheit to celsius",
+      "kelvin converter",
+      "temperature scale"
+    ]
+  },
+  {
+    "id": "time-converter",
+    "title": "Time & Duration Converter",
+    "description": "Convert between milliseconds, seconds, minutes, hours, days, weeks, months, and years.",
+    "slug": "time-converter",
+    "category": "Universal Measurement Converters",
+    "subcategory": "Measurement",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5\" /></svg>",
+    "keywords": [
+      "time converter",
+      "seconds to minutes",
+      "hours to days",
+      "time unit conversion",
+      "milliseconds to seconds"
+    ]
+  },
+  {
+    "id": "speed-converter",
+    "title": "Speed & Velocity Converter",
+    "description": "Convert between kilometers per hour (km/h), miles per hour (mph), meters per second (m/s), knots, and ft/s.",
+    "slug": "speed-converter",
+    "category": "Universal Measurement Converters",
+    "subcategory": "Measurement",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5\" /></svg>",
+    "keywords": [
+      "speed converter",
+      "kmh to mph",
+      "mps to kmh",
+      "knots converter",
+      "velocity conversion"
+    ]
+  },
+  {
+    "id": "area-converter",
+    "title": "Area Measurement Converter",
+    "description": "Convert between square meters, square feet, square kilometers, square miles, acres, and hectares.",
+    "slug": "area-converter",
+    "category": "Universal Measurement Converters",
+    "subcategory": "Measurement",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5\" /></svg>",
+    "keywords": [
+      "area converter",
+      "sq meters to sq feet",
+      "acres to hectares",
+      "square feet to acres",
+      "land area conversion"
+    ]
+  },
+  {
+    "id": "volume-converter",
+    "title": "Volume & Fluid Capacity Converter",
+    "description": "Convert between liters, milliliters, cubic meters, US gallons, UK gallons, quarts, pints, and fluid ounces.",
+    "slug": "volume-converter",
+    "category": "Universal Measurement Converters",
+    "subcategory": "Measurement",
+    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5\" /></svg>",
+    "keywords": [
+      "volume converter",
+      "liters to gallons",
+      "ml to fl oz",
+      "cubic meters to liters",
+      "fluid capacity conversion"
+    ]
   }
 ];
 

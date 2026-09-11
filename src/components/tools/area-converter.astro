@@ -1,0 +1,59 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-4 sm:space-y-5">
+  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div>
+        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">From</label>
+        <div class="flex gap-2">
+          <input type="number" id="ar-val" placeholder="e.g. 1000" step="any" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm" />
+          <select id="ar-from" class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm">
+            <option value="sqft" selected>Square Feet (sq ft)</option>
+            <option value="sqm">Square Meters (sq m)</option>
+            <option value="acre">Acres</option>
+            <option value="hectare">Hectares</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">To</label>
+        <div class="flex gap-2">
+          <div id="ar-res" class="w-full px-4 py-2 bg-blue-50 border border-blue-200 rounded-xl text-sm font-bold text-blue-600 flex items-center">--</div>
+          <select id="ar-to" class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm">
+            <option value="sqm" selected>Square Meters (sq m)</option>
+            <option value="sqft">Square Feet (sq ft)</option>
+            <option value="acre">Acres</option>
+            <option value="hectare">Hectares</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const toSqm: Record<string, number> = { sqm: 1, sqft: 0.092903, acre: 4046.86, hectare: 10000 };
+
+  function convert() {
+    const raw = (document.getElementById('ar-val') as HTMLInputElement)?.value;
+    if (raw === '' || raw === undefined || isNaN(parseFloat(raw))) {
+      document.getElementById('area-res')!.textContent = '--';
+      return;
+    }
+    const val = parseFloat(raw);
+    const from = (document.getElementById('ar-from') as HTMLSelectElement)?.value || 'sqft';
+    const to = (document.getElementById('ar-to') as HTMLSelectElement)?.value || 'sqm';
+
+    const sqm = val * (toSqm[from] || 1);
+    const res = sqm / (toSqm[to] || 1);
+
+    document.getElementById('ar-res')!.textContent = res.toFixed(4);
+  }
+
+  ['ar-val', 'ar-from', 'ar-to'].forEach(id => document.getElementById(id)?.addEventListener('input', convert));
+</script>

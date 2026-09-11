@@ -1,0 +1,104 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-4 sm:space-y-5">
+  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
+    <div class="flex flex-wrap items-center justify-center gap-4 py-4">
+      <div class="flex flex-col items-center gap-1">
+        <input type="number" id="frac-n1" placeholder="e.g. 3" class="w-16 px-2 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-sm text-center font-bold" />
+        <div class="w-16 h-0.5 bg-slate-400"></div>
+        <input type="number" id="frac-d1" placeholder="e.g. 4" class="w-16 px-2 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-sm text-center font-bold" />
+      </div>
+
+      <div>
+        <select id="frac-op" class="px-3 py-2 bg-slate-100 border border-slate-200 rounded-xl text-lg font-bold text-slate-800">
+          <option value="+">+</option>
+          <option value="-">−</option>
+          <option value="*">×</option>
+          <option value="/">÷</option>
+        </select>
+      </div>
+
+      <div class="flex flex-col items-center gap-1">
+        <input type="number" id="frac-n2" placeholder="e.g. 2" class="w-16 px-2 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-sm text-center font-bold" />
+        <div class="w-16 h-0.5 bg-slate-400"></div>
+        <input type="number" id="frac-d2" placeholder="e.g. 5" class="w-16 px-2 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-sm text-center font-bold" />
+      </div>
+    </div>
+
+    <button id="frac-calc-btn" type="button" class="w-full mt-4 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+      Calculate Fraction
+    </button>
+
+    <div class="mt-6 p-6 bg-slate-50 rounded-xl border border-slate-200/80 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>
+        <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Result Fraction</div>
+        <div id="frac-result" class="text-3xl font-extrabold text-blue-600 mt-1 font-mono">--</div>
+        <div id="frac-mixed" class="text-xs text-slate-500 mt-1">Mixed: 1 3/20 &nbsp;|&nbsp; Decimal: 1.15</div>
+      </div>
+      <div class="text-right text-xs text-slate-500">
+        <div>LCD: <strong id="frac-lcd" class="text-slate-800">20</strong></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function gcd(a: number, b: number): number {
+    return b === 0 ? Math.abs(a) : gcd(b, a % b);
+  }
+
+  function calculate() {
+    const n1 = parseInt((document.getElementById('frac-n1') as HTMLInputElement)?.value || '0', 10);
+    const d1 = parseInt((document.getElementById('frac-d1') as HTMLInputElement)?.value || '1', 10);
+    const n2 = parseInt((document.getElementById('frac-n2') as HTMLInputElement)?.value || '0', 10);
+    const d2 = parseInt((document.getElementById('frac-d2') as HTMLInputElement)?.value || '1', 10);
+    const op = (document.getElementById('frac-op') as HTMLSelectElement)?.value;
+
+    if (d1 === 0 || d2 === 0) return;
+
+    let resN = 0;
+    let resD = 1;
+
+    if (op === '+') {
+      resN = n1 * d2 + n2 * d1;
+      resD = d1 * d2;
+    } else if (op === '-') {
+      resN = n1 * d2 - n2 * d1;
+      resD = d1 * d2;
+    } else if (op === '*') {
+      resN = n1 * n2;
+      resD = d1 * d2;
+    } else if (op === '/') {
+      resN = n1 * d2;
+      resD = d1 * n2;
+    }
+
+    if (resD === 0) return;
+
+    const g = gcd(resN, resD);
+    const simpN = resN / g;
+    const simpD = resD / g;
+
+    const resEl = document.getElementById('frac-result');
+    const mixedEl = document.getElementById('frac-mixed');
+    const lcdEl = document.getElementById('frac-lcd');
+
+    if (resEl) resEl.textContent = simpN + ' / ' + simpD;
+
+    const whole = Math.floor(Math.abs(simpN) / simpD);
+    const rem = Math.abs(simpN) % simpD;
+    const sign = simpN < 0 ? '-' : '';
+    const mixedStr = whole > 0 && rem > 0 ? (sign + whole + ' ' + rem + '/' + simpD) : '';
+    const dec = (simpN / simpD).toFixed(4);
+
+    if (mixedEl) mixedEl.textContent = (mixedStr ? 'Mixed: ' + mixedStr + '  |  ' : '') + 'Decimal: ' + dec;
+    if (lcdEl) lcdEl.textContent = ((d1 * d2) / gcd(d1, d2)).toString();
+  }
+
+
+  document.getElementById('frac-calc-btn')?.addEventListener('click', calculate);
+</script>

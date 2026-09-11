@@ -1,0 +1,100 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-4 sm:space-y-5">
+  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Progression Type</label>
+          <select id="seq-type" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="ap" selected>Arithmetic Progression (AP)</option>
+            <option value="gp">Geometric Progression (GP)</option>
+          </select>
+        </div>
+
+        <div class="grid grid-cols-3 gap-2">
+          <div>
+            <label class="block text-xs text-slate-500 mb-1">First Term (a₁)</label>
+            <input type="number" id="seq-a" placeholder="e.g. 2" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm" />
+          </div>
+          <div>
+            <label id="seq-diff-label" class="block text-xs text-slate-500 mb-1">Common Diff (d)</label>
+            <input type="number" id="seq-d" placeholder="e.g. 3" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm" />
+          </div>
+          <div>
+            <label class="block text-xs text-slate-500 mb-1">Number of Terms (n)</label>
+            <input type="number" id="seq-n" min="1" max="1000" placeholder="e.g. 10" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm" />
+          </div>
+        </div>
+
+        <button id="seq-calc-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+          Calculate Sequence
+        </button>
+      </div>
+
+      <div class="flex flex-col justify-between p-6 bg-slate-50 rounded-xl border border-slate-200/80">
+        <div>
+          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">n-th Term (aₙ)</div>
+          <div id="seq-an" class="text-3xl font-extrabold text-blue-600 mt-2 font-mono">--</div>
+          <div id="seq-sum" class="text-xs text-slate-400 font-bold mt-2">Series sum appears here</div>
+        </div>
+
+        <div class="pt-4 border-t border-slate-200/80 mt-6 text-xs text-slate-500">
+          <span>First 5 Terms: </span>
+          <strong id="seq-preview" class="text-slate-800 font-mono">--</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function calculate() {
+    const type = (document.getElementById('seq-type') as HTMLSelectElement)?.value;
+    const a = parseFloat((document.getElementById('seq-a') as HTMLInputElement)?.value || '0');
+    const d = parseFloat((document.getElementById('seq-d') as HTMLInputElement)?.value || '1');
+    const n = parseInt((document.getElementById('seq-n') as HTMLInputElement)?.value || '1', 10);
+
+    const anEl = document.getElementById('seq-an');
+    const sumEl = document.getElementById('seq-sum');
+    const previewEl = document.getElementById('seq-preview');
+
+    if (type === 'ap') {
+      const an = a + (n - 1) * d;
+      const sn = (n / 2) * (2 * a + (n - 1) * d);
+      const terms: number[] = [];
+      for (let i = 0; i < Math.min(5, n); i++) terms.push(a + i * d);
+
+      if (anEl) anEl.textContent = 'a' + n + ' = ' + an;
+      if (sumEl) sumEl.textContent = 'Sum of ' + n + ' terms (S' + n + ') = ' + sn;
+      if (previewEl) previewEl.textContent = terms.join(', ') + '...';
+    } else {
+      const r = d; // common ratio
+      const an = a * Math.pow(r, n - 1);
+      let sn = 0;
+      if (r === 1) sn = a * n;
+      else sn = a * (1 - Math.pow(r, n)) / (1 - r);
+
+      const terms: number[] = [];
+      for (let i = 0; i < Math.min(5, n); i++) terms.push(a * Math.pow(r, i));
+
+      if (anEl) anEl.textContent = 'a' + n + ' = ' + an.toFixed(4);
+      if (sumEl) sumEl.textContent = 'Sum of ' + n + ' terms (S' + n + ') = ' + sn.toFixed(4);
+      if (previewEl) previewEl.textContent = terms.map(t => t.toFixed(2)).join(', ') + '...';
+    }
+  }
+
+  document.getElementById('seq-type')?.addEventListener('change', () => {
+    const type = (document.getElementById('seq-type') as HTMLSelectElement)?.value;
+    const label = document.getElementById('seq-diff-label');
+    if (label) label.textContent = type === 'ap' ? 'Common Diff (d)' : 'Common Ratio (r)';
+
+  });
+
+
+  document.getElementById('seq-calc-btn')?.addEventListener('click', calculate);
+</script>

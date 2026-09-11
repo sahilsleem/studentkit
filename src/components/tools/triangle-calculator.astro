@@ -1,0 +1,96 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-4 sm:space-y-5">
+  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+      <div class="space-y-4">
+        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500">Triangle Side Lengths (a, b, c)</label>
+        <div class="grid grid-cols-3 gap-2">
+          <div>
+            <label class="block text-xs text-slate-500 mb-1">Side a</label>
+            <input type="number" id="tri-a" step="any" min="0.1" placeholder="e.g. 5" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm" />
+          </div>
+          <div>
+            <label class="block text-xs text-slate-500 mb-1">Side b</label>
+            <input type="number" id="tri-b" step="any" min="0.1" placeholder="e.g. 6" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm" />
+          </div>
+          <div>
+            <label class="block text-xs text-slate-500 mb-1">Side c</label>
+            <input type="number" id="tri-c" step="any" min="0.1" placeholder="e.g. 7" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm" />
+          </div>
+        </div>
+
+        <button id="tri-calc-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+          Solve Triangle Angles & Area
+        </button>
+      </div>
+
+      <div class="flex flex-col justify-between p-6 bg-slate-50 rounded-xl border border-slate-200/80">
+        <div>
+          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Angles (A, B, C)</div>
+          <div id="tri-angles" class="text-2xl font-extrabold text-blue-600 mt-2 font-mono">--</div>
+          <div id="tri-area" class="text-xs text-slate-500 mt-2">Area = 14.70 sq units</div>
+        </div>
+
+        <div class="pt-4 border-t border-slate-200/80 mt-6 space-y-2 text-xs text-slate-600">
+          <div class="flex justify-between">
+            <span>Perimeter:</span>
+            <strong id="tri-perimeter" class="text-slate-800 font-mono">18.00 units</strong>
+          </div>
+          <div class="flex justify-between">
+            <span>Triangle Classification:</span>
+            <strong id="tri-type" class="text-emerald-600 font-semibold">Acute Scalene</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function calculate() {
+    const a = parseFloat((document.getElementById('tri-a') as HTMLInputElement)?.value || '1');
+    const b = parseFloat((document.getElementById('tri-b') as HTMLInputElement)?.value || '1');
+    const c = parseFloat((document.getElementById('tri-c') as HTMLInputElement)?.value || '1');
+
+    if (a + b <= c || a + c <= b || b + c <= a) {
+      const anglesEl = document.getElementById('tri-angles');
+      if (anglesEl) anglesEl.textContent = 'Invalid Triangle Inequality';
+      return;
+    }
+
+    // Law of cosines
+    const radA = Math.acos((b * b + c * c - a * a) / (2 * b * c));
+    const radB = Math.acos((a * a + c * c - b * b) / (2 * a * c));
+    const radC = Math.acos((a * a + b * b - c * c) / (2 * a * b));
+
+    const degA = (radA * 180) / Math.PI;
+    const degB = (radB * 180) / Math.PI;
+    const degC = (radC * 180) / Math.PI;
+
+    // Heron's formula
+    const s = (a + b + c) / 2;
+    const area = Math.sqrt(s * (s - a) * (s - b) * (s - c));
+
+    const anglesEl = document.getElementById('tri-angles');
+    const areaEl = document.getElementById('tri-area');
+    const perimEl = document.getElementById('tri-perimeter');
+    const typeEl = document.getElementById('tri-type');
+
+    if (anglesEl) anglesEl.textContent = degA.toFixed(1) + '°  |  ' + degB.toFixed(1) + '°  |  ' + degC.toFixed(1) + '°';
+    if (areaEl) areaEl.textContent = 'Area = ' + area.toFixed(2) + ' sq units';
+    if (perimEl) perimEl.textContent = (a + b + c).toFixed(2) + ' units';
+
+    let sideType = (a === b && b === c) ? 'Equilateral' : (a === b || b === c || a === c) ? 'Isosceles' : 'Scalene';
+    let angleType = (degA === 90 || degB === 90 || degC === 90) ? 'Right' : (degA > 90 || degB > 90 || degC > 90) ? 'Obtuse' : 'Acute';
+
+    if (typeEl) typeEl.textContent = angleType + ' ' + sideType;
+  }
+
+
+  document.getElementById('tri-calc-btn')?.addEventListener('click', calculate);
+</script>
