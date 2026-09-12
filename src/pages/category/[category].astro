@@ -77,10 +77,10 @@ const breadcrumbSchema = {
     {categoryTools.map(tool => (
       <a
         href={`/tools/${tool.slug}`}
-        class="group flex items-center gap-2.5 sm:gap-3 p-2.5 sm:p-3 bg-white rounded-xl border border-slate-200/90 hover:border-blue-500 hover:shadow-xs transition-all min-h-[44px]"
+        class="group flex items-center gap-3 p-3 bg-white rounded-xl border border-slate-200/80 hover:border-blue-500 hover:shadow-xs transition-all min-h-[44px]"
       >
-        <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 group-hover:bg-blue-600 group-hover:text-white transition-colors text-xs sm:text-sm" set:html={tool.icon} />
-        <span class="text-xs sm:text-sm font-semibold text-slate-900 group-hover:text-blue-600 transition-colors leading-snug">
+        <div class="flex items-center justify-center w-6 h-6 rounded-md bg-blue-50/80 text-blue-600 shrink-0 group-hover:bg-blue-600 group-hover:text-white transition-colors [&>svg]:w-3.5 [&>svg]:h-3.5" set:html={tool.icon} />
+        <span class="text-[13px] sm:text-sm font-semibold text-slate-900 group-hover:text-blue-600 transition-colors leading-snug">
           {tool.title}
         </span>
       </a>

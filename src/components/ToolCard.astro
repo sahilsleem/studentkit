@@ -15,7 +15,7 @@ const { title, description = '', url, icon, category, subcategory, keywords, ali
 
 <a
   href={url}
-  class="group flex items-center gap-2.5 sm:gap-3 p-2.5 sm:p-3 bg-white rounded-xl border border-slate-200/90 hover:border-blue-500 hover:shadow-xs transition-all tool-card min-h-[44px]"
+  class="group flex items-center gap-3 p-3 bg-white rounded-xl border border-slate-200/80 hover:border-blue-500 hover:shadow-xs transition-all min-h-[44px]"
   data-title={title.toLowerCase()}
   data-desc={description.toLowerCase()}
   data-category={category?.toLowerCase() || ''}
@@ -24,15 +24,15 @@ const { title, description = '', url, icon, category, subcategory, keywords, ali
   data-aliases={aliases ? aliases.join(' ').toLowerCase() : ''}
 >
   {icon ? (
-    <div class="flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-blue-50 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors shrink-0 text-xs sm:text-sm" set:html={icon} />
+    <div class="flex items-center justify-center w-6 h-6 rounded-md bg-blue-50/80 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors shrink-0 [&>svg]:w-3.5 [&>svg]:h-3.5" set:html={icon} />
   ) : (
-    <div class="flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-blue-50 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors shrink-0">
-      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+    <div class="flex items-center justify-center w-6 h-6 rounded-md bg-blue-50/80 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors shrink-0">
+      <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
         <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 15.75V18a2.25 2.25 0 0 1-2.25 2.25h-6A2.25 2.25 0 0 1 5.25 18v-6A2.25 2.25 0 0 1 7.5 9.75h2.25" />
       </svg>
     </div>
   )}
-  <span class="text-xs sm:text-sm font-semibold text-slate-900 group-hover:text-blue-600 transition-colors leading-snug">
+  <span class="text-[13px] sm:text-sm font-semibold text-slate-900 group-hover:text-blue-600 transition-colors leading-snug">
     {title}
   </span>
 </a>
