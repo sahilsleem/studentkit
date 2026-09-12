@@ -15,7 +15,7 @@ const { title, description = '', url, icon, category, subcategory, keywords, ali
 
 <a
   href={url}
-  class="group flex items-center justify-between p-2 sm:p-3 bg-white rounded-xl border border-slate-200/80 hover:border-blue-500 hover:shadow-xs transition-all min-h-[44px]"
+  class="group flex items-center justify-between p-2.5 sm:p-3 bg-white rounded-xl border border-slate-200/80 hover:border-blue-500 hover:shadow-xs transition-all min-h-[44px]"
   data-title={title.toLowerCase()}
   data-desc={description.toLowerCase()}
   data-category={category?.toLowerCase() || ''}
@@ -23,21 +23,21 @@ const { title, description = '', url, icon, category, subcategory, keywords, ali
   data-keywords={keywords ? keywords.join(' ').toLowerCase() : ''}
   data-aliases={aliases ? aliases.join(' ').toLowerCase() : ''}
 >
-  <div class="flex items-center gap-1.5 sm:gap-3 flex-1 min-w-0 pr-1">
+  <div class="flex items-center gap-2.5 sm:gap-3 flex-1 min-w-0 pr-1">
     {icon ? (
-      <div class="flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 rounded-md bg-blue-50/80 text-blue-600 shrink-0 group-hover:bg-blue-600 group-hover:text-white transition-colors [&>svg]:w-3 [&>svg]:h-3 sm:[&>svg]:w-3.5 sm:[&>svg]:h-3.5" set:html={icon} />
+      <div class="flex items-center justify-center w-6 h-6 rounded-md bg-blue-50/80 text-blue-600 shrink-0 group-hover:bg-blue-600 group-hover:text-white transition-colors [&>svg]:w-3.5 [&>svg]:h-3.5" set:html={icon} />
     ) : (
-      <div class="flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 rounded-md bg-blue-50/80 text-blue-600 shrink-0 group-hover:bg-blue-600 group-hover:text-white transition-colors">
-        <svg class="w-3 h-3 sm:w-3.5 sm:h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <div class="flex items-center justify-center w-6 h-6 rounded-md bg-blue-50/80 text-blue-600 shrink-0 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 15.75V18a2.25 2.25 0 0 1-2.25 2.25h-6A2.25 2.25 0 0 1 5.25 18v-6A2.25 2.25 0 0 1 7.5 9.75h2.25" />
         </svg>
       </div>
     )}
-    <span class="text-[11.5px] sm:text-[13px] font-semibold text-slate-900 group-hover:text-blue-600 transition-colors line-clamp-2 sm:truncate leading-tight">
+    <span class="text-[13px] sm:text-sm font-semibold text-slate-900 group-hover:text-blue-600 transition-colors leading-tight sm:truncate">
       {title}
     </span>
   </div>
-  <svg class="w-3 h-3 sm:w-3.5 sm:h-3.5 text-slate-300 shrink-0 group-hover:text-blue-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+  <svg class="w-3.5 h-3.5 text-slate-300 shrink-0 group-hover:text-blue-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
     <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
   </svg>
 </a>
