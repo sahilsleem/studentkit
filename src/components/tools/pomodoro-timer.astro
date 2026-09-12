@@ -4,31 +4,31 @@ export interface Props {
 }
 ---
 
-<div class="space-y-4 sm:space-y-5">
-  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6 text-center">
-    <div class="inline-flex p-1 bg-slate-100 rounded-xl mb-6">
-      <button data-mode="pomodoro" class="pomo-mode px-4 py-1.5 rounded-lg text-xs font-semibold bg-white text-blue-600 shadow-sm transition-all">Pomodoro (25m)</button>
-      <button data-mode="short" class="pomo-mode px-4 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition-all">Short Break (5m)</button>
-      <button data-mode="long" class="pomo-mode px-4 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition-all">Long Break (15m)</button>
+<div class="space-y-3 sm:space-y-3.5">
+  <div class="bg-card rounded-2xl border border-border-line/90 shadow-sm p-4 sm:p-5 text-center">
+    <div class="inline-flex p-1 bg-search rounded-xl mb-6">
+      <button data-mode="pomodoro" class="pomo-mode px-4 py-1.5 rounded-lg text-xs font-semibold bg-card text-brand shadow-sm transition-all">Pomodoro (25m)</button>
+      <button data-mode="short" class="pomo-mode px-4 py-1.5 rounded-lg text-xs font-semibold text-slate-muted hover:text-ink transition-all">Short Break (5m)</button>
+      <button data-mode="long" class="pomo-mode px-4 py-1.5 rounded-lg text-xs font-semibold text-slate-muted hover:text-ink transition-all">Long Break (15m)</button>
     </div>
 
     <div class="my-6">
-      <div id="pomo-display" class="text-6xl sm:text-7xl font-extrabold text-slate-900 font-mono tracking-tight">25:00</div>
-      <div id="pomo-label" class="text-xs font-semibold uppercase tracking-wider text-slate-400 mt-2">Focus Session</div>
+      <div id="pomo-display" class="text-6xl sm:text-7xl font-extrabold text-ink font-mono tracking-tight">25:00</div>
+      <div id="pomo-label" class="text-xs font-semibold uppercase tracking-wider text-slate-muted mt-1">Focus Session</div>
     </div>
 
     <div class="flex items-center justify-center gap-3">
-      <button id="pomo-toggle" type="button" class="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm rounded-xl shadow-sm transition-all">
+      <button id="pomo-toggle" type="button" class="px-5 sm:px-6 py-3.5 sm:py-4 text-base bg-brand hover:bg-brand-accent text-card font-bold rounded-xl shadow-sm transition-all">
         START
       </button>
-      <button id="pomo-reset" type="button" class="px-5 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-sm rounded-xl transition-all">
+      <button id="pomo-reset" type="button" class="px-5 py-3 bg-search hover:bg-border-line text-ink font-semibold text-sm rounded-xl transition-all">
         Reset
       </button>
     </div>
 
-    <div class="mt-8 pt-6 border-t border-slate-100 flex items-center justify-around text-xs text-slate-500">
-      <div>Sessions Completed: <strong id="pomo-completed" class="text-blue-600 font-bold">0</strong></div>
-      <div>Total Focus Time: <strong id="pomo-total-time" class="text-slate-800 font-bold">0 mins</strong></div>
+    <div class="mt-8 pt-6 border-t border-border-line flex items-center justify-around text-xs text-slate-muted">
+      <div>Sessions Completed: <strong id="pomo-completed" class="text-brand font-bold">0</strong></div>
+      <div>Total Focus Time: <strong id="pomo-total-time" class="text-ink font-bold">0 mins</strong></div>
     </div>
   </div>
 </div>
@@ -65,9 +65,9 @@ export interface Props {
 
     modeBtns.forEach(btn => {
       if (btn.getAttribute('data-mode') === mode) {
-        btn.className = 'pomo-mode px-4 py-1.5 rounded-lg text-xs font-semibold bg-white text-blue-600 shadow-sm transition-all';
+        btn.className = 'pomo-mode px-4 py-1.5 rounded-lg text-xs font-semibold bg-card text-brand shadow-sm transition-all';
       } else {
-        btn.className = 'pomo-mode px-4 py-1.5 rounded-lg text-xs font-semibold text-slate-600 hover:text-slate-900 transition-all';
+        btn.className = 'pomo-mode px-4 py-1.5 rounded-lg text-xs font-semibold text-slate-muted hover:text-ink transition-all';
       }
     });
 

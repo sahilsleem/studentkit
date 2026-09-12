@@ -4,14 +4,14 @@ export interface Props {
 }
 ---
 
-<div class="space-y-4 sm:space-y-5">
-  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
+<div class="space-y-3 sm:space-y-3.5">
+  <div class="bg-card rounded-2xl border border-border-line/90 shadow-sm p-4 sm:p-5">
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
       <div>
-        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">From</label>
-        <div class="flex gap-2">
-          <input type="number" id="len-val" placeholder="e.g. 10" step="any" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm" />
-          <select id="len-from" class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm">
+        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">From</label>
+        <div class="flex flex-wrap gap-2">
+          <input type="number" id="len-val" placeholder="e.g. 10" step="any" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-sm" />
+          <select id="len-from" class="px-3 py-2 bg-page border border-border-line rounded-xl text-sm">
             <option value="m" selected>Meters (m)</option>
             <option value="km">Kilometers (km)</option>
             <option value="cm">Centimeters (cm)</option>
@@ -23,10 +23,10 @@ export interface Props {
       </div>
 
       <div>
-        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">To</label>
-        <div class="flex gap-2">
-          <div id="len-res" class="w-full px-4 py-2 bg-blue-50 border border-blue-200 rounded-xl text-sm font-bold text-blue-600 flex items-center">--</div>
-          <select id="len-to" class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm">
+        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">To</label>
+        <div class="flex flex-wrap gap-2">
+          <div id="len-res" class="w-full px-3.5 py-2.5 bg-brand-light border border-brand-accent rounded-xl text-sm font-bold text-brand flex items-center">--</div>
+          <select id="len-to" class="px-3 py-2 bg-page border border-border-line rounded-xl text-sm">
             <option value="ft" selected>Feet (ft)</option>
             <option value="m">Meters (m)</option>
             <option value="km">Kilometers (km)</option>

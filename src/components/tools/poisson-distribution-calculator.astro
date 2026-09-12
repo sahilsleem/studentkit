@@ -4,36 +4,36 @@ export interface Props {
 }
 ---
 
-<div class="space-y-4 sm:space-y-5">
-  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-      <div class="space-y-4">
+<div class="space-y-3 sm:space-y-3.5">
+  <div class="bg-card rounded-2xl border border-border-line/90 shadow-sm p-4 sm:p-5">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+      <div class="space-y-3.5">
         <div>
-          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Average Rate (λ &gt; 0)</label>
-          <input type="number" id="pd-lambda" min="0.01" step="0.5" placeholder="e.g. 4.5" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Average Rate (λ &gt; 0)</label>
+          <input type="number" id="pd-lambda" min="0.01" step="0.5" placeholder="e.g. 4.5" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-ink text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent" />
         </div>
 
         <div>
-          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Number of Occurrences (k)</label>
-          <input type="number" id="pd-k" min="0" max="50" placeholder="e.g. 3" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Number of Occurrences (k)</label>
+          <input type="number" id="pd-k" min="0" max="50" placeholder="e.g. 3" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-ink text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent" />
         </div>
 
-        <button id="pd-calc-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+        <button id="pd-calc-btn" type="button" class="w-full px-5 sm:px-6 py-3.5 sm:py-4 text-base bg-brand hover:bg-brand-accent text-card font-semibold rounded-xl shadow-sm transition-all">
           Calculate Poisson Probability
         </button>
       </div>
 
-      <div class="flex flex-col justify-between p-6 bg-slate-50 rounded-xl border border-slate-200/80">
+      <div class="flex flex-col justify-between p-4 sm:p-5 bg-page rounded-xl border border-border-line/80">
         <div>
-          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Exact Probability P(X = k)</div>
-          <div id="pd-exact" class="text-4xl font-extrabold text-blue-600 mt-2 font-mono">--</div>
-          <div id="pd-exact-pct" class="text-xs text-slate-500 mt-2">16.87% chance</div>
+          <div class="text-xs font-semibold text-slate-muted uppercase tracking-wider">Exact Probability P(X = k)</div>
+          <div id="pd-exact" class="text-4xl font-extrabold text-brand mt-1 font-mono break-words">--</div>
+          <div id="pd-exact-pct" class="text-xs text-slate-muted mt-1">16.87% chance</div>
         </div>
 
-        <div class="pt-4 border-t border-slate-200/80 mt-6 space-y-2 text-xs text-slate-600">
-          <div class="flex justify-between">
+        <div class="pt-3 border-t border-border-line/80 mt-4 space-y-1.5 text-xs text-slate-muted">
+          <div class="flex flex-wrap justify-between gap-2">
             <span>Cumulative P(X ≤ k):</span>
-            <strong id="pd-cum" class="text-slate-800 font-mono">0.3423</strong>
+            <strong id="pd-cum" class="text-ink font-mono break-words">0.3423</strong>
           </div>
         </div>
       </div>

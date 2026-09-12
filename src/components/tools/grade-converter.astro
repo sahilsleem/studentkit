@@ -4,13 +4,13 @@ export interface Props {
 }
 ---
 
-<div class="space-y-4 sm:space-y-5">
-  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-      <div class="space-y-4">
+<div class="space-y-3 sm:space-y-3.5">
+  <div class="bg-card rounded-2xl border border-border-line/90 shadow-sm p-4 sm:p-5">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+      <div class="space-y-3.5">
         <div>
-          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Input Format</label>
-          <select id="gc-format" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Input Format</label>
+          <select id="gc-format" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-ink text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent">
             <option value="percentage">Percentage (0 - 100%)</option>
             <option value="letter">Letter Grade (A+, A, B...)</option>
             <option value="gpa4">4.0 GPA Scale</option>
@@ -19,9 +19,9 @@ export interface Props {
         </div>
 
         <div id="gc-input-container">
-          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Enter Value</label>
-          <input type="number" id="gc-val-num" step="0.1" placeholder="e.g. 88" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
-          <select id="gc-val-letter" class="hidden w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Enter Value</label>
+          <input type="number" id="gc-val-num" step="0.1" placeholder="e.g. 88" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-ink text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent" />
+          <select id="gc-val-letter" class="hidden w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-ink text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent">
             <option value="A+">A+ (97-100%)</option>
             <option value="A">A (93-96%)</option>
             <option value="A-">A- (90-92%)</option>
@@ -36,30 +36,30 @@ export interface Props {
           </select>
         </div>
 
-        <button id="gc-calc-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+        <button id="gc-calc-btn" type="button" class="w-full px-5 sm:px-6 py-3.5 sm:py-4 text-base bg-brand hover:bg-brand-accent text-card font-semibold rounded-xl shadow-sm transition-all">
           Convert Grade
         </button>
       </div>
 
-      <div class="p-6 bg-slate-50 rounded-xl border border-slate-200/80 space-y-4">
-        <h3 class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Converted Equivalencies</h3>
+      <div class="p-4 sm:p-5 bg-page rounded-xl border border-border-line/80 space-y-3.5">
+        <h3 class="text-xs font-semibold text-slate-muted uppercase tracking-wider">Converted Equivalencies</h3>
 
         <div class="grid grid-cols-2 gap-3 text-sm">
-          <div class="bg-white p-3 rounded-lg border border-slate-200">
-            <div class="text-xs text-slate-500">Letter Grade</div>
-            <div id="gc-res-letter" class="text-lg font-bold text-blue-600 font-mono mt-0.5">--</div>
+          <div class="bg-card p-3 rounded-lg border border-border-line">
+            <div class="text-xs text-slate-muted">Letter Grade</div>
+            <div id="gc-res-letter" class="text-lg font-bold text-brand font-mono mt-0.5">--</div>
           </div>
-          <div class="bg-white p-3 rounded-lg border border-slate-200">
-            <div class="text-xs text-slate-500">Percentage</div>
-            <div id="gc-res-pct" class="text-lg font-bold text-blue-600 font-mono mt-0.5">--</div>
+          <div class="bg-card p-3 rounded-lg border border-border-line">
+            <div class="text-xs text-slate-muted">Percentage</div>
+            <div id="gc-res-pct" class="text-lg font-bold text-brand font-mono mt-0.5">--</div>
           </div>
-          <div class="bg-white p-3 rounded-lg border border-slate-200">
-            <div class="text-xs text-slate-500">4.0 GPA</div>
-            <div id="gc-res-gpa4" class="text-lg font-bold text-blue-600 font-mono mt-0.5">--</div>
+          <div class="bg-card p-3 rounded-lg border border-border-line">
+            <div class="text-xs text-slate-muted">4.0 GPA</div>
+            <div id="gc-res-gpa4" class="text-lg font-bold text-brand font-mono mt-0.5">--</div>
           </div>
-          <div class="bg-white p-3 rounded-lg border border-slate-200">
-            <div class="text-xs text-slate-500">10.0 CGPA</div>
-            <div id="gc-res-gpa10" class="text-lg font-bold text-blue-600 font-mono mt-0.5">--</div>
+          <div class="bg-card p-3 rounded-lg border border-border-line">
+            <div class="text-xs text-slate-muted">10.0 CGPA</div>
+            <div id="gc-res-gpa10" class="text-lg font-bold text-brand font-mono mt-0.5">--</div>
           </div>
         </div>
       </div>

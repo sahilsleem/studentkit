@@ -4,51 +4,51 @@ export interface Props {
 }
 ---
 
-<div class="space-y-4 sm:space-y-5">
-  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-      <div class="space-y-4">
+<div class="space-y-3 sm:space-y-3.5">
+  <div class="bg-card rounded-2xl border border-border-line/90 shadow-sm p-4 sm:p-5">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+      <div class="space-y-3.5">
         <div>
-          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Bill Total (₹)</label>
-          <input type="number" id="tip-bill" step="0.5" min="0" placeholder="e.g. 64.50" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Bill Total (₹)</label>
+          <input type="number" id="tip-bill" step="0.5" min="0" placeholder="e.g. 64.50" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-ink text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent" />
         </div>
 
         <div>
-          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Tip Percentage (%)</label>
-          <div class="grid grid-cols-4 gap-2 mb-2">
-            <button type="button" data-tip="10" class="tip-preset px-3 py-1.5 bg-slate-100 hover:bg-slate-200 rounded-lg text-xs font-semibold text-slate-700">10%</button>
-            <button type="button" data-tip="15" class="tip-preset px-3 py-1.5 bg-slate-100 hover:bg-slate-200 rounded-lg text-xs font-semibold text-slate-700">15%</button>
-            <button type="button" data-tip="18" class="tip-preset px-3 py-1.5 bg-blue-50 border border-blue-200 rounded-lg text-xs font-semibold text-blue-600">18%</button>
-            <button type="button" data-tip="20" class="tip-preset px-3 py-1.5 bg-slate-100 hover:bg-slate-200 rounded-lg text-xs font-semibold text-slate-700">20%</button>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Tip Percentage (%)</label>
+          <div class="grid grid-cols-4 gap-2 mb-1">
+            <button type="button" data-tip="10" class="tip-preset px-3 py-1.5 bg-search hover:bg-border-line rounded-lg text-xs font-semibold text-ink">10%</button>
+            <button type="button" data-tip="15" class="tip-preset px-3 py-1.5 bg-search hover:bg-border-line rounded-lg text-xs font-semibold text-ink">15%</button>
+            <button type="button" data-tip="18" class="tip-preset px-3 py-1.5 bg-brand-light border border-brand-accent rounded-lg text-xs font-semibold text-brand">18%</button>
+            <button type="button" data-tip="20" class="tip-preset px-3 py-1.5 bg-search hover:bg-border-line rounded-lg text-xs font-semibold text-ink">20%</button>
           </div>
-          <input type="number" id="tip-custom" step="1" min="0" max="100" placeholder="e.g. 18" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          <input type="number" id="tip-custom" step="1" min="0" max="100" placeholder="e.g. 18" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-ink text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent" />
         </div>
 
         <div>
-          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Number of People</label>
-          <input type="number" id="tip-people" step="1" min="1" max="50" placeholder="e.g. 3" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Number of People</label>
+          <input type="number" id="tip-people" step="1" min="1" max="50" placeholder="e.g. 3" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-ink text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent" />
         </div>
 
-        <button id="tip-calc-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+        <button id="tip-calc-btn" type="button" class="w-full px-5 sm:px-6 py-3.5 sm:py-4 text-base bg-brand hover:bg-brand-accent text-card font-semibold rounded-xl shadow-sm transition-all">
           Calculate Split
         </button>
       </div>
 
-      <div class="flex flex-col justify-between p-6 bg-slate-50 rounded-xl border border-slate-200/80">
+      <div class="flex flex-col justify-between p-4 sm:p-5 bg-page rounded-xl border border-border-line/80">
         <div>
-          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Per Person Share</div>
-          <div id="tip-per-person" class="text-4xl font-extrabold text-blue-600 mt-2 font-mono">--</div>
-          <div id="tip-per-person-tip" class="text-xs text-slate-400 mt-2">Per person breakdown appears here</div>
+          <div class="text-xs font-semibold text-slate-muted uppercase tracking-wider">Per Person Share</div>
+          <div id="tip-per-person" class="text-4xl font-extrabold text-brand mt-1 font-mono break-words">--</div>
+          <div id="tip-per-person-tip" class="text-xs text-slate-muted mt-1">Per person breakdown appears here</div>
         </div>
 
-        <div class="pt-4 border-t border-slate-200/80 mt-6 space-y-2 text-xs text-slate-600">
-          <div class="flex justify-between">
+        <div class="pt-3 border-t border-border-line/80 mt-4 space-y-1.5 text-xs text-slate-muted">
+          <div class="flex flex-wrap justify-between gap-2">
             <span>Total Tip Amount:</span>
-            <strong id="tip-total-tip" class="text-slate-800 font-bold">--</strong>
+            <strong id="tip-total-tip" class="text-ink font-bold">--</strong>
           </div>
-          <div class="flex justify-between">
+          <div class="flex flex-wrap justify-between gap-2">
             <span>Total Bill With Tip:</span>
-            <strong id="tip-total-bill" class="text-slate-800 font-bold">--</strong>
+            <strong id="tip-total-bill" class="text-ink font-bold">--</strong>
           </div>
         </div>
       </div>
@@ -92,8 +92,8 @@ export interface Props {
       const tipVal = btn.getAttribute('data-tip');
       if (tipVal && tipIn) {
         tipIn.value = tipVal;
-        presets.forEach(b => b.className = 'tip-preset px-3 py-1.5 bg-slate-100 hover:bg-slate-200 rounded-lg text-xs font-semibold text-slate-700');
-        btn.className = 'tip-preset px-3 py-1.5 bg-blue-50 border border-blue-200 rounded-lg text-xs font-semibold text-blue-600';
+        presets.forEach(b => b.className = 'tip-preset px-3 py-1.5 bg-search hover:bg-border-line rounded-lg text-xs font-semibold text-ink');
+        btn.className = 'tip-preset px-3 py-1.5 bg-brand-light border border-brand-accent rounded-lg text-xs font-semibold text-brand';
       }
     });
   });

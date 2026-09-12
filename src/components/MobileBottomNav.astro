@@ -30,7 +30,7 @@ const navItems = [
 ---
 
 <nav
-  class="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200 px-2 py-1 shadow-lg shadow-slate-900/5 safe-area-pb"
+  class="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-card/95 backdrop-blur-md border-t border-border-line px-2 py-1 shadow-lg shadow-slate-900/5 safe-area-pb"
   aria-label="Mobile Navigation Bar"
 >
   <div class="grid grid-cols-4 gap-1 max-w-md mx-auto">
@@ -44,7 +44,7 @@ const navItems = [
           <button
             type="button"
             id="mobile-bottom-search-trigger"
-            class="flex flex-col items-center justify-center py-2 px-1 text-slate-500 hover:text-blue-600 active:scale-95 transition-all cursor-pointer min-h-[48px]"
+            class="flex flex-col items-center justify-center py-2 px-1 text-slate-muted hover:text-brand active:scale-95 transition-all cursor-pointer min-h-[48px]"
             aria-label="Open global search"
           >
             <svg class="w-5 h-5 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" set:html={item.icon} />
@@ -58,13 +58,13 @@ const navItems = [
           href={item.href}
           class={`flex flex-col items-center justify-center py-2 px-1 rounded-lg transition-all min-h-[48px] ${
             isActive
-              ? 'text-blue-600 font-semibold'
-              : 'text-slate-500 hover:text-slate-900'
+              ? 'text-brand font-semibold'
+              : 'text-slate-muted hover:text-ink'
           }`}
           aria-current={isActive ? 'page' : undefined}
         >
           <svg
-            class={`w-5 h-5 mb-1 ${isActive ? 'text-blue-600' : 'text-slate-500'}`}
+            class={`w-5 h-5 mb-1 ${isActive ? 'text-brand' : 'text-slate-muted'}`}
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"

@@ -4,35 +4,34 @@ export interface Props {
 }
 ---
 
-<div class="space-y-4 sm:space-y-5">
-  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
-    <div class="flex items-center justify-between pb-4 mb-6 border-b border-slate-100">
+<div class="space-y-3 sm:space-y-3.5">
+  <div class="bg-card rounded-2xl border border-border-line/90 shadow-sm p-4 sm:p-5">
+    <div class="flex items-center justify-between pb-4 mb-6 border-b border-border-line">
       <div>
-        <h2 class="text-lg font-bold text-slate-900">Roommate Rent Split Calculator</h2>
-        <p class="text-sm text-slate-500">Calculate fair proportional rent based on room square footage and private amenities.</p>
+        <h2 class="text-lg font-bold text-ink">Roommate Rent Split Calculator</h2>
+        <p class="text-sm text-slate-muted">Calculate fair proportional rent based on room square footage and private amenities.</p>
       </div>
-      <button id="rs-add-roommate" type="button" class="px-3 py-1.5 bg-blue-50 text-blue-600 hover:bg-blue-100 font-medium text-xs rounded-lg transition-colors">
+      <button id="rs-add-roommate" type="button" class="px-3 py-1.5 bg-brand-light text-brand hover:bg-brand-light font-medium text-xs rounded-lg transition-colors">
         + Add Roommate
       </button>
     </div>
 
     <div class="mb-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
       <div>
-        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Total Apartment Rent (₹/month)</label>
-        <input type="number" id="rs-total-rent" placeholder="e.g. 2400" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Total Apartment Rent (₹/month)</label>
+        <input type="number" id="rs-total-rent" placeholder="e.g. 2400" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-ink text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent" />
       </div>
       <div>
-        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Split Model</label>
-        <select id="rs-model" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Split Model</label>
+        <select id="rs-model" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-ink text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent">
           <option value="sqft" selected>Proportional by Bedroom Sq Ft</option>
           <option value="equal">Equal Split</option>
         </select>
       </div>
     </div>
 
-    <div class="overflow-x-auto">
-      <table class="w-full text-left text-sm text-slate-600">
-        <thead class="text-xs uppercase bg-slate-50 text-slate-500 font-semibold border-b border-slate-200">
+    <div class="overflow-x-auto w-full"><table class="w-full text-left text-sm text-slate-muted">
+        <thead class="text-xs uppercase bg-page text-slate-muted font-semibold border-b border-border-line">
           <tr>
             <th class="py-3 px-3">Roommate</th>
             <th class="py-3 px-3">Room Size (Sq Ft)</th>
@@ -41,16 +40,16 @@ export interface Props {
             <th class="py-3 px-2 w-10"></th>
           </tr>
         </thead>
-        <tbody id="rs-body" class="divide-y divide-slate-100"></tbody>
-      </table>
-    </div>
+        <tbody id="rs-body" class="divide-y divide-border-line"></tbody>
+      </table></div>
 
-    <div class="mt-6 flex items-center justify-between pt-4 border-t border-slate-100">
-      <button id="rs-calc-btn" type="button" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+
+    <div class="mt-4 flex items-center justify-between pt-3 border-t border-border-line">
+      <button id="rs-calc-btn" type="button" class="px-5 sm:px-6 py-3.5 sm:py-4 text-base bg-brand hover:bg-brand-accent text-card font-semibold rounded-xl shadow-sm transition-all">
         Recalculate Shares
       </button>
-      <div class="text-xs text-slate-500">
-        Total Allocated: <strong id="rs-total-alloc" class="text-slate-800">--</strong>
+      <div class="text-xs text-slate-muted">
+        Total Allocated: <strong id="rs-total-alloc" class="text-ink">--</strong>
       </div>
     </div>
   </div>
@@ -69,22 +68,22 @@ export interface Props {
   function addRow(name = '', sqft = 150, bath = false) {
     count++;
     const tr = document.createElement('tr');
-    tr.className = 'hover:bg-slate-50/50 transition-colors';
+    tr.className = 'hover:bg-page/50 transition-colors';
     tr.innerHTML =
       '<td class="py-2.5 px-3">' +
-        '<input type="text" placeholder="e.g. Alex" class="rs-name w-full px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-sm text-slate-800 focus:outline-none focus:ring-1 focus:ring-blue-500" />' +
+        '<input type="text" placeholder="e.g. Alex" class="rs-name w-full px-3 py-1.5 bg-page border border-border-line rounded-lg text-sm text-ink focus:outline-none focus:ring-1 focus:ring-brand-accent" />' +
       '</td>' +
       '<td class="py-2.5 px-3">' +
-        '<input type="number" min="50" step="10" placeholder="150" class="rs-sqft w-24 px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-sm text-slate-800 focus:outline-none focus:ring-1 focus:ring-blue-500" />' +
+        '<input type="number" min="50" step="10" placeholder="150" class="rs-sqft w-24 min-w-[4rem] flex-1 sm:flex-none px-3 py-1.5 bg-page border border-border-line rounded-lg text-sm text-ink focus:outline-none focus:ring-1 focus:ring-brand-accent" />' +
       '</td>' +
       '<td class="py-2.5 px-3">' +
-        '<input type="checkbox" ' + (bath ? 'checked' : '') + ' class="rs-bath rounded border-slate-300 text-blue-600 focus:ring-blue-500" />' +
+        '<input type="checkbox" ' + (bath ? 'checked' : '') + ' class="rs-bath rounded border-border-line text-brand focus:ring-brand-accent" />' +
       '</td>' +
-      '<td class="py-2.5 px-3 font-mono font-bold text-blue-600 rs-share">' +
+      '<td class="py-2.5 px-3 font-mono font-bold text-brand rs-share">' +
         '--' +
       '</td>' +
       '<td class="py-2.5 px-2 text-right">' +
-        '<button type="button" class="rs-del text-slate-400 hover:text-red-500 font-bold p-1">&times;</button>' +
+        '<button type="button" class="rs-del text-slate-muted hover:text-red-500 font-bold p-1">&times;</button>' +
       '</td>';
 
     tbody?.appendChild(tr);

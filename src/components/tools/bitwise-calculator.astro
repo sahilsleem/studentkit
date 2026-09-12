@@ -4,40 +4,40 @@ export interface Props {
 }
 ---
 
-<div class="space-y-4 sm:space-y-5">
-  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-      <div class="space-y-4">
+<div class="space-y-3 sm:space-y-3.5">
+  <div class="bg-card rounded-2xl border border-border-line/90 shadow-sm p-4 sm:p-5">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+      <div class="space-y-3.5">
         <div>
-          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Operand A (Decimal)</label>
-          <input type="number" id="bw-a" placeholder="e.g. 12" step="1" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm font-mono" />
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Operand A (Decimal)</label>
+          <input type="number" id="bw-a" placeholder="e.g. 12" step="1" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-sm font-mono" />
         </div>
         <div>
-          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Operand B (Decimal)</label>
-          <input type="number" id="bw-b" placeholder="e.g. 5" step="1" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm font-mono" />
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Operand B (Decimal)</label>
+          <input type="number" id="bw-b" placeholder="e.g. 5" step="1" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-sm font-mono" />
         </div>
 
-        <button id="bw-calc-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+        <button id="bw-calc-btn" type="button" class="w-full px-5 sm:px-6 py-3.5 sm:py-4 text-base bg-brand hover:bg-brand-accent text-card font-semibold rounded-xl shadow-sm transition-all">
           Calculate Bitwise Logic
         </button>
       </div>
 
-      <div class="p-6 bg-slate-50 rounded-xl border border-slate-200/80 grid grid-cols-2 gap-3">
-        <div class="bg-white p-3 rounded-lg border border-slate-200">
-          <div class="text-xs text-slate-500">AND (A & B)</div>
-          <div id="bw-and" class="text-lg font-bold text-blue-600 font-mono mt-0.5">4 (0100)</div>
+      <div class="p-4 sm:p-5 bg-page rounded-xl border border-border-line/80 grid grid-cols-2 gap-3">
+        <div class="bg-card p-3 rounded-lg border border-border-line">
+          <div class="text-xs text-slate-muted">AND (A & B)</div>
+          <div id="bw-and" class="text-lg font-bold text-brand font-mono mt-0.5">4 (0100)</div>
         </div>
-        <div class="bg-white p-3 rounded-lg border border-slate-200">
-          <div class="text-xs text-slate-500">OR (A | B)</div>
-          <div id="bw-or" class="text-lg font-bold text-blue-600 font-mono mt-0.5">13 (1101)</div>
+        <div class="bg-card p-3 rounded-lg border border-border-line">
+          <div class="text-xs text-slate-muted">OR (A | B)</div>
+          <div id="bw-or" class="text-lg font-bold text-brand font-mono mt-0.5">13 (1101)</div>
         </div>
-        <div class="bg-white p-3 rounded-lg border border-slate-200">
-          <div class="text-xs text-slate-500">XOR (A ^ B)</div>
-          <div id="bw-xor" class="text-lg font-bold text-blue-600 font-mono mt-0.5">9 (1001)</div>
+        <div class="bg-card p-3 rounded-lg border border-border-line">
+          <div class="text-xs text-slate-muted">XOR (A ^ B)</div>
+          <div id="bw-xor" class="text-lg font-bold text-brand font-mono mt-0.5">9 (1001)</div>
         </div>
-        <div class="bg-white p-3 rounded-lg border border-slate-200">
-          <div class="text-xs text-slate-500">NOT (~A)</div>
-          <div id="bw-not" class="text-lg font-bold text-slate-800 font-mono mt-0.5">-13</div>
+        <div class="bg-card p-3 rounded-lg border border-border-line">
+          <div class="text-xs text-slate-muted">NOT (~A)</div>
+          <div id="bw-not" class="text-lg font-bold text-ink font-mono mt-0.5">-13</div>
         </div>
       </div>
     </div>

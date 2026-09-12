@@ -18,14 +18,14 @@ const toolsData = tools.map(tool => ({
 
   <!-- Header -->
   <div class="mb-4 text-left">
-    <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mb-1">Student Tools Directory</h1>
-    <p class="text-xs sm:text-sm text-slate-500">Browse study calculators and problem-solving tools.</p>
+    <h1 class="text-2xl sm:text-3xl font-extrabold text-ink tracking-tight mb-1">Student Tools Directory</h1>
+    <p class="text-xs sm:text-sm text-slate-muted">Browse study calculators and problem-solving tools.</p>
   </div>
 
   <!-- Search & Filter Controls -->
   <div class="flex flex-col md:flex-row gap-3 sm:gap-4 mb-4">
     <div class="flex-grow relative">
-      <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+      <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-muted">
         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
         </svg>
@@ -34,7 +34,7 @@ const toolsData = tools.map(tool => ({
         type="text"
         id="tools-search"
         aria-label="Filter tools"
-        class="block w-full pl-10 pr-4 py-2.5 border border-slate-300 rounded-xl leading-5 bg-white placeholder-slate-400 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-600 text-sm transition-all shadow-xs"
+        class="block w-full pl-10 pr-4 py-2.5 border border-border-line rounded-xl leading-5 bg-card placeholder-slate-muted focus:outline-hidden focus-visible:ring-2 focus-visible:ring-brand-accent text-sm transition-all shadow-xs"
         placeholder="Search tools by name, topic, or keyword..."
       />
     </div>
@@ -43,7 +43,7 @@ const toolsData = tools.map(tool => ({
       <select
         id="category-filter"
         aria-label="Filter by category"
-        class="block w-full pl-3.5 pr-10 py-2.5 text-sm border border-slate-300 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-600 rounded-xl bg-white text-slate-700 shadow-xs cursor-pointer"
+        class="block w-full pl-3.5 pr-10 py-2.5 text-sm border border-border-line focus:outline-hidden focus-visible:ring-2 focus-visible:ring-brand-accent rounded-xl bg-card text-ink shadow-xs cursor-pointer"
       >
         <option value="all">All Categories</option>
         {categories.map(c => (
@@ -54,11 +54,11 @@ const toolsData = tools.map(tool => ({
   </div>
 
   <!-- Results Meta Bar (Only shows reset button when filtered) -->
-  <div class="flex items-center justify-end text-xs text-slate-500 mb-2 px-1" id="results-meta">
+  <div class="flex items-center justify-end text-xs text-slate-muted mb-2 px-1" id="results-meta">
     <button
       type="button"
       id="reset-filter-btn"
-      class="text-blue-600 hover:text-blue-700 font-medium hidden cursor-pointer"
+      class="text-brand hover:text-brand-accent font-medium hidden cursor-pointer"
     >
       Clear filters
     </button>
@@ -81,18 +81,18 @@ const toolsData = tools.map(tool => ({
   </div>
 
   <!-- Empty Search / Filter State -->
-  <div id="no-results" class="hidden py-8 px-6 bg-white rounded-2xl border border-slate-200 text-center max-w-md mx-auto my-4">
-    <div class="w-10 h-10 rounded-xl bg-slate-100 text-slate-400 flex items-center justify-center mx-auto mb-2">
+  <div id="no-results" class="hidden py-8 px-6 bg-card rounded-2xl border border-border-line text-center max-w-md mx-auto my-4">
+    <div class="w-10 h-10 rounded-xl bg-search text-slate-muted flex items-center justify-center mx-auto mb-2">
       <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
         <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
       </svg>
     </div>
-    <h3 class="text-sm font-bold text-slate-900 mb-1">No matching tools found</h3>
-    <p class="text-xs text-slate-500 mb-3">Try adjusting your search terms or selecting a different category.</p>
+    <h3 class="text-sm font-bold text-ink mb-1">No matching tools found</h3>
+    <p class="text-xs text-slate-muted mb-3">Try adjusting your search terms or selecting a different category.</p>
     <button
       type="button"
       id="empty-reset-btn"
-      class="px-3.5 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-lg transition-colors cursor-pointer"
+      class="px-3.5 py-1.5 bg-brand hover:bg-brand-accent text-card text-xs font-semibold rounded-lg transition-colors cursor-pointer"
     >
       Clear All Filters
     </button>

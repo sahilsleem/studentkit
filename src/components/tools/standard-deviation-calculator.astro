@@ -4,29 +4,29 @@ export interface Props {
 }
 ---
 
-<div class="space-y-4 sm:space-y-5">
-  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
-    <div class="space-y-4">
+<div class="space-y-3 sm:space-y-3.5">
+  <div class="bg-card rounded-2xl border border-border-line/90 shadow-sm p-4 sm:p-5">
+    <div class="space-y-3.5">
       <div>
-        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Enter Numbers (comma or space separated)</label>
-        <textarea id="sd-data" rows="3" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono" placeholder="e.g. 10, 12, 23, 23, 16, 23, 21, 16"></textarea>
+        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Enter Numbers (comma or space separated)</label>
+        <textarea id="sd-data" rows="3" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-ink text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent font-mono" placeholder="e.g. 10, 12, 23, 23, 16, 23, 21, 16"></textarea>
       </div>
 
-      <button id="sd-calc-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+      <button id="sd-calc-btn" type="button" class="w-full px-5 sm:px-6 py-3.5 sm:py-4 text-base bg-brand hover:bg-brand-accent text-card font-semibold rounded-xl shadow-sm transition-all">
         Calculate Standard Deviation
       </button>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
-        <div class="p-6 bg-slate-50 rounded-xl border border-slate-200/80">
-          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Sample Standard Deviation (s)</div>
-          <div id="sd-sample" class="text-3xl font-extrabold text-blue-600 mt-2 font-mono">--</div>
-          <div class="text-xs text-slate-500 mt-1">Divided by n - 1 (Bessel's correction)</div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+        <div class="p-4 sm:p-5 bg-page rounded-xl border border-border-line/80">
+          <div class="text-xs font-semibold text-slate-muted uppercase tracking-wider">Sample Standard Deviation (s)</div>
+          <div id="sd-sample" class="text-3xl font-extrabold text-brand mt-1 font-mono break-words">--</div>
+          <div class="text-xs text-slate-muted mt-1">Divided by n - 1 (Bessel's correction)</div>
         </div>
 
-        <div class="p-6 bg-slate-50 rounded-xl border border-slate-200/80">
-          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Population Standard Deviation (σ)</div>
-          <div id="sd-pop" class="text-3xl font-extrabold text-slate-800 mt-2 font-mono">4.8990</div>
-          <div class="text-xs text-slate-500 mt-1">Divided by N (full population)</div>
+        <div class="p-4 sm:p-5 bg-page rounded-xl border border-border-line/80">
+          <div class="text-xs font-semibold text-slate-muted uppercase tracking-wider">Population Standard Deviation (σ)</div>
+          <div id="sd-pop" class="text-3xl font-extrabold text-ink mt-1 font-mono">4.8990</div>
+          <div class="text-xs text-slate-muted mt-1">Divided by N (full population)</div>
         </div>
       </div>
     </div>

@@ -4,17 +4,17 @@ export interface Props {
 }
 ---
 
-<div class="space-y-4 sm:space-y-5">
-  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-      <div class="space-y-4">
+<div class="space-y-3 sm:space-y-3.5">
+  <div class="bg-card rounded-2xl border border-border-line/90 shadow-sm p-4 sm:p-5">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+      <div class="space-y-3.5">
         <div>
-          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">IPv4 Address</label>
-          <input type="text" id="sub-ip" placeholder="e.g. 192.168.1.50" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm font-mono" />
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">IPv4 Address</label>
+          <input type="text" id="sub-ip" placeholder="e.g. 192.168.1.50" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-sm font-mono" />
         </div>
         <div>
-          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">CIDR Subnet Prefix</label>
-          <select id="sub-cidr" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm font-mono">
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">CIDR Subnet Prefix</label>
+          <select id="sub-cidr" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-sm font-mono">
             <option value="24" selected>/24 (255.255.255.0 - 254 Hosts)</option>
             <option value="25">/25 (255.255.255.128 - 126 Hosts)</option>
             <option value="26">/26 (255.255.255.192 - 62 Hosts)</option>
@@ -24,28 +24,28 @@ export interface Props {
           </select>
         </div>
 
-        <button id="sub-calc-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+        <button id="sub-calc-btn" type="button" class="w-full px-5 sm:px-6 py-3.5 sm:py-4 text-base bg-brand hover:bg-brand-accent text-card font-semibold rounded-xl shadow-sm transition-all">
           Calculate Subnet
         </button>
       </div>
 
-      <div class="p-6 bg-slate-50 rounded-xl border border-slate-200/80 space-y-3">
-        <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Subnet Allocation</div>
+      <div class="p-4 sm:p-5 bg-page rounded-xl border border-border-line/80 space-y-3">
+        <div class="text-xs font-semibold text-slate-muted uppercase tracking-wider">Subnet Allocation</div>
 
-        <div class="space-y-2 text-xs text-slate-600">
-          <div class="flex justify-between">
+        <div class="space-y-2 text-xs text-slate-muted">
+          <div class="flex flex-wrap justify-between gap-2">
             <span>Network Address:</span>
-            <strong id="sub-net" class="text-blue-600 font-mono font-bold">192.168.1.0</strong>
+            <strong id="sub-net" class="text-brand font-mono font-bold">192.168.1.0</strong>
           </div>
-          <div class="flex justify-between">
+          <div class="flex flex-wrap justify-between gap-2">
             <span>Broadcast Address:</span>
-            <strong id="sub-bcast" class="text-slate-800 font-mono">192.168.1.255</strong>
+            <strong id="sub-bcast" class="text-ink font-mono break-words">192.168.1.255</strong>
           </div>
-          <div class="flex justify-between">
+          <div class="flex flex-wrap justify-between gap-2">
             <span>Usable Host Range:</span>
-            <strong id="sub-range" class="text-slate-800 font-mono">192.168.1.1 - 192.168.1.254</strong>
+            <strong id="sub-range" class="text-ink font-mono break-words">192.168.1.1 - 192.168.1.254</strong>
           </div>
-          <div class="flex justify-between">
+          <div class="flex flex-wrap justify-between gap-2">
             <span>Total Usable Hosts:</span>
             <strong id="sub-hosts" class="text-emerald-600 font-bold font-mono">254 hosts</strong>
           </div>

@@ -4,38 +4,38 @@ export interface Props {
 }
 ---
 
-<div class="space-y-4 sm:space-y-5">
-  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-      <div class="space-y-4">
+<div class="space-y-3 sm:space-y-3.5">
+  <div class="bg-card rounded-2xl border border-border-line/90 shadow-sm p-4 sm:p-5">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+      <div class="space-y-3.5">
         <div class="grid grid-cols-2 gap-3">
           <div>
-            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Gender</label>
-            <select id="bmr-gender" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm">
+            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Gender</label>
+            <select id="bmr-gender" class="w-full px-3 py-2 bg-page border border-border-line rounded-xl text-sm">
               <option value="male" selected>Male</option>
               <option value="female">Female</option>
             </select>
           </div>
           <div>
-            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Age</label>
-            <input type="number" id="bmr-age" placeholder="e.g. 21" min="10" max="100" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm" />
+            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Age</label>
+            <input type="number" id="bmr-age" placeholder="e.g. 21" min="10" max="100" class="w-full px-3 py-2 bg-page border border-border-line rounded-xl text-sm" />
           </div>
         </div>
 
         <div class="grid grid-cols-2 gap-3">
           <div>
-            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Weight (kg)</label>
-            <input type="number" id="bmr-weight" placeholder="e.g. 70" step="0.5" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm" />
+            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Weight (kg)</label>
+            <input type="number" id="bmr-weight" placeholder="e.g. 70" step="0.5" class="w-full px-3 py-2 bg-page border border-border-line rounded-xl text-sm" />
           </div>
           <div>
-            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Height (cm)</label>
-            <input type="number" id="bmr-height" placeholder="e.g. 175" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm" />
+            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Height (cm)</label>
+            <input type="number" id="bmr-height" placeholder="e.g. 175" class="w-full px-3 py-2 bg-page border border-border-line rounded-xl text-sm" />
           </div>
         </div>
 
         <div>
-          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Activity Level</label>
-          <select id="bmr-act" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm">
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Activity Level</label>
+          <select id="bmr-act" class="w-full px-3 py-2 bg-page border border-border-line rounded-xl text-sm">
             <option value="1.2">Sedentary (desk work, little exercise)</option>
             <option value="1.375" selected>Lightly Active (1-3 days/week)</option>
             <option value="1.55">Moderately Active (3-5 days/week)</option>
@@ -43,21 +43,21 @@ export interface Props {
           </select>
         </div>
 
-        <button id="bmr-calc-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+        <button id="bmr-calc-btn" type="button" class="w-full px-5 sm:px-6 py-3.5 sm:py-4 text-base bg-brand hover:bg-brand-accent text-card font-semibold rounded-xl shadow-sm transition-all">
           Calculate Daily Caloric Needs
         </button>
       </div>
 
-      <div class="flex flex-col justify-between p-6 bg-slate-50 rounded-xl border border-slate-200/80">
+      <div class="flex flex-col justify-between p-4 sm:p-5 bg-page rounded-xl border border-border-line/80">
         <div>
-          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Total Daily Energy Expenditure (TDEE)</div>
-          <div id="bmr-tdee" class="text-4xl font-extrabold text-blue-600 mt-2 font-mono">--</div>
-          <div class="text-xs text-slate-500 mt-2">Daily maintenance calories</div>
+          <div class="text-xs font-semibold text-slate-muted uppercase tracking-wider">Total Daily Energy Expenditure (TDEE)</div>
+          <div id="bmr-tdee" class="text-4xl font-extrabold text-brand mt-1 font-mono break-words">--</div>
+          <div class="text-xs text-slate-muted mt-1">Daily maintenance calories</div>
         </div>
 
-        <div class="pt-4 border-t border-slate-200/80 mt-6 text-xs text-slate-600">
+        <div class="pt-3 border-t border-border-line/80 mt-4 text-xs text-slate-muted">
           <span>Basal Metabolic Rate (BMR): </span>
-          <strong id="bmr-base" class="text-slate-800 font-mono">1,689 kcal/day</strong>
+          <strong id="bmr-base" class="text-ink font-mono break-words">1,689 kcal/day</strong>
         </div>
       </div>
     </div>

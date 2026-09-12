@@ -4,41 +4,41 @@ export interface Props {
 }
 ---
 
-<div class="space-y-4 sm:space-y-5">
-  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
-    <div class="space-y-4">
+<div class="space-y-3 sm:space-y-3.5">
+  <div class="bg-card rounded-2xl border border-border-line/90 shadow-sm p-4 sm:p-5">
+    <div class="space-y-3.5">
       <div class="flex items-center justify-between">
-        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500">Paste or type your text</label>
-        <button id="wc-clear-btn" type="button" class="text-xs text-slate-400 hover:text-slate-600 font-medium">Clear Text</button>
+        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted">Paste or type your text</label>
+        <button id="wc-clear-btn" type="button" class="text-xs text-slate-muted hover:text-slate-muted font-medium">Clear Text</button>
       </div>
 
-      <textarea id="wc-input" rows="8" placeholder="Start typing or paste your essay, assignment, or notes here..." class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all"></textarea>
+      <textarea id="wc-input" rows="8" placeholder="Start typing or paste your essay, assignment, or notes here..." class="w-full px-4 py-3 bg-page border border-border-line rounded-xl text-ink text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent focus:bg-card transition-all"></textarea>
     </div>
 
-    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 mt-6">
-      <div class="p-4 bg-slate-50 rounded-xl border border-slate-200/80 text-center">
-        <div class="text-xs text-slate-500 font-medium">Words</div>
-        <div id="wc-words" class="text-2xl font-bold text-blue-600 font-mono mt-1">--</div>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 mt-4">
+      <div class="p-4 bg-page rounded-xl border border-border-line/80 text-center">
+        <div class="text-xs text-slate-muted font-medium">Words</div>
+        <div id="wc-words" class="text-2xl font-bold text-brand font-mono mt-1">--</div>
       </div>
-      <div class="p-4 bg-slate-50 rounded-xl border border-slate-200/80 text-center">
-        <div class="text-xs text-slate-500 font-medium">Characters</div>
-        <div id="wc-chars" class="text-2xl font-bold text-slate-800 font-mono mt-1">0</div>
+      <div class="p-4 bg-page rounded-xl border border-border-line/80 text-center">
+        <div class="text-xs text-slate-muted font-medium">Characters</div>
+        <div id="wc-chars" class="text-2xl font-bold text-ink font-mono mt-1">0</div>
       </div>
-      <div class="p-4 bg-slate-50 rounded-xl border border-slate-200/80 text-center">
-        <div class="text-xs text-slate-500 font-medium">No Spaces</div>
-        <div id="wc-chars-no-space" class="text-2xl font-bold text-slate-800 font-mono mt-1">0</div>
+      <div class="p-4 bg-page rounded-xl border border-border-line/80 text-center">
+        <div class="text-xs text-slate-muted font-medium">No Spaces</div>
+        <div id="wc-chars-no-space" class="text-2xl font-bold text-ink font-mono mt-1">0</div>
       </div>
-      <div class="p-4 bg-slate-50 rounded-xl border border-slate-200/80 text-center">
-        <div class="text-xs text-slate-500 font-medium">Sentences</div>
-        <div id="wc-sentences" class="text-2xl font-bold text-slate-800 font-mono mt-1">0</div>
+      <div class="p-4 bg-page rounded-xl border border-border-line/80 text-center">
+        <div class="text-xs text-slate-muted font-medium">Sentences</div>
+        <div id="wc-sentences" class="text-2xl font-bold text-ink font-mono mt-1">0</div>
       </div>
-      <div class="p-4 bg-slate-50 rounded-xl border border-slate-200/80 text-center">
-        <div class="text-xs text-slate-500 font-medium">Paragraphs</div>
-        <div id="wc-paragraphs" class="text-2xl font-bold text-slate-800 font-mono mt-1">--</div>
+      <div class="p-4 bg-page rounded-xl border border-border-line/80 text-center">
+        <div class="text-xs text-slate-muted font-medium">Paragraphs</div>
+        <div id="wc-paragraphs" class="text-2xl font-bold text-ink font-mono mt-1">--</div>
       </div>
-      <div class="p-4 bg-slate-50 rounded-xl border border-slate-200/80 text-center">
-        <div class="text-xs text-slate-500 font-medium">Reading Time</div>
-        <div id="wc-read-time" class="text-lg font-bold text-slate-800 font-mono mt-1">0m</div>
+      <div class="p-4 bg-page rounded-xl border border-border-line/80 text-center">
+        <div class="text-xs text-slate-muted font-medium">Reading Time</div>
+        <div id="wc-read-time" class="text-lg font-bold text-ink font-mono mt-1">0m</div>
       </div>
     </div>
   </div>

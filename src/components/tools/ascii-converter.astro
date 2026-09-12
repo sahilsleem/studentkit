@@ -4,26 +4,26 @@ export interface Props {
 }
 ---
 
-<div class="space-y-4 sm:space-y-5">
-  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
-    <div class="space-y-4">
+<div class="space-y-3 sm:space-y-3.5">
+  <div class="bg-card rounded-2xl border border-border-line/90 shadow-sm p-4 sm:p-5">
+    <div class="space-y-3.5">
       <div>
-        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Text String</label>
-        <input type="text" id="asc-text" placeholder="e.g. Hello StudentKit" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Text String</label>
+        <input type="text" id="asc-text" placeholder="e.g. Hello StudentKit" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-ink text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent" />
       </div>
 
-      <button id="asc-calc-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+      <button id="asc-calc-btn" type="button" class="w-full px-5 sm:px-6 py-3.5 sm:py-4 text-base bg-brand hover:bg-brand-accent text-card font-semibold rounded-xl shadow-sm transition-all">
         Convert to ASCII & Hex
       </button>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
-        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200/80">
-          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">ASCII Decimal</div>
-          <div id="asc-dec" class="text-sm font-bold text-blue-600 font-mono mt-1 break-all">--</div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+        <div class="p-4 bg-page rounded-xl border border-border-line/80">
+          <div class="text-xs font-semibold text-slate-muted uppercase tracking-wider">ASCII Decimal</div>
+          <div id="asc-dec" class="text-sm font-bold text-brand font-mono mt-1">--</div>
         </div>
-        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200/80">
-          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Hexadecimal</div>
-          <div id="asc-hex" class="text-sm font-bold text-slate-800 font-mono mt-1 break-all uppercase">--</div>
+        <div class="p-4 bg-page rounded-xl border border-border-line/80">
+          <div class="text-xs font-semibold text-slate-muted uppercase tracking-wider">Hexadecimal</div>
+          <div id="asc-hex" class="text-sm font-bold text-ink font-mono mt-1 uppercase">--</div>
         </div>
       </div>
     </div>

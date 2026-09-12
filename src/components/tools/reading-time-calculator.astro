@@ -4,43 +4,43 @@ export interface Props {
 }
 ---
 
-<div class="space-y-4 sm:space-y-5">
-  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-      <div class="space-y-4">
+<div class="space-y-3 sm:space-y-3.5">
+  <div class="bg-card rounded-2xl border border-border-line/90 shadow-sm p-4 sm:p-5">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+      <div class="space-y-3.5">
         <div>
-          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Word Count</label>
-          <input type="number" id="rt-words" min="1" placeholder="e.g. 1500" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Word Count</label>
+          <input type="number" id="rt-words" min="1" placeholder="e.g. 1500" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-ink text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent" />
         </div>
 
         <div>
-          <div class="flex justify-between items-center mb-1.5">
-            <label class="text-xs font-semibold uppercase tracking-wider text-slate-500">Reading Speed (WPM)</label>
-            <span id="rt-wpm-display" class="text-xs font-mono font-bold text-blue-600">225 WPM (Average)</span>
+          <div class="flex justify-between items-center mb-1">
+            <label class="text-xs font-semibold uppercase tracking-wider text-slate-muted">Reading Speed (WPM)</label>
+            <span id="rt-wpm-display" class="text-xs font-mono font-bold text-brand">225 WPM (Average)</span>
           </div>
-          <input type="range" id="rt-wpm" min="100" max="450" step="25" placeholder="e.g. 225" class="w-full accent-blue-600" />
+          <input type="range" id="rt-wpm" min="100" max="450" step="25" placeholder="e.g. 225" class="w-full accent-brand" />
         </div>
 
-        <button id="rt-calc-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+        <button id="rt-calc-btn" type="button" class="w-full px-5 sm:px-6 py-3.5 sm:py-4 text-base bg-brand hover:bg-brand-accent text-card font-semibold rounded-xl shadow-sm transition-all">
           Calculate Reading Time
         </button>
       </div>
 
-      <div class="flex flex-col justify-between p-6 bg-slate-50 rounded-xl border border-slate-200/80">
+      <div class="flex flex-col justify-between p-4 sm:p-5 bg-page rounded-xl border border-border-line/80">
         <div>
-          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Estimated Silent Reading Time</div>
-          <div id="rt-silent-time" class="text-4xl font-extrabold text-blue-600 mt-2 font-mono">--</div>
-          <div class="text-xs text-slate-500 mt-2">Based on normal collegiate comprehension speed.</div>
+          <div class="text-xs font-semibold text-slate-muted uppercase tracking-wider">Estimated Silent Reading Time</div>
+          <div id="rt-silent-time" class="text-4xl font-extrabold text-brand mt-1 font-mono break-words">--</div>
+          <div class="text-xs text-slate-muted mt-1">Based on normal collegiate comprehension speed.</div>
         </div>
 
-        <div class="pt-4 border-t border-slate-200/80 mt-6 space-y-2 text-xs text-slate-600">
-          <div class="flex justify-between">
+        <div class="pt-3 border-t border-border-line/80 mt-4 space-y-1.5 text-xs text-slate-muted">
+          <div class="flex flex-wrap justify-between gap-2">
             <span>Speaking / Presentation Time (130 WPM):</span>
-            <strong id="rt-speech-time" class="text-slate-800 font-bold">11 min 32 sec</strong>
+            <strong id="rt-speech-time" class="text-ink font-bold">11 min 32 sec</strong>
           </div>
-          <div class="flex justify-between">
+          <div class="flex flex-wrap justify-between gap-2">
             <span>Slow / Deep Study Time (150 WPM):</span>
-            <strong id="rt-slow-time" class="text-slate-800 font-bold">10 min 0 sec</strong>
+            <strong id="rt-slow-time" class="text-ink font-bold">10 min 0 sec</strong>
           </div>
         </div>
       </div>

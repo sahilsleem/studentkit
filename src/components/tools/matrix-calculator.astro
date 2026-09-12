@@ -4,44 +4,44 @@ export interface Props {
 }
 ---
 
-<div class="space-y-4 sm:space-y-5">
-  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
-    <div class="space-y-4">
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+<div class="space-y-3 sm:space-y-3.5">
+  <div class="bg-card rounded-2xl border border-border-line/90 shadow-sm p-4 sm:p-5">
+    <div class="space-y-3.5">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Matrix A (2×2)</label>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Matrix A (2×2)</label>
           <div class="grid grid-cols-2 gap-2">
-            <input type="number" id="mat-a11" placeholder="e.g. 1" class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-center font-bold" />
-            <input type="number" id="mat-a12" placeholder="e.g. 2" class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-center font-bold" />
-            <input type="number" id="mat-a21" placeholder="e.g. 3" class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-center font-bold" />
-            <input type="number" id="mat-a22" placeholder="e.g. 4" class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-center font-bold" />
+            <input type="number" id="mat-a11" placeholder="e.g. 1" class="px-3 py-2 bg-page border border-border-line rounded-lg text-center font-bold" />
+            <input type="number" id="mat-a12" placeholder="e.g. 2" class="px-3 py-2 bg-page border border-border-line rounded-lg text-center font-bold" />
+            <input type="number" id="mat-a21" placeholder="e.g. 3" class="px-3 py-2 bg-page border border-border-line rounded-lg text-center font-bold" />
+            <input type="number" id="mat-a22" placeholder="e.g. 4" class="px-3 py-2 bg-page border border-border-line rounded-lg text-center font-bold" />
           </div>
         </div>
 
         <div>
-          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Matrix B (2×2)</label>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Matrix B (2×2)</label>
           <div class="grid grid-cols-2 gap-2">
-            <input type="number" id="mat-b11" placeholder="e.g. 2" class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-center font-bold" />
-            <input type="number" id="mat-b12" placeholder="e.g. 0" class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-center font-bold" />
-            <input type="number" id="mat-b21" placeholder="e.g. 1" class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-center font-bold" />
-            <input type="number" id="mat-b22" placeholder="e.g. 3" class="px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-center font-bold" />
+            <input type="number" id="mat-b11" placeholder="e.g. 2" class="px-3 py-2 bg-page border border-border-line rounded-lg text-center font-bold" />
+            <input type="number" id="mat-b12" placeholder="e.g. 0" class="px-3 py-2 bg-page border border-border-line rounded-lg text-center font-bold" />
+            <input type="number" id="mat-b21" placeholder="e.g. 1" class="px-3 py-2 bg-page border border-border-line rounded-lg text-center font-bold" />
+            <input type="number" id="mat-b22" placeholder="e.g. 3" class="px-3 py-2 bg-page border border-border-line rounded-lg text-center font-bold" />
           </div>
         </div>
       </div>
 
-      <div class="flex items-center gap-2 pt-2">
-        <button id="mat-calc-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+      <div class="flex flex-wrap items-center gap-2 pt-2">
+        <button id="mat-calc-btn" type="button" class="w-full px-5 sm:px-6 py-3.5 sm:py-4 text-base bg-brand hover:bg-brand-accent text-card font-semibold rounded-xl shadow-sm transition-all">
           Multiply Matrices (A × B)
         </button>
       </div>
 
-      <div class="p-6 bg-slate-50 rounded-xl border border-slate-200/80 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="p-4 sm:p-5 bg-page rounded-xl border border-border-line/80 flex flex-col sm:flex-row items-center justify-between gap-4">
         <div>
-          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Product Matrix (A × B)</div>
-          <div id="mat-prod" class="text-2xl font-extrabold text-blue-600 mt-2 font-mono">--</div>
+          <div class="text-xs font-semibold text-slate-muted uppercase tracking-wider">Product Matrix (A × B)</div>
+          <div id="mat-prod" class="text-2xl font-extrabold text-brand mt-1 font-mono break-words">--</div>
         </div>
-        <div class="text-right text-xs text-slate-500">
-          <div>Sum (A + B): <strong id="mat-sum" class="text-slate-800">[3, 2], [4, 7]</strong></div>
+        <div class="text-right text-xs text-slate-muted">
+          <div>Sum (A + B): <strong id="mat-sum" class="text-ink">[3, 2], [4, 7]</strong></div>
         </div>
       </div>
     </div>
