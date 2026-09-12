@@ -103,7 +103,6 @@ const appSchema = {
 
     <AdSlot variant="horizontal" class="my-6" />
 
-
     <!-- Educational Content -->
     {toolContent[tool.id] && (
       <div class="mt-6 pt-5 border-t border-slate-200">
@@ -127,23 +126,6 @@ const appSchema = {
           </section>
         )}
 
-        {toolContent[tool.id].formula && (
-          <section class="mb-5 last:mb-0">
-            <h2 class="text-base font-bold text-slate-900 mb-2">Formula</h2>
-            <div class="bg-slate-900 text-blue-300 rounded-xl p-3 font-mono text-sm text-center overflow-x-auto shadow-inner">
-              {toolContent[tool.id].formula.split('\n').map((line: string) => <div>{line}</div>)}
-            </div>
-          </section>
-        )}
-
-        {toolContent[tool.id].example && (
-          <section class="mb-5 last:mb-0">
-            <h2 class="text-base font-bold text-slate-900 mb-2">Example</h2>
-            <div class="bg-blue-50/80 border-l-4 border-blue-600 p-3 rounded-r-xl text-slate-800 text-xs sm:text-sm leading-relaxed">
-              {toolContent[tool.id].example}
-            </div>
-          </section>
-        )}
       </div>
     )}
 

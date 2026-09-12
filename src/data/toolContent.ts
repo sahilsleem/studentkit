@@ -1,8 +1,6 @@
 export interface ToolContent {
   howToUse?: string[];
-  formula?: string;
   note?: string;
-  example?: string;
 }
 
 export const toolContent: Record<string, ToolContent> = {
@@ -745,7 +743,6 @@ export const toolContent: Record<string, ToolContent> = {
       "Select your university's multiplier or enter a custom multiplier if needed.",
       "Select Calculate to see the converted percentage."
     ],
-    "formula": "Percentage = CGPA × Multiplier (Typically 9.5 for CBSE/AICTE)",
     "note": "A 9.5 multiplier is standard for many Indian boards, though some universities use a direct 10.0 multiplier."
   },
   "gpa-calculator": {
@@ -773,7 +770,6 @@ export const toolContent: Record<string, ToolContent> = {
     "howToUse": [
       "Enter coefficients a, b, and c from your equation.",
       "Select Calculate to see the resulting roots."
-    ],
-    "formula": "x = (-b ± √(b² - 4ac)) / 2a"
+    ]
   }
 };
