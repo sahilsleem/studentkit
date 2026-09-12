@@ -23,7 +23,7 @@ const { title, description = '', url, icon, category, subcategory, keywords, ali
   data-keywords={keywords ? keywords.join(' ').toLowerCase() : ''}
   data-aliases={aliases ? aliases.join(' ').toLowerCase() : ''}
 >
-  <div class="flex items-center gap-1.5 sm:gap-3 truncate pr-1">
+  <div class="flex items-center gap-1.5 sm:gap-3 flex-1 min-w-0 pr-1">
     {icon ? (
       <div class="flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 rounded-md bg-blue-50/80 text-blue-600 shrink-0 group-hover:bg-blue-600 group-hover:text-white transition-colors [&>svg]:w-3 [&>svg]:h-3 sm:[&>svg]:w-3.5 sm:[&>svg]:h-3.5" set:html={icon} />
     ) : (
@@ -33,7 +33,7 @@ const { title, description = '', url, icon, category, subcategory, keywords, ali
         </svg>
       </div>
     )}
-    <span class="text-[11.5px] sm:text-[13px] font-semibold text-slate-900 group-hover:text-blue-600 transition-colors truncate">
+    <span class="text-[11.5px] sm:text-[13px] font-semibold text-slate-900 group-hover:text-blue-600 transition-colors line-clamp-2 sm:truncate leading-tight">
       {title}
     </span>
   </div>
