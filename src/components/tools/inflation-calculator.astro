@@ -9,7 +9,7 @@ export interface Props {
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
       <div class="space-y-4">
         <div>
-          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Initial Amount ($)</label>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Initial Amount (₹)</label>
           <input type="number" id="inf-amount" step="100" min="1" placeholder="e.g. 1000" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
         </div>
 
@@ -37,7 +37,7 @@ export interface Props {
 
         <div class="pt-4 border-t border-slate-200/80 mt-6 space-y-2 text-xs text-slate-600">
           <div class="flex justify-between">
-            <span>Future Purchasing Power of $1,000:</span>
+            <span>Future Purchasing Power of ₹1,000:</span>
             <strong id="inf-future-power" class="text-slate-800 font-bold">--</strong>
           </div>
         </div>
@@ -64,7 +64,7 @@ export interface Props {
     const purchasingPower = P / Math.pow(1 + r, t);
     const cumRate = ((futureCost - P) / P) * 100;
 
-    const fmt = (v: number) => '$' + v.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const fmt = (v: number) => '₹' + v.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
     if (costEl) costEl.textContent = fmt(futureCost);
     if (cumEl) cumEl.textContent = '+' + cumRate.toFixed(2) + '% cumulative inflation';

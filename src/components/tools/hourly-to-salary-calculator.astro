@@ -9,7 +9,7 @@ export interface Props {
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
       <div class="space-y-4">
         <div>
-          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Hourly Wage ($/hour)</label>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Hourly Wage (₹/hour)</label>
           <input type="number" id="hs-wage" step="0.5" min="0" placeholder="e.g. 22" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
         </div>
 
@@ -70,8 +70,8 @@ export interface Props {
     const monthly = annual / 12;
     const biweekly = annual / 26;
 
-    const fmt = (v: number) => '$' + Math.round(v).toLocaleString('en-US');
-    const fmtDec = (v: number) => '$' + v.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const fmt = (v: number) => '₹' + Math.round(v).toLocaleString('en-US');
+    const fmtDec = (v: number) => '₹' + v.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
     if (annualEl) annualEl.textContent = fmt(annual);
     if (monthlyEl) monthlyEl.textContent = fmtDec(monthly) + ' per month';

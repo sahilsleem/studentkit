@@ -33,7 +33,7 @@ export interface Props {
 
         <div class="pt-4 border-t border-slate-200/80 mt-6 text-xs text-slate-600">
           <span>Simplified Ratio: </span>
-          <strong id="rat-simp" class="text-slate-800">3 : 5</strong>
+          <strong id="rat-simp" class="text-slate-800">--</strong>
         </div>
       </div>
     </div>
@@ -66,5 +66,4 @@ export interface Props {
 
   ['rat-a', 'rat-b', 'rat-c'].forEach(id => document.getElementById(id)?.addEventListener('input', solve));
   document.getElementById('rat-calc-btn')?.addEventListener('click', solve);
-  solve();
 </script>

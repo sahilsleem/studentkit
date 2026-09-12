@@ -18,7 +18,7 @@ export interface Props {
 
     <div class="mb-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
       <div>
-        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Total Apartment Rent ($/month)</label>
+        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Total Apartment Rent (₹/month)</label>
         <input type="number" id="rs-total-rent" placeholder="e.g. 2400" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
       </div>
       <div>
@@ -111,9 +111,9 @@ export interface Props {
       const share = totalRent / n;
       rows.forEach(r => {
         const cell = r.querySelector('.rs-share');
-        if (cell) cell.textContent = '$' + share.toFixed(2);
+        if (cell) cell.textContent = '₹' + share.toFixed(2);
       });
-      if (totalAllocEl) totalAllocEl.textContent = '$' + totalRent.toFixed(2);
+      if (totalAllocEl) totalAllocEl.textContent = '₹' + totalRent.toFixed(2);
       return;
     }
 
@@ -136,10 +136,10 @@ export interface Props {
       const share = totalWeight > 0 ? (weights[idx] / totalWeight) * totalRent : 0;
       sumAlloc += share;
       const cell = r.querySelector('.rs-share');
-      if (cell) cell.textContent = '$' + share.toFixed(2);
+      if (cell) cell.textContent = '₹' + share.toFixed(2);
     });
 
-    if (totalAllocEl) totalAllocEl.textContent = '$' + sumAlloc.toFixed(2);
+    if (totalAllocEl) totalAllocEl.textContent = '₹' + sumAlloc.toFixed(2);
   }
 
   function init() {
@@ -152,7 +152,4 @@ export interface Props {
   addBtn?.addEventListener('click', () => addRow('', 140, false));
   calcBtn?.addEventListener('click', calculate);
   resetBtn?.addEventListener('click', init);
-
-
-  init();
 </script>

@@ -1709,8 +1709,8 @@ export const tools: Tool[] = [
   },
   {
     "id": "bmi-calculator",
-    "title": "BMI & Body Surface Area Calculator",
-    "description": "Calculate Body Mass Index (BMI category score) and Mosteller Body Surface Area (BSA) with metric/imperial units.",
+    "title": "BMI Calculator",
+    "description": "Calculate Body Mass Index (BMI) and determine healthy weight ranges using standard metric units.",
     "slug": "bmi-calculator",
     "category": "Biology & Health Metrics",
     "subcategory": "Health Metrics",
@@ -1825,8 +1825,8 @@ export const tools: Tool[] = [
   },
   {
     "id": "truth-table-generator",
-    "title": "Truth Table Generator & Logic Evaluator",
-    "description": "Generate complete truth tables for boolean logic expressions containing AND, OR, NOT, XOR, NAND, and Implication.",
+    "title": "Truth Table Generator",
+    "description": "Generate truth tables for basic boolean logic gates including AND, OR, XOR, NAND, and NOR.",
     "slug": "truth-table-generator",
     "category": "Computer Science & Digital Logic",
     "subcategory": "Digital Logic",

@@ -39,11 +39,11 @@ export interface Props {
         <div class="pt-4 border-t border-slate-200/80 mt-6 space-y-2 text-xs text-slate-600">
           <div class="flex justify-between">
             <span>Vertex (h, k):</span>
-            <strong id="qf-vertex" class="text-slate-800 font-mono">(2.50, -0.25)</strong>
+            <strong id="qf-vertex" class="text-slate-800 font-mono">--</strong>
           </div>
           <div class="flex justify-between">
             <span>Root Type:</span>
-            <strong id="qf-type" class="text-emerald-600 font-semibold">Two distinct real roots</strong>
+            <strong id="qf-type" class="text-emerald-600 font-semibold">--</strong>
           </div>
         </div>
       </div>
@@ -97,5 +97,4 @@ export interface Props {
 
 
   document.getElementById('qf-calc-btn')?.addEventListener('click', solve);
-  solve();
 </script>

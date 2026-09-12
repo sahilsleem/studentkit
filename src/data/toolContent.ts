@@ -1099,7 +1099,7 @@ export const toolContent: Record<string, ToolContent> = {
     "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for biology & health metrics."
   },
   "bmi-calculator": {
-    "whatIsIt": "The BMI & Body Surface Area Calculator provides students and educators with an instant, interactive calculation tool for biology & health metrics. It runs entirely client-side in your web browser with zero server latency.",
+    "whatIsIt": "The BMI Calculator provides students and educators with an instant, interactive calculation tool for biology & health metrics. It runs entirely client-side in your web browser with zero server latency.",
     "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
     "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
     "variables": {
@@ -1176,7 +1176,7 @@ export const toolContent: Record<string, ToolContent> = {
     "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for computer science & digital logic."
   },
   "truth-table-generator": {
-    "whatIsIt": "The Truth Table Generator & Logic Evaluator provides students and educators with an instant, interactive calculation tool for computer science & digital logic. It runs entirely client-side in your web browser with zero server latency.",
+    "whatIsIt": "The Truth Table Generator provides students and educators with an instant, interactive calculation tool for computer science & digital logic. It runs entirely client-side in your web browser with zero server latency.",
     "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
     "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
     "variables": {
