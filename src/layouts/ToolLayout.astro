@@ -103,55 +103,48 @@ const appSchema = {
 
     <AdSlot variant="horizontal" class="my-6" />
 
+
     <!-- Educational Content -->
     {toolContent[tool.id] && (
-      <article class="prose prose-slate max-w-none mt-6 pt-5 border-t border-slate-200">
-        {toolContent[tool.id].whatIsIt && (
+      <div class="mt-6 pt-5 border-t border-slate-200">
+
+        {toolContent[tool.id].howToUse && (
           <section class="mb-5 last:mb-0">
-            <h2 class="text-lg font-bold text-slate-900 mb-2">What is this calculator?</h2>
-            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">{toolContent[tool.id].whatIsIt}</p>
+            <h2 class="text-base font-bold text-slate-900 mb-2">How to Use</h2>
+            <ol class="list-decimal list-outside ml-4 text-xs sm:text-sm text-slate-600 space-y-1.5">
+              {toolContent[tool.id].howToUse!.map((step: string) => (
+                <li class="pl-1">{step}</li>
+              ))}
+            </ol>
+          </section>
+        )}
+
+        {toolContent[tool.id].note && (
+          <section class="mb-5 last:mb-0">
+            <div class="bg-amber-50/50 border-l-4 border-amber-400 p-3 rounded-r-xl text-slate-700 text-xs sm:text-sm leading-relaxed">
+              <strong>Note:</strong> {toolContent[tool.id].note}
+            </div>
           </section>
         )}
 
         {toolContent[tool.id].formula && (
           <section class="mb-5 last:mb-0">
-            <h2 class="text-lg font-bold text-slate-900 mb-2">Formula</h2>
+            <h2 class="text-base font-bold text-slate-900 mb-2">Formula</h2>
             <div class="bg-slate-900 text-blue-300 rounded-xl p-3 font-mono text-sm text-center overflow-x-auto shadow-inner">
               {toolContent[tool.id].formula.split('\n').map((line: string) => <div>{line}</div>)}
             </div>
           </section>
         )}
 
-        {toolContent[tool.id].variables && (
-          <section class="mb-5 last:mb-0">
-            <h2 class="text-lg font-bold text-slate-900 mb-2">Variables</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-              {Object.entries(toolContent[tool.id].variables!).map(([k, v]) => (
-                <div class="p-2.5 bg-white border border-slate-200 rounded-lg">
-                  <span class="font-semibold text-slate-800 text-xs sm:text-sm">{k}</span>
-                  <p class="text-xs text-slate-500 mt-0.5">{v}</p>
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {toolContent[tool.id].howToUse && (
-          <section class="mb-5 last:mb-0">
-            <h2 class="text-lg font-bold text-slate-900 mb-2">How to Use</h2>
-            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed whitespace-pre-line">{toolContent[tool.id].howToUse}</p>
-          </section>
-        )}
-
         {toolContent[tool.id].example && (
           <section class="mb-5 last:mb-0">
-            <h2 class="text-lg font-bold text-slate-900 mb-2">Worked Example</h2>
+            <h2 class="text-base font-bold text-slate-900 mb-2">Example</h2>
             <div class="bg-blue-50/80 border-l-4 border-blue-600 p-3 rounded-r-xl text-slate-800 text-xs sm:text-sm leading-relaxed">
               {toolContent[tool.id].example}
             </div>
           </section>
         )}
-      </article>
+      </div>
     )}
 
     <!-- Related Tools Grid -->

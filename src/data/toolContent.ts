@@ -1,1387 +1,779 @@
 export interface ToolContent {
-  whatIsIt: string;
-  howToUse?: string;
+  howToUse?: string[];
   formula?: string;
-  variables?: Record<string, string>;
+  note?: string;
   example?: string;
-  whenToUse?: string;
-  commonMistakes?: string;
 }
 
 export const toolContent: Record<string, ToolContent> = {
-  "gpa-calculator": {
-    "whatIsIt": "The GPA Calculator (Semester & Cumulative) provides students and educators with an instant, interactive calculation tool for academic & grades. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for academic & grades."
-  },
-  "cgpa-percentage-calculator": {
-    "whatIsIt": "The CGPA & Percentage Converter provides students and educators with an instant, interactive calculation tool for academic & grades. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for academic & grades."
-  },
-  "final-grade-calculator": {
-    "whatIsIt": "The Final Grade Calculator provides students and educators with an instant, interactive calculation tool for academic & grades. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for academic & grades."
-  },
-  "weighted-grade-calculator": {
-    "whatIsIt": "The Weighted Grade Calculator provides students and educators with an instant, interactive calculation tool for academic & grades. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for academic & grades."
-  },
-  "attendance-calculator": {
-    "whatIsIt": "The Attendance Calculator & Bunk Planner provides students and educators with an instant, interactive calculation tool for academic & grades. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for academic & grades."
-  },
-  "target-marks-calculator": {
-    "whatIsIt": "The Target Marks Calculator provides students and educators with an instant, interactive calculation tool for academic & grades. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for academic & grades."
-  },
-  "grade-converter": {
-    "whatIsIt": "The Grade & Letter Scale Converter provides students and educators with an instant, interactive calculation tool for academic & grades. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for academic & grades."
-  },
-  "marks-percentage-calculator": {
-    "whatIsIt": "The Marks & Percentage Total Calculator provides students and educators with an instant, interactive calculation tool for academic & grades. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for academic & grades."
-  },
-  "student-loan-calculator": {
-    "whatIsIt": "The Student Loan & EMI Calculator provides students and educators with an instant, interactive calculation tool for everyday & student finance. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for everyday & student finance."
-  },
-  "simple-interest-calculator": {
-    "whatIsIt": "The Simple Interest Calculator provides students and educators with an instant, interactive calculation tool for everyday & student finance. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for everyday & student finance."
-  },
-  "compound-interest-calculator": {
-    "whatIsIt": "The Compound Interest Calculator provides students and educators with an instant, interactive calculation tool for everyday & student finance. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for everyday & student finance."
-  },
-  "discount-calculator": {
-    "whatIsIt": "The Discount & Sale Price Calculator provides students and educators with an instant, interactive calculation tool for everyday & student finance. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for everyday & student finance."
-  },
-  "sales-tax-calculator": {
-    "whatIsIt": "The Sales Tax & GST Calculator provides students and educators with an instant, interactive calculation tool for everyday & student finance. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for everyday & student finance."
-  },
-  "tip-bill-split-calculator": {
-    "whatIsIt": "The Tip & Bill Split Calculator provides students and educators with an instant, interactive calculation tool for everyday & student finance. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for everyday & student finance."
-  },
-  "student-budget-calculator": {
-    "whatIsIt": "The College Student Budget & Savings Planner provides students and educators with an instant, interactive calculation tool for everyday & student finance. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for everyday & student finance."
-  },
-  "inflation-calculator": {
-    "whatIsIt": "The Inflation & Purchasing Power Calculator provides students and educators with an instant, interactive calculation tool for everyday & student finance. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for everyday & student finance."
-  },
-  "margin-markup-calculator": {
-    "whatIsIt": "The Margin & Markup Calculator provides students and educators with an instant, interactive calculation tool for everyday & student finance. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for everyday & student finance."
-  },
-  "hourly-to-salary-calculator": {
-    "whatIsIt": "The Hourly Wage to Salary Calculator provides students and educators with an instant, interactive calculation tool for everyday & student finance. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for everyday & student finance."
-  },
-  "rent-split-calculator": {
-    "whatIsIt": "The Rent Split & Roommate Expense Calculator provides students and educators with an instant, interactive calculation tool for everyday & student finance. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for everyday & student finance."
-  },
-  "quadratic-formula-calculator": {
-    "whatIsIt": "The Quadratic Formula & Equation Solver provides students and educators with an instant, interactive calculation tool for mathematics. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for mathematics."
-  },
-  "simultaneous-equations-solver": {
-    "whatIsIt": "The Simultaneous Equations Solver (2x2 & 3x3) provides students and educators with an instant, interactive calculation tool for mathematics. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for mathematics."
-  },
-  "polynomial-calculator": {
-    "whatIsIt": "The Polynomial Calculator & Root Finder provides students and educators with an instant, interactive calculation tool for mathematics. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for mathematics."
-  },
-  "fraction-calculator": {
-    "whatIsIt": "The Fraction Calculator & Simplifier provides students and educators with an instant, interactive calculation tool for mathematics. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for mathematics."
-  },
-  "ratio-calculator": {
-    "whatIsIt": "The Ratio & Proportion Calculator provides students and educators with an instant, interactive calculation tool for mathematics. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for mathematics."
-  },
-  "percentage-calculator": {
-    "whatIsIt": "The Percentage Calculator provides students and educators with an instant, interactive calculation tool for mathematics. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for mathematics."
-  },
-  "percentage-change-calculator": {
-    "whatIsIt": "The Percentage Change Calculator provides students and educators with an instant, interactive calculation tool for mathematics. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for mathematics."
-  },
-  "prime-factorization-calculator": {
-    "whatIsIt": "The Prime Factorization Calculator provides students and educators with an instant, interactive calculation tool for mathematics. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for mathematics."
-  },
-  "lcm-gcd-calculator": {
-    "whatIsIt": "The LCM and GCD / GCF Calculator provides students and educators with an instant, interactive calculation tool for mathematics. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for mathematics."
-  },
-  "significant-figures-calculator": {
-    "whatIsIt": "The Significant Figures Calculator provides students and educators with an instant, interactive calculation tool for mathematics. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for mathematics."
-  },
-  "scientific-notation-calculator": {
-    "whatIsIt": "The Scientific Notation Calculator provides students and educators with an instant, interactive calculation tool for mathematics. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for mathematics."
-  },
-  "exponent-calculator": {
-    "whatIsIt": "The Exponent & Power Calculator provides students and educators with an instant, interactive calculation tool for mathematics. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for mathematics."
-  },
-  "logarithm-calculator": {
-    "whatIsIt": "The Logarithm Calculator (log & ln) provides students and educators with an instant, interactive calculation tool for mathematics. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for mathematics."
-  },
-  "sequence-series-calculator": {
-    "whatIsIt": "The Sequence & Series Calculator provides students and educators with an instant, interactive calculation tool for mathematics. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for mathematics."
-  },
-  "set-calculator": {
-    "whatIsIt": "The Set Theory & Venn Operations Calculator provides students and educators with an instant, interactive calculation tool for mathematics. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for mathematics."
-  },
-  "permutations-combinations-calculator": {
-    "whatIsIt": "The Permutations & Combinations Calculator provides students and educators with an instant, interactive calculation tool for mathematics. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for mathematics."
-  },
-  "triangle-calculator": {
-    "whatIsIt": "The Right Triangle & Pythagorean Solver provides students and educators with an instant, interactive calculation tool for geometry, trigonometry & matrices. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for geometry, trigonometry & matrices."
-  },
-  "triangle-area-calculator": {
-    "whatIsIt": "The Triangle Area & Geometry Calculator provides students and educators with an instant, interactive calculation tool for geometry, trigonometry & matrices. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for geometry, trigonometry & matrices."
-  },
-  "circle-calculator": {
-    "whatIsIt": "The Circle & Sector Calculator provides students and educators with an instant, interactive calculation tool for geometry, trigonometry & matrices. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for geometry, trigonometry & matrices."
-  },
   "area-calculator": {
-    "whatIsIt": "The 2D Polygon Area Calculator provides students and educators with an instant, interactive calculation tool for geometry, trigonometry & matrices. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for geometry, trigonometry & matrices."
-  },
-  "volume-surface-area-calculator": {
-    "whatIsIt": "The 3D Volume & Surface Area Calculator provides students and educators with an instant, interactive calculation tool for geometry, trigonometry & matrices. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for geometry, trigonometry & matrices."
-  },
-  "trigonometric-calculator": {
-    "whatIsIt": "The Trigonometric & Inverse Functions Calculator provides students and educators with an instant, interactive calculation tool for geometry, trigonometry & matrices. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for geometry, trigonometry & matrices."
-  },
-  "unit-circle-calculator": {
-    "whatIsIt": "The Unit Circle Interactive Calculator provides students and educators with an instant, interactive calculation tool for geometry, trigonometry & matrices. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for geometry, trigonometry & matrices."
-  },
-  "vector-calculator": {
-    "whatIsIt": "The Vector Operations Calculator (2D & 3D) provides students and educators with an instant, interactive calculation tool for geometry, trigonometry & matrices. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for geometry, trigonometry & matrices."
-  },
-  "matrix-calculator": {
-    "whatIsIt": "The Matrix Arithmetic Calculator provides students and educators with an instant, interactive calculation tool for geometry, trigonometry & matrices. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for geometry, trigonometry & matrices."
-  },
-  "matrix-inverse-calculator": {
-    "whatIsIt": "The Matrix Determinant & Inverse Calculator provides students and educators with an instant, interactive calculation tool for geometry, trigonometry & matrices. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for geometry, trigonometry & matrices."
-  },
-  "rref-calculator": {
-    "whatIsIt": "The RREF & Matrix Rank Calculator provides students and educators with an instant, interactive calculation tool for geometry, trigonometry & matrices. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for geometry, trigonometry & matrices."
-  },
-  "derivative-calculator": {
-    "whatIsIt": "The Derivative Calculator (1st & 2nd Order) provides students and educators with an instant, interactive calculation tool for calculus & advanced math. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for calculus & advanced math."
-  },
-  "integral-calculator": {
-    "whatIsIt": "The Integral Calculator (Definite & Indefinite) provides students and educators with an instant, interactive calculation tool for calculus & advanced math. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for calculus & advanced math."
-  },
-  "limit-calculator": {
-    "whatIsIt": "The Limit Calculator (One-Sided & Infinite) provides students and educators with an instant, interactive calculation tool for calculus & advanced math. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for calculus & advanced math."
-  },
-  "taylor-series-calculator": {
-    "whatIsIt": "The Taylor & Maclaurin Series Calculator provides students and educators with an instant, interactive calculation tool for calculus & advanced math. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for calculus & advanced math."
-  },
-  "partial-derivative-calculator": {
-    "whatIsIt": "The Partial Derivative Calculator (Multivariable) provides students and educators with an instant, interactive calculation tool for calculus & advanced math. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for calculus & advanced math."
-  },
-  "differential-equations-calculator": {
-    "whatIsIt": "The Differential Equations First-Order Solver provides students and educators with an instant, interactive calculation tool for calculus & advanced math. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for calculus & advanced math."
-  },
-  "numerical-integration-calculator": {
-    "whatIsIt": "The Numerical Integration Calculator provides students and educators with an instant, interactive calculation tool for calculus & advanced math. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for calculus & advanced math."
-  },
-  "statistics-calculator": {
-    "whatIsIt": "The Descriptive Statistics Calculator provides students and educators with an instant, interactive calculation tool for statistics & probability. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for statistics & probability."
-  },
-  "standard-deviation-calculator": {
-    "whatIsIt": "The Standard Deviation & Variance Calculator provides students and educators with an instant, interactive calculation tool for statistics & probability. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for statistics & probability."
-  },
-  "z-score-calculator": {
-    "whatIsIt": "The Z-Score & Normal Distribution Calculator provides students and educators with an instant, interactive calculation tool for statistics & probability. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for statistics & probability."
-  },
-  "confidence-interval-calculator": {
-    "whatIsIt": "The Confidence Interval Calculator provides students and educators with an instant, interactive calculation tool for statistics & probability. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for statistics & probability."
-  },
-  "linear-regression-calculator": {
-    "whatIsIt": "The Linear Regression & Correlation Calculator provides students and educators with an instant, interactive calculation tool for statistics & probability. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for statistics & probability."
-  },
-  "probability-calculator": {
-    "whatIsIt": "The Probability Calculator (Single & Compound) provides students and educators with an instant, interactive calculation tool for statistics & probability. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for statistics & probability."
-  },
-  "binomial-distribution-calculator": {
-    "whatIsIt": "The Binomial Distribution Calculator provides students and educators with an instant, interactive calculation tool for statistics & probability. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for statistics & probability."
-  },
-  "poisson-distribution-calculator": {
-    "whatIsIt": "The Poisson Distribution Calculator provides students and educators with an instant, interactive calculation tool for statistics & probability. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for statistics & probability."
-  },
-  "chi-square-calculator": {
-    "whatIsIt": "The Chi-Square Test Calculator provides students and educators with an instant, interactive calculation tool for statistics & probability. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for statistics & probability."
-  },
-  "percentile-calculator": {
-    "whatIsIt": "The Percentile & Quartile Calculator provides students and educators with an instant, interactive calculation tool for statistics & probability. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for statistics & probability."
-  },
-  "sample-size-calculator": {
-    "whatIsIt": "The Sample Size & Margin of Error Calculator provides students and educators with an instant, interactive calculation tool for statistics & probability. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for statistics & probability."
-  },
-  "kinematics-calculator": {
-    "whatIsIt": "The Kinematics & Motion Calculator (1D) provides students and educators with an instant, interactive calculation tool for physics. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for physics."
-  },
-  "projectile-motion-calculator": {
-    "whatIsIt": "The Projectile Motion Calculator (2D) provides students and educators with an instant, interactive calculation tool for physics. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for physics."
-  },
-  "force-calculator": {
-    "whatIsIt": "The Newton's Second Law & Force Calculator provides students and educators with an instant, interactive calculation tool for physics. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for physics."
-  },
-  "friction-calculator": {
-    "whatIsIt": "The Friction & Incline Plane Calculator provides students and educators with an instant, interactive calculation tool for physics. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for physics."
-  },
-  "work-energy-calculator": {
-    "whatIsIt": "The Work, Kinetic & Potential Energy Calculator provides students and educators with an instant, interactive calculation tool for physics. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for physics."
-  },
-  "momentum-collision-calculator": {
-    "whatIsIt": "The Momentum & Collision Calculator provides students and educators with an instant, interactive calculation tool for physics. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for physics."
-  },
-  "free-fall-calculator": {
-    "whatIsIt": "The Free Fall Calculator provides students and educators with an instant, interactive calculation tool for physics. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for physics."
-  },
-  "gravitational-force-calculator": {
-    "whatIsIt": "The Gravitational Force & Orbit Calculator provides students and educators with an instant, interactive calculation tool for physics. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for physics."
-  },
-  "circular-motion-calculator": {
-    "whatIsIt": "The Centripetal Force & Circular Motion Calculator provides students and educators with an instant, interactive calculation tool for physics. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for physics."
-  },
-  "torque-calculator": {
-    "whatIsIt": "The Torque & Rotational Equilibrium Calculator provides students and educators with an instant, interactive calculation tool for physics. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for physics."
-  },
-  "harmonic-motion-calculator": {
-    "whatIsIt": "The Simple Harmonic Motion & Pendulum Calculator provides students and educators with an instant, interactive calculation tool for physics. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for physics."
-  },
-  "ohms-law-calculator": {
-    "whatIsIt": "The Ohm's Law & Electric Power Calculator provides students and educators with an instant, interactive calculation tool for physics. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for physics."
-  },
-  "circuit-calculator": {
-    "whatIsIt": "The Resistor & Capacitor Circuit Calculator provides students and educators with an instant, interactive calculation tool for physics. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for physics."
-  },
-  "coulombs-law-calculator": {
-    "whatIsIt": "The Coulomb's Law Electrostatic Force Calculator provides students and educators with an instant, interactive calculation tool for physics. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for physics."
-  },
-  "lens-mirror-calculator": {
-    "whatIsIt": "The Lens & Mirror Equation Calculator provides students and educators with an instant, interactive calculation tool for physics. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for physics."
-  },
-  "wave-speed-calculator": {
-    "whatIsIt": "The Wave Speed, Frequency & Wavelength Calculator provides students and educators with an instant, interactive calculation tool for physics. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for physics."
-  },
-  "density-calculator": {
-    "whatIsIt": "The Density, Mass & Volume Calculator provides students and educators with an instant, interactive calculation tool for physics. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for physics."
-  },
-  "pressure-buoyancy-calculator": {
-    "whatIsIt": "The Pressure & Buoyancy (Archimedes) Calculator provides students and educators with an instant, interactive calculation tool for physics. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for physics."
-  },
-  "molar-mass-calculator": {
-    "whatIsIt": "The Molar Mass & Molecular Weight Calculator provides students and educators with an instant, interactive calculation tool for chemistry. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for chemistry."
-  },
-  "moles-converter": {
-    "whatIsIt": "The Moles, Grams & Molecule Particles Converter provides students and educators with an instant, interactive calculation tool for chemistry. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for chemistry."
-  },
-  "molarity-calculator": {
-    "whatIsIt": "The Solution Molarity & Dilution Calculator provides students and educators with an instant, interactive calculation tool for chemistry. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for chemistry."
-  },
-  "ideal-gas-law": {
-    "whatIsIt": "The Ideal Gas Law Calculator (PV = nRT) provides students and educators with an instant, interactive calculation tool for chemistry. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for chemistry."
-  },
-  "chemical-equation-balancer": {
-    "whatIsIt": "The Chemical Reaction Balancer provides students and educators with an instant, interactive calculation tool for chemistry. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for chemistry."
-  },
-  "stoichiometry-calculator": {
-    "whatIsIt": "The Stoichiometry & Theoretical Yield Calculator provides students and educators with an instant, interactive calculation tool for chemistry. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for chemistry."
-  },
-  "ph-calculator": {
-    "whatIsIt": "The pH, pOH & Ion Concentration Calculator provides students and educators with an instant, interactive calculation tool for chemistry. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for chemistry."
-  },
-  "buffer-ph-calculator": {
-    "whatIsIt": "The Buffer pH (Henderson-Hasselbalch) Calculator provides students and educators with an instant, interactive calculation tool for chemistry. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for chemistry."
-  },
-  "percent-composition-calculator": {
-    "whatIsIt": "The Percent Composition by Mass Calculator provides students and educators with an instant, interactive calculation tool for chemistry. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for chemistry."
-  },
-  "half-life-calculator": {
-    "whatIsIt": "The Radioactive Decay & Half-Life Calculator provides students and educators with an instant, interactive calculation tool for chemistry. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for chemistry."
-  },
-  "calorimetry-calculator": {
-    "whatIsIt": "The Calorimetry & Specific Heat Calculator provides students and educators with an instant, interactive calculation tool for chemistry. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for chemistry."
-  },
-  "chemical-kinetics-calculator": {
-    "whatIsIt": "The Chemical Kinetics & Rate Law Calculator provides students and educators with an instant, interactive calculation tool for chemistry. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for chemistry."
-  },
-  "cell-potential-calculator": {
-    "whatIsIt": "The Electrochemical Cell Potential (Nernst) Calculator provides students and educators with an instant, interactive calculation tool for chemistry. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for chemistry."
-  },
-  "empirical-formula-calculator": {
-    "whatIsIt": "The Empirical & Molecular Formula Calculator provides students and educators with an instant, interactive calculation tool for chemistry. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for chemistry."
-  },
-  "punnett-square": {
-    "whatIsIt": "The Punnett Square & Genetics Calculator provides students and educators with an instant, interactive calculation tool for biology & health metrics. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for biology & health metrics."
-  },
-  "dna-sequence-analyzer": {
-    "whatIsIt": "The DNA Sequence Analyzer provides students and educators with an instant, interactive calculation tool for biology & health metrics. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for biology & health metrics."
-  },
-  "hardy-weinberg-calculator": {
-    "whatIsIt": "The Hardy-Weinberg Equilibrium Calculator provides students and educators with an instant, interactive calculation tool for biology & health metrics. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for biology & health metrics."
-  },
-  "bmi-calculator": {
-    "whatIsIt": "The BMI Calculator provides students and educators with an instant, interactive calculation tool for biology & health metrics. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for biology & health metrics."
-  },
-  "bmr-calculator": {
-    "whatIsIt": "The BMR & Daily Calorie Calculator (TDEE) provides students and educators with an instant, interactive calculation tool for biology & health metrics. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for biology & health metrics."
-  },
-  "target-heart-rate-calculator": {
-    "whatIsIt": "The Target Heart Rate & Training Zones Calculator provides students and educators with an instant, interactive calculation tool for biology & health metrics. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for biology & health metrics."
-  },
-  "water-intake-calculator": {
-    "whatIsIt": "The Daily Water Intake Calculator provides students and educators with an instant, interactive calculation tool for biology & health metrics. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for biology & health metrics."
-  },
-  "base-converter": {
-    "whatIsIt": "The Base Converter (Binary/Dec/Hex/Oct) provides students and educators with an instant, interactive calculation tool for computer science & digital logic. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for computer science & digital logic."
-  },
-  "subnet-calculator": {
-    "whatIsIt": "The IPv4 Subnet & CIDR Calculator provides students and educators with an instant, interactive calculation tool for computer science & digital logic. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for computer science & digital logic."
-  },
-  "bitwise-calculator": {
-    "whatIsIt": "The Bitwise Operations & Shift Calculator provides students and educators with an instant, interactive calculation tool for computer science & digital logic. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for computer science & digital logic."
-  },
-  "truth-table-generator": {
-    "whatIsIt": "The Truth Table Generator provides students and educators with an instant, interactive calculation tool for computer science & digital logic. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for computer science & digital logic."
-  },
-  "bandwidth-calculator": {
-    "whatIsIt": "The Data Storage & Bandwidth Calculator provides students and educators with an instant, interactive calculation tool for computer science & digital logic. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for computer science & digital logic."
-  },
-  "ascii-converter": {
-    "whatIsIt": "The ASCII, Text & Hexadecimal Converter provides students and educators with an instant, interactive calculation tool for computer science & digital logic. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for computer science & digital logic."
-  },
-  "binary-arithmetic-calculator": {
-    "whatIsIt": "The Binary Arithmetic Calculator provides students and educators with an instant, interactive calculation tool for computer science & digital logic. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for computer science & digital logic."
-  },
-  "twos-complement-calculator": {
-    "whatIsIt": "The Two's Complement & Signed Converter provides students and educators with an instant, interactive calculation tool for computer science & digital logic. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for computer science & digital logic."
-  },
-  "word-counter": {
-    "whatIsIt": "The Word, Character & Sentence Counter provides students and educators with an instant, interactive calculation tool for study productivity & writing. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for study productivity & writing."
-  },
-  "reading-time-calculator": {
-    "whatIsIt": "The Reading & Speaking Time Calculator provides students and educators with an instant, interactive calculation tool for study productivity & writing. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for study productivity & writing."
-  },
-  "words-to-pages-calculator": {
-    "whatIsIt": "The Words to Pages Converter provides students and educators with an instant, interactive calculation tool for study productivity & writing. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for study productivity & writing."
-  },
-  "case-converter": {
-    "whatIsIt": "The Text Case Converter provides students and educators with an instant, interactive calculation tool for study productivity & writing. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for study productivity & writing."
-  },
-  "pomodoro-timer": {
-    "whatIsIt": "The Pomodoro Study Timer & Tracker provides students and educators with an instant, interactive calculation tool for study productivity & writing. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for study productivity & writing."
-  },
-  "date-difference-calculator": {
-    "whatIsIt": "The Exam Countdown & Date Difference Calculator provides students and educators with an instant, interactive calculation tool for study productivity & writing. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for study productivity & writing."
-  },
-  "random-number-generator": {
-    "whatIsIt": "The Random Number & Team Generator provides students and educators with an instant, interactive calculation tool for study productivity & writing. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for study productivity & writing."
-  },
-  "length-converter": {
-    "whatIsIt": "The Length & Distance Converter provides students and educators with an instant, interactive calculation tool for universal measurement converters. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for universal measurement converters."
-  },
-  "weight-converter": {
-    "whatIsIt": "The Weight & Mass Converter provides students and educators with an instant, interactive calculation tool for universal measurement converters. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for universal measurement converters."
-  },
-  "temperature-converter": {
-    "whatIsIt": "The Temperature Converter provides students and educators with an instant, interactive calculation tool for universal measurement converters. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for universal measurement converters."
-  },
-  "time-converter": {
-    "whatIsIt": "The Time & Duration Converter provides students and educators with an instant, interactive calculation tool for universal measurement converters. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for universal measurement converters."
-  },
-  "speed-converter": {
-    "whatIsIt": "The Speed & Velocity Converter provides students and educators with an instant, interactive calculation tool for universal measurement converters. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for universal measurement converters."
+    "howToUse": [
+      "Select the 2D shape you want to calculate.",
+      "Enter the required dimensions for that specific shape.",
+      "Select Calculate Area to view the result."
+    ]
   },
   "area-converter": {
-    "whatIsIt": "The Area Measurement Converter provides students and educators with an instant, interactive calculation tool for universal measurement converters. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for universal measurement converters."
+    "howToUse": [
+      "Select your starting and target units.",
+      "Enter the value you want to convert.",
+      "The converted result will update instantly."
+    ]
+  },
+  "ascii-converter": {
+    "howToUse": [
+      "Enter your text string.",
+      "Select Convert to ASCII & Hex to view the decimal and hexadecimal values."
+    ]
+  },
+  "bandwidth-calculator": {
+    "howToUse": [
+      "Enter the file size and internet download speed.",
+      "Select Download Duration to view the estimated download time."
+    ]
+  },
+  "base-converter": {
+    "howToUse": [
+      "Enter your input value and select its current base.",
+      "Select Convert Bases to view the equivalent binary, octal, decimal, and hexadecimal values."
+    ]
+  },
+  "binary-arithmetic-calculator": {
+    "howToUse": [
+      "Enter the binary a, operation and binary b.",
+      "Select Compute Binary Arithmetic to view the binary result."
+    ]
+  },
+  "binomial-distribution-calculator": {
+    "howToUse": [
+      "Enter the number of trials, probability of success and number of successes.",
+      "Select Binomial Probability to view the exact probability p(x = k)."
+    ]
+  },
+  "bitwise-calculator": {
+    "howToUse": [
+      "Enter the operand a and operand b.",
+      "Select Bitwise Logic to view the calculated result."
+    ]
+  },
+  "bmi-calculator": {
+    "howToUse": [
+      "Enter the weight and height.",
+      "Select BMI to view the body mass index (bmi)."
+    ]
+  },
+  "bmr-calculator": {
+    "howToUse": [
+      "Enter the gender, age, weight, height and activity level.",
+      "Select Daily Caloric Needs to view the total daily energy expenditure (tdee)."
+    ]
+  },
+  "buffer-ph-calculator": {
+    "howToUse": [
+      "Enter the pka of weak acid, conjugate base conc [a-] and weak acid conc [ha].",
+      "Select Buffer pH (Henderson-Hasselbalch) to view the buffer ph."
+    ]
+  },
+  "calorimetry-calculator": {
+    "howToUse": [
+      "Enter the mass, specific heat capacity and temperature change.",
+      "Select Heat Energy (q) to view the heat energy transferred (q = mcδt)."
+    ]
+  },
+  "case-converter": {
+    "howToUse": [
+      "Enter the input text.",
+      "The converted result will update instantly."
+    ]
+  },
+  "cell-potential-calculator": {
+    "howToUse": [
+      "Enter the cathode standard potential and anode standard potential.",
+      "Select Standard Cell Potential to view the standard cell potential (e°_cell = e°_cat - e°_an)."
+    ]
+  },
+  "chemical-equation-balancer": {
+    "howToUse": [
+      "Enter the unbalanced chemical equation.",
+      "Select Balance to view the balanced chemical equation."
+    ]
+  },
+  "chemical-kinetics-calculator": {
+    "howToUse": [
+      "Enter the reaction order, initial conc [a]₀, rate constant and time.",
+      "Select Concentration & Half-Life to view the remaining conc [a] at time t."
+    ]
+  },
+  "chi-square-calculator": {
+    "howToUse": [
+      "Enter the observed frequencies and expected frequencies.",
+      "Select Chi-Square Test Statistic to view the chi-square statistic (χ²) and degrees of freedom (df)."
+    ]
+  },
+  "circle-calculator": {
+    "howToUse": [
+      "Enter the radius and sector angle θ.",
+      "Select Circle Metrics to view the total circle area (πr²)."
+    ]
+  },
+  "circuit-calculator": {
+    "howToUse": [
+      "Enter the resistor values.",
+      "Select Equivalent Circuit Resistance to view the series equivalent (r_eq = σ rᵢ) and parallel equivalent (1/r_eq = σ 1/rᵢ)."
+    ]
+  },
+  "circular-motion-calculator": {
+    "howToUse": [
+      "Enter the radius, linear speed and mass.",
+      "Select Centripetal Force to view the centripetal force (fc = mv²/r)."
+    ]
+  },
+  "compound-interest-calculator": {
+    "howToUse": [
+      "Enter the initial principal, monthly contribution, annual interest rate, term and compounding.",
+      "Select Compound Growth to view the future ending balance."
+    ]
+  },
+  "confidence-interval-calculator": {
+    "howToUse": [
+      "Enter the sample mean, sample standard deviation, sample size and confidence level.",
+      "Select Confidence Interval to view the confidence interval range."
+    ]
+  },
+  "coulombs-law-calculator": {
+    "howToUse": [
+      "Enter the charge 1, charge 2 and separation distance.",
+      "Select Electrostatic Force to view the electrostatic force (f = k·|q₁q₂|/r²)."
+    ]
+  },
+  "date-difference-calculator": {
+    "howToUse": [
+      "Enter the start date, end date and include end date in total count.",
+      "Select Date Difference to view the total duration."
+    ]
+  },
+  "density-calculator": {
+    "howToUse": [
+      "Enter the mass and volume.",
+      "Select Density to view the density (ρ = m / v)."
+    ]
+  },
+  "derivative-calculator": {
+    "howToUse": [
+      "Enter the function f.",
+      "Select Differentiate to view the first derivative f'(x) and second derivative f''(x)."
+    ]
+  },
+  "differential-equations-calculator": {
+    "howToUse": [
+      "Enter the first-order ode standard form, rate constant / parameter and initial condition y.",
+      "Select Solve Differential Equation to view the particular solution y(x)."
+    ]
+  },
+  "discount-calculator": {
+    "howToUse": [
+      "Enter the original price, primary discount, additional coupon / promo and sales tax.",
+      "Select Final Price to view the final price after tax."
+    ]
+  },
+  "dna-sequence-analyzer": {
+    "howToUse": [
+      "Enter the 5' to 3' dna sequence.",
+      "Select Analyze Sequence to view the complementary strand (3' → 5') and mrna transcript (5' → 3') and gc content % and estimated melting temp (tm)."
+    ]
+  },
+  "empirical-formula-calculator": {
+    "howToUse": [
+      "Enter the carbon %, hydrogen % and oxygen %.",
+      "Select Determine Empirical Formula to view the empirical formula."
+    ]
+  },
+  "exponent-calculator": {
+    "howToUse": [
+      "Enter the base and exponent.",
+      "Select Power to view the result (bˣ)."
+    ]
+  },
+  "final-grade-calculator": {
+    "howToUse": [
+      "Enter the current grade, desired target grade and final exam weight.",
+      "Select Required Score to view the required final exam score."
+    ]
+  },
+  "force-calculator": {
+    "howToUse": [
+      "Enter the mass and acceleration.",
+      "Select Net Force to view the net force (f = m · a)."
+    ]
+  },
+  "fraction-calculator": {
+    "howToUse": [
+      "Enter your required values.",
+      "Select Fraction to view the result fraction."
+    ]
+  },
+  "free-fall-calculator": {
+    "howToUse": [
+      "Enter the drop height.",
+      "Select Free Fall Metrics to view the impact velocity (v = √(2gh))."
+    ]
+  },
+  "friction-calculator": {
+    "howToUse": [
+      "Enter the coefficient of friction, mass of object and incline angle.",
+      "Select Friction Force to view the friction force (f = μ · n)."
+    ]
+  },
+  "grade-converter": {
+    "howToUse": [
+      "Select your current grading format (e.g., Letter Grade, Percentage).",
+      "Enter your grade value.",
+      "Select Convert Grade to view the equivalent scores across other formats."
+    ]
+  },
+  "gravitational-force-calculator": {
+    "howToUse": [
+      "Enter the mass 1, mass 2 and distance.",
+      "Select Gravitational Force to view the gravitational attraction (f = g·m₁m₂/r²)."
+    ]
+  },
+  "half-life-calculator": {
+    "howToUse": [
+      "Enter the initial quantity, half-life and elapsed time.",
+      "Select Remaining Quantity to view the remaining amount (n(t))."
+    ]
+  },
+  "hardy-weinberg-calculator": {
+    "howToUse": [
+      "Enter the recessive genotype frequency.",
+      "Select Allele & Genotype Frequencies to view the allele frequencies."
+    ]
+  },
+  "harmonic-motion-calculator": {
+    "howToUse": [
+      "Enter the oscillator type, mass and spring constant.",
+      "Select Period & Frequency to view the oscillation period (t)."
+    ]
+  },
+  "hourly-to-salary-calculator": {
+    "howToUse": [
+      "Enter the hourly wage, hours worked per week and weeks worked per year.",
+      "Select Salary Equivalents to view the equivalent annual salary."
+    ]
+  },
+  "ideal-gas-law": {
+    "howToUse": [
+      "Select the variable you want to solve for (Pressure, Volume, Temperature, or Moles).",
+      "Enter the known values for the remaining three variables.",
+      "Select Calculate to view the missing value."
+    ]
+  },
+  "inflation-calculator": {
+    "howToUse": [
+      "Enter the initial amount, annual inflation rate and time horizon.",
+      "Select Inflation Impact to view the future equivalent cost."
+    ]
+  },
+  "integral-calculator": {
+    "howToUse": [
+      "Enter the integrand function f, lower limit and upper limit.",
+      "Select Compute Definite & Indefinite Integral to view the indefinite integral ∫ f(x) dx and definite value ∫ₐᵇ f(x) dx."
+    ]
+  },
+  "kinematics-calculator": {
+    "howToUse": [
+      "Select the kinematic variable you need to calculate.",
+      "Enter the known values for the remaining parameters.",
+      "Select Calculate Motion Parameters to view the missing value."
+    ]
+  },
+  "lcm-gcd-calculator": {
+    "howToUse": [
+      "Enter the enter integers separated by commas.",
+      "Select LCM & GCD to view the gcd / hcf (greatest common divisor) and lcm (least common multiple)."
+    ]
+  },
+  "length-converter": {
+    "howToUse": [
+      "Select your starting and target units.",
+      "Enter the value you want to convert.",
+      "The converted result will update instantly."
+    ]
+  },
+  "lens-mirror-calculator": {
+    "howToUse": [
+      "Enter the focal length and object distance.",
+      "Select Image Properties to view the image distance (d_i)."
+    ]
+  },
+  "limit-calculator": {
+    "howToUse": [
+      "Enter the function f and approaching point.",
+      "Select Evaluate Limit to view the two-sided limit lim x→c f(x)."
+    ]
+  },
+  "linear-regression-calculator": {
+    "howToUse": [
+      "Enter the x values and y values.",
+      "Select Fit Linear Regression Model to view the line of best fit (y = mx + b) and correlation & determination."
+    ]
+  },
+  "logarithm-calculator": {
+    "howToUse": [
+      "Enter the number and base.",
+      "Select Logarithm to view the logarithm result (log_b(x))."
+    ]
+  },
+  "margin-markup-calculator": {
+    "howToUse": [
+      "Enter the cost price and selling / revenue price.",
+      "Select Margins to view the gross profit."
+    ]
+  },
+  "marks-percentage-calculator": {
+    "howToUse": [
+      "Enter the marks obtained and total maximum marks.",
+      "Select Percentage to view the calculated percentage."
+    ]
+  },
+  "matrix-calculator": {
+    "howToUse": [
+      "Enter the matrix a and matrix b.",
+      "Select Multiply Matrices (A × B) to view the product matrix (a × b)."
+    ]
+  },
+  "matrix-inverse-calculator": {
+    "howToUse": [
+      "Enter the 2×2 matrix a.",
+      "Select Inverse Matrix to view the inverse matrix a⁻¹."
+    ]
+  },
+  "molar-mass-calculator": {
+    "howToUse": [
+      "Enter the chemical formula.",
+      "Select Compute to view the molar mass."
+    ]
+  },
+  "molarity-calculator": {
+    "howToUse": [
+      "Enter the solute mass, molar mass and solution volume.",
+      "Select Molarity to view the solution concentration (m)."
+    ]
+  },
+  "moles-converter": {
+    "howToUse": [
+      "Enter the molar mass of the substance and the amount in grams.",
+      "Select Convert to Moles & Particles to view the resulting moles and number of molecules."
+    ]
+  },
+  "momentum-collision-calculator": {
+    "howToUse": [
+      "Enter the mass and initial velocity.",
+      "Select Elastic & Inelastic Collisions to view the elastic post-collision velocities and perfect inelastic (stick together)."
+    ]
+  },
+  "numerical-integration-calculator": {
+    "howToUse": [
+      "Enter the function f, lower, upper and even subintervals.",
+      "Select Compute Simpson's & Trapezoidal to view the simpson's 1/3 rule approximation."
+    ]
+  },
+  "ohms-law-calculator": {
+    "howToUse": [
+      "Enter any two known values (Voltage, Current, Resistance, or Power).",
+      "Select Calculate to find the remaining two missing values."
+    ]
+  },
+  "partial-derivative-calculator": {
+    "howToUse": [
+      "Enter the multivariable function f.",
+      "Select First & Second Partial Derivatives to view the ∂f / ∂x (treat y as constant) and ∂f / ∂y (treat x as constant) and ∂²f / ∂x² and mixed ∂²f / ∂x∂y (clairaut's)."
+    ]
+  },
+  "percent-composition-calculator": {
+    "howToUse": [
+      "Enter the chemical formula.",
+      "The mass percent composition will update automatically as you type."
+    ]
+  },
+  "percentage-calculator": {
+    "howToUse": [
+      "Enter the what is x% of y? and x is what percent of y?.",
+      "Select Percentages to view the result 1 (x% of y) and result 2 (percentage)."
+    ]
+  },
+  "percentage-change-calculator": {
+    "howToUse": [
+      "Enter the initial value and final value.",
+      "Select Change to view the percentage change."
+    ]
+  },
+  "percentile-calculator": {
+    "howToUse": [
+      "Enter the dataset and percentile rank.",
+      "Select Percentile Value to view the 75th percentile (q₃)."
+    ]
+  },
+  "permutations-combinations-calculator": {
+    "howToUse": [
+      "Enter the total items and selected items.",
+      "Select nPr & nCr to view the combinations ncr (order does not matter) and permutations npr (order does matter)."
+    ]
+  },
+  "ph-calculator": {
+    "howToUse": [
+      "Enter the hydrogen ion [h+].",
+      "Select pH & pOH to view the calculated ph (-log [h+])."
+    ]
+  },
+  "poisson-distribution-calculator": {
+    "howToUse": [
+      "Enter the average rate and number of occurrences.",
+      "Select Poisson Probability to view the exact probability p(x = k)."
+    ]
+  },
+  "polynomial-calculator": {
+    "howToUse": [
+      "Enter the polynomial p and evaluate p.",
+      "Select Analyze Polynomial to view the evaluation p(x)."
+    ]
+  },
+  "pomodoro-timer": {
+    "howToUse": [
+      "Enter your known values.",
+      "The focus session will update automatically as you type."
+    ]
+  },
+  "pressure-buoyancy-calculator": {
+    "howToUse": [
+      "Enter the fluid density, depth / submerged height and displaced volume.",
+      "Select Pressure & Buoyant Force to view the hydrostatic pressure (p = ρgh)."
+    ]
+  },
+  "prime-factorization-calculator": {
+    "howToUse": [
+      "Enter the enter integer.",
+      "Select Factorize Integer to view the prime factorization."
+    ]
+  },
+  "probability-calculator": {
+    "howToUse": [
+      "Enter the probability of event a: p and probability of event b: p.",
+      "Select Joint Probabilities to view the calculated result."
+    ]
+  },
+  "projectile-motion-calculator": {
+    "howToUse": [
+      "Enter the initial velocity, launch angle and initial launch height.",
+      "Select Trajectory to view the horizontal range (r)."
+    ]
+  },
+  "punnett-square": {
+    "howToUse": [
+      "Enter the parent 1 genotype and parent 2 genotype.",
+      "Select Generate Punnett Square to view the 2×2 punnett grid."
+    ]
+  },
+  "random-number-generator": {
+    "howToUse": [
+      "Enter the minimum value, maximum value and quantity of numbers.",
+      "The generated result will update automatically as you type."
+    ]
+  },
+  "ratio-calculator": {
+    "howToUse": [
+      "Enter the proportion solver.",
+      "Select Solve Ratio to view the solved value (d)."
+    ]
+  },
+  "reading-time-calculator": {
+    "howToUse": [
+      "Enter the word count and reading speed.",
+      "Select Reading Time to view the estimated silent reading time."
+    ]
+  },
+  "rent-split-calculator": {
+    "howToUse": [
+      "Enter the total apartment rent and split model.",
+      "Select Recalculate Shares to view the calculated result."
+    ]
+  },
+  "rref-calculator": {
+    "howToUse": [
+      "Enter the 2×3 augmented matrix.",
+      "Select Compute RREF (Gauss-Jordan) to view the reduced row echelon form."
+    ]
+  },
+  "sales-tax-calculator": {
+    "howToUse": [
+      "Enter the pre-tax amount, sales tax rate and quantity.",
+      "Select Sales Tax to view the total gross price (tax included)."
+    ]
+  },
+  "sample-size-calculator": {
+    "howToUse": [
+      "Enter the margin of error, confidence level and total population size.",
+      "Select Required Sample Size to view the recommended sample size (n)."
+    ]
+  },
+  "scientific-notation-calculator": {
+    "howToUse": [
+      "Enter the standard decimal number.",
+      "Select Convert Formats to view the scientific notation (a × 10ⁿ)."
+    ]
+  },
+  "sequence-series-calculator": {
+    "howToUse": [
+      "Select the progression type (Arithmetic or Geometric).",
+      "Enter the first term, number of terms, and the common difference or ratio.",
+      "Select Calculate Sequence to view the n-th term and sum."
+    ]
+  },
+  "set-calculator": {
+    "howToUse": [
+      "Enter the set a and set b.",
+      "Select Set Operations to view the union (a ∪ b) and intersection (a ∩ b) and difference (a  b) and symmetric difference (a δ b)."
+    ]
+  },
+  "significant-figures-calculator": {
+    "howToUse": [
+      "Enter the input number and round to sig figs.",
+      "Select Count & Round Sig Figs to view the significant figures count."
+    ]
+  },
+  "simple-interest-calculator": {
+    "howToUse": [
+      "Enter the principal amount, annual interest rate and time period.",
+      "Select Interest to view the total simple interest (i)."
+    ]
+  },
+  "simultaneous-equations-solver": {
+    "howToUse": [
+      "Enter your required values.",
+      "Select Solve Linear System to view the solution set and determinant (d)."
+    ]
+  },
+  "speed-converter": {
+    "howToUse": [
+      "Select your starting and target units.",
+      "Enter the value you want to convert.",
+      "The converted result will update instantly."
+    ]
+  },
+  "standard-deviation-calculator": {
+    "howToUse": [
+      "Enter the enter numbers.",
+      "Select Standard Deviation to view the sample standard deviation (s) and population standard deviation (σ)."
+    ]
+  },
+  "statistics-calculator": {
+    "howToUse": [
+      "Enter the dataset values.",
+      "Select Summary Statistics to view the calculated result."
+    ]
+  },
+  "stoichiometry-calculator": {
+    "howToUse": [
+      "Enter the reactant a moles and stoichiometric ratio.",
+      "Select Stoichiometric Product to view the required product b moles."
+    ]
+  },
+  "student-budget-calculator": {
+    "howToUse": [
+      "Enter the scholarship / aid, part-time job, rent & housing, food & groceries, books & courseware, transportation and personal & leisure.",
+      "Select Monthly Budget to view the net monthly cashflow."
+    ]
+  },
+  "subnet-calculator": {
+    "howToUse": [
+      "Enter the ipv4 address and cidr subnet prefix.",
+      "Select Subnet to view the subnet allocation."
+    ]
+  },
+  "target-heart-rate-calculator": {
+    "howToUse": [
+      "Enter the age and resting heart rate.",
+      "Select Training Zones to view the heart rate training zones."
+    ]
+  },
+  "target-marks-calculator": {
+    "howToUse": [
+      "Enter the target overall percentage, total academic marks / max score, marks scored so far and max marks of completed assessments.",
+      "Select Target Marks to view the required score on remaining tests."
+    ]
+  },
+  "taylor-series-calculator": {
+    "howToUse": [
+      "Enter the standard function f and order / degree.",
+      "Select Generate Maclaurin Series to view the series polynomial pₙ(x) (center a = 0)."
+    ]
+  },
+  "temperature-converter": {
+    "howToUse": [
+      "Select your starting and target units.",
+      "Enter the value you want to convert.",
+      "The converted result will update instantly."
+    ]
+  },
+  "time-converter": {
+    "howToUse": [
+      "Select your starting and target units.",
+      "Enter the value you want to convert.",
+      "The converted result will update instantly."
+    ]
+  },
+  "tip-bill-split-calculator": {
+    "howToUse": [
+      "Enter the bill total, tip percentage and number of people.",
+      "Select Split to view the per person share."
+    ]
+  },
+  "torque-calculator": {
+    "howToUse": [
+      "Enter the applied force, lever arm length and angle θ.",
+      "Select Torque to view the resulting torque (τ = r·f·sin θ)."
+    ]
+  },
+  "triangle-area-calculator": {
+    "howToUse": [
+      "Select your calculation method based on your known dimensions.",
+      "Enter the required side lengths, base, or height.",
+      "Select Calculate Area to view the triangle's area."
+    ]
+  },
+  "triangle-calculator": {
+    "howToUse": [
+      "Enter the triangle side lengths, side a, side b and side c.",
+      "Select Solve Triangle Angles & Area to view the angles (a, b, c)."
+    ]
+  },
+  "trigonometric-calculator": {
+    "howToUse": [
+      "Enter the angle and angle unit.",
+      "Select Trig Values to view the calculated result."
+    ]
+  },
+  "truth-table-generator": {
+    "howToUse": [
+      "Enter the boolean logic gate.",
+      "Select Generate Truth Table to view the calculated result."
+    ]
+  },
+  "twos-complement-calculator": {
+    "howToUse": [
+      "Enter the signed decimal integer.",
+      "Select Two's Complement to view the 8-bit representation."
+    ]
+  },
+  "unit-circle-calculator": {
+    "howToUse": [
+      "Enter the standard angle θ.",
+      "Select Inspect Angle Coordinates to view the unit circle coordinates (cos θ, sin θ)."
+    ]
+  },
+  "vector-calculator": {
+    "howToUse": [
+      "Enter the vector a and vector b.",
+      "Select Vector Operations to view the dot product (a · b)."
+    ]
   },
   "volume-converter": {
-    "whatIsIt": "The Volume & Fluid Capacity Converter provides students and educators with an instant, interactive calculation tool for universal measurement converters. It runs entirely client-side in your web browser with zero server latency.",
-    "howToUse": "1. Enter your known values into the corresponding input fields above.\n2. Review any optional calculation parameters or units.\n3. Click \"Calculate\" to generate the precise mathematical solution and copy the result with one tap.",
-    "formula": "Standard mathematical and physical equations apply. Check input values and units for dimensional consistency.",
-    "variables": {
-      "Input Values": "Numerical variables and parameters entered by the user.",
-      "Result": "Calculated value computed with floating-point precision."
-    },
-    "example": "Enter standard sample values to test the calculator and observe instant solution updates.",
-    "whenToUse": "Use this tool when completing homework assignments, lab reports, exam revision, or quick sanity checks for universal measurement converters."
+    "howToUse": [
+      "Select your starting and target units.",
+      "Enter the value you want to convert.",
+      "The converted result will update instantly."
+    ]
+  },
+  "volume-surface-area-calculator": {
+    "howToUse": [
+      "Enter the 3d solid, radius and height.",
+      "Select Volume & Surface Area to view the volume (v)."
+    ]
+  },
+  "water-intake-calculator": {
+    "howToUse": [
+      "Enter the body weight and daily exercise.",
+      "Select Daily Water Goal to view the recommended daily hydration."
+    ]
+  },
+  "wave-speed-calculator": {
+    "howToUse": [
+      "Enter the frequency and wavelength.",
+      "Select Wave Speed to view the wave speed (v = f · λ)."
+    ]
+  },
+  "weight-converter": {
+    "howToUse": [
+      "Select your starting and target units.",
+      "Enter the value you want to convert.",
+      "The converted result will update instantly."
+    ]
+  },
+  "weighted-grade-calculator": {
+    "howToUse": [
+      "Enter your required values.",
+      "Select Grade to view the overall weighted score and letter grade."
+    ]
+  },
+  "word-counter": {
+    "howToUse": [
+      "Enter the paste or type your text.",
+      "The result will update automatically as you type."
+    ]
+  },
+  "words-to-pages-calculator": {
+    "howToUse": [
+      "Enter the word count, line spacing, font size and font family.",
+      "Select Page Count to view the estimated standard pages."
+    ]
+  },
+  "work-energy-calculator": {
+    "howToUse": [
+      "Enter the mass, velocity and height.",
+      "Select Kinetic & Potential Energy to view the kinetic energy (ke = ½mv²)."
+    ]
+  },
+  "z-score-calculator": {
+    "howToUse": [
+      "Enter the raw score, population mean and standard deviation.",
+      "Select Z-Score to view the standardized z-score."
+    ]
+  },
+  "cgpa-percentage-calculator": {
+    "howToUse": [
+      "Enter your current CGPA on the 10-point scale.",
+      "Select your university's multiplier or enter a custom multiplier if needed.",
+      "Select Calculate to see the converted percentage."
+    ],
+    "formula": "Percentage = CGPA × Multiplier (Typically 9.5 for CBSE/AICTE)",
+    "note": "A 9.5 multiplier is standard for many Indian boards, though some universities use a direct 10.0 multiplier."
+  },
+  "gpa-calculator": {
+    "howToUse": [
+      "Add each course and select its expected or current grade.",
+      "Enter the credit hours assigned to each course.",
+      "Review the calculated semester GPA after all courses are entered."
+    ]
+  },
+  "attendance-calculator": {
+    "howToUse": [
+      "Enter the total classes held so far and the classes you actually attended.",
+      "Enter your university's required attendance percentage.",
+      "Select Calculate to see how many classes you can afford to miss, or how many you need to attend to hit the target."
+    ]
+  },
+  "student-loan-calculator": {
+    "howToUse": [
+      "Enter the total loan amount.",
+      "Enter the annual interest rate and repayment period in years.",
+      "Select Calculate to review the estimated monthly EMI and total interest."
+    ]
+  },
+  "quadratic-formula-calculator": {
+    "howToUse": [
+      "Enter coefficients a, b, and c from your equation.",
+      "Select Calculate to see the resulting roots."
+    ],
+    "formula": "x = (-b ± √(b² - 4ac)) / 2a"
   }
 };
