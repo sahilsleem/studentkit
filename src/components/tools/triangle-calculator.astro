@@ -4,44 +4,44 @@ export interface Props {
 }
 ---
 
-<div class="space-y-4 sm:space-y-5">
-  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-      <div class="space-y-4">
-        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500">Triangle Side Lengths (a, b, c)</label>
+<div class="space-y-3 sm:space-y-3.5">
+  <div class="bg-card rounded-2xl border border-border-line/90 shadow-sm p-4 sm:p-5">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+      <div class="space-y-3.5">
+        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted">Triangle Side Lengths (a, b, c)</label>
         <div class="grid grid-cols-3 gap-2">
           <div>
-            <label class="block text-xs text-slate-500 mb-1">Side a</label>
-            <input type="number" id="tri-a" step="any" min="0.1" placeholder="e.g. 5" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm" />
+            <label class="block text-xs text-slate-muted mb-1">Side a</label>
+            <input type="number" id="tri-a" step="any" min="0.1" placeholder="e.g. 5" class="w-full px-3 py-2 bg-page border border-border-line rounded-lg text-sm" />
           </div>
           <div>
-            <label class="block text-xs text-slate-500 mb-1">Side b</label>
-            <input type="number" id="tri-b" step="any" min="0.1" placeholder="e.g. 6" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm" />
+            <label class="block text-xs text-slate-muted mb-1">Side b</label>
+            <input type="number" id="tri-b" step="any" min="0.1" placeholder="e.g. 6" class="w-full px-3 py-2 bg-page border border-border-line rounded-lg text-sm" />
           </div>
           <div>
-            <label class="block text-xs text-slate-500 mb-1">Side c</label>
-            <input type="number" id="tri-c" step="any" min="0.1" placeholder="e.g. 7" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm" />
+            <label class="block text-xs text-slate-muted mb-1">Side c</label>
+            <input type="number" id="tri-c" step="any" min="0.1" placeholder="e.g. 7" class="w-full px-3 py-2 bg-page border border-border-line rounded-lg text-sm" />
           </div>
         </div>
 
-        <button id="tri-calc-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+        <button id="tri-calc-btn" type="button" class="w-full px-5 sm:px-6 py-3.5 sm:py-4 text-base bg-brand hover:bg-brand-accent text-card font-semibold rounded-xl shadow-sm transition-all">
           Solve Triangle Angles & Area
         </button>
       </div>
 
-      <div class="flex flex-col justify-between p-6 bg-slate-50 rounded-xl border border-slate-200/80">
+      <div class="flex flex-col justify-between p-4 sm:p-5 bg-page rounded-xl border border-border-line/80">
         <div>
-          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Angles (A, B, C)</div>
-          <div id="tri-angles" class="text-2xl font-extrabold text-blue-600 mt-2 font-mono">--</div>
-          <div id="tri-area" class="text-xs text-slate-500 mt-2">Area = 14.70 sq units</div>
+          <div class="text-xs font-semibold text-slate-muted uppercase tracking-wider">Angles (A, B, C)</div>
+          <div id="tri-angles" class="text-2xl font-extrabold text-brand mt-1 font-mono break-words">--</div>
+          <div id="tri-area" class="text-xs text-slate-muted mt-1">Area = 14.70 sq units</div>
         </div>
 
-        <div class="pt-4 border-t border-slate-200/80 mt-6 space-y-2 text-xs text-slate-600">
-          <div class="flex justify-between">
+        <div class="pt-3 border-t border-border-line/80 mt-4 space-y-1.5 text-xs text-slate-muted">
+          <div class="flex flex-wrap justify-between gap-2">
             <span>Perimeter:</span>
-            <strong id="tri-perimeter" class="text-slate-800 font-mono">18.00 units</strong>
+            <strong id="tri-perimeter" class="text-ink font-mono break-words">18.00 units</strong>
           </div>
-          <div class="flex justify-between">
+          <div class="flex flex-wrap justify-between gap-2">
             <span>Triangle Classification:</span>
             <strong id="tri-type" class="text-emerald-600 font-semibold">Acute Scalene</strong>
           </div>

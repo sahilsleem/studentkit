@@ -4,51 +4,51 @@ export interface Props {
 }
 ---
 
-<div class="space-y-4 sm:space-y-5">
-  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-      <div class="space-y-4">
+<div class="space-y-3 sm:space-y-3.5">
+  <div class="bg-card rounded-2xl border border-border-line/90 shadow-sm p-4 sm:p-5">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+      <div class="space-y-3.5">
         <div class="grid grid-cols-2 gap-3">
           <div>
-            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Minimum Value</label>
-            <input type="number" id="rng-min" placeholder="e.g. 1" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Minimum Value</label>
+            <input type="number" id="rng-min" placeholder="e.g. 1" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-ink text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent" />
           </div>
           <div>
-            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Maximum Value</label>
-            <input type="number" id="rng-max" placeholder="e.g. 100" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Maximum Value</label>
+            <input type="number" id="rng-max" placeholder="e.g. 100" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-ink text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent" />
           </div>
         </div>
 
         <div>
-          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Quantity of Numbers</label>
-          <input type="number" id="rng-count" min="1" max="100" placeholder="e.g. 5" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Quantity of Numbers</label>
+          <input type="number" id="rng-count" min="1" max="100" placeholder="e.g. 5" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-ink text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent" />
         </div>
 
         <div class="space-y-2 pt-2">
-          <label class="flex items-center gap-2 text-xs text-slate-600">
-            <input type="checkbox" id="rng-unique" checked class="rounded border-slate-300 text-blue-600 focus:ring-blue-500" />
+          <label class="flex items-center gap-2 text-xs text-slate-muted">
+            <input type="checkbox" id="rng-unique" checked class="rounded border-border-line text-brand focus:ring-brand-accent" />
             Allow unique numbers only (no duplicates)
           </label>
-          <label class="flex items-center gap-2 text-xs text-slate-600">
-            <input type="checkbox" id="rng-sort" class="rounded border-slate-300 text-blue-600 focus:ring-blue-500" />
+          <label class="flex items-center gap-2 text-xs text-slate-muted">
+            <input type="checkbox" id="rng-sort" class="rounded border-border-line text-brand focus:ring-brand-accent" />
             Sort generated numbers ascending
           </label>
         </div>
 
-        <button id="rng-gen-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+        <button id="rng-gen-btn" type="button" class="w-full px-5 sm:px-6 py-3.5 sm:py-4 text-base bg-brand hover:bg-brand-accent text-card font-semibold rounded-xl shadow-sm transition-all">
           Generate Numbers
         </button>
       </div>
 
-      <div class="p-6 bg-slate-50 rounded-xl border border-slate-200/80 flex flex-col justify-between">
+      <div class="p-4 sm:p-5 bg-page rounded-xl border border-border-line/80 flex flex-col justify-between">
         <div>
-          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Generated Result</div>
+          <div class="text-xs font-semibold text-slate-muted uppercase tracking-wider mb-3">Generated Result</div>
           <div id="rng-results-container" class="flex flex-wrap gap-2"></div>
         </div>
 
-        <div class="pt-4 border-t border-slate-200/80 mt-6 flex items-center justify-between text-xs text-slate-500">
+        <div class="pt-3 border-t border-border-line/80 mt-4 flex items-center justify-between text-xs text-slate-muted">
           <span id="rng-stats">Sum: -- | Avg: --</span>
-          <button id="rng-copy-btn" type="button" class="text-blue-600 hover:text-blue-700 font-semibold">Copy All</button>
+          <button id="rng-copy-btn" type="button" class="text-brand hover:text-brand-accent font-semibold">Copy All</button>
         </div>
       </div>
     </div>
@@ -99,7 +99,7 @@ export interface Props {
 
     if (container) {
       container.innerHTML = results.map(n =>
-        '<div class="px-4 py-2 bg-white rounded-xl border border-slate-200 text-lg font-bold text-blue-600 font-mono shadow-sm">' + n + '</div>'
+        '<div class="px-3.5 py-2.5 bg-card rounded-xl border border-border-line text-lg font-bold text-brand font-mono shadow-sm">' + n + '</div>'
       ).join('');
     }
 

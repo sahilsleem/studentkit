@@ -4,41 +4,41 @@ export interface Props {
 }
 ---
 
-<div class="space-y-4 sm:space-y-5">
-  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-      <div class="space-y-4">
+<div class="space-y-3 sm:space-y-3.5">
+  <div class="bg-card rounded-2xl border border-border-line/90 shadow-sm p-4 sm:p-5">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+      <div class="space-y-3.5">
         <div>
-          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Binary A</label>
-          <input type="text" id="ba-a" placeholder="e.g. 10110" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm font-mono" />
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Binary A</label>
+          <input type="text" id="ba-a" placeholder="e.g. 10110" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-sm font-mono" />
         </div>
         <div>
-          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Operation</label>
-          <select id="ba-op" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold">
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Operation</label>
+          <select id="ba-op" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-sm font-bold">
             <option value="+" selected>+ (Addition)</option>
             <option value="-">- (Subtraction)</option>
             <option value="*">× (Multiplication)</option>
           </select>
         </div>
         <div>
-          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Binary B</label>
-          <input type="text" id="ba-b" placeholder="e.g. 01101" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm font-mono" />
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Binary B</label>
+          <input type="text" id="ba-b" placeholder="e.g. 01101" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-sm font-mono" />
         </div>
 
-        <button id="ba-calc-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+        <button id="ba-calc-btn" type="button" class="w-full px-5 sm:px-6 py-3.5 sm:py-4 text-base bg-brand hover:bg-brand-accent text-card font-semibold rounded-xl shadow-sm transition-all">
           Compute Binary Arithmetic
         </button>
       </div>
 
-      <div class="flex flex-col justify-between p-6 bg-slate-50 rounded-xl border border-slate-200/80">
+      <div class="flex flex-col justify-between p-4 sm:p-5 bg-page rounded-xl border border-border-line/80">
         <div>
-          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Binary Result</div>
-          <div id="ba-res" class="text-4xl font-extrabold text-blue-600 mt-2 font-mono">--</div>
+          <div class="text-xs font-semibold text-slate-muted uppercase tracking-wider">Binary Result</div>
+          <div id="ba-res" class="text-4xl font-extrabold text-brand mt-1 font-mono break-words">--</div>
         </div>
 
-        <div class="pt-4 border-t border-slate-200/80 mt-6 text-xs text-slate-600">
+        <div class="pt-3 border-t border-border-line/80 mt-4 text-xs text-slate-muted">
           <span>Decimal Equivalent: </span>
-          <strong id="ba-dec" class="text-slate-800 font-mono">--</strong>
+          <strong id="ba-dec" class="text-ink font-mono break-words">--</strong>
         </div>
       </div>
     </div>

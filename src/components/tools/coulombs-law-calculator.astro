@@ -4,33 +4,33 @@ export interface Props {
 }
 ---
 
-<div class="space-y-4 sm:space-y-5">
-  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-      <div class="space-y-4">
+<div class="space-y-3 sm:space-y-3.5">
+  <div class="bg-card rounded-2xl border border-border-line/90 shadow-sm p-4 sm:p-5">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+      <div class="space-y-3.5">
         <div>
-          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Charge 1 (q₁ in Coulombs)</label>
-          <input type="text" id="cl-q1" placeholder="e.g. 2e-6" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm font-mono" />
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Charge 1 (q₁ in Coulombs)</label>
+          <input type="text" id="cl-q1" placeholder="e.g. 2e-6" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-sm font-mono" />
         </div>
         <div>
-          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Charge 2 (q₂ in Coulombs)</label>
-          <input type="text" id="cl-q2" placeholder="e.g. -5e-6" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm font-mono" />
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Charge 2 (q₂ in Coulombs)</label>
+          <input type="text" id="cl-q2" placeholder="e.g. -5e-6" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-sm font-mono" />
         </div>
         <div>
-          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Separation Distance (r in meters)</label>
-          <input type="number" id="cl-r" placeholder="e.g. 0.1" min="0.001" step="any" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm" />
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Separation Distance (r in meters)</label>
+          <input type="number" id="cl-r" placeholder="e.g. 0.1" min="0.001" step="any" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-sm" />
         </div>
 
-        <button id="cl-calc-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+        <button id="cl-calc-btn" type="button" class="w-full px-5 sm:px-6 py-3.5 sm:py-4 text-base bg-brand hover:bg-brand-accent text-card font-semibold rounded-xl shadow-sm transition-all">
           Calculate Electrostatic Force
         </button>
       </div>
 
-      <div class="flex flex-col justify-between p-6 bg-slate-50 rounded-xl border border-slate-200/80">
+      <div class="flex flex-col justify-between p-4 sm:p-5 bg-page rounded-xl border border-border-line/80">
         <div>
-          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Electrostatic Force (F = k·|q₁q₂|/r²)</div>
-          <div id="cl-force" class="text-4xl font-extrabold text-blue-600 mt-2 font-mono">--</div>
-          <div id="cl-type" class="text-xs text-rose-600 font-semibold mt-2">Attractive Force (Opposite Charges)</div>
+          <div class="text-xs font-semibold text-slate-muted uppercase tracking-wider">Electrostatic Force (F = k·|q₁q₂|/r²)</div>
+          <div id="cl-force" class="text-4xl font-extrabold text-brand mt-1 font-mono break-words">--</div>
+          <div id="cl-type" class="text-xs text-rose-600 font-semibold mt-1">Attractive Force (Opposite Charges)</div>
         </div>
       </div>
     </div>

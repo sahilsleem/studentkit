@@ -61,11 +61,11 @@ const appSchema = {
 
   <div class="max-w-4xl mx-auto">
     <!-- Breadcrumbs -->
-    <nav class="flex text-xs text-slate-500 mb-3" aria-label="Breadcrumb">
+    <nav class="flex text-xs text-slate-muted mb-3" aria-label="Breadcrumb">
       <ol class="inline-flex items-center space-x-1 sm:space-x-1.5">
         <li class="inline-flex items-center">
-          <a href="/" class="inline-flex items-center hover:text-blue-600 transition-colors">
-            <svg class="w-3.5 h-3.5 mr-1 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <a href="/" class="inline-flex items-center hover:text-brand transition-colors">
+            <svg class="w-3.5 h-3.5 mr-1 text-slate-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
             </svg>
             Home
@@ -73,18 +73,18 @@ const appSchema = {
         </li>
         <li>
           <div class="flex items-center">
-            <svg class="w-3.5 h-3.5 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <svg class="w-3.5 h-3.5 text-border-line" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
             </svg>
-            <a href="/tools" class="ml-1 hover:text-blue-600 transition-colors">Tools</a>
+            <a href="/tools" class="ml-1 hover:text-brand transition-colors">Tools</a>
           </div>
         </li>
         <li aria-current="page">
           <div class="flex items-center">
-            <svg class="w-3.5 h-3.5 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <svg class="w-3.5 h-3.5 text-border-line" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
             </svg>
-            <span class="ml-1 text-slate-900 font-medium truncate max-w-[160px] sm:max-w-none">{tool.title}</span>
+            <span class="ml-1 text-ink font-medium truncate max-w-[160px] sm:max-w-none">{tool.title}</span>
           </div>
         </li>
       </ol>
@@ -92,12 +92,12 @@ const appSchema = {
 
     <!-- Tool Header -->
     <div class="mb-5">
-      <h1 class="text-xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mb-1">{tool.title}</h1>
-      <p class="text-xs sm:text-sm text-slate-500 max-w-xl">{tool.description}</p>
+      <h1 class="text-xl sm:text-3xl font-extrabold text-ink tracking-tight mb-1">{tool.title}</h1>
+      <p class="text-xs sm:text-sm text-slate-muted max-w-xl">{tool.description}</p>
     </div>
 
     <!-- Active Tool Interactive Container -->
-    <div class="mb-6">
+    <div class="mb-4">
       <slot />
     </div>
 
@@ -105,12 +105,12 @@ const appSchema = {
 
     <!-- Educational Content -->
     {toolContent[tool.id] && (
-      <div class="mt-6 pt-5 border-t border-slate-200">
+      <div class="mt-4 pt-5 border-t border-border-line">
 
         {toolContent[tool.id].howToUse && (
           <section class="mb-5 last:mb-0">
-            <h2 class="text-base font-bold text-slate-900 mb-2">How to Use</h2>
-            <ol class="list-decimal list-outside ml-4 text-xs sm:text-sm text-slate-600 space-y-1.5">
+            <h2 class="text-base font-bold text-ink mb-1">How to Use</h2>
+            <ol class="list-decimal list-outside ml-4 text-xs sm:text-sm text-slate-muted space-y-1.5">
               {toolContent[tool.id].howToUse!.map((step: string) => (
                 <li class="pl-1">{step}</li>
               ))}
@@ -120,7 +120,7 @@ const appSchema = {
 
         {toolContent[tool.id].note && (
           <section class="mb-5 last:mb-0">
-            <div class="bg-amber-50/50 border-l-4 border-amber-400 p-3 rounded-r-xl text-slate-700 text-xs sm:text-sm leading-relaxed">
+            <div class="bg-amber-50/50 border-l-4 border-amber-400 p-3 rounded-r-xl text-ink text-xs sm:text-sm leading-relaxed">
               <strong>Note:</strong> {toolContent[tool.id].note}
             </div>
           </section>
@@ -131,12 +131,12 @@ const appSchema = {
 
     <!-- Related Tools Grid -->
     {relatedTools.length > 0 && (
-      <div class="pt-5 border-t border-slate-200 mt-6">
-        <h3 class="text-base font-bold text-slate-900 mb-3">Related Tools</h3>
+      <div class="pt-5 border-t border-border-line mt-4">
+        <h3 class="text-base font-bold text-ink mb-3">Related Tools</h3>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3">
           {relatedTools.map(t => (
-            <a href={`/tools/${t.slug}`} class="group flex items-center p-3 bg-white rounded-xl border border-slate-200 hover:border-blue-500 hover:shadow-xs transition-all min-h-[44px]">
-              <h4 class="font-semibold text-slate-900 group-hover:text-blue-600 text-xs sm:text-sm truncate">{t.title}</h4>
+            <a href={`/tools/${t.slug}`} class="group flex items-center p-3 bg-card rounded-xl border border-border-line hover:border-brand-accent hover:shadow-xs transition-all min-h-[44px]">
+              <h4 class="font-semibold text-ink group-hover:text-brand text-xs sm:text-sm truncate">{t.title}</h4>
             </a>
           ))}
         </div>

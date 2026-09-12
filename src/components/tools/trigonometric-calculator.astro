@@ -4,44 +4,44 @@ export interface Props {
 }
 ---
 
-<div class="space-y-4 sm:space-y-5">
-  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-      <div class="space-y-4">
+<div class="space-y-3 sm:space-y-3.5">
+  <div class="bg-card rounded-2xl border border-border-line/90 shadow-sm p-4 sm:p-5">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+      <div class="space-y-3.5">
         <div>
-          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Angle (θ)</label>
-          <input type="number" id="trig-val" step="any" placeholder="e.g. 45" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Angle (θ)</label>
+          <input type="number" id="trig-val" step="any" placeholder="e.g. 45" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-ink text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent" />
         </div>
 
         <div>
-          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Angle Unit</label>
-          <select id="trig-unit" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Angle Unit</label>
+          <select id="trig-unit" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-ink text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent">
             <option value="deg" selected>Degrees (°)</option>
             <option value="rad">Radians (rad)</option>
           </select>
         </div>
 
-        <button id="trig-calc-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+        <button id="trig-calc-btn" type="button" class="w-full px-5 sm:px-6 py-3.5 sm:py-4 text-base bg-brand hover:bg-brand-accent text-card font-semibold rounded-xl shadow-sm transition-all">
           Calculate Trig Values
         </button>
       </div>
 
-      <div class="p-6 bg-slate-50 rounded-xl border border-slate-200/80 grid grid-cols-2 gap-4">
-        <div class="bg-white p-3 rounded-lg border border-slate-200">
-          <div class="text-xs text-slate-500 font-semibold">sin(θ)</div>
-          <div id="trig-sin" class="text-lg font-bold text-blue-600 font-mono mt-0.5">0.7071</div>
+      <div class="p-4 sm:p-5 bg-page rounded-xl border border-border-line/80 grid grid-cols-2 gap-4">
+        <div class="bg-card p-3 rounded-lg border border-border-line">
+          <div class="text-xs text-slate-muted font-semibold">sin(θ)</div>
+          <div id="trig-sin" class="text-lg font-bold text-brand font-mono mt-0.5">0.7071</div>
         </div>
-        <div class="bg-white p-3 rounded-lg border border-slate-200">
-          <div class="text-xs text-slate-500 font-semibold">cos(θ)</div>
-          <div id="trig-cos" class="text-lg font-bold text-blue-600 font-mono mt-0.5">0.7071</div>
+        <div class="bg-card p-3 rounded-lg border border-border-line">
+          <div class="text-xs text-slate-muted font-semibold">cos(θ)</div>
+          <div id="trig-cos" class="text-lg font-bold text-brand font-mono mt-0.5">0.7071</div>
         </div>
-        <div class="bg-white p-3 rounded-lg border border-slate-200">
-          <div class="text-xs text-slate-500 font-semibold">tan(θ)</div>
-          <div id="trig-tan" class="text-lg font-bold text-blue-600 font-mono mt-0.5">1.0000</div>
+        <div class="bg-card p-3 rounded-lg border border-border-line">
+          <div class="text-xs text-slate-muted font-semibold">tan(θ)</div>
+          <div id="trig-tan" class="text-lg font-bold text-brand font-mono mt-0.5">1.0000</div>
         </div>
-        <div class="bg-white p-3 rounded-lg border border-slate-200">
-          <div class="text-xs text-slate-500 font-semibold">csc(θ) / sec(θ)</div>
-          <div id="trig-sec" class="text-sm font-bold text-slate-700 font-mono mt-0.5">1.4142</div>
+        <div class="bg-card p-3 rounded-lg border border-border-line">
+          <div class="text-xs text-slate-muted font-semibold">csc(θ) / sec(θ)</div>
+          <div id="trig-sec" class="text-sm font-bold text-ink font-mono mt-0.5">1.4142</div>
         </div>
       </div>
     </div>

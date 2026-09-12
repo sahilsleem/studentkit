@@ -51,25 +51,25 @@ const breadcrumbSchema = {
   </Fragment>
 
   <!-- Breadcrumbs -->
-  <nav class="flex text-xs text-slate-500 mb-3" aria-label="Breadcrumb">
+  <nav class="flex text-xs text-slate-muted mb-3" aria-label="Breadcrumb">
     <ol class="inline-flex items-center space-x-1.5">
       <li class="inline-flex items-center">
-        <a href="/" class="inline-flex items-center hover:text-blue-600 transition-colors">
+        <a href="/" class="inline-flex items-center hover:text-brand transition-colors">
           Home
         </a>
       </li>
       <li aria-current="page" class="flex items-center">
-        <svg class="w-3.5 h-3.5 text-slate-400 mx-1" fill="currentColor" viewBox="0 0 20 20">
+        <svg class="w-3.5 h-3.5 text-slate-muted mx-1" fill="currentColor" viewBox="0 0 20 20">
           <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
         </svg>
-        <span class="text-slate-800 font-medium">{categoryData.name}</span>
+        <span class="text-ink font-medium">{categoryData.name}</span>
       </li>
     </ol>
   </nav>
 
   <!-- Category Header (Minimal) -->
   <div class="mb-4 text-left">
-    <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">{categoryData.name}</h1>
+    <h1 class="text-2xl sm:text-3xl font-extrabold text-ink tracking-tight">{categoryData.name}</h1>
   </div>
 
   <!-- Single Consolidated Tools Collection (Compact) -->
@@ -77,15 +77,15 @@ const breadcrumbSchema = {
     {categoryTools.map(tool => (
       <a
         href={`/tools/${tool.slug}`}
-        class="group flex items-center justify-between p-2.5 sm:p-3 bg-white rounded-xl border border-slate-200/80 hover:border-blue-500 hover:shadow-xs transition-all min-h-[44px]"
+        class="group flex items-center justify-between p-2.5 sm:p-3 bg-card rounded-xl border border-border-line/80 hover:border-brand-accent hover:shadow-xs transition-all min-h-[44px]"
       >
         <div class="flex items-center gap-2.5 sm:gap-3 flex-1 min-w-0 pr-1">
-          <div class="flex items-center justify-center w-6 h-6 rounded-md bg-blue-50/80 text-blue-600 shrink-0 group-hover:bg-blue-600 group-hover:text-white transition-colors [&>svg]:w-3.5 [&>svg]:h-3.5" set:html={tool.icon} />
-          <span class="text-[13px] sm:text-sm font-semibold text-slate-900 group-hover:text-blue-600 transition-colors leading-tight sm:truncate">
+          <div class="flex items-center justify-center w-6 h-6 rounded-md bg-brand-light/80 text-brand shrink-0 group-hover:bg-brand group-hover:text-card transition-colors [&>svg]:w-3.5 [&>svg]:h-3.5" set:html={tool.icon} />
+          <span class="text-[13px] sm:text-sm font-semibold text-ink group-hover:text-brand transition-colors leading-tight sm:truncate">
             {tool.title}
           </span>
         </div>
-        <svg class="w-3.5 h-3.5 text-slate-300 shrink-0 group-hover:text-blue-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <svg class="w-3.5 h-3.5 text-border-line shrink-0 group-hover:text-brand-accent transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
         </svg>
       </a>

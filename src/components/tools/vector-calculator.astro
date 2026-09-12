@@ -4,48 +4,48 @@ export interface Props {
 }
 ---
 
-<div class="space-y-4 sm:space-y-5">
-  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-      <div class="space-y-4">
+<div class="space-y-3 sm:space-y-3.5">
+  <div class="bg-card rounded-2xl border border-border-line/90 shadow-sm p-4 sm:p-5">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+      <div class="space-y-3.5">
         <div>
-          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Vector A (x, y, z)</label>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Vector A (x, y, z)</label>
           <div class="grid grid-cols-3 gap-2">
-            <input type="number" id="vec-a1" placeholder="e.g. 3" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm text-center" />
-            <input type="number" id="vec-a2" placeholder="e.g. -2" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm text-center" />
-            <input type="number" id="vec-a3" placeholder="e.g. 4" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm text-center" />
+            <input type="number" id="vec-a1" placeholder="e.g. 3" class="w-full px-3 py-2 bg-page border border-border-line rounded-lg text-sm text-center" />
+            <input type="number" id="vec-a2" placeholder="e.g. -2" class="w-full px-3 py-2 bg-page border border-border-line rounded-lg text-sm text-center" />
+            <input type="number" id="vec-a3" placeholder="e.g. 4" class="w-full px-3 py-2 bg-page border border-border-line rounded-lg text-sm text-center" />
           </div>
         </div>
 
         <div>
-          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Vector B (x, y, z)</label>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Vector B (x, y, z)</label>
           <div class="grid grid-cols-3 gap-2">
-            <input type="number" id="vec-b1" placeholder="e.g. 1" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm text-center" />
-            <input type="number" id="vec-b2" placeholder="e.g. 5" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm text-center" />
-            <input type="number" id="vec-b3" placeholder="e.g. -2" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm text-center" />
+            <input type="number" id="vec-b1" placeholder="e.g. 1" class="w-full px-3 py-2 bg-page border border-border-line rounded-lg text-sm text-center" />
+            <input type="number" id="vec-b2" placeholder="e.g. 5" class="w-full px-3 py-2 bg-page border border-border-line rounded-lg text-sm text-center" />
+            <input type="number" id="vec-b3" placeholder="e.g. -2" class="w-full px-3 py-2 bg-page border border-border-line rounded-lg text-sm text-center" />
           </div>
         </div>
 
-        <button id="vec-calc-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+        <button id="vec-calc-btn" type="button" class="w-full px-5 sm:px-6 py-3.5 sm:py-4 text-base bg-brand hover:bg-brand-accent text-card font-semibold rounded-xl shadow-sm transition-all">
           Calculate Vector Operations
         </button>
       </div>
 
-      <div class="flex flex-col justify-between p-6 bg-slate-50 rounded-xl border border-slate-200/80">
+      <div class="flex flex-col justify-between p-4 sm:p-5 bg-page rounded-xl border border-border-line/80">
         <div>
-          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Dot Product (A · B)</div>
-          <div id="vec-dot" class="text-3xl font-extrabold text-blue-600 mt-2 font-mono">--</div>
-          <div id="vec-angle" class="text-xs text-slate-500 mt-2">Angle Between Vectors: 122.8°</div>
+          <div class="text-xs font-semibold text-slate-muted uppercase tracking-wider">Dot Product (A · B)</div>
+          <div id="vec-dot" class="text-3xl font-extrabold text-brand mt-1 font-mono break-words">--</div>
+          <div id="vec-angle" class="text-xs text-slate-muted mt-1">Angle Between Vectors: 122.8°</div>
         </div>
 
-        <div class="pt-4 border-t border-slate-200/80 mt-6 space-y-2 text-xs text-slate-600">
-          <div class="flex justify-between">
+        <div class="pt-3 border-t border-border-line/80 mt-4 space-y-1.5 text-xs text-slate-muted">
+          <div class="flex flex-wrap justify-between gap-2">
             <span>Cross Product (A × B):</span>
-            <strong id="vec-cross" class="text-slate-800 font-mono">(-16, 10, 17)</strong>
+            <strong id="vec-cross" class="text-ink font-mono break-words">(-16, 10, 17)</strong>
           </div>
-          <div class="flex justify-between">
+          <div class="flex flex-wrap justify-between gap-2">
             <span>Magnitudes:</span>
-            <strong id="vec-mags" class="text-slate-800 font-mono">|A| = 5.39, |B| = 5.48</strong>
+            <strong id="vec-mags" class="text-ink font-mono break-words">|A| = 5.39, |B| = 5.48</strong>
           </div>
         </div>
       </div>

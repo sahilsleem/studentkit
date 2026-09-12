@@ -59,26 +59,26 @@ const searchIndex = tools.map(tool => ({
 
   <!-- Clean, Left-Aligned Hero -->
   <section class="text-left pt-1 pb-5 sm:pt-4 sm:pb-6">
-    <h1 class="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight max-w-3xl leading-tight mb-2">
-      Useful tools for <span class="text-blue-600">everyday studying</span>.
+    <h1 class="text-2xl sm:text-4xl font-extrabold text-ink tracking-tight max-w-3xl leading-tight mb-2">
+      Useful tools for <span class="text-brand-accent">everyday studying</span>.
     </h1>
 
-    <p class="text-sm sm:text-base text-slate-600 max-w-xl mb-4 leading-relaxed">
+    <p class="text-sm sm:text-base text-slate-muted max-w-xl mb-4 leading-relaxed">
       Simple tools for grades, maths, science, and everyday student life.
     </p>
 
     <!-- Prominent Interactive Search Field (Inline) -->
     <div class="max-w-xl relative" id="hero-search-wrapper">
       <div class="relative flex items-center">
-        <div class="absolute inset-y-0 left-0 pl-3.5 sm:pl-4 flex items-center pointer-events-none text-slate-400">
-          <svg class="w-5 h-5 text-slate-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <div class="absolute inset-y-0 left-0 pl-3.5 sm:pl-4 flex items-center pointer-events-none text-slate-muted">
+          <svg class="w-5 h-5 text-brand-accent shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
           </svg>
         </div>
         <input
           type="text"
           id="hero-search-input"
-          class="w-full pl-11 pr-10 py-2.5 sm:py-3 bg-white border border-slate-200 hover:border-blue-500 focus:border-blue-600 focus:ring-2 focus:ring-blue-600/20 rounded-xl shadow-sm text-slate-900 placeholder-slate-400 text-sm sm:text-base transition-all focus:outline-hidden"
+          class="w-full pl-11 pr-10 py-2.5 sm:py-3 bg-card border border-border-line hover:border-brand-accent focus:border-brand focus:ring-2 focus:ring-brand-accent/20 rounded-xl shadow-sm text-ink placeholder-slate-muted text-sm sm:text-base transition-all focus:outline-hidden"
           placeholder="Search tools, formulas, or topics..."
           autocomplete="off"
           spellcheck="false"
@@ -91,7 +91,7 @@ const searchIndex = tools.map(tool => ({
         <button
           type="button"
           id="hero-search-clear"
-          class="hidden absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-600 cursor-pointer"
+          class="hidden absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-muted hover:text-slate-muted cursor-pointer"
           aria-label="Clear search"
         >
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -105,17 +105,17 @@ const searchIndex = tools.map(tool => ({
         id="hero-search-results"
         role="listbox"
         aria-label="Search results"
-        class="hidden mt-2 bg-white rounded-xl border border-slate-200 shadow-md max-h-72 overflow-y-auto p-1.5 text-left z-20"
+        class="hidden mt-2 bg-card rounded-xl border border-border-line shadow-md max-h-72 overflow-y-auto p-1.5 text-left z-20"
       >
       </div>
     </div>
   </section>
 
   <!-- Category Grid Section (Core Discovery) -->
-  <section class="pt-5 pb-2 sm:pt-6 sm:pb-4 border-t border-slate-200">
+  <section class="pt-5 pb-2 sm:pt-6 sm:pb-4 border-t border-border-line">
     <div class="flex items-center justify-between mb-4">
-      <h2 class="text-lg sm:text-xl font-bold text-slate-900 tracking-tight">Browse by Category</h2>
-      <a href="/tools" class="inline-flex items-center gap-1 text-xs sm:text-sm font-semibold text-blue-600 hover:text-blue-700 transition-colors">
+      <h2 class="text-lg sm:text-xl font-bold text-ink tracking-tight">Browse by Category</h2>
+      <a href="/tools" class="inline-flex items-center gap-1 text-xs sm:text-sm font-semibold text-brand hover:text-brand-accent transition-colors">
         <span>View all</span>
         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
@@ -127,12 +127,12 @@ const searchIndex = tools.map(tool => ({
       {categoryCards.map(cat => (
         <a
           href={`/category/${cat.slug}`}
-          class="group flex items-center gap-2.5 sm:gap-3 p-2.5 sm:p-3 bg-white rounded-xl border border-slate-200/80 hover:border-blue-500 hover:shadow-xs transition-all min-h-[44px]"
+          class="group flex items-center gap-2.5 sm:gap-3 p-2.5 sm:p-3 bg-card rounded-xl border border-border-line/80 hover:border-brand-accent hover:shadow-xs transition-all min-h-[44px]"
         >
-          <div class="flex items-center justify-center w-6 h-6 rounded-md bg-blue-50/80 text-blue-600 shrink-0 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+          <div class="flex items-center justify-center w-6 h-6 rounded-md bg-brand-light/80 text-brand shrink-0 group-hover:bg-brand group-hover:text-card transition-colors">
             <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" set:html={cat.icon} />
           </div>
-          <span class="text-[13px] sm:text-sm font-semibold text-slate-900 group-hover:text-blue-600 transition-colors leading-tight sm:truncate flex-1 min-w-0">
+          <span class="text-[13px] sm:text-sm font-semibold text-ink group-hover:text-brand transition-colors leading-tight sm:truncate flex-1 min-w-0">
             {cat.name}
           </span>
         </a>
@@ -277,10 +277,10 @@ const searchIndex = tools.map(tool => ({
       const options = resultsContainer.querySelectorAll<HTMLElement>('a[role="option"]');
       options.forEach((opt, i) => {
         if (i === idx) {
-          opt.classList.add('bg-blue-50', 'text-blue-600');
+          opt.classList.add('bg-brand-light', 'text-brand');
           opt.scrollIntoView({ block: 'nearest' });
         } else {
-          opt.classList.remove('bg-blue-50', 'text-blue-600');
+          opt.classList.remove('bg-brand-light', 'text-brand');
         }
       });
       selectedIdx = idx;
@@ -304,7 +304,7 @@ const searchIndex = tools.map(tool => ({
       selectedIdx = -1;
 
       if (filteredResults.length === 0) {
-        resultsContainer.innerHTML = '<div class="p-3 text-center text-xs sm:text-sm text-slate-500">No tools found.</div>';
+        resultsContainer.innerHTML = '<div class="p-3 text-center text-xs sm:text-sm text-slate-muted">No tools found.</div>';
         resultsContainer.classList.remove('hidden');
         input.setAttribute('aria-expanded', 'true');
         return;
@@ -315,7 +315,7 @@ const searchIndex = tools.map(tool => ({
           href="/tools/${tool.s}"
           role="option"
           id="hero-result-${idx}"
-          class="block px-3.5 py-2.5 rounded-lg text-xs sm:text-sm font-semibold text-slate-800 hover:text-blue-600 hover:bg-slate-50 transition-colors truncate"
+          class="block px-3.5 py-2.5 rounded-lg text-xs sm:text-sm font-semibold text-ink hover:text-brand hover:bg-page transition-colors truncate"
         >
           ${tool.t}
         </a>

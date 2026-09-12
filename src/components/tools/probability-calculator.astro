@@ -4,40 +4,40 @@ export interface Props {
 }
 ---
 
-<div class="space-y-4 sm:space-y-5">
-  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-      <div class="space-y-4">
+<div class="space-y-3 sm:space-y-3.5">
+  <div class="bg-card rounded-2xl border border-border-line/90 shadow-sm p-4 sm:p-5">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+      <div class="space-y-3.5">
         <div>
-          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Probability of Event A: P(A)</label>
-          <input type="number" id="pr-pa" min="0" max="1" step="0.05" placeholder="e.g. 0.4" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Probability of Event A: P(A)</label>
+          <input type="number" id="pr-pa" min="0" max="1" step="0.05" placeholder="e.g. 0.4" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-ink text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent" />
         </div>
 
         <div>
-          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">Probability of Event B: P(B)</label>
-          <input type="number" id="pr-pb" min="0" max="1" step="0.05" placeholder="e.g. 0.5" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Probability of Event B: P(B)</label>
+          <input type="number" id="pr-pb" min="0" max="1" step="0.05" placeholder="e.g. 0.5" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-ink text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent" />
         </div>
 
-        <button id="pr-calc-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+        <button id="pr-calc-btn" type="button" class="w-full px-5 sm:px-6 py-3.5 sm:py-4 text-base bg-brand hover:bg-brand-accent text-card font-semibold rounded-xl shadow-sm transition-all">
           Calculate Joint Probabilities
         </button>
       </div>
 
-      <div class="p-6 bg-slate-50 rounded-xl border border-slate-200/80 space-y-4">
-        <h3 class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Independent Events</h3>
+      <div class="p-4 sm:p-5 bg-page rounded-xl border border-border-line/80 space-y-3.5">
+        <h3 class="text-xs font-semibold text-slate-muted uppercase tracking-wider">Independent Events</h3>
 
-        <div class="space-y-2 text-xs text-slate-600">
-          <div class="flex justify-between bg-white p-3 rounded-lg border border-slate-200">
+        <div class="space-y-2 text-xs text-slate-muted">
+          <div class="flex justify-between bg-card p-3 rounded-lg border border-border-line">
             <span>P(A ∩ B) [Intersection]:</span>
-            <strong id="pr-inter" class="text-blue-600 font-bold font-mono">--</strong>
+            <strong id="pr-inter" class="text-brand font-bold font-mono">--</strong>
           </div>
-          <div class="flex justify-between bg-white p-3 rounded-lg border border-slate-200">
+          <div class="flex justify-between bg-card p-3 rounded-lg border border-border-line">
             <span>P(A ∪ B) [Union]:</span>
-            <strong id="pr-union" class="text-blue-600 font-bold font-mono">--</strong>
+            <strong id="pr-union" class="text-brand font-bold font-mono">--</strong>
           </div>
-          <div class="flex justify-between bg-white p-3 rounded-lg border border-slate-200">
+          <div class="flex justify-between bg-card p-3 rounded-lg border border-border-line">
             <span>P(A') [Complement of A]:</span>
-            <strong id="pr-not-a" class="text-slate-800 font-mono">--</strong>
+            <strong id="pr-not-a" class="text-ink font-mono break-words">--</strong>
           </div>
         </div>
       </div>

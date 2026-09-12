@@ -4,37 +4,37 @@ export interface Props {
 }
 ---
 
-<div class="space-y-4 sm:space-y-5">
-  <div class="bg-white rounded-2xl border border-slate-200/90 shadow-sm p-4 sm:p-6">
-    <div class="space-y-4">
+<div class="space-y-3 sm:space-y-3.5">
+  <div class="bg-card rounded-2xl border border-border-line/90 shadow-sm p-4 sm:p-5">
+    <div class="space-y-3.5">
       <div>
-        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1.5">5' to 3' DNA Sequence (A, T, C, G)</label>
-        <textarea id="dna-input" rows="3" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono uppercase" placeholder="e.g. ATGCGATCGATCGATCGTAA"></textarea>
+        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">5' to 3' DNA Sequence (A, T, C, G)</label>
+        <textarea id="dna-input" rows="3" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-ink text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent font-mono uppercase" placeholder="e.g. ATGCGATCGATCGATCGTAA"></textarea>
       </div>
 
-      <button id="dna-calc-btn" type="button" class="w-full px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm rounded-xl shadow-sm transition-all">
+      <button id="dna-calc-btn" type="button" class="w-full px-5 sm:px-6 py-3.5 sm:py-4 text-base bg-brand hover:bg-brand-accent text-card font-semibold rounded-xl shadow-sm transition-all">
         Analyze Sequence
       </button>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
-        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200/80">
-          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Complementary Strand (3' → 5')</div>
-          <div id="dna-comp" class="text-sm font-bold text-blue-600 font-mono mt-1 break-all">TACGCTAGCTAGCTAGCATT</div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+        <div class="p-4 bg-page rounded-xl border border-border-line/80">
+          <div class="text-xs font-semibold text-slate-muted uppercase tracking-wider">Complementary Strand (3' → 5')</div>
+          <div id="dna-comp" class="text-sm font-bold text-brand font-mono mt-1">TACGCTAGCTAGCTAGCATT</div>
         </div>
 
-        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200/80">
-          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">mRNA Transcript (5' → 3')</div>
-          <div id="dna-mrna" class="text-sm font-bold text-blue-600 font-mono mt-1 break-all">AUGCGAUCGAUCGAUCGUAA</div>
+        <div class="p-4 bg-page rounded-xl border border-border-line/80">
+          <div class="text-xs font-semibold text-slate-muted uppercase tracking-wider">mRNA Transcript (5' → 3')</div>
+          <div id="dna-mrna" class="text-sm font-bold text-brand font-mono mt-1">AUGCGAUCGAUCGAUCGUAA</div>
         </div>
 
-        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200/80">
-          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">GC Content %</div>
-          <div id="dna-gc" class="text-2xl font-extrabold text-slate-800 font-mono mt-1">45.0%</div>
+        <div class="p-4 bg-page rounded-xl border border-border-line/80">
+          <div class="text-xs font-semibold text-slate-muted uppercase tracking-wider">GC Content %</div>
+          <div id="dna-gc" class="text-2xl font-extrabold text-ink font-mono mt-1">45.0%</div>
         </div>
 
-        <div class="p-4 bg-slate-50 rounded-xl border border-slate-200/80">
-          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Estimated Melting Temp (Tm)</div>
-          <div id="dna-tm" class="text-2xl font-extrabold text-slate-800 font-mono mt-1">54.0°C</div>
+        <div class="p-4 bg-page rounded-xl border border-border-line/80">
+          <div class="text-xs font-semibold text-slate-muted uppercase tracking-wider">Estimated Melting Temp (Tm)</div>
+          <div id="dna-tm" class="text-2xl font-extrabold text-ink font-mono mt-1">54.0°C</div>
         </div>
       </div>
     </div>
