@@ -7,7 +7,7 @@
   --color-ink: #0f172a;
   --color-slate-muted: #475569;
   --color-page: #f8fafc; /* Very light slate */
-  --color-card: #ffffff;
+  --color-card: rgba(255, 255, 255, 0.75);
   --color-border-line: #e2e8f0;
   --color-search: #f1f5f9;
   --color-highlight: #fef08a;
@@ -216,4 +216,11 @@
   .tool-calculator-container *:nth-child(5) { animation-delay: 250ms; }
   .tool-calculator-container *:nth-child(6) { animation-delay: 300ms; }
   .tool-calculator-container *:nth-child(7) { animation-delay: 350ms; }
+}
+
+@layer utilities {
+  .bg-card {
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
 }

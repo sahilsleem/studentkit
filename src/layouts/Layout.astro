@@ -59,6 +59,7 @@ const socialImageURL = new URL('/og-image.png', Astro.site || 'https://studentki
 
     <!-- Ambient Background Blobs -->
     <div class="ambient-blobs fixed inset-0 z-[-1] overflow-hidden pointer-events-none bg-slate-50/50">
+      <canvas id="global-particles" transition:persist class="absolute inset-0 w-full h-full opacity-60"></canvas>
       <div class="absolute top-[-10%] left-[-10%] w-96 h-96 bg-purple-300/40 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob"></div>
       <div class="absolute top-[-10%] right-[-10%] w-96 h-96 bg-teal-300/40 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob animation-delay-2000"></div>
       <div class="absolute bottom-[-20%] left-[20%] w-96 h-96 bg-blue-300/40 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob animation-delay-4000"></div>
@@ -119,6 +120,71 @@ const socialImageURL = new URL('/og-image.png', Astro.site || 'https://studentki
         });
       };
       
+      
+      // --- GLOBAL CANVAS PARTICLES ---
+      const initGlobalCanvas = () => {
+        const canvas = document.getElementById('global-particles');
+        if (!canvas || window.innerWidth < 768 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        
+        // Prevent double initialization on view transitions if transition:persist keeps it alive
+        if (canvas.dataset.initialized) return;
+        canvas.dataset.initialized = 'true';
+
+        const ctx = canvas.getContext('2d');
+        const resize = () => {
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+        };
+        resize();
+        window.addEventListener('resize', resize);
+
+        const particles = [];
+        for (let i = 0; i < 40; i++) {
+          particles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            vx: (Math.random() - 0.5) * 0.5,
+            vy: (Math.random() - 0.5) * 0.5,
+            radius: Math.random() * 1.5 + 0.5
+          });
+        }
+
+        const draw = () => {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.fillStyle = 'rgba(139, 92, 246, 0.4)';
+          ctx.strokeStyle = 'rgba(139, 92, 246, 0.1)';
+          
+          particles.forEach((p, i) => {
+            p.x += p.vx;
+            p.y += p.vy;
+            
+            if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+            if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Connect nearby particles
+            for (let j = i + 1; j < particles.length; j++) {
+              const p2 = particles[j];
+              const dx = p.x - p2.x;
+              const dy = p.y - p2.y;
+              const dist = Math.sqrt(dx * dx + dy * dy);
+              if (dist < 120) {
+                ctx.beginPath();
+                ctx.moveTo(p.x, p.y);
+                ctx.lineTo(p2.x, p2.y);
+                ctx.stroke();
+              }
+            }
+          });
+          requestAnimationFrame(draw);
+        };
+        draw();
+      };
+      
+      initGlobalCanvas();
       handleLoader();
       setupMagnetic();
       document.addEventListener('astro:page-load', () => {
