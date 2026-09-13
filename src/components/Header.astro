@@ -20,7 +20,7 @@ const searchIndex = tools.map(tool => ({
 }));
 ---
 
-<header class="sticky top-0 z-30 bg-card/95 backdrop-blur-md border-b border-border-line/80 transition-all">
+<header class="sticky top-0 z-30 bg-white/95 md:bg-white/60 backdrop-blur-none md:backdrop-blur-xl border-b border-black/5 transition-all">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16 relative">
 
@@ -105,7 +105,7 @@ const searchIndex = tools.map(tool => ({
             return (
               <a
                 href={link.href}
-                class={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+                class={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors relative nav-link-animated ${
                   isActive
                     ? 'text-brand bg-brand-light/80 font-semibold'
                     : 'text-slate-muted hover:text-ink hover:bg-search/70'

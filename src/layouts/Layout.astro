@@ -15,7 +15,7 @@ const socialImageURL = new URL('/og-image.png', Astro.site || 'https://studentki
 ---
 
 <!doctype html>
-<html lang="en" class="h-full">
+<html lang="en" class="h-full scroll-smooth scroll-pt-20">
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
@@ -55,15 +55,15 @@ const socialImageURL = new URL('/og-image.png', Astro.site || 'https://studentki
     </script>
     <ClientRouter />
   </head>
-  <body class="bg-page text-ink font-sans min-h-screen flex flex-col antialiased selection:bg-brand-light selection:text-ink">
+  <body class="bg-page text-ink font-sans min-h-screen flex flex-col antialiased selection:bg-brand-light selection:text-ink overflow-x-hidden">
 
     <!-- Ambient Background Blobs -->
-    <div class="ambient-blobs fixed inset-0 z-[-1] overflow-hidden pointer-events-none bg-slate-50/50">
-      <canvas id="global-particles" transition:persist class="absolute inset-0 w-full h-full opacity-60"></canvas>
-      <div class="absolute top-[-10%] left-[-10%] w-96 h-96 bg-purple-300/40 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob"></div>
-      <div class="absolute top-[-10%] right-[-10%] w-96 h-96 bg-teal-300/40 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob animation-delay-2000"></div>
-      <div class="absolute bottom-[-20%] left-[20%] w-96 h-96 bg-blue-300/40 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob animation-delay-4000"></div>
-      <div class="absolute bottom-[-10%] right-[-10%] w-96 h-96 bg-fuchsia-300/40 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob animation-delay-6000"></div>
+    <div class="ambient-blobs fixed inset-0 z-[-1] overflow-hidden pointer-events-none bg-transparent">
+      <canvas id="global-particles" transition:persist class="absolute inset-0 w-full h-full opacity-100"></canvas>
+      <div class="absolute top-[-10%] left-[-10%] w-96 h-96 rounded-full mix-blend-multiply opacity-80 animate-blob md:animate-blob bg-[radial-gradient(circle,rgba(216,180,254,0.6)_0%,transparent_70%)]"></div>
+      <div class="absolute top-[-10%] right-[-10%] w-96 h-96 rounded-full mix-blend-multiply opacity-80 animate-blob animation-delay-2000 bg-[radial-gradient(circle,rgba(94,234,212,0.6)_0%,transparent_70%)]"></div>
+      <div class="hidden md:block absolute bottom-[-20%] left-[20%] w-96 h-96 rounded-full mix-blend-multiply opacity-80 animate-blob animation-delay-4000 bg-[radial-gradient(circle,rgba(147,197,253,0.6)_0%,transparent_70%)]"></div>
+      <div class="hidden md:block absolute bottom-[-10%] right-[-10%] w-96 h-96 rounded-full mix-blend-multiply opacity-80 animate-blob animation-delay-6000 bg-[radial-gradient(circle,rgba(240,171,252,0.6)_0%,transparent_70%)]"></div>
     </div>
   
     <Header />
