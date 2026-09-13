@@ -3,7 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import ToolCard from '../../components/ToolCard.astro';
 import { tools, categories, getCategorySlug } from '../../data/registry';
 
-const toolsData = tools.map(tool => ({
+const toolsData = tools.map((tool, idx) => ({
   id: tool.id,
   slug: tool.slug,
   title: tool.title,

@@ -11,7 +11,7 @@ export interface Props {
         <h2 class="text-lg font-bold text-ink">Weighted Grade Calculator</h2>
         <p class="text-sm text-slate-muted">Calculate composite grade with weighted assignments, quizzes, and exams.</p>
       </div>
-      <button id="wg-add-row" type="button" class="px-3 py-1.5 bg-brand-light text-brand hover:bg-brand-light font-medium text-xs rounded-lg transition-colors">
+      <button id="wg-add-row" type="button" class="px-3 py-1.5 bg-brand-light text-brand hover:bg-brand-light font-medium text-xs rounded-lg transition-colors has-ripple">
         + Add Category
       </button>
     </div>
@@ -31,10 +31,10 @@ export interface Props {
 
     <div class="mt-4 flex flex-wrap items-center justify-between gap-4 pt-3 border-t border-border-line">
       <div class="flex flex-wrap items-center gap-2">
-        <button id="wg-calc-btn" type="button" class="px-5 sm:px-6 py-3.5 sm:py-4 text-base bg-brand hover:bg-brand-accent text-card font-semibold rounded-xl shadow-sm transition-all">
+        <button id="wg-calc-btn" type="button" class="px-5 sm:px-6 py-3.5 sm:py-4 text-base bg-gradient-to-r from-violet-600 via-blue-600 to-teal-500 text-white hover:from-violet-500 hover:via-blue-500 hover:to-teal-400 hover:opacity-90 active:scale-[0.98] animate-gradient-x font-semibold rounded-xl shadow-sm transition-all has-ripple magnetic transition-transform duration-300">
           Calculate Grade
         </button>
-        <button id="wg-reset-btn" type="button" class="px-3.5 py-2.5 bg-search hover:bg-border-line text-ink font-medium text-sm rounded-xl transition-all">
+        <button id="wg-reset-btn" type="button" class="px-3.5 py-2.5 bg-search hover:bg-border-line text-ink font-medium text-sm rounded-xl transition-all has-ripple">
           Reset
         </button>
       </div>
@@ -83,7 +83,7 @@ export interface Props {
         '<input type="number" min="0" max="100" step="1" placeholder="25" class="wg-weight w-24 min-w-[4rem] flex-1 sm:flex-none px-3 py-1.5 bg-page border border-border-line rounded-lg text-sm text-ink focus:outline-none focus:ring-1 focus:ring-brand-accent" />' +
       '</td>' +
       '<td class="py-2.5 px-2 text-right">' +
-        '<button type="button" class="wg-del text-slate-muted hover:text-red-500 font-bold p-1">&times;</button>' +
+        '<button type="button" class="wg-del text-slate-muted hover:text-red-500 font-bold p-1 has-ripple">&times;</button>' +
       '</td>';
 
     tbody?.appendChild(tr);

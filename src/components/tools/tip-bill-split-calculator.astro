@@ -16,10 +16,10 @@ export interface Props {
         <div>
           <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Tip Percentage (%)</label>
           <div class="grid grid-cols-4 gap-2 mb-1">
-            <button type="button" data-tip="10" class="tip-preset px-3 py-1.5 bg-search hover:bg-border-line rounded-lg text-xs font-semibold text-ink">10%</button>
-            <button type="button" data-tip="15" class="tip-preset px-3 py-1.5 bg-search hover:bg-border-line rounded-lg text-xs font-semibold text-ink">15%</button>
-            <button type="button" data-tip="18" class="tip-preset px-3 py-1.5 bg-brand-light border border-brand-accent rounded-lg text-xs font-semibold text-brand">18%</button>
-            <button type="button" data-tip="20" class="tip-preset px-3 py-1.5 bg-search hover:bg-border-line rounded-lg text-xs font-semibold text-ink">20%</button>
+            <button type="button" data-tip="10" class="tip-preset px-3 py-1.5 bg-search hover:bg-border-line rounded-lg text-xs font-semibold text-ink has-ripple">10%</button>
+            <button type="button" data-tip="15" class="tip-preset px-3 py-1.5 bg-search hover:bg-border-line rounded-lg text-xs font-semibold text-ink has-ripple">15%</button>
+            <button type="button" data-tip="18" class="tip-preset px-3 py-1.5 bg-brand-light border border-brand-accent rounded-lg text-xs font-semibold text-brand has-ripple">18%</button>
+            <button type="button" data-tip="20" class="tip-preset px-3 py-1.5 bg-search hover:bg-border-line rounded-lg text-xs font-semibold text-ink has-ripple">20%</button>
           </div>
           <input type="number" id="tip-custom" step="1" min="0" max="100" placeholder="e.g. 18" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-ink text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent" />
         </div>
@@ -29,7 +29,7 @@ export interface Props {
           <input type="number" id="tip-people" step="1" min="1" max="50" placeholder="e.g. 3" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-ink text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent" />
         </div>
 
-        <button id="tip-calc-btn" type="button" class="w-full px-5 sm:px-6 py-3.5 sm:py-4 text-base bg-brand hover:bg-brand-accent text-card font-semibold rounded-xl shadow-sm transition-all">
+        <button id="tip-calc-btn" type="button" class="w-full px-5 sm:px-6 py-3.5 sm:py-4 text-base bg-gradient-to-r from-violet-600 via-blue-600 to-teal-500 text-white hover:from-violet-500 hover:via-blue-500 hover:to-teal-400 hover:opacity-90 active:scale-[0.98] animate-gradient-x font-semibold rounded-xl shadow-sm transition-all has-ripple magnetic transition-transform duration-300">
           Calculate Split
         </button>
       </div>

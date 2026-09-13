@@ -1,4 +1,19 @@
 ---
+const catColors: Record<string, { border: string, text: string, icon: string, bg: string }> = {
+  'mathematics': { border: 'hover:border-blue-400', text: 'group-hover:text-blue-600', icon: 'text-blue-500', bg: 'hover:bg-blue-50/50' },
+  'physics': { border: 'hover:border-purple-400', text: 'group-hover:text-purple-600', icon: 'text-purple-500', bg: 'hover:bg-purple-50/50' },
+  'chemistry': { border: 'hover:border-emerald-400', text: 'group-hover:text-emerald-600', icon: 'text-emerald-500', bg: 'hover:bg-emerald-50/50' },
+  'biology-health-metrics': { border: 'hover:border-rose-400', text: 'group-hover:text-rose-600', icon: 'text-rose-500', bg: 'hover:bg-rose-50/50' },
+  'calculus-advanced-math': { border: 'hover:border-indigo-400', text: 'group-hover:text-indigo-600', icon: 'text-indigo-500', bg: 'hover:bg-indigo-50/50' },
+  'statistics-probability': { border: 'hover:border-amber-400', text: 'group-hover:text-amber-600', icon: 'text-amber-500', bg: 'hover:bg-amber-50/50' },
+  'computer-science-digital-logic': { border: 'hover:border-cyan-400', text: 'group-hover:text-cyan-600', icon: 'text-cyan-500', bg: 'hover:bg-cyan-50/50' },
+  'geometry-trigonometry-matrices': { border: 'hover:border-fuchsia-400', text: 'group-hover:text-fuchsia-600', icon: 'text-fuchsia-500', bg: 'hover:bg-fuchsia-50/50' },
+  'everyday-student-finance': { border: 'hover:border-green-400', text: 'group-hover:text-green-600', icon: 'text-green-500', bg: 'hover:bg-green-50/50' },
+  'academic-grades': { border: 'hover:border-red-400', text: 'group-hover:text-red-600', icon: 'text-red-500', bg: 'hover:bg-red-50/50' },
+  'study-productivity-writing': { border: 'hover:border-violet-400', text: 'group-hover:text-violet-600', icon: 'text-violet-500', bg: 'hover:bg-violet-50/50' },
+  'universal-measurement-converters': { border: 'hover:border-slate-400', text: 'group-hover:text-slate-600', icon: 'text-slate-500', bg: 'hover:bg-slate-50/50' }
+};
+
 import Layout from '../../layouts/Layout.astro';
 import { tools, getActiveCategories, getCategorySlug } from '../../data/registry';
 
@@ -74,9 +89,10 @@ const breadcrumbSchema = {
 
   <!-- Single Consolidated Tools Collection (Compact) -->
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-3">
-    {categoryTools.map(tool => (
+    {categoryTools.map((tool, idx) => (
       <a
-        href={`/tools/${tool.slug}`}
+        style={{ "--stagger": idx }}
+          href={`/tools/${tool.slug}`}
         class="group flex items-center justify-between p-2.5 sm:p-3 bg-card rounded-xl border border-border-line/80 hover:border-brand-accent hover:shadow-xs transition-all min-h-[44px]"
       >
         <div class="flex items-center gap-2.5 sm:gap-3 flex-1 min-w-0 pr-1">

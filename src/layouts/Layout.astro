@@ -1,4 +1,5 @@
 ---
+import { ClientRouter } from 'astro:transitions';
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -52,8 +53,18 @@ const socialImageURL = new URL('/og-image.png', Astro.site || 'https://studentki
       gtag('js', new Date());
       gtag('config', 'G-PJ3BLKWBPN');
     </script>
+    <ClientRouter />
   </head>
   <body class="bg-page text-ink font-sans min-h-screen flex flex-col antialiased selection:bg-brand-light selection:text-ink">
+
+    <!-- Ambient Background Blobs -->
+    <div class="ambient-blobs fixed inset-0 z-[-1] overflow-hidden pointer-events-none bg-slate-50/50">
+      <div class="absolute top-[-10%] left-[-10%] w-96 h-96 bg-purple-300/40 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob"></div>
+      <div class="absolute top-[-10%] right-[-10%] w-96 h-96 bg-teal-300/40 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob animation-delay-2000"></div>
+      <div class="absolute bottom-[-20%] left-[20%] w-96 h-96 bg-blue-300/40 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob animation-delay-4000"></div>
+      <div class="absolute bottom-[-10%] right-[-10%] w-96 h-96 bg-fuchsia-300/40 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob animation-delay-6000"></div>
+    </div>
+  
     <Header />
 
     <main class="flex-grow w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
@@ -61,5 +72,83 @@ const socialImageURL = new URL('/og-image.png', Astro.site || 'https://studentki
     </main>
 
     <Footer />
+    <script>
+      const setupReveal = () => {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('active');
+            }
+          });
+        }, { threshold: 0.05, rootMargin: "0px 0px -20px 0px" });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+      };
+      setupReveal();
+      // --- PAGE LOADER LOGIC ---
+      const handleLoader = () => {
+        const loader = document.getElementById('page-loader');
+        if (!loader) return;
+        // Only show loader on very first visit in session
+        if (!sessionStorage.getItem('sk-loaded')) {
+          sessionStorage.setItem('sk-loaded', 'true');
+          setTimeout(() => {
+            loader.style.opacity = '0';
+            setTimeout(() => loader.remove(), 700);
+          }, 800);
+        } else {
+          loader.style.display = 'none';
+        }
+      };
+      
+      // --- MAGNETIC BUTTONS (Desktop Only) ---
+      const setupMagnetic = () => {
+        if (window.innerWidth < 768 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        document.querySelectorAll('.magnetic').forEach(btn => {
+          btn.addEventListener('mousemove', (e) => {
+            const rect = btn.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            // Move button slightly towards cursor
+            btn.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px) scale(1.02)`;
+          });
+          btn.addEventListener('mouseleave', () => {
+            btn.style.transform = 'translate(0px, 0px) scale(1)';
+          });
+        });
+      };
+      
+      handleLoader();
+      setupMagnetic();
+      document.addEventListener('astro:page-load', () => {
+        setupReveal();
+        setupMagnetic();
+      });
+  
+        const createRipple = (e) => {
+          const target = e.target.closest('.has-ripple');
+          if (!target) return;
+          
+          const rect = target.getBoundingClientRect();
+          const ripple = document.createElement('span');
+          const diameter = Math.max(rect.width, rect.height);
+          const radius = diameter / 2;
+          
+          ripple.style.width = ripple.style.height = `${diameter}px`;
+          ripple.style.left = `${e.clientX - rect.left - radius}px`;
+          ripple.style.top = `${e.clientY - rect.top - radius}px`;
+          ripple.classList.add('ripple-element');
+          
+          const existing = target.querySelector('.ripple-element');
+          if (existing) existing.remove();
+          
+          target.appendChild(ripple);
+          setTimeout(() => ripple.remove(), 600);
+        };
+        document.addEventListener('mousedown', createRipple);
+  
+      document.addEventListener('astro:page-load', setupReveal);
+    </script>
   </body>
 </html>

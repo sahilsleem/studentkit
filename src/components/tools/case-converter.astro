@@ -9,26 +9,26 @@ export interface Props {
     <div class="space-y-3.5">
       <div class="flex items-center justify-between">
         <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted">Input Text</label>
-        <button id="cc-clear-btn" type="button" class="text-xs text-slate-muted hover:text-slate-muted font-medium">Clear</button>
+        <button id="cc-clear-btn" type="button" class="text-xs text-slate-muted hover:text-slate-muted font-medium has-ripple">Clear</button>
       </div>
 
       <textarea id="cc-input" rows="5" placeholder="Enter or paste text to convert case..." class="w-full px-4 py-3 bg-page border border-border-line rounded-xl text-ink text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent focus:bg-card transition-all"></textarea>
     </div>
 
     <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-4">
-      <button data-action="upper" class="cc-btn px-3 py-2 bg-search hover:bg-border-line text-ink text-xs font-semibold rounded-lg transition-colors">UPPERCASE</button>
-      <button data-action="lower" class="cc-btn px-3 py-2 bg-search hover:bg-border-line text-ink text-xs font-semibold rounded-lg transition-colors">lowercase</button>
-      <button data-action="title" class="cc-btn px-3 py-2 bg-search hover:bg-border-line text-ink text-xs font-semibold rounded-lg transition-colors">Title Case</button>
-      <button data-action="sentence" class="cc-btn px-3 py-2 bg-search hover:bg-border-line text-ink text-xs font-semibold rounded-lg transition-colors">Sentence case</button>
-      <button data-action="camel" class="cc-btn px-3 py-2 bg-search hover:bg-border-line text-ink text-xs font-semibold rounded-lg transition-colors">camelCase</button>
-      <button data-action="pascal" class="cc-btn px-3 py-2 bg-search hover:bg-border-line text-ink text-xs font-semibold rounded-lg transition-colors">PascalCase</button>
-      <button data-action="snake" class="cc-btn px-3 py-2 bg-search hover:bg-border-line text-ink text-xs font-semibold rounded-lg transition-colors">snake_case</button>
-      <button data-action="kebab" class="cc-btn px-3 py-2 bg-search hover:bg-border-line text-ink text-xs font-semibold rounded-lg transition-colors">kebab-case</button>
+      <button data-action="upper" class="cc-btn px-3 py-2 bg-search hover:bg-border-line text-ink text-xs font-semibold rounded-lg transition-colors has-ripple">UPPERCASE</button>
+      <button data-action="lower" class="cc-btn px-3 py-2 bg-search hover:bg-border-line text-ink text-xs font-semibold rounded-lg transition-colors has-ripple">lowercase</button>
+      <button data-action="title" class="cc-btn px-3 py-2 bg-search hover:bg-border-line text-ink text-xs font-semibold rounded-lg transition-colors has-ripple">Title Case</button>
+      <button data-action="sentence" class="cc-btn px-3 py-2 bg-search hover:bg-border-line text-ink text-xs font-semibold rounded-lg transition-colors has-ripple">Sentence case</button>
+      <button data-action="camel" class="cc-btn px-3 py-2 bg-search hover:bg-border-line text-ink text-xs font-semibold rounded-lg transition-colors has-ripple">camelCase</button>
+      <button data-action="pascal" class="cc-btn px-3 py-2 bg-search hover:bg-border-line text-ink text-xs font-semibold rounded-lg transition-colors has-ripple">PascalCase</button>
+      <button data-action="snake" class="cc-btn px-3 py-2 bg-search hover:bg-border-line text-ink text-xs font-semibold rounded-lg transition-colors has-ripple">snake_case</button>
+      <button data-action="kebab" class="cc-btn px-3 py-2 bg-search hover:bg-border-line text-ink text-xs font-semibold rounded-lg transition-colors has-ripple">kebab-case</button>
     </div>
 
     <div class="mt-4 pt-3 border-t border-border-line flex items-center justify-between">
       <div id="cc-status" class="text-xs text-emerald-600 font-medium hidden">Copied to clipboard!</div>
-      <button id="cc-copy-btn" type="button" class="px-5 sm:px-6 py-3.5 sm:py-4 text-base bg-brand hover:bg-brand-accent text-card font-semibold rounded-xl shadow-sm transition-all ml-auto">
+      <button id="cc-copy-btn" type="button" class="px-5 sm:px-6 py-3.5 sm:py-4 text-base bg-gradient-to-r from-violet-600 via-blue-600 to-teal-500 text-white hover:from-violet-500 hover:via-blue-500 hover:to-teal-400 hover:opacity-90 active:scale-[0.98] animate-gradient-x font-semibold rounded-xl shadow-sm transition-all ml-auto has-ripple magnetic transition-transform duration-300">
         Copy Converted Text
       </button>
     </div>

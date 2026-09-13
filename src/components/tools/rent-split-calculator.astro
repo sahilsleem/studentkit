@@ -11,7 +11,7 @@ export interface Props {
         <h2 class="text-lg font-bold text-ink">Roommate Rent Split Calculator</h2>
         <p class="text-sm text-slate-muted">Calculate fair proportional rent based on room square footage and private amenities.</p>
       </div>
-      <button id="rs-add-roommate" type="button" class="px-3 py-1.5 bg-brand-light text-brand hover:bg-brand-light font-medium text-xs rounded-lg transition-colors">
+      <button id="rs-add-roommate" type="button" class="px-3 py-1.5 bg-brand-light text-brand hover:bg-brand-light font-medium text-xs rounded-lg transition-colors has-ripple">
         + Add Roommate
       </button>
     </div>
@@ -45,7 +45,7 @@ export interface Props {
 
 
     <div class="mt-4 flex items-center justify-between pt-3 border-t border-border-line">
-      <button id="rs-calc-btn" type="button" class="px-5 sm:px-6 py-3.5 sm:py-4 text-base bg-brand hover:bg-brand-accent text-card font-semibold rounded-xl shadow-sm transition-all">
+      <button id="rs-calc-btn" type="button" class="px-5 sm:px-6 py-3.5 sm:py-4 text-base bg-gradient-to-r from-violet-600 via-blue-600 to-teal-500 text-white hover:from-violet-500 hover:via-blue-500 hover:to-teal-400 hover:opacity-90 active:scale-[0.98] animate-gradient-x font-semibold rounded-xl shadow-sm transition-all has-ripple magnetic transition-transform duration-300">
         Recalculate Shares
       </button>
       <div class="text-xs text-slate-muted">
@@ -83,7 +83,7 @@ export interface Props {
         '--' +
       '</td>' +
       '<td class="py-2.5 px-2 text-right">' +
-        '<button type="button" class="rs-del text-slate-muted hover:text-red-500 font-bold p-1">&times;</button>' +
+        '<button type="button" class="rs-del text-slate-muted hover:text-red-500 font-bold p-1 has-ripple">&times;</button>' +
       '</td>';
 
     tbody?.appendChild(tr);

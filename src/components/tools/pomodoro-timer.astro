@@ -7,9 +7,9 @@ export interface Props {
 <div class="space-y-3 sm:space-y-3.5">
   <div class="bg-card rounded-2xl border border-border-line/90 shadow-sm p-4 sm:p-5 text-center">
     <div class="inline-flex p-1 bg-search rounded-xl mb-6">
-      <button data-mode="pomodoro" class="pomo-mode px-4 py-1.5 rounded-lg text-xs font-semibold bg-card text-brand shadow-sm transition-all">Pomodoro (25m)</button>
-      <button data-mode="short" class="pomo-mode px-4 py-1.5 rounded-lg text-xs font-semibold text-slate-muted hover:text-ink transition-all">Short Break (5m)</button>
-      <button data-mode="long" class="pomo-mode px-4 py-1.5 rounded-lg text-xs font-semibold text-slate-muted hover:text-ink transition-all">Long Break (15m)</button>
+      <button data-mode="pomodoro" class="pomo-mode px-4 py-1.5 rounded-lg text-xs font-semibold bg-card text-brand shadow-sm transition-all has-ripple">Pomodoro (25m)</button>
+      <button data-mode="short" class="pomo-mode px-4 py-1.5 rounded-lg text-xs font-semibold text-slate-muted hover:text-ink transition-all has-ripple">Short Break (5m)</button>
+      <button data-mode="long" class="pomo-mode px-4 py-1.5 rounded-lg text-xs font-semibold text-slate-muted hover:text-ink transition-all has-ripple">Long Break (15m)</button>
     </div>
 
     <div class="my-6">
@@ -18,10 +18,10 @@ export interface Props {
     </div>
 
     <div class="flex items-center justify-center gap-3">
-      <button id="pomo-toggle" type="button" class="px-5 sm:px-6 py-3.5 sm:py-4 text-base bg-brand hover:bg-brand-accent text-card font-bold rounded-xl shadow-sm transition-all">
+      <button id="pomo-toggle" type="button" class="px-5 sm:px-6 py-3.5 sm:py-4 text-base bg-gradient-to-r from-violet-600 via-blue-600 to-teal-500 text-white hover:from-violet-500 hover:via-blue-500 hover:to-teal-400 hover:opacity-90 active:scale-[0.98] animate-gradient-x font-bold rounded-xl shadow-sm transition-all has-ripple magnetic transition-transform duration-300">
         START
       </button>
-      <button id="pomo-reset" type="button" class="px-5 py-3 bg-search hover:bg-border-line text-ink font-semibold text-sm rounded-xl transition-all">
+      <button id="pomo-reset" type="button" class="px-5 py-3 bg-search hover:bg-border-line text-ink font-semibold text-sm rounded-xl transition-all has-ripple">
         Reset
       </button>
     </div>
