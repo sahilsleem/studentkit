@@ -1,0 +1,82 @@
+﻿---
+import Layout from './Layout.astro';
+import type { Test } from '../data/testsRegistry';
+import AdSlot from '../components/AdSlot.astro';
+
+export interface Props {
+  test: Test;
+}
+
+const { test } = Astro.props;
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://studentkit.in/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Tests & Assessments",
+      "item": "https://studentkit.in/tests/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": test.title,
+      "item": `https://studentkit.in/tests/${test.slug}/`
+    }
+  ]
+};
+---
+
+<Layout title={test.title} description={test.description}>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  </Fragment>
+
+  <div class="max-w-4xl mx-auto mb-8 sm:mb-12">
+    <!-- Breadcrumbs -->
+    <nav class="flex items-center text-sm text-slate-muted mb-6 sm:mb-8 overflow-x-auto whitespace-nowrap pb-2 no-scrollbar" aria-label="Breadcrumb">
+      <a href="/" class="hover:text-brand transition-colors focus-ring rounded-sm">Home</a>
+      <span class="mx-2 text-border-line">/</span>
+      <a href="/tests" class="hover:text-brand transition-colors focus-ring rounded-sm">Tests & Assessments</a>
+      <span class="mx-2 text-border-line">/</span>
+      <span class="text-ink font-medium" aria-current="page">{test.title}</span>
+    </nav>
+
+    <div class="mb-8">
+      <div class="inline-flex items-center justify-center p-3 bg-brand/10 rounded-xl text-brand mb-4">
+        <!-- SVG icon placeholder, maybe use Astro Icon later if available, for now simple SVG -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"></path><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"></path></svg>
+      </div>
+      <h1 class="text-2xl sm:text-3xl md:text-4xl font-semibold text-ink mb-3">
+        {test.title}
+      </h1>
+      <p class="text-base sm:text-lg text-slate-muted max-w-2xl">
+        {test.description}
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-6 sm:gap-8 items-start">
+      <main class="w-full">
+        <slot />
+      </main>
+
+      <aside class="space-y-6 sm:space-y-8 lg:sticky lg:top-24">
+        <!-- Ad Slot -->
+        <div class="bg-card rounded-2xl border border-border-line/40 p-4 sm:p-6 shadow-sm hidden lg:block">
+          <p class="text-xs text-slate-muted/60 uppercase tracking-wider mb-4 text-center">Advertisement</p>
+          <AdSlot id="test-sidebar-ad" class="min-h-[250px] flex items-center justify-center bg-slate-50/50 rounded-lg" />
+        </div>
+      </aside>
+    </div>
+  </div>
+</Layout>
+
+

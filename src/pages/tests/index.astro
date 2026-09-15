@@ -1,0 +1,75 @@
+﻿---
+import Layout from '../../layouts/Layout.astro';
+import { testsRegistry } from '../../data/testsRegistry';
+
+const title = "Tests & Assessments | StudentKit";
+const description = "Challenge yourself with interactive reasoning and intelligence assessments. Measure numerical, logical, verbal, spatial, and working memory reasoning abilities.";
+---
+
+<Layout title={title} description={description}>
+  <div class="max-w-4xl mx-auto mb-16">
+    <div class="text-center mb-12 sm:mb-16 pt-8">
+      <div class="inline-flex items-center justify-center p-3 bg-brand/10 rounded-xl text-brand mb-6 animate-float">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path><path d="m9 12 2 2 4-4"></path></svg>
+      </div>
+      
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-semibold text-ink mb-6 tracking-tight">
+        Tests & Assessments
+      </h1>
+      <p class="text-lg sm:text-xl text-slate-muted max-w-2xl mx-auto leading-relaxed">
+        Challenge yourself with interactive reasoning assessments. A new way to exercise your cognitive skills with zero fluff.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+      {testsRegistry.map((test, idx) => (
+        <a 
+          href={`/tests/${test.slug}`}
+          style={`--stagger: ${idx}`} class="block reveal has-ripple group bg-card/80 backdrop-blur-sm rounded-2xl border border-border-line/80 p-6 sm:p-8 hover:border-brand hover:shadow-xl hover:-translate-y-1 hover:scale-[1.02] transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] focus-ring relative overflow-hidden"
+        >
+          <div class="flex items-start justify-between mb-6">
+            <div class="p-3 bg-brand/10 rounded-xl text-brand group-hover:bg-brand group-hover:text-white transition-colors duration-300">
+              {test.icon === "brain" ? (
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"></path><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"></path></svg>
+            ) : (
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5" /></svg>
+            )}
+            </div>
+            <div class="flex flex-col items-end gap-2 text-sm font-medium text-slate-muted">
+              <span class="flex items-center gap-1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                {test.timeEstimate}
+              </span>
+              <span class="flex items-center gap-1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                {test.questionsCount} Questions
+              </span>
+            </div>
+          </div>
+          
+          <h2 class="text-xl sm:text-2xl font-semibold text-ink mb-3 group-hover:text-brand transition-colors">
+            {test.title}
+          </h2>
+          <p class="text-slate-muted mb-6 leading-relaxed">
+            {test.description}
+          </p>
+          
+          <div class="inline-flex items-center gap-2 font-semibold text-brand">
+            Start Test 
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-x-1 transition-transform"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+          </div>
+        </a>
+      ))}
+    </div>
+    
+    <div class="mt-12 bg-blue-50/50 border border-blue-100 p-6 rounded-2xl text-center text-blue-900/80">
+      <h3 class="font-medium text-lg mb-2 text-blue-900">More assessments coming soon</h3>
+      <p class="text-sm">We are actively building more categorized tests. Stay tuned.</p>
+    </div>
+  </div>
+</Layout>
+
+
+
+
+
