@@ -1,0 +1,19 @@
+---
+import TestLayout from '../../layouts/TestLayout.astro';
+import AssessmentEngine from '../../components/tests/AssessmentEngine.astro';
+import { testsRegistry } from '../../data/testsRegistry';
+import { verbalQuestions } from '../../data/tests/verbalQuestions';
+
+const testMetadata = testsRegistry.find(t => t.slug === 'verbal-reasoning');
+if (!testMetadata) throw new Error("Verbal Reasoning Test metadata not found in registry");
+---
+
+<TestLayout test={testMetadata}>
+  <AssessmentEngine 
+    id="verbal"
+    title="Verbal Reasoning Test"
+    description="This assessment measures your verbal logic, word relationships, reading comprehension, and deductive reasoning through language. It is designed as an engaging cognitive exercise for personal practice and enrichment."
+    timeMinutes={20}
+    questions={verbalQuestions}
+  />
+</TestLayout>

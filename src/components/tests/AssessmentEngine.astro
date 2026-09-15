@@ -1,4 +1,4 @@
-﻿---
+---
 export interface Props {
   id: string;
   title: string;
@@ -9,9 +9,10 @@ export interface Props {
 const { id, title, description, timeMinutes, questions } = Astro.props;
 const questionsJson = JSON.stringify(questions);
 const sessionKey = `studentkit_${id}_state_v1`;
+const attemptQuestionCount = Math.min(30, questions.length);
 ---
 
-<div id={`engine-${id}`} class="relative tool-calculator-container" data-questions={questionsJson} data-session-key={sessionKey} data-time-minutes={timeMinutes}>
+<div id={`engine-${id}`} class="relative tool-calculator-container" data-questions={questionsJson} data-session-key={sessionKey} data-time-minutes={timeMinutes} data-engine-id={id}>
   
   <!-- INTRO SCREEN -->
   <div id="screen-intro" class="reveal bg-card rounded-2xl border border-border-line/40 shadow-sm overflow-hidden p-6 sm:p-10 flex flex-col items-center text-center space-y-6 group hover:border-brand hover:shadow-xl md:hover:-translate-y-1 md:hover:scale-[1.02] transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] cursor-default">
@@ -28,7 +29,7 @@ const sessionKey = `studentkit_${id}_state_v1`;
         </div>
         <div class="p-4 bg-slate-50 border border-slate-100 rounded-xl">
           <span class="block text-sm font-semibold text-slate-500 uppercase tracking-wider mb-1">Format</span>
-          <span class="text-lg text-ink font-medium">{questions.length} Questions</span>
+          <span class="text-lg text-ink font-medium">{attemptQuestionCount} Questions</span>
         </div>
       </div>
 
@@ -49,7 +50,7 @@ const sessionKey = `studentkit_${id}_state_v1`;
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-4 sm:p-6 border-b border-border-line/40 bg-slate-50/50">
       <div class="flex flex-col">
         <span class="text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Progress</span>
-        <span class="text-sm font-medium text-ink" id="progress-text">Question 1 of {questions.length}</span>
+        <span class="text-sm font-medium text-ink" id="progress-text">Question 1 of {attemptQuestionCount}</span>
       </div>
       <div class="flex flex-col items-end">
         <span class="text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Time Remaining</span>
@@ -67,9 +68,26 @@ const sessionKey = `studentkit_${id}_state_v1`;
       <div class="max-w-3xl mx-auto">
         <div id="question-header"><span id="q-category" class="inline-block px-3 py-1 bg-brand/10 text-brand text-xs font-semibold rounded-full mb-4">Category</span>
         
-        <h3 id="q-text" class="text-xl sm:text-2xl font-medium text-ink mb-8 leading-relaxed" tabindex="-1">
+        <div id="memory-study-box" class="hidden flex-col items-center justify-center p-6 bg-slate-50/90 rounded-2xl border-2 border-brand/20 text-center mb-6">
+          <div class="flex items-center justify-between w-full mb-3 text-xs font-semibold text-slate-500 uppercase tracking-wider">
+            <span class="inline-flex items-center gap-1.5 text-brand">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6l4 2"/></svg> Study Phase
+            </span>
+            <span id="memory-timer-badge" class="bg-brand/10 text-brand px-2.5 py-1 rounded-full font-mono">5s</span>
+          </div>
+          <div id="memory-stimulus" class="w-full flex justify-center items-center py-4 my-1 text-xl sm:text-2xl font-bold text-ink tracking-wide">
+          </div>
+          <p class="text-xs text-slate-500 mt-2">Study this information carefully. It will disappear when the countdown ends.</p>
+          <button type="button" id="btn-skip-study" class="mt-4 px-4 py-1.5 text-xs font-semibold text-slate-600 hover:text-brand bg-white border border-border-line rounded-lg shadow-xs hover:border-brand/40 transition-colors cursor-pointer">
+            I'm Ready / Recall Now →
+          </button>
+        </div>
+
+        <h3 id="q-text" class="text-xl sm:text-2xl font-medium text-ink mb-6 leading-relaxed" tabindex="-1">
           Question text goes here
-        </h3></div>
+        </h3>
+        <div id="q-diagram" class="hidden mb-6 flex justify-center items-center p-4 bg-slate-50 rounded-2xl border border-border-line/60 overflow-hidden">
+        </div></div>
 
         <div id="options-container" class="space-y-3" role="radiogroup" aria-labelledby="q-text">
           <!-- Options dynamically injected here -->
@@ -95,7 +113,7 @@ const sessionKey = `studentkit_${id}_state_v1`;
         <h2 class="text-3xl sm:text-4xl font-semibold text-ink mb-4 group-hover:text-brand transition-colors duration-300">Your Reasoning Result</h2>
         <div class="inline-flex items-end justify-center gap-2 mb-2">
           <span id="score-correct" class="text-5xl font-bold text-brand">0</span>
-          <span class="text-2xl text-slate-muted font-medium mb-1">/ {questions.length}</span>
+          <span class="text-2xl text-slate-muted font-medium mb-1">/ <span id="score-total">{attemptQuestionCount}</span></span>
         </div>
         <p id="score-percentage" class="text-lg text-slate-muted font-medium">0% Accuracy</p>
       </div>
@@ -127,7 +145,7 @@ const sessionKey = `studentkit_${id}_state_v1`;
       <div class="p-6 bg-blue-50/50 border border-blue-100 rounded-2xl mb-8">
         <h4 class="text-base font-semibold text-blue-900 mb-2">What does this mean?</h4>
         <p class="text-sm text-blue-800/80 leading-relaxed">
-          This assessment measured your performance across six cognitive domains. A higher score in a specific area indicates a strong natural aptitude for that type of reasoning. Remember that cognitive skills can be trained, and this online exercise is meant for personal enrichment and benchmarking rather than clinical diagnosis.
+          This assessment measured your performance across distinct cognitive domains. A higher score in a specific area indicates a strong aptitude for that type of reasoning. Remember that cognitive skills can be trained, and this online exercise is meant for personal enrichment and benchmarking rather than clinical diagnosis.
         </p>
       </div>
 
@@ -142,21 +160,26 @@ const sessionKey = `studentkit_${id}_state_v1`;
 
 <script>
   document.addEventListener('astro:page-load', () => {
-    // Initialize ALL engines on the page, in case there are multiple (or just scoping them cleanly)
     document.querySelectorAll('[id^="engine-"]').forEach((engine) => {
       const questionsRaw = engine.getAttribute('data-questions');
       if (!questionsRaw) return;
-      const questions = JSON.parse(questionsRaw);
-      if (!questions.length) return;
+      const allQuestions = JSON.parse(questionsRaw);
+      if (!allQuestions.length) return;
 
+      const engineId = engine.getAttribute('data-engine-id') || 'assessment';
       const SESSION_KEY = engine.getAttribute('data-session-key');
-      
+      const HISTORY_KEY = `studentkit_${engineId}_seen_v1`;
+      const ATTEMPT_COUNT = Math.min(30, allQuestions.length);
+
+      let activeQuestions = [];
       let currentIndex = 0;
-      let answers = new Array(questions.length).fill(null);
+      let answers = [];
       let timeMinutes = parseInt(engine.getAttribute('data-time-minutes')) || 20;
       let timeRemaining = timeMinutes * 60;
       let timeTaken = 0;
       let timerInterval = null;
+      let studyInterval = null;
+      let studiedIndices = new Set();
 
       // DOM Elements
       const screenIntro = engine.querySelector('#screen-intro');
@@ -177,286 +200,533 @@ const sessionKey = `studentkit_${id}_state_v1`;
       const progressBarContainer = engine.querySelector('#progress-bar-container');
       const timerText = engine.querySelector('#timer-text');
 
-    // Check for existing session
-    function checkSession() {
-      try {
-        const stored = sessionStorage.getItem(SESSION_KEY);
-        if (stored) {
-          const parsed = JSON.parse(stored);
-          if (parsed && Array.isArray(parsed.answers) && parsed.answers.length === questions.length) {
-            btnResume.classList.remove('hidden');
-            return parsed;
+      const memoryStudyBox = engine.querySelector('#memory-study-box');
+      const memoryTimerBadge = engine.querySelector('#memory-timer-badge');
+      const memoryStimulus = engine.querySelector('#memory-stimulus');
+      const btnSkipStudy = engine.querySelector('#btn-skip-study');
+
+      function shuffle(arr) {
+        for (let i = arr.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          const temp = arr[i];
+          arr[i] = arr[j];
+          arr[j] = temp;
+        }
+        return arr;
+      }
+
+      function selectAndPrepareAttempt() {
+        if (allQuestions.length <= ATTEMPT_COUNT) {
+          return prepareQuestions(allQuestions);
+        }
+
+        // Load seen history from localStorage
+        let seenIds = [];
+        try {
+          const storedHistory = localStorage.getItem(HISTORY_KEY);
+          if (storedHistory) seenIds = JSON.parse(storedHistory);
+          if (!Array.isArray(seenIds)) seenIds = [];
+        } catch(e) {}
+        const seenSet = new Set(seenIds);
+
+        // Intended difficulty distribution: 10 Easy, 12 Medium, 8 Hard
+        const targetDiffs = { easy: 10, medium: 12, hard: 8 };
+
+        // Group categories for balanced distribution
+        const catNames = Array.from(new Set(allQuestions.map((q) => q.category || 'General')));
+        shuffle(catNames);
+
+        const selected = [];
+        const newlySeen = [];
+        const selectedIdSet = new Set();
+
+        for (const [diff, targetCount] of Object.entries(targetDiffs)) {
+          let diffPicked = [];
+          const numCats = catNames.length;
+          const basePerCat = Math.floor(targetCount / numCats);
+          let rem = targetCount % numCats;
+
+          for (let i = 0; i < numCats; i++) {
+            const cat = catNames[i];
+            let quota = basePerCat + (rem > 0 ? 1 : 0);
+            if (rem > 0) rem--;
+
+            const pool = allQuestions.filter((q) => (q.category || 'General') === cat && q.difficulty === diff && !selectedIdSet.has(q.id));
+            const unseen = pool.filter((q) => !seenSet.has(q.id));
+            const seen = pool.filter((q) => seenSet.has(q.id));
+            shuffle(unseen);
+            shuffle(seen);
+
+            const combined = unseen.concat(seen);
+            const picked = combined.slice(0, quota);
+            picked.forEach((p) => {
+              diffPicked.push(p);
+              selectedIdSet.add(p.id);
+              newlySeen.push(p.id);
+            });
+          }
+
+          // Top up if any category had fewer than its quota
+          if (diffPicked.length < targetCount) {
+            const remainingPool = allQuestions.filter((q) => q.difficulty === diff && !selectedIdSet.has(q.id));
+            const unseen = remainingPool.filter((q) => !seenSet.has(q.id));
+            const seen = remainingPool.filter((q) => seenSet.has(q.id));
+            shuffle(unseen);
+            shuffle(seen);
+            const combined = unseen.concat(seen);
+
+            while (diffPicked.length < targetCount && combined.length > 0) {
+              const p = combined.shift();
+              diffPicked.push(p);
+              selectedIdSet.add(p.id);
+              newlySeen.push(p.id);
+            }
+          }
+
+          selected.push(...diffPicked);
+        }
+
+        // Update history in localStorage (keep up to 180 recent IDs)
+        try {
+          const updatedHistory = newlySeen.concat(seenIds.filter((id) => !newlySeen.includes(id))).slice(0, 180);
+          localStorage.setItem(HISTORY_KEY, JSON.stringify(updatedHistory));
+        } catch(e) {}
+
+        // Shuffle the selected questions order
+        shuffle(selected);
+
+        return prepareQuestions(selected);
+      }
+
+      function prepareQuestions(list) {
+        return list.map((origQ) => {
+          const q = JSON.parse(JSON.stringify(origQ));
+          const correctIdx = q.correctAnswer !== undefined ? q.correctAnswer : q.correct;
+
+          // Shuffle option order while preserving correct answer mapping
+          const indexed = q.options.map((opt, i) => ({ opt, isCorrect: i === correctIdx }));
+          shuffle(indexed);
+
+          const newOptions = indexed.map((item) => item.opt);
+          const newCorrectIdx = indexed.findIndex((item) => item.isCorrect);
+
+          q.options = newOptions;
+          q.correctAnswer = newCorrectIdx;
+          q.correct = newCorrectIdx;
+          return q;
+        });
+      }
+
+      // Check for existing active session
+      function checkSession() {
+        try {
+          const stored = sessionStorage.getItem(SESSION_KEY);
+          if (stored) {
+            const parsed = JSON.parse(stored);
+            if (parsed && Array.isArray(parsed.activeQuestions) && parsed.activeQuestions.length === ATTEMPT_COUNT && Array.isArray(parsed.answers)) {
+              btnResume.classList.remove('hidden');
+              if (Array.isArray(parsed.studiedIndices)) {
+                studiedIndices = new Set(parsed.studiedIndices);
+              }
+              return parsed;
+            }
+          }
+        } catch(e) {
+          sessionStorage.removeItem(SESSION_KEY);
+        }
+        return null;
+      }
+
+      const existingSession = checkSession();
+
+      function saveSession() {
+        try {
+          sessionStorage.setItem(SESSION_KEY, JSON.stringify({
+            activeQuestions,
+            currentIndex,
+            answers,
+            timeRemaining,
+            timeTaken,
+            studiedIndices: Array.from(studiedIndices)
+          }));
+        } catch(e) {}
+      }
+
+      function clearSession() {
+        try {
+          sessionStorage.removeItem(SESSION_KEY);
+        } catch(e) {}
+      }
+
+      // Start fresh attempt
+      btnStart.addEventListener('click', () => {
+        clearSession();
+        activeQuestions = selectAndPrepareAttempt();
+        currentIndex = 0;
+        answers = new Array(activeQuestions.length).fill(null);
+        studiedIndices.clear();
+        timeRemaining = timeMinutes * 60;
+        timeTaken = 0;
+        startTest();
+      });
+
+      // Resume active attempt
+      btnResume.addEventListener('click', () => {
+        if (existingSession) {
+          activeQuestions = existingSession.activeQuestions;
+          currentIndex = existingSession.currentIndex || 0;
+          answers = existingSession.answers;
+          if (Array.isArray(existingSession.studiedIndices)) {
+            studiedIndices = new Set(existingSession.studiedIndices);
+          }
+          timeRemaining = typeof existingSession.timeRemaining === 'number' ? existingSession.timeRemaining : timeMinutes * 60;
+          timeTaken = typeof existingSession.timeTaken === 'number' ? existingSession.timeTaken : 0;
+        } else {
+          activeQuestions = selectAndPrepareAttempt();
+          answers = new Array(activeQuestions.length).fill(null);
+        }
+        startTest();
+      });
+
+      btnNext.addEventListener('click', handleNext);
+      btnPrev.addEventListener('click', handlePrev);
+      btnRestart.addEventListener('click', () => {
+        clearSession();
+        window.location.reload();
+      });
+
+      function startTest() {
+        screenIntro.classList.remove("flex", "active");
+        screenIntro.classList.add("hidden");
+        screenTest.classList.remove("hidden");
+        screenTest.classList.add("flex");
+        void screenTest.offsetWidth;
+        screenTest.classList.add("active");
+        renderQuestion();
+        startTimer();
+        saveSession();
+      }
+
+      function startTimer() {
+        updateTimerUI();
+        timerInterval = setInterval(() => {
+          timeRemaining--;
+          timeTaken++;
+          updateTimerUI();
+
+          if (timeRemaining % 5 === 0) saveSession();
+
+          if (timeRemaining <= 0) {
+            clearInterval(timerInterval);
+            if (studyInterval) clearInterval(studyInterval);
+            finishTest();
+          }
+        }, 1000);
+      }
+
+      function updateTimerUI() {
+        if (timeRemaining < 0) timeRemaining = 0;
+        const m = Math.floor(timeRemaining / 60).toString().padStart(2, '0');
+        const s = (timeRemaining % 60).toString().padStart(2, '0');
+        timerText.textContent = `${m}:${s}`;
+      }
+
+      function formatTime(seconds) {
+        const m = Math.floor(seconds / 60);
+        const s = seconds % 60;
+        return `${m}m ${s}s`;
+      }
+
+      function renderQuestion() {
+        if (studyInterval) {
+          clearInterval(studyInterval);
+          studyInterval = null;
+        }
+
+        const q = activeQuestions[currentIndex];
+        
+        const qHeader = engine.querySelector('#question-header');
+        if (qHeader) {
+          qHeader.style.animation = 'none';
+          void qHeader.offsetWidth;
+          qHeader.style.animation = 'formFadeIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) backwards';
+        }
+
+        qCategory.textContent = q.category;
+        qText.textContent = q.question;
+
+        const qDiagram = engine.querySelector('#q-diagram');
+        if (qDiagram) {
+          if (q.diagram) {
+            qDiagram.innerHTML = q.diagram;
+            qDiagram.classList.remove('hidden');
+          } else {
+            qDiagram.innerHTML = '';
+            qDiagram.classList.add('hidden');
           }
         }
-      } catch(e) {
-        sessionStorage.removeItem(SESSION_KEY);
-      }
-      return null;
-    }
-
-    const existingSession = checkSession();
-
-    function saveSession() {
-      try {
-        sessionStorage.setItem(SESSION_KEY, JSON.stringify({
-          currentIndex,
-          answers,
-          timeRemaining,
-          timeTaken
-        }));
-      } catch(e) {}
-    }
-
-    function clearSession() {
-      try {
-        sessionStorage.removeItem(SESSION_KEY);
-      } catch(e) {}
-    }
-
-    // Initialization
-    btnStart.addEventListener('click', () => {
-      clearSession();
-      currentIndex = 0;
-      answers = new Array(questions.length).fill(null);
-      timeRemaining = 20 * 60;
-      timeTaken = 0;
-      startTest();
-    });
-
-    btnResume.addEventListener('click', () => {
-      if (existingSession) {
-        currentIndex = existingSession.currentIndex || 0;
-        answers = existingSession.answers;
-        timeRemaining = typeof existingSession.timeRemaining === 'number' ? existingSession.timeRemaining : 20 * 60;
-        timeTaken = typeof existingSession.timeTaken === 'number' ? existingSession.timeTaken : 0;
-      }
-      startTest();
-    });
-
-    btnNext.addEventListener('click', handleNext);
-    btnPrev.addEventListener('click', handlePrev);
-    btnRestart.addEventListener('click', () => {
-      clearSession();
-      window.location.reload();
-    });
-
-    function startTest() {
-  screenIntro.classList.remove("flex", "active");
-  screenIntro.classList.add("hidden");
-  screenTest.classList.remove("hidden");
-  screenTest.classList.add("flex");
-  void screenTest.offsetWidth;
-  screenTest.classList.add("active");
-  renderQuestion();
-  startTimer();
-  saveSession();
-}
-
-    function startTimer() {
-      // update immediately
-      updateTimerUI();
-      timerInterval = setInterval(() => {
-        timeRemaining--;
-        timeTaken++;
-        updateTimerUI();
-
-        if (timeRemaining % 5 === 0) saveSession(); // Save state every 5 seconds to reduce blocking
-
-        if (timeRemaining <= 0) {
-          clearInterval(timerInterval);
-          finishTest();
-        }
-      }, 1000);
-    }
-
-    function updateTimerUI() {
-      if (timeRemaining < 0) timeRemaining = 0;
-      const m = Math.floor(timeRemaining / 60).toString().padStart(2, '0');
-      const s = (timeRemaining % 60).toString().padStart(2, '0');
-      timerText.textContent = `${m}:${s}`;
-    }
-
-    function formatTime(seconds) {
-      const m = Math.floor(seconds / 60);
-      const s = seconds % 60;
-      return `${m}m ${s}s`;
-    }
-
-    function renderQuestion() {
-      const q = questions[currentIndex];
-      
-      const qHeader = engine.querySelector('#question-header');
-      if (qHeader) {
-        qHeader.style.animation = 'none';
-        void qHeader.offsetWidth;
-        qHeader.style.animation = 'formFadeIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) backwards';
-      }
-
-      qCategory.textContent = q.category;
-      qText.textContent = q.question;
-      
-      progressText.textContent = `Question ${currentIndex + 1} of ${questions.length}`;
-      const pct = ((currentIndex + 1) / questions.length) * 100;
-      progressBar.style.width = `${pct}%`;
-      progressBarContainer.setAttribute('aria-valuenow', pct.toString());
-
-      btnPrev.disabled = currentIndex === 0;
-      
-      if (currentIndex === questions.length - 1) {
-        btnNext.textContent = 'Finish Assessment';
-        btnNext.classList.remove('bg-ink', 'hover:bg-ink/90');
-        btnNext.classList.add('bg-brand', 'hover:bg-brand/90');
-      } else {
-        btnNext.textContent = 'Next';
-        btnNext.classList.add('bg-ink', 'hover:bg-ink/90');
-        btnNext.classList.remove('bg-brand', 'hover:bg-brand/90');
-      }
-
-      btnNext.disabled = answers[currentIndex] === null;
-
-      // Render options
-      optionsContainer.innerHTML = '';
-      q.options.forEach((opt, idx) => {
-        const isSelected = answers[currentIndex] === idx;
-        const btn = document.createElement('button');
-        btn.setAttribute('role', 'radio');
-        btn.setAttribute('aria-checked', isSelected.toString());
-        btn.className = `w-full text-left p-4 sm:p-5 rounded-xl border-2 transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] flex items-center gap-4 focus-ring active:scale-[0.98] ${isSelected ? 'border-brand bg-brand/5 text-brand' : 'border-border-line bg-white md:hover:border-brand/40 md:hover:bg-slate-50 md:hover:shadow-sm active:bg-slate-50 active:border-brand/40 text-ink'}`;
         
-        const circle = document.createElement('div');
-        circle.className = `w-5 h-5 flex-shrink-0 rounded-full border-2 flex items-center justify-center ${isSelected ? 'border-brand' : 'border-slate-300'}`;
-        if (isSelected) {
-          const dot = document.createElement('div');
-          dot.className = 'w-2.5 h-2.5 rounded-full bg-brand';
-          circle.appendChild(dot);
+        progressText.textContent = `Question ${currentIndex + 1} of ${activeQuestions.length}`;
+        const pct = ((currentIndex + 1) / activeQuestions.length) * 100;
+        progressBar.style.width = `${pct}%`;
+        progressBarContainer.setAttribute('aria-valuenow', pct.toString());
+
+        btnPrev.disabled = currentIndex === 0;
+        
+        if (currentIndex === activeQuestions.length - 1) {
+          btnNext.textContent = 'Finish Assessment';
+          btnNext.classList.remove('bg-ink', 'hover:bg-ink/90');
+          btnNext.classList.add('bg-brand', 'hover:bg-brand/90');
+        } else {
+          btnNext.textContent = 'Next';
+          btnNext.classList.add('bg-ink', 'hover:bg-ink/90');
+          btnNext.classList.remove('bg-brand', 'hover:bg-brand/90');
         }
 
-        const span = document.createElement('span');
-        span.className = 'font-medium leading-tight';
-        span.textContent = opt;
+        // Memory stimulus study phase
+        const hasStimulus = Boolean(q.stimulus);
+        const isAlreadyStudied = studiedIndices.has(currentIndex) || answers[currentIndex] !== null;
 
-        btn.appendChild(circle);
-        btn.appendChild(span);
+        if (hasStimulus && !isAlreadyStudied && memoryStudyBox) {
+          memoryStudyBox.classList.remove('hidden');
+          memoryStudyBox.classList.add('flex');
+          if (memoryStimulus) memoryStimulus.innerHTML = q.stimulus;
+          
+          qText.classList.add('hidden');
+          if (qDiagram) qDiagram.classList.add('hidden');
+          optionsContainer.classList.add('hidden');
+          btnNext.disabled = true;
 
-        btn.addEventListener('click', () => {
-          answers[currentIndex] = idx;
-          saveSession();
-          renderQuestion();
+          let studySec = typeof q.studyDuration === 'number' ? q.studyDuration : 5;
+          if (memoryTimerBadge) memoryTimerBadge.textContent = `${studySec}s`;
+
+          const endStudyPhase = () => {
+            if (studyInterval) {
+              clearInterval(studyInterval);
+              studyInterval = null;
+            }
+            studiedIndices.add(currentIndex);
+            saveSession();
+            
+            memoryStudyBox.classList.remove('flex');
+            memoryStudyBox.classList.add('hidden');
+            qText.classList.remove('hidden');
+            if (q.diagram && qDiagram) qDiagram.classList.remove('hidden');
+            optionsContainer.classList.remove('hidden');
+            btnNext.disabled = answers[currentIndex] === null;
+          };
+
+          if (btnSkipStudy) {
+            btnSkipStudy.onclick = endStudyPhase;
+          }
+
+          studyInterval = setInterval(() => {
+            studySec--;
+            if (studySec > 0) {
+              if (memoryTimerBadge) memoryTimerBadge.textContent = `${studySec}s`;
+            } else {
+              endStudyPhase();
+            }
+          }, 1000);
+
+        } else {
+          if (memoryStudyBox) {
+            memoryStudyBox.classList.remove('flex');
+            memoryStudyBox.classList.add('hidden');
+          }
+          qText.classList.remove('hidden');
+          optionsContainer.classList.remove('hidden');
+          btnNext.disabled = answers[currentIndex] === null;
+        }
+
+        // Render options
+        optionsContainer.innerHTML = '';
+        const isVisual = q.options && q.options.some((o) => typeof o === 'string' && o.includes('<svg'));
+        if (isVisual) {
+          optionsContainer.className = 'grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4';
+        } else {
+          optionsContainer.className = 'space-y-3';
+        }
+
+        q.options.forEach((opt, idx) => {
+          const isSelected = answers[currentIndex] === idx;
+          const btn = document.createElement('button');
+          btn.setAttribute('role', 'radio');
+          btn.setAttribute('aria-checked', isSelected.toString());
+          btn.className = `w-full text-left p-4 sm:p-5 rounded-xl border-2 transition-all duration-200 ease-out flex items-center gap-4 focus-ring active:scale-[0.98] ${isSelected ? 'border-brand bg-brand/5 text-brand' : 'border-border-line bg-white md:hover:border-brand/40 md:hover:bg-slate-50 md:hover:shadow-sm active:bg-slate-50 active:border-brand/40 text-ink'}`;
+          
+          const circle = document.createElement('div');
+          circle.className = `w-5 h-5 flex-shrink-0 rounded-full border-2 flex items-center justify-center ${isSelected ? 'border-brand' : 'border-slate-300'}`;
+          if (isSelected) {
+            const dot = document.createElement('div');
+            dot.className = 'w-2.5 h-2.5 rounded-full bg-brand';
+            circle.appendChild(dot);
+          }
+
+          const span = document.createElement('span');
+          span.className = 'font-medium leading-tight flex-1 flex items-center';
+          if (typeof opt === 'string' && opt.includes('<svg')) {
+            span.innerHTML = opt;
+          } else {
+            span.textContent = opt;
+          }
+
+          btn.appendChild(circle);
+          btn.appendChild(span);
+
+          btn.addEventListener('click', () => {
+            answers[currentIndex] = idx;
+            saveSession();
+            updateSelectedOptionUI(idx);
+          });
+
+          optionsContainer.appendChild(btn);
         });
 
-        optionsContainer.appendChild(btn);
-      });
-      
-      if (timeTaken > 0) {
-        qText.focus({ preventScroll: true });
-      }
-    }
+        function updateSelectedOptionUI(selectedIdx) {
+          const optionButtons = optionsContainer.querySelectorAll('button[role="radio"]');
+          optionButtons.forEach((b, i) => {
+            const isSel = i === selectedIdx;
+            b.setAttribute('aria-checked', isSel.toString());
+            const c = b.querySelector('div');
+            if (isSel) {
+              b.className = 'w-full text-left p-4 sm:p-5 rounded-xl border-2 transition-all duration-200 ease-out flex items-center gap-4 focus-ring active:scale-[0.98] border-brand bg-brand/5 text-brand';
+              if (c) {
+                c.className = 'w-5 h-5 flex-shrink-0 rounded-full border-2 flex items-center justify-center border-brand';
+                if (!c.querySelector('.bg-brand')) {
+                  const d = document.createElement('div');
+                  d.className = 'w-2.5 h-2.5 rounded-full bg-brand';
+                  c.appendChild(d);
+                }
+              }
+            } else {
+              b.className = 'w-full text-left p-4 sm:p-5 rounded-xl border-2 transition-all duration-200 ease-out flex items-center gap-4 focus-ring active:scale-[0.98] border-border-line bg-white md:hover:border-brand/40 md:hover:bg-slate-50 md:hover:shadow-sm active:bg-slate-50 active:border-brand/40 text-ink';
+              if (c) {
+                c.className = 'w-5 h-5 flex-shrink-0 rounded-full border-2 flex items-center justify-center border-slate-300';
+                const d = c.querySelector('.bg-brand');
+                if (d) d.remove();
+              }
+            }
+          });
 
-    function handleNext() {
-      if (answers[currentIndex] === null) return; // Guard
-      if (currentIndex < questions.length - 1) {
-        currentIndex++;
-        saveSession();
-        renderQuestion();
-      } else {
-        finishTest();
-      }
-    }
-
-    function handlePrev() {
-      if (currentIndex > 0) {
-        currentIndex--;
-        saveSession();
-        renderQuestion();
-      }
-    }
-
-    function finishTest() {
-  clearInterval(timerInterval);
-  clearSession();
-  screenTest.classList.remove("flex", "active");
-  screenTest.classList.add("hidden");
-  screenResults.classList.remove("hidden");
-  screenResults.classList.add("flex");
-  void screenResults.offsetWidth;
-  screenResults.classList.add("active");
-  calculateResults();
-}
-
-    function calculateResults() {
-      let correct = 0;
-      const categoryStats = {};
-      
-      questions.forEach((q, idx) => {
-        if (!categoryStats[q.category]) {
-          categoryStats[q.category] = { total: 0, correct: 0 };
+          btnNext.disabled = false;
         }
-        categoryStats[q.category].total++;
         
-        if (answers[idx] === q.correctAnswer) {
-          correct++;
-          categoryStats[q.category].correct++;
+        if (timeTaken > 0) {
+          qText.focus({ preventScroll: true });
         }
-      });
-
-      engine.querySelector('#score-correct').textContent = correct;
-      engine.querySelector('#score-percentage').textContent = `${Math.round((correct / questions.length) * 100)}% Accuracy`;
-      engine.querySelector('#time-taken').textContent = formatTime(timeTaken);
-
-      const barsContainer = engine.querySelector('#category-bars');
-      barsContainer.innerHTML = '';
-
-      let bestCat = { name: 'None', score: -1 };
-      let worstCat = { name: 'None', score: 101 };
-
-            for (const [cat, stats] of Object.entries(categoryStats)) {
-        const pct = (stats.correct / stats.total) * 100;
-        
-        if (pct > bestCat.score) bestCat = { name: cat, score: pct };
-        if (pct < worstCat.score) worstCat = { name: cat, score: pct };
-
-        const row = document.createElement('div');
-        row.className = 'flex flex-col gap-1.5';
-        
-        const topRow = document.createElement('div');
-        topRow.className = 'flex items-center justify-between gap-2';
-        
-        const label = document.createElement('span');
-        label.className = 'text-sm font-medium text-ink leading-tight';
-        label.textContent = cat;
-        
-        const val = document.createElement('span');
-        val.className = 'text-xs text-slate-muted font-medium whitespace-nowrap';
-        val.textContent = `${stats.correct} / ${stats.total}`;
-        
-        topRow.appendChild(label);
-        topRow.appendChild(val);
-
-        const barBg = document.createElement('div');
-        barBg.className = 'h-2 w-full bg-slate-100 rounded-full overflow-hidden';
-        
-        const barFill = document.createElement('div');
-        barFill.className = 'h-full bg-brand rounded-full transition-all duration-700';
-        barFill.style.width = '0%';
-        
-        // Animate fill after a tiny delay for visual polish
-        setTimeout(() => {
-          barFill.style.width = `${pct}%`;
-        }, 300);
-
-        barBg.appendChild(barFill);
-        
-        row.appendChild(topRow);
-        row.appendChild(barBg);
-        
-        barsContainer.appendChild(row);
       }
-      engine.querySelector('#strongest-area').textContent = bestCat.name;
-      engine.querySelector('#needs-improvement').textContent = worstCat.name;
-    }
+
+      function handleNext() {
+        if (answers[currentIndex] === null) return;
+        if (currentIndex < activeQuestions.length - 1) {
+          currentIndex++;
+          saveSession();
+          renderQuestion();
+        } else {
+          finishTest();
+        }
+      }
+
+      function handlePrev() {
+        if (currentIndex > 0) {
+          currentIndex--;
+          saveSession();
+          renderQuestion();
+        }
+      }
+
+      function finishTest() {
+        clearInterval(timerInterval);
+        clearSession();
+        screenTest.classList.remove("flex", "active");
+        screenTest.classList.add("hidden");
+        screenResults.classList.remove("hidden");
+        screenResults.classList.add("flex");
+        void screenResults.offsetWidth;
+        screenResults.classList.add("active");
+        calculateResults();
+      }
+
+      function calculateResults() {
+        let correct = 0;
+        const categoryStats = {};
+        
+        activeQuestions.forEach((q, idx) => {
+          if (!categoryStats[q.category]) {
+            categoryStats[q.category] = { total: 0, correct: 0 };
+          }
+          categoryStats[q.category].total++;
+          
+          const expectedAnswer = q.correctAnswer !== undefined ? q.correctAnswer : q.correct;
+          if (answers[idx] === expectedAnswer) {
+            correct++;
+            categoryStats[q.category].correct++;
+          }
+        });
+
+        const scoreCorrectEl = engine.querySelector('#score-correct');
+        const scoreTotalEl = engine.querySelector('#score-total');
+        if (scoreCorrectEl) scoreCorrectEl.textContent = correct;
+        if (scoreTotalEl) scoreTotalEl.textContent = activeQuestions.length;
+
+        engine.querySelector('#score-percentage').textContent = `${Math.round((correct / activeQuestions.length) * 100)}% Accuracy`;
+        engine.querySelector('#time-taken').textContent = formatTime(timeTaken);
+
+        const barsContainer = engine.querySelector('#category-bars');
+        barsContainer.innerHTML = '';
+
+        let bestCat = { name: 'None', score: -1 };
+        let worstCat = { name: 'None', score: 101 };
+
+        for (const [cat, stats] of Object.entries(categoryStats)) {
+          const pct = (stats.correct / stats.total) * 100;
+          
+          if (pct > bestCat.score) bestCat = { name: cat, score: pct };
+          if (pct < worstCat.score) worstCat = { name: cat, score: pct };
+
+          const row = document.createElement('div');
+          row.className = 'flex flex-col gap-1.5';
+          
+          const topRow = document.createElement('div');
+          topRow.className = 'flex items-center justify-between gap-2';
+          
+          const label = document.createElement('span');
+          label.className = 'text-sm font-medium text-ink leading-tight';
+          label.textContent = cat;
+          
+          const val = document.createElement('span');
+          val.className = 'text-xs text-slate-muted font-medium whitespace-nowrap';
+          val.textContent = `${stats.correct} / ${stats.total}`;
+          
+          topRow.appendChild(label);
+          topRow.appendChild(val);
+
+          const barBg = document.createElement('div');
+          barBg.className = 'h-2 w-full bg-slate-100 rounded-full overflow-hidden';
+          
+          const barFill = document.createElement('div');
+          barFill.className = 'h-full bg-brand rounded-full transition-all duration-700';
+          barFill.style.width = '0%';
+          
+          setTimeout(() => {
+            barFill.style.width = `${pct}%`;
+          }, 300);
+
+          barBg.appendChild(barFill);
+          
+          row.appendChild(topRow);
+          row.appendChild(barBg);
+          
+          barsContainer.appendChild(row);
+        }
+        engine.querySelector('#strongest-area').textContent = bestCat.name;
+        engine.querySelector('#needs-improvement').textContent = worstCat.name;
+      }
     });
   });
 </script>
+
 
 
 

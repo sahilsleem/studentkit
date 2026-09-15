@@ -1,0 +1,19 @@
+---
+import TestLayout from '../../layouts/TestLayout.astro';
+import AssessmentEngine from '../../components/tests/AssessmentEngine.astro';
+import { testsRegistry } from '../../data/testsRegistry';
+import { memoryQuestions } from '../../data/tests/memoryQuestions';
+
+const testMetadata = testsRegistry.find(t => t.slug === 'memory');
+if (!testMetadata) throw new Error("Memory Test metadata not found in registry");
+---
+
+<TestLayout test={testMetadata}>
+  <AssessmentEngine 
+    id="memory"
+    title="Memory Test"
+    description="This assessment measures your short-term memory, working memory, sequence recall, pattern recognition, and spatial positioning through timed study and recall phases. It is designed as an engaging cognitive exercise for personal practice and enrichment."
+    timeMinutes={20}
+    questions={memoryQuestions}
+  />
+</TestLayout>

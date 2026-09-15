@@ -1,0 +1,19 @@
+---
+import TestLayout from '../../layouts/TestLayout.astro';
+import AssessmentEngine from '../../components/tests/AssessmentEngine.astro';
+import { testsRegistry } from '../../data/testsRegistry';
+import { numericalQuestions } from '../../data/tests/numericalQuestions';
+
+const testMetadata = testsRegistry.find(t => t.slug === 'numerical-reasoning');
+if (!testMetadata) throw new Error("Numerical Reasoning Test metadata not found in registry");
+---
+
+<TestLayout test={testMetadata}>
+  <AssessmentEngine 
+    id="numerical"
+    title="Numerical Reasoning Test"
+    description="This assessment measures your quantitative problem-solving skills across number patterns, arithmetic, ratios, percentages, and practical data interpretation. It is designed as an engaging cognitive exercise for personal practice and enrichment."
+    timeMinutes={20}
+    questions={numericalQuestions}
+  />
+</TestLayout>
