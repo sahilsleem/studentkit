@@ -1,0 +1,538 @@
+---
+// WorkingMemoryEngine.astro
+---
+
+<div
+  id="wm-container"
+  class="reveal has-ripple group bg-card/80 rounded-3xl border border-border-line/80 hover:border-brand hover:shadow-xl hover:-translate-y-1.5 hover:scale-[1.02] transition-[transform,border-color,box-shadow] duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] overflow-hidden relative"
+>
+  
+  <!-- SCREEN: SETUP -->
+  <div id="wm-screen-setup" class="p-6 sm:p-10 text-center flex flex-col items-center">
+    <div class="w-16 h-16 rounded-2xl bg-brand-light/80 text-brand flex items-center justify-center mb-6 shadow-xs group-hover:bg-gradient-to-br group-hover:from-violet-500 group-hover:to-teal-400 group-hover:text-white transition-all duration-300 group-hover:scale-110 group-hover:-rotate-3">
+      <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2M9 2v2M20 15h2M20 9h2M9 20v2M15 20v2M2 9h2M2 15h2"/>
+      </svg>
+    </div>
+
+    <h2 class="text-2xl sm:text-3xl font-extrabold text-ink mb-2 tracking-tight group-hover:text-brand transition-colors duration-300">
+      Working Memory Challenge
+    </h2>
+    <p class="text-base sm:text-lg font-bold text-brand mb-3 tracking-tight">
+      Hold and manipulate information in your head.
+    </p>
+    <p class="text-slate-muted max-w-lg mb-8 text-sm sm:text-base leading-relaxed">
+      Remember the order of the distinct symbols and letters presented to you.
+    </p>
+
+    <!-- Settings display -->
+    <div class="grid grid-cols-2 gap-3 sm:gap-4 w-full max-w-md mb-8">
+      <div class="p-3.5 bg-slate-50/80 rounded-2xl border border-border-line/60 text-center hover:border-brand/30 transition-colors">
+        <span class="text-xs text-slate-muted block font-medium">Session</span>
+        <span class="text-base sm:text-lg font-bold text-ink">20 Rounds</span>
+      </div>
+      <div class="p-3.5 bg-slate-50/80 rounded-2xl border border-border-line/60 text-center hover:border-brand/30 transition-colors">
+        <span class="text-xs text-slate-muted block font-medium">Adaptive</span>
+        <span class="text-base sm:text-lg font-bold text-brand">Auto-Scale</span>
+      </div>
+    </div>
+
+    <!-- Personal Best Box -->
+    <div id="wm-intro-pb-box" class="hidden mb-8 p-4 bg-amber-500/10 border border-amber-500/20 rounded-2xl w-full max-w-md text-left transition-all duration-300">
+      <div class="flex items-center justify-between text-xs font-semibold text-amber-800 mb-1">
+        <span>🏆 Personal Best</span>
+        <span class="text-amber-700/80 font-normal">Recent</span>
+      </div>
+      <div class="flex items-baseline justify-between">
+        <span id="wm-intro-pb-score" class="text-lg font-extrabold text-amber-900">-- / 20</span>
+        <span id="wm-intro-pb-tier" class="text-xs text-amber-800 font-medium">Tier: --</span>
+      </div>
+    </div>
+
+    <button
+      id="wm-btn-start"
+      type="button"
+      class="has-ripple w-full max-w-md py-4 px-8 bg-brand hover:bg-brand/90 text-card font-bold rounded-2xl shadow-md shadow-brand/20 transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] transform active:scale-[0.98] hover:scale-[1.01] focus-ring text-base cursor-pointer"
+    >
+      Start Challenge
+    </button>
+  </div>
+
+  <!-- SCREEN: SHOWING -->
+  <div id="wm-screen-showing" class="hidden p-5 sm:p-8 flex-col h-full min-h-[350px]">
+    <!-- Header -->
+    <div class="flex items-center justify-between gap-4 mb-4 pb-4 border-b border-border-line/60">
+      <div class="flex items-center gap-2">
+        <span id="wm-show-progress" class="text-sm font-bold text-ink font-mono">Round 1 / 20</span>
+        <span id="wm-show-diff" class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider border bg-slate-100 text-slate-700 border-slate-200">
+          EASY
+        </span>
+      </div>
+      <div class="text-xs font-bold text-brand uppercase tracking-widest">
+        Memorize
+      </div>
+    </div>
+
+    <!-- Sequence Display -->
+    <div class="flex-grow flex items-center justify-center min-h-[200px]">
+      <div id="wm-sequence-display" class="text-7xl sm:text-9xl font-black text-ink select-none font-mono">
+        <!-- Strictly NO CSS animations/transitions here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- SCREEN: RECALL -->
+  <div id="wm-screen-recall" class="hidden p-5 sm:p-8 flex-col min-h-[350px]">
+    
+    <!-- Header -->
+    <div class="flex items-center justify-between gap-4 mb-6 pb-4 border-b border-border-line/60">
+      <div class="flex items-center gap-2">
+        <span id="wm-recall-progress" class="text-sm font-bold text-ink font-mono">Round 1 / 20</span>
+        <span id="wm-recall-diff" class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider border bg-slate-100 text-slate-700 border-slate-200">
+          EASY
+        </span>
+      </div>
+      <div class="flex items-center gap-3 sm:gap-4 text-xs font-bold text-slate-muted">
+        <div class="flex items-center gap-1">
+          <span class="text-amber-500">🔥</span>
+          <span id="wm-streak-text">Streak: 0</span>
+        </div>
+        <div>
+          Score: <span id="wm-score-text" class="text-ink font-mono font-bold text-sm">0</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Question -->
+    <div class="mb-8 text-center sm:text-left">
+      <span class="text-xs uppercase tracking-wider font-bold text-brand block mb-1">
+        Recall
+      </span>
+      <h3 id="wm-question-text" class="text-xl sm:text-2xl font-extrabold text-ink tracking-tight">
+        What came 3rd?
+      </h3>
+    </div>
+
+    <!-- Options Grid -->
+    <div id="wm-options-grid" class="grid grid-cols-2 gap-3 sm:gap-4 mb-4">
+      <button type="button" class="wm-option-btn has-ripple p-6 sm:p-8 rounded-2xl border-2 border-border-line bg-white font-black text-3xl sm:text-4xl text-center transition-[transform,border-color,background-color] duration-200 ease-[cubic-bezier(0.34,1.56,0.64,1)] md:hover:border-brand md:hover:bg-brand/5 md:hover:scale-[1.02] active:scale-[0.98] cursor-pointer select-none shadow-2xs group/btn flex items-center justify-center" data-idx="0">
+        <span class="wm-option-label text-ink font-mono">--</span>
+      </button>
+      <button type="button" class="wm-option-btn has-ripple p-6 sm:p-8 rounded-2xl border-2 border-border-line bg-white font-black text-3xl sm:text-4xl text-center transition-[transform,border-color,background-color] duration-200 ease-[cubic-bezier(0.34,1.56,0.64,1)] md:hover:border-brand md:hover:bg-brand/5 md:hover:scale-[1.02] active:scale-[0.98] cursor-pointer select-none shadow-2xs group/btn flex items-center justify-center" data-idx="1">
+        <span class="wm-option-label text-ink font-mono">--</span>
+      </button>
+      <button type="button" class="wm-option-btn has-ripple p-6 sm:p-8 rounded-2xl border-2 border-border-line bg-white font-black text-3xl sm:text-4xl text-center transition-[transform,border-color,background-color] duration-200 ease-[cubic-bezier(0.34,1.56,0.64,1)] md:hover:border-brand md:hover:bg-brand/5 md:hover:scale-[1.02] active:scale-[0.98] cursor-pointer select-none shadow-2xs group/btn flex items-center justify-center" data-idx="2">
+        <span class="wm-option-label text-ink font-mono">--</span>
+      </button>
+      <button type="button" class="wm-option-btn has-ripple p-6 sm:p-8 rounded-2xl border-2 border-border-line bg-white font-black text-3xl sm:text-4xl text-center transition-[transform,border-color,background-color] duration-200 ease-[cubic-bezier(0.34,1.56,0.64,1)] md:hover:border-brand md:hover:bg-brand/5 md:hover:scale-[1.02] active:scale-[0.98] cursor-pointer select-none shadow-2xs group/btn flex items-center justify-center" data-idx="3">
+        <span class="wm-option-label text-ink font-mono">--</span>
+      </button>
+    </div>
+    
+    <!-- Instant Feedback Text -->
+    <div id="wm-feedback" class="hidden text-center text-lg font-bold mt-2">
+      <!-- ✓ Correct or ✕ Incorrect -->
+    </div>
+    
+    <p class="text-center text-xs text-slate-muted/80 select-none mt-4">
+      💡 Press keys <kbd class="px-1.5 py-0.5 bg-slate-100 border border-slate-300 rounded font-mono font-semibold text-slate-700">1</kbd>–<kbd class="px-1.5 py-0.5 bg-slate-100 border border-slate-300 rounded font-mono font-semibold text-slate-700">4</kbd> or tap an answer
+    </p>
+  </div>
+
+  <!-- SCREEN: RESULTS -->
+  <div id="wm-screen-results" class="hidden p-6 sm:p-10 flex flex-col items-center min-h-[350px] justify-center">
+    
+    <div id="wm-new-pb-badge" class="hidden mb-4 px-4 py-1.5 bg-amber-500/10 text-amber-800 border border-amber-500/30 rounded-full text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 animate-bounce">
+      <span>🎉 NEW PERSONAL BEST!</span>
+    </div>
+
+    <h2 class="text-2xl sm:text-3xl font-extrabold text-ink mb-2 tracking-tight text-center">
+      Session Completed
+    </h2>
+
+    <!-- Score Dashboard -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 w-full max-w-xl mt-6 mb-8">
+      <div class="p-4 bg-slate-50/80 border border-border-line/60 rounded-2xl text-center hover:border-brand/30 transition-colors">
+        <span class="text-xs text-slate-muted block font-medium">Final Score</span>
+        <span id="wm-res-score" class="text-2xl sm:text-3xl font-extrabold text-brand font-mono">0/20</span>
+      </div>
+      <div class="p-4 bg-slate-50/80 border border-border-line/60 rounded-2xl text-center hover:border-brand/30 transition-colors">
+        <span class="text-xs text-slate-muted block font-medium">Accuracy</span>
+        <span id="wm-res-accuracy" class="text-2xl sm:text-3xl font-extrabold text-ink font-mono">0%</span>
+      </div>
+      <div class="p-4 bg-slate-50/80 border border-border-line/60 rounded-2xl text-center hover:border-brand/30 transition-colors">
+        <span class="text-xs text-slate-muted block font-medium">Best Streak</span>
+        <span id="wm-res-streak" class="text-2xl sm:text-3xl font-extrabold text-amber-600 font-mono">0</span>
+      </div>
+      <div class="p-4 bg-slate-50/80 border border-border-line/60 rounded-2xl text-center hover:border-brand/30 transition-colors">
+        <span class="text-xs text-slate-muted block font-medium">Max Tier</span>
+        <span id="wm-res-tier" class="text-xl sm:text-2xl font-extrabold text-indigo-600 font-mono uppercase">EASY</span>
+      </div>
+    </div>
+
+    <div class="flex flex-col sm:flex-row items-center gap-3 w-full max-w-md">
+      <button
+        id="wm-btn-restart"
+        type="button"
+        class="has-ripple w-full py-3.5 px-6 bg-brand hover:bg-brand/90 text-card font-bold rounded-xl shadow-md shadow-brand/20 transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] transform active:scale-[0.98] hover:scale-[1.02] focus-ring text-sm cursor-pointer text-center"
+      >
+        Play Again
+      </button>
+      <a
+        href="/anti-brainrot"
+        class="has-ripple w-full py-3.5 px-6 bg-slate-100 hover:bg-slate-200 text-ink font-semibold rounded-xl transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] transform active:scale-[0.98] hover:scale-[1.02] focus-ring text-sm text-center block"
+      >
+        Back to Hub
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  import { generateWorkingMemoryRound } from '../../data/antiBrainrot/workingMemoryData';
+  import type { WMTier, WMRound } from '../../data/antiBrainrot/workingMemoryData';
+
+  const STORAGE_KEY = 'studentkit_working_memory_v1';
+  const TOTAL_ROUNDS = 20;
+
+  function initWorkingMemory() {
+    const container = document.getElementById('wm-container');
+    if (!container) return;
+
+    // Screens
+    const screenSetup = document.getElementById('wm-screen-setup');
+    const screenShowing = document.getElementById('wm-screen-showing');
+    const screenRecall = document.getElementById('wm-screen-recall');
+    const screenResults = document.getElementById('wm-screen-results');
+
+    // Showing Elements
+    const showProgress = document.getElementById('wm-show-progress');
+    const showDiff = document.getElementById('wm-show-diff');
+    const sequenceDisplay = document.getElementById('wm-sequence-display');
+
+    // Recall Elements
+    const recallProgress = document.getElementById('wm-recall-progress');
+    const recallDiff = document.getElementById('wm-recall-diff');
+    const streakText = document.getElementById('wm-streak-text');
+    const scoreText = document.getElementById('wm-score-text');
+    const questionText = document.getElementById('wm-question-text');
+    const optionBtns = document.querySelectorAll('.wm-option-btn');
+    const feedbackText = document.getElementById('wm-feedback');
+
+    // Results Elements
+    const newPbBadge = document.getElementById('wm-new-pb-badge');
+    const resScore = document.getElementById('wm-res-score');
+    const resAccuracy = document.getElementById('wm-res-accuracy');
+    const resStreak = document.getElementById('wm-res-streak');
+    const resTier = document.getElementById('wm-res-tier');
+
+    // Single unified game token and single timeout scheduler
+    let gameToken = 0;
+    let sequenceTimer: ReturnType<typeof setTimeout> | null = null;
+    
+    // Round state
+    let currentPhase: 'SETUP' | 'SHOWING' | 'RECALL' | 'RESULTS' = 'SETUP';
+    let roundIdx = 0;
+    let score = 0;
+    let streak = 0;
+    let bestStreak = 0;
+    let highestTierReached: WMTier = 'easy';
+    let currentTier: WMTier = 'easy';
+    let isAnsweringLocked = false;
+    let currentRoundData: WMRound | null = null;
+
+    function cancelGame() {
+      gameToken++;
+      if (sequenceTimer) {
+        clearTimeout(sequenceTimer);
+        sequenceTimer = null;
+      }
+    }
+
+    function switchScreen(phase: 'SETUP' | 'SHOWING' | 'RECALL' | 'RESULTS') {
+      currentPhase = phase;
+      screenSetup?.classList.add('hidden');
+      screenShowing?.classList.add('hidden');
+      screenRecall?.classList.add('hidden');
+      screenResults?.classList.add('hidden');
+
+      if (phase === 'SETUP') screenSetup?.classList.remove('hidden');
+      if (phase === 'SHOWING') screenShowing?.classList.remove('hidden');
+      if (phase === 'RECALL') screenRecall?.classList.remove('hidden');
+      if (phase === 'RESULTS') screenResults?.classList.remove('hidden');
+    }
+
+    // Storage
+    function getStoredData() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return null;
+        const parsed = JSON.parse(raw);
+        if (typeof parsed !== 'object' || parsed === null) return null;
+        return parsed;
+      } catch (e) {
+        localStorage.removeItem(STORAGE_KEY);
+        return null;
+      }
+    }
+
+    function updateIntroPbPreview() {
+      const data = getStoredData();
+      const introBox = document.getElementById('wm-intro-pb-box');
+      const introScore = document.getElementById('wm-intro-pb-score');
+      const introTier = document.getElementById('wm-intro-pb-tier');
+
+      if (data && typeof data.bestScore === 'number' && introBox && introScore && introTier) {
+        introBox.classList.remove('hidden');
+        introScore.textContent = `${data.bestScore} / 20`;
+        introTier.textContent = `Max Tier: ${data.highestTier || 'EASY'}`.toUpperCase();
+      }
+    }
+
+    function saveSessionData(finalScore: number, maxTier: string) {
+      const prev = getStoredData() || { sessionsCompleted: 0, bestScore: 0 };
+      const isNewBest = finalScore > (prev.bestScore || 0);
+      
+      const tierRank = { 'easy': 1, 'medium': 2, 'hard': 3, 'lightning': 4 };
+      const prevTierRank = tierRank[(prev.highestTier as WMTier) || 'easy'] || 1;
+      const currentTierRank = tierRank[maxTier as WMTier] || 1;
+      const savedTier = currentTierRank > prevTierRank ? maxTier : (prev.highestTier || 'easy');
+
+      const newData = {
+        sessionsCompleted: (prev.sessionsCompleted || 0) + 1,
+        bestScore: Math.max(prev.bestScore || 0, finalScore),
+        highestTier: savedTier,
+        lastPlayed: new Date().toISOString()
+      };
+      
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(newData));
+      return isNewBest;
+    }
+
+    const diffStyles = {
+      'easy': 'bg-slate-100 text-slate-700 border-slate-200',
+      'medium': 'bg-blue-50 text-blue-700 border-blue-200',
+      'hard': 'bg-amber-50 text-amber-700 border-amber-200',
+      'lightning': 'bg-purple-50 text-purple-700 border-purple-200'
+    };
+
+    function setBadgeDiff(el: HTMLElement | null, tier: WMTier) {
+      if (!el) return;
+      el.textContent = tier.toUpperCase();
+      el.className = `px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider border ${diffStyles[tier]}`;
+    }
+
+    function startSession() {
+      cancelGame();
+      roundIdx = 0;
+      score = 0;
+      streak = 0;
+      bestStreak = 0;
+      currentTier = 'easy';
+      highestTierReached = 'easy';
+      
+      startRound();
+    }
+
+    function startRound() {
+      if (roundIdx >= TOTAL_ROUNDS) {
+        finishSession();
+        return;
+      }
+
+      cancelGame();
+      const token = gameToken;
+
+      currentRoundData = generateWorkingMemoryRound(currentTier);
+      
+      if (showProgress) showProgress.textContent = `Round ${roundIdx + 1} / ${TOTAL_ROUNDS}`;
+      setBadgeDiff(showDiff, currentTier);
+
+      switchScreen('SHOWING');
+      
+      const seq = currentRoundData.sequence;
+      let itemIdx = 0;
+
+      if (sequenceDisplay) sequenceDisplay.textContent = ''; // clear completely
+
+      function showNextItem() {
+        if (token !== gameToken || currentPhase !== 'SHOWING') return;
+
+        if (itemIdx >= seq.length) {
+           startRecallPhase(token);
+           return;
+        }
+
+        // Show character
+        if (sequenceDisplay) sequenceDisplay.textContent = seq[itemIdx];
+
+        // Wait display duration
+        sequenceTimer = setTimeout(() => {
+           if (token !== gameToken) return;
+
+           // Hide character
+           if (sequenceDisplay) sequenceDisplay.textContent = '';
+
+           // Wait gap duration
+           sequenceTimer = setTimeout(() => {
+              if (token !== gameToken) return;
+              itemIdx++;
+              showNextItem();
+           }, currentRoundData!.gapMs);
+
+        }, currentRoundData!.displayMs);
+      }
+
+      // 500ms initial buffer before first item flashes
+      sequenceTimer = setTimeout(showNextItem, 500);
+    }
+
+    function startRecallPhase(token: number) {
+      if (token !== gameToken || !currentRoundData) return;
+
+      switchScreen('RECALL');
+      isAnsweringLocked = false;
+
+      if (recallProgress) recallProgress.textContent = `Round ${roundIdx + 1} / ${TOTAL_ROUNDS}`;
+      setBadgeDiff(recallDiff, currentTier);
+      if (streakText) streakText.textContent = `Streak: ${streak}`;
+      if (scoreText) scoreText.textContent = score.toString();
+      if (questionText) questionText.textContent = currentRoundData.question;
+
+      // Hide feedback from previous rounds
+      if (feedbackText) {
+        feedbackText.classList.add('hidden');
+        feedbackText.textContent = '';
+      }
+
+      optionBtns.forEach((btn, i) => {
+        btn.classList.remove('border-emerald-500', 'bg-emerald-500/10', 'text-emerald-800', 'scale-[1.02]', 'border-red-500', 'bg-red-500/10', 'text-red-800');
+        btn.classList.add('border-border-line', 'bg-white');
+        
+        const labelSpan = btn.querySelector('.wm-option-label');
+        if (labelSpan) {
+          labelSpan.textContent = currentRoundData!.options[i] || '--';
+        }
+      });
+    }
+
+    function handleAnswerClick(selectedIdx: number, token: number) {
+      if (isAnsweringLocked || token !== gameToken || currentPhase !== 'RECALL') return;
+      if (!currentRoundData) return;
+      
+      isAnsweringLocked = true;
+      cancelGame();
+      const clickToken = gameToken;
+
+      const isCorrect = selectedIdx === currentRoundData.correctIndex;
+      const selBtn = Array.from(optionBtns).find(b => parseInt((b as HTMLElement).dataset.idx || '0') === selectedIdx);
+      const correctBtn = Array.from(optionBtns).find(b => parseInt((b as HTMLElement).dataset.idx || '0') === currentRoundData!.correctIndex);
+
+      if (isCorrect) {
+        score++;
+        streak++;
+        if (streak > bestStreak) bestStreak = streak;
+
+        if (selBtn) {
+          selBtn.classList.remove('border-border-line', 'bg-white');
+          selBtn.classList.add('border-emerald-500', 'bg-emerald-500/10', 'text-emerald-800', 'scale-[1.02]');
+        }
+
+        if (feedbackText) {
+           feedbackText.textContent = '✓ Correct';
+           feedbackText.className = 'text-emerald-600 font-bold text-center text-xl mt-4 block';
+        }
+
+        if (streak >= 3) {
+          if (currentTier === 'easy') { currentTier = 'medium'; highestTierReached = 'medium'; }
+          else if (currentTier === 'medium') { currentTier = 'hard'; highestTierReached = 'hard'; }
+          else if (currentTier === 'hard') { currentTier = 'lightning'; highestTierReached = 'lightning'; }
+        }
+      } else {
+        streak = 0;
+        
+        if (selBtn) {
+          selBtn.classList.remove('border-border-line', 'bg-white');
+          selBtn.classList.add('border-red-500', 'bg-red-500/10', 'text-red-800');
+        }
+        if (correctBtn) {
+          correctBtn.classList.remove('border-border-line');
+          correctBtn.classList.add('border-emerald-500', 'bg-emerald-500/10');
+        }
+
+        if (feedbackText) {
+           feedbackText.textContent = `✕ Incorrect. Correct was: ${currentRoundData.options[currentRoundData.correctIndex]}`;
+           feedbackText.className = 'text-red-600 font-bold text-center text-xl mt-4 block';
+        }
+
+        if (currentTier === 'lightning') currentTier = 'hard';
+        else if (currentTier === 'hard') currentTier = 'medium';
+        else if (currentTier === 'medium') currentTier = 'easy';
+      }
+
+      sequenceTimer = setTimeout(() => {
+        if (clickToken !== gameToken || currentPhase !== 'RECALL') return;
+        roundIdx++;
+        startRound();
+      }, 1200);
+    }
+
+    function finishSession() {
+      cancelGame();
+      switchScreen('RESULTS');
+
+      const accuracy = TOTAL_ROUNDS > 0 ? Math.round((score / TOTAL_ROUNDS) * 100) : 0;
+      const isNewBest = saveSessionData(score, highestTierReached);
+
+      if (resScore) resScore.textContent = `${score}/${TOTAL_ROUNDS}`;
+      if (resAccuracy) resAccuracy.textContent = `${accuracy}%`;
+      if (resStreak) resStreak.textContent = bestStreak.toString();
+      if (resTier) resTier.textContent = highestTierReached.toUpperCase();
+
+      if (newPbBadge) {
+        if (isNewBest && score > 0) newPbBadge.classList.remove('hidden');
+        else newPbBadge.classList.add('hidden');
+      }
+    }
+
+    document.getElementById('wm-btn-start')?.addEventListener('click', startSession);
+    document.getElementById('wm-btn-restart')?.addEventListener('click', startSession);
+
+    optionBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const idxStr = (e.currentTarget as HTMLElement).dataset.idx;
+        if (idxStr !== undefined) {
+          handleAnswerClick(parseInt(idxStr, 10), gameToken);
+        }
+      });
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if ((currentPhase === 'SETUP' || currentPhase === 'RESULTS') && (e.key === 'Enter' || e.key === ' ')) {
+        const activeEl = document.activeElement as HTMLElement;
+        if (activeEl && activeEl.tagName === 'A') return;
+        e.preventDefault();
+        startSession();
+        return;
+      }
+
+      if (currentPhase === 'RECALL' && !isAnsweringLocked) {
+        const num = parseInt(e.key, 10);
+        if (!isNaN(num) && num >= 1 && num <= 4) {
+          e.preventDefault();
+          handleAnswerClick(num - 1, gameToken);
+        }
+      }
+    });
+
+    updateIntroPbPreview();
+  }
+
+  document.addEventListener('astro:page-load', initWorkingMemory);
+  if (document.readyState !== 'loading') {
+    initWorkingMemory();
+  } else {
+    document.addEventListener('DOMContentLoaded', initWorkingMemory);
+  }
+</script>

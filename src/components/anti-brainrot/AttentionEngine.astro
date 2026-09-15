@@ -1,0 +1,636 @@
+---
+import { attentionTasks } from '../../data/antiBrainrot/attentionTasks';
+
+const tasksJson = JSON.stringify(attentionTasks);
+---
+
+<div
+  id="attention-container"
+  class="reveal has-ripple group bg-card/80 backdrop-blur-sm rounded-3xl border border-border-line/80 hover:border-brand hover:shadow-xl hover:-translate-y-1.5 hover:scale-[1.02] transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] overflow-hidden relative"
+  data-tasks={tasksJson}
+>
+  
+  <!-- SCREEN 1: INTRO / SETUP SCREEN -->
+  <div id="screen-intro" class="p-6 sm:p-10 text-center flex flex-col items-center transition-all duration-300">
+    <div class="w-16 h-16 rounded-2xl bg-brand-light/80 text-brand flex items-center justify-center mb-6 shadow-xs group-hover:bg-gradient-to-br group-hover:from-violet-500 group-hover:to-teal-400 group-hover:text-white transition-all duration-300 group-hover:scale-110 group-hover:-rotate-3">
+      <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+      </svg>
+    </div>
+
+    <h2 class="text-2xl sm:text-3xl font-extrabold text-ink mb-2 tracking-tight group-hover:text-brand transition-colors duration-300">
+      Attention Challenge
+    </h2>
+    <p class="text-base sm:text-lg font-bold text-brand mb-3 tracking-tight">
+      Visual discrimination and noticing what matters.
+    </p>
+    <p class="text-slate-muted max-w-lg mb-8 text-sm sm:text-base leading-relaxed">
+      Rapid-fire visual discrimination drills. Spot anomalies, match targets, and filter out visual distractors before the countdown expires. Difficulty scales adaptively with your speed.
+    </p>
+
+    <!-- Session Stats / Settings -->
+    <div class="grid grid-cols-3 gap-3 sm:gap-4 w-full max-w-md mb-8">
+      <div class="p-3.5 bg-slate-50/80 rounded-2xl border border-border-line/60 text-center hover:border-brand/30 transition-colors">
+        <span class="text-xs text-slate-muted block font-medium">Session</span>
+        <span class="text-base sm:text-lg font-bold text-ink">30 Rounds</span>
+      </div>
+      <div class="p-3.5 bg-slate-50/80 rounded-2xl border border-border-line/60 text-center hover:border-brand/30 transition-colors">
+        <span class="text-xs text-slate-muted block font-medium">Timer</span>
+        <span class="text-base sm:text-lg font-bold text-brand">Per Round</span>
+      </div>
+      <div class="p-3.5 bg-slate-50/80 rounded-2xl border border-border-line/60 text-center hover:border-brand/30 transition-colors">
+        <span class="text-xs text-slate-muted block font-medium">Controls</span>
+        <span class="text-base sm:text-lg font-bold text-ink">Keys 1–9 / Tap</span>
+      </div>
+    </div>
+
+    <!-- Personal Best Preview (from localStorage) -->
+    <div id="intro-pb-box" class="hidden mb-8 p-4 bg-amber-500/10 border border-amber-500/20 rounded-2xl w-full max-w-md text-left transition-all duration-300">
+      <div class="flex items-center justify-between text-xs font-semibold text-amber-800 mb-1">
+        <span>🏆 Personal Best</span>
+        <span id="intro-pb-date" class="text-amber-700/80 font-normal">Recent</span>
+      </div>
+      <div class="flex items-baseline justify-between">
+        <span id="intro-pb-score" class="text-lg font-extrabold text-amber-900">-- / 30</span>
+        <span id="intro-pb-speed" class="text-xs text-amber-800 font-medium">Avg: --s</span>
+      </div>
+    </div>
+
+    <!-- Start Button -->
+    <button
+      id="btn-start"
+      type="button"
+      class="has-ripple w-full max-w-md py-4 px-8 bg-brand hover:bg-brand/90 text-card font-bold rounded-2xl shadow-md shadow-brand/20 transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] transform active:scale-[0.98] hover:scale-[1.01] focus-ring text-base cursor-pointer"
+    >
+      Start Attention Challenge (30 Rounds)
+    </button>
+  </div>
+
+  <!-- SCREEN 2: GAMEPLAY SCREEN -->
+  <div id="screen-game" class="hidden p-5 sm:p-8 flex-col">
+    
+    <!-- Top Header: Progress & Difficulty & Streak -->
+    <div class="flex items-center justify-between gap-4 mb-4 pb-4 border-b border-border-line/60">
+      <div class="flex items-center gap-2">
+        <span id="game-progress" class="text-sm font-bold text-ink font-mono">Round 1 / 30</span>
+        <span id="game-diff-badge" class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-slate-100 text-slate-700 border border-slate-200 transition-colors duration-200">
+          Easy
+        </span>
+      </div>
+
+      <!-- Streak Indicator with Micro-Animation -->
+      <div id="streak-container" class="flex items-center gap-1.5 text-xs font-bold text-slate-muted transition-transform duration-200">
+        <svg id="streak-icon" class="w-4 h-4 text-amber-500 transition-transform duration-300" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.527.82-1.124 2.05-1.455 3.396a8.552 8.552 0 00-1.503-.434 1 1 0 00-.916.326c-.253.29-.313.7-.156 1.053C6.38 8.01 7.14 9.176 7.55 10.1c.14.316.2.66.17 1.006-.05.57-.27 1.09-.64 1.51a4.29 4.29 0 01-2.91 1.34c-1.39.08-2.67-.78-3.08-2.08a1 1 0 00-1.28-.64c-.39.13-.67.48-.7.89-.17 2.37.94 4.69 2.87 6.02 1.94 1.34 4.46 1.48 6.55.37a8.58 8.58 0 004.14-5.06c.65-2.22.42-4.63-.64-6.68a14.7 14.7 0 00-.63-1.09c-.27-.42-.56-.86-.8-1.33-.24-.46-.4-.95-.49-1.45a3.86 3.86 0 01-.01-.49z" clip-rule="evenodd" />
+        </svg>
+        <span id="streak-text">Streak: 0</span>
+      </div>
+
+      <!-- Live Score -->
+      <div class="text-xs font-bold text-slate-muted">
+        Score: <span id="game-score" class="text-ink font-mono font-bold text-sm">0</span>
+      </div>
+    </div>
+
+    <!-- Per-Round Countdown Timer Bar -->
+    <div class="relative w-full h-2 bg-slate-100 rounded-full overflow-hidden mb-6" id="timer-bar-container">
+      <div
+        id="timer-bar"
+        class="h-full bg-brand rounded-full transition-all duration-75 ease-linear origin-left"
+        style="width: 100%;"
+      ></div>
+    </div>
+
+    <!-- Prompt & Target Banner -->
+    <div class="text-center mb-6" id="prompt-container">
+      <div class="inline-flex items-center gap-3 px-4 py-2 bg-slate-50/90 rounded-2xl border border-border-line/60 shadow-2xs">
+        <span id="task-prompt-text" class="text-sm sm:text-base font-bold text-ink">
+          Find the odd symbol
+        </span>
+        <span id="task-target-badge" class="hidden px-2.5 py-1 bg-brand/10 text-brand font-black rounded-xl text-lg font-mono border border-brand/20">
+          ●
+        </span>
+      </div>
+    </div>
+
+    <!-- Dynamic Attention Grid Container -->
+    <div class="max-w-md mx-auto w-full mb-6">
+      <div id="attention-grid" class="grid gap-3 transition-all duration-300">
+        <!-- Injected dynamically -->
+      </div>
+    </div>
+
+    <!-- Keyboard Navigation Hint -->
+    <p class="text-center text-xs text-slate-muted/80 select-none">
+      💡 Use keys <kbd class="px-1.5 py-0.5 bg-slate-100 border border-slate-300 rounded font-mono font-semibold text-slate-700">1</kbd>–<kbd class="px-1.5 py-0.5 bg-slate-100 border border-slate-300 rounded font-mono font-semibold text-slate-700">9</kbd> on your keyboard or tap directly
+    </p>
+  </div>
+
+  <!-- SCREEN 3: RESULTS SCREEN -->
+  <div id="screen-results" class="hidden p-6 sm:p-10 flex-col items-center">
+    
+    <!-- New PB Celebration Badge -->
+    <div id="results-new-pb" class="hidden mb-4 px-4 py-1.5 bg-amber-500/10 text-amber-800 border border-amber-500/30 rounded-full text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 animate-bounce">
+      <span>🎉 NEW PERSONAL BEST!</span>
+    </div>
+
+    <h2 class="text-2xl sm:text-3xl font-extrabold text-ink mb-1 tracking-tight text-center">
+      Session Completed
+    </h2>
+    <p id="results-feedback" class="text-slate-muted text-sm sm:text-base text-center mb-8 max-w-md leading-relaxed">
+      Great visual discipline! You maintained fast discrimination across all visual distractors.
+    </p>
+
+    <!-- Score & Stats Dashboard -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 w-full max-w-xl mb-8">
+      <div class="p-4 bg-slate-50/80 border border-border-line/60 rounded-2xl text-center hover:border-brand/30 transition-colors">
+        <span class="text-xs text-slate-muted block font-medium">Final Score</span>
+        <span id="res-score" class="text-2xl sm:text-3xl font-extrabold text-brand font-mono">24/30</span>
+      </div>
+      <div class="p-4 bg-slate-50/80 border border-border-line/60 rounded-2xl text-center hover:border-brand/30 transition-colors">
+        <span class="text-xs text-slate-muted block font-medium">Accuracy</span>
+        <span id="res-accuracy" class="text-2xl sm:text-3xl font-extrabold text-ink font-mono">80%</span>
+      </div>
+      <div class="p-4 bg-slate-50/80 border border-border-line/60 rounded-2xl text-center hover:border-brand/30 transition-colors">
+        <span class="text-xs text-slate-muted block font-medium">Avg Speed</span>
+        <span id="res-avg-speed" class="text-2xl sm:text-3xl font-extrabold text-ink font-mono">1.8s</span>
+      </div>
+      <div class="p-4 bg-slate-50/80 border border-border-line/60 rounded-2xl text-center hover:border-brand/30 transition-colors">
+        <span class="text-xs text-slate-muted block font-medium">Best Streak</span>
+        <span id="res-best-streak" class="text-2xl sm:text-3xl font-extrabold text-amber-600 font-mono">8</span>
+      </div>
+    </div>
+
+    <!-- Secondary Metrics -->
+    <div class="w-full max-w-xl bg-slate-50/50 border border-border-line/50 rounded-2xl p-4 sm:p-5 mb-8">
+      <div class="grid grid-cols-3 gap-2 text-center text-xs">
+        <div>
+          <span class="text-slate-muted block">Fastest Answer</span>
+          <span id="res-fastest" class="font-bold text-ink text-sm font-mono">0.6s</span>
+        </div>
+        <div>
+          <span class="text-slate-muted block">Timed Out</span>
+          <span id="res-timeouts" class="font-bold text-red-600 text-sm font-mono">1</span>
+        </div>
+        <div>
+          <span class="text-slate-muted block">Highest Tier</span>
+          <span id="res-max-tier" class="font-bold text-indigo-600 text-sm font-mono uppercase">Lightning</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="flex flex-col sm:flex-row items-center gap-3 w-full max-w-md">
+      <button
+        id="btn-restart"
+        type="button"
+        class="has-ripple w-full py-3.5 px-6 bg-brand hover:bg-brand/90 text-card font-bold rounded-xl shadow-md shadow-brand/20 transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] transform active:scale-[0.98] hover:scale-[1.02] focus-ring text-sm cursor-pointer text-center"
+      >
+        Try Again (30 Rounds)
+      </button>
+      <a
+        href="/anti-brainrot"
+        class="has-ripple w-full py-3.5 px-6 bg-slate-100 hover:bg-slate-200 text-ink font-semibold rounded-xl transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] transform active:scale-[0.98] hover:scale-[1.02] focus-ring text-sm text-center block"
+      >
+        Back to Anti-Brainrot
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  import type { AttentionTask } from '../../data/antiBrainrot/attentionTasks';
+
+  const STORAGE_KEY = 'studentkit_attention_challenge_v1';
+  const TOTAL_ROUNDS = 30;
+
+  document.addEventListener('astro:page-load', () => {
+    const container = document.getElementById('attention-container');
+    if (!container) return;
+
+    const rawTasks = container.getAttribute('data-tasks');
+    if (!rawTasks) return;
+
+    let allTasks: AttentionTask[] = [];
+    try {
+      allTasks = JSON.parse(rawTasks);
+    } catch (e) {
+      return;
+    }
+
+    // Screens
+    const screenIntro = document.getElementById('screen-intro');
+    const screenGame = document.getElementById('screen-game');
+    const screenResults = document.getElementById('screen-results');
+
+    // UI Elements
+    const btnStart = document.getElementById('btn-start');
+    const btnRestart = document.getElementById('btn-restart');
+    const introPbBox = document.getElementById('intro-pb-box');
+    const introPbScore = document.getElementById('intro-pb-score');
+    const introPbSpeed = document.getElementById('intro-pb-speed');
+
+    // Game Elements
+    const gameProgress = document.getElementById('game-progress');
+    const gameDiffBadge = document.getElementById('game-diff-badge');
+    const gameScore = document.getElementById('game-score');
+    const streakContainer = document.getElementById('streak-container');
+    const streakText = document.getElementById('streak-text');
+    const streakIcon = document.getElementById('streak-icon');
+    const timerBar = document.getElementById('timer-bar');
+    const taskPromptText = document.getElementById('task-prompt-text');
+    const taskTargetBadge = document.getElementById('task-target-badge');
+    const attentionGrid = document.getElementById('attention-grid');
+
+    // Results Elements
+    const resultsNewPb = document.getElementById('results-new-pb');
+    const resScore = document.getElementById('res-score');
+    const resAccuracy = document.getElementById('res-accuracy');
+    const resAvgSpeed = document.getElementById('res-avg-speed');
+    const resBestStreak = document.getElementById('res-best-streak');
+    const resFastest = document.getElementById('res-fastest');
+    const resTimeouts = document.getElementById('res-timeouts');
+    const resMaxTier = document.getElementById('res-max-tier');
+    const resultsFeedback = document.getElementById('results-feedback');
+
+    // State
+    let currentRound = 0;
+    let score = 0;
+    let currentStreak = 0;
+    let bestStreak = 0;
+    let currentTier: 'easy' | 'medium' | 'hard' | 'lightning' = 'easy';
+    let highestTierReached: 'easy' | 'medium' | 'hard' | 'lightning' = 'easy';
+    let correctCount = 0;
+    let timeoutCount = 0;
+    let responseTimes: number[] = [];
+    let isAnsweringLocked = false;
+
+    // Timer state
+    let roundTimerInterval: any = null;
+    let timerStart = 0;
+    let timerTotalMs = 5000;
+    let timerRemainingMs = 5000;
+
+    // Active session queue
+    let activeSessionTasks: AttentionTask[] = [];
+
+    // Local Storage Helpers
+    function getStoredData() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return null;
+        const parsed = JSON.parse(raw);
+        if (typeof parsed !== 'object' || parsed === null) return null;
+        return parsed;
+      } catch (e) {
+        return null;
+      }
+    }
+
+    function updateIntroPbPreview() {
+      const data = getStoredData();
+      if (data && typeof data.bestScore === 'number' && introPbBox && introPbScore && introPbSpeed) {
+        introPbBox.classList.remove('hidden');
+        introPbScore.textContent = `${data.bestScore} / ${TOTAL_ROUNDS} (${data.bestAccuracy || 0}%)`;
+        introPbSpeed.textContent = `Avg: ${data.avgSpeed || '--'}s • Streak: ${data.longestStreak || 0}`;
+      }
+    }
+
+    function saveSessionData(finalScore: number, accuracyPct: number, avgSpeed: number, longestStreak: number, fastestSpeed: number) {
+      try {
+        const prev = getStoredData() || { sessionsCompleted: 0, bestScore: 0 };
+        const isNewBest = finalScore > (prev.bestScore || 0);
+        const newData = {
+          sessionsCompleted: (prev.sessionsCompleted || 0) + 1,
+          bestScore: Math.max(prev.bestScore || 0, finalScore),
+          bestAccuracy: isNewBest ? accuracyPct : Math.max(prev.bestAccuracy || 0, accuracyPct),
+          longestStreak: Math.max(prev.longestStreak || 0, longestStreak),
+          fastestSpeed: prev.fastestSpeed ? Math.min(prev.fastestSpeed, fastestSpeed) : fastestSpeed,
+          avgSpeed,
+          lastPlayed: new Date().toISOString()
+        };
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(newData));
+        return isNewBest;
+      } catch (e) {
+        return false;
+      }
+    }
+
+    function tierRank(tier: 'easy' | 'medium' | 'hard' | 'lightning'): number {
+      switch (tier) {
+        case 'easy': return 1;
+        case 'medium': return 2;
+        case 'hard': return 3;
+        case 'lightning': return 4;
+      }
+    }
+
+    function getNextTaskForTier(tier: 'easy' | 'medium' | 'hard' | 'lightning'): AttentionTask {
+      const tierTasks = allTasks.filter(t => t.tier === tier);
+      const pool = tierTasks.length > 0 ? tierTasks : allTasks;
+      const chosen = pool[Math.floor(Math.random() * pool.length)];
+      return JSON.parse(JSON.stringify(chosen));
+    }
+
+    function startSession() {
+      currentRound = 0;
+      score = 0;
+      currentStreak = 0;
+      bestStreak = 0;
+      correctCount = 0;
+      timeoutCount = 0;
+      responseTimes = [];
+      currentTier = 'easy';
+      highestTierReached = 'easy';
+      isAnsweringLocked = false;
+
+      // Build 30-round task queue
+      activeSessionTasks = [];
+      for (let i = 0; i < TOTAL_ROUNDS; i++) {
+        activeSessionTasks.push(getNextTaskForTier('easy'));
+      }
+
+      screenIntro?.classList.add('hidden');
+      screenResults?.classList.add('hidden');
+      screenGame?.classList.remove('hidden');
+
+      loadRound(0);
+    }
+
+    function loadRound(roundIdx: number) {
+      if (roundIdx >= TOTAL_ROUNDS) {
+        finishSession();
+        return;
+      }
+
+      currentRound = roundIdx;
+      isAnsweringLocked = false;
+
+      // Adjust task dynamically for current adaptive tier
+      const task = getNextTaskForTier(currentTier);
+      activeSessionTasks[roundIdx] = task;
+
+      if (tierRank(currentTier) > tierRank(highestTierReached)) {
+        highestTierReached = currentTier;
+      }
+
+      // Update Header
+      if (gameProgress) gameProgress.textContent = `Round ${roundIdx + 1} / ${TOTAL_ROUNDS}`;
+      if (gameScore) gameScore.textContent = score.toString();
+      if (streakText) streakText.textContent = `Streak: ${currentStreak}`;
+      if (gameDiffBadge) {
+        gameDiffBadge.textContent = currentTier.toUpperCase();
+        gameDiffBadge.className = `px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider border ${
+          currentTier === 'easy' ? 'bg-slate-100 text-slate-700 border-slate-200' :
+          currentTier === 'medium' ? 'bg-blue-50 text-blue-700 border-blue-200' :
+          currentTier === 'hard' ? 'bg-amber-50 text-amber-700 border-amber-200' :
+          'bg-purple-50 text-purple-700 border-purple-200'
+        }`;
+      }
+
+      // Update Prompt
+      if (taskPromptText) taskPromptText.textContent = task.prompt;
+      if (taskTargetBadge) {
+        if (task.targetDisplay) {
+          taskTargetBadge.textContent = task.targetDisplay;
+          taskTargetBadge.classList.remove('hidden');
+        } else {
+          taskTargetBadge.classList.add('hidden');
+        }
+      }
+
+      // Render Grid
+      if (attentionGrid) {
+        attentionGrid.innerHTML = '';
+        const cols = task.columns || (task.gridSize <= 4 ? 2 : task.gridSize <= 9 ? 3 : 4);
+        attentionGrid.className = `grid gap-2.5 sm:gap-3 ${
+          cols === 2 ? 'grid-cols-2' : cols === 3 ? 'grid-cols-3' : 'grid-cols-4'
+        }`;
+
+        task.tiles.forEach((tileChar, tileIdx) => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.dataset.idx = tileIdx.toString();
+          btn.setAttribute('role', 'button');
+          btn.setAttribute('aria-label', `Option ${tileIdx + 1}: ${tileChar}`);
+          
+          btn.className = 'attention-tile has-ripple p-4 sm:p-5 rounded-2xl border-2 border-border-line bg-white font-bold text-center transition-all duration-200 ease-[cubic-bezier(0.34,1.56,0.64,1)] md:hover:border-brand md:hover:bg-brand/5 md:hover:scale-[1.02] active:scale-[0.96] cursor-pointer select-none flex flex-col items-center justify-center relative min-h-[64px] sm:min-h-[72px] shadow-2xs';
+          btn.style.animation = `formFadeIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) backwards ${tileIdx * 30}ms`;
+
+          const numBadge = document.createElement('span');
+          numBadge.className = 'absolute top-1.5 left-2 text-[10px] font-mono text-slate-400 font-semibold';
+          numBadge.textContent = (tileIdx + 1 <= 9 ? (tileIdx + 1).toString() : '');
+
+          const charSpan = document.createElement('span');
+          charSpan.className = `font-bold select-none ${
+            tileChar.length > 1 ? 'text-lg sm:text-xl font-mono' : 'text-2xl sm:text-3xl'
+          } text-ink`;
+          charSpan.textContent = tileChar;
+
+          btn.appendChild(numBadge);
+          btn.appendChild(charSpan);
+
+          btn.addEventListener('click', () => {
+            handleTileClick(tileIdx);
+          });
+
+          attentionGrid.appendChild(btn);
+        });
+      }
+
+      startRoundTimer(task.timeLimit);
+    }
+
+    function startRoundTimer(seconds: number) {
+      if (roundTimerInterval) clearInterval(roundTimerInterval);
+
+      timerTotalMs = seconds * 1000;
+      timerRemainingMs = timerTotalMs;
+      timerStart = Date.now();
+
+      if (timerBar) {
+        timerBar.style.width = '100%';
+        timerBar.className = 'h-full bg-brand rounded-full transition-none origin-left';
+      }
+
+      const updateInterval = 35;
+      roundTimerInterval = setInterval(() => {
+        const elapsed = Date.now() - timerStart;
+        timerRemainingMs = timerTotalMs - elapsed;
+
+        if (timerRemainingMs <= 0) {
+          clearInterval(roundTimerInterval);
+          if (timerBar) timerBar.style.width = '0%';
+          handleTimeout();
+        } else {
+          const pct = Math.max(0, (timerRemainingMs / timerTotalMs) * 100);
+          if (timerBar) {
+            timerBar.style.width = `${pct}%`;
+            if (timerRemainingMs < 1200) {
+              timerBar.className = 'h-full bg-red-500 rounded-full transition-colors duration-150 origin-left';
+            }
+          }
+        }
+      }, updateInterval);
+    }
+
+    function handleTileClick(selectedIdx: number) {
+      if (isAnsweringLocked) return;
+      isAnsweringLocked = true;
+      clearInterval(roundTimerInterval);
+
+      const timeTakenSec = parseFloat(((Date.now() - timerStart) / 1000).toFixed(2));
+      responseTimes.push(timeTakenSec);
+
+      const task = activeSessionTasks[currentRound];
+      const isCorrect = selectedIdx === task.correctIndex;
+      const tileButtons = attentionGrid?.querySelectorAll('button') || [];
+
+      if (isCorrect) {
+        score += 100;
+        correctCount += 1;
+        currentStreak += 1;
+        if (currentStreak > bestStreak) bestStreak = currentStreak;
+
+        const selBtn = tileButtons[selectedIdx];
+        if (selBtn) {
+          selBtn.classList.remove('border-border-line', 'bg-white');
+          selBtn.classList.add('border-emerald-500', 'bg-emerald-500/10', 'text-emerald-700', 'scale-[1.03]');
+        }
+
+        // Adaptive Tier Boost
+        if (currentStreak >= 4 && timeTakenSec < 2.0) {
+          if (currentTier === 'easy') currentTier = 'medium';
+          else if (currentTier === 'medium') currentTier = 'hard';
+          else if (currentTier === 'hard') currentTier = 'lightning';
+        }
+
+        setTimeout(() => {
+          loadRound(currentRound + 1);
+        }, 220);
+      } else {
+        currentStreak = 0;
+        const selBtn = tileButtons[selectedIdx];
+        const correctBtn = tileButtons[task.correctIndex];
+
+        if (selBtn) {
+          selBtn.classList.remove('border-border-line', 'bg-white');
+          selBtn.classList.add('border-red-500', 'bg-red-500/10', 'text-red-700');
+        }
+        if (correctBtn) {
+          correctBtn.classList.remove('border-border-line');
+          correctBtn.classList.add('border-emerald-500', 'bg-emerald-500/10', 'ring-2', 'ring-emerald-500/30');
+        }
+
+        // Adaptive Tier Soften
+        if (currentTier === 'lightning') currentTier = 'hard';
+        else if (currentTier === 'hard') currentTier = 'medium';
+        else if (currentTier === 'medium') currentTier = 'easy';
+
+        setTimeout(() => {
+          loadRound(currentRound + 1);
+        }, 450);
+      }
+    }
+
+    function handleTimeout() {
+      if (isAnsweringLocked) return;
+      isAnsweringLocked = true;
+      timeoutCount += 1;
+      currentStreak = 0;
+      responseTimes.push(activeSessionTasks[currentRound].timeLimit);
+
+      const task = activeSessionTasks[currentRound];
+      const tileButtons = attentionGrid?.querySelectorAll('button') || [];
+      const correctBtn = tileButtons[task.correctIndex];
+
+      if (correctBtn) {
+        correctBtn.classList.remove('border-border-line');
+        correctBtn.classList.add('border-amber-500', 'bg-amber-500/15', 'ring-2', 'ring-amber-500/40');
+      }
+
+      // Drop tier on timeout
+      if (currentTier === 'lightning') currentTier = 'hard';
+      else if (currentTier === 'hard') currentTier = 'medium';
+      else if (currentTier === 'medium') currentTier = 'easy';
+
+      setTimeout(() => {
+        loadRound(currentRound + 1);
+      }, 500);
+    }
+
+    function finishSession() {
+      if (roundTimerInterval) clearInterval(roundTimerInterval);
+
+      screenGame?.classList.add('hidden');
+      screenResults?.classList.remove('hidden');
+
+      const accuracyPct = Math.round((correctCount / TOTAL_ROUNDS) * 100);
+      const avgSpeed = responseTimes.length > 0 
+        ? parseFloat((responseTimes.reduce((a, b) => a + b, 0) / responseTimes.length).toFixed(2))
+        : 0;
+      const fastestSpeed = responseTimes.length > 0
+        ? Math.min(...responseTimes)
+        : 0;
+
+      const isNewBest = saveSessionData(correctCount, accuracyPct, avgSpeed, bestStreak, fastestSpeed);
+
+      if (resScore) resScore.textContent = `${correctCount}/${TOTAL_ROUNDS}`;
+      if (resAccuracy) resAccuracy.textContent = `${accuracyPct}%`;
+      if (resAvgSpeed) resAvgSpeed.textContent = `${avgSpeed}s`;
+      if (resBestStreak) resBestStreak.textContent = bestStreak.toString();
+      if (resFastest) resFastest.textContent = `${fastestSpeed}s`;
+      if (resTimeouts) resTimeouts.textContent = timeoutCount.toString();
+      if (resMaxTier) resMaxTier.textContent = highestTierReached.toUpperCase();
+
+      if (resultsNewPb) {
+        if (isNewBest && correctCount > 0) {
+          resultsNewPb.classList.remove('hidden');
+        } else {
+          resultsNewPb.classList.add('hidden');
+        }
+      }
+
+      if (resultsFeedback) {
+        if (accuracyPct >= 90) {
+          resultsFeedback.textContent = 'Elite visual processing speed! Outstanding selective attention across all complexity tiers.';
+        } else if (accuracyPct >= 75) {
+          resultsFeedback.textContent = 'Great visual discipline! You maintained strong focus and fast discrimination.';
+        } else if (accuracyPct >= 50) {
+          resultsFeedback.textContent = 'Solid drill. Daily practice builds faster anomaly recognition and resists distractor clutter.';
+        } else {
+          resultsFeedback.textContent = 'Good effort. Regular visual discrimination exercises strengthen your working focus.';
+        }
+      }
+    }
+
+    // Keyboard navigation
+    window.addEventListener('keydown', (e) => {
+      if (screenGame?.classList.contains('hidden')) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          if (!screenIntro?.classList.contains('hidden')) {
+            e.preventDefault();
+            startSession();
+          }
+        }
+        return;
+      }
+
+      const num = parseInt(e.key, 10);
+      if (!isNaN(num) && num >= 1 && num <= 9) {
+        const idx = num - 1;
+        const task = activeSessionTasks[currentRound];
+        if (task && idx < task.tiles.length) {
+          e.preventDefault();
+          handleTileClick(idx);
+        }
+      }
+    });
+
+    btnStart?.addEventListener('click', startSession);
+    btnRestart?.addEventListener('click', startSession);
+
+    updateIntroPbPreview();
+  });
+</script>

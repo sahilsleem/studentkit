@@ -1,0 +1,11 @@
+---
+import AntiBrainrotLayout from '../../layouts/AntiBrainrotLayout.astro';
+import QuickMathEngine from '../../components/anti-brainrot/QuickMathEngine.astro';
+import { getAntiBrainrotModule } from '../../data/antiBrainrotRegistry';
+
+const module = getAntiBrainrotModule('quick-math')!;
+---
+
+<AntiBrainrotLayout module={module}>
+  <QuickMathEngine mode="standard" />
+</AntiBrainrotLayout>

@@ -1,0 +1,610 @@
+---
+import { quickMathQuestions } from '../../data/antiBrainrot/quickMathQuestions';
+
+export interface Props {
+  mode?: 'standard' | 'lightning';
+}
+
+const { mode = 'standard' } = Astro.props;
+---
+
+<div class="reveal has-ripple group bg-card/80 backdrop-blur-sm rounded-3xl border border-border-line/80 hover:border-brand hover:shadow-xl hover:-translate-y-1.5 hover:scale-[1.02] transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] overflow-hidden" id="quick-math-container">
+  
+  <!-- SCREEN 1: INTRO SCREEN -->
+  <div id="screen-intro" class="p-6 sm:p-10 text-center flex flex-col items-center transition-all duration-300">
+    <div class="w-16 h-16 rounded-2xl bg-brand-light/80 text-brand flex items-center justify-center mb-6 shadow-xs group-hover:bg-gradient-to-br group-hover:from-violet-500 group-hover:to-teal-400 group-hover:text-white transition-all duration-300 group-hover:scale-110 group-hover:-rotate-3">
+      <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+      </svg>
+    </div>
+
+    <h2 class="text-2xl sm:text-3xl font-extrabold text-ink mb-3 tracking-tight group-hover:text-brand transition-colors duration-300">
+      Quick Math Challenge
+    </h2>
+    <p class="text-slate-muted max-w-lg mb-8 text-sm sm:text-base leading-relaxed">
+      Rapid-fire mental arithmetic. Every question has an individual countdown timer. Answer before the clock expires — difficulty adapts dynamically to your speed and accuracy.
+    </p>
+
+    <!-- Session Stats / Settings -->
+    <div class="grid grid-cols-3 gap-3 sm:gap-4 w-full max-w-md mb-8">
+      <div class="p-3.5 bg-slate-50/80 rounded-2xl border border-border-line/60 text-center hover:border-brand/30 transition-colors">
+        <span class="text-xs text-slate-muted block font-medium">Session</span>
+        <span class="text-base sm:text-lg font-bold text-ink">30 Items</span>
+      </div>
+      <div class="p-3.5 bg-slate-50/80 rounded-2xl border border-border-line/60 text-center hover:border-brand/30 transition-colors">
+        <span class="text-xs text-slate-muted block font-medium">Timer</span>
+        <span class="text-base sm:text-lg font-bold text-brand">Per Question</span>
+      </div>
+      <div class="p-3.5 bg-slate-50/80 rounded-2xl border border-border-line/60 text-center hover:border-brand/30 transition-colors">
+        <span class="text-xs text-slate-muted block font-medium">Controls</span>
+        <span class="text-base sm:text-lg font-bold text-ink">Keys 1–4</span>
+      </div>
+    </div>
+
+    <!-- Personal Best Preview (from localStorage) -->
+    <div id="intro-pb-box" class="hidden mb-8 p-4 bg-amber-500/10 border border-amber-500/20 rounded-2xl w-full max-w-md text-left transition-all duration-300">
+      <div class="flex items-center justify-between text-xs font-semibold text-amber-800 mb-1">
+        <span>🏆 Personal Best</span>
+        <span id="intro-pb-date" class="text-amber-700/80 font-normal">Recent</span>
+      </div>
+      <div class="flex items-baseline justify-between">
+        <span id="intro-pb-score" class="text-lg font-extrabold text-amber-900">-- / 30</span>
+        <span id="intro-pb-speed" class="text-xs text-amber-800 font-medium">Avg: --s</span>
+      </div>
+    </div>
+
+    <!-- Start Button -->
+    <button
+      id="btn-start"
+      type="button"
+      class="has-ripple w-full max-w-md py-4 px-8 bg-brand hover:bg-brand/90 text-card font-bold rounded-2xl shadow-md shadow-brand/20 transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] transform active:scale-[0.98] hover:scale-[1.01] focus-ring text-base cursor-pointer"
+    >
+      Start Quick Math (30 Items)
+    </button>
+  </div>
+
+  <!-- SCREEN 2: GAMEPLAY SCREEN -->
+  <div id="screen-game" class="hidden p-5 sm:p-8 flex-col">
+    
+    <!-- Header: Progress & Difficulty & Streak -->
+    <div class="flex items-center justify-between gap-4 mb-4 pb-4 border-b border-border-line/60">
+      <div class="flex items-center gap-2">
+        <span id="game-progress" class="text-sm font-bold text-ink font-mono">1 / 30</span>
+        <span id="game-diff-badge" class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-slate-100 text-slate-700 border border-slate-200 transition-colors duration-200">
+          Easy
+        </span>
+      </div>
+
+      <!-- Streak Indicator with Micro-Animation -->
+      <div id="streak-container" class="flex items-center gap-1.5 text-xs font-bold text-slate-muted transition-transform duration-200">
+        <svg id="streak-icon" class="w-4 h-4 text-amber-500 transition-transform duration-300" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.527.82-1.124 2.05-1.455 3.396a8.552 8.552 0 00-1.503-.434 1 1 0 00-.916.326c-.253.29-.313.7-.156 1.053C6.38 8.01 7.14 9.176 7.55 10.1c.14.316.2.66.17 1.006-.05.57-.27 1.09-.64 1.51a4.29 4.29 0 01-2.91 1.34c-1.39.08-2.67-.78-3.08-2.08a1 1 0 00-1.28-.64c-.39.13-.67.48-.7.89-.17 2.37.94 4.69 2.87 6.02 1.94 1.34 4.46 1.48 6.55.37a8.58 8.58 0 004.14-5.06c.65-2.22.42-4.63-.64-6.68a14.7 14.7 0 00-.63-1.09c-.27-.42-.56-.86-.8-1.33-.24-.46-.4-.95-.49-1.45a3.86 3.86 0 01-.01-.49z" clip-rule="evenodd" />
+        </svg>
+        <span id="streak-text">Streak: 0</span>
+      </div>
+
+      <!-- Live Score -->
+      <div class="text-xs font-bold text-slate-muted">
+        Score: <span id="game-score" class="text-ink font-mono font-bold text-sm">0</span>
+      </div>
+    </div>
+
+    <!-- Per-Question Countdown Timer Bar -->
+    <div class="relative w-full h-2.5 bg-slate-100 rounded-full overflow-hidden mb-8" id="timer-bar-container">
+      <div
+        id="timer-bar"
+        class="h-full bg-brand rounded-full transition-all duration-75 ease-linear origin-left"
+        style="width: 100%;"
+      ></div>
+    </div>
+
+    <!-- Question Box -->
+    <div class="text-center my-6 sm:my-10" id="question-card">
+      <span id="question-op-label" class="text-xs font-semibold uppercase tracking-widest text-slate-muted block mb-2">
+        Arithmetic
+      </span>
+      <div
+        id="question-text"
+        class="text-4xl sm:text-6xl font-black text-ink tracking-tight font-mono select-none"
+      >
+        24 + 17
+      </div>
+    </div>
+
+    <!-- 4 Option Buttons (Grid 2x2 on Desktop/Tablet, 2x2 or stack on mobile) -->
+    <div id="options-grid" class="grid grid-cols-2 gap-3 sm:gap-4 max-w-lg mx-auto w-full mb-4">
+      <!-- Buttons dynamically populated with staggered CSS cascade -->
+    </div>
+
+    <!-- Keyboard Hint -->
+    <p class="text-center text-xs text-slate-muted/80 mt-2 select-none">
+      💡 Press <kbd class="px-1.5 py-0.5 bg-slate-100 border border-slate-300 rounded font-mono font-semibold text-slate-700">1</kbd> <kbd class="px-1.5 py-0.5 bg-slate-100 border border-slate-300 rounded font-mono font-semibold text-slate-700">2</kbd> <kbd class="px-1.5 py-0.5 bg-slate-100 border border-slate-300 rounded font-mono font-semibold text-slate-700">3</kbd> <kbd class="px-1.5 py-0.5 bg-slate-100 border border-slate-300 rounded font-mono font-semibold text-slate-700">4</kbd> on your keyboard for instant answer
+    </p>
+  </div>
+
+  <!-- SCREEN 3: RESULTS SCREEN WITH POLISHED CASCADE -->
+  <div id="screen-results" class="hidden p-6 sm:p-10 flex-col items-center">
+    
+    <!-- New PB Celebration Badge -->
+    <div id="results-new-pb" class="hidden mb-4 px-4 py-1.5 bg-amber-500/10 text-amber-800 border border-amber-500/30 rounded-full text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 animate-bounce">
+      <span>🎉 NEW PERSONAL BEST!</span>
+    </div>
+
+    <h2 class="text-2xl sm:text-3xl font-extrabold text-ink mb-1 tracking-tight text-center">
+      Session Completed
+    </h2>
+    <p id="results-feedback" class="text-slate-muted text-sm sm:text-base text-center mb-8 max-w-md">
+      Great run! You maintained steady focus and fast reaction times.
+    </p>
+
+    <!-- Score & Stats Dashboard -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 w-full max-w-xl mb-8">
+      <div class="p-4 bg-slate-50/80 border border-border-line/60 rounded-2xl text-center hover:border-brand/30 transition-colors">
+        <span class="text-xs text-slate-muted block font-medium">Final Score</span>
+        <span id="res-score" class="text-2xl sm:text-3xl font-extrabold text-brand font-mono">24/30</span>
+      </div>
+      <div class="p-4 bg-slate-50/80 border border-border-line/60 rounded-2xl text-center hover:border-brand/30 transition-colors">
+        <span class="text-xs text-slate-muted block font-medium">Accuracy</span>
+        <span id="res-accuracy" class="text-2xl sm:text-3xl font-extrabold text-ink font-mono">80%</span>
+      </div>
+      <div class="p-4 bg-slate-50/80 border border-border-line/60 rounded-2xl text-center hover:border-brand/30 transition-colors">
+        <span class="text-xs text-slate-muted block font-medium">Avg Speed</span>
+        <span id="res-avg-speed" class="text-2xl sm:text-3xl font-extrabold text-ink font-mono">2.4s</span>
+      </div>
+      <div class="p-4 bg-slate-50/80 border border-border-line/60 rounded-2xl text-center hover:border-brand/30 transition-colors">
+        <span class="text-xs text-slate-muted block font-medium">Best Streak</span>
+        <span id="res-best-streak" class="text-2xl sm:text-3xl font-extrabold text-amber-600 font-mono">8</span>
+      </div>
+    </div>
+
+    <!-- Secondary Metrics -->
+    <div class="w-full max-w-xl bg-slate-50/50 border border-border-line/50 rounded-2xl p-4 sm:p-5 mb-8">
+      <div class="grid grid-cols-3 gap-2 text-center text-xs">
+        <div>
+          <span class="text-slate-muted block">Fastest Answer</span>
+          <span id="res-fastest" class="font-bold text-ink text-sm font-mono">0.8s</span>
+        </div>
+        <div>
+          <span class="text-slate-muted block">Timed Out</span>
+          <span id="res-timeouts" class="font-bold text-red-600 text-sm font-mono">2</span>
+        </div>
+        <div>
+          <span class="text-slate-muted block">Highest Tier</span>
+          <span id="res-max-diff" class="font-bold text-indigo-600 text-sm font-mono uppercase">Hard</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="flex flex-col sm:flex-row items-center gap-3 w-full max-w-md">
+      <button
+        id="btn-restart"
+        type="button"
+        class="has-ripple w-full py-3.5 px-6 bg-brand hover:bg-brand/90 text-card font-bold rounded-xl shadow-md shadow-brand/20 transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] transform active:scale-[0.98] hover:scale-[1.01] focus-ring text-sm cursor-pointer"
+      >
+        Play Again (New 30)
+      </button>
+      <a
+        href="/anti-brainrot"
+        class="w-full py-3.5 px-6 bg-slate-100 hover:bg-slate-200 text-ink font-semibold rounded-xl text-center transition-colors focus-ring text-sm"
+      >
+        Back to Training Hub
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<script define:vars={{ quickMathQuestions, mode }}>
+  document.addEventListener('astro:page-load', () => {
+    const container = document.getElementById('quick-math-container');
+    if (!container) return;
+
+    const STORAGE_KEY = 'studentkit_quick_math_v1';
+    const TOTAL_QUESTIONS = 30;
+
+    // State
+    let activeQuestions = [];
+    let currentIndex = 0;
+    let score = 0;
+    let currentStreak = 0;
+    let maxStreak = 0;
+    let currentDifficulty = mode === 'lightning' ? 'lightning' : 'easy';
+    let resultsLog = [];
+    
+    let timerStart = 0;
+    let timerRemainingMs = 0;
+    let timerTotalMs = 4000;
+    let timerInterval = null;
+    let isAnsweringLocked = false;
+
+    // DOM Elements
+    const screenIntro = container.querySelector('#screen-intro');
+    const screenGame = container.querySelector('#screen-game');
+    const screenResults = container.querySelector('#screen-results');
+
+    const btnStart = container.querySelector('#btn-start');
+    const btnRestart = container.querySelector('#btn-restart');
+
+    const gameProgress = container.querySelector('#game-progress');
+    const gameDiffBadge = container.querySelector('#game-diff-badge');
+    const streakContainer = container.querySelector('#streak-container');
+    const streakIcon = container.querySelector('#streak-icon');
+    const streakText = container.querySelector('#streak-text');
+    const gameScore = container.querySelector('#game-score');
+
+    const timerBar = container.querySelector('#timer-bar');
+    const questionCard = container.querySelector('#question-card');
+    const questionOpLabel = container.querySelector('#question-op-label');
+    const questionText = container.querySelector('#question-text');
+    const optionsGrid = container.querySelector('#options-grid');
+
+    // Results elements
+    const resultsNewPb = container.querySelector('#results-new-pb');
+    const resultsFeedback = container.querySelector('#results-feedback');
+    const resScore = container.querySelector('#res-score');
+    const resAccuracy = container.querySelector('#res-accuracy');
+    const resAvgSpeed = container.querySelector('#res-avg-speed');
+    const resBestStreak = container.querySelector('#res-best-streak');
+    const resFastest = container.querySelector('#res-fastest');
+    const resTimeouts = container.querySelector('#res-timeouts');
+    const resMaxDiff = container.querySelector('#res-max-diff');
+
+    function loadPersonalBest() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          const pb = JSON.parse(raw);
+          const pbBox = container.querySelector('#intro-pb-box');
+          const pbScore = container.querySelector('#intro-pb-score');
+          const pbSpeed = container.querySelector('#intro-pb-speed');
+          if (pbBox && pbScore && pb.bestScore !== undefined) {
+            pbBox.classList.remove('hidden');
+            pbScore.textContent = `${pb.bestScore} / ${TOTAL_QUESTIONS} (${pb.bestAccuracy || 0}%)`;
+            pbSpeed.textContent = `Avg: ${pb.bestAvgSpeed || "--"}s • Streak: ${pb.longestStreak || 0}`;
+          }
+        }
+      } catch (e) {}
+    }
+    loadPersonalBest();
+
+    function shuffle(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    function getQuestionsForDiff(diff) {
+      const pool = quickMathQuestions.filter(q => q.difficulty === diff);
+      return shuffle([...pool]);
+    }
+
+    function initSession() {
+      currentIndex = 0;
+      score = 0;
+      currentStreak = 0;
+      maxStreak = 0;
+      currentDifficulty = mode === 'lightning' ? 'lightning' : 'easy';
+      resultsLog = [];
+      isAnsweringLocked = false;
+
+      const easyPool = getQuestionsForDiff('easy');
+      const medPool = getQuestionsForDiff('medium');
+      const hardPool = getQuestionsForDiff('hard');
+      const lightningPool = getQuestionsForDiff('lightning');
+
+      activeQuestions = [];
+      if (mode === 'lightning') {
+        activeQuestions = lightningPool.slice(0, TOTAL_QUESTIONS);
+      } else {
+        activeQuestions = [
+          ...easyPool.slice(0, 10),
+          ...medPool.slice(0, 12),
+          ...hardPool.slice(0, 8)
+        ];
+      }
+
+      screenIntro.classList.add('hidden');
+      screenResults.classList.add('hidden');
+      screenGame.classList.remove('hidden');
+      screenGame.classList.add('flex');
+
+      renderCurrentQuestion();
+    }
+
+    function renderCurrentQuestion() {
+      if (currentIndex >= TOTAL_QUESTIONS || currentIndex >= activeQuestions.length) {
+        finishSession();
+        return;
+      }
+
+      const q = activeQuestions[currentIndex];
+      isAnsweringLocked = false;
+
+      gameProgress.textContent = `${currentIndex + 1} / ${TOTAL_QUESTIONS}`;
+      gameScore.textContent = score.toString();
+      streakText.textContent = `Streak: ${currentStreak}`;
+
+      gameDiffBadge.textContent = q.difficulty;
+      if (q.difficulty === 'easy') {
+        gameDiffBadge.className = 'px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-emerald-50 text-emerald-700 border border-emerald-200';
+      } else if (q.difficulty === 'medium') {
+        gameDiffBadge.className = 'px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-blue-50 text-blue-700 border border-blue-200';
+      } else if (q.difficulty === 'hard') {
+        gameDiffBadge.className = 'px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-purple-50 text-purple-700 border border-purple-200';
+      } else {
+        gameDiffBadge.className = 'px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-amber-50 text-amber-700 border border-amber-200';
+      }
+
+      questionCard.style.animation = 'none';
+      void questionCard.offsetWidth;
+      questionCard.style.animation = 'formFadeIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) backwards';
+
+      questionOpLabel.textContent = q.operation.toUpperCase();
+      questionText.textContent = q.question;
+
+      optionsGrid.innerHTML = '';
+      q.options.forEach((optText, optIdx) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.dataset.idx = optIdx.toString();
+        btn.setAttribute('role', 'button');
+        btn.setAttribute("aria-label", `Option ${optIdx + 1}: ${optText}`);
+        
+        btn.className = 'has-ripple w-full py-4 sm:py-5 px-4 bg-white border-2 border-border-line rounded-2xl text-xl sm:text-2xl font-bold font-mono text-ink text-center transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] focus-ring active:scale-[0.97] md:hover:border-brand md:hover:bg-brand/5 md:hover:shadow-md md:hover:-translate-y-0.5 md:hover:scale-[1.01] cursor-pointer select-none flex items-center justify-between px-5';
+        btn.style.animation = `formFadeIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) backwards ${optIdx * 40}ms`;
+
+        const numBadge = document.createElement('span');
+        numBadge.className = 'w-6 h-6 rounded-lg bg-slate-100 text-slate-500 text-xs font-sans font-semibold flex items-center justify-center transition-colors';
+        numBadge.textContent = (optIdx + 1).toString();
+
+        const label = document.createElement('span');
+        label.className = 'flex-1 text-center font-bold font-mono';
+        label.textContent = optText;
+
+        const emptyPlaceholder = document.createElement('span');
+        emptyPlaceholder.className = 'w-6';
+
+        btn.appendChild(numBadge);
+        btn.appendChild(label);
+        btn.appendChild(emptyPlaceholder);
+
+        btn.addEventListener('click', () => {
+          handleAnswer(optIdx);
+        });
+
+        optionsGrid.appendChild(btn);
+      });
+
+      startQuestionTimer(q.timeLimit || 4);
+    }
+
+    function startQuestionTimer(seconds) {
+      if (timerInterval) clearInterval(timerInterval);
+
+      timerTotalMs = seconds * 1000;
+      timerRemainingMs = timerTotalMs;
+      timerStart = Date.now();
+
+      timerBar.style.width = '100%';
+      timerBar.className = 'h-full bg-brand rounded-full transition-none origin-left';
+
+      const updateInterval = 40;
+      timerInterval = setInterval(() => {
+        const elapsed = Date.now() - timerStart;
+        timerRemainingMs = timerTotalMs - elapsed;
+
+        if (timerRemainingMs <= 0) {
+          clearInterval(timerInterval);
+          timerBar.style.width = '0%';
+          handleTimeout();
+        } else {
+          const pct = Math.max(0, (timerRemainingMs / timerTotalMs) * 100);
+          timerBar.style.width = `${pct}%`;
+          
+          if (timerRemainingMs < 1500) {
+            timerBar.className = 'h-full bg-red-500 rounded-full transition-colors duration-200 origin-left';
+          }
+        }
+      }, updateInterval);
+    }
+
+    function handleAnswer(selectedIdx) {
+      if (isAnsweringLocked) return;
+      isAnsweringLocked = true;
+      clearInterval(timerInterval);
+
+      const timeTakenSec = parseFloat(((Date.now() - timerStart) / 1000).toFixed(2));
+      const q = activeQuestions[currentIndex];
+      const isCorrect = selectedIdx === q.correctAnswer;
+
+      const optionButtons = optionsGrid.querySelectorAll('button');
+      optionButtons.forEach((btn, idx) => {
+        if (idx === selectedIdx) {
+          if (isCorrect) {
+            btn.className = 'w-full py-4 sm:py-5 px-4 bg-emerald-50 border-2 border-emerald-500 text-emerald-900 rounded-2xl text-xl sm:text-2xl font-bold font-mono text-center shadow-sm shadow-emerald-500/10 flex items-center justify-between px-5 transform scale-[1.01] transition-all duration-150';
+          } else {
+            btn.className = 'w-full py-4 sm:py-5 px-4 bg-red-50 border-2 border-red-500 text-red-900 rounded-2xl text-xl sm:text-2xl font-bold font-mono text-center shadow-sm shadow-red-500/10 flex items-center justify-between px-5 transform scale-[0.99] transition-all duration-150';
+          }
+        }
+        if (!isCorrect && idx === q.correctAnswer) {
+          btn.className = 'w-full py-4 sm:py-5 px-4 bg-emerald-50/70 border-2 border-emerald-400 text-emerald-800 rounded-2xl text-xl sm:text-2xl font-bold font-mono text-center flex items-center justify-between px-5 transition-all duration-150';
+        }
+      });
+
+      if (isCorrect) {
+        score++;
+        currentStreak++;
+        if (currentStreak > maxStreak) maxStreak = currentStreak;
+        if (streakContainer && currentStreak >= 3) {
+          streakContainer.classList.add('scale-110');
+          if (streakIcon) streakIcon.classList.add('rotate-12');
+          setTimeout(() => {
+            streakContainer.classList.remove('scale-110');
+            if (streakIcon) streakIcon.classList.remove('rotate-12');
+          }, 200);
+        }
+      } else {
+        currentStreak = 0;
+      }
+
+      resultsLog.push({
+        qId: q.id,
+        operation: q.operation,
+        difficulty: q.difficulty,
+        userAns: selectedIdx,
+        correctAns: q.correctAnswer,
+        isCorrect,
+        timeTaken: timeTakenSec,
+        timedOut: false
+      });
+
+      adjustAdaptiveDifficulty(isCorrect, timeTakenSec);
+
+      setTimeout(() => {
+        currentIndex++;
+        renderCurrentQuestion();
+      }, 220);
+    }
+
+    function handleTimeout() {
+      if (isAnsweringLocked) return;
+      isAnsweringLocked = true;
+
+      const q = activeQuestions[currentIndex];
+      currentStreak = 0;
+
+      const optionButtons = optionsGrid.querySelectorAll('button');
+      optionButtons.forEach((btn, idx) => {
+        if (idx === q.correctAnswer) {
+          btn.className = 'w-full py-4 sm:py-5 px-4 bg-amber-50 border-2 border-amber-500 text-amber-900 rounded-2xl text-xl sm:text-2xl font-bold font-mono text-center shadow-sm shadow-amber-500/10 flex items-center justify-between px-5 transition-all duration-150';
+        }
+      });
+
+      resultsLog.push({
+        qId: q.id,
+        operation: q.operation,
+        difficulty: q.difficulty,
+        userAns: null,
+        correctAns: q.correctAnswer,
+        isCorrect: false,
+        timeTaken: q.timeLimit,
+        timedOut: true
+      });
+
+      setTimeout(() => {
+        currentIndex++;
+        renderCurrentQuestion();
+      }, 300);
+    }
+
+    function adjustAdaptiveDifficulty(wasCorrect, responseTime) {
+      if (mode === 'lightning') return;
+      if (wasCorrect && currentStreak >= 3 && responseTime < 2.5) {
+        for (let i = currentIndex + 1; i < activeQuestions.length; i++) {
+          if (activeQuestions[i].difficulty === 'easy') {
+            const harderPool = quickMathQuestions.filter(q => q.difficulty === 'medium' || q.difficulty === 'hard');
+            activeQuestions[i] = harderPool[Math.floor(Math.random() * harderPool.length)];
+            break;
+          }
+        }
+      }
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (screenGame.classList.contains('hidden') || isAnsweringLocked) return;
+      if (e.key >= '1' && e.key <= '4') {
+        const idx = parseInt(e.key) - 1;
+        handleAnswer(idx);
+      }
+    });
+
+    function finishSession() {
+      if (timerInterval) clearInterval(timerInterval);
+
+      screenGame.classList.remove('flex');
+      screenGame.classList.add('hidden');
+      screenResults.classList.remove('hidden');
+      screenResults.classList.add('flex');
+
+      screenResults.style.animation = 'none';
+      void screenResults.offsetWidth;
+      screenResults.style.animation = 'formFadeIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) backwards';
+
+      const totalItems = resultsLog.length || TOTAL_QUESTIONS;
+      const accuracyPct = Math.round((score / totalItems) * 100);
+      
+      const times = resultsLog.map(r => r.timeTaken);
+      const avgTime = (times.reduce((a, b) => a + b, 0) / times.length).toFixed(1);
+      const fastestTime = Math.min(...times).toFixed(1);
+      const timeoutCount = resultsLog.filter(r => r.timedOut).length;
+
+      resScore.textContent = `${score}/${totalItems}`;
+      resAccuracy.textContent = `${accuracyPct}%`;
+      resAvgSpeed.textContent = `${avgTime}s`;
+      resBestStreak.textContent = maxStreak.toString();
+      resFastest.textContent = `${fastestTime}s`;
+      resTimeouts.textContent = timeoutCount.toString();
+
+      const diffTiers = resultsLog.map(r => r.difficulty);
+      if (diffTiers.includes('hard')) resMaxDiff.textContent = 'Hard';
+      else if (diffTiers.includes('medium')) resMaxDiff.textContent = 'Medium';
+      else if (diffTiers.includes('lightning')) resMaxDiff.textContent = 'Lightning';
+      else resMaxDiff.textContent = 'Easy';
+
+      if (accuracyPct >= 90) {
+        resultsFeedback.textContent = 'Phenomenal precision and speed. Your active working memory and calculation instincts are dialed in.';
+      } else if (accuracyPct >= 75) {
+        resultsFeedback.textContent = 'Solid run. You maintained high calculation pace while handling multi-step operations under pressure.';
+      } else {
+        resultsFeedback.textContent = 'Good practice session. Repeat daily to develop automatic number recall and reaction speed.';
+      }
+
+      try {
+        let isNewPb = false;
+        const stored = localStorage.getItem(STORAGE_KEY);
+        let pbData = {
+          sessionsCompleted: 0,
+          bestScore: score,
+          bestAccuracy: accuracyPct,
+          bestAvgSpeed: parseFloat(avgTime),
+          fastestResponse: parseFloat(fastestTime),
+          longestStreak: maxStreak,
+          lastPlayed: new Date().toISOString()
+        };
+
+        if (stored) {
+          const prev = JSON.parse(stored);
+          pbData.sessionsCompleted = (prev.sessionsCompleted || 0) + 1;
+          if (score > (prev.bestScore || 0)) {
+            isNewPb = true;
+            pbData.bestScore = score;
+            pbData.bestAccuracy = accuracyPct;
+          } else {
+            pbData.bestScore = prev.bestScore;
+            pbData.bestAccuracy = prev.bestAccuracy;
+          }
+          pbData.bestAvgSpeed = Math.min(prev.bestAvgSpeed || 99, parseFloat(avgTime));
+          pbData.fastestResponse = Math.min(prev.fastestResponse || 99, parseFloat(fastestTime));
+          pbData.longestStreak = Math.max(prev.longestStreak || 0, maxStreak);
+        } else {
+          isNewPb = true;
+          pbData.sessionsCompleted = 1;
+        }
+
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(pbData));
+
+        if (isNewPb && score >= 20) {
+          resultsNewPb.classList.remove('hidden');
+        } else {
+          resultsNewPb.classList.add('hidden');
+        }
+      } catch (e) {}
+    }
+
+    btnStart.addEventListener('click', initSession);
+    btnRestart.addEventListener('click', initSession);
+  });
+</script>
