@@ -1,4 +1,4 @@
----
+﻿---
 import { tools } from '../data/registry';
 
 const pathname = new URL(Astro.request.url).pathname;
@@ -6,6 +6,7 @@ const pathname = new URL(Astro.request.url).pathname;
 const navLinks = [
   { name: 'Home', href: '/' },
   { name: 'Tools', href: '/tools' },
+  { name: 'Tests', href: '/tests' },
   { name: 'About', href: '/about' },
   { name: 'Contact', href: '/contact' }
 ];
@@ -597,3 +598,5 @@ const searchIndex = tools.map(tool => ({
   setupHeaderSearch();
   document.addEventListener('astro:page-load', setupHeaderSearch);
 </script>
+
+

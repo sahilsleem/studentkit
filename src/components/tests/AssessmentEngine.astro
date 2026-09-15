@@ -1,29 +1,34 @@
 ﻿---
-import { iqQuestions } from '../../data/tests/iqQuestions';
-
-// Inject questions as a JSON string to be parsed on client
-const questionsJson = JSON.stringify(iqQuestions);
+export interface Props {
+  id: string;
+  title: string;
+  description: string;
+  timeMinutes: number;
+  questions: any[];
+}
+const { id, title, description, timeMinutes, questions } = Astro.props;
+const questionsJson = JSON.stringify(questions);
+const sessionKey = `studentkit_${id}_state_v1`;
 ---
 
-<div id="iq-engine" class="relative tool-calculator-container" data-questions={questionsJson}>
+<div id={`engine-${id}`} class="relative tool-calculator-container" data-questions={questionsJson} data-session-key={sessionKey} data-time-minutes={timeMinutes}>
   
   <!-- INTRO SCREEN -->
   <div id="screen-intro" class="reveal bg-card rounded-2xl border border-border-line/40 shadow-sm overflow-hidden p-6 sm:p-10 flex flex-col items-center text-center space-y-6 group hover:border-brand hover:shadow-xl md:hover:-translate-y-1 md:hover:scale-[1.02] transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] cursor-default">
     <div class="w-full max-w-2xl flex flex-col items-center">
-      <h2 class="text-2xl sm:text-3xl font-semibold text-ink mb-4 group-hover:text-brand transition-colors duration-300">Before you begin</h2>
+      <h2 class="text-2xl sm:text-3xl font-semibold text-ink mb-4 group-hover:text-brand transition-colors duration-300">{title}</h2>
       <p class="text-slate-muted mb-6">
-        This is an online reasoning assessment designed to challenge your cognitive skills across six distinct categories. 
-        It is not a clinical or professionally administered IQ test, and the results should be viewed as an engaging cognitive exercise rather than a formal medical or psychological diagnosis.
+        {description}
       </p>
       
       <div class="grid grid-cols-2 gap-4 mb-8 text-left">
         <div class="p-4 bg-slate-50 border border-slate-100 rounded-xl">
           <span class="block text-sm font-semibold text-slate-500 uppercase tracking-wider mb-1">Duration</span>
-          <span class="text-lg text-ink font-medium">~20 Minutes</span>
+          <span class="text-lg text-ink font-medium">~{timeMinutes} Minutes</span>
         </div>
         <div class="p-4 bg-slate-50 border border-slate-100 rounded-xl">
           <span class="block text-sm font-semibold text-slate-500 uppercase tracking-wider mb-1">Format</span>
-          <span class="text-lg text-ink font-medium">30 Questions</span>
+          <span class="text-lg text-ink font-medium">{questions.length} Questions</span>
         </div>
       </div>
 
@@ -44,7 +49,7 @@ const questionsJson = JSON.stringify(iqQuestions);
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-4 sm:p-6 border-b border-border-line/40 bg-slate-50/50">
       <div class="flex flex-col">
         <span class="text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Progress</span>
-        <span class="text-sm font-medium text-ink" id="progress-text">Question 1 of 30</span>
+        <span class="text-sm font-medium text-ink" id="progress-text">Question 1 of {questions.length}</span>
       </div>
       <div class="flex flex-col items-end">
         <span class="text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Time Remaining</span>
@@ -90,7 +95,7 @@ const questionsJson = JSON.stringify(iqQuestions);
         <h2 class="text-3xl sm:text-4xl font-semibold text-ink mb-4 group-hover:text-brand transition-colors duration-300">Your Reasoning Result</h2>
         <div class="inline-flex items-end justify-center gap-2 mb-2">
           <span id="score-correct" class="text-5xl font-bold text-brand">0</span>
-          <span class="text-2xl text-slate-muted font-medium mb-1">/ 30</span>
+          <span class="text-2xl text-slate-muted font-medium mb-1">/ {questions.length}</span>
         </div>
         <p id="score-percentage" class="text-lg text-slate-muted font-medium">0% Accuracy</p>
       </div>
@@ -137,38 +142,40 @@ const questionsJson = JSON.stringify(iqQuestions);
 
 <script>
   document.addEventListener('astro:page-load', () => {
-    const engine = document.getElementById('iq-engine');
-    if (!engine) return;
+    // Initialize ALL engines on the page, in case there are multiple (or just scoping them cleanly)
+    document.querySelectorAll('[id^="engine-"]').forEach((engine) => {
+      const questionsRaw = engine.getAttribute('data-questions');
+      if (!questionsRaw) return;
+      const questions = JSON.parse(questionsRaw);
+      if (!questions.length) return;
 
-    const questions = JSON.parse(engine.getAttribute('data-questions') || '[]');
-    if (!questions.length) return;
+      const SESSION_KEY = engine.getAttribute('data-session-key');
+      
+      let currentIndex = 0;
+      let answers = new Array(questions.length).fill(null);
+      let timeMinutes = parseInt(engine.getAttribute('data-time-minutes')) || 20;
+      let timeRemaining = timeMinutes * 60;
+      let timeTaken = 0;
+      let timerInterval = null;
 
-    const SESSION_KEY = 'studentkit_iq_state_v1';
-    
-    let currentIndex = 0;
-    let answers = new Array(questions.length).fill(null);
-    let timeRemaining = 20 * 60; // 20 minutes in seconds
-    let timeTaken = 0;
-    let timerInterval = null;
-
-    // DOM Elements
-    const screenIntro = document.getElementById('screen-intro');
-    const screenTest = document.getElementById('screen-test');
-    const screenResults = document.getElementById('screen-results');
-    
-    const btnStart = document.getElementById('btn-start');
-    const btnResume = document.getElementById('btn-resume');
-    const btnNext = document.getElementById('btn-next');
-    const btnPrev = document.getElementById('btn-prev');
-    const btnRestart = document.getElementById('btn-restart');
-    
-    const qCategory = document.getElementById('q-category');
-    const qText = document.getElementById('q-text');
-    const optionsContainer = document.getElementById('options-container');
-    const progressText = document.getElementById('progress-text');
-    const progressBar = document.getElementById('progress-bar');
-    const progressBarContainer = document.getElementById('progress-bar-container');
-    const timerText = document.getElementById('timer-text');
+      // DOM Elements
+      const screenIntro = engine.querySelector('#screen-intro');
+      const screenTest = engine.querySelector('#screen-test');
+      const screenResults = engine.querySelector('#screen-results');
+      
+      const btnStart = engine.querySelector('#btn-start');
+      const btnResume = engine.querySelector('#btn-resume');
+      const btnNext = engine.querySelector('#btn-next');
+      const btnPrev = engine.querySelector('#btn-prev');
+      const btnRestart = engine.querySelector('#btn-restart');
+      
+      const qCategory = engine.querySelector('#q-category');
+      const qText = engine.querySelector('#q-text');
+      const optionsContainer = engine.querySelector('#options-container');
+      const progressText = engine.querySelector('#progress-text');
+      const progressBar = engine.querySelector('#progress-bar');
+      const progressBarContainer = engine.querySelector('#progress-bar-container');
+      const timerText = engine.querySelector('#timer-text');
 
     // Check for existing session
     function checkSession() {
@@ -278,7 +285,7 @@ const questionsJson = JSON.stringify(iqQuestions);
     function renderQuestion() {
       const q = questions[currentIndex];
       
-      const qHeader = document.getElementById('question-header');
+      const qHeader = engine.querySelector('#question-header');
       if (qHeader) {
         qHeader.style.animation = 'none';
         void qHeader.offsetWidth;
@@ -392,11 +399,11 @@ const questionsJson = JSON.stringify(iqQuestions);
         }
       });
 
-      document.getElementById('score-correct').textContent = correct;
-      document.getElementById('score-percentage').textContent = `${Math.round((correct / questions.length) * 100)}% Accuracy`;
-      document.getElementById('time-taken').textContent = formatTime(timeTaken);
+      engine.querySelector('#score-correct').textContent = correct;
+      engine.querySelector('#score-percentage').textContent = `${Math.round((correct / questions.length) * 100)}% Accuracy`;
+      engine.querySelector('#time-taken').textContent = formatTime(timeTaken);
 
-      const barsContainer = document.getElementById('category-bars');
+      const barsContainer = engine.querySelector('#category-bars');
       barsContainer.innerHTML = '';
 
       let bestCat = { name: 'None', score: -1 };
@@ -444,11 +451,14 @@ const questionsJson = JSON.stringify(iqQuestions);
         
         barsContainer.appendChild(row);
       }
-      document.getElementById('strongest-area').textContent = bestCat.name;
-      document.getElementById('needs-improvement').textContent = worstCat.name;
+      engine.querySelector('#strongest-area').textContent = bestCat.name;
+      engine.querySelector('#needs-improvement').textContent = worstCat.name;
     }
+    });
   });
 </script>
+
+
 
 
 
