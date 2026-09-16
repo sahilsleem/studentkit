@@ -22,3 +22,15 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# editor settings
+.vscode/
+
+# environment variable variants
+.env.*
+
+# windows-specific files
+Thumbs.db
+
+# cloudflare
+.wrangler/
