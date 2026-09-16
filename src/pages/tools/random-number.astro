@@ -1,0 +1,91 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { tools } from '../../data/tools.js';
+
+const tool = tools.find(t => t.url === '/tools/random-number');
+const relatedTools = tools.filter(t => t.category === 'Everyday' && t.url !== tool?.url).slice(0, 3);
+---
+
+<Layout title={tool?.title || 'Random Number Generator'} description={tool?.description}>
+  <div class="max-w-4xl mx-auto">
+    <div class="mb-8 text-center sm:text-left">
+      <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight mb-2">{tool?.title}</h1>
+      <p class="text-lg text-gray-500">{tool?.description}</p>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden mb-12 max-w-lg mx-auto">
+      <div class="p-8 text-center">
+        
+        <div class="mb-8 p-12 bg-gray-50 rounded-xl border border-gray-100 flex items-center justify-center min-h-[160px]">
+          <div id="result-value" class="text-7xl font-black text-emerald-600 tabular-nums">?</div>
+        </div>
+
+        <form id="calculator-form" class="space-y-6">
+          <div class="grid grid-cols-2 gap-4 text-left">
+            <div>
+              <label class="block text-xs font-medium text-gray-700 mb-1 uppercase tracking-wide">Min</label>
+              <input type="number" id="min-val" value="1" required class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 text-lg font-semibold text-center">
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-gray-700 mb-1 uppercase tracking-wide">Max</label>
+              <input type="number" id="max-val" value="100" required class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 text-lg font-semibold text-center">
+            </div>
+          </div>
+
+          <button type="submit" class="w-full bg-gray-900 text-white px-6 py-4 rounded-xl font-bold text-lg hover:bg-gray-800 transition-transform active:scale-95 flex justify-center items-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+            Generate
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  const initGenerator = () => {
+    const form = document.getElementById('calculator-form') as HTMLFormElement;
+    if (!form) return;
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const min = parseInt((document.getElementById('min-val') as HTMLInputElement).value, 10);
+      const max = parseInt((document.getElementById('max-val') as HTMLInputElement).value, 10);
+      
+      if (min > max) {
+        alert("Minimum value cannot be greater than maximum value.");
+        return;
+      }
+
+      const resultEl = document.getElementById('result-value');
+      if (!resultEl) return;
+
+      // Simple animation
+      let iterations = 0;
+      const maxIterations = 15;
+      const interval = setInterval(() => {
+        const rand = Math.floor(Math.random() * (max - min + 1)) + min;
+        resultEl.textContent = rand.toString();
+        
+        iterations++;
+        if (iterations >= maxIterations) {
+          clearInterval(interval);
+          const finalRand = Math.floor(Math.random() * (max - min + 1)) + min;
+          resultEl.textContent = finalRand.toString();
+          
+          // pop effect
+          resultEl.classList.remove('scale-100');
+          resultEl.classList.add('scale-110');
+          setTimeout(() => {
+            resultEl.classList.remove('scale-110');
+            resultEl.classList.add('scale-100', 'transition-transform');
+          }, 150);
+        }
+      }, 50);
+    });
+  };
+
+  initGenerator();
+  document.addEventListener('astro:page-load', initGenerator);
+</script>

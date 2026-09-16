@@ -1,0 +1,163 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { tools } from '../../data/tools.js';
+
+const tool = tools.find(t => t.url === '/tools/cgpa-to-percentage');
+const relatedTools = tools.filter(t => t.category === 'Academic' && t.url !== tool?.url).slice(0, 3);
+---
+
+<Layout title={tool?.title || 'CGPA to Percentage'} description={tool?.description}>
+  <div class="max-w-4xl mx-auto">
+    <!-- Header -->
+    <div class="mb-8 text-center sm:text-left">
+      <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight mb-2">{tool?.title}</h1>
+      <p class="text-lg text-gray-500">{tool?.description}</p>
+    </div>
+
+    <!-- Calculator Interface -->
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden mb-12">
+      <div class="p-6 sm:p-8">
+        <form id="calculator-form" class="space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label for="cgpa" class="block text-sm font-medium text-gray-700 mb-1">Your CGPA</label>
+              <input type="number" id="cgpa" step="0.01" min="0" max="10" required class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 sm:text-base transition-colors" placeholder="e.g. 8.5">
+            </div>
+            
+            <div>
+              <label for="multiplier" class="block text-sm font-medium text-gray-700 mb-1">Conversion Method</label>
+              <select id="multiplier" class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 sm:text-base transition-colors bg-white">
+                <option value="9.5">CGPA × 9.5 (Standard)</option>
+                <option value="10">CGPA × 10</option>
+                <option value="custom">Custom Multiplier</option>
+              </select>
+            </div>
+          </div>
+
+          <div id="custom-multiplier-container" class="hidden">
+            <label for="custom-multiplier" class="block text-sm font-medium text-gray-700 mb-1">Custom Multiplier</label>
+            <input type="number" id="custom-multiplier" step="0.01" min="0" class="block w-full md:w-1/2 px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 sm:text-base transition-colors" placeholder="e.g. 9.3">
+          </div>
+
+          <div class="flex gap-4 pt-4">
+            <button type="submit" class="flex-1 bg-emerald-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors">
+              Calculate Percentage
+            </button>
+            <button type="button" id="reset-btn" class="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-500 transition-colors">
+              Reset
+            </button>
+          </div>
+        </form>
+
+        <!-- Result Section -->
+        <div id="result-section" class="mt-8 pt-8 border-t border-gray-100 hidden">
+          <div class="text-center">
+            <p class="text-sm text-gray-500 mb-1">Estimated Percentage</p>
+            <div class="text-5xl font-bold text-gray-900 mb-4" id="result-value">--%</div>
+            <p class="text-xs text-gray-400 max-w-md mx-auto">
+              Note: Conversion formulas vary by university or institution. Check your university's official formula if applicable.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content Sections -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
+      <div class="prose prose-emerald">
+        <h3>How it works</h3>
+        <p>The CGPA to percentage conversion depends entirely on your university's grading scale. The two most common methods are:</p>
+        <ul>
+          <li><strong>Multiplier of 9.5:</strong> Used by many Indian universities (like CBSE grading systems). E.g., 8.0 CGPA × 9.5 = 76%.</li>
+          <li><strong>Multiplier of 10:</strong> A straightforward decimal shift. E.g., 8.0 CGPA × 10 = 80%.</li>
+        </ul>
+        <p>If your university uses a different formula, select "Custom Multiplier" and enter it.</p>
+      </div>
+      
+      <div class="prose prose-emerald">
+        <h3>Frequently Asked Questions</h3>
+        <details class="mb-4">
+          <summary class="font-medium cursor-pointer text-gray-900">Is this formula 100% accurate?</summary>
+          <p class="text-sm mt-2 text-gray-600">It is mathematically accurate based on the multiplier you choose. However, some universities have non-linear conversion formulas. Always check your official student handbook.</p>
+        </details>
+        <details>
+          <summary class="font-medium cursor-pointer text-gray-900">What is a good CGPA?</summary>
+          <p class="text-sm mt-2 text-gray-600">Generally, a CGPA above 8.0 (on a 10-point scale) is considered very good, and above 9.0 is excellent. However, this varies by country and institution.</p>
+        </details>
+      </div>
+    </div>
+
+    <!-- Related Tools -->
+    <div class="pt-8 border-t border-gray-200">
+      <h3 class="text-xl font-bold text-gray-900 mb-6">Related Tools</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        {relatedTools.map(t => (
+          <a href={t.url} class="group block p-4 bg-white rounded-lg border border-gray-200 hover:border-emerald-500 transition-colors">
+            <h4 class="font-semibold text-gray-900 group-hover:text-emerald-600">{t.title}</h4>
+            <p class="text-sm text-gray-500 mt-1 line-clamp-2">{t.description}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  const initCalculator = () => {
+    const form = document.getElementById('calculator-form') as HTMLFormElement;
+    const cgpaInput = document.getElementById('cgpa') as HTMLInputElement;
+    const multiplierSelect = document.getElementById('multiplier') as HTMLSelectElement;
+    const customMultiplierContainer = document.getElementById('custom-multiplier-container');
+    const customMultiplierInput = document.getElementById('custom-multiplier') as HTMLInputElement;
+    const resetBtn = document.getElementById('reset-btn');
+    const resultSection = document.getElementById('result-section');
+    const resultValue = document.getElementById('result-value');
+
+    if (!form) return;
+
+    multiplierSelect.addEventListener('change', () => {
+      if (multiplierSelect.value === 'custom') {
+        customMultiplierContainer?.classList.remove('hidden');
+        customMultiplierInput.required = true;
+      } else {
+        customMultiplierContainer?.classList.add('hidden');
+        customMultiplierInput.required = false;
+      }
+    });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const cgpa = parseFloat(cgpaInput.value);
+      let multiplier = parseFloat(multiplierSelect.value);
+
+      if (multiplierSelect.value === 'custom') {
+        multiplier = parseFloat(customMultiplierInput.value);
+      }
+
+      if (isNaN(cgpa) || isNaN(multiplier)) return;
+
+      let percentage = cgpa * multiplier;
+      
+      // Cap at 100%
+      if (percentage > 100) percentage = 100;
+
+      if (resultValue && resultSection) {
+        resultValue.textContent = `${percentage.toFixed(2)}%`;
+        resultSection.classList.remove('hidden');
+        resultSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    });
+
+    resetBtn?.addEventListener('click', () => {
+      form.reset();
+      customMultiplierContainer?.classList.add('hidden');
+      customMultiplierInput.required = false;
+      resultSection?.classList.add('hidden');
+      if (resultValue) resultValue.textContent = '--%';
+    });
+  };
+
+  initCalculator();
+  document.addEventListener('astro:page-load', initCalculator);
+</script>

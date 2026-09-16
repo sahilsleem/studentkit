@@ -1,0 +1,104 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ToolCard from '../../components/ToolCard.astro';
+import { tools } from '../../data/tools.js';
+
+// Get unique categories
+const categories = [...new Set(tools.map(tool => tool.category))].sort();
+---
+
+<Layout title="All Tools" description="Quick, free tools for everyday student life. Calculate GPA, attendance, exam countdowns, and more.">
+  <div class="mb-8">
+    <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight mb-2">Student Tools</h1>
+    <p class="text-lg text-gray-500">Quick, free tools for everyday student life.</p>
+  </div>
+
+  <div class="flex flex-col md:flex-row gap-6 mb-10">
+    <!-- Search -->
+    <div class="flex-grow">
+      <div class="relative">
+        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+          <svg class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+          </svg>
+        </div>
+        <input type="text" id="tools-search" class="block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-lg leading-5 bg-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm transition-all" placeholder="Search all tools..." />
+      </div>
+    </div>
+    
+    <!-- Category Filter -->
+    <div class="md:w-64 flex-shrink-0">
+      <select id="category-filter" class="block w-full pl-3 pr-10 py-2 text-base border border-gray-200 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm rounded-lg bg-white">
+        <option value="all">All Categories</option>
+        {categories.map(category => (
+          <option value={category.toLowerCase()}>{category}</option>
+        ))}
+      </select>
+    </div>
+  </div>
+
+  <div id="no-results" class="hidden text-center py-12">
+    <svg class="mx-auto h-12 w-12 text-gray-300 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+    <h3 class="text-lg font-medium text-gray-900">No tools found</h3>
+    <p class="mt-1 text-sm text-gray-500">Try adjusting your search or filter to find what you're looking for.</p>
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="tools-grid">
+    {tools.map(tool => (
+      <ToolCard 
+        title={tool.title} 
+        description={tool.description} 
+        url={tool.url} 
+        icon={tool.icon} 
+        category={tool.category}
+      />
+    ))}
+  </div>
+</Layout>
+
+<script>
+  const initToolsFilter = () => {
+    const searchInput = document.getElementById('tools-search');
+    const categoryFilter = document.getElementById('category-filter');
+    const toolCards = document.querySelectorAll('.tool-card');
+    const noResults = document.getElementById('no-results');
+
+    if (!searchInput || !categoryFilter) return;
+
+    const filterTools = () => {
+      const searchTerm = searchInput.value.toLowerCase().trim();
+      const selectedCategory = categoryFilter.value;
+      let visibleCount = 0;
+
+      toolCards.forEach(card => {
+        const title = card.getAttribute('data-title') || '';
+        const desc = card.getAttribute('data-desc') || '';
+        const category = card.getAttribute('data-category') || '';
+        
+        const matchesSearch = title.includes(searchTerm) || desc.includes(searchTerm);
+        const matchesCategory = selectedCategory === 'all' || category === selectedCategory;
+
+        if (matchesSearch && matchesCategory) {
+          card.classList.remove('hidden');
+          visibleCount++;
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+
+      if (visibleCount === 0) {
+        noResults.classList.remove('hidden');
+      } else {
+        noResults.classList.add('hidden');
+      }
+    };
+
+    searchInput.addEventListener('input', filterTools);
+    categoryFilter.addEventListener('change', filterTools);
+  };
+
+  initToolsFilter();
+  document.addEventListener('astro:page-load', initToolsFilter);
+</script>

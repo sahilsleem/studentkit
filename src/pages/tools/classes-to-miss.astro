@@ -1,0 +1,93 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { tools } from '../../data/tools.js';
+
+const tool = tools.find(t => t.url === '/tools/classes-to-miss');
+const relatedTools = tools.filter(t => t.category === 'Attendance' && t.url !== tool?.url).slice(0, 3);
+---
+
+<Layout title={tool?.title || 'Classes You Can Miss'} description={tool?.description}>
+  <div class="max-w-4xl mx-auto">
+    <div class="mb-8 text-center sm:text-left">
+      <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight mb-2">{tool?.title}</h1>
+      <p class="text-lg text-gray-500">{tool?.description}</p>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden mb-12">
+      <div class="p-6 sm:p-8">
+        <form id="calculator-form" class="space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Total Classes Held So Far</label>
+              <input type="number" id="held" min="1" required class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 sm:text-base">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Classes Attended So Far</label>
+              <input type="number" id="attended" min="0" required class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 sm:text-base">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Minimum Required Attendance (%)</label>
+              <input type="number" id="target" min="1" max="99" value="75" required class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 sm:text-base">
+            </div>
+          </div>
+
+          <div class="flex gap-4 pt-4">
+            <button type="submit" class="flex-1 bg-emerald-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-emerald-700 transition-colors">
+              Calculate Safe Skips
+            </button>
+          </div>
+        </form>
+
+        <div id="result-section" class="mt-8 pt-8 border-t border-gray-100 hidden">
+          <div class="text-center">
+            <p class="text-sm text-gray-500 mb-1">Classes you can safely miss</p>
+            <div class="text-5xl font-bold text-gray-900 mb-2" id="result-value">--</div>
+            <p class="text-sm text-gray-600" id="status-message"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  const initCalculator = () => {
+    const form = document.getElementById('calculator-form') as HTMLFormElement;
+    if (!form) return;
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const held = parseInt((document.getElementById('held') as HTMLInputElement).value, 10);
+      const attended = parseInt((document.getElementById('attended') as HTMLInputElement).value, 10);
+      const target = parseInt((document.getElementById('target') as HTMLInputElement).value, 10);
+
+      if (attended > held) {
+        alert("Classes attended cannot be greater than classes held.");
+        return;
+      }
+
+      const current = (attended / held) * 100;
+      const targetDec = target / 100;
+      
+      const resultValue = document.getElementById('result-value');
+      const statusMessage = document.getElementById('status-message');
+
+      if (resultValue && statusMessage) {
+        if (current <= target) {
+          resultValue.textContent = '0';
+          statusMessage.textContent = `Your attendance is ${current.toFixed(1)}%. You cannot miss any more classes.`;
+        } else {
+          const toMiss = Math.floor((attended / targetDec) - held);
+          resultValue.textContent = toMiss.toString();
+          statusMessage.textContent = `If you miss ${toMiss} classes in a row, your attendance will drop to exactly ${((attended)/(held + toMiss)*100).toFixed(1)}%.`;
+        }
+      }
+
+      document.getElementById('result-section')?.classList.remove('hidden');
+    });
+  };
+
+  initCalculator();
+  document.addEventListener('astro:page-load', initCalculator);
+</script>

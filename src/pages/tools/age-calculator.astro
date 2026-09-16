@@ -1,0 +1,157 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { tools } from '../../data/tools.js';
+
+const tool = tools.find(t => t.url === '/tools/age-calculator');
+const relatedTools = tools.filter(t => t.category === 'Date & Time' && t.url !== tool?.url).slice(0, 3);
+---
+
+<Layout title={tool?.title || 'Age Calculator'} description={tool?.description}>
+  <div class="max-w-4xl mx-auto">
+    <div class="mb-8 text-center sm:text-left">
+      <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight mb-2">{tool?.title}</h1>
+      <p class="text-lg text-gray-500">{tool?.description}</p>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden mb-12">
+      <div class="p-6 sm:p-8">
+        <form id="calculator-form" class="space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Date of Birth</label>
+              <input type="date" id="dob" required class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 sm:text-base">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Calculate age at this date</label>
+              <input type="date" id="target-date" required class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 sm:text-base">
+            </div>
+          </div>
+
+          <div class="flex gap-4 pt-4">
+            <button type="submit" class="flex-1 bg-emerald-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-emerald-700 transition-colors">
+              Calculate Age
+            </button>
+            <button type="button" id="reset-btn" class="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-colors">
+              Reset
+            </button>
+          </div>
+        </form>
+
+        <div id="result-section" class="mt-8 pt-8 border-t border-gray-100 hidden">
+          <div class="text-center mb-8">
+            <p class="text-sm text-gray-500 mb-1">Age</p>
+            <div class="text-3xl sm:text-4xl font-bold text-gray-900 mb-2" id="main-age">--</div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="bg-gray-50 rounded-lg p-5 border border-gray-100 text-center">
+              <p class="text-sm text-gray-600 mb-2">Total Days Lived</p>
+              <div class="text-2xl font-bold text-gray-900" id="total-days">--</div>
+            </div>
+            <div class="bg-emerald-50 rounded-lg p-5 border border-emerald-100 text-center">
+              <p class="text-sm text-emerald-700 mb-2">Next Birthday In</p>
+              <div class="text-2xl font-bold text-emerald-800" id="next-bday-days">--</div>
+              <p class="text-xs text-emerald-600 mt-1" id="next-bday-date">--</p>
+            </div>
+            <div class="bg-gray-50 rounded-lg p-5 border border-gray-100 text-center">
+              <p class="text-sm text-gray-600 mb-2">Total Months</p>
+              <div class="text-2xl font-bold text-gray-900" id="total-months">--</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  const initCalculator = () => {
+    const form = document.getElementById('calculator-form') as HTMLFormElement;
+    const dobInput = document.getElementById('dob') as HTMLInputElement;
+    const targetInput = document.getElementById('target-date') as HTMLInputElement;
+    
+    if (!form || !dobInput || !targetInput) return;
+
+    // Set default target date to today
+    const today = new Date();
+    targetInput.value = today.toISOString().split('T')[0];
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const dob = new Date(dobInput.value);
+      const target = new Date(targetInput.value);
+      
+      if (dob > target) {
+        alert("Date of birth cannot be after the target date.");
+        return;
+      }
+
+      // Calculate diffs
+      let years = target.getFullYear() - dob.getFullYear();
+      let months = target.getMonth() - dob.getMonth();
+      let days = target.getDate() - dob.getDate();
+
+      if (days < 0) {
+        months--;
+        // Get days in previous month
+        const prevMonth = new Date(target.getFullYear(), target.getMonth(), 0);
+        days += prevMonth.getDate();
+      }
+      if (months < 0) {
+        years--;
+        months += 12;
+      }
+
+      // Total days
+      const diffTime = Math.abs(target.getTime() - dob.getTime());
+      const totalDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+      
+      // Total months
+      const totalMonths = (years * 12) + months;
+
+      // Next birthday
+      const nextBday = new Date(dob);
+      nextBday.setFullYear(today.getFullYear());
+      if (today > nextBday) {
+        nextBday.setFullYear(today.getFullYear() + 1);
+      }
+      const daysToNextBday = Math.ceil((nextBday.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+
+      // Display
+      const mainAgeEl = document.getElementById('main-age');
+      if (mainAgeEl) {
+        let text = [];
+        if (years > 0) text.push(`${years} years`);
+        if (months > 0) text.push(`${months} months`);
+        if (days > 0) text.push(`${days} days`);
+        if (text.length === 0) text.push('0 days');
+        mainAgeEl.textContent = text.join(', ');
+      }
+
+      const totalDaysEl = document.getElementById('total-days');
+      if (totalDaysEl) totalDaysEl.textContent = totalDays.toLocaleString();
+
+      const totalMonthsEl = document.getElementById('total-months');
+      if (totalMonthsEl) totalMonthsEl.textContent = totalMonths.toLocaleString();
+
+      const nextBdayDaysEl = document.getElementById('next-bday-days');
+      const nextBdayDateEl = document.getElementById('next-bday-date');
+      if (nextBdayDaysEl && nextBdayDateEl) {
+        nextBdayDaysEl.textContent = `${daysToNextBday} days`;
+        nextBdayDateEl.textContent = nextBday.toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+      }
+
+      document.getElementById('result-section')?.classList.remove('hidden');
+    });
+
+    document.getElementById('reset-btn')?.addEventListener('click', () => {
+      form.reset();
+      targetInput.value = today.toISOString().split('T')[0];
+      document.getElementById('result-section')?.classList.add('hidden');
+    });
+  };
+
+  initCalculator();
+  document.addEventListener('astro:page-load', initCalculator);
+</script>

@@ -1,0 +1,195 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { tools } from '../../data/tools.js';
+
+const tool = tools.find(t => t.url === '/tools/pomodoro-timer');
+const relatedTools = tools.filter(t => t.category === 'Study' && t.url !== tool?.url).slice(0, 3);
+---
+
+<Layout title={tool?.title || 'Pomodoro Timer'} description={tool?.description}>
+  <div class="max-w-4xl mx-auto">
+    <div class="mb-8 text-center">
+      <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight mb-2">{tool?.title}</h1>
+      <p class="text-lg text-gray-500">{tool?.description}</p>
+    </div>
+
+    <div class="bg-white rounded-3xl shadow-sm border border-gray-200 overflow-hidden mb-12 max-w-xl mx-auto">
+      <div class="p-8">
+        
+        <!-- Timer Modes -->
+        <div class="flex justify-center space-x-2 mb-8">
+          <button id="mode-work" class="px-4 py-2 rounded-full text-sm font-semibold transition-colors bg-emerald-100 text-emerald-800">Focus</button>
+          <button id="mode-short" class="px-4 py-2 rounded-full text-sm font-semibold transition-colors text-gray-500 hover:bg-gray-100">Short Break</button>
+          <button id="mode-long" class="px-4 py-2 rounded-full text-sm font-semibold transition-colors text-gray-500 hover:bg-gray-100">Long Break</button>
+        </div>
+
+        <!-- Timer Display -->
+        <div class="text-center mb-10">
+          <div id="timer-display" class="text-8xl font-bold text-gray-900 tabular-nums tracking-tighter">
+            25:00
+          </div>
+          <p id="timer-status" class="text-emerald-600 font-medium mt-2">Ready to focus</p>
+        </div>
+
+        <!-- Controls -->
+        <div class="flex justify-center gap-4 mb-8">
+          <button id="start-btn" class="w-32 bg-emerald-600 text-white px-6 py-4 rounded-xl font-bold text-lg hover:bg-emerald-700 transition-transform active:scale-95 shadow-sm">
+            Start
+          </button>
+          <button id="pause-btn" class="hidden w-32 bg-amber-500 text-white px-6 py-4 rounded-xl font-bold text-lg hover:bg-amber-600 transition-transform active:scale-95 shadow-sm">
+            Pause
+          </button>
+          <button id="reset-btn" class="w-32 bg-gray-100 text-gray-700 px-6 py-4 rounded-xl font-bold text-lg hover:bg-gray-200 transition-transform active:scale-95">
+            Reset
+          </button>
+        </div>
+
+        <!-- Settings toggle -->
+        <div class="border-t border-gray-100 pt-6">
+          <details class="group">
+            <summary class="flex justify-center items-center cursor-pointer list-none text-sm font-medium text-gray-500 hover:text-gray-700">
+              <span>Settings</span>
+              <svg class="w-4 h-4 ml-1 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </summary>
+            <div class="mt-4 grid grid-cols-3 gap-4">
+              <div>
+                <label class="block text-xs font-medium text-gray-700 mb-1">Focus (min)</label>
+                <input type="number" id="setting-work" value="25" min="1" max="90" class="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-emerald-500 focus:border-emerald-500 text-sm text-center">
+              </div>
+              <div>
+                <label class="block text-xs font-medium text-gray-700 mb-1">Short (min)</label>
+                <input type="number" id="setting-short" value="5" min="1" max="30" class="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-emerald-500 focus:border-emerald-500 text-sm text-center">
+              </div>
+              <div>
+                <label class="block text-xs font-medium text-gray-700 mb-1">Long (min)</label>
+                <input type="number" id="setting-long" value="15" min="1" max="60" class="block w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-emerald-500 focus:border-emerald-500 text-sm text-center">
+              </div>
+            </div>
+            <div class="mt-4 text-center">
+              <button id="save-settings" class="bg-gray-800 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-900">Apply Settings</button>
+            </div>
+          </details>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  const initTimer = () => {
+    let timeLeft = 25 * 60;
+    let timerId: number | null = null;
+    let currentMode = 'work'; // work, short, long
+    let isRunning = false;
+
+    const display = document.getElementById('timer-display');
+    const status = document.getElementById('timer-status');
+    const startBtn = document.getElementById('start-btn');
+    const pauseBtn = document.getElementById('pause-btn');
+    const resetBtn = document.getElementById('reset-btn');
+
+    const modeWork = document.getElementById('mode-work');
+    const modeShort = document.getElementById('mode-short');
+    const modeLong = document.getElementById('mode-long');
+
+    const setWork = document.getElementById('setting-work') as HTMLInputElement;
+    const setShort = document.getElementById('setting-short') as HTMLInputElement;
+    const setLong = document.getElementById('setting-long') as HTMLInputElement;
+    const saveSettings = document.getElementById('save-settings');
+
+    const settings = {
+      work: 25,
+      short: 5,
+      long: 15
+    };
+
+    const updateDisplay = () => {
+      if (!display) return;
+      const m = Math.floor(timeLeft / 60).toString().padStart(2, '0');
+      const s = (timeLeft % 60).toString().padStart(2, '0');
+      display.textContent = `${m}:${s}`;
+      document.title = `${m}:${s} - Pomodoro`;
+    };
+
+    const setMode = (mode: string) => {
+      currentMode = mode;
+      pauseTimer();
+      
+      modeWork?.className.replace('bg-emerald-100 text-emerald-800', 'text-gray-500 hover:bg-gray-100');
+      modeShort?.className.replace('bg-blue-100 text-blue-800', 'text-gray-500 hover:bg-gray-100');
+      modeLong?.className.replace('bg-purple-100 text-purple-800', 'text-gray-500 hover:bg-gray-100');
+
+      // Reset classes
+      [modeWork, modeShort, modeLong].forEach(btn => {
+        if(btn) btn.className = 'px-4 py-2 rounded-full text-sm font-semibold transition-colors text-gray-500 hover:bg-gray-100';
+      });
+
+      if (mode === 'work') {
+        timeLeft = settings.work * 60;
+        modeWork!.className = 'px-4 py-2 rounded-full text-sm font-semibold transition-colors bg-emerald-100 text-emerald-800';
+        if(status) { status.textContent = 'Focus time'; status.className = 'text-emerald-600 font-medium mt-2'; }
+      } else if (mode === 'short') {
+        timeLeft = settings.short * 60;
+        modeShort!.className = 'px-4 py-2 rounded-full text-sm font-semibold transition-colors bg-blue-100 text-blue-800';
+        if(status) { status.textContent = 'Short break'; status.className = 'text-blue-600 font-medium mt-2'; }
+      } else if (mode === 'long') {
+        timeLeft = settings.long * 60;
+        modeLong!.className = 'px-4 py-2 rounded-full text-sm font-semibold transition-colors bg-purple-100 text-purple-800';
+        if(status) { status.textContent = 'Long break'; status.className = 'text-purple-600 font-medium mt-2'; }
+      }
+      updateDisplay();
+    };
+
+    const startTimer = () => {
+      if (isRunning) return;
+      isRunning = true;
+      startBtn?.classList.add('hidden');
+      pauseBtn?.classList.remove('hidden');
+
+      timerId = window.setInterval(() => {
+        timeLeft--;
+        updateDisplay();
+        
+        if (timeLeft <= 0) {
+          pauseTimer();
+          // Optional: play sound
+          alert("Time's up!");
+        }
+      }, 1000);
+    };
+
+    const pauseTimer = () => {
+      if (!isRunning) return;
+      isRunning = false;
+      window.clearInterval(timerId!);
+      pauseBtn?.classList.add('hidden');
+      startBtn?.classList.remove('hidden');
+    };
+
+    const resetTimer = () => {
+      setMode(currentMode);
+    };
+
+    startBtn?.addEventListener('click', startTimer);
+    pauseBtn?.addEventListener('click', pauseTimer);
+    resetBtn?.addEventListener('click', resetTimer);
+
+    modeWork?.addEventListener('click', () => setMode('work'));
+    modeShort?.addEventListener('click', () => setMode('short'));
+    modeLong?.addEventListener('click', () => setMode('long'));
+
+    saveSettings?.addEventListener('click', () => {
+      settings.work = parseInt(setWork.value, 10) || 25;
+      settings.short = parseInt(setShort.value, 10) || 5;
+      settings.long = parseInt(setLong.value, 10) || 15;
+      setMode(currentMode); // re-apply
+    });
+
+    // Initialize
+    updateDisplay();
+  };
+
+  initTimer();
+  document.addEventListener('astro:page-load', initTimer);
+</script>

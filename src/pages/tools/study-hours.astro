@@ -1,0 +1,98 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { tools } from '../../data/tools.js';
+
+const tool = tools.find(t => t.url === '/tools/study-hours');
+const relatedTools = tools.filter(t => t.category === 'Study' && t.url !== tool?.url).slice(0, 3);
+---
+
+<Layout title={tool?.title || 'Study Hours Calculator'} description={tool?.description}>
+  <div class="max-w-4xl mx-auto">
+    <div class="mb-8 text-center sm:text-left">
+      <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight mb-2">{tool?.title}</h1>
+      <p class="text-lg text-gray-500">{tool?.description}</p>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden mb-12">
+      <div class="p-6 sm:p-8">
+        <form id="calculator-form" class="space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Available Hours per Day</label>
+              <input type="number" id="available-hours" min="1" max="24" step="0.5" required class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 sm:text-base">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Number of Subjects</label>
+              <input type="number" id="num-subjects" min="1" max="20" required class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 sm:text-base">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Desired Hours per Subject</label>
+              <input type="number" id="desired-hours" min="0.5" step="0.5" required class="block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 sm:text-base">
+            </div>
+          </div>
+
+          <div class="flex gap-4 pt-4">
+            <button type="submit" class="flex-1 bg-emerald-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-emerald-700 transition-colors">
+              Evaluate Schedule
+            </button>
+          </div>
+        </form>
+
+        <div id="result-section" class="mt-8 pt-8 border-t border-gray-100 hidden">
+          <div class="text-center">
+            <p class="text-sm text-gray-500 mb-1">Total Hours Required</p>
+            <div class="text-5xl font-bold text-gray-900 mb-2" id="result-value">--</div>
+            <div class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold mt-2" id="status-badge">
+              --
+            </div>
+            <p class="text-sm text-gray-600 mt-4 max-w-md mx-auto" id="status-message"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  const initCalculator = () => {
+    const form = document.getElementById('calculator-form') as HTMLFormElement;
+    if (!form) return;
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const available = parseFloat((document.getElementById('available-hours') as HTMLInputElement).value);
+      const subjects = parseInt((document.getElementById('num-subjects') as HTMLInputElement).value, 10);
+      const desired = parseFloat((document.getElementById('desired-hours') as HTMLInputElement).value);
+
+      const requiredTotal = subjects * desired;
+      
+      const resultValue = document.getElementById('result-value');
+      const statusBadge = document.getElementById('status-badge');
+      const statusMessage = document.getElementById('status-message');
+
+      if (resultValue && statusBadge && statusMessage) {
+        resultValue.textContent = requiredTotal.toString();
+        
+        if (requiredTotal <= available) {
+          statusBadge.textContent = 'Realistic Schedule';
+          statusBadge.className = 'inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold mt-2 bg-emerald-100 text-emerald-800';
+          
+          const leftover = available - requiredTotal;
+          statusMessage.textContent = `You will have ${leftover.toFixed(1)} hours of free time left each day after studying.`;
+        } else {
+          statusBadge.textContent = 'Unrealistic Schedule';
+          statusBadge.className = 'inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold mt-2 bg-red-100 text-red-800';
+          
+          const deficit = requiredTotal - available;
+          statusMessage.textContent = `You are short by ${deficit.toFixed(1)} hours. You should either reduce the number of subjects or allocate less time per subject (max ${(available/subjects).toFixed(1)} hours/subject).`;
+        }
+      }
+
+      document.getElementById('result-section')?.classList.remove('hidden');
+    });
+  };
+
+  initCalculator();
+  document.addEventListener('astro:page-load', initCalculator);
+</script>
