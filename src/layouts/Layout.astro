@@ -184,12 +184,37 @@ const socialImageURL = new URL('/og-image.png', Astro.site || 'https://studentki
         draw();
       };
       
+      // --- LETTER BLIP INTERACTION ---
+      const setupLetterBlip = () => {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        const letters = document.querySelectorAll('.letter-blip');
+        letters.forEach((letter) => {
+          if ((letter as any)._hasBlip) return;
+          (letter as any)._hasBlip = true;
+
+          letter.addEventListener('pointerenter', (e) => {
+            const pe = e as PointerEvent;
+            if (pe.pointerType === 'touch') return;
+
+            letter.classList.remove('is-blipping');
+            void (letter as HTMLElement).offsetWidth;
+            letter.classList.add('is-blipping');
+          });
+
+          letter.addEventListener('animationend', () => {
+            letter.classList.remove('is-blipping');
+          });
+        });
+      };
+
       initGlobalCanvas();
       handleLoader();
       setupMagnetic();
+      setupLetterBlip();
       document.addEventListener('astro:page-load', () => {
         setupReveal();
         setupMagnetic();
+        setupLetterBlip();
       });
   
         const createRipple = (e) => {

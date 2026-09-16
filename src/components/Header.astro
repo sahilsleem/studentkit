@@ -1,4 +1,4 @@
-﻿---
+---
 import { tools } from '../data/registry';
 
 const pathname = new URL(Astro.request.url).pathname;
@@ -7,6 +7,7 @@ const navLinks = [
   { name: 'Home', href: '/' },
   { name: 'Tools', href: '/tools' },
   { name: 'Tests', href: '/tests' },
+  { name: 'Anti-Brainrot', href: '/anti-brainrot' },
   { name: 'About', href: '/about' },
   { name: 'Contact', href: '/contact' }
 ];
@@ -33,9 +34,9 @@ const searchIndex = tools.map(tool => ({
               <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
             </svg>
           </div>
-          <div class="flex flex-col">
+          <div class="flex flex-col select-none">
             <span class="text-xl font-extrabold tracking-tight text-ink transition-colors leading-none">
-              Student<span class="text-brand-accent">Kit</span>
+              <span class="letter-blip inline-block cursor-default">S</span><span class="letter-blip inline-block cursor-default">t</span><span class="letter-blip inline-block cursor-default">u</span><span class="letter-blip inline-block cursor-default">d</span><span class="letter-blip inline-block cursor-default">e</span><span class="letter-blip inline-block cursor-default">n</span><span class="letter-blip inline-block cursor-default">t</span><span class="text-brand-accent"><span class="letter-blip letter-blip-brand inline-block cursor-default">K</span><span class="letter-blip letter-blip-brand inline-block cursor-default">i</span><span class="letter-blip letter-blip-brand inline-block cursor-default">t</span></span>
             </span>
             <span class="text-[10px] font-medium text-slate-muted uppercase tracking-wider mt-0.5">Study Utilities</span>
           </div>

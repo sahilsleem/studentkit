@@ -1,0 +1,11 @@
+---
+import AntiBrainrotLayout from '../../layouts/AntiBrainrotLayout.astro';
+import MentalMathEngine from '../../components/anti-brainrot/MentalMathEngine.astro';
+import { getAntiBrainrotModule } from '../../data/antiBrainrotRegistry';
+
+const module = getAntiBrainrotModule('mental-math')!;
+---
+
+<AntiBrainrotLayout module={module}>
+  <MentalMathEngine />
+</AntiBrainrotLayout>

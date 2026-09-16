@@ -1,0 +1,15 @@
+---
+import AntiBrainrotLayout from '../../layouts/AntiBrainrotLayout.astro';
+import { getAntiBrainrotModule } from '../../data/antiBrainrotRegistry';
+import WorkingMemoryEngine from '../../components/anti-brainrot/WorkingMemoryEngine.astro';
+
+const module = getAntiBrainrotModule('working-memory')!;
+---
+
+<AntiBrainrotLayout 
+  module={module}
+  title="Working Memory Challenge | Anti-Brainrot | StudentKit"
+  description="Train your working memory with short recall challenges. Hold and manipulate information in your head."
+>
+  <WorkingMemoryEngine />
+</AntiBrainrotLayout>

@@ -1,0 +1,528 @@
+---
+// src/components/anti-brainrot/WorkingMemoryEngine.astro
+---
+
+<div id="wm-container" class="w-full mx-auto bg-card rounded-3xl border border-slate-100 shadow-sm relative overflow-hidden flex flex-col hover:-translate-y-1.5 hover:scale-[1.02] hover:border-brand hover:shadow-xl transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] group">
+
+  <!-- Intro Screen -->
+  <div id="wm-screen-intro" class="flex flex-col items-center justify-center p-6 sm:p-10 text-center bg-white z-10">
+    <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-brand-light/80 text-brand mb-6 shadow-xs group-hover:bg-gradient-to-br group-hover:from-violet-500 group-hover:to-teal-400 group-hover:text-white transition-all duration-300 group-hover:scale-110 group-hover:-rotate-3">
+      <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+      </svg>
+    </div>
+
+    <h2 class="text-2xl sm:text-3xl font-extrabold text-ink tracking-tight mb-4 group-hover:text-brand transition-colors duration-300">
+      Working Memory
+    </h2>
+    <p class="text-slate-muted text-sm sm:text-base mb-8 max-w-sm leading-relaxed">
+      A sequence of items will appear briefly. Remember them and reproduce the sequence in the exact order.
+    </p>
+
+    <div class="space-y-3 mb-10 w-full max-w-xs text-left mx-auto">
+      <div class="flex items-start gap-3">
+        <div class="mt-0.5 text-brand bg-brand-light/50 p-1 rounded-md">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+        </div>
+        <p class="text-xs sm:text-sm text-slate-500 font-medium">10 adaptive rounds. Focus is key.</p>
+      </div>
+      <div class="flex items-start gap-3">
+        <div class="mt-0.5 text-brand bg-brand-light/50 p-1 rounded-md">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+        </div>
+        <p class="text-xs sm:text-sm text-slate-500 font-medium">No timer. Correctness matters most.</p>
+      </div>
+    </div>
+
+    <button id="wm-btn-start" class="has-ripple w-full max-w-xs mx-auto py-3.5 bg-brand hover:bg-brand/90 text-white font-bold rounded-xl shadow-md shadow-brand/20 transition-all active:scale-[0.98]">
+      Start Training
+    </button>
+  </div>
+
+  <!-- Game Screen -->
+  <div id="wm-screen-game" class="hidden flex-col relative w-full bg-white z-0 pb-6 sm:pb-8">
+    <!-- Top Bar -->
+    <div class="flex items-center justify-between px-4 py-3 sm:px-6 sm:py-4 shrink-0 border-b border-slate-100/50">
+      <div class="flex flex-col">
+        <span class="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider mb-0.5">Round</span>
+        <div class="text-sm sm:text-base font-black text-ink font-mono tracking-tight">
+          <span id="wm-round-num">1</span> <span class="text-slate-300">/</span> 10
+        </div>
+      </div>
+
+      <div class="flex flex-col items-end">
+        <span class="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider mb-0.5">Score</span>
+        <div class="text-sm sm:text-base font-black text-brand font-mono tracking-tight" id="wm-score">
+          0
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-col items-center justify-center p-4 w-full">
+      <!-- Instruction Text -->
+      <div id="wm-instruction" class="text-center font-bold text-lg sm:text-xl text-slate-400 tracking-tight mb-6 h-8 flex items-center justify-center">
+        Remember the sequence
+      </div>
+
+      <!-- Display Stage -->
+      <div id="wm-stage-display" class="flex flex-col items-center justify-center w-full min-h-[160px] mb-4">
+        <div id="wm-display-item" class="text-7xl sm:text-8xl font-black text-ink font-mono tracking-tighter opacity-0 scale-90 transition-all duration-150 ease-out">
+          A
+        </div>
+      </div>
+
+      <!-- Recall Stage -->
+      <div id="wm-stage-recall" class="hidden flex-col items-center justify-center w-full">
+
+        <!-- Answer Slots -->
+        <div id="wm-answer-slots" class="flex flex-wrap items-center justify-center gap-2 mb-8 min-h-[50px]">
+          <!-- Slots injected via JS -->
+        </div>
+
+        <!-- 3x3 Selection Grid -->
+        <div id="wm-grid" class="grid grid-cols-3 gap-2 sm:gap-3 w-full max-w-[280px] sm:max-w-[320px] mx-auto">
+          <!-- 9 buttons injected via JS -->
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Results Screen -->
+  <div id="wm-screen-results" class="hidden flex-col bg-slate-50 z-20 p-6 sm:p-10">
+    <div class="flex-grow flex flex-col items-center justify-center">
+      <div class="w-16 h-16 rounded-full bg-emerald-100 text-emerald-50 flex items-center justify-center mb-4 sm:mb-6 shadow-sm mx-auto shrink-0">
+        <svg class="w-8 h-8 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+      </div>
+      <h2 class="text-2xl sm:text-3xl font-black text-ink tracking-tight mb-1 sm:mb-2 text-center shrink-0">Working Memory Complete</h2>
+
+      <div class="text-4xl sm:text-5xl font-black text-brand font-mono tracking-tighter mb-6 sm:mb-8 text-center shrink-0" id="wm-res-score">
+        0
+      </div>
+
+      <div class="w-full max-w-sm mx-auto bg-white rounded-2xl border border-border-line p-4 sm:p-5 mb-6 sm:mb-8 shadow-sm shrink-0">
+        <div class="grid grid-cols-2 gap-y-4 gap-x-6 text-center sm:text-left">
+          <div>
+            <div class="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Accuracy</div>
+            <div class="text-lg sm:text-xl font-bold text-ink" id="wm-res-acc">0%</div>
+          </div>
+          <div>
+            <div class="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Rounds</div>
+            <div class="text-lg sm:text-xl font-bold text-ink" id="wm-res-rounds">0 / 10</div>
+          </div>
+          <div>
+            <div class="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Max Length</div>
+            <div class="text-lg sm:text-xl font-bold text-ink" id="wm-res-length">0</div>
+          </div>
+          <div>
+            <div class="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Max Streak</div>
+            <div class="text-lg sm:text-xl font-bold text-ink" id="wm-res-streak">0</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-col w-full max-w-sm mx-auto gap-3 shrink-0">
+        <button id="wm-btn-replay" class="has-ripple w-full py-3.5 bg-ink hover:bg-ink/90 text-white font-bold rounded-xl shadow-md transition-all active:scale-[0.98]">
+          Replay Challenge
+        </button>
+        <a href="/anti-brainrot" class="has-ripple block w-full py-3.5 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold rounded-xl transition-all active:scale-[0.98] text-center">
+          Back to Hub
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    if ((window as any).__wmEngineAbort) {
+      (window as any).__wmEngineAbort.abort();
+    }
+    const wmAbort = new AbortController();
+    (window as any).__wmEngineAbort = wmAbort;
+
+    const container = document.getElementById("wm-container");
+    if (!container) return;
+
+    const screenIntro = document.getElementById("wm-screen-intro");
+    const screenGame = document.getElementById("wm-screen-game");
+    const screenResults = document.getElementById("wm-screen-results");
+
+    const btnStart = document.getElementById("wm-btn-start");
+    const btnReplay = document.getElementById("wm-btn-replay");
+
+    const uiRoundNum = document.getElementById("wm-round-num");
+    const uiScore = document.getElementById("wm-score");
+    const uiInstruction = document.getElementById("wm-instruction");
+    const stageDisplay = document.getElementById("wm-stage-display");
+    const displayItem = document.getElementById("wm-display-item");
+    const stageRecall = document.getElementById("wm-stage-recall");
+    const answerSlotsContainer = document.getElementById("wm-answer-slots");
+    const gridContainer = document.getElementById("wm-grid");
+
+    const resScore = document.getElementById("wm-res-score");
+    const resAcc = document.getElementById("wm-res-acc");
+    const resRounds = document.getElementById("wm-res-rounds");
+    const resLength = document.getElementById("wm-res-length");
+    const resStreak = document.getElementById("wm-res-streak");
+
+    const STORAGE_KEY = "studentkit_working_memory_v1";
+
+    type GameState = "intro" | "displaying" | "recalling" | "feedback" | "completed";
+    let gameState: GameState = "intro";
+
+    let roundNum = 1;
+    let score = 0;
+    let correctRounds = 0;
+    let incorrectRounds = 0;
+    let streak = 0;
+    let maxStreak = 0;
+    let maxSequenceLength = 0;
+
+    let currentSequence: string[] = [];
+    let userSelections: string[] = [];
+    let currentSequenceIndex = 0;
+
+    let displayTimeoutId: number | null = null;
+    let feedbackTimeoutId: number | null = null;
+
+    const MAX_ROUNDS = 10;
+    const POOL = ["2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H"];
+
+    wmAbort.signal.addEventListener("abort", () => {
+      clearTimeouts();
+    });
+
+    function clearTimeouts() {
+      if (displayTimeoutId !== null) window.clearTimeout(displayTimeoutId);
+      if (feedbackTimeoutId !== null) window.clearTimeout(feedbackTimeoutId);
+      displayTimeoutId = null;
+      feedbackTimeoutId = null;
+    }
+
+    function shuffle<T>(array: T[]): T[] {
+      const arr = [...array];
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    function generateSequence(length: number): { seq: string[], grid: string[] } {
+      const shuffledPool = shuffle(POOL);
+      const seq = shuffledPool.slice(0, length);
+
+      const gridItems = [...seq];
+      const remainingPool = shuffledPool.slice(length);
+
+      while (gridItems.length < 9) {
+        gridItems.push(remainingPool.pop()!);
+      }
+
+      return { seq, grid: shuffle(gridItems) };
+    }
+
+    function getSequenceLengthForRound(r: number) {
+      if (r <= 2) return 3;
+      if (r <= 4) return 4;
+      if (r <= 6) return 5;
+      if (r <= 8) return 6;
+      return 7;
+    }
+
+    function updateUI() {
+      if (uiRoundNum) uiRoundNum.textContent = roundNum.toString();
+      if (uiScore) uiScore.textContent = score.toString();
+    }
+
+    function setupRound() {
+      clearTimeouts();
+      userSelections = [];
+
+      const targetLength = getSequenceLengthForRound(roundNum);
+      if (targetLength > maxSequenceLength) maxSequenceLength = targetLength;
+
+      const { seq, grid } = generateSequence(targetLength);
+      currentSequence = seq;
+
+      updateUI();
+
+      if (stageDisplay) {
+        stageDisplay.classList.remove("hidden");
+        stageDisplay.classList.add("flex");
+      }
+      if (stageRecall) {
+        stageRecall.classList.add("hidden");
+        stageRecall.classList.remove("flex");
+      }
+
+      if (uiInstruction) {
+        uiInstruction.textContent = "Remember the sequence";
+        uiInstruction.classList.remove("hidden", "text-emerald-500", "text-red-500");
+        uiInstruction.classList.add("flex", "text-slate-400");
+      }
+
+      if (displayItem) {
+        displayItem.textContent = "";
+        displayItem.classList.remove("opacity-100", "scale-100");
+        displayItem.classList.add("opacity-0", "scale-90");
+      }
+
+      if (gridContainer) {
+        gridContainer.innerHTML = "";
+        grid.forEach((item, idx) => {
+          const btn = document.createElement("button");
+          btn.className = "relative w-full aspect-square bg-white border-2 border-border-line/60 rounded-2xl flex items-center justify-center text-2xl sm:text-3xl font-black text-ink font-mono hover:border-brand hover:text-brand hover:bg-brand-light/20 transition-all active:scale-95 has-ripple focus:outline-none focus-visible:ring-2 focus-visible:ring-brand";
+          btn.dataset.item = item;
+
+          const symbolSpan = document.createElement("span");
+          symbolSpan.className = "leading-none flex items-center justify-center";
+          symbolSpan.textContent = item;
+          btn.appendChild(symbolSpan);
+
+          const hint = document.createElement("span");
+          hint.className = "absolute top-1.5 left-2 text-[10px] font-bold text-slate-300 pointer-events-none leading-none";
+          hint.textContent = (idx + 1).toString();
+          btn.appendChild(hint);
+
+          btn.addEventListener("click", () => handleGridClick(item), { signal: wmAbort.signal });
+          gridContainer.appendChild(btn);
+        });
+      }
+
+      if (answerSlotsContainer) {
+        answerSlotsContainer.innerHTML = "";
+        for (let i = 0; i < targetLength; i++) {
+          const slot = document.createElement("div");
+          slot.className = "w-10 h-12 sm:w-12 sm:h-14 border-b-2 border-slate-200 flex items-center justify-center text-xl sm:text-2xl font-black text-ink font-mono transition-colors";
+          slot.dataset.index = i.toString();
+          answerSlotsContainer.appendChild(slot);
+        }
+      }
+
+      gameState = "displaying";
+      startDisplayPhase();
+    }
+
+    function startDisplayPhase() {
+      currentSequenceIndex = 0;
+      showNextItem();
+    }
+
+    function showNextItem() {
+      if (gameState !== "displaying") return;
+      if (!displayItem) return;
+
+      if (currentSequenceIndex >= currentSequence.length) {
+        displayItem.classList.remove("opacity-100", "scale-100");
+        displayItem.classList.add("opacity-0", "scale-90");
+
+        displayTimeoutId = window.setTimeout(() => {
+          startRecallPhase();
+        }, 400);
+        return;
+      }
+
+      displayItem.textContent = currentSequence[currentSequenceIndex];
+      displayItem.classList.remove("opacity-0", "scale-90");
+      displayItem.classList.add("opacity-100", "scale-100");
+
+      displayTimeoutId = window.setTimeout(() => {
+        if (gameState !== "displaying") return;
+
+        displayItem.classList.remove("opacity-100", "scale-100");
+        displayItem.classList.add("opacity-0", "scale-90");
+
+        currentSequenceIndex++;
+
+        displayTimeoutId = window.setTimeout(() => {
+          showNextItem();
+        }, 100);
+
+      }, 500);
+    }
+
+    function startRecallPhase() {
+      if (gameState !== "displaying") return;
+      gameState = "recalling";
+
+      if (stageDisplay) {
+        stageDisplay.classList.add("hidden");
+        stageDisplay.classList.remove("flex");
+      }
+      if (stageRecall) {
+        stageRecall.classList.remove("hidden");
+        stageRecall.classList.add("flex");
+      }
+
+      if (uiInstruction) {
+        uiInstruction.classList.add("hidden");
+        uiInstruction.classList.remove("flex");
+      }
+    }
+
+    function handleGridClick(item: string) {
+      if (gameState !== "recalling") return;
+      if (userSelections.length >= currentSequence.length) return;
+
+      userSelections.push(item);
+
+      if (answerSlotsContainer) {
+        const slot = answerSlotsContainer.children[userSelections.length - 1] as HTMLElement;
+        if (slot) {
+          slot.textContent = item;
+          slot.classList.add("text-brand", "border-brand");
+          slot.classList.remove("border-slate-200");
+        }
+      }
+
+      if (userSelections.length === currentSequence.length) {
+        evaluateRound();
+      }
+    }
+
+    function evaluateRound() {
+      if (gameState !== "recalling") return;
+      gameState = "feedback";
+
+      let isCorrect = true;
+      for (let i = 0; i < currentSequence.length; i++) {
+        if (userSelections[i] !== currentSequence[i]) {
+          isCorrect = false;
+          break;
+        }
+      }
+
+      if (uiInstruction && container) {
+        uiInstruction.classList.remove("hidden", "text-slate-400");
+        uiInstruction.classList.add("flex");
+        if (isCorrect) {
+          uiInstruction.textContent = "Correct!";
+          uiInstruction.classList.add("text-emerald-500");
+          container.classList.add("bg-emerald-50/30", "border-emerald-200");
+
+          correctRounds++;
+          streak++;
+          if (streak > maxStreak) maxStreak = streak;
+
+          const base = 100;
+          const streakBonus = Math.min(50, streak * 10);
+          score += (base + streakBonus);
+
+        } else {
+          uiInstruction.textContent = "Incorrect";
+          uiInstruction.classList.add("text-red-500");
+          container.classList.add("bg-red-50/30", "border-red-200");
+
+          incorrectRounds++;
+          streak = 0;
+        }
+      }
+
+      updateUI();
+
+      feedbackTimeoutId = window.setTimeout(() => {
+        if (container) {
+          container.classList.remove("bg-emerald-50/30", "border-emerald-200", "bg-red-50/30", "border-red-200");
+        }
+
+        roundNum++;
+        if (roundNum > MAX_ROUNDS) {
+          showResults();
+        } else {
+          setupRound();
+        }
+      }, 200);
+    }
+
+    function showResults() {
+      gameState = "completed";
+
+      if (screenGame) {
+        screenGame.classList.add("hidden");
+        screenGame.classList.remove("flex");
+      }
+      if (screenResults) {
+        screenResults.classList.remove("hidden");
+        screenResults.classList.add("flex");
+      }
+
+      if (resScore) resScore.textContent = score.toString();
+      if (resRounds) resRounds.textContent = `${correctRounds} / 10`;
+      if (resLength) resLength.textContent = maxSequenceLength.toString();
+      if (resStreak) resStreak.textContent = maxStreak.toString();
+
+      const acc = Math.round((correctRounds / MAX_ROUNDS) * 100);
+      if (resAcc) resAcc.textContent = `${acc}%`;
+
+      savePersonalBest(score, maxSequenceLength, acc);
+    }
+
+    function savePersonalBest(newScore: number, newLength: number, newAcc: number) {
+      try {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        let bestScore = 0;
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          if (parsed && typeof parsed.score === "number") {
+            bestScore = parsed.score;
+          }
+        }
+
+        if (newScore > bestScore) {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify({
+            score: newScore,
+            length: newLength,
+            accuracy: newAcc,
+            date: Date.now()
+          }));
+        }
+      } catch (e) {
+        console.warn("Failed to save PB:", e);
+      }
+    }
+
+    function initSession() {
+      clearTimeouts();
+
+      if (screenIntro) screenIntro.classList.add("hidden");
+      if (screenResults) {
+        screenResults.classList.add("hidden");
+        screenResults.classList.remove("flex");
+      }
+      if (screenGame) {
+        screenGame.classList.remove("hidden");
+        screenGame.classList.add("flex");
+      }
+
+      roundNum = 1;
+      score = 0;
+      correctRounds = 0;
+      incorrectRounds = 0;
+      streak = 0;
+      maxStreak = 0;
+      maxSequenceLength = 0;
+
+      setupRound();
+    }
+
+    btnStart?.addEventListener("click", initSession, { signal: wmAbort.signal });
+    btnReplay?.addEventListener("click", initSession, { signal: wmAbort.signal });
+
+    window.addEventListener("keydown", (e) => {
+      if (gameState !== "recalling") return;
+
+      const num = parseInt(e.key, 10);
+      if (num >= 1 && num <= 9) {
+        if (gridContainer) {
+          const btn = gridContainer.children[num - 1] as HTMLButtonElement;
+          if (btn && btn.dataset.item) {
+            handleGridClick(btn.dataset.item);
+          }
+        }
+      }
+    }, { signal: wmAbort.signal });
+
+  });
+</script>

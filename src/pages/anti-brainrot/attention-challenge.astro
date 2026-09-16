@@ -1,0 +1,26 @@
+---
+import AntiBrainrotLayout from '../../layouts/AntiBrainrotLayout.astro';
+import { getAntiBrainrotModule } from '../../data/antiBrainrotRegistry';
+import AttentionEngine from '../../components/anti-brainrot/AttentionEngine.astro';
+
+// Safe fallback in case registry changes
+const module = getAntiBrainrotModule('attention-challenge') || {
+  id: 'attention-challenge',
+  slug: 'attention-challenge',
+  title: 'Attention Challenge',
+  tagline: 'Visual discrimination and noticing what matters.',
+  description: 'Fast visual discrimination drills: spot subtle pattern changes, identify anomalies, and filter out visual noise against tight per-round timers.',
+  skills: ['Visual Discrimination', 'Selective Attention', 'Detail Recall'],
+  duration: '30 Rounds • ~3 Mins',
+  icon: 'eye',
+  status: 'coming-soon' as const
+};
+---
+
+<AntiBrainrotLayout
+  module={module}
+  title="Attention Challenge – Visual Discrimination & Focus Training | StudentKit"
+  description="Train your selective attention and visual discrimination with rapid-fire 30-round symbol and pattern drills. Fast, adaptive, and stored locally."
+>
+  <AttentionEngine />
+</AntiBrainrotLayout>

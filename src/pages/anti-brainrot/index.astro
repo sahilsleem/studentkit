@@ -1,0 +1,354 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { antiBrainrotModules } from '../../data/antiBrainrotRegistry';
+---
+
+<Layout
+  title="Anti-Brainrot Focus & Mental Training | StudentKit"
+  description="Short, high-impact cognitive drills for focus, memory, mental calculation speed, and resistance to distraction. Built for students."
+>
+  <div class="max-w-6xl mx-auto mb-16 sm:mb-20">
+    
+    <!-- Hero Banner with Staggered Entrance -->
+    <div class="text-center py-10 sm:py-16 px-4 max-w-3xl mx-auto reveal hero-bg-animated rounded-3xl mb-10 border border-border-line/40 shadow-xs" style="--stagger: 1;">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-brand/10 text-brand border border-brand/20 mb-6 shadow-xs">
+        <svg class="w-4 h-4 text-brand" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+        </svg>
+        STUDENTKIT COGNITIVE TRAINING
+      </div>
+
+      <h1 class="text-3xl sm:text-5xl md:text-6xl font-black text-ink tracking-tight mb-4 leading-tight select-none">
+        <span class="inline-block whitespace-nowrap">
+          <span class="letter-blip inline-block cursor-default">A</span>
+          <span class="letter-blip inline-block cursor-default">N</span>
+          <span class="letter-blip inline-block cursor-default">T</span>
+          <span class="letter-blip inline-block cursor-default">I</span>
+          <span class="letter-blip inline-block cursor-default">-</span>
+        </span>
+        <span class="inline-block whitespace-nowrap text-brand">
+          <span class="letter-blip letter-blip-brand inline-block cursor-default">B</span>
+          <span class="letter-blip letter-blip-brand inline-block cursor-default">R</span>
+          <span class="letter-blip letter-blip-brand inline-block cursor-default">A</span>
+          <span class="letter-blip letter-blip-brand inline-block cursor-default">I</span>
+          <span class="letter-blip letter-blip-brand inline-block cursor-default">N</span>
+          <span class="letter-blip letter-blip-brand inline-block cursor-default">R</span>
+          <span class="letter-blip letter-blip-brand inline-block cursor-default">O</span>
+          <span class="letter-blip letter-blip-brand inline-block cursor-default">T</span>
+        </span>
+      </h1>
+      
+      <p class="text-lg sm:text-2xl font-bold text-ink mb-4 tracking-tight">
+        Your attention span isn't gone. Train it.
+      </p>
+
+      <p class="text-base sm:text-lg text-slate-muted leading-relaxed max-w-2xl mx-auto mb-8">
+        Short, credible exercises to sharpen attention, mental speed, working memory, and reading recall — without endless mindless scrolling.
+      </p>
+
+      <div class="flex flex-wrap items-center justify-center gap-4">
+        <a
+          href="/anti-brainrot/quick-math"
+          class="has-ripple px-8 py-4 bg-brand hover:bg-brand/90 text-white font-extrabold rounded-2xl shadow-lg shadow-brand/25 transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] transform active:scale-[0.98] hover:scale-[1.02] focus-ring text-base flex items-center gap-2"
+        >
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
+          Start Quick Math (Flagship)
+        </a>
+      </div>
+    </div>
+
+    <!-- Live Local Progress Strip (Frosted Glass) -->
+    <div
+      id="hub-progress-strip"
+      class="reveal has-ripple group bg-white/65 backdrop-blur-xl backdrop-saturate-150 rounded-3xl border border-white/80 p-6 sm:p-8 mb-12 shadow-[0_8px_32px_0_rgba(15,23,42,0.05),inset_0_1px_1px_0_rgba(255,255,255,0.9)] hover:shadow-[0_16px_40px_0_rgba(99,102,241,0.08),inset_0_1px_1px_0_rgba(255,255,255,0.9)] hover:border-brand/30 md:hover:-translate-y-1 md:hover:scale-[1.01] transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] relative overflow-hidden"
+      style="--stagger: 2;"
+    >
+      <!-- Glass subtle specular gradient layer -->
+      <div class="absolute -top-24 -right-24 w-72 h-72 bg-gradient-to-br from-brand/10 to-teal-400/10 rounded-full blur-3xl pointer-events-none -z-0"></div>
+      <div class="absolute -bottom-24 -left-24 w-72 h-72 bg-gradient-to-tr from-violet-400/10 to-brand/5 rounded-full blur-3xl pointer-events-none -z-0"></div>
+
+      <div class="relative z-10">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 pb-6 border-b border-slate-200/50">
+          <div>
+            <h2 class="text-lg sm:text-xl font-extrabold text-ink tracking-tight">
+              Your Local Training Log
+            </h2>
+            <p class="text-xs text-slate-muted mt-0.5">
+              100% private. Stored locally in your browser. No account needed.
+            </p>
+          </div>
+          <span class="px-3 py-1 bg-emerald-500/10 text-emerald-700 border border-emerald-500/20 backdrop-blur-sm rounded-full text-xs font-semibold shadow-xs">
+            Active Local Session
+          </span>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          <div class="p-4 bg-white/50 backdrop-blur-md rounded-2xl border border-white/70 text-center shadow-[0_2px_8px_rgba(0,0,0,0.02),inset_0_1px_0_rgba(255,255,255,0.8)] hover:bg-white/75 hover:border-brand/20 transition-colors">
+            <span class="text-xs text-slate-muted block font-medium mb-1">Sessions Completed</span>
+            <span id="hub-sessions" class="text-2xl font-black text-ink font-mono">0</span>
+          </div>
+          <div class="p-4 bg-white/50 backdrop-blur-md rounded-2xl border border-white/70 text-center shadow-[0_2px_8px_rgba(0,0,0,0.02),inset_0_1px_0_rgba(255,255,255,0.8)] hover:bg-white/75 hover:border-brand/20 transition-colors">
+            <span class="text-xs text-slate-muted block font-medium mb-1">Quick Math Best</span>
+            <span id="hub-qm-best" class="text-2xl font-black text-brand font-mono">--/30</span>
+          </div>
+          <div class="p-4 bg-white/50 backdrop-blur-md rounded-2xl border border-white/70 text-center shadow-[0_2px_8px_rgba(0,0,0,0.02),inset_0_1px_0_rgba(255,255,255,0.8)] hover:bg-white/75 hover:border-brand/20 transition-colors">
+            <span class="text-xs text-slate-muted block font-medium mb-1">Best Accuracy</span>
+            <span id="hub-best-acc" class="text-2xl font-black text-ink font-mono">--%</span>
+          </div>
+          <div class="p-4 bg-white/50 backdrop-blur-md rounded-2xl border border-white/70 text-center shadow-[0_2px_8px_rgba(0,0,0,0.02),inset_0_1px_0_rgba(255,255,255,0.8)] hover:bg-white/75 hover:border-brand/20 transition-colors">
+            <span class="text-xs text-slate-muted block font-medium mb-1">Longest Streak</span>
+            <span id="hub-longest-streak" class="text-2xl font-black text-amber-600 font-mono">0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Training Modules Grid with Staggered Entrance and Rich Hover -->
+    <div class="mb-16">
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <h2 class="text-2xl font-black text-ink tracking-tight">
+            Training Modules
+          </h2>
+          <p class="text-sm text-slate-muted">
+            Targeted daily exercises designed to build focus endurance and cognitive speed.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {antiBrainrotModules.map((m, idx) => {
+          const isLive = m.status === 'active';
+          return isLive ? (
+            <a
+              href={`/anti-brainrot/${m.slug}`}
+              style={`--stagger: ${idx + 3};`}
+              class="anti-brainrot-card reveal has-ripple group bg-card/80 backdrop-blur-sm rounded-3xl border border-border-line/80 hover:border-brand hover:shadow-xl hover:-translate-y-1.5 hover:scale-[1.02] transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] p-6 sm:p-7 flex flex-col justify-between relative overflow-hidden focus-ring block text-left"
+            >
+              <div>
+                <div class="w-12 h-12 rounded-2xl bg-brand-light/80 text-brand flex items-center justify-center mb-5 group-hover:bg-gradient-to-br group-hover:from-violet-500 group-hover:to-teal-400 group-hover:text-white transition-all duration-300 group-hover:scale-110 group-hover:-rotate-3 shadow-xs">
+                  {m.icon === 'lightning' ? (
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                  ) : m.icon === 'target' ? (
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                  ) : m.icon === 'eye' ? (
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" /></svg>
+
+                  ) : m.icon === 'cpu' ? (
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2M9 2v2M20 15h2M20 9h2M9 20v2M15 20v2M2 9h2M2 15h2"/></svg>
+                  ) : m.icon === 'grid' ? (
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><circle cx="8" cy="8" r="1" fill="currentColor"/><circle cx="12" cy="8" r="1" fill="currentColor"/><circle cx="16" cy="8" r="1" fill="currentColor"/><circle cx="8" cy="12" r="1" fill="currentColor"/><circle cx="12" cy="12" r="1" fill="currentColor"/><circle cx="16" cy="12" r="1" fill="currentColor"/></svg>
+                  ) : (
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16" y1="14"/></svg>
+                  )}
+                </div>
+
+                <h3 class="text-xl font-extrabold text-ink mb-1.5 tracking-tight group-hover:text-brand transition-colors duration-300">
+                  {m.title}
+                </h3>
+                <p class="text-sm font-semibold text-brand mb-2">
+                  {m.tagline}
+                </p>
+                <p class="text-xs text-slate-muted leading-relaxed mb-6">
+                  {m.description}
+                </p>
+              </div>
+
+              <div>
+                <div class="flex flex-wrap gap-1.5 mb-5">
+                  {m.skills.map((s) => (
+                    <span class="px-2 py-0.5 bg-slate-100 text-slate-600 rounded text-[10px] font-semibold">
+                      {s}
+                    </span>
+                  ))}
+                </div>
+
+                <div class="w-full py-3 px-4 bg-brand group-hover:bg-brand/90 text-white font-bold rounded-xl text-center text-sm shadow-sm transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] flex items-center justify-center gap-1.5 group-hover:scale-[1.01] active:scale-[0.98]">
+                  <span>Start Training</span>
+                  <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" /></svg>
+                </div>
+              </div>
+            </a>
+          ) : (
+            <div
+              style={`--stagger: ${idx + 3};`}
+              class="anti-brainrot-card reveal has-ripple group bg-card/80 backdrop-blur-sm rounded-3xl border border-border-line/80 hover:border-brand hover:shadow-xl hover:-translate-y-1.5 hover:scale-[1.02] transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] p-6 sm:p-7 flex flex-col justify-between relative overflow-hidden cursor-default select-none text-left"
+            >
+              <div class="absolute top-4 right-4">
+                <span class="px-2.5 py-1 bg-slate-100 text-slate-600 text-[11px] font-semibold tracking-wider rounded-full border border-slate-200">
+                  Phase 2
+                </span>
+              </div>
+
+              <div>
+                <div class="w-12 h-12 rounded-2xl bg-brand-light/80 text-brand flex items-center justify-center mb-5 group-hover:bg-gradient-to-br group-hover:from-violet-500 group-hover:to-teal-400 group-hover:text-white transition-all duration-300 group-hover:scale-110 group-hover:-rotate-3 shadow-xs">
+                  {m.icon === 'lightning' ? (
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                  ) : m.icon === 'target' ? (
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                  ) : m.icon === 'eye' ? (
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" /><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" /></svg>
+
+                  ) : m.icon === 'cpu' ? (
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2M9 2v2M20 15h2M20 9h2M9 20v2M15 20v2M2 9h2M2 15h2"/></svg>
+                  ) : m.icon === 'grid' ? (
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><circle cx="8" cy="8" r="1" fill="currentColor"/><circle cx="12" cy="8" r="1" fill="currentColor"/><circle cx="16" cy="8" r="1" fill="currentColor"/><circle cx="8" cy="12" r="1" fill="currentColor"/><circle cx="12" cy="12" r="1" fill="currentColor"/><circle cx="16" cy="12" r="1" fill="currentColor"/></svg>
+                  ) : (
+                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16" y1="14"/></svg>
+                  )}
+                </div>
+
+                <h3 class="text-xl font-extrabold text-ink mb-1.5 tracking-tight group-hover:text-brand transition-colors duration-300">
+                  {m.title}
+                </h3>
+                <p class="text-sm font-semibold text-brand mb-2">
+                  {m.tagline}
+                </p>
+                <p class="text-xs text-slate-muted leading-relaxed mb-6">
+                  {m.description}
+                </p>
+              </div>
+
+              <div>
+                <div class="flex flex-wrap gap-1.5 mb-5">
+                  {m.skills.map((s) => (
+                    <span class="px-2 py-0.5 bg-slate-100 text-slate-600 rounded text-[10px] font-semibold">
+                      {s}
+                    </span>
+                  ))}
+                </div>
+
+                <div class="w-full py-3 px-4 bg-slate-100 text-slate-400 font-semibold rounded-xl text-center text-sm flex items-center justify-center">
+                  <span>Coming in Phase 2</span>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+
+    <!-- Philosophy & Scientific Discipline -->
+    <div class="reveal bg-blue-50/50 border border-blue-100 rounded-3xl p-6 sm:p-10 max-w-4xl mx-auto" style="--stagger: 10;">
+      <h3 class="text-lg font-bold text-blue-950 mb-2">
+        Why Anti-Brainrot Training?
+      </h3>
+      <p class="text-sm text-blue-900/80 leading-relaxed">
+        Modern short-form digital feeds condition the mind to expect instant dopamine every 3 to 7 seconds, eroding active working memory and sustained concentration. These exercises are engineered to provide fast-paced, high-engagement cognitive anchors that train your brain to resist context-switching, maintain numerical speed, and retain complex written information.
+      </p>
+    </div>
+
+  </div>
+</Layout>
+
+<style>
+  .letter-blip {
+    display: inline-block;
+    transition: color 0.15s ease, transform 0.15s ease;
+    will-change: color, transform;
+  }
+
+  @keyframes blip-ink {
+    0% {
+      color: inherit;
+      transform: translateY(0) scale(1);
+    }
+    35% {
+      color: var(--color-brand, #6366f1);
+      transform: translateY(-2px) scale(1.06);
+    }
+    100% {
+      color: inherit;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes blip-brand {
+    0% {
+      color: inherit;
+      transform: translateY(0) scale(1);
+    }
+    35% {
+      color: var(--color-brand-accent, #8b5cf6);
+      transform: translateY(-2px) scale(1.06);
+    }
+    100% {
+      color: inherit;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  .letter-blip.is-blipping {
+    animation: blip-ink 0.25s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  }
+
+  .letter-blip.letter-blip-brand.is-blipping {
+    animation: blip-brand 0.25s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .letter-blip.is-blipping,
+    .letter-blip.letter-blip-brand.is-blipping {
+      animation: none !important;
+      transform: none !important;
+    }
+  }
+</style>
+
+<script>
+  const setupAntiBrainrotHeading = () => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const letters = document.querySelectorAll('.letter-blip');
+    letters.forEach((letter) => {
+      letter.addEventListener('pointerenter', (e) => {
+        const pe = e as PointerEvent;
+        if (pe.pointerType === 'touch') return;
+
+        letter.classList.remove('is-blipping');
+        // Trigger reflow to restart animation reliably
+        void (letter as HTMLElement).offsetWidth;
+        letter.classList.add('is-blipping');
+      });
+
+      letter.addEventListener('animationend', () => {
+        letter.classList.remove('is-blipping');
+      });
+    });
+  };
+
+  const syncLocalTrainingLog = () => {
+    try {
+      let totalSessions = 0;
+      const qmStored = localStorage.getItem('studentkit_quick_math_v1');
+      if (qmStored) {
+        const data = JSON.parse(qmStored);
+        if (typeof data.sessionsCompleted === 'number') totalSessions += data.sessionsCompleted;
+        const elQmBest = document.getElementById('hub-qm-best');
+        const elBestAcc = document.getElementById('hub-best-acc');
+        const elStreak = document.getElementById('hub-longest-streak');
+
+        if (elQmBest && data.bestScore !== undefined) elQmBest.textContent = `${data.bestScore}/30`;
+        if (elBestAcc && data.bestAccuracy !== undefined) elBestAcc.textContent = `${data.bestAccuracy}%`;
+        if (elStreak && data.longestStreak !== undefined) elStreak.textContent = data.longestStreak.toString();
+      }
+
+      const focusStored = localStorage.getItem('studentkit_focus_challenge_v1');
+      if (focusStored) {
+        const data = JSON.parse(focusStored);
+        if (typeof data.sessionsCompleted === 'number') totalSessions += data.sessionsCompleted;
+      }
+
+      const elSessions = document.getElementById('hub-sessions');
+      if (elSessions) elSessions.textContent = totalSessions.toString();
+    } catch (e) {}
+  };
+
+  setupAntiBrainrotHeading();
+  syncLocalTrainingLog();
+  document.addEventListener('astro:page-load', () => {
+    setupAntiBrainrotHeading();
+    syncLocalTrainingLog();
+  });
+</script>
