@@ -1,0 +1,830 @@
+{
+  "generatedAt": "2026-09-02T10:01:00.285Z",
+  "dataSource": "HEURISTIC_ESTIMATE",
+  "disclaimer": "All scores are HEURISTIC ESTIMATES. They reflect likely student demand based on category importance and content quality — NOT real search volumes or real rankings.",
+  "totalTools": 438,
+  "withContent": 30,
+  "withAliases": 27,
+  "withFAQ": 8,
+  "opportunities": {
+    "highPriority": [
+      {
+        "slug": "cgpa-to-percentage",
+        "title": "CGPA to Percentage",
+        "category": "Academic",
+        "heuristicScore": 160,
+        "hasContent": true,
+        "hasFormula": true,
+        "hasFAQ": true,
+        "aliasCount": 0,
+        "gaps": [
+          "NO_ALIASES"
+        ]
+      },
+      {
+        "slug": "percentage-to-cgpa",
+        "title": "Percentage to CGPA",
+        "category": "Academic",
+        "heuristicScore": 160,
+        "hasContent": true,
+        "hasFormula": true,
+        "hasFAQ": true,
+        "aliasCount": 0,
+        "gaps": [
+          "NO_ALIASES"
+        ]
+      },
+      {
+        "slug": "gpa-calculator",
+        "title": "GPA Calculator",
+        "category": "Academic",
+        "heuristicScore": 160,
+        "hasContent": true,
+        "hasFormula": true,
+        "hasFAQ": true,
+        "aliasCount": 0,
+        "gaps": [
+          "NO_ALIASES"
+        ]
+      },
+      {
+        "slug": "attendance-calculator",
+        "title": "Attendance Calculator",
+        "category": "Academic",
+        "heuristicScore": 160,
+        "hasContent": true,
+        "hasFormula": true,
+        "hasFAQ": true,
+        "aliasCount": 0,
+        "gaps": [
+          "NO_ALIASES"
+        ]
+      },
+      {
+        "slug": "percentage-calculator",
+        "title": "Percentage Calculator",
+        "category": "Academic",
+        "heuristicScore": 150,
+        "hasContent": true,
+        "hasFormula": true,
+        "hasFAQ": false,
+        "aliasCount": 0,
+        "gaps": [
+          "NO_FAQ",
+          "NO_ALIASES"
+        ]
+      },
+      {
+        "slug": "required-marks",
+        "title": "Required Marks Calculator",
+        "category": "Academic",
+        "heuristicScore": 150,
+        "hasContent": true,
+        "hasFormula": true,
+        "hasFAQ": false,
+        "aliasCount": 0,
+        "gaps": [
+          "NO_FAQ",
+          "NO_ALIASES"
+        ]
+      },
+      {
+        "slug": "percentage-change",
+        "title": "Percentage Change",
+        "category": "Mathematics",
+        "heuristicScore": 140,
+        "hasContent": true,
+        "hasFormula": true,
+        "hasFAQ": false,
+        "aliasCount": 0,
+        "gaps": [
+          "NO_FAQ",
+          "NO_ALIASES"
+        ]
+      },
+      {
+        "slug": "average-calculator",
+        "title": "Average Calculator",
+        "category": "Mathematics",
+        "heuristicScore": 140,
+        "hasContent": true,
+        "hasFormula": true,
+        "hasFAQ": false,
+        "aliasCount": 0,
+        "gaps": [
+          "NO_FAQ",
+          "NO_ALIASES"
+        ]
+      },
+      {
+        "slug": "scientific-calculator",
+        "title": "Scientific Calculator",
+        "category": "Mathematics",
+        "heuristicScore": 140,
+        "hasContent": true,
+        "hasFormula": false,
+        "hasFAQ": true,
+        "aliasCount": 0,
+        "gaps": [
+          "NO_ALIASES",
+          "NO_FORMULA"
+        ]
+      },
+      {
+        "slug": "probability-calculator",
+        "title": "Probability Calculator",
+        "category": "Mathematics",
+        "heuristicScore": 140,
+        "hasContent": true,
+        "hasFormula": true,
+        "hasFAQ": false,
+        "aliasCount": 0,
+        "gaps": [
+          "NO_FAQ",
+          "NO_ALIASES"
+        ]
+      },
+      {
+        "slug": "normal-distribution-calculator",
+        "title": "Normal Distribution",
+        "category": "Statistics",
+        "heuristicScore": 133,
+        "hasContent": true,
+        "hasFormula": false,
+        "hasFAQ": false,
+        "aliasCount": 1,
+        "gaps": [
+          "NO_FAQ",
+          "NO_FORMULA"
+        ]
+      },
+      {
+        "slug": "fraction-calculator",
+        "title": "Fraction Calculator",
+        "category": "Mathematics",
+        "heuristicScore": 130,
+        "hasContent": true,
+        "hasFormula": false,
+        "hasFAQ": false,
+        "aliasCount": 0,
+        "gaps": [
+          "NO_FAQ",
+          "NO_ALIASES",
+          "NO_FORMULA"
+        ]
+      },
+      {
+        "slug": "force-calculator",
+        "title": "Force Calculator",
+        "category": "Physics",
+        "heuristicScore": 130,
+        "hasContent": true,
+        "hasFormula": true,
+        "hasFAQ": false,
+        "aliasCount": 0,
+        "gaps": [
+          "NO_FAQ",
+          "NO_ALIASES"
+        ]
+      },
+      {
+        "slug": "momentum-calculator",
+        "title": "Momentum Calculator",
+        "category": "Physics",
+        "heuristicScore": 130,
+        "hasContent": true,
+        "hasFormula": true,
+        "hasFAQ": false,
+        "aliasCount": 0,
+        "gaps": [
+          "NO_FAQ",
+          "NO_ALIASES"
+        ]
+      },
+      {
+        "slug": "periodic-table",
+        "title": "Interactive Periodic Table",
+        "category": "Chemistry",
+        "heuristicScore": 125,
+        "hasContent": true,
+        "hasFormula": true,
+        "hasFAQ": false,
+        "aliasCount": 0,
+        "gaps": [
+          "NO_FAQ",
+          "NO_ALIASES"
+        ]
+      },
+      {
+        "slug": "ideal-gas-law",
+        "title": "Ideal Gas Law",
+        "category": "Chemistry",
+        "heuristicScore": 125,
+        "hasContent": true,
+        "hasFormula": true,
+        "hasFAQ": false,
+        "aliasCount": 0,
+        "gaps": [
+          "NO_FAQ",
+          "NO_ALIASES"
+        ]
+      },
+      {
+        "slug": "molarity-calculator",
+        "title": "Molarity Calculator",
+        "category": "Chemistry",
+        "heuristicScore": 125,
+        "hasContent": true,
+        "hasFormula": true,
+        "hasFAQ": false,
+        "aliasCount": 0,
+        "gaps": [
+          "NO_FAQ",
+          "NO_ALIASES"
+        ]
+      },
+      {
+        "slug": "dilution-calculator",
+        "title": "Dilution Calculator",
+        "category": "Chemistry",
+        "heuristicScore": 125,
+        "hasContent": true,
+        "hasFormula": true,
+        "hasFAQ": false,
+        "aliasCount": 0,
+        "gaps": [
+          "NO_FAQ",
+          "NO_ALIASES"
+        ]
+      },
+      {
+        "slug": "ph-calculator",
+        "title": "pH Calculator",
+        "category": "Chemistry",
+        "heuristicScore": 125,
+        "hasContent": true,
+        "hasFormula": true,
+        "hasFAQ": false,
+        "aliasCount": 0,
+        "gaps": [
+          "NO_FAQ",
+          "NO_ALIASES"
+        ]
+      },
+      {
+        "slug": "bmi-calculator",
+        "title": "BMI Calculator",
+        "category": "Biology",
+        "heuristicScore": 125,
+        "hasContent": true,
+        "hasFormula": true,
+        "hasFAQ": true,
+        "aliasCount": 0,
+        "gaps": [
+          "NO_ALIASES"
+        ]
+      },
+      {
+        "slug": "bmr-calculator",
+        "title": "BMR Calculator (Mifflin-St Jeor)",
+        "category": "Biology",
+        "heuristicScore": 125,
+        "hasContent": true,
+        "hasFormula": true,
+        "hasFAQ": true,
+        "aliasCount": 0,
+        "gaps": [
+          "NO_ALIASES"
+        ]
+      },
+      {
+        "slug": "marks-calculator",
+        "title": "Marks Calculator",
+        "category": "Academic",
+        "heuristicScore": 120,
+        "hasContent": false,
+        "hasFormula": false,
+        "hasFAQ": false,
+        "aliasCount": 0,
+        "gaps": [
+          "NO_CONTENT",
+          "NO_FAQ",
+          "NO_ALIASES",
+          "NO_FORMULA"
+        ]
+      },
+      {
+        "slug": "classes-to-miss",
+        "title": "Classes You Can Miss",
+        "category": "Academic",
+        "heuristicScore": 120,
+        "hasContent": true,
+        "hasFormula": true,
+        "hasFAQ": false,
+        "aliasCount": 0,
+        "gaps": [
+          "NO_FAQ",
+          "NO_ALIASES"
+        ]
+      },
+      {
+        "slug": "punnett-square",
+        "title": "Punnett Square Calculator",
+        "category": "Biology",
+        "heuristicScore": 115,
+        "hasContent": true,
+        "hasFormula": false,
+        "hasFAQ": true,
+        "aliasCount": 0,
+        "gaps": [
+          "NO_ALIASES",
+          "NO_FORMULA"
+        ]
+      },
+      {
+        "slug": "population-growth",
+        "title": "Exponential Growth",
+        "category": "Biology",
+        "heuristicScore": 115,
+        "hasContent": true,
+        "hasFormula": true,
+        "hasFAQ": false,
+        "aliasCount": 0,
+        "gaps": [
+          "NO_FAQ",
+          "NO_ALIASES"
+        ]
+      },
+      {
+        "slug": "binomial-distribution-calculator",
+        "title": "Binomial Distribution",
+        "category": "Statistics",
+        "heuristicScore": 113,
+        "hasContent": false,
+        "hasFormula": false,
+        "hasFAQ": false,
+        "aliasCount": 1,
+        "gaps": [
+          "NO_CONTENT",
+          "NO_FAQ",
+          "NO_FORMULA"
+        ]
+      },
+      {
+        "slug": "unit-converter",
+        "title": "Unit Converter",
+        "category": "Converters",
+        "heuristicScore": 110,
+        "hasContent": true,
+        "hasFormula": false,
+        "hasFAQ": false,
+        "aliasCount": 0,
+        "gaps": [
+          "NO_FAQ",
+          "NO_ALIASES",
+          "NO_FORMULA"
+        ]
+      },
+      {
+        "slug": "variance-calculator",
+        "title": "Variance Calculator",
+        "category": "Mathematics",
+        "heuristicScore": 110,
+        "hasContent": true,
+        "hasFormula": true,
+        "hasFAQ": false,
+        "aliasCount": 0,
+        "gaps": [
+          "NO_FAQ",
+          "NO_ALIASES"
+        ]
+      },
+      {
+        "slug": "work-calculator",
+        "title": "Work Calculator",
+        "category": "Physics",
+        "heuristicScore": 100,
+        "hasContent": true,
+        "hasFormula": true,
+        "hasFAQ": false,
+        "aliasCount": 0,
+        "gaps": [
+          "NO_FAQ",
+          "NO_ALIASES"
+        ]
+      },
+      {
+        "slug": "density-calculator",
+        "title": "Density Calculator",
+        "category": "Physics",
+        "heuristicScore": 100,
+        "hasContent": true,
+        "hasFormula": true,
+        "hasFAQ": false,
+        "aliasCount": 0,
+        "gaps": [
+          "NO_FAQ",
+          "NO_ALIASES"
+        ]
+      }
+    ],
+    "needsContent": [
+      {
+        "slug": "marks-calculator",
+        "title": "Marks Calculator",
+        "category": "Academic",
+        "heuristicScore": 120,
+        "missingAliases": true,
+        "missingFAQ": true
+      },
+      {
+        "slug": "binomial-distribution-calculator",
+        "title": "Binomial Distribution",
+        "category": "Statistics",
+        "heuristicScore": 113,
+        "missingAliases": false,
+        "missingFAQ": true
+      },
+      {
+        "slug": "required-attendance",
+        "title": "Required Attendance",
+        "category": "Academic",
+        "heuristicScore": 90,
+        "missingAliases": true,
+        "missingFAQ": true
+      },
+      {
+        "slug": "square-calculator",
+        "title": "Square Calculator",
+        "category": "Mathematics",
+        "heuristicScore": 90,
+        "missingAliases": true,
+        "missingFAQ": true
+      },
+      {
+        "slug": "rectangle-area-calculator",
+        "title": "Rectangle Area Calculator",
+        "category": "Mathematics",
+        "heuristicScore": 90,
+        "missingAliases": true,
+        "missingFAQ": true
+      },
+      {
+        "slug": "square-root-calculator",
+        "title": "Square Root Calculator",
+        "category": "Mathematics",
+        "heuristicScore": 90,
+        "missingAliases": true,
+        "missingFAQ": true
+      },
+      {
+        "slug": "cube-calculator",
+        "title": "Cube Calculator",
+        "category": "Mathematics",
+        "heuristicScore": 90,
+        "missingAliases": true,
+        "missingFAQ": true
+      },
+      {
+        "slug": "cube-root-calculator",
+        "title": "Cube Root Calculator",
+        "category": "Mathematics",
+        "heuristicScore": 90,
+        "missingAliases": true,
+        "missingFAQ": true
+      },
+      {
+        "slug": "exponent-calculator",
+        "title": "Exponent Calculator",
+        "category": "Mathematics",
+        "heuristicScore": 90,
+        "missingAliases": true,
+        "missingFAQ": true
+      },
+      {
+        "slug": "logarithm-calculator",
+        "title": "Logarithm Calculator",
+        "category": "Mathematics",
+        "heuristicScore": 90,
+        "missingAliases": true,
+        "missingFAQ": true
+      },
+      {
+        "slug": "absolute-value-calculator",
+        "title": "Absolute Value Calculator",
+        "category": "Mathematics",
+        "heuristicScore": 90,
+        "missingAliases": true,
+        "missingFAQ": true
+      },
+      {
+        "slug": "percentage-difference-calculator",
+        "title": "Percentage Difference Calculator",
+        "category": "Mathematics",
+        "heuristicScore": 90,
+        "missingAliases": true,
+        "missingFAQ": true
+      },
+      {
+        "slug": "percentage-error-calculator",
+        "title": "Percentage Error Calculator",
+        "category": "Mathematics",
+        "heuristicScore": 90,
+        "missingAliases": true,
+        "missingFAQ": true
+      },
+      {
+        "slug": "remainder-calculator",
+        "title": "Remainder Calculator",
+        "category": "Mathematics",
+        "heuristicScore": 90,
+        "missingAliases": true,
+        "missingFAQ": true
+      },
+      {
+        "slug": "factorial-calculator",
+        "title": "Factorial Calculator",
+        "category": "Mathematics",
+        "heuristicScore": 90,
+        "missingAliases": true,
+        "missingFAQ": true
+      },
+      {
+        "slug": "gcd-calculator",
+        "title": "GCD Calculator",
+        "category": "Mathematics",
+        "heuristicScore": 90,
+        "missingAliases": true,
+        "missingFAQ": true
+      },
+      {
+        "slug": "lcm-calculator",
+        "title": "LCM Calculator",
+        "category": "Mathematics",
+        "heuristicScore": 90,
+        "missingAliases": true,
+        "missingFAQ": true
+      },
+      {
+        "slug": "prime-checker",
+        "title": "Prime Number Checker",
+        "category": "Mathematics",
+        "heuristicScore": 90,
+        "missingAliases": true,
+        "missingFAQ": true
+      },
+      {
+        "slug": "quadratic-equation-solver",
+        "title": "Quadratic Equation Solver",
+        "category": "Mathematics",
+        "heuristicScore": 90,
+        "missingAliases": true,
+        "missingFAQ": true
+      },
+      {
+        "slug": "linear-equation-solver",
+        "title": "Linear Equation Solver",
+        "category": "Mathematics",
+        "heuristicScore": 90,
+        "missingAliases": true,
+        "missingFAQ": true
+      },
+      {
+        "slug": "pythagorean-theorem-calculator",
+        "title": "Pythagorean Theorem Calculator",
+        "category": "Mathematics",
+        "heuristicScore": 90,
+        "missingAliases": true,
+        "missingFAQ": true
+      },
+      {
+        "slug": "circle-area-calculator",
+        "title": "Circle Area Calculator",
+        "category": "Mathematics",
+        "heuristicScore": 90,
+        "missingAliases": true,
+        "missingFAQ": true
+      },
+      {
+        "slug": "circle-circumference-calculator",
+        "title": "Circle Circumference Calculator",
+        "category": "Mathematics",
+        "heuristicScore": 90,
+        "missingAliases": true,
+        "missingFAQ": true
+      },
+      {
+        "slug": "square-perimeter-calculator",
+        "title": "Square Perimeter Calculator",
+        "category": "Mathematics",
+        "heuristicScore": 90,
+        "missingAliases": true,
+        "missingFAQ": true
+      },
+      {
+        "slug": "rectangle-perimeter-calculator",
+        "title": "Rectangle Perimeter Calculator",
+        "category": "Mathematics",
+        "heuristicScore": 90,
+        "missingAliases": true,
+        "missingFAQ": true
+      },
+      {
+        "slug": "cube-volume-calculator",
+        "title": "Cube Volume Calculator",
+        "category": "Mathematics",
+        "heuristicScore": 90,
+        "missingAliases": true,
+        "missingFAQ": true
+      },
+      {
+        "slug": "sphere-volume-calculator",
+        "title": "Sphere Volume Calculator",
+        "category": "Mathematics",
+        "heuristicScore": 90,
+        "missingAliases": true,
+        "missingFAQ": true
+      },
+      {
+        "slug": "cylinder-volume-calculator",
+        "title": "Cylinder Volume Calculator",
+        "category": "Mathematics",
+        "heuristicScore": 90,
+        "missingAliases": true,
+        "missingFAQ": true
+      },
+      {
+        "slug": "cone-volume-calculator",
+        "title": "Cone Volume Calculator",
+        "category": "Mathematics",
+        "heuristicScore": 90,
+        "missingAliases": true,
+        "missingFAQ": true
+      },
+      {
+        "slug": "arithmetic-sequence-calculator",
+        "title": "Arithmetic Sequence Calculator",
+        "category": "Mathematics",
+        "heuristicScore": 90,
+        "missingAliases": true,
+        "missingFAQ": true
+      }
+    ],
+    "strongPages": [
+      {
+        "slug": "cgpa-to-percentage",
+        "title": "CGPA to Percentage",
+        "category": "Academic"
+      },
+      {
+        "slug": "percentage-to-cgpa",
+        "title": "Percentage to CGPA",
+        "category": "Academic"
+      },
+      {
+        "slug": "gpa-calculator",
+        "title": "GPA Calculator",
+        "category": "Academic"
+      },
+      {
+        "slug": "attendance-calculator",
+        "title": "Attendance Calculator",
+        "category": "Academic"
+      },
+      {
+        "slug": "scientific-calculator",
+        "title": "Scientific Calculator",
+        "category": "Mathematics"
+      },
+      {
+        "slug": "bmi-calculator",
+        "title": "BMI Calculator",
+        "category": "Biology"
+      },
+      {
+        "slug": "bmr-calculator",
+        "title": "BMR Calculator (Mifflin-St Jeor)",
+        "category": "Biology"
+      },
+      {
+        "slug": "punnett-square",
+        "title": "Punnett Square Calculator",
+        "category": "Biology"
+      }
+    ],
+    "categoryGaps": [
+      {
+        "category": "Academic",
+        "total": 9,
+        "contentCoverage": "7/9",
+        "aliasCoverage": "0/9",
+        "contentPct": 78
+      },
+      {
+        "category": "Mathematics",
+        "total": 116,
+        "contentCoverage": "6/116",
+        "aliasCoverage": "0/116",
+        "contentPct": 5
+      },
+      {
+        "category": "Statistics",
+        "total": 15,
+        "contentCoverage": "1/15",
+        "aliasCoverage": "15/15",
+        "contentPct": 7
+      },
+      {
+        "category": "Physics",
+        "total": 106,
+        "contentCoverage": "4/106",
+        "aliasCoverage": "0/106",
+        "contentPct": 4
+      },
+      {
+        "category": "Chemistry",
+        "total": 96,
+        "contentCoverage": "5/96",
+        "aliasCoverage": "0/96",
+        "contentPct": 5
+      },
+      {
+        "category": "Converters",
+        "total": 1,
+        "contentCoverage": "1/1",
+        "aliasCoverage": "0/1",
+        "contentPct": 100
+      },
+      {
+        "category": "Biology",
+        "total": 68,
+        "contentCoverage": "4/68",
+        "aliasCoverage": "0/68",
+        "contentPct": 6
+      },
+      {
+        "category": "Computer Science",
+        "total": 3,
+        "contentCoverage": "1/3",
+        "aliasCoverage": "3/3",
+        "contentPct": 33
+      },
+      {
+        "category": "Study & Productivity",
+        "total": 5,
+        "contentCoverage": "0/5",
+        "aliasCoverage": "0/5",
+        "contentPct": 0
+      },
+      {
+        "category": "Date & Time",
+        "total": 5,
+        "contentCoverage": "1/5",
+        "aliasCoverage": "0/5",
+        "contentPct": 20
+      },
+      {
+        "category": "Science",
+        "total": 1,
+        "contentCoverage": "0/1",
+        "aliasCoverage": "0/1",
+        "contentPct": 0
+      },
+      {
+        "category": "Linear Algebra",
+        "total": 4,
+        "contentCoverage": "0/4",
+        "aliasCoverage": "4/4",
+        "contentPct": 0
+      },
+      {
+        "category": "Student Utilities",
+        "total": 2,
+        "contentCoverage": "0/2",
+        "aliasCoverage": "0/2",
+        "contentPct": 0
+      },
+      {
+        "category": "Discrete Mathematics",
+        "total": 5,
+        "contentCoverage": "0/5",
+        "aliasCoverage": "5/5",
+        "contentPct": 0
+      },
+      {
+        "category": "Numerical Methods",
+        "total": 1,
+        "contentCoverage": "0/1",
+        "aliasCoverage": "0/1",
+        "contentPct": 0
+      },
+      {
+        "category": "Random & Utilities",
+        "total": 1,
+        "contentCoverage": "0/1",
+        "aliasCoverage": "0/1",
+        "contentPct": 0
+      }
+    ]
+  }
+}

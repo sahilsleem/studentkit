@@ -1,0 +1,62 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-3 sm:space-y-3.5">
+  <div class="bg-card rounded-2xl border border-border-line/90 shadow-sm p-4 sm:p-5">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div>
+        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">From</label>
+        <div class="flex flex-wrap gap-2">
+          <input type="number" id="temp-val" placeholder="e.g. 100" step="any" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-sm" />
+          <select id="temp-from" class="px-3 py-2 bg-page border border-border-line rounded-xl text-sm">
+            <option value="c" selected>Celsius (°C)</option>
+            <option value="f">Fahrenheit (°F)</option>
+            <option value="k">Kelvin (K)</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">To</label>
+        <div class="flex flex-wrap gap-2">
+          <div id="temp-res" class="w-full px-3.5 py-2.5 bg-brand-light border border-brand-accent rounded-xl text-sm font-bold text-brand flex items-center">--</div>
+          <select id="temp-to" class="px-3 py-2 bg-page border border-border-line rounded-xl text-sm">
+            <option value="f" selected>Fahrenheit (°F)</option>
+            <option value="c">Celsius (°C)</option>
+            <option value="k">Kelvin (K)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function convert() {
+    const raw = (document.getElementById('temp-val') as HTMLInputElement)?.value;
+    if (raw === '' || raw === undefined || isNaN(parseFloat(raw))) {
+      document.getElementById('temp-res')!.textContent = '--';
+      return;
+    }
+    const val = parseFloat(raw);
+    const from = (document.getElementById('temp-from') as HTMLSelectElement)?.value || 'c';
+    const to = (document.getElementById('temp-to') as HTMLSelectElement)?.value || 'f';
+
+    let celsius = 0;
+    if (from === 'c') celsius = val;
+    else if (from === 'f') celsius = (val - 32) * (5 / 9);
+    else if (from === 'k') celsius = val - 273.15;
+
+    let res = 0;
+    if (to === 'c') res = celsius;
+    else if (to === 'f') res = celsius * (9 / 5) + 32;
+    else if (to === 'k') res = celsius + 273.15;
+
+    document.getElementById('temp-res')!.textContent = res.toFixed(2);
+  }
+
+  ['temp-val', 'temp-from', 'temp-to'].forEach(id => document.getElementById(id)?.addEventListener('input', convert));
+</script>

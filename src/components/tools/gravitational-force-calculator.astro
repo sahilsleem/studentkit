@@ -1,0 +1,55 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-3 sm:space-y-3.5">
+  <div class="bg-card rounded-2xl border border-border-line/90 shadow-sm p-4 sm:p-5">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+      <div class="space-y-3.5">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Mass 1 (m₁ in kg)</label>
+          <input type="text" id="gf-m1" placeholder="e.g. 5.972e24" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-sm font-mono" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Mass 2 (m₂ in kg)</label>
+          <input type="text" id="gf-m2" placeholder="e.g. 7.348e22" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-sm font-mono" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Distance (r in meters)</label>
+          <input type="text" id="gf-r" placeholder="e.g. 3.844e8" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-sm font-mono" />
+        </div>
+
+        <button id="gf-calc-btn" type="button" class="w-full px-5 sm:px-6 py-3.5 sm:py-4 text-base bg-gradient-to-r from-violet-600 via-blue-600 to-teal-500 text-white hover:from-violet-500 hover:via-blue-500 hover:to-teal-400 hover:opacity-90 active:scale-[0.98] animate-gradient-x font-semibold rounded-xl shadow-sm transition-all has-ripple magnetic transition-transform duration-300">
+          Calculate Gravitational Force
+        </button>
+      </div>
+
+      <div class="flex flex-col justify-between p-4 sm:p-5 bg-page rounded-xl border border-border-line/80">
+        <div>
+          <div class="text-xs font-semibold text-slate-muted uppercase tracking-wider">Gravitational Attraction (F = G·m₁m₂/r²)</div>
+          <div id="gf-force" class="text-3xl font-extrabold text-brand mt-1 font-mono break-words">--</div>
+          <div class="text-xs text-slate-muted mt-1">G = 6.67430 × 10⁻¹¹ N·m²/kg²</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function calculate() {
+    const m1 = parseFloat((document.getElementById('gf-m1') as HTMLInputElement)?.value || '1');
+    const m2 = parseFloat((document.getElementById('gf-m2') as HTMLInputElement)?.value || '1');
+    const r = parseFloat((document.getElementById('gf-r') as HTMLInputElement)?.value || '1');
+    const G = 6.6743e-11;
+
+    if (r <= 0) return;
+    const f = (G * m1 * m2) / (r * r);
+
+    document.getElementById('gf-force')!.textContent = f.toExponential(4) + ' N';
+  }
+
+
+  document.getElementById('gf-calc-btn')?.addEventListener('click', calculate);
+</script>

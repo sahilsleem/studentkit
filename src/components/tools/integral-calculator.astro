@@ -1,0 +1,94 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-3 sm:space-y-3.5">
+  <div class="bg-card rounded-2xl border border-border-line/90 shadow-sm p-4 sm:p-5">
+    <div class="space-y-3.5">
+      <div>
+        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Integrand Function f(x)</label>
+        <input type="text" id="ic-func" placeholder="e.g. 3x^2 - 4x + 5" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-ink text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent font-mono" />
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Lower Limit (a)</label>
+          <input type="number" id="ic-a" placeholder="e.g. 0" step="any" class="w-full px-3 py-2 bg-page border border-border-line rounded-xl text-sm" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Upper Limit (b)</label>
+          <input type="number" id="ic-b" placeholder="e.g. 3" step="any" class="w-full px-3 py-2 bg-page border border-border-line rounded-xl text-sm" />
+        </div>
+      </div>
+
+      <button id="ic-calc-btn" type="button" class="w-full px-5 sm:px-6 py-3.5 sm:py-4 text-base bg-gradient-to-r from-violet-600 via-blue-600 to-teal-500 text-white hover:from-violet-500 hover:via-blue-500 hover:to-teal-400 hover:opacity-90 active:scale-[0.98] animate-gradient-x font-semibold rounded-xl shadow-sm transition-all has-ripple magnetic transition-transform duration-300">
+        Compute Definite & Indefinite Integral
+      </button>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+        <div class="p-5 bg-page rounded-xl border border-border-line/80">
+          <div class="text-xs font-semibold text-slate-muted uppercase tracking-wider">Indefinite Integral ∫ f(x) dx</div>
+          <div id="ic-indef" class="text-2xl font-extrabold text-brand mt-1 font-mono break-words">--</div>
+        </div>
+        <div class="p-5 bg-page rounded-xl border border-border-line/80">
+          <div class="text-xs font-semibold text-slate-muted uppercase tracking-wider">Definite Value ∫ₐᵇ f(x) dx</div>
+          <div id="ic-def" class="text-2xl font-extrabold text-ink mt-1 font-mono">24.00</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function integratePoly(str: string): { expr: string, evalFn: (x: number) => number } {
+    str = str.replace(/\s+/g, '');
+    const termRegex = /([+-]?[0-9]*\.?[0-9]*)x(?:\^([+-]?[0-9]+))?|([+-]?[0-9]+)/g;
+    let match;
+    const terms: { coeff: number, power: number }[] = [];
+
+    while ((match = termRegex.exec(str)) !== null) {
+      if (!match[0]) continue;
+      if (match[3]) {
+        let c = parseFloat(match[3]);
+        terms.push({ coeff: c, power: 1 });
+      } else {
+        let coeffStr = match[1];
+        let coeff = coeffStr === '' || coeffStr === '+' ? 1 : coeffStr === '-' ? -1 : parseFloat(coeffStr);
+        let power = match[2] !== undefined ? parseInt(match[2], 10) : 1;
+        terms.push({ coeff: coeff / (power + 1), power: power + 1 });
+      }
+    }
+
+    const strList = terms.map((t, idx) => {
+      let sign = t.coeff >= 0 ? (idx > 0 ? '+ ' : '') : '- ';
+      let mag = Math.abs(t.coeff);
+      let pStr = t.power === 1 ? 'x' : 'x^' + t.power;
+      return sign + (mag === 1 ? '' : mag.toFixed(2)) + pStr;
+    });
+
+    const expr = (strList.join(' ') || '0') + ' + C';
+    const evalFn = (x: number) => terms.reduce((sum, t) => sum + t.coeff * Math.pow(x, t.power), 0);
+
+    return { expr, evalFn };
+  }
+
+  function calculate() {
+    const funcStr = (document.getElementById('ic-func') as HTMLInputElement)?.value || '';
+    const a = parseFloat((document.getElementById('ic-a') as HTMLInputElement)?.value || '0');
+    const b = parseFloat((document.getElementById('ic-b') as HTMLInputElement)?.value || '1');
+
+    const { expr, evalFn } = integratePoly(funcStr);
+    const defVal = evalFn(b) - evalFn(a);
+
+    const indefEl = document.getElementById('ic-indef');
+    const defEl = document.getElementById('ic-def');
+
+    if (indefEl) indefEl.textContent = expr;
+    if (defEl) defEl.textContent = defVal.toFixed(2);
+  }
+
+
+  document.getElementById('ic-calc-btn')?.addEventListener('click', calculate);
+</script>

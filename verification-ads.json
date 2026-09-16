@@ -1,0 +1,66 @@
+{
+  "homepage": {
+    "searchWorks": true,
+    "popularToolsCount": 10,
+    "noDuplicates": true,
+    "spansCategories": true
+  },
+  "responsive": [
+    {
+      "width": 320,
+      "overflow": false
+    },
+    {
+      "width": 375,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "overflow": false
+    }
+  ],
+  "toolPages": [
+    {
+      "url": "/tools/cgpa-to-percentage",
+      "hasAdSlots": true,
+      "toolWorks": true,
+      "overflow": false
+    },
+    {
+      "url": "/tools/quadratic-equation-solver",
+      "hasAdSlots": true,
+      "toolWorks": true,
+      "overflow": false
+    },
+    {
+      "url": "/tools/mean-calculator",
+      "hasAdSlots": true,
+      "toolWorks": true,
+      "overflow": false
+    },
+    {
+      "url": "/tools/molar-mass-calculator",
+      "hasAdSlots": true,
+      "toolWorks": true,
+      "overflow": false
+    },
+    {
+      "url": "/tools/age-calculator",
+      "hasAdSlots": true,
+      "toolWorks": true,
+      "overflow": false
+    }
+  ],
+  "console": {
+    "exceptions": 0,
+    "errors": 0
+  }
+}

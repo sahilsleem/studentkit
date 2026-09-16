@@ -1,59 +1,220 @@
 ---
+import { ClientRouter } from 'astro:transitions';
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 
 export interface Props {
-	title: string;
-	description?: string;
+  title: string;
+  description?: string;
 }
 
-const { title, description = "Simple tools for student life. Calculate marks, check attendance, and more." } = Astro.props;
+const { title, description = "Clean, instant study tools and calculators for students. Grades, mathematics, physics, and chemistry solvers." } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://studentkit.in');
+const socialImageURL = new URL('/og-image.png', Astro.site || 'https://studentkit.in');
 ---
 
 <!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content={description} />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title} | StudentKit</title>
-		
-		<!-- Open Graph / Facebook -->
-		<meta property="og:type" content="website" />
-		<meta property="og:title" content={`${title} | StudentKit`} />
-		<meta property="og:description" content={description} />
-		
-		<!-- Twitter -->
-		<meta property="twitter:card" content="summary_large_image" />
-		<meta property="twitter:title" content={`${title} | StudentKit`} />
-		<meta property="twitter:description" content={description} />
-		
-		<!-- Google AdSense -->
-		<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1741354477413638" crossorigin="anonymous"></script>
-		
-		<!-- Google Search Console -->
-		<meta name="google-site-verification" content="ppJ_DWdRJ9YsunHonWw4RmpLiMQ8mGHxW4JzCW7mRuA" />
-	</head>
-	<body class="bg-gray-50 text-gray-900 font-sans min-h-screen flex flex-col antialiased">
-		<Header />
-		
-		<main class="flex-grow w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-			<!-- Top Ad Placeholder -->
-			<div class="w-full max-w-3xl mx-auto h-24 bg-gray-100 border border-gray-200 rounded flex items-center justify-center text-gray-400 text-sm mb-8 hidden sm:flex">
-				Advertisement
-			</div>
-			
-			<slot />
-			
-			<!-- Bottom Ad Placeholder -->
-			<div class="w-full max-w-3xl mx-auto h-24 bg-gray-100 border border-gray-200 rounded flex items-center justify-center text-gray-400 text-sm mt-12 hidden sm:flex">
-				Advertisement
-			</div>
-		</main>
-		
-		<Footer />
-	</body>
+<html lang="en" class="h-full scroll-smooth scroll-pt-20">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="canonical" href={canonicalURL} />
+    <slot name="head" />
+    <title>{title} | StudentKit</title>
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={`${title} | StudentKit`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={socialImageURL} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={`${title} | StudentKit`} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImageURL} />
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1741354477413638" crossorigin="anonymous"></script>
+
+    <!-- Google Search Console -->
+    <meta name="google-site-verification" content="ppJ_DWdRJ9YsunHonWw4RmpLiMQ8mGHxW4JzCW7mRuA" />
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PJ3BLKWBPN"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-PJ3BLKWBPN');
+    </script>
+    <ClientRouter />
+  </head>
+  <body class="bg-page text-ink font-sans min-h-screen flex flex-col antialiased selection:bg-brand-light selection:text-ink overflow-x-hidden">
+
+    <!-- Ambient Background Blobs -->
+    <div class="ambient-blobs fixed inset-0 z-[-1] overflow-hidden pointer-events-none bg-transparent">
+      <canvas id="global-particles" transition:persist class="absolute inset-0 w-full h-full opacity-100"></canvas>
+      <div class="absolute top-[-10%] left-[-10%] w-96 h-96 rounded-full mix-blend-multiply opacity-80 animate-blob md:animate-blob bg-[radial-gradient(circle,rgba(216,180,254,0.6)_0%,transparent_70%)]"></div>
+      <div class="absolute top-[-10%] right-[-10%] w-96 h-96 rounded-full mix-blend-multiply opacity-80 animate-blob animation-delay-2000 bg-[radial-gradient(circle,rgba(94,234,212,0.6)_0%,transparent_70%)]"></div>
+      <div class="hidden md:block absolute bottom-[-20%] left-[20%] w-96 h-96 rounded-full mix-blend-multiply opacity-80 animate-blob animation-delay-4000 bg-[radial-gradient(circle,rgba(147,197,253,0.6)_0%,transparent_70%)]"></div>
+      <div class="hidden md:block absolute bottom-[-10%] right-[-10%] w-96 h-96 rounded-full mix-blend-multiply opacity-80 animate-blob animation-delay-6000 bg-[radial-gradient(circle,rgba(240,171,252,0.6)_0%,transparent_70%)]"></div>
+    </div>
+  
+    <Header />
+
+    <main class="flex-grow w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
+      <slot />
+    </main>
+
+    <Footer />
+    <script>
+      const setupReveal = () => {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('active');
+            }
+          });
+        }, { threshold: 0.05, rootMargin: "0px 0px -20px 0px" });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+      };
+      setupReveal();
+      // --- PAGE LOADER LOGIC ---
+      const handleLoader = () => {
+        const loader = document.getElementById('page-loader');
+        if (!loader) return;
+        // Only show loader on very first visit in session
+        if (!sessionStorage.getItem('sk-loaded')) {
+          sessionStorage.setItem('sk-loaded', 'true');
+          setTimeout(() => {
+            loader.style.opacity = '0';
+            setTimeout(() => loader.remove(), 700);
+          }, 800);
+        } else {
+          loader.style.display = 'none';
+        }
+      };
+      
+      // --- MAGNETIC BUTTONS (Desktop Only) ---
+      const setupMagnetic = () => {
+        if (window.innerWidth < 768 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        document.querySelectorAll('.magnetic').forEach(btn => {
+          btn.addEventListener('mousemove', (e) => {
+            const rect = btn.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            // Move button slightly towards cursor
+            btn.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px) scale(1.02)`;
+          });
+          btn.addEventListener('mouseleave', () => {
+            btn.style.transform = 'translate(0px, 0px) scale(1)';
+          });
+        });
+      };
+      
+      
+      // --- GLOBAL CANVAS PARTICLES ---
+      const initGlobalCanvas = () => {
+        const canvas = document.getElementById('global-particles');
+        if (!canvas || window.innerWidth < 768 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        
+        // Prevent double initialization on view transitions if transition:persist keeps it alive
+        if (canvas.dataset.initialized) return;
+        canvas.dataset.initialized = 'true';
+
+        const ctx = canvas.getContext('2d');
+        const resize = () => {
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+        };
+        resize();
+        window.addEventListener('resize', resize);
+
+        const particles = [];
+        for (let i = 0; i < 40; i++) {
+          particles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            vx: (Math.random() - 0.5) * 0.5,
+            vy: (Math.random() - 0.5) * 0.5,
+            radius: Math.random() * 1.5 + 0.5
+          });
+        }
+
+        const draw = () => {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.fillStyle = 'rgba(139, 92, 246, 0.4)';
+          ctx.strokeStyle = 'rgba(139, 92, 246, 0.1)';
+          
+          particles.forEach((p, i) => {
+            p.x += p.vx;
+            p.y += p.vy;
+            
+            if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+            if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Connect nearby particles
+            for (let j = i + 1; j < particles.length; j++) {
+              const p2 = particles[j];
+              const dx = p.x - p2.x;
+              const dy = p.y - p2.y;
+              const dist = Math.sqrt(dx * dx + dy * dy);
+              if (dist < 120) {
+                ctx.beginPath();
+                ctx.moveTo(p.x, p.y);
+                ctx.lineTo(p2.x, p2.y);
+                ctx.stroke();
+              }
+            }
+          });
+          requestAnimationFrame(draw);
+        };
+        draw();
+      };
+      
+      initGlobalCanvas();
+      handleLoader();
+      setupMagnetic();
+      document.addEventListener('astro:page-load', () => {
+        setupReveal();
+        setupMagnetic();
+      });
+  
+        const createRipple = (e) => {
+          const target = e.target.closest('.has-ripple');
+          if (!target) return;
+          
+          const rect = target.getBoundingClientRect();
+          const ripple = document.createElement('span');
+          const diameter = Math.max(rect.width, rect.height);
+          const radius = diameter / 2;
+          
+          ripple.style.width = ripple.style.height = `${diameter}px`;
+          ripple.style.left = `${e.clientX - rect.left - radius}px`;
+          ripple.style.top = `${e.clientY - rect.top - radius}px`;
+          ripple.classList.add('ripple-element');
+          
+          const existing = target.querySelector('.ripple-element');
+          if (existing) existing.remove();
+          
+          target.appendChild(ripple);
+          setTimeout(() => ripple.remove(), 600);
+        };
+        document.addEventListener('mousedown', createRipple);
+  
+      document.addEventListener('astro:page-load', setupReveal);
+    </script>
+  </body>
 </html>

@@ -1,0 +1,86 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-3 sm:space-y-3.5">
+  <div class="bg-card rounded-2xl border border-border-line/90 shadow-sm p-4 sm:p-5">
+    <div class="space-y-3.5">
+      <div>
+        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Function f(x) Expression</label>
+        <div class="flex flex-wrap gap-2">
+          <input type="text" id="dc-func" placeholder="e.g. 3x^3 - 5x^2 + 4x - 7" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-ink text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent font-mono" />
+          <button id="dc-calc-btn" type="button" class="px-5 sm:px-6 py-3.5 sm:py-4 text-base bg-gradient-to-r from-violet-600 via-blue-600 to-teal-500 text-white hover:from-violet-500 hover:via-blue-500 hover:to-teal-400 hover:opacity-90 active:scale-[0.98] animate-gradient-x font-semibold rounded-xl shadow-sm transition-all shrink-0 has-ripple magnetic transition-transform duration-300">
+            Differentiate
+          </button>
+        </div>
+        <p class="text-xs text-slate-muted mt-1">Supports polynomial terms like ax^n, sin(x), cos(x), e^x, ln(x).</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+        <div class="p-5 bg-page rounded-xl border border-border-line/80">
+          <div class="text-xs font-semibold text-slate-muted uppercase tracking-wider">First Derivative f'(x)</div>
+          <div id="dc-d1" class="text-2xl font-extrabold text-brand mt-1 font-mono break-words">--</div>
+        </div>
+        <div class="p-5 bg-page rounded-xl border border-border-line/80">
+          <div class="text-xs font-semibold text-slate-muted uppercase tracking-wider">Second Derivative f''(x)</div>
+          <div id="dc-d2" class="text-2xl font-extrabold text-ink mt-1 font-mono">18x - 10</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function differentiatePoly(str: string): string {
+    str = str.replace(/\s+/g, '');
+    const termRegex = /([+-]?[0-9]*\.?[0-9]*)x(?:\^([+-]?[0-9]+))?|([+-]?[0-9]+)/g;
+    let match;
+    const derivTerms: string[] = [];
+
+    while ((match = termRegex.exec(str)) !== null) {
+      if (!match[0]) continue;
+      if (match[3]) {
+        // constant term -> derivative 0
+        continue;
+      }
+      let coeffStr = match[1];
+      let coeff = coeffStr === '' || coeffStr === '+' ? 1 : coeffStr === '-' ? -1 : parseFloat(coeffStr);
+      let power = match[2] !== undefined ? parseInt(match[2], 10) : 1;
+
+      let newCoeff = coeff * power;
+      let newPower = power - 1;
+
+      if (newPower === 0) {
+        derivTerms.push((newCoeff >= 0 && derivTerms.length > 0 ? '+' : '') + newCoeff);
+      } else if (newPower === 1) {
+        derivTerms.push((newCoeff >= 0 && derivTerms.length > 0 ? '+' : '') + (newCoeff === 1 ? '' : newCoeff === -1 ? '-' : newCoeff) + 'x');
+      } else {
+        derivTerms.push((newCoeff >= 0 && derivTerms.length > 0 ? '+' : '') + (newCoeff === 1 ? '' : newCoeff === -1 ? '-' : newCoeff) + 'x^' + newPower);
+      }
+    }
+
+    if (str.includes('sin(x)')) return 'cos(x)';
+    if (str.includes('cos(x)')) return '-sin(x)';
+    if (str.includes('e^x')) return 'e^x';
+    if (str.includes('ln(x)')) return '1/x';
+
+    return derivTerms.join(' ') || '0';
+  }
+
+  function calculate() {
+    const expr = (document.getElementById('dc-func') as HTMLInputElement)?.value || '';
+    const d1 = differentiatePoly(expr);
+    const d2 = differentiatePoly(d1);
+
+    const d1El = document.getElementById('dc-d1');
+    const d2El = document.getElementById('dc-d2');
+
+    if (d1El) d1El.textContent = d1;
+    if (d2El) d2El.textContent = d2;
+  }
+
+
+  document.getElementById('dc-calc-btn')?.addEventListener('click', calculate);
+</script>

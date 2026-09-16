@@ -1,0 +1,130 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-3 sm:space-y-3.5">
+  <div class="bg-card rounded-2xl border border-border-line/90 shadow-sm p-4 sm:p-5 text-center">
+    <div class="inline-flex p-1 bg-search rounded-xl mb-6">
+      <button data-mode="pomodoro" class="pomo-mode px-4 py-1.5 rounded-lg text-xs font-semibold bg-card text-brand shadow-sm transition-all has-ripple">Pomodoro (25m)</button>
+      <button data-mode="short" class="pomo-mode px-4 py-1.5 rounded-lg text-xs font-semibold text-slate-muted hover:text-ink transition-all has-ripple">Short Break (5m)</button>
+      <button data-mode="long" class="pomo-mode px-4 py-1.5 rounded-lg text-xs font-semibold text-slate-muted hover:text-ink transition-all has-ripple">Long Break (15m)</button>
+    </div>
+
+    <div class="my-6">
+      <div id="pomo-display" class="text-6xl sm:text-7xl font-extrabold text-ink font-mono tracking-tight">25:00</div>
+      <div id="pomo-label" class="text-xs font-semibold uppercase tracking-wider text-slate-muted mt-1">Focus Session</div>
+    </div>
+
+    <div class="flex items-center justify-center gap-3">
+      <button id="pomo-toggle" type="button" class="px-5 sm:px-6 py-3.5 sm:py-4 text-base bg-gradient-to-r from-violet-600 via-blue-600 to-teal-500 text-white hover:from-violet-500 hover:via-blue-500 hover:to-teal-400 hover:opacity-90 active:scale-[0.98] animate-gradient-x font-bold rounded-xl shadow-sm transition-all has-ripple magnetic transition-transform duration-300">
+        START
+      </button>
+      <button id="pomo-reset" type="button" class="px-5 py-3 bg-search hover:bg-border-line text-ink font-semibold text-sm rounded-xl transition-all has-ripple">
+        Reset
+      </button>
+    </div>
+
+    <div class="mt-8 pt-6 border-t border-border-line flex items-center justify-around text-xs text-slate-muted">
+      <div>Sessions Completed: <strong id="pomo-completed" class="text-brand font-bold">0</strong></div>
+      <div>Total Focus Time: <strong id="pomo-total-time" class="text-ink font-bold">0 mins</strong></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let timer: any = null;
+  let mode = 'pomodoro';
+  let timeLeft = 25 * 60;
+  let isRunning = false;
+  let completedCount = 0;
+  let totalMins = 0;
+
+  const displayEl = document.getElementById('pomo-display');
+  const labelEl = document.getElementById('pomo-label');
+  const toggleBtn = document.getElementById('pomo-toggle');
+  const resetBtn = document.getElementById('pomo-reset');
+  const completedEl = document.getElementById('pomo-completed');
+  const totalTimeEl = document.getElementById('pomo-total-time');
+  const modeBtns = document.querySelectorAll('.pomo-mode');
+
+  function updateDisplay() {
+    const mins = Math.floor(timeLeft / 60);
+    const secs = timeLeft % 60;
+    if (displayEl) {
+      displayEl.textContent = (mins < 10 ? '0' : '') + mins + ':' + (secs < 10 ? '0' : '') + secs;
+    }
+  }
+
+  function setMode(newMode: string) {
+    mode = newMode;
+    isRunning = false;
+    clearInterval(timer);
+    if (toggleBtn) toggleBtn.textContent = 'START';
+
+    modeBtns.forEach(btn => {
+      if (btn.getAttribute('data-mode') === mode) {
+        btn.className = 'pomo-mode px-4 py-1.5 rounded-lg text-xs font-semibold bg-card text-brand shadow-sm transition-all';
+      } else {
+        btn.className = 'pomo-mode px-4 py-1.5 rounded-lg text-xs font-semibold text-slate-muted hover:text-ink transition-all';
+      }
+    });
+
+    if (mode === 'pomodoro') {
+      timeLeft = 25 * 60;
+      if (labelEl) labelEl.textContent = 'Focus Session';
+    } else if (mode === 'short') {
+      timeLeft = 5 * 60;
+      if (labelEl) labelEl.textContent = 'Short Break';
+    } else if (mode === 'long') {
+      timeLeft = 15 * 60;
+      if (labelEl) labelEl.textContent = 'Long Break';
+    }
+    updateDisplay();
+  }
+
+  function tick() {
+    if (timeLeft > 0) {
+      timeLeft--;
+      updateDisplay();
+    } else {
+      clearInterval(timer);
+      isRunning = false;
+      if (toggleBtn) toggleBtn.textContent = 'START';
+
+      if (mode === 'pomodoro') {
+        completedCount++;
+        totalMins += 25;
+        if (completedEl) completedEl.textContent = completedCount.toString();
+        if (totalTimeEl) totalTimeEl.textContent = totalMins + ' mins';
+        setMode(completedCount % 4 === 0 ? 'long' : 'short');
+      } else {
+        setMode('pomodoro');
+      }
+    }
+  }
+
+  toggleBtn?.addEventListener('click', () => {
+    if (isRunning) {
+      clearInterval(timer);
+      isRunning = false;
+      toggleBtn.textContent = 'START';
+    } else {
+      isRunning = true;
+      toggleBtn.textContent = 'PAUSE';
+      timer = setInterval(tick, 1000);
+    }
+  });
+
+  resetBtn?.addEventListener('click', () => setMode(mode));
+
+  modeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetMode = btn.getAttribute('data-mode');
+      if (targetMode) setMode(targetMode);
+    });
+  });
+
+  updateDisplay();
+</script>

@@ -1,0 +1,55 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-3 sm:space-y-3.5">
+  <div class="bg-card rounded-2xl border border-border-line/90 shadow-sm p-4 sm:p-5">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+      <div class="space-y-3.5">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Cathode Standard Potential (E°_red in V)</label>
+          <input type="number" id="cp-cat" placeholder="e.g. 0.34" step="0.01" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-sm" />
+          <span class="text-xs text-slate-muted">e.g. Cu²⁺ + 2e⁻ → Cu (+0.34 V)</span>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Anode Standard Potential (E°_red in V)</label>
+          <input type="number" id="cp-an" placeholder="e.g. -0.76" step="0.01" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-sm" />
+          <span class="text-xs text-slate-muted">e.g. Zn²⁺ + 2e⁻ → Zn (-0.76 V)</span>
+        </div>
+
+        <button id="cp-calc-btn" type="button" class="w-full px-5 sm:px-6 py-3.5 sm:py-4 text-base bg-gradient-to-r from-violet-600 via-blue-600 to-teal-500 text-white hover:from-violet-500 hover:via-blue-500 hover:to-teal-400 hover:opacity-90 active:scale-[0.98] animate-gradient-x font-semibold rounded-xl shadow-sm transition-all has-ripple magnetic transition-transform duration-300">
+          Calculate Standard Cell Potential
+        </button>
+      </div>
+
+      <div class="flex flex-col justify-between p-4 sm:p-5 bg-page rounded-xl border border-border-line/80">
+        <div>
+          <div class="text-xs font-semibold text-slate-muted uppercase tracking-wider">Standard Cell Potential (E°_cell = E°_cat - E°_an)</div>
+          <div id="cp-ecell" class="text-4xl font-extrabold text-brand mt-1 font-mono break-words">--</div>
+          <div id="cp-spont" class="text-xs text-emerald-600 font-semibold mt-1">Spontaneous Galvanic Cell (ΔG° &lt; 0)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function calculate() {
+    const cat = parseFloat((document.getElementById('cp-cat') as HTMLInputElement)?.value || '0');
+    const an = parseFloat((document.getElementById('cp-an') as HTMLInputElement)?.value || '0');
+
+    const ecell = cat - an;
+
+    document.getElementById('cp-ecell')!.textContent = (ecell >= 0 ? '+' : '') + ecell.toFixed(2) + ' V';
+    const spEl = document.getElementById('cp-spont');
+    if (spEl) {
+      spEl.textContent = ecell > 0 ? 'Spontaneous Galvanic Cell (ΔG° < 0)' : 'Non-spontaneous Electrolytic Cell (ΔG° > 0)';
+      spEl.className = 'text-xs font-semibold mt-1 ' + (ecell > 0 ? 'text-emerald-600' : 'text-rose-600');
+    }
+  }
+
+
+  document.getElementById('cp-calc-btn')?.addEventListener('click', calculate);
+</script>

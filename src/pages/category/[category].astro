@@ -1,0 +1,110 @@
+---
+const catColors: Record<string, { border: string, text: string, icon: string, bg: string }> = {
+  'mathematics': { border: 'hover:border-blue-400', text: 'group-hover:text-blue-600', icon: 'text-blue-500', bg: 'hover:bg-blue-50/50' },
+  'physics': { border: 'hover:border-purple-400', text: 'group-hover:text-purple-600', icon: 'text-purple-500', bg: 'hover:bg-purple-50/50' },
+  'chemistry': { border: 'hover:border-emerald-400', text: 'group-hover:text-emerald-600', icon: 'text-emerald-500', bg: 'hover:bg-emerald-50/50' },
+  'biology-health-metrics': { border: 'hover:border-rose-400', text: 'group-hover:text-rose-600', icon: 'text-rose-500', bg: 'hover:bg-rose-50/50' },
+  'calculus-advanced-math': { border: 'hover:border-indigo-400', text: 'group-hover:text-indigo-600', icon: 'text-indigo-500', bg: 'hover:bg-indigo-50/50' },
+  'statistics-probability': { border: 'hover:border-amber-400', text: 'group-hover:text-amber-600', icon: 'text-amber-500', bg: 'hover:bg-amber-50/50' },
+  'computer-science-digital-logic': { border: 'hover:border-cyan-400', text: 'group-hover:text-cyan-600', icon: 'text-cyan-500', bg: 'hover:bg-cyan-50/50' },
+  'geometry-trigonometry-matrices': { border: 'hover:border-fuchsia-400', text: 'group-hover:text-fuchsia-600', icon: 'text-fuchsia-500', bg: 'hover:bg-fuchsia-50/50' },
+  'everyday-student-finance': { border: 'hover:border-green-400', text: 'group-hover:text-green-600', icon: 'text-green-500', bg: 'hover:bg-green-50/50' },
+  'academic-grades': { border: 'hover:border-red-400', text: 'group-hover:text-red-600', icon: 'text-red-500', bg: 'hover:bg-red-50/50' },
+  'study-productivity-writing': { border: 'hover:border-violet-400', text: 'group-hover:text-violet-600', icon: 'text-violet-500', bg: 'hover:bg-violet-50/50' },
+  'universal-measurement-converters': { border: 'hover:border-slate-400', text: 'group-hover:text-slate-600', icon: 'text-slate-500', bg: 'hover:bg-slate-50/50' }
+};
+
+import Layout from '../../layouts/Layout.astro';
+import { tools, getActiveCategories, getCategorySlug } from '../../data/registry';
+
+export function getStaticPaths() {
+  return getActiveCategories().map((cat) => {
+    const categorySlug = getCategorySlug(cat.name);
+    return {
+      params: { category: categorySlug },
+      props: { categoryData: cat }
+    };
+  });
+}
+
+const { categoryData } = Astro.props;
+const categoryTools = tools.filter(t => t.category === categoryData.name);
+const categorySlug = getCategorySlug(categoryData.name);
+
+const collectionSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": `${categoryData.name} Tools`,
+  "description": `${categoryData.name} tools and calculators.`,
+  "url": `https://studentkit.in/category/${categorySlug}`
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://studentkit.in/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": categoryData.name,
+      "item": `https://studentkit.in/category/${categorySlug}`
+    }
+  ]
+};
+---
+
+<Layout title={categoryData.name} description={`${categoryData.name} tools and calculators for students.`}>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(collectionSchema)}></script>
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)}></script>
+  </Fragment>
+
+  <!-- Breadcrumbs -->
+  <nav class="flex text-xs text-slate-muted mb-3" aria-label="Breadcrumb">
+    <ol class="inline-flex items-center space-x-1.5">
+      <li class="inline-flex items-center">
+        <a href="/" class="inline-flex items-center hover:text-brand transition-colors">
+          Home
+        </a>
+      </li>
+      <li aria-current="page" class="flex items-center">
+        <svg class="w-3.5 h-3.5 text-slate-muted mx-1" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+        </svg>
+        <span class="text-ink font-medium">{categoryData.name}</span>
+      </li>
+    </ol>
+  </nav>
+
+  <!-- Category Header (Minimal) -->
+  <div class="mb-4 text-left">
+    <h1 class="text-2xl sm:text-3xl font-extrabold text-ink tracking-tight">{categoryData.name}</h1>
+  </div>
+
+  <!-- Single Consolidated Tools Collection (Compact) -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-3">
+    {categoryTools.map((tool, idx) => (
+      <a
+        style={{ "--stagger": idx }}
+          href={`/tools/${tool.slug}`}
+        class="group flex items-center justify-between p-2.5 sm:p-3 bg-card rounded-xl border border-border-line/80 hover:border-brand-accent hover:shadow-xs transition-all min-h-[44px]"
+      >
+        <div class="flex items-center gap-2.5 sm:gap-3 flex-1 min-w-0 pr-1">
+          <div class="flex items-center justify-center w-6 h-6 rounded-md bg-brand-light/80 text-brand shrink-0 group-hover:bg-brand group-hover:text-card transition-colors [&>svg]:w-3.5 [&>svg]:h-3.5" set:html={tool.icon} />
+          <span class="text-[13px] sm:text-sm font-semibold text-ink group-hover:text-brand transition-colors leading-tight sm:truncate">
+            {tool.title}
+          </span>
+        </div>
+        <svg class="w-3.5 h-3.5 text-border-line shrink-0 group-hover:text-brand-accent transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+        </svg>
+      </a>
+    ))}
+  </div>
+</Layout>
