@@ -56,6 +56,64 @@ const categoryCards = categories.map(cat => ({
   icon: categoryIcons[cat.id] || `<path stroke-linecap="round" stroke-linejoin="round" d="M15.75 15.75V18a2.25 2.25 0 0 1-2.25 2.25h-6A2.25 2.25 0 0 1 5.25 18v-6A2.25 2.25 0 0 1 7.5 9.75h2.25" />`
 }));
 
+
+const assessments = [
+  {
+    title: "Online IQ & Reasoning Test",
+    description: "Multiple-choice reasoning assessment",
+    questions: "30 Questions",
+    time: "~20 Minutes",
+    slug: "iq-test",
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"></path>`,
+    status: "active"
+  },
+  {
+    title: "Logical Reasoning Test",
+    description: "Evaluate your pattern recognition, deductive logic, and problem-solving abilities.",
+    questions: "30 Questions",
+    time: "~20 Minutes",
+    slug: "logical-reasoning",
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5" />`,
+    status: "active"
+  },
+  {
+    title: "Numerical Reasoning Test",
+    description: "Assess your ability to work with numbers, percentages, sequences, and quantitative problem solving.",
+    questions: "30 Questions",
+    time: "~20 Minutes",
+    slug: "numerical-reasoning",
+    icon: `<rect width="16" height="20" x="4" y="2" rx="2" stroke-linecap="round" stroke-linejoin="round"></rect><line x1="8" x2="16" y1="6" y2="6" stroke-linecap="round" stroke-linejoin="round"></line><path stroke-linecap="round" stroke-linejoin="round" d="M16 10h.01M12 10h.01M8 10h.01M12 14h.01M8 14h.01M12 18h.01M8 18h.01"></path>`,
+    status: "active"
+  },
+  {
+    title: "Verbal Reasoning Test",
+    description: "Evaluate your word relationships, verbal logic, reading comprehension, and deductive reasoning.",
+    questions: "30 Questions",
+    time: "~20 Minutes",
+    slug: "verbal-reasoning",
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>`,
+    status: "active"
+  },
+  {
+    title: "Spatial Reasoning Test",
+    description: "Measure mental rotation, 2D/3D transformations, cube folding, and visual-spatial reasoning.",
+    questions: "30 Questions",
+    time: "~20 Minutes",
+    slug: "spatial-reasoning",
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" d="m21 7.5-9-5.25L3 7.5m18 0-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9"></path>`,
+    status: "active"
+  },
+  {
+    title: "Memory Test",
+    description: "Assess short-term memory, working memory, sequence recall, pattern recognition, and spatial positioning.",
+    questions: "30 Questions",
+    time: "~20 Minutes",
+    slug: "memory",
+    icon: `<rect width="18" height="18" x="3" y="3" rx="2" stroke-linecap="round" stroke-linejoin="round"></rect><circle cx="8" cy="8" r="1" fill="currentColor"></circle><circle cx="12" cy="8" r="1" fill="currentColor"></circle><circle cx="16" cy="8" r="1" fill="currentColor"></circle><circle cx="8" cy="12" r="1" fill="currentColor"></circle><circle cx="12" cy="12" r="1" fill="currentColor"></circle><circle cx="16" cy="12" r="1" fill="currentColor"></circle><circle cx="8" cy="16" r="1" fill="currentColor"></circle><circle cx="12" cy="16" r="1" fill="currentColor"></circle><circle cx="16" cy="16" r="1" fill="currentColor"></circle>`,
+    status: "active"
+  }
+];
+
 const searchIndex = tools.map(tool => ({
   s: tool.slug,
   t: tool.title,
@@ -171,7 +229,84 @@ const searchIndex = tools.map(tool => ({
     </div>
   </section>
 
-  <AdSlot variant="horizontal" />
+    <!-- NEW Tests & Assessments Section -->
+    <section class="pt-5 pb-2 sm:pt-6 sm:pb-4 border-t border-border-line">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg sm:text-xl font-bold text-ink tracking-tight">Tests & Assessments</h2>
+        <a href="/tests" class="inline-flex items-center gap-1 text-xs sm:text-sm font-semibold text-brand hover:text-brand-accent transition-colors">
+          <span>View all</span>
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+          </svg>
+        </a>
+      </div>
+      <p class="text-[13px] sm:text-sm text-slate-muted mb-6">
+        Challenge yourself, test your reasoning, and see how you perform.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
+        {assessments.map((item, idx) => (
+          item.status === "active" ? (
+            <a 
+              href={`/tests/${item.slug}`}
+              style={{ "--stagger": idx + 10 }}
+              class="block reveal has-ripple group bg-card/80 backdrop-blur-sm rounded-2xl border border-border-line/80 p-5 sm:p-6 hover:border-brand hover:shadow-xl md:hover:-translate-y-1 md:hover:scale-[1.02] transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] relative overflow-hidden"
+            >
+              <div class="flex items-start justify-between mb-4">
+                <div class="flex items-center justify-center w-10 h-10 rounded-xl bg-brand-light/80 text-brand shrink-0 group-hover:bg-gradient-to-br group-hover:from-violet-500 group-hover:to-teal-400 group-hover:text-white transition-all duration-300 group-hover:scale-110 group-hover:-rotate-3">
+                  <svg class="w-5 h-5 svg-draw" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" set:html={item.icon} />
+                </div>
+                <div class="flex items-center gap-2.5 text-[11px] sm:text-xs font-semibold text-slate-muted">
+                  <span class="flex items-center gap-1 bg-slate-50 px-2 py-1 rounded-md border border-border-line/40">
+                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    {item.time}
+                  </span>
+                  <span class="flex items-center gap-1 bg-slate-50 px-2 py-1 rounded-md border border-border-line/40">
+                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                    {item.questions}
+                  </span>
+                </div>
+              </div>
+              
+              <h3 class="text-base sm:text-lg font-bold text-ink mb-2 group-hover:text-brand transition-colors">
+                {item.title}
+              </h3>
+              <p class="text-[13px] sm:text-sm text-slate-muted leading-relaxed mb-4">
+                {item.description}
+              </p>
+
+              <div class="inline-flex items-center gap-1.5 text-[13px] font-bold text-brand">
+                Start Test 
+                <svg class="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+              </div>
+            </a>
+          ) : (
+            <div 
+              style={{ "--stagger": idx + 10 }}
+              class="block reveal bg-slate-50/50 rounded-2xl border border-dashed border-border-line/80 p-5 sm:p-6 opacity-70 cursor-not-allowed"
+            >
+              <div class="flex items-start justify-between mb-4">
+                <div class="flex items-center justify-center w-10 h-10 rounded-xl bg-slate-200/60 text-slate-400 shrink-0">
+                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" set:html={item.icon} />
+                </div>
+                <div class="flex items-center gap-2.5 text-[11px] sm:text-xs font-semibold text-slate-400">
+                  <span class="bg-slate-200/50 px-2 py-1 rounded-md uppercase tracking-wider">{item.time}</span>
+                </div>
+              </div>
+              
+              <h3 class="text-base sm:text-lg font-bold text-slate-500 mb-2">
+                {item.title}
+              </h3>
+              <p class="text-[13px] sm:text-sm text-slate-400 leading-relaxed">
+                {item.description}
+              </p>
+            </div>
+          )
+        ))}
+      </div>
+    </section>
+
+    <AdSlot variant="horizontal" />
 </Layout>
 
 <script id="hero-search-index" type="application/json" set:html={JSON.stringify(searchIndex).replace(/</g, '\\u003c')} />
@@ -439,3 +574,4 @@ const searchIndex = tools.map(tool => ({
   initAll();
   document.addEventListener('astro:page-load', initAll);
 </script>
+

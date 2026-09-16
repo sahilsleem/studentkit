@@ -1,0 +1,19 @@
+---
+import TestLayout from '../../layouts/TestLayout.astro';
+import AssessmentEngine from '../../components/tests/AssessmentEngine.astro';
+import { testsRegistry } from '../../data/testsRegistry';
+import { spatialQuestions } from '../../data/tests/spatialQuestions';
+
+const testMetadata = testsRegistry.find(t => t.slug === 'spatial-reasoning');
+if (!testMetadata) throw new Error("Spatial Reasoning Test metadata not found in registry");
+---
+
+<TestLayout test={testMetadata}>
+  <AssessmentEngine 
+    id="spatial"
+    title="Spatial Reasoning Test"
+    description="This assessment measures your ability to mentally visualize, rotate, transform, and analyze 2D shapes and 3D structures. It is designed as an engaging cognitive exercise for personal practice and enrichment."
+    timeMinutes={20}
+    questions={spatialQuestions}
+  />
+</TestLayout>
