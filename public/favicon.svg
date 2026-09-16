@@ -1,9 +1,51 @@
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 128 128">
-    <path d="M50.4 78.5a75.1 75.1 0 0 0-28.5 6.9l24.2-65.7c.7-2 1.9-3.2 3.4-3.2h29c1.5 0 2.7 1.2 3.4 3.2l24.2 65.7s-11.6-7-28.5-7L67 45.5c-.4-1.7-1.6-2.8-2.9-2.8-1.3 0-2.5 1.1-2.9 2.7L50.4 78.5Zm-1.1 28.2Zm-4.2-20.2c-2 6.6-.6 15.8 4.2 20.2a17.5 17.5 0 0 1 .2-.7 5.5 5.5 0 0 1 5.7-4.5c2.8.1 4.3 1.5 4.7 4.7.2 1.1.2 2.3.2 3.5v.4c0 2.7.7 5.2 2.2 7.4a13 13 0 0 0 5.7 4.9v-.3l-.2-.3c-1.8-5.6-.5-9.5 4.4-12.8l1.5-1a73 73 0 0 0 3.2-2.2 16 16 0 0 0 6.8-11.4c.3-2 .1-4-.6-6l-.8.6-1.6 1a37 37 0 0 1-22.4 2.7c-5-.7-9.7-2-13.2-6.2Z" />
-    <style>
-        path { fill: #000; }
-        @media (prefers-color-scheme: dark) {
-            path { fill: #FFF; }
-        }
-    </style>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="sk-bg" x1="16" y1="8" x2="112" y2="120" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#4F46E5" />
+      <stop offset="100%" stop-color="#1E1B4B" />
+    </linearGradient>
+
+    <!-- Cap Mortarboard Gradient -->
+    <linearGradient id="sk-cap" x1="24" y1="18" x2="104" y2="46" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#C7D2FE" />
+      <stop offset="50%" stop-color="#A5B4FC" />
+      <stop offset="100%" stop-color="#818CF8" />
+    </linearGradient>
+
+    <!-- Subtle Drop Shadow -->
+    <filter id="sk-shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="1.5" stdDeviation="1.5" flood-opacity="0.25" flood-color="#0F172A" />
+    </filter>
+  </defs>
+
+  <!-- Squircle Base with Subtle Border -->
+  <rect width="128" height="128" rx="28" fill="url(#sk-bg)" />
+  <rect x="1" y="1" width="126" height="126" rx="27" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" />
+
+  <!-- 1. GRADUATION CAP (Mortarboard Crown) -->
+  <g id="graduation-cap">
+    <!-- Rhombus Top -->
+    <polygon points="64,18 104,32 64,46 24,32" fill="url(#sk-cap)" filter="url(#sk-shadow)" />
+    <!-- Under Skullcap Band -->
+    <path d="M42,37 V41 C42,45.5 52,48.5 64,48.5 C76,48.5 86,45.5 86,41 V37 L64,44 Z" fill="#312E81" />
+    <!-- Tassel -->
+    <path d="M104,32 V44" stroke="#2DD4BF" stroke-width="2.75" stroke-linecap="round" />
+    <circle cx="104" cy="46.5" r="2.75" fill="#2DD4BF" />
+  </g>
+
+  <!-- 2. THE S RIBBON (Rotational Symmetry) -->
+  <path d="M86,53 C78,45 72,44 64,44 C46,44 33,56 33,68 C33,82 46,87 64,76 C82,65 95,70 95,84 C95,96 82,108 64,108 C56,108 50,107 42,99" stroke="#FFFFFF" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" filter="url(#sk-shadow)" />
+
+  <!-- 3. SUBTLE INTEGRATED BOOK (Learning Heart) -->
+  <g id="open-book" transform="translate(64, 76)">
+    <!-- Contrast Backing Badge -->
+    <path d="M-20,-6 C-13,-10 -3,-10 0,-7 C3,-10 13,-10 20,-6 V9 C13,5 3,5 0,8 C-3,5 -13,5 -20,9 Z" fill="#1E1B4B" opacity="0.75" />
+    <!-- Left Page -->
+    <path d="M-18,-4 C-11,-8 -4,-8 0,-5 V6 C-4,3 -11,3 -18,7 Z" fill="#2DD4BF" />
+    <!-- Right Page -->
+    <path d="M0,-5 C4,-8 11,-8 18,-4 V7 C11,3 4,3 0,6 Z" fill="#14B8A6" />
+    <!-- Center Spine Divider -->
+    <line x1="0" y1="-5" x2="0" y2="6" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" />
+  </g>
 </svg>

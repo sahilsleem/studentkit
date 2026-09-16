@@ -98,8 +98,8 @@ export const categories: Category[] = [
 export const tools: Tool[] = [
   {
     "id": "gpa-calculator",
-    "title": "GPA Calculator (Semester & Cumulative)",
-    "description": "Calculate your semester and cumulative GPA on the standard 4.0 scale with custom credit hours and target projections.",
+    "title": "GPA Calculator (4.0 Scale)",
+    "description": "Calculate your college GPA on the standard 4.0 scale with custom course credit hours, letter grades, and academic standing.",
     "slug": "gpa-calculator",
     "category": "Academic & Grades",
     "subcategory": "GPA & CGPA",
@@ -116,8 +116,8 @@ export const tools: Tool[] = [
   },
   {
     "id": "cgpa-percentage-calculator",
-    "title": "CGPA & Percentage Converter",
-    "description": "Convert between 10-point CGPA and equivalent percentage scores with CBSE (9.5), direct (10.0), and custom multipliers.",
+    "title": "CGPA to Percentage Calculator",
+    "description": "Convert CGPA to percentage using CBSE (9.5), direct 10-point, Mumbai University, US 4.0, or custom university multipliers.",
     "slug": "cgpa-percentage-calculator",
     "category": "Academic & Grades",
     "subcategory": "GPA & CGPA",
@@ -405,7 +405,7 @@ export const tools: Tool[] = [
   {
     "id": "quadratic-formula-calculator",
     "title": "Quadratic Formula & Equation Solver",
-    "description": "Solve quadratic equations (ax² + bx + c = 0) with discriminant, real/complex roots, and parabola vertex.",
+    "description": "Solve quadratic equations (ax² + bx + c = 0) to find real or complex roots, discriminant, and parabola vertex.",
     "slug": "quadratic-formula-calculator",
     "category": "Mathematics",
     "subcategory": "Algebra",
@@ -421,8 +421,8 @@ export const tools: Tool[] = [
   },
   {
     "id": "simultaneous-equations-solver",
-    "title": "Simultaneous Equations Solver (2x2 & 3x3)",
-    "description": "Solve systems of 2-variable and 3-variable linear equations using matrix elimination with clear solutions.",
+    "title": "Simultaneous Equations Solver (2 Variables)",
+    "description": "Solve 2-variable systems of linear equations using Cramer's rule determinants for unique, infinite, or inconsistent solutions.",
     "slug": "simultaneous-equations-solver",
     "category": "Mathematics",
     "subcategory": "Algebra",
@@ -844,7 +844,7 @@ export const tools: Tool[] = [
   {
     "id": "derivative-calculator",
     "title": "Derivative Calculator (1st & 2nd Order)",
-    "description": "Differentiate mathematical expressions with respect to x using product, quotient, and chain rules.",
+    "description": "Calculate the first and second derivatives of polynomial and elementary functions with respect to x.",
     "slug": "derivative-calculator",
     "category": "Calculus & Advanced Math",
     "subcategory": "Differential Calculus",
@@ -862,7 +862,7 @@ export const tools: Tool[] = [
   {
     "id": "integral-calculator",
     "title": "Integral Calculator (Definite & Indefinite)",
-    "description": "Evaluate definite and indefinite integrals with standard calculus integration rules and boundary limits.",
+    "description": "Calculate definite and indefinite integrals for polynomial functions with antiderivative expressions and boundary evaluation.",
     "slug": "integral-calculator",
     "category": "Calculus & Advanced Math",
     "subcategory": "Integral Calculus",
@@ -1152,8 +1152,8 @@ export const tools: Tool[] = [
   },
   {
     "id": "projectile-motion-calculator",
-    "title": "Projectile Motion Calculator (2D)",
-    "description": "Calculate launch range, maximum height, flight time, and velocity vectors for 2D projectile trajectories.",
+    "title": "Projectile Motion Calculator",
+    "description": "Calculate horizontal range, maximum height, and total flight time for projectile trajectories with launch angle and initial height.",
     "slug": "projectile-motion-calculator",
     "category": "Physics",
     "subcategory": "Mechanics",
@@ -1314,8 +1314,8 @@ export const tools: Tool[] = [
   },
   {
     "id": "ohms-law-calculator",
-    "title": "Ohm's Law & Electric Power Calculator",
-    "description": "Calculate Voltage (V), Current (I), Resistance (R), and Power (P = VI = I²R = V²/R) with interactive unit options.",
+    "title": "Ohm's Law Calculator",
+    "description": "Calculate electrical resistance (R = V/I) and electric power (P = VI) from voltage and current inputs.",
     "slug": "ohms-law-calculator",
     "category": "Physics",
     "subcategory": "Electromagnetism",
@@ -1481,7 +1481,7 @@ export const tools: Tool[] = [
   {
     "id": "ideal-gas-law",
     "title": "Ideal Gas Law Calculator (PV = nRT)",
-    "description": "Solve the Ideal Gas Law (PV = nRT) and combined gas laws (P1V1/T1 = P2V2/T2) for pressure, volume, or temperature.",
+    "description": "Calculate the amount of gas in moles (n = PV/RT) from pressure, volume, and temperature using the ideal gas equation.",
     "slug": "ideal-gas-law",
     "category": "Chemistry",
     "subcategory": "Gas Laws",
@@ -1530,8 +1530,8 @@ export const tools: Tool[] = [
   },
   {
     "id": "ph-calculator",
-    "title": "pH, pOH & Ion Concentration Calculator",
-    "description": "Calculate pH = -log[H+], pOH = -log[OH-], and hydrogen ion concentrations for acid-base solutions.",
+    "title": "pH & pOH Calculator",
+    "description": "Calculate pH, pOH, and hydroxide ion concentration [OH-] from hydrogen ion concentration [H+] with acidity classification.",
     "slug": "ph-calculator",
     "category": "Chemistry",
     "subcategory": "Acids & Bases",

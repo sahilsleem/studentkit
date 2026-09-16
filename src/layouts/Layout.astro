@@ -12,6 +12,7 @@ export interface Props {
 const { title, description = "Clean, instant study tools and calculators for students. Grades, mathematics, physics, and chemistry solvers." } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://studentkit.in');
 const socialImageURL = new URL('/og-image.png', Astro.site || 'https://studentkit.in');
+const formattedTitle = title.includes('StudentKit') ? title : `${title} | StudentKit`;
 ---
 
 <!doctype html>
@@ -21,21 +22,25 @@ const socialImageURL = new URL('/og-image.png', Astro.site || 'https://studentki
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="generator" content={Astro.generator} />
     <link rel="canonical" href={canonicalURL} />
     <slot name="head" />
-    <title>{title} | StudentKit</title>
+    <title>{formattedTitle}</title>
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalURL} />
-    <meta property="og:title" content={`${title} | StudentKit`} />
+    <meta property="og:site_name" content="StudentKit" />
+    <meta property="og:title" content={formattedTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={socialImageURL} />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={`${title} | StudentKit`} />
+    <meta name="twitter:title" content={formattedTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={socialImageURL} />
 

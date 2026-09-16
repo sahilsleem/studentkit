@@ -23,7 +23,7 @@ const websiteSchema = {
   "@type": "WebSite",
   "name": "StudentKit",
   "url": "https://studentkit.in/",
-  "description": "Simple tools for grades, maths, science, and everyday student life."
+  "description": "Free student tools for studying, calculations, tests, assessments, focus training, and everyday academic tasks."
 };
 
 const organizationSchema = {
@@ -124,7 +124,7 @@ const searchIndex = tools.map(tool => ({
 }));
 ---
 
-<Layout title="Student Calculators & Study Tools" description="Simple tools for grades, maths, science, and everyday student life.">
+<Layout title="StudentKit — Free Student Tools for Smarter Learning" description="Free student tools for studying, calculations, tests, assessments, focus training, and everyday academic tasks.">
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)}></script>
     <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)}></script>
