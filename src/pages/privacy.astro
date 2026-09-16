@@ -9,56 +9,109 @@ const privacySchema = {
 };
 ---
 
-<Layout title="Privacy Policy" description="StudentKit Privacy Policy. Learn about our commitment to 100% client-side calculation privacy.">
+<Layout title="Privacy Policy" description="StudentKit Privacy Policy. Learn about our commitment to client-side calculation privacy.">
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(privacySchema)}></script>
   </Fragment>
 
-  <div class="max-w-3xl mx-auto">
-    <div class="mb-4">
-      <h1 class="text-2xl sm:text-4xl font-extrabold text-ink tracking-tight mb-1">Privacy Policy</h1>
-      <p class="text-xs sm:text-sm text-slate-muted">Last Updated: September 2026</p>
+  <main class="max-w-3|e mx-auto pb-16">
+    
+    <!-- Hero -->
+    <div style="--stagger: 1" class="reveal mb-10 sm:mb-12 text-left pt-6 sm:pt-8">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-light text-brand-accent text-[10px] sm:text-xs font-semibold uppercase tracking-wider mb-3 sm:mb-4">
+        Privacy Policy
+      </div>
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-ink tracking-tight mb-4">
+        <span class="letter-blip inline-block cursor-default">H</span><span class="letter-blip inline-block cursor-default">o</span><span class="letter-blip inline-block cursor-default">w</span> <span class="letter-blip inline-block cursor-default">w</span><span class="letter-blip inline-block cursor-default">e</span> <span class="letter-blip inline-block cursor-default">h</span><span class="letter-blip inline-block cursor-default">a</span><span class="letter-blip inline-block cursor-default">n</span><span class="letter-blip inline-block cursor-default">d</span><span class="letter-blip inline-block cursor-default">l</span><span class="letter-blip inline-block cursor-default">e</span> <span class="letter-blip inline-block cursor-default">d</span><span class="letter-blip inline-block cursor-default">a</span><span class="letter-blip inline-block cursor-default">t</span><span class="letter-blip inline-block cursor-default">a</span><span class="letter-blip inline-block cursor-default">.</span>
+      </h1>
+      <p class="text-sm sm:text-base text-slate-muted leading-relaxed max-w-2xl">
+        At StudentKit, your privacy is paramount. This page explains what information our site handles, where it is stored, and the third-party services we use.
+      </p>
+      <p class="text-xs text-slate-muted/80 mt-4">Last Updated: September 2026</p>
     </div>
 
-    <div class="prose prose-slate max-w-none space-y-5 text-slate-muted bg-card p-4 sm:p-8 rounded-xl border border-border-line/80 shadow-xs">
+    <!-- TL;DR Summary Card -->
+    <div style="--stagger: 2" class="reveal mb-10"><section class="group bg-brand-light/30 border border-brand/20 p-5 sm:p-6 rounded-2xl hover:-translate-y-1.5 hover:scale-[1.02] hover:border-brand hover:shadow-xl transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)]">
+      <h2 class="text-sm font-bold text-ink mb-2 group-hover:text-brand transition-colors">The Short Version</h2>
+      <ul class="space-y-2 text-sm text-slate-muted">
+        <li class="flex items-start gap-2">
+          <span class="text-brand shrink-0 mt-0.5">&#8226;</span>
+          <span><strong>No Accounts:</strong> We do not require sign-ups and do not collect names or emails.</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-brand shrink-0 mt-0.5">&#8226;</span>
+          <span><strong>Client-Side Processing:</strong> Your mathematical inputs and calculator formulas are processed on your device, not sent to our servers.</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-brand shrink-0 mt-0.5">&#8226;</span>
+          <span><strong>Standard Analytics:</strong> We use standard Google services for analytics and advertising to keep the site free.</span>
+        </li>
+      </ul>
+    </section></div>
 
+    <!-- Main Content -->
+    <div style="--stagger: 3" class="reveal space-y-10">
+      
       <section>
-        <h2 class="text-lg font-bold text-ink mb-2">1. Overview & Core Privacy Promise</h2>
-        <p class="text-sm leading-relaxed">
-          At StudentKit, your privacy is paramount. Our fundamental architecture is built around client-side computation: all calculator inputs, formulas, grades, and variables entered into our tools are processed entirely within your web browser. We do not store or transmit your calculations to remote servers.
+        <h2 class="text-lg sm:text-xl font-bold text-ink mb-3">1. Information Handled by StudentKit</h2>
+        <p class="text-sm sm:text-base text-slate-muted leading-relaxed">
+          StudentKit is designed as a client-side web application. When you use our calculators, GPA estimators, or mathematical tools, the numbers and variables you enter are processed locally within your web browser using JavaScript. We do not transmit these specific calculation inputs to remote StudentKit servers.
         </p>
       </section>
 
       <section>
-        <h2 class="text-lg font-bold text-ink mb-2">2. Data We Do Not Collect</h2>
-        <ul class="list-disc pl-5 text-sm space-y-1">
-          <li>We do not require user accounts or registrations.</li>
-          <li>We do not collect names, passwords, or phone numbers.</li>
-          <li>We do not store student grade transcripts or exam scores.</li>
+        <h2 class="text-lg sm:text-xl font-bold text-ink mb-3">2. Accounts and Personal Information</h2>
+        <p class="text-sm sm:text-base text-slate-muted leading-relaxed">
+          We do not require user accounts, registrations, or passwords to access our tools. Consequently, StudentKit does not collect, store, or process identifying personal information such as names, phone numbers, or academic transcripts.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-lg sm:text-|e font-bold text-ink mb-3">3. Local Storage</h2>
+        <p class="text-sm sm:text-base text-slate-muted leading-relaxed mb-3">
+          StudentKit utilizes standard browser `localStorage` to enhance your experience without relying on a remote database. We securely store the following data exclusively on your personal device:
+        </p>
+        <ul class="list-disc pl-5 text-sm sm:text-base text-slate-muted space-y-1.5">
+          <li><strong>Recent Tools:</strong> A list of the calculators you have recently opened.</li>
+          <li><strong>Anti-Brainrot Records:</strong> Your personal high scores and performance statistics for focus modules (e.g., Quick Math).</li>
+          <li><strong>Assessment History:</strong> A local history of test questions you have previously answered to minimize repetition during future sessions.</li>
         </ul>
-      </section>
-
-      <section>
-        <h2 class="text-lg font-bold text-ink mb-2">3. Local Storage</h2>
-        <p class="text-sm leading-relaxed">
-          StudentKit may use standard browser `localStorage` solely to enhance your user experience (such as remembering your recently opened calculators). This information remains stored strictly on your device and can be cleared at any time through your browser settings.
+        <p class="text-sm sm:text-base text-slate-muted leading-relaxed mt-3">
+          This data never leaves your browser and can be completely cleared at any time through your browser's history or privacy settings.
         </p>
       </section>
 
       <section>
-        <h2 class="text-lg font-bold text-ink mb-2">4. Third-Party Services & Analytics</h2>
-        <p class="text-sm leading-relaxed">
-          We use Google Analytics and Google AdSense to understand general traffic trends and fund server hosting. These providers may use cookies and web beacons to serve non-personalized or personalized advertisements based on your prior visits. You can manage cookie preferences via your browser settings or Google Ad settings.
+        <h2 class="text-lg sm:text-xl font-bold text-ink mb-3">4. Third-Party Services and Analytics</h2>
+        <p class="text-sm sm:text-base text-slate-muted leading-relaxed">
+          To understand general site traffic trends and to fund server hosting, we integrate with Google Analytics and Google AdSense. These third-party services may utilize cookies, web beacons, and similar tracking technologies to serve non-personalized or personalized advertisements based on your prior visits to our site or other sites on the internet. You can manage your advertising cookie preferences directly via your browser settings or Google's Ad settings.
         </p>
       </section>
 
       <section>
-        <h2 class="text-lg font-bold text-ink mb-2">5. Contact</h2>
-        <p class="text-sm leading-relaxed">
-          If you have questions regarding this Privacy Policy, please contact us via <a href="mailto:sahilsleem01@gmail.com" class="text-brand underline hover:text-brand-accent font-medium">Email</a>.
+        <h2 class="text-lg sm:text-xl font-bold text-ink mb-3">5. External Links</h2>
+        <p class="text-sm sm:text-base text-slate-muted leading-relaxed">
+          StudentKit may occasionally contain links to external websites, educational resources, or references that are not operated by us. We have no control over the content or privacy practices of these third-party sites and assume no responsibility for them.
         </p>
+      </section>
+
+      <section>
+        <h2 class="text-lg sm:text-|e font-bold text-ink mb-3">6. Changes to This Policy</h2>
+        <p class="text-sm sm:text-base text-slate-muted leading-relaxed">
+          We may update our Privacy Policy periodically to reflect updates to our site's features or changes in regulatory requirements. We encourage users to review this page occasionally for the latest information on our privacy practices.
+        </p>
+      </section>
+
+      <section class="border-t border-border-line/60 pt-8 mt-10">
+        <h2 class="text-lg sm:text-|e font-bold text-ink mb-3">7. Contact Us</h2>
+        <p class="text-sm sm:text-base text-slate-muted leading-relaxed mb-4">
+          If you have any questions or concerns regarding this Privacy Policy or how your data is handled, please reach out to us.
+        </p>
+        <a href="/contact" class="inline-flex items-center gap-2 px-5 py-2 rounded-xl bg-card border border-border-line/80 hover:border-brand/40 text-ink hover:text-brand font-semibold text-sm transition-all shadow-xs">
+          Visit Contact Page &rarr;
+        </a>
       </section>
 
     </div>
-  </div>
+  </main>
 </Layout>

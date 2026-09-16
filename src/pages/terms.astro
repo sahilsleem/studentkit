@@ -14,49 +14,104 @@ const termsSchema = {
     <script type="application/ld+json" set:html={JSON.stringify(termsSchema)}></script>
   </Fragment>
 
-  <div class="max-w-3xl mx-auto">
-    <div class="mb-4">
-      <h1 class="text-2xl sm:text-4xl font-extrabold text-ink tracking-tight mb-1">Terms of Service</h1>
-      <p class="text-xs sm:text-sm text-slate-muted">Last Updated: September 2026</p>
+  <main class="max-w-3|e mx-auto pb-16">
+    
+    <!-- Hero -->
+    <div style="--stagger: 1" class="reveal mb-10 sm:mb-12 text-left pt-6 sm:pt-8">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-light text-brand-accent text-[10px] sm:text-xs font-semibold uppercase tracking-wider mb-3 sm:mb-4">
+        Terms of Service
+      </div>
+      <h1 class="text-3|e sm:text-4xl md:text-5xl font-extrabold text-ink tracking-tight mb-4">
+        <span class="letter-blip inline-block cursor-default">T</span><span class="letter-blip inline-block cursor-default">e</span><span class="letter-blip inline-block cursor-default">r</span><span class="letter-blip inline-block cursor-default">m</span><span class="letter-blip inline-block cursor-default">s</span> <span class="letter-blip inline-block cursor-default">a</span><span class="letter-blip inline-block cursor-default">n</span><span class="letter-blip inline-block cursor-default">d</span> <span class="letter-blip inline-block cursor-default">D</span><span class="letter-blip inline-block cursor-default">i</span><span class="letter-blip inline-block cursor-default">s</span><span class="letter-blip inline-block cursor-default">c</span><span class="letter-blip inline-block cursor-default">l</span><span class="letter-blip inline-block cursor-default">a</span><span class="letter-blip inline-block cursor-default">i</span><span class="letter-blip inline-block cursor-default">m</span><span class="letter-blip inline-block cursor-default">e</span><span class="letter-blip inline-block cursor-default">r</span><span class="letter-blip inline-block cursor-default">s</span><span class="letter-blip inline-block cursor-default">.</span>
+      </h1>
+      <p class="text-sm sm:text-base text-slate-muted leading-relaxed max-w-2xl">
+        Please read these terms carefully before using StudentKit. They define the acceptable use, educational limitations, and intellectual property conditions of our platform.
+      </p>
+      <p class="text-xs text-slate-muted/80 mt-4">Last Updated: September 2026</p>
     </div>
 
-    <div class="prose prose-slate max-w-none space-y-5 text-slate-muted bg-card p-4 sm:p-8 rounded-xl border border-border-line/80 shadow-xs">
+    <!-- TL;DR Summary Card -->
+    <div style="--stagger: 2" class="reveal mb-10"><section class="group bg-slate-50/80 border border-border-line/60 p-5 sm:p-6 rounded-2xl hover:-translate-y-1.5 hover:scale-[1.02] hover:border-brand hover:shadow-xl transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)]">
+      <h2 class="text-sm font-bold text-ink mb-2 group-hover:text-brand transition-colors">Important Disclaimer</h2>
+      <p class="text-sm text-slate-muted leading-relaxed">
+        StudentKit is built for general educational practice and self-improvement. Our tools, calculators, and cognitive assessments should <strong>never</strong> be relied upon as a substitute for professional academic, financial, medical, or clinical advice.
+      </p>
+    </section></div>
 
+    <!-- Main Content -->
+    <div style="--stagger: 3" class="reveal space-y-10">
+      
       <section>
-        <h2 class="text-lg font-bold text-ink mb-2">1. Agreement to Terms</h2>
-        <p class="text-sm leading-relaxed">
-          By accessing or using StudentKit (https://studentkit.in), you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our website.
+        <h2 class="text-lg sm:text-xl font-bold text-ink mb-3">1. Agreement to Terms</h2>
+        <p class="text-sm sm:text-base text-slate-muted leading-relaxed">
+          By accessing or utilizing the utilities provided at StudentKit (https://studentkit.in), you acknowledge that you have read, understood, and agree to be bound by these Terms of Service. If you do not agree with any part of these terms, you must refrain from using the website.
         </p>
       </section>
 
       <section>
-        <h2 class="text-lg font-bold text-ink mb-2">2. Educational Use Disclaimer</h2>
-        <p class="text-sm leading-relaxed">
-          StudentKit tools, calculators, formulas, and educational content are provided strictly for educational and informational purposes. While we strive for rigorous mathematical and scientific accuracy, calculations should always be independently verified for critical academic, medical, legal, or professional submissions.
+        <h2 class="text-lg sm:text-xl font-bold text-ink mb-3">2. Educational and Informational Use</h2>
+        <p class="text-sm sm:text-base text-slate-muted leading-relaxed">
+          All calculators, converters, formulas, and general utilities hosted on StudentKit are provided strictly for educational and informational purposes. While we strive to maintain rigorous mathematical and scientific accuracy across our codebase, all calculations should be independently verified before being utilized in critical academic submission, professional work, or financial decisions.
         </p>
       </section>
 
       <section>
-        <h2 class="text-lg font-bold text-ink mb-2">3. Intellectual Property</h2>
-        <p class="text-sm leading-relaxed">
-          All website designs, layout interfaces, code, and original educational explanations on StudentKit are protected by applicable copyright and intellectual property laws.
+        <h2 class="text-lg sm:text-xl font-bold text-ink mb-3">3. Cognitive Assessments & Anti-Brainrot</h2>
+        <p class="text-sm sm:text-base text-slate-muted leading-relaxed">
+          StudentKit provides a suite of interactive Tests & Assessments alongside Anti-Brainrot focus modules. These features are designed purely for entertainment, practice, and personal self-improvement. They are <strong>not</strong> medical or clinical diagnostic tools, nor do they provide standardized psychological evaluations. They should never be used as a substitute for professional medical or psychological assessment.
         </p>
       </section>
 
       <section>
-        <h2 class="text-lg font-bold text-ink mb-2">4. Limitation of Liability</h2>
-        <p class="text-sm leading-relaxed">
-          StudentKit and its creators shall not be liable for any direct, indirect, incidental, or consequential damages resulting from the use or inability to use our tools or reliance on calculated results.
+        <h2 class="text-lg sm:text-xl font-bold text-ink mb-3">4. Acceptable Use</h2>
+        <p class="text-sm sm:text-base text-slate-muted leading-relaxed mb-2">
+          You agree to use StudentKit responsibly and in a manner yconsistent with its purpose as an educational utility platform. You may not:
+        </p>
+        <ul class="list-disc pl-5 text-sm sm:text-base text-slate-muted space-y-1.5">
+          <li>Interfere with, disrupt, or attempt to disable the normal operation of the website or its infrastructure.</li>
+          <li>Utilize automated scripts, spiders, or bots to scrape, bulk-extract, or systematically copy our content, formulas, or interface design.</li>
+          <li>Attempt to reverse-engineer or manipulate the client-side logic for malicious purposes.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="text-lg sm:text-xl font-bold text-ink mb-3">5. Intellectual Property</h2>
+        <p class="text-sm sm:text-base text-slate-muted leading-relaxed">
+          The layout, interface design, custom code, written educational explanations, and brand identity of StudentKit are protected by applicable copyright and intellectual property laws. You may not reproduce, distribute, or commercially exploit our original material without prior written permission.
         </p>
       </section>
 
       <section>
-        <h2 class="text-lg font-bold text-ink mb-2">5. Contact</h2>
-        <p class="text-sm leading-relaxed">
-          Questions about these Terms may be directed via <a href="mailto:sahilsleem01@gmail.com" class="text-brand underline hover:text-brand-accent font-medium">Email</a>.
+        <h2 class="text-lg sm:text-xl font-bold text-ink mb-3">6. External Links</h2>
+        <p class="text-sm sm:text-base text-slate-muted leading-relaxed">
+          StudentKit may feature links to external references, Wikipedia articles, or third-party tools to provide additional educational context. These external resources operate under their own terms and policies. We do not guarantee the accuracy, safety, or availability of any third-party website.
         </p>
+      </section>
+
+      <section>
+        <h2 class="text-lg sm:text-xl font-bold text-ink mb-3">7. Availability and Changes</h2>
+        <p class="text-sm sm:text-base text-slate-muted leading-relaxed">
+          We reserve the right to update, modify, suspend, or permanently remove any tool, calculator, or content module from StudentKit at any time without prior notice. We do not guarantee uninterrupted access to the platform.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="text-lg sm:text-xl font-bold text-ink mb-3">8. Limitation of Liability</h2>
+        <p class="text-sm sm:text-base text-slate-muted leading-relaxed">
+          To the fullest extent permitted by law, StudentKit and its creators shall not be liable for any direct, indirect, incidental, or consequential damages arising out of your use, inability to use, or reliance on the calculations, assessments, or content provided by the website.
+        </p>
+      </section>
+
+      <section class="border-t border-border-line/60 pt-8 mt-10">
+        <h2 class="text-lg sm:text-|e font-bold text-ink mb-3">9. Contact Us</h2>
+        <p class="text-sm sm:text-base text-slate-muted leading-relaxed mb-4">
+          Questions regarding these Terms of Service may be directed to our team.
+        </p>
+        <a href="/contact" class="inline-flex items-center gap-2 px-5 py-2 rounded-xl bg-card border border-border-line/80 hover:border-brand/40 text-ink hover:text-brand font-semibold text-sm transition-all shadow-xs">
+          Visit Contact Page &rarr;
+        </a>
       </section>
 
     </div>
-  </div>
+  </main>
 </Layout>
