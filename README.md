@@ -1,12 +1,31 @@
 # StudentKit
 
-StudentKit is a minimal, clean, and fast collection of free online tools for students. It requires no backend, database, or API, and everything processes instantly in the browser.
+[**StudentKit**](https://studentkit.in/) is a collection of free tools built to make studying and everyday academic tasks simpler. Designed as a privacy-conscious, static web platform, it provides students with instant access to a wide range of academic utilities directly in the browser�no account creation, logins, or server-side processing required.
+
+## The Ecosystem
+
+StudentKit is divided into four main areas:
+
+- **Calculators & Academic Tools**: A comprehensive directory of calculators, measurement converters, grade estimators, and science utilities for complex problems.
+- **Tests & Assessments**: Interactive cognitive and numerical reasoning assessments designed for practice, skill-building, and self-evaluation.
+- **Anti-Brainrot**: Short, focused cognitive exercises and mental math challenges designed to sharpen attention, focus, and working memory.
+- **Everyday Utilities**: Practical, easy-to-use tools for daily student needs, from text formatting to date calculations.
 
 ## Features
-- **Zero Dependencies**: Calculations run entirely locally in the browser using Vanilla JS.
-- **20+ Tools**: Covers Academic, Attendance, Study, Date/Time, and Everyday needs.
-- **Blazing Fast**: Built with Astro and Tailwind CSS. Ships pure static HTML and minimal JS.
-- **Offline Ready**: Once the page loads, calculators can be used without an internet connection.
+
+- **Privacy-Conscious & Client-Side**: Almost all calculations and exercises execute entirely on your own device. We do not transmit or store your tool inputs on remote servers.
+- **Fast & Simple**: Built to be a lightweight, tool-first experience. There is no search engine filler�just the tools you need.
+- **Zero Friction**: Completely free to use with no paywalls, sign-ups, or verification emails.
+- **Offline Capable**: Once the page loads, most tools and calculators can be used without an active internet connection.
+
+## Technology Stack
+
+StudentKit is a static web platform built with modern web standards to ensure speed and reliability.
+
+- **Framework**: [Astro](https://astro.build/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **Logic**: Vanilla JavaScript & [Math.js](https://mathjs.org/)
+- **Animations**: [GSAP](https://gsap.com/)
 
 ## Development
 
@@ -20,33 +39,9 @@ Start the development server:
 npm run dev
 ```
 
-## Adding a New Tool
-
-1. **Add to Data**: Open `src/data/tools.js` and add your new tool object to the array.
-2. **Create Page**: Create a new file in `src/pages/tools/[your-tool-name].astro`.
-3. **Copy Layout**: Copy an existing tool's layout (like `word-counter.astro`) and replace the logic inside the `<script>` tag.
-
-## Building for Production
-
-To generate the static HTML files:
-
+Build for production:
 ```bash
 npm run build
 ```
 
-This will output all static files into the `dist/` directory.
-
-## Deployment
-
-The website can be deployed to any static host instantly without any special configuration.
-
-### GitHub Pages
-1. Push this repository to GitHub.
-2. Go to Settings > Pages.
-3. Select "GitHub Actions" or choose the `dist` folder.
-
-### Vercel / Cloudflare Pages / Netlify
-1. Connect your GitHub repository.
-2. The platform will automatically detect Astro.
-3. Build command: `npm run build`
-4. Output directory: `dist`
+This will output all static files into the `dist/` directory, ready to be deployed to any static hosting provider.
