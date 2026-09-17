@@ -468,22 +468,7 @@ export const tools: Tool[] = [
     ],
     "popular": true
   },
-  {
-    "id": "ratio-calculator",
-    "title": "Ratio & Proportion Calculator",
-    "description": "Solve direct and inverse proportions (A : B = C : D), scale dimensions, and simplify multi-term ratios.",
-    "slug": "ratio-calculator",
-    "category": "Mathematics",
-    "subcategory": "Arithmetic",
-    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"M15.75 15.75V18a2.25 2.25 0 0 1-2.25 2.25h-6A2.25 2.25 0 0 1 5.25 18v-6A2.25 2.25 0 0 1 7.5 9.75h2.25m4.5 0a2.25 2.25 0 0 0-2.25-2.25h-6A2.25 2.25 0 0 0 3.75 9.75v6A2.25 2.25 0 0 0 6 18h2.25\" /></svg>",
-    "keywords": [
-      "ratio solver",
-      "proportion calculator",
-      "cross multiplication",
-      "simplify ratio",
-      "aspect ratio"
-    ]
-  },
+
   {
     "id": "percentage-calculator",
     "title": "Percentage Calculator",
@@ -1280,22 +1265,7 @@ export const tools: Tool[] = [
       "tangential speed"
     ]
   },
-  {
-    "id": "torque-calculator",
-    "title": "Torque & Rotational Equilibrium Calculator",
-    "description": "Calculate rotational torque (τ = r F sin θ), moment arms, and lever balance conditions.",
-    "slug": "torque-calculator",
-    "category": "Physics",
-    "subcategory": "Mechanics",
-    "icon": "<svg fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\" stroke-width=\"2\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" d=\"m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z\" /></svg>",
-    "keywords": [
-      "torque calculator",
-      "rotational equilibrium",
-      "lever arm",
-      "moment of force",
-      "torque formula"
-    ]
-  },
+
   {
     "id": "harmonic-motion-calculator",
     "title": "Simple Harmonic Motion & Pendulum Calculator",
