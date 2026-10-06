@@ -1,0 +1,51 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-3 sm:space-y-3.5">
+  <div class="bg-card rounded-2xl border border-border-line/90 shadow-sm p-4 sm:p-5">
+    <div class="space-y-3.5">
+      <div>
+        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Resistor Values (Ω, comma separated)</label>
+        <input type="text" id="circ-resistors" placeholder="e.g. 100, 220, 470" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-ink text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent font-mono" />
+      </div>
+
+      <button id="circ-calc-btn" type="button" class="w-full px-5 sm:px-6 py-3.5 sm:py-4 text-base bg-gradient-to-r from-violet-600 via-blue-600 to-teal-500 text-white hover:from-violet-500 hover:via-blue-500 hover:to-teal-400 hover:opacity-90 active:scale-[0.98] animate-gradient-x font-semibold rounded-xl shadow-sm transition-all has-ripple magnetic transition-transform duration-300">
+        Calculate Equivalent Circuit Resistance
+      </button>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+        <div class="p-5 bg-page rounded-xl border border-border-line/80">
+          <div class="text-xs font-semibold text-slate-muted uppercase tracking-wider">Series Equivalent (R_eq = Σ Rᵢ)</div>
+          <div id="circ-series" class="text-3xl font-extrabold text-brand mt-1 font-mono break-words">--</div>
+        </div>
+
+        <div class="p-5 bg-page rounded-xl border border-border-line/80">
+          <div class="text-xs font-semibold text-slate-muted uppercase tracking-wider">Parallel Equivalent (1/R_eq = Σ 1/Rᵢ)</div>
+          <div id="circ-parallel" class="text-3xl font-extrabold text-ink mt-1 font-mono">--</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function calculate() {
+    const raw = (document.getElementById('circ-resistors') as HTMLInputElement)?.value || '';
+    const rs = raw.split(',').map(s => parseFloat(s.trim())).filter(n => !isNaN(n) && n > 0);
+
+    if (rs.length === 0) return;
+
+    const series = rs.reduce((a, b) => a + b, 0);
+    const parallelInv = rs.reduce((acc, r) => acc + (1 / r), 0);
+    const parallel = parallelInv > 0 ? 1 / parallelInv : 0;
+
+    document.getElementById('circ-series')!.textContent = series.toFixed(2) + ' Ω';
+    document.getElementById('circ-parallel')!.textContent = parallel.toFixed(2) + ' Ω';
+  }
+
+
+  document.getElementById('circ-calc-btn')?.addEventListener('click', calculate);
+</script>

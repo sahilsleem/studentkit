@@ -1,0 +1,74 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-3 sm:space-y-3.5">
+  <div class="bg-card rounded-2xl border border-border-line/90 shadow-sm p-4 sm:p-5">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+      <div class="space-y-3.5">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Average Rate (λ &gt; 0)</label>
+          <input type="number" id="pd-lambda" min="0.01" step="0.5" placeholder="e.g. 4.5" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-ink text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent" />
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Number of Occurrences (k)</label>
+          <input type="number" id="pd-k" min="0" max="50" placeholder="e.g. 3" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-ink text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent" />
+        </div>
+
+        <button id="pd-calc-btn" type="button" class="w-full px-5 sm:px-6 py-3.5 sm:py-4 text-base bg-gradient-to-r from-violet-600 via-blue-600 to-teal-500 text-white hover:from-violet-500 hover:via-blue-500 hover:to-teal-400 hover:opacity-90 active:scale-[0.98] animate-gradient-x font-semibold rounded-xl shadow-sm transition-all has-ripple magnetic transition-transform duration-300">
+          Calculate Poisson Probability
+        </button>
+      </div>
+
+      <div class="flex flex-col justify-between p-4 sm:p-5 bg-page rounded-xl border border-border-line/80">
+        <div>
+          <div class="text-xs font-semibold text-slate-muted uppercase tracking-wider">Exact Probability P(X = k)</div>
+          <div id="pd-exact" class="text-4xl font-extrabold text-brand mt-1 font-mono break-words">--</div>
+          <div id="pd-exact-pct" class="text-xs text-slate-muted mt-1">16.87% chance</div>
+        </div>
+
+        <div class="pt-3 border-t border-border-line/80 mt-4 space-y-1.5 text-xs text-slate-muted">
+          <div class="flex flex-wrap justify-between gap-2">
+            <span>Cumulative P(X ≤ k):</span>
+            <strong id="pd-cum" class="text-ink font-mono break-words">0.3423</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function fact(n: number): number {
+    let res = 1;
+    for (let i = 2; i <= n; i++) res *= i;
+    return res;
+  }
+
+  function calculate() {
+    const lambda = parseFloat((document.getElementById('pd-lambda') as HTMLInputElement)?.value || '1');
+    const k = parseInt((document.getElementById('pd-k') as HTMLInputElement)?.value || '0', 10);
+
+    if (lambda <= 0 || k < 0) return;
+
+    const exact = (Math.pow(lambda, k) * Math.exp(-lambda)) / fact(k);
+    let cum = 0;
+    for (let i = 0; i <= k; i++) {
+      cum += (Math.pow(lambda, i) * Math.exp(-lambda)) / fact(i);
+    }
+
+    const exactEl = document.getElementById('pd-exact');
+    const exactPctEl = document.getElementById('pd-exact-pct');
+    const cumEl = document.getElementById('pd-cum');
+
+    if (exactEl) exactEl.textContent = exact.toFixed(4);
+    if (exactPctEl) exactPctEl.textContent = (exact * 100).toFixed(2) + '% chance';
+    if (cumEl) cumEl.textContent = cum.toFixed(4);
+  }
+
+
+  document.getElementById('pd-calc-btn')?.addEventListener('click', calculate);
+</script>

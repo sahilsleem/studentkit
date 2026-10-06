@@ -1,0 +1,19 @@
+﻿---
+import TestLayout from '../../layouts/TestLayout.astro';
+import AssessmentEngine from '../../components/tests/AssessmentEngine.astro';
+import { testsRegistry } from '../../data/testsRegistry';
+import { iqQuestions } from '../../data/tests/iqQuestions';
+
+const testMetadata = testsRegistry.find(t => t.slug === 'iq-test');
+if (!testMetadata) throw new Error("IQ Test metadata not found in registry");
+---
+
+<TestLayout test={testMetadata}>
+  <AssessmentEngine 
+    id="iq"
+    title="Online IQ & Reasoning Test"
+    description="This is an online reasoning assessment designed to challenge your cognitive skills across six distinct categories. It is not a clinical or professionally administered IQ test, and the results should be viewed as an engaging cognitive exercise rather than a formal medical or psychological diagnosis."
+    timeMinutes={20}
+    questions={iqQuestions}
+  />
+</TestLayout>

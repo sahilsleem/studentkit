@@ -1,0 +1,15 @@
+---
+import AntiBrainrotLayout from '../../layouts/AntiBrainrotLayout.astro';
+import FocusEngine from '../../components/anti-brainrot/FocusEngine.astro';
+import { getAntiBrainrotModule } from '../../data/antiBrainrotRegistry';
+
+const module = getAntiBrainrotModule('focus-challenge')!;
+---
+
+<AntiBrainrotLayout
+  module={module}
+  title="Focus Challenge — Train Sustained Attention"
+  description="Practice sustained attention with timed 5, 10, 15, or 20 minute focus sessions. Track interruptions and local progress with StudentKit's Focus Challenge."
+>
+  <FocusEngine defaultDuration={5} />
+</AntiBrainrotLayout>

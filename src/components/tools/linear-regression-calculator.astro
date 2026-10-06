@@ -1,0 +1,74 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-3 sm:space-y-3.5">
+  <div class="bg-card rounded-2xl border border-border-line/90 shadow-sm p-4 sm:p-5">
+    <div class="space-y-3.5">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">X Values (Independent Variable)</label>
+          <input type="text" id="lr-x" placeholder="e.g. 1, 2, 3, 4, 5" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-ink text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent font-mono" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Y Values (Dependent Variable)</label>
+          <input type="text" id="lr-y" placeholder="e.g. 2, 4, 5, 4, 5" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-ink text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent font-mono" />
+        </div>
+      </div>
+
+      <button id="lr-calc-btn" type="button" class="w-full px-5 sm:px-6 py-3.5 sm:py-4 text-base bg-gradient-to-r from-violet-600 via-blue-600 to-teal-500 text-white hover:from-violet-500 hover:via-blue-500 hover:to-teal-400 hover:opacity-90 active:scale-[0.98] animate-gradient-x font-semibold rounded-xl shadow-sm transition-all has-ripple magnetic transition-transform duration-300">
+        Fit Linear Regression Model
+      </button>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+        <div class="p-5 bg-page rounded-xl border border-border-line/80">
+          <div class="text-xs font-semibold text-slate-muted uppercase tracking-wider">Line of Best Fit (y = mx + b)</div>
+          <div id="lr-equation" class="text-2xl font-extrabold text-brand mt-1 font-mono break-words">--</div>
+        </div>
+
+        <div class="p-5 bg-page rounded-xl border border-border-line/80">
+          <div class="text-xs font-semibold text-slate-muted uppercase tracking-wider">Correlation & Determination</div>
+          <div id="lr-corr" class="text-2xl font-extrabold text-ink mt-1 font-mono">r = 0.7746 &nbsp;|&nbsp; R² = 0.60</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function calculate() {
+    const xs = (document.getElementById('lr-x') as HTMLInputElement)?.value.split(',').map(s => parseFloat(s.trim())).filter(n => !isNaN(n));
+    const ys = (document.getElementById('lr-y') as HTMLInputElement)?.value.split(',').map(s => parseFloat(s.trim())).filter(n => !isNaN(n));
+
+    const n = Math.min(xs.length, ys.length);
+    if (n < 2) return;
+
+    let sumX = 0, sumY = 0, sumXY = 0, sumXX = 0, sumYY = 0;
+    for (let i = 0; i < n; i++) {
+      sumX += xs[i];
+      sumY += ys[i];
+      sumXY += xs[i] * ys[i];
+      sumXX += xs[i] * xs[i];
+      sumYY += ys[i] * ys[i];
+    }
+
+    const m = (n * sumXY - sumX * sumY) / (n * sumXX - sumX * sumX);
+    const b = (sumY - m * sumX) / n;
+
+    const num = (n * sumXY - sumX * sumY);
+    const den = Math.sqrt((n * sumXX - sumX * sumX) * (n * sumYY - sumY * sumY));
+    const r = den !== 0 ? num / den : 0;
+    const r2 = r * r;
+
+    const eqEl = document.getElementById('lr-equation');
+    const corrEl = document.getElementById('lr-corr');
+
+    if (eqEl) eqEl.textContent = 'y = ' + m.toFixed(2) + 'x + ' + b.toFixed(2);
+    if (corrEl) corrEl.textContent = 'r = ' + r.toFixed(4) + '  |  R² = ' + r2.toFixed(2);
+  }
+
+
+  document.getElementById('lr-calc-btn')?.addEventListener('click', calculate);
+</script>

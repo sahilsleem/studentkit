@@ -1,0 +1,154 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-3 sm:space-y-3.5">
+  <div class="bg-card rounded-2xl border border-border-line/90 shadow-sm p-4 sm:p-5">
+    <div class="flex items-center justify-between pb-4 mb-6 border-b border-border-line">
+      <div>
+        <h2 class="text-lg font-bold text-ink">Roommate Rent Split Calculator</h2>
+        <p class="text-sm text-slate-muted">Calculate fair proportional rent based on room square footage and private amenities.</p>
+      </div>
+      <button id="rs-add-roommate" type="button" class="px-3 py-1.5 bg-brand-light text-brand hover:bg-brand-light font-medium text-xs rounded-lg transition-colors has-ripple">
+        + Add Roommate
+      </button>
+    </div>
+
+    <div class="mb-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div>
+        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Total Apartment Rent (₹/month)</label>
+        <input type="number" id="rs-total-rent" placeholder="e.g. 2400" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-ink text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent" />
+      </div>
+      <div>
+        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Split Model</label>
+        <select id="rs-model" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-ink text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent">
+          <option value="sqft" selected>Proportional by Bedroom Sq Ft</option>
+          <option value="equal">Equal Split</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="overflow-x-auto w-full"><table class="w-full text-left text-sm text-slate-muted">
+        <thead class="text-xs uppercase bg-page text-slate-muted font-semibold border-b border-border-line">
+          <tr>
+            <th class="py-3 px-3">Roommate</th>
+            <th class="py-3 px-3">Room Size (Sq Ft)</th>
+            <th class="py-3 px-3">Private Bath?</th>
+            <th class="py-3 px-3">Fair Share</th>
+            <th class="py-3 px-2 w-10"></th>
+          </tr>
+        </thead>
+        <tbody id="rs-body" class="divide-y divide-border-line"></tbody>
+      </table></div>
+
+
+    <div class="mt-4 flex items-center justify-between pt-3 border-t border-border-line">
+      <button id="rs-calc-btn" type="button" class="px-5 sm:px-6 py-3.5 sm:py-4 text-base bg-gradient-to-r from-violet-600 via-blue-600 to-teal-500 text-white hover:from-violet-500 hover:via-blue-500 hover:to-teal-400 hover:opacity-90 active:scale-[0.98] animate-gradient-x font-semibold rounded-xl shadow-sm transition-all has-ripple magnetic transition-transform duration-300">
+        Recalculate Shares
+      </button>
+      <div class="text-xs text-slate-muted">
+        Total Allocated: <strong id="rs-total-alloc" class="text-ink">--</strong>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const totalRentIn = document.getElementById('rs-total-rent') as HTMLInputElement;
+  const modelSelect = document.getElementById('rs-model') as HTMLSelectElement;
+  const tbody = document.getElementById('rs-body');
+  const addBtn = document.getElementById('rs-add-roommate');
+  const calcBtn = document.getElementById('rs-calc-btn');
+  const totalAllocEl = document.getElementById('rs-total-alloc');
+
+  let count = 0;
+
+  function addRow(name = '', sqft = 150, bath = false) {
+    count++;
+    const tr = document.createElement('tr');
+    tr.className = 'hover:bg-page/50 transition-colors';
+    tr.innerHTML =
+      '<td class="py-2.5 px-3">' +
+        '<input type="text" placeholder="e.g. Alex" class="rs-name w-full px-3 py-1.5 bg-page border border-border-line rounded-lg text-sm text-ink focus:outline-none focus:ring-1 focus:ring-brand-accent" />' +
+      '</td>' +
+      '<td class="py-2.5 px-3">' +
+        '<input type="number" min="50" step="10" placeholder="150" class="rs-sqft w-24 min-w-[4rem] flex-1 sm:flex-none px-3 py-1.5 bg-page border border-border-line rounded-lg text-sm text-ink focus:outline-none focus:ring-1 focus:ring-brand-accent" />' +
+      '</td>' +
+      '<td class="py-2.5 px-3">' +
+        '<input type="checkbox" ' + (bath ? 'checked' : '') + ' class="rs-bath rounded border-border-line text-brand focus:ring-brand-accent" />' +
+      '</td>' +
+      '<td class="py-2.5 px-3 font-mono font-bold text-brand rs-share">' +
+        '--' +
+      '</td>' +
+      '<td class="py-2.5 px-2 text-right">' +
+        '<button type="button" class="rs-del text-slate-muted hover:text-red-500 font-bold p-1 has-ripple">&times;</button>' +
+      '</td>';
+
+    tbody?.appendChild(tr);
+
+    tr.querySelector('.rs-del')?.addEventListener('click', () => {
+      if (tbody && tbody.children.length > 1) {
+        tr.remove();
+
+      }
+    });
+
+
+  }
+
+  function calculate() {
+    if (!tbody) return;
+    const totalRent = parseFloat(totalRentIn?.value || '0');
+    const model = modelSelect?.value || 'sqft';
+    const rows = tbody.querySelectorAll('tr');
+    const n = rows.length;
+    if (n === 0) return;
+
+    if (model === 'equal') {
+      const share = totalRent / n;
+      rows.forEach(r => {
+        const cell = r.querySelector('.rs-share');
+        if (cell) cell.textContent = '₹' + share.toFixed(2);
+      });
+      if (totalAllocEl) totalAllocEl.textContent = '₹' + totalRent.toFixed(2);
+      return;
+    }
+
+    // Weight: sqft + (bath ? 50 sqft equivalent bonus : 0)
+    let totalWeight = 0;
+    const weights: number[] = [];
+
+    rows.forEach(r => {
+      const sqftIn = r.querySelector('.rs-sqft') as HTMLInputElement;
+      const bathIn = r.querySelector('.rs-bath') as HTMLInputElement;
+      const sqft = parseFloat(sqftIn?.value || '100');
+      const hasBath = bathIn?.checked;
+      const w = sqft + (hasBath ? 40 : 0);
+      weights.push(w);
+      totalWeight += w;
+    });
+
+    let sumAlloc = 0;
+    rows.forEach((r, idx) => {
+      const share = totalWeight > 0 ? (weights[idx] / totalWeight) * totalRent : 0;
+      sumAlloc += share;
+      const cell = r.querySelector('.rs-share');
+      if (cell) cell.textContent = '₹' + share.toFixed(2);
+    });
+
+    if (totalAllocEl) totalAllocEl.textContent = '₹' + sumAlloc.toFixed(2);
+  }
+
+  function init() {
+    if (!tbody) return;
+    tbody.innerHTML = '';
+    addRow('', 0, false); addRow('', 0, false);
+
+  }
+
+  addBtn?.addEventListener('click', () => addRow('', 140, false));
+  calcBtn?.addEventListener('click', calculate);
+  resetBtn?.addEventListener('click', init);
+</script>

@@ -1,0 +1,640 @@
+---
+const catColors: Record<string, { border: string, text: string, icon: string, bg: string }> = {
+  'mathematics': { border: 'hover:border-blue-400', text: 'group-hover:text-blue-600', icon: 'text-blue-500', bg: 'hover:bg-blue-50/50' },
+  'physics': { border: 'hover:border-purple-400', text: 'group-hover:text-purple-600', icon: 'text-purple-500', bg: 'hover:bg-purple-50/50' },
+  'chemistry': { border: 'hover:border-emerald-400', text: 'group-hover:text-emerald-600', icon: 'text-emerald-500', bg: 'hover:bg-emerald-50/50' },
+  'biology-health-metrics': { border: 'hover:border-rose-400', text: 'group-hover:text-rose-600', icon: 'text-rose-500', bg: 'hover:bg-rose-50/50' },
+  'calculus-advanced-math': { border: 'hover:border-indigo-400', text: 'group-hover:text-indigo-600', icon: 'text-indigo-500', bg: 'hover:bg-indigo-50/50' },
+  'statistics-probability': { border: 'hover:border-amber-400', text: 'group-hover:text-amber-600', icon: 'text-amber-500', bg: 'hover:bg-amber-50/50' },
+  'computer-science-digital-logic': { border: 'hover:border-cyan-400', text: 'group-hover:text-cyan-600', icon: 'text-cyan-500', bg: 'hover:bg-cyan-50/50' },
+  'geometry-trigonometry-matrices': { border: 'hover:border-fuchsia-400', text: 'group-hover:text-fuchsia-600', icon: 'text-fuchsia-500', bg: 'hover:bg-fuchsia-50/50' },
+  'everyday-student-finance': { border: 'hover:border-green-400', text: 'group-hover:text-green-600', icon: 'text-green-500', bg: 'hover:bg-green-50/50' },
+  'academic-grades': { border: 'hover:border-red-400', text: 'group-hover:text-red-600', icon: 'text-red-500', bg: 'hover:bg-red-50/50' },
+  'study-productivity-writing': { border: 'hover:border-violet-400', text: 'group-hover:text-violet-600', icon: 'text-violet-500', bg: 'hover:bg-violet-50/50' },
+  'universal-measurement-converters': { border: 'hover:border-slate-400', text: 'group-hover:text-slate-600', icon: 'text-slate-500', bg: 'hover:bg-slate-50/50' }
+};
+
+import Layout from '../layouts/Layout.astro';
+import AdSlot from '../components/AdSlot.astro';
+import { tools, categories, getCategorySlug } from '../data/registry';
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "StudentKit",
+  "url": "https://studentkit.in/",
+  "description": "Free student tools for studying, calculations, tests, assessments, focus training, and everyday academic tasks."
+};
+
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "StudentKit",
+  "url": "https://studentkit.in/",
+  "logo": "https://studentkit.in/favicon.svg"
+};
+
+const categoryIcons: Record<string, string> = {
+  'academic-grades': `<path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342" />`,
+  'everyday-finance': `<path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 0 1 3 6H2.25m0 0v10.5m0-10.5h19.5m0 0v10.5m-19.5 0h19.5m0 0a.75.75 0 0 1 .75.75v.75m0 0a60.07 60.07 0 0 0-15.797 2.101c-.727.198-1.453-.342-1.453-1.096V18.75M6.75 9h10.5m-10.5 3h10.5m-10.5 3h5.25" />`,
+  'mathematics': `<path stroke-linecap="round" stroke-linejoin="round" d="M15.75 15.75V18a2.25 2.25 0 0 1-2.25 2.25h-6A2.25 2.25 0 0 1 5.25 18v-6A2.25 2.25 0 0 1 7.5 9.75h2.25m4.5 0a2.25 2.25 0 0 0-2.25-2.25h-6A2.25 2.25 0 0 0 3.75 9.75v6A2.25 2.25 0 0 0 6 18h2.25" />`,
+  'geometry-trigonometry-matrices': `<path stroke-linecap="round" stroke-linejoin="round" d="M5.25 7.5A2.25 2.25 0 0 1 7.5 5.25h9a2.25 2.25 0 0 1 2.25 2.25v9a2.25 2.25 0 0 1-2.25 2.25h-9a2.25 2.25 0 0 1-2.25-2.25v-9Z" />`,
+  'calculus-advanced-math': `<path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-3-3m10.5 3-3-3" />`,
+  'statistics-probability': `<path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" />`,
+  'physics': `<path stroke-linecap="round" stroke-linejoin="round" d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z" />`,
+  'chemistry': `<path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 0 1-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 0 1 4.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.942A4.5 4.5 0 0 1 15.918 17H8.082a4.5 4.5 0 0 1-2.312-.758L4.2 15.3" />`,
+  'biology-health': `<path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />`,
+  'computer-science-logic': `<path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5" />`,
+  'study-productivity-writing': `<path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />`,
+  'universal-converters': `<path stroke-linecap="round" stroke-linejoin="round" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />`
+};
+
+const categoryCards = categories.map(cat => ({
+  id: cat.id,
+  name: cat.name,
+  slug: getCategorySlug(cat.name),
+  icon: categoryIcons[cat.id] || `<path stroke-linecap="round" stroke-linejoin="round" d="M15.75 15.75V18a2.25 2.25 0 0 1-2.25 2.25h-6A2.25 2.25 0 0 1 5.25 18v-6A2.25 2.25 0 0 1 7.5 9.75h2.25" />`
+}));
+
+
+const assessments = [
+  {
+    title: "Online IQ & Reasoning Test",
+    description: "Multiple-choice reasoning assessment",
+    questions: "30 Questions",
+    time: "~20 Minutes",
+    slug: "iq-test",
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"></path>`,
+    status: "active"
+  },
+  {
+    title: "Logical Reasoning Test",
+    description: "Evaluate your pattern recognition, deductive logic, and problem-solving abilities.",
+    questions: "30 Questions",
+    time: "~20 Minutes",
+    slug: "logical-reasoning",
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5" />`,
+    status: "active"
+  },
+  {
+    title: "Numerical Reasoning Test",
+    description: "Assess your ability to work with numbers, percentages, sequences, and quantitative problem solving.",
+    questions: "30 Questions",
+    time: "~20 Minutes",
+    slug: "numerical-reasoning",
+    icon: `<rect width="16" height="20" x="4" y="2" rx="2" stroke-linecap="round" stroke-linejoin="round"></rect><line x1="8" x2="16" y1="6" y2="6" stroke-linecap="round" stroke-linejoin="round"></line><path stroke-linecap="round" stroke-linejoin="round" d="M16 10h.01M12 10h.01M8 10h.01M12 14h.01M8 14h.01M12 18h.01M8 18h.01"></path>`,
+    status: "active"
+  },
+  {
+    title: "Verbal Reasoning Test",
+    description: "Evaluate your word relationships, verbal logic, reading comprehension, and deductive reasoning.",
+    questions: "30 Questions",
+    time: "~20 Minutes",
+    slug: "verbal-reasoning",
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>`,
+    status: "active"
+  },
+  {
+    title: "Spatial Reasoning Test",
+    description: "Measure mental rotation, 2D/3D transformations, cube folding, and visual-spatial reasoning.",
+    questions: "30 Questions",
+    time: "~20 Minutes",
+    slug: "spatial-reasoning",
+    icon: `<path stroke-linecap="round" stroke-linejoin="round" d="m21 7.5-9-5.25L3 7.5m18 0-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9"></path>`,
+    status: "active"
+  },
+  {
+    title: "Memory Test",
+    description: "Assess short-term memory, working memory, sequence recall, pattern recognition, and spatial positioning.",
+    questions: "30 Questions",
+    time: "~20 Minutes",
+    slug: "memory",
+    icon: `<rect width="18" height="18" x="3" y="3" rx="2" stroke-linecap="round" stroke-linejoin="round"></rect><circle cx="8" cy="8" r="1" fill="currentColor"></circle><circle cx="12" cy="8" r="1" fill="currentColor"></circle><circle cx="16" cy="8" r="1" fill="currentColor"></circle><circle cx="8" cy="12" r="1" fill="currentColor"></circle><circle cx="12" cy="12" r="1" fill="currentColor"></circle><circle cx="16" cy="12" r="1" fill="currentColor"></circle><circle cx="8" cy="16" r="1" fill="currentColor"></circle><circle cx="12" cy="16" r="1" fill="currentColor"></circle><circle cx="16" cy="16" r="1" fill="currentColor"></circle>`,
+    status: "active"
+  }
+];
+
+const searchIndex = tools.map(tool => ({
+  s: tool.slug,
+  t: tool.title,
+  c: tool.category,
+  sc: tool.subcategory || '',
+  a: tool.aliases || [],
+  k: tool.keywords || []
+}));
+---
+
+<Layout title="StudentKit — Free Student Tools for Smarter Learning" description="Free student tools for studying, calculations, tests, assessments, focus training, and everyday academic tasks.">
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)}></script>
+    <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)}></script>
+  
+    <style>
+      .svg-draw path {
+        stroke-dasharray: 100;
+        stroke-dashoffset: 100;
+        transition: stroke-dashoffset 1.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+      .reveal.active .svg-draw path {
+        stroke-dashoffset: 0;
+      }
+    </style>
+  
+  </Fragment>
+
+  <!-- Clean, Left-Aligned Hero -->
+  <section class="relative text-left pt-1 pb-5 sm:pt-4 sm:pb-6 overflow-hidden hero-section">
+    
+    <div class="relative z-10 hero-content">
+    <h1 class="text-2xl sm:text-4xl font-extrabold text-ink tracking-tight max-w-3xl leading-tight mb-2 select-none">
+      <span class="inline-block whitespace-nowrap"><span class="letter-blip inline-block cursor-default">U</span><span class="letter-blip inline-block cursor-default">s</span><span class="letter-blip inline-block cursor-default">e</span><span class="letter-blip inline-block cursor-default">f</span><span class="letter-blip inline-block cursor-default">u</span><span class="letter-blip inline-block cursor-default">l</span></span>{' '}
+      <span class="inline-block whitespace-nowrap"><span class="letter-blip inline-block cursor-default">t</span><span class="letter-blip inline-block cursor-default">o</span><span class="letter-blip inline-block cursor-default">o</span><span class="letter-blip inline-block cursor-default">l</span><span class="letter-blip inline-block cursor-default">s</span></span>{' '}
+      <span class="inline-block whitespace-nowrap"><span class="letter-blip inline-block cursor-default">f</span><span class="letter-blip inline-block cursor-default">o</span><span class="letter-blip inline-block cursor-default">r</span></span>{' '}
+      <span class="inline-block whitespace-nowrap text-brand-accent"><span class="letter-blip letter-blip-brand inline-block cursor-default">e</span><span class="letter-blip letter-blip-brand inline-block cursor-default">v</span><span class="letter-blip letter-blip-brand inline-block cursor-default">e</span><span class="letter-blip letter-blip-brand inline-block cursor-default">r</span><span class="letter-blip letter-blip-brand inline-block cursor-default">y</span><span class="letter-blip letter-blip-brand inline-block cursor-default">d</span><span class="letter-blip letter-blip-brand inline-block cursor-default">a</span><span class="letter-blip letter-blip-brand inline-block cursor-default">y</span></span>{' '}
+      <span class="inline-block whitespace-nowrap text-brand-accent"><span class="letter-blip letter-blip-brand inline-block cursor-default">s</span><span class="letter-blip letter-blip-brand inline-block cursor-default">t</span><span class="letter-blip letter-blip-brand inline-block cursor-default">u</span><span class="letter-blip letter-blip-brand inline-block cursor-default">d</span><span class="letter-blip letter-blip-brand inline-block cursor-default">y</span><span class="letter-blip letter-blip-brand inline-block cursor-default">i</span><span class="letter-blip letter-blip-brand inline-block cursor-default">n</span><span class="letter-blip letter-blip-brand inline-block cursor-default">g</span><span class="letter-blip letter-blip-brand inline-block cursor-default">.</span></span>
+    </h1>
+
+    <p class="text-sm sm:text-base text-slate-muted max-w-xl mb-4 leading-relaxed">
+      Free student tools for studying, calculations, tests, and everyday academic tasks.
+    </p>
+
+    <!-- Prominent Interactive Search Field (Inline) -->
+    <div class="max-w-xl relative" id="hero-search-wrapper">
+      <div class="relative flex items-center">
+        <div class="absolute inset-y-0 left-0 pl-3.5 sm:pl-4 flex items-center pointer-events-none text-slate-muted">
+          <svg class="w-5 h-5 text-brand-accent shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+          </svg>
+        </div>
+        <input
+          type="text"
+          id="hero-search-input"
+          class="w-full pl-11 pr-10 py-2.5 sm:py-3 bg-card border border-border-line hover:border-brand-accent focus:border-brand focus:ring-2 focus:ring-brand-accent/20 rounded-xl shadow-sm text-ink placeholder-slate-muted text-sm sm:text-base transition-all focus:outline-hidden"
+          placeholder="Search tools, formulas, or topics..."
+          autocomplete="off"
+          spellcheck="false"
+          aria-label="Search tools"
+          role="combobox"
+          aria-expanded="false"
+          aria-autocomplete="list"
+          aria-controls="hero-search-results"
+        />
+        <button
+          type="button"
+          id="hero-search-clear"
+          class="hidden absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-muted hover:text-slate-muted cursor-pointer"
+          aria-label="Clear search"
+        >
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Hero Inline Results Container (Below input in normal page flow) -->
+      <div
+        id="hero-search-results"
+        role="listbox"
+        aria-label="Search results"
+        class="hidden mt-2 bg-card rounded-xl border border-border-line shadow-md max-h-72 overflow-y-auto p-1.5 text-left z-20"
+      >
+      </div>
+    </div>
+  </div>
+  </section>
+
+  <!-- Category Grid Section (Core Discovery) -->
+  <section class="pt-5 pb-2 sm:pt-6 sm:pb-4 border-t border-border-line">
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="text-lg sm:text-xl font-bold text-ink tracking-tight">Browse by Category</h2>
+      <a href="/tools" class="inline-flex items-center gap-1 text-xs sm:text-sm font-semibold text-brand hover:text-brand-accent transition-colors">
+        <span>View all</span>
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+        </svg>
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-3">
+      {categoryCards.map((cat, idx) => (
+        <a
+          style={{ "--stagger": idx }}
+          href={`/category/${cat.slug}`}
+          class="reveal has-ripple group flex items-center gap-2.5 sm:gap-3 p-3 bg-card/80 backdrop-blur-sm rounded-2xl border border-border-line/80 hover:border-brand-accent hover:shadow-xl hover:-translate-y-1 hover:scale-[1.02] transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] min-h-[44px] relative overflow-hidden"
+        >
+          <div class="flex items-center justify-center w-7 h-7 rounded-lg bg-brand-light/80 text-brand shrink-0 group-hover:bg-gradient-to-br group-hover:from-violet-500 group-hover:to-teal-400 group-hover:text-white transition-all duration-300 group-hover:scale-110 group-hover:-rotate-3">
+            <svg class="w-3.5 h-3.5 svg-draw" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" set:html={cat.icon} />
+          </div>
+          <span class="text-[13px] sm:text-sm font-semibold text-ink group-hover:text-brand transition-colors leading-tight sm:truncate flex-1 min-w-0">
+            {cat.name}
+          </span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+    <!-- NEW Tests & Assessments Section -->
+    <section class="pt-5 pb-2 sm:pt-6 sm:pb-4 border-t border-border-line">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg sm:text-xl font-bold text-ink tracking-tight">Tests & Assessments</h2>
+        <a href="/tests" class="inline-flex items-center gap-1 text-xs sm:text-sm font-semibold text-brand hover:text-brand-accent transition-colors">
+          <span>View all</span>
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+          </svg>
+        </a>
+      </div>
+      <p class="text-[13px] sm:text-sm text-slate-muted mb-6">
+        Challenge yourself, test your reasoning, and see how you perform.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
+        {assessments.map((item, idx) => (
+          item.status === "active" ? (
+            <a 
+              href={`/tests/${item.slug}`}
+              style={{ "--stagger": idx + 10 }}
+              class="block reveal has-ripple group bg-card/80 backdrop-blur-sm rounded-2xl border border-border-line/80 p-5 sm:p-6 hover:border-brand hover:shadow-xl md:hover:-translate-y-1 md:hover:scale-[1.02] transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] relative overflow-hidden"
+            >
+              <div class="flex items-start justify-between mb-4">
+                <div class="flex items-center justify-center w-10 h-10 rounded-xl bg-brand-light/80 text-brand shrink-0 group-hover:bg-gradient-to-br group-hover:from-violet-500 group-hover:to-teal-400 group-hover:text-white transition-all duration-300 group-hover:scale-110 group-hover:-rotate-3">
+                  <svg class="w-5 h-5 svg-draw" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" set:html={item.icon} />
+                </div>
+                <div class="flex items-center gap-2.5 text-[11px] sm:text-xs font-semibold text-slate-muted">
+                  <span class="flex items-center gap-1 bg-slate-50 px-2 py-1 rounded-md border border-border-line/40">
+                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    {item.time}
+                  </span>
+                  <span class="flex items-center gap-1 bg-slate-50 px-2 py-1 rounded-md border border-border-line/40">
+                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                    {item.questions}
+                  </span>
+                </div>
+              </div>
+              
+              <h3 class="text-base sm:text-lg font-bold text-ink mb-2 group-hover:text-brand transition-colors">
+                {item.title}
+              </h3>
+              <p class="text-[13px] sm:text-sm text-slate-muted leading-relaxed mb-4">
+                {item.description}
+              </p>
+
+              <div class="inline-flex items-center gap-1.5 text-[13px] font-bold text-brand">
+                Start Test 
+                <svg class="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+              </div>
+            </a>
+          ) : (
+            <div 
+              style={{ "--stagger": idx + 10 }}
+              class="block reveal bg-slate-50/50 rounded-2xl border border-dashed border-border-line/80 p-5 sm:p-6 opacity-70 cursor-not-allowed"
+            >
+              <div class="flex items-start justify-between mb-4">
+                <div class="flex items-center justify-center w-10 h-10 rounded-xl bg-slate-200/60 text-slate-400 shrink-0">
+                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" set:html={item.icon} />
+                </div>
+                <div class="flex items-center gap-2.5 text-[11px] sm:text-xs font-semibold text-slate-400">
+                  <span class="bg-slate-200/50 px-2 py-1 rounded-md uppercase tracking-wider">{item.time}</span>
+                </div>
+              </div>
+              
+              <h3 class="text-base sm:text-lg font-bold text-slate-500 mb-2">
+                {item.title}
+              </h3>
+              <p class="text-[13px] sm:text-sm text-slate-400 leading-relaxed">
+                {item.description}
+              </p>
+            </div>
+          )
+        ))}
+      </div>
+    </section>
+
+    <!-- Anti-Brainrot Training Section -->
+    <section class="pt-5 pb-2 sm:pt-6 sm:pb-4 border-t border-border-line">
+      <div class="flex items-center justify-between mb-4">
+        <div class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-brand animate-pulse"></span>
+          <h2 class="text-lg sm:text-xl font-bold text-ink tracking-tight">Anti-Brainrot Focus Training</h2>
+        </div>
+        <a href="/anti-brainrot" class="inline-flex items-center gap-1 text-xs sm:text-sm font-semibold text-brand hover:text-brand-accent transition-colors">
+          <span>Training Hub</span>
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+          </svg>
+        </a>
+      </div>
+      <p class="text-[13px] sm:text-sm text-slate-muted mb-6">
+        Short, high-intensity exercises designed to train sustained focus, calculation speed, and resistance to distraction.
+      </p>
+
+      <div class="reveal has-ripple group bg-card/80 backdrop-blur-sm rounded-2xl border border-border-line/80 p-5 sm:p-7 hover:border-brand hover:shadow-xl md:hover:-translate-y-1 md:hover:scale-[1.02] transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] relative overflow-hidden cursor-pointer">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
+          <div class="max-w-xl">
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-brand/10 text-brand border border-brand/20 mb-3 group-hover:bg-brand group-hover:text-white transition-all duration-300 pointer-events-none">
+              <svg class="w-3.5 h-3.5 group-hover:rotate-12 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+              COGNITIVE DRILLS
+            </div>
+            <h3 class="text-xl sm:text-2xl font-extrabold text-ink tracking-tight mb-2 group-hover:text-brand transition-colors duration-300">
+              <a href="/anti-brainrot" class="focus:outline-hidden after:absolute after:inset-0 after:z-0">
+                Your attention span isn't gone. Train it.
+              </a>
+            </h3>
+            <p class="text-xs sm:text-sm text-slate-muted leading-relaxed pointer-events-none">
+              Sharpen your active working memory and mental arithmetic reflexes with rapid-fire 30-item training sessions.
+            </p>
+          </div>
+
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0 relative z-10">
+            <a
+              href="/anti-brainrot/quick-math"
+              class="px-6 py-3.5 bg-brand hover:bg-brand/90 text-white font-bold rounded-xl shadow-sm text-center text-sm transition-all duration-300 transform hover:scale-[1.03] active:scale-[0.98] flex items-center justify-center gap-2 focus-ring group/btn relative z-10"
+            >
+              <svg class="w-4 h-4 group-hover/btn:scale-110 group-hover/btn:-rotate-6 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+              Quick Math
+            </a>
+            <a
+              href="/anti-brainrot"
+              class="px-6 py-3.5 bg-slate-100 hover:bg-slate-200 text-ink font-semibold rounded-xl text-center text-sm transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-1.5 focus-ring group/link relative z-10"
+            >
+              <span>All Modules</span>
+              <span class="group-hover/link:translate-x-1 transition-transform duration-300">→</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <AdSlot variant="horizontal" />
+</Layout>
+
+<script id="hero-search-index" type="application/json" set:html={JSON.stringify(searchIndex).replace(/</g, '\\u003c')} />
+
+<script>
+  interface SearchItem {
+    s: string;  // slug
+    t: string;  // title
+    c: string;  // category
+    sc: string; // subcategory
+    a: string[]; // aliases
+    k: string[]; // keywords
+  }
+
+  const setupHeroSearch = () => {
+    const rawDataEl = document.getElementById('hero-search-index');
+    const input = document.getElementById('hero-search-input') as HTMLInputElement | null;
+    const clearBtn = document.getElementById('hero-search-clear');
+    const resultsContainer = document.getElementById('hero-search-results');
+
+    if (!rawDataEl || !input || !resultsContainer) return;
+
+    let searchItems: SearchItem[] = [];
+    try {
+      searchItems = JSON.parse(rawDataEl.textContent || '[]');
+    } catch (e) {
+      searchItems = [];
+    }
+
+    const normalize = (str: string) => str ? str.toLowerCase().trim().replace(/\s+/g, ' ') : '';
+    const getWords = (str: string) => str.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim().split(/\s+/).filter(Boolean);
+
+    const indexedItems = searchItems.map(item => {
+      const titleNorm = normalize(item.t);
+      const titleWords = getWords(item.t);
+      const slugNorm = normalize(item.s.replace(/-/g, ' '));
+      const slugWords = getWords(item.s);
+      const categoryNorm = normalize(item.c);
+      const categoryWords = getWords(item.c);
+      const aliases = (item.a || []).map(normalize);
+      const keywords = (item.k || []).map(normalize);
+
+      const allPhrases = [titleNorm, slugNorm, ...aliases, ...keywords];
+      const allWords = [...titleWords, ...slugWords, ...aliases.flatMap(getWords), ...keywords.flatMap(getWords)];
+
+      return {
+        ...item,
+        titleNorm,
+        allPhrases,
+        allWords,
+        categoryWords
+      };
+    });
+
+    let selectedIdx = -1;
+    let filteredResults: { s: string; t: string }[] = [];
+
+    const runQuery = (q: string): { s: string; t: string }[] => {
+      const normQ = normalize(q);
+      if (!normQ) return [];
+
+      const qWords = getWords(normQ);
+      const results: { s: string; t: string; score: number }[] = [];
+
+      for (const item of indexedItems) {
+        let isMatch = false;
+        let score = 0;
+
+        // 1. Exact or prefix match on title
+        if (item.titleNorm.startsWith(normQ)) {
+          isMatch = true;
+          score += 200;
+        } else if (item.titleNorm.includes(normQ)) {
+          if (normQ.length <= 3) {
+            if (item.allWords.some(w => w.startsWith(normQ) || w === normQ)) {
+              isMatch = true;
+              score += 150;
+            }
+          } else {
+            isMatch = true;
+            score += 120;
+          }
+        }
+
+        // 2. Keyword / Alias / Phrase match
+        if (!isMatch) {
+          for (const phrase of item.allPhrases) {
+            if (phrase.includes(normQ)) {
+              if (normQ.length <= 3) {
+                if (item.allWords.some(w => w.startsWith(normQ) || w === normQ)) {
+                  isMatch = true;
+                  score += 100;
+                  break;
+                }
+              } else {
+                isMatch = true;
+                score += 90;
+                break;
+              }
+            }
+          }
+        }
+
+        // 3. Multi-word query check
+        if (!isMatch && qWords.length > 1) {
+          const allPresent = qWords.every(qw =>
+            item.allWords.some(w => w.startsWith(qw) || w === qw) ||
+            item.allPhrases.some(p => p.includes(qw))
+          );
+          if (allPresent) {
+            isMatch = true;
+            score += 80;
+          }
+        }
+
+        // 4. Category match
+        if (!isMatch) {
+          if (item.categoryWords.some(w => w === normQ || (normQ.length >= 4 && w.startsWith(normQ)))) {
+            isMatch = true;
+            score += 30;
+          }
+        }
+
+        if (isMatch) {
+          results.push({ s: item.s, t: item.t, score });
+        }
+      }
+
+      results.sort((a, b) => b.score - a.score || a.t.length - b.t.length);
+      return results.slice(0, 10).map(r => ({ s: r.s, t: r.t }));
+    };
+
+    const updateSelection = (idx: number) => {
+      const options = resultsContainer.querySelectorAll<HTMLElement>('a[role="option"]');
+      options.forEach((opt, i) => {
+        if (i === idx) {
+          opt.classList.add('bg-brand-light', 'text-brand');
+          opt.scrollIntoView({ block: 'nearest' });
+        } else {
+          opt.classList.remove('bg-brand-light', 'text-brand');
+        }
+      });
+      selectedIdx = idx;
+    };
+
+    input.addEventListener('input', (e) => {
+      const q = (e.target as HTMLInputElement).value;
+
+      if (!q.trim()) {
+        filteredResults = [];
+        selectedIdx = -1;
+        if (clearBtn) clearBtn.classList.add('hidden');
+        resultsContainer.innerHTML = '';
+        resultsContainer.classList.add('hidden');
+        input.setAttribute('aria-expanded', 'false');
+        return;
+      }
+
+      if (clearBtn) clearBtn.classList.remove('hidden');
+      filteredResults = runQuery(q);
+      selectedIdx = -1;
+
+      if (filteredResults.length === 0) {
+        resultsContainer.innerHTML = '<div class="p-3 text-center text-xs sm:text-sm text-slate-muted">No tools found.</div>';
+        resultsContainer.classList.remove('hidden');
+        input.setAttribute('aria-expanded', 'true');
+        return;
+      }
+
+      resultsContainer.innerHTML = filteredResults.map((tool, idx) => `
+        <a
+          href="/tools/${tool.s}"
+          role="option"
+          id="hero-result-${idx}"
+          class="block px-3.5 py-2.5 rounded-lg text-xs sm:text-sm font-semibold text-ink hover:text-brand hover:bg-page transition-colors truncate"
+        >
+          ${tool.t}
+        </a>
+      `).join('');
+      resultsContainer.classList.remove('hidden');
+      input.setAttribute('aria-expanded', 'true');
+    });
+
+    clearBtn?.addEventListener('click', () => {
+      input.value = '';
+      filteredResults = [];
+      selectedIdx = -1;
+      clearBtn.classList.add('hidden');
+      resultsContainer.innerHTML = '';
+      resultsContainer.classList.add('hidden');
+      input.setAttribute('aria-expanded', 'false');
+      input.focus();
+    });
+
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        resultsContainer.classList.add('hidden');
+        input.setAttribute('aria-expanded', 'false');
+        return;
+      }
+
+      if (filteredResults.length === 0) return;
+
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        const next = selectedIdx < filteredResults.length - 1 ? selectedIdx + 1 : 0;
+        updateSelection(next);
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        const prev = selectedIdx > 0 ? selectedIdx - 1 : filteredResults.length - 1;
+        updateSelection(prev);
+      } else if (e.key === 'Enter') {
+        if (selectedIdx >= 0 && selectedIdx < filteredResults.length) {
+          e.preventDefault();
+          window.location.href = `/tools/${filteredResults[selectedIdx].s}`;
+        }
+      }
+    });
+
+    // Close dropdown on click outside
+    document.addEventListener('click', (e) => {
+      const wrap = document.getElementById('hero-search-wrapper');
+      if (wrap && !wrap.contains(e.target as HTMLElement)) {
+        resultsContainer.classList.add('hidden');
+        input.setAttribute('aria-expanded', 'false');
+      }
+    });
+  };
+
+  setupHeroSearch();
+  document.addEventListener('astro:page-load', setupHeroSearch);
+</script>
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+
+
+  // Initialize GSAP Parallax
+  const initGSAP = () => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    
+    // Parallax fade out hero content on scroll
+    gsap.to('.hero-content', {
+      scrollTrigger: {
+        trigger: '.hero-section',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: 1
+      },
+      y: 80,
+      opacity: 0,
+      ease: 'none'
+    });
+  };
+
+  // Run on load and Astro page transitions
+  const initAll = () => {
+    
+    initGSAP();
+  };
+  initAll();
+  document.addEventListener('astro:page-load', initAll);
+</script>
+

@@ -1,0 +1,19 @@
+﻿---
+import TestLayout from '../../layouts/TestLayout.astro';
+import AssessmentEngine from '../../components/tests/AssessmentEngine.astro';
+import { testsRegistry } from '../../data/testsRegistry';
+import { logicalQuestions } from '../../data/tests/logicalQuestions';
+
+const testMetadata = testsRegistry.find(t => t.slug === 'logical-reasoning');
+if (!testMetadata) throw new Error("Logical Reasoning Test metadata not found in registry");
+---
+
+<TestLayout test={testMetadata}>
+  <AssessmentEngine 
+    id="logical"
+    title="Logical Reasoning Test"
+    description="This is a comprehensive logical reasoning assessment designed to evaluate your pattern recognition, deductive logic, and problem-solving abilities. It provides a challenging cognitive exercise that tests your ability to think critically and draw valid conclusions from complex premises."
+    timeMinutes={20}
+    questions={logicalQuestions}
+  />
+</TestLayout>

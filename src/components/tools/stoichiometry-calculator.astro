@@ -1,0 +1,53 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-3 sm:space-y-3.5">
+  <div class="bg-card rounded-2xl border border-border-line/90 shadow-sm p-4 sm:p-5">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+      <div class="space-y-3.5">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Reactant A Moles</label>
+          <input type="number" id="st-a-mol" placeholder="e.g. 2.0" step="any" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-sm" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Stoichiometric Ratio (A : B)</label>
+          <div class="flex gap-2 items-center">
+            <input type="number" id="st-coeff-a" placeholder="e.g. 2" class="w-20 min-w-[4rem] flex-1 sm:flex-none min-w-[4rem] flex-1 sm:flex-none px-3 py-2 bg-page border border-border-line rounded-xl text-sm text-center font-bold" />
+            <span class="font-bold">:</span>
+            <input type="number" id="st-coeff-b" placeholder="e.g. 1" class="w-20 min-w-[4rem] flex-1 sm:flex-none min-w-[4rem] flex-1 sm:flex-none px-3 py-2 bg-page border border-border-line rounded-xl text-sm text-center font-bold" />
+          </div>
+        </div>
+
+        <button id="st-calc-btn" type="button" class="w-full px-5 sm:px-6 py-3.5 sm:py-4 text-base bg-gradient-to-r from-violet-600 via-blue-600 to-teal-500 text-white hover:from-violet-500 hover:via-blue-500 hover:to-teal-400 hover:opacity-90 active:scale-[0.98] animate-gradient-x font-semibold rounded-xl shadow-sm transition-all has-ripple magnetic transition-transform duration-300">
+          Calculate Stoichiometric Product
+        </button>
+      </div>
+
+      <div class="flex flex-col justify-between p-4 sm:p-5 bg-page rounded-xl border border-border-line/80">
+        <div>
+          <div class="text-xs font-semibold text-slate-muted uppercase tracking-wider">Required Product B Moles</div>
+          <div id="st-res" class="text-4xl font-extrabold text-brand mt-1 font-mono break-words">--</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function calculate() {
+    const molA = parseFloat((document.getElementById('st-a-mol') as HTMLInputElement)?.value || '0');
+    const cA = parseFloat((document.getElementById('st-coeff-a') as HTMLInputElement)?.value || '1');
+    const cB = parseFloat((document.getElementById('st-coeff-b') as HTMLInputElement)?.value || '1');
+
+    if (cA <= 0) return;
+    const molB = molA * (cB / cA);
+
+    document.getElementById('st-res')!.textContent = molB.toFixed(3) + ' mol';
+  }
+
+
+  document.getElementById('st-calc-btn')?.addEventListener('click', calculate);
+</script>

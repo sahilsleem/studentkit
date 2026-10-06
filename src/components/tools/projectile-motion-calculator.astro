@@ -1,0 +1,72 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-3 sm:space-y-3.5">
+  <div class="bg-card rounded-2xl border border-border-line/90 shadow-sm p-4 sm:p-5">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+      <div class="space-y-3.5">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Initial Velocity (v₀ in m/s)</label>
+          <input type="number" id="pm-v0" placeholder="e.g. 25" min="0.1" step="any" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-sm" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Launch Angle (θ in degrees)</label>
+          <input type="number" id="pm-angle" placeholder="e.g. 45" min="0" max="90" step="1" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-sm" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Initial Launch Height (h₀ in m)</label>
+          <input type="number" id="pm-h0" placeholder="e.g. 0" min="0" step="any" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-sm" />
+        </div>
+
+        <button id="pm-calc-btn" type="button" class="w-full px-5 sm:px-6 py-3.5 sm:py-4 text-base bg-gradient-to-r from-violet-600 via-blue-600 to-teal-500 text-white hover:from-violet-500 hover:via-blue-500 hover:to-teal-400 hover:opacity-90 active:scale-[0.98] animate-gradient-x font-semibold rounded-xl shadow-sm transition-all has-ripple magnetic transition-transform duration-300">
+          Calculate Trajectory
+        </button>
+      </div>
+
+      <div class="flex flex-col justify-between p-4 sm:p-5 bg-page rounded-xl border border-border-line/80">
+        <div>
+          <div class="text-xs font-semibold text-slate-muted uppercase tracking-wider">Horizontal Range (R)</div>
+          <div id="pm-range" class="text-4xl font-extrabold text-brand mt-1 font-mono break-words">--</div>
+        </div>
+
+        <div class="pt-3 border-t border-border-line/80 mt-4 space-y-1.5 text-xs text-slate-muted">
+          <div class="flex flex-wrap justify-between gap-2">
+            <span>Max Height (H_max):</span>
+            <strong id="pm-hmax" class="text-ink font-mono break-words">15.94 m</strong>
+          </div>
+          <div class="flex flex-wrap justify-between gap-2">
+            <span>Time of Flight (T):</span>
+            <strong id="pm-flight" class="text-ink font-mono break-words">3.61 s</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function calculate() {
+    const v0 = parseFloat((document.getElementById('pm-v0') as HTMLInputElement)?.value || '0');
+    const deg = parseFloat((document.getElementById('pm-angle') as HTMLInputElement)?.value || '45');
+    const h0 = parseFloat((document.getElementById('pm-h0') as HTMLInputElement)?.value || '0');
+    const g = 9.80665;
+
+    const rad = (deg * Math.PI) / 180;
+    const vx = v0 * Math.cos(rad);
+    const vy = v0 * Math.sin(rad);
+
+    const tFlight = (vy + Math.sqrt(vy * vy + 2 * g * h0)) / g;
+    const range = vx * tFlight;
+    const hMax = h0 + (vy * vy) / (2 * g);
+
+    document.getElementById('pm-range')!.textContent = range.toFixed(2) + ' m';
+    document.getElementById('pm-hmax')!.textContent = hMax.toFixed(2) + ' m';
+    document.getElementById('pm-flight')!.textContent = tFlight.toFixed(2) + ' s';
+  }
+
+
+  document.getElementById('pm-calc-btn')?.addEventListener('click', calculate);
+</script>

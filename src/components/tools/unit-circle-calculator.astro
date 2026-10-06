@@ -1,0 +1,101 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-3 sm:space-y-3.5">
+  <div class="bg-card rounded-2xl border border-border-line/90 shadow-sm p-4 sm:p-5">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+      <div class="space-y-3.5">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Standard Angle θ</label>
+          <select id="uc-angle" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-ink text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent">
+            <option value="0">0° (0 rad)</option>
+            <option value="30">30° (π/6 rad)</option>
+            <option value="45" selected>45° (π/4 rad)</option>
+            <option value="60">60° (π/3 rad)</option>
+            <option value="90">90° (π/2 rad)</option>
+            <option value="120">120° (2π/3 rad)</option>
+            <option value="135">135° (3π/4 rad)</option>
+            <option value="150">150° (5π/6 rad)</option>
+            <option value="180">180° (π rad)</option>
+            <option value="210">210° (7π/6 rad)</option>
+            <option value="225">225° (5π/4 rad)</option>
+            <option value="240">240° (4π/3 rad)</option>
+            <option value="270">270° (3π/2 rad)</option>
+            <option value="300">300° (5π/3 rad)</option>
+            <option value="315">315° (7π/4 rad)</option>
+            <option value="330">330° (11π/6 rad)</option>
+          </select>
+        </div>
+
+        <button id="uc-calc-btn" type="button" class="w-full px-5 sm:px-6 py-3.5 sm:py-4 text-base bg-gradient-to-r from-violet-600 via-blue-600 to-teal-500 text-white hover:from-violet-500 hover:via-blue-500 hover:to-teal-400 hover:opacity-90 active:scale-[0.98] animate-gradient-x font-semibold rounded-xl shadow-sm transition-all has-ripple magnetic transition-transform duration-300">
+          Inspect Angle Coordinates
+        </button>
+      </div>
+
+      <div class="flex flex-col justify-between p-4 sm:p-5 bg-page rounded-xl border border-border-line/80">
+        <div>
+          <div class="text-xs font-semibold text-slate-muted uppercase tracking-wider">Unit Circle Coordinates (cos θ, sin θ)</div>
+          <div id="uc-coords" class="text-3xl font-extrabold text-brand mt-1 font-mono break-words">--</div>
+          <div id="uc-quadrant" class="text-xs text-slate-muted mt-1">--</div>
+        </div>
+
+        <div class="pt-3 border-t border-border-line/80 mt-4 space-y-1.5 text-xs text-slate-muted">
+          <div class="flex flex-wrap justify-between gap-2">
+            <span>Exact Radian:</span>
+            <strong id="uc-rad" class="text-ink font-mono break-words">--</strong>
+          </div>
+          <div class="flex flex-wrap justify-between gap-2">
+            <span>Exact Value:</span>
+            <strong id="uc-exact" class="text-ink font-mono break-words">--</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const exactMap: Record<number, { rad: string, exact: string, quad: string, ref: string }> = {
+    0: { rad: '0 rad', exact: '(1, 0)', quad: 'Positive X-Axis', ref: '0°' },
+    30: { rad: 'π/6 rad', exact: '(√3/2, 1/2)', quad: 'Quadrant I', ref: '30°' },
+    45: { rad: 'π/4 rad', exact: '(√2/2, √2/2)', quad: 'Quadrant I', ref: '45°' },
+    60: { rad: 'π/3 rad', exact: '(1/2, √3/2)', quad: 'Quadrant I', ref: '60°' },
+    90: { rad: 'π/2 rad', exact: '(0, 1)', quad: 'Positive Y-Axis', ref: '90°' },
+    120: { rad: '2π/3 rad', exact: '(-1/2, √3/2)', quad: 'Quadrant II', ref: '60°' },
+    135: { rad: '3π/4 rad', exact: '(-√2/2, √2/2)', quad: 'Quadrant II', ref: '45°' },
+    150: { rad: '5π/6 rad', exact: '(-√3/2, 1/2)', quad: 'Quadrant II', ref: '30°' },
+    180: { rad: 'π rad', exact: '(-1, 0)', quad: 'Negative X-Axis', ref: '0°' },
+    210: { rad: '7π/6 rad', exact: '(-√3/2, -1/2)', quad: 'Quadrant III', ref: '30°' },
+    225: { rad: '5π/4 rad', exact: '(-√2/2, -√2/2)', quad: 'Quadrant III', ref: '45°' },
+    240: { rad: '4π/3 rad', exact: '(-1/2, -√3/2)', quad: 'Quadrant III', ref: '60°' },
+    270: { rad: '3π/2 rad', exact: '(0, -1)', quad: 'Negative Y-Axis', ref: '90°' },
+    300: { rad: '5π/3 rad', exact: '(1/2, -√3/2)', quad: 'Quadrant IV', ref: '60°' },
+    315: { rad: '7π/4 rad', exact: '(√2/2, -√2/2)', quad: 'Quadrant IV', ref: '45°' },
+    330: { rad: '11π/6 rad', exact: '(√3/2, -1/2)', quad: 'Quadrant IV', ref: '30°' }
+  };
+
+  function update() {
+    const angle = parseInt((document.getElementById('uc-angle') as HTMLSelectElement)?.value || '45', 10);
+    const info = exactMap[angle];
+
+    const rad = (angle * Math.PI) / 180;
+    const x = Math.cos(rad);
+    const y = Math.sin(rad);
+
+    const coordsEl = document.getElementById('uc-coords');
+    const quadEl = document.getElementById('uc-quadrant');
+    const radEl = document.getElementById('uc-rad');
+    const exactEl = document.getElementById('uc-exact');
+
+    if (coordsEl) coordsEl.textContent = '(' + x.toFixed(4) + ', ' + y.toFixed(4) + ')';
+    if (quadEl && info) quadEl.textContent = info.quad + '  |  Ref: ' + info.ref;
+    if (radEl && info) radEl.textContent = info.rad;
+    if (exactEl && info) exactEl.textContent = info.exact;
+  }
+
+
+  document.getElementById('uc-calc-btn')?.addEventListener('click', update);
+</script>

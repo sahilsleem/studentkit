@@ -1,0 +1,102 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-3 sm:space-y-3.5">
+  <div class="bg-card rounded-2xl border border-border-line/90 shadow-sm p-4 sm:p-5">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+      <div class="space-y-3.5">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Start Date</label>
+          <input type="date" id="dd-start" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-ink text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent" />
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">End Date</label>
+          <input type="date" id="dd-end" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-ink text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent" />
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2 pt-2">
+          <input type="checkbox" id="dd-include-end" checked class="rounded border-border-line text-brand focus:ring-brand-accent" />
+          <label for="dd-include-end" class="text-xs text-slate-muted">Include end date in total count (+1 day)</label>
+        </div>
+
+        <button id="dd-calc-btn" type="button" class="w-full px-5 sm:px-6 py-3.5 sm:py-4 text-base bg-gradient-to-r from-violet-600 via-blue-600 to-teal-500 text-white hover:from-violet-500 hover:via-blue-500 hover:to-teal-400 hover:opacity-90 active:scale-[0.98] animate-gradient-x font-semibold rounded-xl shadow-sm transition-all has-ripple magnetic transition-transform duration-300">
+          Calculate Date Difference
+        </button>
+      </div>
+
+      <div class="flex flex-col justify-between p-4 sm:p-5 bg-page rounded-xl border border-border-line/80">
+        <div>
+          <div class="text-xs font-semibold text-slate-muted uppercase tracking-wider">Total Duration</div>
+          <div id="dd-days" class="text-4xl font-extrabold text-brand mt-1 font-mono break-words">-- days</div>
+          <div id="dd-breakdown" class="text-xs text-slate-muted mt-1">--</div>
+        </div>
+
+        <div class="pt-3 border-t border-border-line/80 mt-4 space-y-1.5 text-xs text-slate-muted">
+          <div class="flex flex-wrap justify-between gap-2">
+            <span>Workdays (Mon-Fri):</span>
+            <strong id="dd-workdays" class="text-ink">--</strong>
+          </div>
+          <div class="flex flex-wrap justify-between gap-2">
+            <span>Weekend Days:</span>
+            <strong id="dd-weekends" class="text-ink">--</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const startIn = document.getElementById('dd-start') as HTMLInputElement;
+  const endIn = document.getElementById('dd-end') as HTMLInputElement;
+  const includeEnd = document.getElementById('dd-include-end') as HTMLInputElement;
+  const daysEl = document.getElementById('dd-days');
+  const breakdownEl = document.getElementById('dd-breakdown');
+  const workdaysEl = document.getElementById('dd-workdays');
+  const weekendsEl = document.getElementById('dd-weekends');
+
+  // Default dates: today and 30 days later
+  const today = new Date();
+  const future = new Date();
+  future.setDate(today.getDate() + 30);
+  if (startIn) startIn.value = today.toISOString().split('T')[0];
+  if (endIn) endIn.value = future.toISOString().split('T')[0];
+
+  function calculate() {
+    if (!startIn.value || !endIn.value) return;
+    const d1 = new Date(startIn.value);
+    const d2 = new Date(endIn.value);
+
+    let diffTime = d2.getTime() - d1.getTime();
+    let diffDays = Math.round(diffTime / (1000 * 3600 * 24));
+    if (includeEnd?.checked && diffDays >= 0) diffDays += 1;
+
+    let workdays = 0;
+    let weekends = 0;
+    const curr = new Date(d1);
+    const end = new Date(d2);
+    if (includeEnd?.checked) end.setDate(end.getDate() + 1);
+
+    while (curr < end) {
+      const day = curr.getDay();
+      if (day === 0 || day === 6) weekends++;
+      else workdays++;
+      curr.setDate(curr.getDate() + 1);
+    }
+
+    const weeks = Math.floor(diffDays / 7);
+    const remDays = diffDays % 7;
+
+    if (daysEl) daysEl.textContent = diffDays + ' days';
+    if (breakdownEl) breakdownEl.textContent = weeks + ' weeks' + (remDays > 0 ? ' and ' + remDays + ' days' : '');
+    if (workdaysEl) workdaysEl.textContent = workdays + ' days';
+    if (weekendsEl) weekendsEl.textContent = weekends + ' days';
+  }
+
+
+  document.getElementById('dd-calc-btn')?.addEventListener('click', calculate);
+</script>

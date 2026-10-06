@@ -1,0 +1,618 @@
+---
+---
+
+<div class="w-full flex flex-col items-center">
+  <!-- Main Card -->
+  <div class="reveal group bg-card/80 backdrop-blur-sm rounded-3xl border border-border-line/80 hover:border-brand hover:shadow-xl hover:-translate-y-1.5 hover:scale-[1.02] transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] overflow-hidden relative flex flex-col w-full min-h-[420px]" id="mental-container">
+    
+    <!-- Intro Screen -->
+    <div id="mm-intro" class="flex flex-col items-center justify-center p-8 sm:p-12 text-center h-full flex-grow">
+      <div class="w-16 h-16 rounded-2xl bg-brand-light/80 text-brand flex items-center justify-center mb-6 shadow-sm border border-brand/20 group-hover:bg-gradient-to-br group-hover:from-violet-500 group-hover:to-teal-400 group-hover:text-white transition-all duration-300 group-hover:scale-110 group-hover:-rotate-3">
+        <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16" y1="14"/>
+        </svg>
+      </div>
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-ink mb-3 tracking-tight group-hover:text-brand transition-colors duration-300">Mental Math</h2>
+      <p class="text-slate-muted mb-8 max-w-sm mx-auto leading-relaxed">
+        Solve 30 mental arithmetic problems as quickly as possible. Keyboard (1-4) supported.
+      </p>
+      
+      <div id="mm-pb-display" class="hidden mb-6 px-4 py-2 bg-amber-50 rounded-xl border border-amber-200/50 text-amber-800 text-sm font-semibold flex items-center gap-2">
+        <svg class="w-4 h-4 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+        </svg>
+        Personal Best: <span id="mm-pb-score">--</span>
+      </div>
+
+      <button id="mm-start-btn" class="has-ripple px-8 py-3.5 bg-brand hover:bg-brand/90 text-white font-extrabold rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 transform active:scale-95 focus-ring">
+        Start Training
+      </button>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="mm-game" class="hidden flex-col h-full flex-grow relative w-full">
+      
+      <!-- Top Bar -->
+      <div class="flex items-center justify-between p-4 sm:p-5 border-b border-slate-100/50">
+        <div class="flex flex-col">
+          <span class="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider mb-0.5">Question</span>
+          <div class="text-sm sm:text-base font-black text-ink font-mono tracking-tight">
+            <span id="mm-q-num">1</span> <span class="text-slate-300">/</span> 30
+          </div>
+        </div>
+        
+        <div class="flex flex-col items-end">
+          <span class="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider mb-0.5">Score</span>
+          <div class="text-sm sm:text-base font-black text-brand font-mono tracking-tight" id="mm-score">
+            0
+          </div>
+        </div>
+      </div>
+      
+      <div class="flex flex-col items-center justify-center flex-grow p-4 sm:p-8">
+        
+        <!-- Per-Question Countdown Timer Bar (Quick Math Style) -->
+        <div class="relative w-full h-2.5 bg-slate-100 rounded-full overflow-hidden mb-8" id="timer-bar-container">
+          <div
+            id="mm-timer-bar"
+            class="h-full bg-brand rounded-full transition-all duration-75 ease-linear origin-left"
+            style="width: 100%;"
+          ></div>
+        </div>
+
+        <div id="mm-level-indicator" class="px-3 py-1 mb-4 sm:mb-6 rounded-full text-[10px] sm:text-xs font-bold tracking-wider uppercase bg-slate-100 text-slate-500 border border-slate-200/50">
+          Easy
+        </div>
+
+        <!-- Expression -->
+        <div id="mm-expression" class="text-4xl sm:text-6xl md:text-7xl font-black text-ink font-mono mb-8 sm:mb-10 tracking-tighter select-none transition-transform duration-150">
+          --
+        </div>
+
+        <!-- Answers Grid -->
+        <div class="grid grid-cols-2 gap-3 sm:gap-4 w-full max-w-sm mx-auto">
+          <button class="mm-answer-btn relative group h-14 sm:h-16 rounded-2xl border-2 border-border-line/70 bg-card hover:bg-slate-50 transition-all duration-150 focus:outline-hidden transform active:scale-95 touch-manipulation overflow-hidden" data-index="0">
+            <span class="absolute top-2 left-2 text-[10px] font-bold text-slate-300 group-hover:text-slate-400 transition-colors hidden sm:block">1</span>
+            <span class="text-lg sm:text-2xl font-black text-ink font-mono answer-val">--</span>
+          </button>
+          <button class="mm-answer-btn relative group h-14 sm:h-16 rounded-2xl border-2 border-border-line/70 bg-card hover:bg-slate-50 transition-all duration-150 focus:outline-hidden transform active:scale-95 touch-manipulation overflow-hidden" data-index="1">
+            <span class="absolute top-2 left-2 text-[10px] font-bold text-slate-300 group-hover:text-slate-400 transition-colors hidden sm:block">2</span>
+            <span class="text-lg sm:text-2xl font-black text-ink font-mono answer-val">--</span>
+          </button>
+          <button class="mm-answer-btn relative group h-14 sm:h-16 rounded-2xl border-2 border-border-line/70 bg-card hover:bg-slate-50 transition-all duration-150 focus:outline-hidden transform active:scale-95 touch-manipulation overflow-hidden" data-index="2">
+            <span class="absolute top-2 left-2 text-[10px] font-bold text-slate-300 group-hover:text-slate-400 transition-colors hidden sm:block">3</span>
+            <span class="text-lg sm:text-2xl font-black text-ink font-mono answer-val">--</span>
+          </button>
+          <button class="mm-answer-btn relative group h-14 sm:h-16 rounded-2xl border-2 border-border-line/70 bg-card hover:bg-slate-50 transition-all duration-150 focus:outline-hidden transform active:scale-95 touch-manipulation overflow-hidden" data-index="3">
+            <span class="absolute top-2 left-2 text-[10px] font-bold text-slate-300 group-hover:text-slate-400 transition-colors hidden sm:block">4</span>
+            <span class="text-lg sm:text-2xl font-black text-ink font-mono answer-val">--</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Results Screen -->
+    <div id="mm-results" class="hidden flex-col items-center justify-center p-6 sm:p-10 h-full flex-grow text-center">
+      <h3 class="text-2xl font-black text-ink mb-2">Training Complete</h3>
+      
+      <div id="mm-res-new-pb" class="hidden inline-flex items-center gap-1.5 px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-xs font-bold mb-6">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+        </svg>
+        New Personal Best!
+      </div>
+
+      <div class="text-5xl font-black text-brand font-mono mb-8 tracking-tighter" id="mm-res-score">
+        0
+      </div>
+
+      <div class="grid grid-cols-2 gap-3 sm:gap-4 w-full max-w-sm mb-8">
+        <div class="bg-slate-50 border border-slate-100 rounded-2xl p-3 flex flex-col items-center">
+          <span class="text-[10px] uppercase font-bold tracking-wider text-slate-400 mb-1">Accuracy</span>
+          <span class="text-lg font-black text-ink font-mono" id="mm-res-acc">0%</span>
+        </div>
+        <div class="bg-slate-50 border border-slate-100 rounded-2xl p-3 flex flex-col items-center">
+          <span class="text-[10px] uppercase font-bold tracking-wider text-slate-400 mb-1">Avg Time</span>
+          <span class="text-lg font-black text-ink font-mono" id="mm-res-avg">0.0s</span>
+        </div>
+        <div class="bg-slate-50 border border-slate-100 rounded-2xl p-3 flex flex-col items-center">
+          <span class="text-[10px] uppercase font-bold tracking-wider text-slate-400 mb-1">Max Streak</span>
+          <span class="text-lg font-black text-ink font-mono" id="mm-res-streak">0</span>
+        </div>
+        <div class="bg-slate-50 border border-slate-100 rounded-2xl p-3 flex flex-col items-center">
+          <span class="text-[10px] uppercase font-bold tracking-wider text-slate-400 mb-1">Highest Level</span>
+          <span class="text-lg font-black text-ink font-mono" id="mm-res-level">Easy</span>
+        </div>
+      </div>
+      
+      <div class="text-xs text-slate-400 mb-8 font-medium">
+        <span id="mm-res-correct" class="text-emerald-500">0 correct</span> &bull; 
+        <span id="mm-res-incorrect" class="text-red-400">0 incorrect</span> &bull; 
+        <span id="mm-res-missed" class="text-slate-500">0 missed</span>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-3 w-full max-w-sm">
+        <button id="mm-replay-btn" class="flex-1 has-ripple px-6 py-3 bg-brand hover:bg-brand/90 text-white font-bold rounded-xl shadow-sm transition-all transform active:scale-95 focus-ring">
+          Play Again
+        </button>
+        <a href="/anti-brainrot" class="flex-1 has-ripple px-6 py-3 bg-slate-100 hover:bg-slate-200 text-ink font-bold rounded-xl transition-all transform active:scale-95 focus-ring flex items-center justify-center">
+          Hub
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let memAbort = new AbortController();
+
+  document.addEventListener('astro:page-load', () => {
+    // Abort any existing listeners/timers from previous navigation
+    memAbort.abort();
+    memAbort = new AbortController();
+
+    const STORAGE_KEY = 'studentkit_mental_math_v1';
+    const MAX_QUESTIONS = 30;
+
+    // DOM Elements
+    const screenIntro = document.getElementById('mm-intro');
+    const screenGame = document.getElementById('mm-game');
+    const screenResults = document.getElementById('mm-results');
+    
+    const btnStart = document.getElementById('mm-start-btn');
+    const btnReplay = document.getElementById('mm-replay-btn');
+    const ansBtns = document.querySelectorAll('.mm-answer-btn');
+    const ansVals = document.querySelectorAll('.answer-val');
+    
+    const uiQNum = document.getElementById('mm-q-num');
+    const uiScore = document.getElementById('mm-score');
+    const uiLevel = document.getElementById('mm-level-indicator');
+    const uiExp = document.getElementById('mm-expression');
+    const uiTimerBar = document.getElementById('mm-timer-bar');
+    
+    // Result DOM Elements
+    const resScore = document.getElementById('mm-res-score');
+    const resAcc = document.getElementById('mm-res-acc');
+    const resAvg = document.getElementById('mm-res-avg');
+    const resStreak = document.getElementById('mm-res-streak');
+    const resLevel = document.getElementById('mm-res-level');
+    const resNewPb = document.getElementById('mm-res-new-pb');
+    const resCorrect = document.getElementById('mm-res-correct');
+    const resIncorrect = document.getElementById('mm-res-incorrect');
+    const resMissed = document.getElementById('mm-res-missed');
+    
+    const pbScoreDisplay = document.getElementById('mm-pb-score');
+    const pbDisplay = document.getElementById('mm-pb-display');
+
+    // Game State
+    let gameState: 'intro' | 'playing' | 'feedback' | 'results' = 'intro';
+    let qNum = 1;
+    let score = 0;
+    let correctCount = 0;
+    let incorrectCount = 0;
+    let timeoutCount = 0;
+    let streak = 0;
+    let maxStreak = 0;
+    let responseTimes: number[] = [];
+    
+    let currentAns = 0;
+    let currentLevelIdx = 0; // 0=Easy, 1=Medium, 2=Hard, 3=Lightning
+    
+    // Timers
+    let currentDuration = 4000;
+    let maxLevelIdx = 0;
+    
+    // Quick Math style timer variables
+    let timerInterval: number | null = null;
+    let timerTotalMs = 4000;
+    let timerRemainingMs = 4000;
+    let timerStart = 0;
+    
+    let questionDeadline = 0; // Keeping authoritative timestamp check
+    let feedbackTimeout: number | null = null;
+
+    const levelNames = ['Easy', 'Medium', 'Hard', 'Lightning'];
+    const levelColors = ['bg-slate-100 text-slate-500 border-slate-200/50', 'bg-blue-50 text-blue-600 border-blue-200', 'bg-amber-50 text-amber-600 border-amber-200', 'bg-purple-50 text-purple-600 border-purple-200'];
+    const levelDurations = [4000, 4000, 3000, 2500];
+
+    // Cleanup active timers on abort
+    memAbort.signal.addEventListener('abort', () => {
+      if (timerInterval !== null) clearInterval(timerInterval);
+      if (feedbackTimeout !== null) window.clearTimeout(feedbackTimeout);
+    });
+
+    function loadPB() {
+      try {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (stored) {
+          const data = JSON.parse(stored);
+          if (data && typeof data.score === 'number' && pbScoreDisplay && pbDisplay) {
+            pbScoreDisplay.textContent = data.score.toString();
+            pbDisplay.classList.remove('hidden');
+          }
+        }
+      } catch (e) {}
+    }
+
+    function savePB(newScore: number): boolean {
+      try {
+        let best = 0;
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (stored) {
+          const data = JSON.parse(stored);
+          if (data && typeof data.score === 'number') {
+            best = data.score;
+          }
+        }
+        if (newScore > best) {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify({ score: newScore, date: Date.now() }));
+          return true;
+        }
+      } catch (e) {}
+      return false;
+    }
+
+    function rand(min: number, max: number) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function determineLevel() {
+      let baseLevel = 0;
+      if (qNum >= 9) baseLevel = 1;
+      if (qNum >= 17) baseLevel = 2;
+      if (qNum >= 25) baseLevel = 3;
+
+      let actual = baseLevel;
+      if (streak >= 4) {
+        actual = Math.min(3, baseLevel + 1);
+      } else if (streak === 0 && incorrectCount > 0) {
+        actual = Math.max(0, baseLevel - 1);
+      }
+      
+      currentLevelIdx = actual;
+      if (currentLevelIdx > maxLevelIdx) maxLevelIdx = currentLevelIdx;
+      currentDuration = levelDurations[currentLevelIdx];
+    }
+
+    function generateQuestion() {
+      const level = currentLevelIdx;
+      let op = '+', num1 = 0, num2 = 0, ans = 0;
+      
+      while (true) {
+        if (level === 0) {
+          op = Math.random() > 0.5 ? '+' : '-';
+          if (op === '+') {
+            num1 = rand(2, 12); num2 = rand(2, 12);
+          } else {
+            num1 = rand(10, 25); num2 = rand(2, 12);
+          }
+        } else if (level === 1) {
+          op = ['+', '-', '×', '÷'][rand(0, 3)];
+          if (op === '+') {
+            num1 = rand(15, 45); num2 = rand(15, 45);
+          } else if (op === '-') {
+            num1 = rand(25, 60); num2 = rand(10, num1 - 1);
+          } else if (op === '×') {
+            num1 = rand(3, 9); num2 = rand(3, 9);
+          } else { // ÷
+            num2 = rand(2, 9);
+            ans = rand(2, 9);
+            num1 = num2 * ans;
+          }
+        } else if (level === 2) {
+          op = ['+', '-', '×', '÷'][rand(0, 3)];
+          if (op === '+') {
+            num1 = rand(40, 99); num2 = rand(20, 99);
+          } else if (op === '-') {
+            num1 = rand(50, 120); num2 = rand(20, 80);
+          } else if (op === '×') {
+            num1 = rand(6, 12); num2 = rand(4, 9);
+          } else { // ÷
+            num2 = rand(4, 12);
+            ans = rand(4, 12);
+            num1 = num2 * ans;
+          }
+        } else { // Lightning
+          op = ['+', '-', '×', '÷'][rand(0, 3)];
+          if (op === '+') {
+            num1 = rand(20, 80); num2 = rand(20, 80);
+          } else if (op === '-') {
+            num1 = rand(40, 99); num2 = rand(20, 80);
+          } else if (op === '×') {
+            num1 = rand(5, 11); num2 = rand(5, 9);
+          } else { // ÷
+            num2 = rand(3, 11);
+            ans = rand(3, 11);
+            num1 = num2 * ans;
+          }
+        }
+
+        if (op === '+') ans = num1 + num2;
+        else if (op === '-') ans = num1 - num2;
+        else if (op === '×') ans = num1 * num2;
+        
+        if (ans >= 0) break;
+      }
+      
+      currentAns = ans;
+      
+      let options = new Set<number>();
+      options.add(ans);
+      
+      let attempts = 0;
+      while (options.size < 4 && attempts < 50) {
+        attempts++;
+        let dist = ans;
+        const trick = rand(1, 4);
+        if (trick === 1) dist = ans + rand(-3, 3);
+        else if (trick === 2) dist = ans + 10;
+        else if (trick === 3) dist = ans - 10;
+        else if (trick === 4) dist = ans + rand(-5, 5);
+        
+        if (dist > 0 && dist !== ans && dist < 1000) options.add(dist);
+      }
+      while (options.size < 4) {
+        let dist = ans + rand(1, 20);
+        if (!options.has(dist)) options.add(dist);
+      }
+      
+      const optArr = Array.from(options).sort(() => Math.random() - 0.5);
+      
+      return { str: `${num1} ${op} ${num2}`, opts: optArr };
+    }
+
+    function setupQuestion() {
+      determineLevel();
+      const q = generateQuestion();
+      
+      if (uiQNum) uiQNum.textContent = qNum.toString();
+      if (uiScore) uiScore.textContent = score.toString();
+      
+      if (uiLevel) {
+        uiLevel.textContent = levelNames[currentLevelIdx];
+        uiLevel.className = `px-3 py-1 mb-4 sm:mb-6 rounded-full text-[10px] sm:text-xs font-bold tracking-wider uppercase border ${levelColors[currentLevelIdx]}`;
+      }
+      
+      if (uiExp) {
+        uiExp.textContent = q.str;
+        uiExp.classList.remove('scale-95', 'opacity-80');
+      }
+      
+      ansBtns.forEach((btn, idx) => {
+        btn.classList.remove('bg-green-500', 'border-green-600', 'bg-red-500', 'border-red-600', 'bg-card', 'hover:bg-slate-50', 'border-border-line/70', 'text-white');
+        btn.classList.add('bg-card', 'hover:bg-slate-50', 'border-border-line/70');
+        const valEl = ansVals[idx];
+        if (valEl) {
+          valEl.textContent = q.opts[idx].toString();
+          valEl.classList.remove('text-white');
+          valEl.classList.add('text-ink');
+        }
+      });
+      
+      gameState = 'playing';
+      
+      if (timerInterval) clearInterval(timerInterval);
+      
+      timerTotalMs = currentDuration;
+      timerRemainingMs = timerTotalMs;
+      timerStart = Date.now();
+      questionDeadline = timerStart + timerTotalMs; // Authoritative timestamp
+      
+      if (uiTimerBar) {
+        uiTimerBar.style.width = '100%';
+        uiTimerBar.className = 'h-full bg-brand rounded-full transition-none origin-left';
+      }
+      
+      const updateInterval = 40;
+      timerInterval = setInterval(() => {
+        if (gameState !== 'playing') return;
+        
+        const elapsed = Date.now() - timerStart;
+        timerRemainingMs = timerTotalMs - elapsed;
+        
+        if (timerRemainingMs <= 0) {
+          clearInterval(timerInterval);
+          if (uiTimerBar) uiTimerBar.style.width = '0%';
+          handleTimeout();
+        } else {
+          const pct = Math.max(0, (timerRemainingMs / timerTotalMs) * 100);
+          if (uiTimerBar) {
+            uiTimerBar.style.width = `${pct}%`;
+            if (timerRemainingMs < 1500) {
+              uiTimerBar.className = 'h-full bg-red-500 rounded-full transition-colors duration-200 origin-left';
+            }
+          }
+        }
+      }, updateInterval);
+    }
+
+    function calculatePoints(remaining: number) {
+      const base = (currentLevelIdx + 1) * 100;
+      const maxBonus = base * 0.2; // Modest speed bonus up to 20%
+      const speedBonus = Math.floor((Math.max(0, remaining) / currentDuration) * maxBonus);
+      const streakBonus = Math.min(50, streak * 10);
+      return base + speedBonus + streakBonus;
+    }
+
+    function handleAnswer(selectedIndex: number) {
+      if (gameState !== 'playing') return;
+      const now = Date.now();
+      const remaining = questionDeadline - now;
+      
+      if (remaining <= 0) {
+        handleTimeout();
+        return;
+      }
+      
+      gameState = 'feedback';
+      if (timerInterval !== null) clearInterval(timerInterval);
+      
+      const timeTaken = currentDuration - remaining;
+      const selectedValEl = ansVals[selectedIndex];
+      const selectedVal = selectedValEl ? parseInt(selectedValEl.textContent || '0', 10) : 0;
+      const isCorrect = selectedVal === currentAns;
+      
+      const btn = ansBtns[selectedIndex];
+      
+      if (isCorrect) {
+        correctCount++;
+        streak++;
+        if (streak > maxStreak) maxStreak = streak;
+        responseTimes.push(timeTaken);
+        score += calculatePoints(remaining);
+        
+        btn.classList.remove('bg-card', 'hover:bg-slate-50', 'border-border-line/70');
+        btn.classList.add('bg-green-500', 'border-green-600');
+        if (selectedValEl) {
+          selectedValEl.classList.remove('text-ink');
+          selectedValEl.classList.add('text-white');
+        }
+      } else {
+        incorrectCount++;
+        streak = 0;
+        
+        btn.classList.remove('bg-card', 'hover:bg-slate-50', 'border-border-line/70');
+        btn.classList.add('bg-red-500', 'border-red-600');
+        if (selectedValEl) {
+          selectedValEl.classList.remove('text-ink');
+          selectedValEl.classList.add('text-white');
+        }
+        
+        // Highlight correct answer
+        ansBtns.forEach((b, idx) => {
+          const v = ansVals[idx] ? parseInt(ansVals[idx].textContent || '0', 10) : 0;
+          if (v === currentAns) {
+            b.classList.remove('bg-card', 'hover:bg-slate-50', 'border-border-line/70');
+            b.classList.add('bg-green-500', 'border-green-600');
+            if (ansVals[idx]) {
+              ansVals[idx].classList.remove('text-ink');
+              ansVals[idx].classList.add('text-white');
+            }
+          }
+        });
+      }
+      
+      if (uiScore) uiScore.textContent = score.toString();
+      if (uiExp) uiExp.classList.add('scale-95', 'opacity-80');
+      
+      if (feedbackTimeout !== null) window.clearTimeout(feedbackTimeout);
+      feedbackTimeout = window.setTimeout(nextRound, isCorrect ? 150 : 350);
+    }
+
+    function handleTimeout() {
+      if (gameState !== 'playing') return;
+      gameState = 'feedback';
+      if (timerInterval !== null) clearInterval(timerInterval);
+      
+      timeoutCount++;
+      streak = 0;
+      
+      // Highlight correct answer
+      ansBtns.forEach((b, idx) => {
+        const v = ansVals[idx] ? parseInt(ansVals[idx].textContent || '0', 10) : 0;
+        if (v === currentAns) {
+          b.classList.remove('bg-card', 'hover:bg-slate-50', 'border-border-line/70');
+          b.classList.add('bg-green-500', 'border-green-600');
+          if (ansVals[idx]) {
+            ansVals[idx].classList.remove('text-ink');
+            ansVals[idx].classList.add('text-white');
+          }
+        }
+      });
+      
+      if (uiExp) uiExp.classList.add('scale-95', 'opacity-80');
+      
+      if (feedbackTimeout !== null) window.clearTimeout(feedbackTimeout);
+      feedbackTimeout = window.setTimeout(nextRound, 400);
+    }
+
+    function nextRound() {
+      if (qNum < MAX_QUESTIONS) {
+        qNum++;
+        setupQuestion();
+      } else {
+        showResults();
+      }
+    }
+
+    function showResults() {
+      gameState = 'results';
+      
+      screenGame?.classList.add('hidden');
+      screenGame?.classList.remove('flex');
+      screenResults?.classList.remove('hidden');
+      screenResults?.classList.add('flex');
+      
+      if (resScore) resScore.textContent = score.toString();
+      if (resCorrect) resCorrect.textContent = `${correctCount} correct`;
+      if (resIncorrect) resIncorrect.textContent = `${incorrectCount} incorrect`;
+      if (resMissed) resMissed.textContent = `${timeoutCount} missed`;
+      
+      const acc = Math.round((correctCount / MAX_QUESTIONS) * 100);
+      if (resAcc) resAcc.textContent = `${acc}%`;
+      
+      const avg = responseTimes.length > 0 ? (responseTimes.reduce((a, b) => a + b, 0) / responseTimes.length / 1000).toFixed(1) : '0.0';
+      if (resAvg) resAvg.textContent = `${avg}s`;
+      
+      if (resStreak) resStreak.textContent = maxStreak.toString();
+      if (resLevel) resLevel.textContent = levelNames[maxLevelIdx];
+      
+      const isPb = savePB(score);
+      if (isPb && resNewPb) {
+        resNewPb.classList.remove('hidden');
+      } else if (resNewPb) {
+        resNewPb.classList.add('hidden');
+      }
+    }
+
+    function initSession() {
+      if (timerInterval !== null) clearInterval(timerInterval);
+      if (feedbackTimeout !== null) window.clearTimeout(feedbackTimeout);
+      
+      screenIntro?.classList.add('hidden');
+      screenResults?.classList.add('hidden');
+      screenGame?.classList.remove('hidden');
+      screenGame?.classList.add('flex');
+      
+      qNum = 1;
+      score = 0;
+      correctCount = 0;
+      incorrectCount = 0;
+      timeoutCount = 0;
+      streak = 0;
+      maxStreak = 0;
+      maxLevelIdx = 0;
+      responseTimes = [];
+      
+      setupQuestion();
+    }
+
+    // Event Listeners
+    if (btnStart) {
+      btnStart.addEventListener('click', initSession, { signal: memAbort.signal });
+    }
+    
+    if (btnReplay) {
+      btnReplay.addEventListener('click', initSession, { signal: memAbort.signal });
+    }
+
+    ansBtns.forEach((btn, idx) => {
+      btn.addEventListener('click', () => {
+        handleAnswer(idx);
+      }, { signal: memAbort.signal });
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (gameState !== 'playing') return;
+      if (e.key >= '1' && e.key <= '4') {
+        const idx = parseInt(e.key, 10) - 1;
+        if (idx >= 0 && idx <= 3) {
+          handleAnswer(idx);
+        }
+      }
+    }, { signal: memAbort.signal });
+
+    loadPB();
+  });
+</script>

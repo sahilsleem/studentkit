@@ -1,0 +1,698 @@
+---
+export interface Props {
+  defaultDuration?: number;
+}
+
+const { defaultDuration = 5 } = Astro.props;
+---
+
+<div class="reveal group bg-card/80 backdrop-blur-sm rounded-3xl border border-border-line/80 hover:border-brand hover:shadow-xl hover:-translate-y-1.5 hover:scale-[1.02] transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] overflow-hidden relative" id="focus-container">
+  
+  <!-- SCREEN 1: SETUP SCREEN -->
+  <div id="screen-setup" class="p-6 sm:p-10 text-center flex flex-col items-center transition-all duration-300">
+    <div class="w-16 h-16 rounded-2xl bg-brand-light/80 text-brand flex items-center justify-center mb-6 shadow-xs group-hover:bg-gradient-to-br group-hover:from-violet-500 group-hover:to-teal-400 group-hover:text-white transition-all duration-300 group-hover:scale-110 group-hover:-rotate-3">
+      <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+        <circle cx="12" cy="12" r="10" />
+        <circle cx="12" cy="12" r="6" />
+        <circle cx="12" cy="12" r="2" />
+      </svg>
+    </div>
+
+    <h2 class="text-2xl sm:text-3xl font-extrabold text-ink mb-2 tracking-tight group-hover:text-brand transition-colors duration-300">
+      Focus Challenge
+    </h2>
+    <p class="text-base sm:text-lg font-bold text-brand mb-3 tracking-tight">
+      Stay with one thing.
+    </p>
+    <p class="text-slate-muted max-w-lg mb-8 text-sm sm:text-base leading-relaxed">
+      Choose a session length and practice maintaining uninterrupted attention until the timer ends.
+    </p>
+
+    <!-- Duration Choice Grid -->
+    <div class="w-full max-w-md mb-8">
+      <label class="block text-xs font-bold uppercase tracking-wider text-slate-muted mb-3 text-left">
+        Select Session Duration
+      </label>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3" id="duration-selector" role="radiogroup" aria-label="Session Duration">
+        <button
+          type="button"
+          data-duration="5"
+          role="radio"
+          aria-checked="true"
+          class="duration-btn has-ripple p-3.5 sm:p-4 rounded-2xl border-2 transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] text-center focus-ring cursor-pointer border-brand bg-brand/5 text-brand shadow-sm ring-2 ring-brand/20 md:hover:-translate-y-0.5 md:hover:scale-[1.02] active:scale-[0.97]"
+        >
+          <span class="text-lg font-black block font-mono">5 min</span>
+          <span class="text-[11px] font-semibold text-slate-muted block mt-0.5">Quick</span>
+        </button>
+
+        <button
+          type="button"
+          data-duration="10"
+          role="radio"
+          aria-checked="false"
+          class="duration-btn has-ripple p-3.5 sm:p-4 rounded-2xl border-2 transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] text-center focus-ring cursor-pointer border-border-line/70 bg-card/80 text-ink hover:border-brand/40 hover:shadow-md md:hover:-translate-y-0.5 md:hover:scale-[1.02] active:scale-[0.97]"
+        >
+          <span class="text-lg font-black block font-mono">10 min</span>
+          <span class="text-[11px] font-semibold text-slate-muted block mt-0.5">Standard</span>
+        </button>
+
+        <button
+          type="button"
+          data-duration="15"
+          role="radio"
+          aria-checked="false"
+          class="duration-btn has-ripple p-3.5 sm:p-4 rounded-2xl border-2 transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] text-center focus-ring cursor-pointer border-border-line/70 bg-card/80 text-ink hover:border-brand/40 hover:shadow-md md:hover:-translate-y-0.5 md:hover:scale-[1.02] active:scale-[0.97]"
+        >
+          <span class="text-lg font-black block font-mono">15 min</span>
+          <span class="text-[11px] font-semibold text-slate-muted block mt-0.5">Deep</span>
+        </button>
+
+        <button
+          type="button"
+          data-duration="20"
+          role="radio"
+          aria-checked="false"
+          class="duration-btn has-ripple p-3.5 sm:p-4 rounded-2xl border-2 transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] text-center focus-ring cursor-pointer border-border-line/70 bg-card/80 text-ink hover:border-brand/40 hover:shadow-md md:hover:-translate-y-0.5 md:hover:scale-[1.02] active:scale-[0.97]"
+        >
+          <span class="text-lg font-black block font-mono">20 min</span>
+          <span class="text-[11px] font-semibold text-slate-muted block mt-0.5">Endurance</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Personal Stats Preview (from localStorage) -->
+    <div id="setup-stats-box" class="hidden mb-8 p-4 bg-slate-50/80 border border-border-line/60 rounded-2xl w-full max-w-md text-left transition-all duration-300 hover:border-brand/30 shadow-2xs">
+      <div class="flex items-center justify-between text-xs font-semibold text-slate-muted mb-2">
+        <span class="flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5 text-brand" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 0 1 3 3h-15a3 3 0 0 1 3-3m9 0v-3.375c0-.621-.504-1.125-1.125-1.125h-.871M7.5 18.75v-3.375c0-.621.504-1.125 1.125-1.125h.872m5.007 0H9.497m5.007 0a7.454 7.454 0 0 1-.982-3.172M9.497 14.25a7.454 7.454 0 0 0 .981-3.172M5.25 4.236c-.982.143-1.954.317-2.916.52A6.003 6.003 0 0 0 7.73 9.728M5.25 4.236V4.5c0 2.108.966 3.99 2.48 5.228M5.25 4.236V2.25h13.5v1.986m-13.5 0A48.513 48.513 0 0 1 12 4.125c2.31 0 4.576.16 6.75.47M18.75 4.236c.982.143 1.954.317 2.916.52a6.003 6.003 0 0 1-5.395 4.972m2.479-5.492V4.5c0 2.108-.966 3.99-2.48 5.228" />
+          </svg>
+          Your Local Focus Log
+        </span>
+        <span id="setup-today-sessions" class="text-brand font-mono font-bold">0 today</span>
+      </div>
+      <div class="grid grid-cols-3 gap-2 text-center pt-1 border-t border-border-line/40">
+        <div>
+          <span class="text-[10px] text-slate-muted block">Completed</span>
+          <span id="setup-total-sessions" class="text-sm font-extrabold text-ink font-mono">0</span>
+        </div>
+        <div>
+          <span class="text-[10px] text-slate-muted block">Longest</span>
+          <span id="setup-longest-session" class="text-sm font-extrabold text-ink font-mono">-- min</span>
+        </div>
+        <div>
+          <span class="text-[10px] text-slate-muted block">Best Consistency</span>
+          <span id="setup-best-consistency" class="text-sm font-extrabold text-emerald-600 font-mono">--%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Start Button -->
+    <button
+      id="btn-start"
+      type="button"
+      class="has-ripple w-full max-w-md py-4 px-8 bg-brand hover:bg-brand/90 text-white font-bold rounded-2xl shadow-md shadow-brand/20 transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] transform active:scale-[0.98] hover:scale-[1.02] focus-ring text-base cursor-pointer"
+    >
+      Start Focus Session (5 min)
+    </button>
+  </div>
+
+  <!-- SCREEN 2: ACTIVE FOCUS SESSION -->
+  <div id="screen-running" class="hidden p-6 sm:p-12 flex-col items-center text-center">
+    
+    <!-- Top Minimal Header -->
+    <div class="flex items-center justify-between w-full max-w-lg mb-8 pb-4 border-b border-border-line/50">
+      <div class="flex items-center gap-2">
+        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+        <span class="text-xs font-bold uppercase tracking-wider text-slate-muted">Focus Challenge</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <span id="running-duration-badge" class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-slate-100 text-slate-700 font-mono">
+          5 MIN
+        </span>
+        <span id="running-interruptions-pill" class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-slate-100 text-slate-600 transition-colors duration-200">
+          0 Interruptions
+        </span>
+      </div>
+    </div>
+
+    <!-- Primary Timer & Progress Display -->
+    <div class="my-6 sm:my-10 flex flex-col items-center">
+      <div
+        id="running-timer"
+        class="text-6xl sm:text-8xl md:text-9xl font-black text-ink tracking-tight font-mono select-none mb-6 leading-none"
+        aria-live="polite"
+      >
+        05:00
+      </div>
+
+      <!-- Subtle Linear Progress Bar -->
+      <div class="w-full max-w-md h-2 bg-slate-100 rounded-full overflow-hidden mb-6">
+        <div
+          id="running-progress-bar"
+          class="h-full bg-brand rounded-full transition-all duration-200 ease-linear origin-left"
+          style="width: 0%;"
+        ></div>
+      </div>
+
+      <h3 id="running-status" class="text-xl sm:text-2xl font-extrabold text-ink tracking-tight mb-2">
+        Stay focused.
+      </h3>
+      <p class="text-xs sm:text-sm text-slate-muted max-w-sm">
+        Keep this page open and stay with the session.
+      </p>
+    </div>
+
+    <!-- Session Actions -->
+    <div class="mt-8 pt-4 w-full max-w-md flex justify-center">
+      <button
+        id="btn-cancel"
+        type="button"
+        class="text-xs text-slate-muted hover:text-rose-600 font-semibold px-4 py-2 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer"
+      >
+        Cancel Session
+      </button>
+    </div>
+  </div>
+
+  <!-- SCREEN 3: INTERRUPTED OVERLAY / SCREEN -->
+  <div id="screen-interrupted" class="hidden p-6 sm:p-12 flex-col items-center text-center">
+    <div class="w-16 h-16 rounded-2xl bg-amber-500/10 text-amber-600 border border-amber-500/20 flex items-center justify-center mb-6 shadow-xs">
+      <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M14.25 9v6m-4.5 0V9M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+      </svg>
+    </div>
+
+    <h2 class="text-2xl sm:text-3xl font-extrabold text-ink mb-2 tracking-tight">
+      Focus Interrupted
+    </h2>
+    <p class="text-slate-muted max-w-md mb-6 text-sm sm:text-base leading-relaxed">
+      You left the session. Return when you're ready.
+    </p>
+
+    <!-- Interruption Summary -->
+    <div class="p-4 bg-slate-50 rounded-2xl border border-border-line/60 w-full max-w-md mb-8 shadow-2xs">
+      <div class="flex items-center justify-between text-xs text-slate-muted mb-2">
+        <span>Current Status:</span>
+        <span class="font-bold text-amber-700">Paused</span>
+      </div>
+      <div class="flex items-center justify-between text-xs text-slate-muted mb-2">
+        <span>Time Remaining:</span>
+        <span id="interrupted-remaining-time" class="font-mono font-bold text-ink text-sm">--:--</span>
+      </div>
+      <div class="flex items-center justify-between text-xs text-slate-muted">
+        <span>Total Interruptions:</span>
+        <span id="interrupted-count" class="font-bold text-ink">1</span>
+      </div>
+    </div>
+
+    <div class="flex flex-col sm:flex-row gap-3 w-full max-w-md">
+      <button
+        id="btn-resume"
+        type="button"
+        class="has-ripple flex-1 py-3.5 px-6 bg-brand hover:bg-brand/90 text-white font-bold rounded-2xl shadow-md shadow-brand/20 transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] transform active:scale-[0.98] hover:scale-[1.02] focus-ring text-sm cursor-pointer"
+      >
+        Resume Session
+      </button>
+      <button
+        id="btn-abandon"
+        type="button"
+        class="py-3.5 px-6 bg-slate-100 hover:bg-slate-200 text-ink font-semibold rounded-2xl text-sm transition-all duration-200 active:scale-[0.98] cursor-pointer"
+      >
+        End Early
+      </button>
+    </div>
+  </div>
+
+  <!-- SCREEN 4: COMPLETION & RESULTS SCREEN -->
+  <div id="screen-results" class="hidden p-6 sm:p-10 text-center flex-col items-center">
+    
+    <div class="w-16 h-16 rounded-2xl bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 flex items-center justify-center mb-6 shadow-xs">
+      <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+      </svg>
+    </div>
+
+    <h2 class="text-2xl sm:text-3xl font-black text-ink mb-2 tracking-tight">
+      Session complete.
+    </h2>
+    <p id="results-subtitle" class="text-slate-muted max-w-lg mb-8 text-sm sm:text-base leading-relaxed">
+      You stayed with the task for 5 minutes.
+    </p>
+
+    <!-- Session Stats Grid (Staggered Entrance) -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 w-full max-w-2xl mb-8">
+      <div style="--stagger: 1;" class="reveal p-4 bg-slate-50/80 rounded-2xl border border-border-line/60 text-center hover:border-brand/40 transition-colors">
+        <span class="text-xs text-slate-muted block font-medium mb-1">Session Duration</span>
+        <span id="res-duration" class="text-2xl font-black text-ink font-mono">5 min</span>
+      </div>
+
+      <div style="--stagger: 2;" class="reveal p-4 bg-slate-50/80 rounded-2xl border border-border-line/60 text-center hover:border-brand/40 transition-colors">
+        <span class="text-xs text-slate-muted block font-medium mb-1">Focus Completion</span>
+        <span id="res-status" class="text-lg sm:text-xl font-bold text-emerald-600 block mt-1">Unbroken</span>
+      </div>
+
+      <div style="--stagger: 3;" class="reveal p-4 bg-slate-50/80 rounded-2xl border border-border-line/60 text-center hover:border-brand/40 transition-colors">
+        <span class="text-xs text-slate-muted block font-medium mb-1">Interruptions</span>
+        <span id="res-interruptions" class="text-2xl font-black text-ink font-mono">0</span>
+      </div>
+
+      <div style="--stagger: 4;" class="reveal p-4 bg-slate-50/80 rounded-2xl border border-border-line/60 text-center hover:border-brand/40 transition-colors">
+        <span class="text-xs text-slate-muted block font-medium mb-1">Session Consistency</span>
+        <span id="res-consistency" class="text-2xl font-black text-brand font-mono">100%</span>
+      </div>
+    </div>
+
+    <!-- Lifetime Focus Log Strip -->
+    <div style="--stagger: 5;" class="reveal p-5 bg-card/60 backdrop-blur-sm rounded-2xl border border-border-line/60 w-full max-w-2xl mb-8 text-left hover:border-brand/30 transition-colors">
+      <h3 class="text-xs font-bold uppercase tracking-wider text-slate-muted mb-3 flex items-center justify-between">
+        <span>Personal Training History</span>
+        <span class="text-emerald-700 font-semibold lowercase text-[11px]">stored locally</span>
+      </h3>
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+        <div>
+          <span class="text-xs text-slate-muted block font-medium">Today's Sessions</span>
+          <span id="res-today-total" class="text-xl font-black text-ink font-mono">1</span>
+        </div>
+        <div>
+          <span class="text-xs text-slate-muted block font-medium">All-Time Sessions</span>
+          <span id="res-alltime-total" class="text-xl font-black text-ink font-mono">1</span>
+        </div>
+        <div>
+          <span class="text-xs text-slate-muted block font-medium">Longest Session</span>
+          <span id="res-longest-session" class="text-xl font-black text-ink font-mono">5 min</span>
+        </div>
+        <div>
+          <span class="text-xs text-slate-muted block font-medium">Best Consistency</span>
+          <span id="res-best-consistency" class="text-xl font-black text-emerald-600 font-mono">100%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div style="--stagger: 6;" class="reveal flex flex-col sm:flex-row gap-3 w-full max-w-md justify-center">
+      <button
+        id="btn-restart"
+        type="button"
+        class="has-ripple py-4 px-8 bg-brand hover:bg-brand/90 text-white font-bold rounded-2xl shadow-md shadow-brand/20 transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] transform active:scale-[0.98] hover:scale-[1.02] focus-ring text-sm cursor-pointer"
+      >
+        Start Another Session
+      </button>
+      <a
+        href="/anti-brainrot"
+        class="py-4 px-8 bg-slate-100 hover:bg-slate-200 text-ink font-semibold rounded-2xl text-center text-sm transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] focus-ring"
+      >
+        Training Hub →
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<style>
+  .animate-screen-in {
+    animation: formFadeIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-screen-in {
+      animation: none !important;
+      transform: none !important;
+    }
+  }
+</style>
+
+<script>
+  interface FocusStorage {
+    sessionsCompleted: number;
+    todaySessionsCount: number;
+    todayDateStr: string;
+    totalFocusSeconds: number;
+    longestSessionMinutes: number;
+    bestConsistency: number;
+  }
+
+  const STORAGE_KEY = 'studentkit_focus_challenge_v1';
+
+  const getTodayDateString = (): string => {
+    const d = new Date();
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+  };
+
+  const loadStorage = (): FocusStorage => {
+    const today = getTodayDateString();
+    const fallback: FocusStorage = {
+      sessionsCompleted: 0,
+      todaySessionsCount: 0,
+      todayDateStr: today,
+      totalFocusSeconds: 0,
+      longestSessionMinutes: 0,
+      bestConsistency: 0
+    };
+
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return fallback;
+      const data = JSON.parse(raw);
+      if (!data || typeof data !== 'object') return fallback;
+
+      const sessionsCompleted = typeof data.sessionsCompleted === 'number' ? data.sessionsCompleted : 0;
+      const totalFocusSeconds = typeof data.totalFocusSeconds === 'number' ? data.totalFocusSeconds : 0;
+      const longestSessionMinutes = typeof data.longestSessionMinutes === 'number' ? data.longestSessionMinutes : 0;
+      const bestConsistency = typeof data.bestConsistency === 'number' ? data.bestConsistency : 0;
+      const savedDate = typeof data.todayDateStr === 'string' ? data.todayDateStr : today;
+      const todaySessionsCount = savedDate === today && typeof data.todaySessionsCount === 'number' ? data.todaySessionsCount : 0;
+
+      return {
+        sessionsCompleted,
+        todaySessionsCount,
+        todayDateStr: today,
+        totalFocusSeconds,
+        longestSessionMinutes,
+        bestConsistency
+      };
+    } catch {
+      return fallback;
+    }
+  };
+
+  const saveStorage = (data: FocusStorage): void => {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    } catch {}
+  };
+
+  const setupFocusEngine = () => {
+    // Clean up any previous Focus Engine instance's listeners and timer
+    if ((window as any).__focusEngineAbort) (window as any).__focusEngineAbort.abort();
+    const focusAbort = new AbortController();
+    (window as any).__focusEngineAbort = focusAbort;
+
+    const container = document.getElementById('focus-container');
+    if (!container) return;
+
+    // Screens
+    const screenSetup = document.getElementById('screen-setup');
+    const screenRunning = document.getElementById('screen-running');
+    const screenInterrupted = document.getElementById('screen-interrupted');
+    const screenResults = document.getElementById('screen-results');
+
+    // Controls & Elements
+    const btnStart = document.getElementById('btn-start') as HTMLButtonElement | null;
+    const btnCancel = document.getElementById('btn-cancel') as HTMLButtonElement | null;
+    const btnResume = document.getElementById('btn-resume') as HTMLButtonElement | null;
+    const btnAbandon = document.getElementById('btn-abandon') as HTMLButtonElement | null;
+    const btnRestart = document.getElementById('btn-restart') as HTMLButtonElement | null;
+    const durationButtons = document.querySelectorAll('.duration-btn') as NodeListOf<HTMLButtonElement>;
+
+    // Display Elements
+    const runningTimer = document.getElementById('running-timer');
+    const runningProgressBar = document.getElementById('running-progress-bar');
+    const runningDurationBadge = document.getElementById('running-duration-badge');
+    const runningInterruptionsPill = document.getElementById('running-interruptions-pill');
+    const interruptedRemainingTime = document.getElementById('interrupted-remaining-time');
+    const interruptedCount = document.getElementById('interrupted-count');
+
+    // Results Elements
+    const resultsSubtitle = document.getElementById('results-subtitle');
+    const resDuration = document.getElementById('res-duration');
+    const resStatus = document.getElementById('res-status');
+    const resInterruptions = document.getElementById('res-interruptions');
+    const resConsistency = document.getElementById('res-consistency');
+    const resTodayTotal = document.getElementById('res-today-total');
+    const resAlltimeTotal = document.getElementById('res-alltime-total');
+    const resLongestSession = document.getElementById('res-longest-session');
+    const resBestConsistency = document.getElementById('res-best-consistency');
+
+    // Setup Stats Elements
+    const setupStatsBox = document.getElementById('setup-stats-box');
+    const setupTodaySessions = document.getElementById('setup-today-sessions');
+    const setupTotalSessions = document.getElementById('setup-total-sessions');
+    const setupLongestSession = document.getElementById('setup-longest-session');
+    const setupBestConsistency = document.getElementById('setup-best-consistency');
+
+    // State Variables
+    type EngineState = 'setup' | 'running' | 'interrupted' | 'completed';
+    let currentState: EngineState = 'setup';
+    let selectedDurationMinutes: number = 5;
+    let targetDurationMs: number = 5 * 60 * 1000;
+    let elapsedActiveMs: number = 0;
+    let chunkStartTime: number = 0;
+    let interruptionStartTime: number = 0;
+    let totalInterruptedMs: number = 0;
+    let interruptionCount: number = 0;
+    let timerInterval: number | null = null;
+
+    // Clean up timer when this engine instance is aborted (SPA navigation)
+    focusAbort.signal.addEventListener('abort', () => {
+      if (timerInterval !== null) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+      }
+    });
+
+    // Refresh Setup Stats Display
+    const refreshSetupStats = () => {
+      const stats = loadStorage();
+      if (stats.sessionsCompleted > 0 && setupStatsBox) {
+        setupStatsBox.classList.remove('hidden');
+        if (setupTodaySessions) setupTodaySessions.textContent = `${stats.todaySessionsCount} today`;
+        if (setupTotalSessions) setupTotalSessions.textContent = stats.sessionsCompleted.toString();
+        if (setupLongestSession) setupLongestSession.textContent = `${stats.longestSessionMinutes} min`;
+        if (setupBestConsistency) setupBestConsistency.textContent = `${stats.bestConsistency}%`;
+      }
+    };
+    refreshSetupStats();
+
+    // Show Screen Helper with smooth transition
+    const showScreen = (state: EngineState) => {
+      currentState = state;
+      const screens = [
+        { el: screenSetup, name: 'setup' },
+        { el: screenRunning, name: 'running' },
+        { el: screenInterrupted, name: 'interrupted' },
+        { el: screenResults, name: 'completed' }
+      ];
+
+      screens.forEach(({ el, name }) => {
+        if (!el) return;
+        const isActive = state === name;
+        el.classList.toggle('hidden', !isActive);
+        if (isActive) {
+          el.classList.remove('animate-screen-in');
+          void el.offsetWidth;
+          el.classList.add('animate-screen-in');
+        }
+      });
+    };
+
+    // Format Milliseconds to MM:SS
+    const formatTime = (ms: number): string => {
+      const totalSeconds = Math.max(0, Math.ceil(ms / 1000));
+      const mins = Math.floor(totalSeconds / 60);
+      const secs = totalSeconds % 60;
+      return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    };
+
+    // Duration Selector Click Handlers
+    durationButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        if (currentState !== 'setup') return;
+        const dur = parseInt(btn.getAttribute('data-duration') || '5', 10);
+        selectedDurationMinutes = dur;
+        targetDurationMs = dur * 60 * 1000;
+
+        durationButtons.forEach((b) => {
+          const isSelected = b === btn;
+          b.setAttribute('aria-checked', isSelected ? 'true' : 'false');
+          if (isSelected) {
+            b.className = 'duration-btn has-ripple p-3.5 sm:p-4 rounded-2xl border-2 transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] text-center focus-ring cursor-pointer border-brand bg-brand/5 text-brand shadow-sm ring-2 ring-brand/20 md:hover:-translate-y-0.5 md:hover:scale-[1.02] active:scale-[0.97]';
+          } else {
+            b.className = 'duration-btn has-ripple p-3.5 sm:p-4 rounded-2xl border-2 transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] text-center focus-ring cursor-pointer border-border-line/70 bg-card/80 text-ink hover:border-brand/40 hover:shadow-md md:hover:-translate-y-0.5 md:hover:scale-[1.02] active:scale-[0.97]';
+          }
+        });
+
+        if (btnStart) {
+          btnStart.textContent = `Start Focus Session (${dur} min)`;
+        }
+      }, { signal: focusAbort.signal });
+    });
+
+    // Stop Timer Interval Helper
+    const clearTimer = () => {
+      if (timerInterval !== null) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+      }
+    };
+
+    // Core Timer Tick
+    const updateTimerDisplay = () => {
+      const currentChunkMs = currentState === 'running' ? Date.now() - chunkStartTime : 0;
+      const totalActive = elapsedActiveMs + currentChunkMs;
+      const remainingMs = Math.max(0, targetDurationMs - totalActive);
+
+      if (runningTimer) {
+        runningTimer.textContent = formatTime(remainingMs);
+      }
+      if (runningProgressBar) {
+        const pct = Math.min(100, Math.max(0, (totalActive / targetDurationMs) * 100));
+        runningProgressBar.style.width = `${pct}%`;
+      }
+      if (runningInterruptionsPill) {
+        runningInterruptionsPill.textContent = `${interruptionCount} Interruption${interruptionCount === 1 ? '' : 's'}`;
+      }
+
+      if (remainingMs <= 0 && currentState === 'running') {
+        elapsedActiveMs = targetDurationMs;
+        completeSession();
+      }
+    };
+
+    // Start Session
+    const startSession = () => {
+      elapsedActiveMs = 0;
+      totalInterruptedMs = 0;
+      interruptionCount = 0;
+      interruptionStartTime = 0;
+      chunkStartTime = Date.now();
+
+      if (runningDurationBadge) {
+        runningDurationBadge.textContent = `${selectedDurationMinutes} MIN`;
+      }
+
+      showScreen('running');
+      updateTimerDisplay();
+
+      clearTimer();
+      timerInterval = window.setInterval(updateTimerDisplay, 100);
+    };
+
+    // Handle Interruption
+    const handleInterruption = () => {
+      if (currentState !== 'running') return;
+
+      // Accumulate active chunk before pausing
+      elapsedActiveMs += Date.now() - chunkStartTime;
+      interruptionStartTime = Date.now();
+      interruptionCount++;
+
+      clearTimer();
+      showScreen('interrupted');
+
+      const remainingMs = Math.max(0, targetDurationMs - elapsedActiveMs);
+      if (interruptedRemainingTime) {
+        interruptedRemainingTime.textContent = formatTime(remainingMs);
+      }
+      if (interruptedCount) {
+        interruptedCount.textContent = interruptionCount.toString();
+      }
+    };
+
+    // Resume Session
+    const resumeSession = () => {
+      if (currentState !== 'interrupted') return;
+
+      if (interruptionStartTime > 0) {
+        totalInterruptedMs += Date.now() - interruptionStartTime;
+        interruptionStartTime = 0;
+      }
+
+      chunkStartTime = Date.now();
+      showScreen('running');
+      updateTimerDisplay();
+
+      clearTimer();
+      timerInterval = window.setInterval(updateTimerDisplay, 100);
+    };
+
+    // Complete Session
+    const completeSession = () => {
+      clearTimer();
+      currentState = 'completed';
+
+      const activeSeconds = Math.round(targetDurationMs / 1000);
+      const interruptedSeconds = Math.round(totalInterruptedMs / 1000);
+      const totalTimeSpan = targetDurationMs + totalInterruptedMs;
+      const consistencyPct = totalTimeSpan > 0
+        ? Math.max(0, Math.min(100, Math.round((targetDurationMs / totalTimeSpan) * 100)))
+        : 100;
+
+      // Save to localStorage
+      const storage = loadStorage();
+      storage.sessionsCompleted += 1;
+      storage.todaySessionsCount += 1;
+      storage.totalFocusSeconds += activeSeconds;
+      if (selectedDurationMinutes > storage.longestSessionMinutes) {
+        storage.longestSessionMinutes = selectedDurationMinutes;
+      }
+      if (consistencyPct > storage.bestConsistency) {
+        storage.bestConsistency = consistencyPct;
+      }
+      saveStorage(storage);
+
+      // Populate Results UI
+      if (resultsSubtitle) {
+        resultsSubtitle.textContent = `You stayed with the task for ${selectedDurationMinutes} minutes.`;
+      }
+      if (resDuration) resDuration.textContent = `${selectedDurationMinutes} min`;
+      if (resStatus) {
+        if (interruptionCount === 0) {
+          resStatus.textContent = 'Unbroken';
+          resStatus.className = 'text-lg sm:text-xl font-bold text-emerald-600 block mt-1';
+        } else {
+          resStatus.textContent = `${interruptionCount} Break${interruptionCount > 1 ? 's' : ''}`;
+          resStatus.className = 'text-lg sm:text-xl font-bold text-amber-600 block mt-1';
+        }
+      }
+      if (resInterruptions) resInterruptions.textContent = interruptionCount.toString();
+      if (resConsistency) resConsistency.textContent = `${consistencyPct}%`;
+
+      if (resTodayTotal) resTodayTotal.textContent = storage.todaySessionsCount.toString();
+      if (resAlltimeTotal) resAlltimeTotal.textContent = storage.sessionsCompleted.toString();
+      if (resLongestSession) resLongestSession.textContent = `${storage.longestSessionMinutes} min`;
+      if (resBestConsistency) resBestConsistency.textContent = `${storage.bestConsistency}%`;
+
+      showScreen('completed');
+    };
+
+    // Abandon / Reset to Setup
+    const resetToSetup = () => {
+      clearTimer();
+      elapsedActiveMs = 0;
+      totalInterruptedMs = 0;
+      interruptionCount = 0;
+      interruptionStartTime = 0;
+      refreshSetupStats();
+      showScreen('setup');
+    };
+
+    // Event Listeners for Tab Visibility and Focus
+    const onVisibilityChange = () => {
+      if (document.visibilityState === 'hidden') {
+        if (currentState === 'running') {
+          handleInterruption();
+        }
+      }
+    };
+
+    const onWindowBlur = () => {
+      if (currentState === 'running') {
+        handleInterruption();
+      }
+    };
+
+    document.addEventListener('visibilitychange', onVisibilityChange, { signal: focusAbort.signal });
+    window.addEventListener('blur', onWindowBlur, { signal: focusAbort.signal });
+
+    // Button Click Listeners
+    if (btnStart) btnStart.addEventListener('click', startSession, { signal: focusAbort.signal });
+    if (btnCancel) btnCancel.addEventListener('click', resetToSetup, { signal: focusAbort.signal });
+    if (btnResume) btnResume.addEventListener('click', resumeSession, { signal: focusAbort.signal });
+    if (btnAbandon) btnAbandon.addEventListener('click', resetToSetup, { signal: focusAbort.signal });
+    if (btnRestart) btnRestart.addEventListener('click', resetToSetup, { signal: focusAbort.signal });
+  };
+
+  setupFocusEngine();
+  document.addEventListener('astro:page-load', setupFocusEngine);
+</script>

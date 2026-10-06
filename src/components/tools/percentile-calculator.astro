@@ -1,0 +1,58 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-3 sm:space-y-3.5">
+  <div class="bg-card rounded-2xl border border-border-line/90 shadow-sm p-4 sm:p-5">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+      <div class="space-y-3.5">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Dataset (comma separated)</label>
+          <textarea id="prc-data" rows="3" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-ink text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent font-mono" placeholder="e.g. 15, 20, 35, 40, 50, 65, 70, 75, 80, 90"></textarea>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Percentile Rank (P%)</label>
+          <input type="number" id="prc-rank" min="1" max="99" placeholder="e.g. 75" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-ink text-sm focus:outline-none focus:ring-2 focus:ring-brand-accent" />
+        </div>
+
+        <button id="prc-calc-btn" type="button" class="w-full px-5 sm:px-6 py-3.5 sm:py-4 text-base bg-gradient-to-r from-violet-600 via-blue-600 to-teal-500 text-white hover:from-violet-500 hover:via-blue-500 hover:to-teal-400 hover:opacity-90 active:scale-[0.98] animate-gradient-x font-semibold rounded-xl shadow-sm transition-all has-ripple magnetic transition-transform duration-300">
+          Calculate Percentile Value
+        </button>
+      </div>
+
+      <div class="flex flex-col justify-between p-4 sm:p-5 bg-page rounded-xl border border-border-line/80">
+        <div>
+          <div class="text-xs font-semibold text-slate-muted uppercase tracking-wider">75th Percentile (Q₃)</div>
+          <div id="prc-val" class="text-4xl font-extrabold text-brand mt-1 font-mono break-words">--</div>
+          <div class="text-xs text-slate-muted mt-1">75% of values fall below this point</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function calculate() {
+    const raw = (document.getElementById('prc-data') as HTMLTextAreaElement)?.value || '';
+    const p = parseFloat((document.getElementById('prc-rank') as HTMLInputElement)?.value || '50');
+    const nums = raw.split(/[,\s]+/).map(s => parseFloat(s.trim())).filter(n => !isNaN(n)).sort((a, b) => a - b);
+
+    if (nums.length === 0) return;
+
+    const rank = (p / 100) * (nums.length - 1);
+    const low = Math.floor(rank);
+    const high = Math.ceil(rank);
+    const weight = rank - low;
+
+    const val = nums[low] + weight * (nums[high] - nums[low]);
+
+    const valEl = document.getElementById('prc-val');
+    if (valEl) valEl.textContent = val.toFixed(2);
+  }
+
+
+  document.getElementById('prc-calc-btn')?.addEventListener('click', calculate);
+</script>

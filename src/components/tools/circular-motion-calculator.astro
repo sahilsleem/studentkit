@@ -1,0 +1,69 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-3 sm:space-y-3.5">
+  <div class="bg-card rounded-2xl border border-border-line/90 shadow-sm p-4 sm:p-5">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+      <div class="space-y-3.5">
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Radius (r in meters)</label>
+          <input type="number" id="cm-r" placeholder="e.g. 5" min="0.1" step="any" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-sm" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Linear Speed (v in m/s)</label>
+          <input type="number" id="cm-v" placeholder="e.g. 15" min="0" step="any" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-sm" />
+        </div>
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Mass (m in kg)</label>
+          <input type="number" id="cm-m" placeholder="e.g. 2" min="0.01" step="any" class="w-full px-3.5 py-2.5 bg-page border border-border-line rounded-xl text-sm" />
+        </div>
+
+        <button id="cm-calc-btn" type="button" class="w-full px-5 sm:px-6 py-3.5 sm:py-4 text-base bg-gradient-to-r from-violet-600 via-blue-600 to-teal-500 text-white hover:from-violet-500 hover:via-blue-500 hover:to-teal-400 hover:opacity-90 active:scale-[0.98] animate-gradient-x font-semibold rounded-xl shadow-sm transition-all has-ripple magnetic transition-transform duration-300">
+          Calculate Centripetal Force
+        </button>
+      </div>
+
+      <div class="flex flex-col justify-between p-4 sm:p-5 bg-page rounded-xl border border-border-line/80">
+        <div>
+          <div class="text-xs font-semibold text-slate-muted uppercase tracking-wider">Centripetal Force (Fc = mv²/r)</div>
+          <div id="cm-force" class="text-4xl font-extrabold text-brand mt-1 font-mono break-words">--</div>
+        </div>
+
+        <div class="pt-3 border-t border-border-line/80 mt-4 space-y-1.5 text-xs text-slate-muted">
+          <div class="flex flex-wrap justify-between gap-2">
+            <span>Centripetal Acceleration (a_c = v²/r):</span>
+            <strong id="cm-acc" class="text-ink font-mono break-words">45.00 m/s²</strong>
+          </div>
+          <div class="flex flex-wrap justify-between gap-2">
+            <span>Angular Velocity (ω = v/r):</span>
+            <strong id="cm-omega" class="text-ink font-mono break-words">3.00 rad/s</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function calculate() {
+    const r = parseFloat((document.getElementById('cm-r') as HTMLInputElement)?.value || '1');
+    const v = parseFloat((document.getElementById('cm-v') as HTMLInputElement)?.value || '0');
+    const m = parseFloat((document.getElementById('cm-m') as HTMLInputElement)?.value || '1');
+
+    if (r <= 0) return;
+
+    const ac = (v * v) / r;
+    const fc = m * ac;
+    const omega = v / r;
+
+    document.getElementById('cm-force')!.textContent = fc.toFixed(2) + ' N';
+    document.getElementById('cm-acc')!.textContent = ac.toFixed(2) + ' m/s²';
+    document.getElementById('cm-omega')!.textContent = omega.toFixed(2) + ' rad/s';
+  }
+
+
+  document.getElementById('cm-calc-btn')?.addEventListener('click', calculate);
+</script>

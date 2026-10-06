@@ -1,0 +1,69 @@
+---
+export interface Props {
+  tool?: any;
+}
+---
+
+<div class="space-y-3 sm:space-y-3.5">
+  <div class="bg-card rounded-2xl border border-border-line/90 shadow-sm p-4 sm:p-5">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+      <div class="space-y-3.5">
+        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-muted mb-1">Proportion Solver (A : B = C : D)</label>
+        <div class="flex flex-wrap items-center gap-2">
+          <input type="number" id="rat-a" placeholder="e.g. 3" class="w-16 min-w-[3rem] flex-1 sm:flex-none min-w-[3rem] flex-1 sm:flex-none px-2 py-2 bg-page border border-border-line rounded-lg text-sm text-center font-bold" />
+          <span class="font-bold">:</span>
+          <input type="number" id="rat-b" placeholder="e.g. 5" class="w-16 min-w-[3rem] flex-1 sm:flex-none min-w-[3rem] flex-1 sm:flex-none px-2 py-2 bg-page border border-border-line rounded-lg text-sm text-center font-bold" />
+          <span class="font-bold">=</span>
+          <input type="number" id="rat-c" placeholder="e.g. 12" class="w-16 min-w-[3rem] flex-1 sm:flex-none min-w-[3rem] flex-1 sm:flex-none px-2 py-2 bg-page border border-border-line rounded-lg text-sm text-center font-bold" />
+          <span class="font-bold">:</span>
+          <input type="number" id="rat-d" placeholder="?" class="w-16 min-w-[3rem] flex-1 sm:flex-none min-w-[3rem] flex-1 sm:flex-none px-2 py-2 bg-brand-light border border-brand-accent rounded-lg text-sm text-center font-bold text-brand" />
+        </div>
+
+        <button id="rat-calc-btn" type="button" class="w-full px-5 sm:px-6 py-3.5 sm:py-4 text-base bg-gradient-to-r from-violet-600 via-blue-600 to-teal-500 text-white hover:from-violet-500 hover:via-blue-500 hover:to-teal-400 hover:opacity-90 active:scale-[0.98] animate-gradient-x font-semibold rounded-xl shadow-sm transition-all has-ripple magnetic transition-transform duration-300">
+          Solve Ratio
+        </button>
+      </div>
+
+      <div class="p-4 sm:p-5 bg-page rounded-xl border border-border-line/80 flex flex-col justify-between">
+        <div>
+          <div class="text-xs font-semibold text-slate-muted uppercase tracking-wider">Solved Value (D)</div>
+          <div id="rat-res" class="text-4xl font-extrabold text-brand mt-1 font-mono break-words">--</div>
+          <div id="rat-scaled" class="text-xs text-slate-muted mt-1">Scale Factor: 4.0×</div>
+        </div>
+
+        <div class="pt-3 border-t border-border-line/80 mt-4 text-xs text-slate-muted">
+          <span>Simplified Ratio: </span>
+          <strong id="rat-simp" class="text-ink">--</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function gcd(a: number, b: number): number {
+    return b === 0 ? Math.abs(a) : gcd(b, a % b);
+  }
+
+  function solve() {
+    const a = parseFloat((document.getElementById('rat-a') as HTMLInputElement)?.value || '0');
+    const b = parseFloat((document.getElementById('rat-b') as HTMLInputElement)?.value || '0');
+    const c = parseFloat((document.getElementById('rat-c') as HTMLInputElement)?.value || '0');
+
+    if (a === 0) return;
+    const d = (b * c) / a;
+
+    const resEl = document.getElementById('rat-res');
+    const scaledEl = document.getElementById('rat-scaled');
+    const simpEl = document.getElementById('rat-simp');
+
+    if (resEl) resEl.textContent = 'D = ' + d.toFixed(3);
+    if (scaledEl) scaledEl.textContent = 'Scale Factor: ' + (c / a).toFixed(2) + '×';
+
+    const g = gcd(Math.round(a), Math.round(b));
+    if (simpEl) simpEl.textContent = Math.round(a / g) + ' : ' + Math.round(b / g);
+  }
+
+  ['rat-a', 'rat-b', 'rat-c'].forEach(id => document.getElementById(id)?.addEventListener('input', solve));
+  document.getElementById('rat-calc-btn')?.addEventListener('click', solve);
+</script>

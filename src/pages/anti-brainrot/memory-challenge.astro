@@ -1,0 +1,11 @@
+---
+import AntiBrainrotLayout from '../../layouts/AntiBrainrotLayout.astro';
+import MemoryEngine from '../../components/anti-brainrot/MemoryEngine.astro';
+import { getAntiBrainrotModule } from '../../data/antiBrainrotRegistry';
+
+const module = getAntiBrainrotModule('memory-challenge')!;
+---
+
+<AntiBrainrotLayout module={module}>
+  <MemoryEngine mode="standard" />
+</AntiBrainrotLayout>

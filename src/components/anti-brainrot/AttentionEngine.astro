@@ -1,0 +1,822 @@
+---
+// src/components/anti-brainrot/AttentionEngine.astro
+---
+
+<div id="ac-container" class="w-full mx-auto bg-card rounded-3xl border border-slate-100 shadow-sm relative overflow-hidden flex flex-col hover:-translate-y-1.5 hover:scale-[1.02] hover:border-brand hover:shadow-xl transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] select-none group">
+
+  <!-- Intro Screen -->
+  <div id="ac-screen-intro" class="flex flex-col items-center justify-center p-6 sm:p-10 text-center bg-white z-10">
+    <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-brand-light/80 text-brand mb-6 shadow-xs group-hover:bg-gradient-to-br group-hover:from-violet-500 group-hover:to-teal-400 group-hover:text-white transition-all duration-300 group-hover:scale-110 group-hover:-rotate-3">
+      <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+        <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+      </svg>
+    </div>
+
+    <h2 class="text-2xl sm:text-3xl font-extrabold text-ink tracking-tight mb-4 group-hover:text-brand transition-colors duration-300">
+      Attention Challenge
+    </h2>
+    <p class="text-slate-muted text-sm sm:text-base mb-8 max-w-sm leading-relaxed mx-auto">
+      Spot the one tile that is different from all the others before time runs out.
+    </p>
+
+    <div class="space-y-3 mb-10 w-full max-w-xs text-left mx-auto">
+      <div class="flex items-start gap-3">
+        <div class="mt-0.5 text-brand bg-brand-light/50 p-1 rounded-md">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+        </div>
+        <p class="text-xs sm:text-sm text-slate-500 font-medium">30 adaptive rounds. Speed & accuracy.</p>
+      </div>
+      <div class="flex items-start gap-3">
+        <div class="mt-0.5 text-brand bg-brand-light/50 p-1 rounded-md">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+        </div>
+        <p class="text-xs sm:text-sm text-slate-500 font-medium">Use mouse, touch, or keys 1-9.</p>
+      </div>
+    </div>
+
+    <button id="ac-btn-start" class="has-ripple w-full max-w-xs mx-auto py-3.5 bg-brand hover:bg-brand/90 text-white font-bold rounded-xl shadow-md shadow-brand/20 transition-all active:scale-[0.98]">
+      Start Training
+    </button>
+  </div>
+
+  <!-- Game Screen (Fit tightly with NO scrolling) -->
+  <div id="ac-screen-game" class="hidden flex-col relative w-full bg-white z-0 pb-6 sm:pb-8">
+    <!-- Top Bar -->
+    <div class="flex items-center justify-between px-4 py-3 sm:px-6 sm:py-4 shrink-0 border-b border-slate-100/50">
+      <div class="flex flex-col">
+        <span class="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider mb-0.5">Round</span>
+        <div class="text-xs sm:text-sm font-black text-ink font-mono tracking-tight">
+          <span id="ac-round-num">1</span> <span class="text-slate-300">/</span> 30
+        </div>
+      </div>
+
+      <!-- Timer -->
+      <div class="flex-grow px-3 sm:px-6">
+        <div class="w-full max-w-[180px] mx-auto h-2 bg-slate-100 rounded-full overflow-hidden">
+          <div id="ac-timer-bar" class="h-full bg-brand rounded-full w-full"></div>
+        </div>
+      </div>
+
+      <div class="flex flex-col items-end">
+        <span class="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider mb-0.5">Score</span>
+        <div class="text-xs sm:text-sm font-black text-brand font-mono tracking-tight" id="ac-score">
+          0
+        </div>
+      </div>
+    </div>
+
+    <!-- Instruction & Feedback Header -->
+    <div class="text-center pt-4 pb-2 px-4 shrink-0 min-h-[50px] flex flex-col items-center justify-center">
+      <div id="ac-instruction-header">
+        <h3 class="text-xs font-black text-slate-400 tracking-wider uppercase">FIND THE DIFFERENT ONE</h3>
+        <p class="text-[11px] text-slate-500 font-medium">One tile is different. Tap it before time runs out.</p>
+      </div>
+      <div id="ac-feedback-header" class="hidden flex-col items-center justify-center">
+        <div class="flex items-center gap-2">
+          <span id="ac-fb-title" class="text-sm font-black tracking-tight uppercase text-emerald-500">CORRECT!</span>
+          <span id="ac-fb-points" class="text-sm font-black font-mono text-emerald-600">+100</span>
+        </div>
+        <span id="ac-fb-sub" class="text-[11px] font-bold text-slate-400">Nice catch.</span>
+      </div>
+    </div>
+
+    <!-- Grid Container (strictly non-scrolling flex-grow) -->
+    <div class="flex flex-col items-center justify-center p-2 sm:p-4 w-full">
+      <div id="ac-grid" class="grid w-full gap-2 sm:gap-2.5 mx-auto">
+        <!-- Buttons injected via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Results Screen (Fit completely without overflow) -->
+  <div id="ac-screen-results" class="hidden flex-col items-center justify-center bg-slate-50 z-20 p-6 sm:p-10">
+    <div class="w-12 h-12 rounded-full bg-brand-light/50 flex items-center justify-center mb-3 shadow-sm mx-auto shrink-0">
+      <svg class="w-6 h-6 text-brand" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+      </svg>
+    </div>
+    <h2 class="text-xl sm:text-2xl font-black text-ink tracking-tight mb-1 text-center shrink-0">Challenge Complete</h2>
+
+    <div class="text-3xl sm:text-4xl font-black text-brand font-mono tracking-tighter mb-4 text-center shrink-0" id="ac-res-score">
+      0
+    </div>
+
+    <div class="w-full max-w-sm mx-auto bg-white rounded-2xl border border-border-line p-3 sm:p-4 mb-6 shadow-sm shrink-0">
+      <div class="grid grid-cols-2 gap-y-3 gap-x-4 text-center sm:text-left">
+        <div>
+          <div class="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-0.5">Accuracy</div>
+          <div class="text-base font-bold text-ink" id="ac-res-acc">0%</div>
+        </div>
+        <div>
+          <div class="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-0.5">Correct</div>
+          <div class="text-base font-bold text-ink" id="ac-res-correct">0 / 30</div>
+        </div>
+        <div>
+          <div class="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-0.5">Avg Time</div>
+          <div class="text-base font-bold text-ink"><span id="ac-res-avg">0</span>ms</div>
+        </div>
+        <div>
+          <div class="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-0.5">Fastest</div>
+          <div class="text-base font-bold text-ink"><span id="ac-res-fastest">0</span>ms</div>
+        </div>
+        <div>
+          <div class="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-0.5">Max Streak</div>
+          <div class="text-base font-bold text-ink" id="ac-res-streak">0</div>
+        </div>
+        <div>
+          <div class="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-0.5">Max Level</div>
+          <div class="text-base font-bold text-ink" id="ac-res-level">Easy</div>
+        </div>
+        <div>
+          <div class="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-0.5">Incorrect</div>
+          <div class="text-base font-bold text-red-500" id="ac-res-incorrect">0</div>
+        </div>
+        <div>
+          <div class="text-[9px] sm:text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-0.5">Timeouts</div>
+          <div class="text-base font-bold text-amber-500" id="ac-res-timeouts">0</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-col w-full max-w-sm mx-auto gap-2.5 shrink-0">
+      <button id="ac-btn-replay" class="has-ripple w-full py-3.5 bg-ink hover:bg-ink/90 text-white font-bold rounded-xl shadow-md transition-all active:scale-[0.98]">
+        Replay Challenge
+      </button>
+      <a href="/anti-brainrot" class="has-ripple block w-full py-3.5 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold rounded-xl transition-all active:scale-[0.98] text-center text-sm">
+        Back to Hub
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    if ((window as any).__acEngineAbort) {
+      (window as any).__acEngineAbort.abort();
+    }
+    const acAbort = new AbortController();
+    (window as any).__acEngineAbort = acAbort;
+
+    const container = document.getElementById("ac-container");
+    if (!container) return;
+
+    const screenIntro = document.getElementById("ac-screen-intro");
+    const screenGame = document.getElementById("ac-screen-game");
+    const screenResults = document.getElementById("ac-screen-results");
+
+    const btnStart = document.getElementById("ac-btn-start");
+    const btnReplay = document.getElementById("ac-btn-replay");
+
+    const uiRoundNum = document.getElementById("ac-round-num");
+    const uiScore = document.getElementById("ac-score");
+    const timerBar = document.getElementById("ac-timer-bar");
+    const gridContainer = document.getElementById("ac-grid");
+
+    const headerInstruction = document.getElementById("ac-instruction-header");
+    const headerFeedback = document.getElementById("ac-feedback-header");
+    const fbTitle = document.getElementById("ac-fb-title");
+    const fbPoints = document.getElementById("ac-fb-points");
+    const fbSub = document.getElementById("ac-fb-sub");
+
+    const resScore = document.getElementById("ac-res-score");
+    const resAcc = document.getElementById("ac-res-acc");
+    const resCorrect = document.getElementById("ac-res-correct");
+    const resAvg = document.getElementById("ac-res-avg");
+    const resFastest = document.getElementById("ac-res-fastest");
+    const resStreak = document.getElementById("ac-res-streak");
+    const resLevel = document.getElementById("ac-res-level");
+    const resIncorrect = document.getElementById("ac-res-incorrect");
+    const resTimeouts = document.getElementById("ac-res-timeouts");
+
+    const STORAGE_KEY = "studentkit_attention_challenge_v1";
+
+    type GameState = "intro" | "playing" | "feedback" | "completed";
+    let gameState: GameState = "intro";
+
+    let roundNum = 1;
+    let score = 0;
+
+    let correctCount = 0;
+    let incorrectCount = 0;
+    let timeoutCount = 0;
+
+    let streak = 0;
+    let maxStreak = 0;
+    let totalResponseTime = 0;
+    let fastestTime = 0;
+
+    let levelIndex = 0;
+    let highestDifficulty = 0;
+    let correctInARow = 0;
+    let incorrectInARow = 0;
+
+    let currentTargetIndex = -1;
+    let questionStartedAt = 0;
+    let questionDeadline = 0;
+
+    let timerRafId: number | null = null;
+    let feedbackTimeoutId: number | null = null;
+
+    let lastUsedRule = "";
+
+    const MAX_ROUNDS = 30;
+
+    interface QuestionDef {
+      rule: string;
+      base: string;
+      target: string;
+      isText: boolean;
+    }
+
+    // Controlled pools of subtle, visually fair differences per tier
+    const POOL_BY_DIFFICULTY: Record<number, QuestionDef[]> = {
+      // Tier 0: Easy (6 tiles, 5.0s) - Subtle but discoverable via scanning
+      0: [
+        { rule: 'Text: B vs 8', base: 'B', target: '8', isText: true },
+        { rule: 'Text: E vs F', base: 'E', target: 'F', isText: true },
+        { rule: 'Text: S vs 5', base: 'S', target: '5', isText: true },
+        { rule: 'Text: O vs 0', base: 'O', target: '0', isText: true },
+        {
+          rule: 'Corner Radius: Square rx=2 vs rx=5.5',
+          base: '<svg class="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/></svg>',
+          target: '<svg class="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="5.5"/></svg>',
+          isText: false
+        },
+        {
+          rule: 'Circle Size: r=8 vs r=6.6',
+          base: '<svg class="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/></svg>',
+          target: '<svg class="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="6.6"/></svg>',
+          isText: false
+        },
+        {
+          rule: 'Line Spacing: 2 Bars gap 4px vs 8px',
+          base: '<svg class="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 10h14m-14 4h14"/></svg>',
+          target: '<svg class="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 8h14m-14 8h14"/></svg>',
+          isText: false
+        },
+        {
+          rule: 'Orientation: Arrow Up vs Down',
+          base: '<svg class="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 18V6m-5 5l5-5 5 5"/></svg>',
+          target: '<svg class="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6v12m-5-5l5 5 5-5"/></svg>',
+          isText: false
+        },
+        {
+          rule: 'Triangle Proportions: Standard vs Wider Base',
+          base: '<svg class="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12,4 20,19 4,19"/></svg>',
+          target: '<svg class="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12,4 21.5,19 2.5,19"/></svg>',
+          isText: false
+        }
+      ],
+
+      // Tier 1: Medium (9 tiles, 4.0s) - Requires deliberate visual scanning
+      1: [
+        { rule: 'Text: C vs G', base: 'C', target: 'G', isText: true },
+        { rule: 'Text: b vs d', base: 'b', target: 'd', isText: true },
+        { rule: 'Text: u vs v', base: 'u', target: 'v', isText: true },
+        { rule: 'Text: c vs o', base: 'c', target: 'o', isText: true },
+        {
+          rule: 'Concentric Circles: Inner r=3.5 vs r=5.2',
+          base: '<svg class="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3.5"/></svg>',
+          target: '<svg class="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="5.2"/></svg>',
+          isText: false
+        },
+        {
+          rule: 'Vertical Bar Spacing: gap 6px vs 9px',
+          base: '<svg class="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 5v14m6-14v14"/></svg>',
+          target: '<svg class="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7.5 5v14m9-14v14"/></svg>',
+          isText: false
+        },
+        {
+          rule: 'Orientation: Diagonal Tilt 45deg vs 25deg',
+          base: '<svg class="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 19L19 5"/></svg>',
+          target: '<svg class="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 16L19 8"/></svg>',
+          isText: false
+        },
+        {
+          rule: 'Corner Radius: rx=3 vs rx=6',
+          base: '<svg class="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="3"/></svg>',
+          target: '<svg class="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="6"/></svg>',
+          isText: false
+        },
+        {
+          rule: 'Circle Size: r=8 vs r=7.1',
+          base: '<svg class="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/></svg>',
+          target: '<svg class="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="7.1"/></svg>',
+          isText: false
+        },
+        {
+          rule: 'Orientation: Arrow Right vs 45deg Up-Right',
+          base: '<svg class="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14m-5-5l5 5-5 5"/></svg>',
+          target: '<svg class="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7m-7 0h7v7"/></svg>',
+          isText: false
+        }
+      ],
+
+      // Tier 2: Hard (12 tiles, 3.0s) - Noticeably subtle and concentrated
+      2: [
+        { rule: 'Text: Z vs 2', base: 'Z', target: '2', isText: true },
+        { rule: 'Text: p vs q', base: 'p', target: 'q', isText: true },
+        { rule: 'Text: D vs O', base: 'D', target: 'O', isText: true },
+        { rule: 'Text: K vs X', base: 'K', target: 'X', isText: true },
+        { rule: 'Text: n vs u', base: 'n', target: 'u', isText: true },
+        {
+          rule: 'Circle Size: r=8 vs r=7.2',
+          base: '<svg class="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/></svg>',
+          target: '<svg class="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="7.2"/></svg>',
+          isText: false
+        },
+        {
+          rule: 'Square Size: 16x16 vs 14x14',
+          base: '<svg class="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/></svg>',
+          target: '<svg class="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="5" width="14" height="14" rx="2"/></svg>',
+          isText: false
+        },
+        {
+          rule: 'Dot Offset: Center (12,12) vs (12,9.5)',
+          base: '<svg class="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>',
+          target: '<svg class="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="9.5" r="1.5" fill="currentColor"/></svg>',
+          isText: false
+        },
+        {
+          rule: 'Orientation: Diagonal 45deg vs 33deg',
+          base: '<svg class="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 19L19 5"/></svg>',
+          target: '<svg class="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 18L19 6.5"/></svg>',
+          isText: false
+        },
+        {
+          rule: 'Spacing: Bar gap 4px vs 6px',
+          base: '<svg class="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 10h14m-14 4h14"/></svg>',
+          target: '<svg class="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 9h14m-14 6h14"/></svg>',
+          isText: false
+        },
+        {
+          rule: 'Corner Radius: rx=2 vs rx=4.5',
+          base: '<svg class="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/></svg>',
+          target: '<svg class="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="4.5"/></svg>',
+          isText: false
+        }
+      ],
+
+      // Tier 3: Lightning (16 tiles, 2.5s) - Requires very careful visual inspection
+      3: [
+        { rule: 'Text: I vs l', base: 'I', target: 'l', isText: true },
+        { rule: 'Text: V vs U', base: 'V', target: 'U', isText: true },
+        { rule: 'Text: P vs R', base: 'P', target: 'R', isText: true },
+        { rule: 'Text: W vs M', base: 'W', target: 'M', isText: true },
+        { rule: 'Text: O vs Q', base: 'O', target: 'Q', isText: true },
+        {
+          rule: 'Circle Size: r=7.8 vs r=7.0',
+          base: '<svg class="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="7.8"/></svg>',
+          target: '<svg class="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="7.0"/></svg>',
+          isText: false
+        },
+        {
+          rule: 'Corner Radius: rx=2 vs rx=3.8',
+          base: '<svg class="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="2"/></svg>',
+          target: '<svg class="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="16" height="16" rx="3.8"/></svg>',
+          isText: false
+        },
+        {
+          rule: 'Dot Offset: Horizontal (12,12) vs (14,12)',
+          base: '<svg class="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>',
+          target: '<svg class="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/><circle cx="14" cy="12" r="1.5" fill="currentColor"/></svg>',
+          isText: false
+        },
+        {
+          rule: 'Orientation: Horizontal vs 7deg Tilt',
+          base: '<svg class="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14"/></svg>',
+          target: '<svg class="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 13L19 11"/></svg>',
+          isText: false
+        },
+        {
+          rule: 'Bar Spacing: gap 5px vs 7px',
+          base: '<svg class="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 9.5h14m-14 5h14"/></svg>',
+          target: '<svg class="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 8.5h14m-14 7h14"/></svg>',
+          isText: false
+        },
+        {
+          rule: 'Cross Offset: Center y=12 vs y=10.5',
+          base: '<svg class="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 4v16m-8-8h16"/></svg>',
+          target: '<svg class="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 4v16m-8-9.5h16"/></svg>',
+          isText: false
+        }
+      ]
+    };
+
+    const LEVEL_CONFIGS = [
+      { name: "Easy", tiles: 6, time: 5000, gridClass: "grid-cols-3 max-w-[260px] sm:max-w-[290px]" },
+      { name: "Medium", tiles: 9, time: 4000, gridClass: "grid-cols-3 max-w-[260px] sm:max-w-[290px]" },
+      { name: "Hard", tiles: 12, time: 3000, gridClass: "grid-cols-4 max-w-[280px] sm:max-w-[320px]" },
+      { name: "Lightning", tiles: 16, time: 2500, gridClass: "grid-cols-4 max-w-[280px] sm:max-w-[320px]" }
+    ];
+
+    acAbort.signal.addEventListener("abort", () => {
+      clearCallbacks();
+    });
+
+    function clearCallbacks() {
+      if (timerRafId !== null) window.cancelAnimationFrame(timerRafId);
+      if (feedbackTimeoutId !== null) window.clearTimeout(feedbackTimeoutId);
+      timerRafId = null;
+      feedbackTimeoutId = null;
+    }
+
+    function updateUI() {
+      if (uiRoundNum) uiRoundNum.textContent = roundNum.toString();
+      if (uiScore) uiScore.textContent = score.toString();
+    }
+
+    function startRound() {
+      clearCallbacks();
+
+      // Reset feedback visuals and container styling
+      container?.classList.remove(
+        "bg-emerald-50/20", "border-emerald-200",
+        "bg-red-50/20", "border-red-200",
+        "bg-amber-50/20", "border-amber-200"
+      );
+
+      if (headerInstruction && headerFeedback) {
+        headerFeedback.classList.add("hidden");
+        headerFeedback.classList.remove("flex");
+        headerInstruction.classList.remove("hidden");
+      }
+
+      const config = LEVEL_CONFIGS[levelIndex];
+      const availablePool = POOL_BY_DIFFICULTY[levelIndex];
+      const filtered = availablePool.filter(d => d.rule !== lastUsedRule);
+      const def = filtered.length > 0 ? filtered[Math.floor(Math.random() * filtered.length)] : availablePool[0];
+      lastUsedRule = def.rule;
+
+      const flip = Math.random() > 0.5;
+      const rawBase = flip ? def.target : def.base;
+      const rawTarget = flip ? def.base : def.target;
+
+      const formatItem = (val: string) => {
+        if (def.isText) {
+          const sizeClass = levelIndex >= 2 ? "text-2xl sm:text-3xl" : "text-3xl sm:text-4xl";
+          return `<span class="${sizeClass} font-black font-mono leading-none select-none">${val}</span>`;
+        }
+        return val;
+      };
+
+      const baseHtml = formatItem(rawBase);
+      const targetHtml = formatItem(rawTarget);
+
+      currentTargetIndex = Math.floor(Math.random() * config.tiles);
+
+      if (gridContainer) {
+        gridContainer.className = `grid w-full gap-2 sm:gap-2.5 mx-auto ${config.gridClass}`;
+        gridContainer.innerHTML = "";
+
+        for (let i = 0; i < config.tiles; i++) {
+          const isTarget = i === currentTargetIndex;
+          const html = isTarget ? targetHtml : baseHtml;
+
+          const btn = document.createElement("button");
+          btn.className = "relative aspect-square w-full bg-white border-2 border-slate-200 rounded-xl sm:rounded-2xl flex items-center justify-center text-ink hover:border-brand hover:bg-brand-light/20 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-brand active:scale-95 has-ripple";
+
+          const inner = document.createElement("div");
+          inner.className = "flex items-center justify-center leading-none pointer-events-none select-none";
+          inner.innerHTML = html;
+          btn.appendChild(inner);
+
+          if (config.tiles <= 9) {
+            const hint = document.createElement("span");
+            hint.className = "absolute top-1 left-1.5 text-[9px] sm:text-[10px] font-bold text-slate-300 pointer-events-none leading-none";
+            hint.textContent = (i + 1).toString();
+            btn.appendChild(hint);
+          }
+
+          btn.addEventListener("click", () => handleTileClick(i), { signal: acAbort.signal });
+          gridContainer.appendChild(btn);
+        }
+      }
+
+      updateUI();
+      gameState = "playing";
+
+      questionStartedAt = Date.now();
+      questionDeadline = questionStartedAt + config.time;
+      startTimer();
+    }
+
+    function startTimer() {
+      function tick() {
+        if (gameState !== "playing") return;
+
+        const now = Date.now();
+        const remaining = Math.max(0, questionDeadline - now);
+        const config = LEVEL_CONFIGS[levelIndex];
+        const pct = (remaining / config.time) * 100;
+
+        if (timerBar) {
+          timerBar.style.width = `${pct}%`;
+          if (pct < 25) {
+            timerBar.className = "h-full bg-red-500 rounded-full transition-colors";
+          } else if (pct < 50) {
+            timerBar.className = "h-full bg-amber-500 rounded-full transition-colors";
+          } else {
+            timerBar.className = "h-full bg-brand rounded-full transition-colors";
+          }
+        }
+
+        if (now >= questionDeadline) {
+          handleTimeout();
+        } else {
+          timerRafId = window.requestAnimationFrame(tick);
+        }
+      }
+      timerRafId = window.requestAnimationFrame(tick);
+    }
+
+    function handleTileClick(index: number) {
+      if (gameState !== "playing") return;
+      gameState = "feedback";
+      clearCallbacks();
+
+      const now = Date.now();
+      const rt = now - questionStartedAt;
+      const isCorrect = (index === currentTargetIndex);
+
+      if (isCorrect) {
+        const base = 100;
+        const config = LEVEL_CONFIGS[levelIndex];
+        const speedBonus = Math.floor(Math.max(0, (questionDeadline - now) / (config.time / 50)));
+        const awarded = base + speedBonus;
+        score += awarded;
+
+        correctCount++;
+        streak++;
+        if (streak > maxStreak) maxStreak = streak;
+
+        correctInARow++;
+        incorrectInARow = 0;
+        if (correctInARow >= 3) {
+          if (levelIndex < 3) levelIndex++;
+          correctInARow = 0;
+        }
+        if (highestDifficulty < levelIndex) highestDifficulty = levelIndex;
+
+        if (fastestTime === 0 || rt < fastestTime) fastestTime = rt;
+        totalResponseTime += rt;
+
+        showFeedback("correct", index, awarded);
+      } else {
+        incorrectCount++;
+        streak = 0;
+        incorrectInARow++;
+        correctInARow = 0;
+        if (incorrectInARow >= 2) {
+          if (levelIndex > 0) levelIndex--;
+          incorrectInARow = 0;
+        }
+
+        showFeedback("incorrect", index, 0);
+      }
+    }
+
+    function handleTimeout() {
+      if (gameState !== "playing") return;
+      gameState = "feedback";
+      clearCallbacks();
+
+      if (timerBar) timerBar.style.width = "0%";
+
+      timeoutCount++;
+      streak = 0;
+      incorrectInARow++;
+      correctInARow = 0;
+      if (incorrectInARow >= 2) {
+        if (levelIndex > 0) levelIndex--;
+        incorrectInARow = 0;
+      }
+
+      showFeedback("timeout", undefined, 0);
+    }
+
+    function showFeedback(type: "correct" | "incorrect" | "timeout", clickedIndex?: number, awardedPoints: number = 0) {
+      // 1. Lock all tiles
+      if (gridContainer) {
+        Array.from(gridContainer.children).forEach((child) => {
+          child.classList.add("pointer-events-none");
+          child.classList.remove("has-ripple", "active:scale-95");
+        });
+      }
+
+      // 2. Visually treat tiles
+      const targetBtn = gridContainer?.children[currentTargetIndex] as HTMLElement | undefined;
+      const clickedBtn = (clickedIndex !== undefined && clickedIndex >= 0)
+        ? (gridContainer?.children[clickedIndex] as HTMLElement | undefined)
+        : undefined;
+
+      if (type === "correct") {
+        if (targetBtn) {
+          targetBtn.classList.remove("border-slate-200", "bg-white", "hover:border-brand", "hover:bg-brand-light/20");
+          targetBtn.classList.add("border-emerald-500", "bg-emerald-50", "text-emerald-600", "ring-2", "ring-emerald-400", "ring-offset-1");
+        }
+        container?.classList.add("bg-emerald-50/20", "border-emerald-200");
+      } else if (type === "incorrect") {
+        if (clickedBtn) {
+          clickedBtn.classList.remove("border-slate-200", "bg-white", "hover:border-brand", "hover:bg-brand-light/20");
+          clickedBtn.classList.add("border-red-500", "bg-red-50", "text-red-600", "ring-2", "ring-red-400", "ring-offset-1");
+        }
+        if (targetBtn) {
+          targetBtn.classList.remove("border-slate-200", "bg-white", "hover:border-brand", "hover:bg-brand-light/20");
+          targetBtn.classList.add("border-emerald-500", "bg-emerald-50", "text-emerald-600", "ring-2", "ring-emerald-400", "ring-offset-1");
+        }
+        container?.classList.add("bg-red-50/20", "border-red-200");
+      } else { // timeout
+        if (targetBtn) {
+          targetBtn.classList.remove("border-slate-200", "bg-white", "hover:border-brand", "hover:bg-brand-light/20");
+          targetBtn.classList.add("border-emerald-500", "bg-emerald-50", "text-emerald-600", "ring-2", "ring-emerald-400", "ring-offset-1");
+        }
+        container?.classList.add("bg-amber-50/20", "border-amber-200");
+      }
+
+      // 3. Update header
+      if (headerInstruction && headerFeedback) {
+        headerInstruction.classList.add("hidden");
+        headerFeedback.classList.remove("hidden");
+        headerFeedback.classList.add("flex");
+
+        if (type === "correct") {
+          if (fbTitle) {
+            fbTitle.textContent = "CORRECT!";
+            fbTitle.className = "text-sm font-black tracking-tight uppercase text-emerald-500";
+          }
+          if (fbPoints) {
+            fbPoints.textContent = `+${awardedPoints}`;
+            fbPoints.className = "text-sm font-black font-mono text-emerald-600";
+          }
+          if (fbSub) {
+            fbSub.textContent = "Nice catch.";
+            fbSub.className = "text-[11px] font-bold text-slate-400";
+          }
+        } else if (type === "incorrect") {
+          if (fbTitle) {
+            fbTitle.textContent = "NOT QUITE";
+            fbTitle.className = "text-sm font-black tracking-tight uppercase text-red-500";
+          }
+          if (fbPoints) {
+            fbPoints.textContent = "+0";
+            fbPoints.className = "text-sm font-black font-mono text-slate-400";
+          }
+          if (fbSub) {
+            fbSub.textContent = "Correct tile highlighted in green";
+            fbSub.className = "text-[11px] font-bold text-slate-400";
+          }
+        } else { // timeout
+          if (fbTitle) {
+            fbTitle.textContent = "TIME'S UP";
+            fbTitle.className = "text-sm font-black tracking-tight uppercase text-amber-500";
+          }
+          if (fbPoints) {
+            fbPoints.textContent = "+0";
+            fbPoints.className = "text-sm font-black font-mono text-slate-400";
+          }
+          if (fbSub) {
+            fbSub.textContent = "Correct tile highlighted in green";
+            fbSub.className = "text-[11px] font-bold text-slate-400";
+          }
+        }
+      }
+
+      updateUI();
+
+      // 4. Hold feedback for ~900ms before advancing
+      feedbackTimeoutId = window.setTimeout(() => {
+        container?.classList.remove(
+          "bg-emerald-50/20", "border-emerald-200",
+          "bg-red-50/20", "border-red-200",
+          "bg-amber-50/20", "border-amber-200"
+        );
+
+        if (headerInstruction && headerFeedback) {
+          headerFeedback.classList.add("hidden");
+          headerFeedback.classList.remove("flex");
+          headerInstruction.classList.remove("hidden");
+        }
+
+        roundNum++;
+        if (roundNum > MAX_ROUNDS) {
+          endGame();
+        } else {
+          startRound();
+        }
+      }, 900);
+    }
+
+    function endGame() {
+      gameState = "completed";
+      clearCallbacks();
+
+      if (screenGame) {
+        screenGame.classList.add("hidden");
+        screenGame.classList.remove("flex");
+      }
+      if (screenResults) {
+        screenResults.classList.remove("hidden");
+        screenResults.classList.add("flex");
+      }
+
+      if (resScore) resScore.textContent = score.toString();
+      if (resCorrect) resCorrect.textContent = `${correctCount} / 30`;
+      if (resIncorrect) resIncorrect.textContent = incorrectCount.toString();
+      if (resTimeouts) resTimeouts.textContent = timeoutCount.toString();
+      if (resStreak) resStreak.textContent = maxStreak.toString();
+      if (resLevel) resLevel.textContent = LEVEL_CONFIGS[highestDifficulty].name;
+
+      const acc = Math.round((correctCount / MAX_ROUNDS) * 100);
+      if (resAcc) resAcc.textContent = `${acc}%`;
+
+      const avg = correctCount > 0 ? Math.round(totalResponseTime / correctCount) : 0;
+      if (resAvg) resAvg.textContent = avg.toString();
+      if (resFastest) resFastest.textContent = fastestTime.toString();
+
+      savePersonalBest(score, highestDifficulty, acc);
+    }
+
+    function savePersonalBest(newScore: number, newLevel: number, newAcc: number) {
+      try {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        let bestScore = 0;
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          if (parsed && typeof parsed.score === "number") {
+            bestScore = parsed.score;
+          }
+        }
+
+        if (newScore > bestScore) {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify({
+            score: newScore,
+            highestDifficulty: newLevel,
+            accuracy: newAcc,
+            date: Date.now()
+          }));
+        }
+      } catch (e) {
+        console.warn("Failed to save PB:", e);
+      }
+    }
+
+    function initSession() {
+      clearCallbacks();
+
+      if (screenIntro) screenIntro.classList.add("hidden");
+      if (screenResults) {
+        screenResults.classList.add("hidden");
+        screenResults.classList.remove("flex");
+      }
+      if (screenGame) {
+        screenGame.classList.remove("hidden");
+        screenGame.classList.add("flex");
+      }
+
+      roundNum = 1;
+      score = 0;
+      correctCount = 0;
+      incorrectCount = 0;
+      timeoutCount = 0;
+      streak = 0;
+      maxStreak = 0;
+      totalResponseTime = 0;
+      fastestTime = 0;
+      levelIndex = 0;
+      highestDifficulty = 0;
+      correctInARow = 0;
+      incorrectInARow = 0;
+      lastUsedRule = "";
+
+      if (timerBar) {
+        timerBar.style.width = "100%";
+        timerBar.className = "h-full bg-brand rounded-full transition-colors";
+      }
+
+      startRound();
+    }
+
+    btnStart?.addEventListener("click", initSession, { signal: acAbort.signal });
+    btnReplay?.addEventListener("click", initSession, { signal: acAbort.signal });
+
+    window.addEventListener("keydown", (e) => {
+      if (gameState !== "playing") return;
+
+      const config = LEVEL_CONFIGS[levelIndex];
+      if (config.tiles > 9) return;
+
+      const num = parseInt(e.key, 10);
+      if (num >= 1 && num <= config.tiles) {
+        if (gridContainer) {
+          const btn = gridContainer.children[num - 1] as HTMLButtonElement;
+          if (btn) {
+            handleTileClick(num - 1);
+          }
+        }
+      }
+    }, { signal: acAbort.signal });
+
+  });
+</script>
