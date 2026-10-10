@@ -10,7 +10,10 @@ export interface Props {
 }
 
 const { title, description = "Clean, instant study tools and calculators for students. Grades, mathematics, physics, and chemistry solvers." } = Astro.props;
-const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://studentkit.in');
+const pathname = Astro.url.pathname.endsWith('/') && Astro.url.pathname !== '/'
+  ? Astro.url.pathname.slice(0, -1)
+  : Astro.url.pathname;
+const canonicalURL = new URL(pathname, Astro.site || 'https://studentkit.in');
 const socialImageURL = new URL('/og-image.png', Astro.site || 'https://studentkit.in');
 const formattedTitle = title.includes('StudentKit') ? title : `${title} | StudentKit`;
 ---
